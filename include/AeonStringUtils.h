@@ -22,13 +22,20 @@ std::string bool_to_string(bool val);
 /************************************************************************/
 
 unsigned int string_to_int(std::string str);
+bool string_to_bool(std::string str);
 
 /************************************************************************/
 /* String splitting                                                     */
 /************************************************************************/
 
-Strings &split(const std::string &s, char delim, Strings &elems, bool checkEmpty = true);
-Strings split(const std::string &s, char delim, bool checkEmpty = true);
+enum class SplitMode
+{
+	All,
+	SkipEmpty
+};
+
+Strings &split(const std::string &s, char delim, Strings &elems, SplitMode mode = SplitMode::SkipEmpty);
+Strings split(const std::string &s, char delim, SplitMode mode = SplitMode::SkipEmpty);
 
 } //namespace StringUtils
 } //namespace Aeon

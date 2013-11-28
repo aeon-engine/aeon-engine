@@ -71,10 +71,18 @@ unsigned int string_to_int(std::string str)
 	return val;
 }
 
+bool string_to_bool(std::string str)
+{
+	if(str == "true" || str == "1")
+		return true;
+
+	return false;
+}
+
 /************************************************************************/
 /* String splitting                                                     */
 /************************************************************************/
-Strings &split(const std::string &s, char delim, Strings &elems, bool checkEmpty /* = true */)
+Strings &split(const std::string &s, char delim, Strings &elems, SplitMode mode /* = SplitMode::SkipEmpty */)
 {
 	std::stringstream ss(s);
 	std::string item;
@@ -82,7 +90,7 @@ Strings &split(const std::string &s, char delim, Strings &elems, bool checkEmpty
 	while (std::getline(ss, item, delim))
 	{
 		//Do we need to skip empty items?
-		if (checkEmpty && item == "")
+		if (mode == SplitMode::SkipEmpty && item == "")
 			continue;
 
 		elems.push_back(item);
@@ -91,10 +99,10 @@ Strings &split(const std::string &s, char delim, Strings &elems, bool checkEmpty
 	return elems;
 }
 
-Strings split(const std::string &s, char delim, bool checkEmpty /* = true */)
+Strings split(const std::string &s, char delim, SplitMode mode /* = SplitMode::SkipEmpty */)
 {
 	Strings elems;
-	split(s, delim, elems, checkEmpty);
+	split(s, delim, elems, mode);
 	return elems;
 }
 
