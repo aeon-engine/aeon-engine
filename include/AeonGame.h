@@ -7,7 +7,9 @@ namespace Aeon
 
 class Game
 {
+//TODO: Find a better way for this..
 friend class BaseApplication;
+friend class GLFWApplication;
 public:
 	virtual ~Game();
 

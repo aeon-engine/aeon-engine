@@ -11,12 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Aeon.h" />
     <ClInclude Include="..\include\AeonBaseApplication.h" />
     <ClInclude Include="..\include\AeonGame.h" />
+    <ClInclude Include="..\include\AeonGLFWApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonBaseApplication.cpp" />
     <ClCompile Include="..\src\AeonGame.cpp" />
+    <ClCompile Include="..\src\AeonGLFWApplication.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{84B85853-F180-4866-86AE-9B60E98DE42F}</ProjectGuid>
@@ -47,7 +50,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)..\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\include\;S:\other_repositories\aeon\glfw\install\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

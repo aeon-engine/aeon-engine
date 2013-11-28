@@ -3,9 +3,12 @@
   <ItemGroup>
     <ClInclude Include="..\include\AeonGame.h" />
     <ClInclude Include="..\include\AeonBaseApplication.h" />
+    <ClInclude Include="..\include\AeonGLFWApplication.h" />
+    <ClInclude Include="..\include\Aeon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonGame.cpp" />
     <ClCompile Include="..\src\AeonBaseApplication.cpp" />
+    <ClCompile Include="..\src\AeonGLFWApplication.cpp" />
   </ItemGroup>
 </Project>

@@ -1,12 +1,14 @@
+#include "Aeon.h"
 #include "AeonBaseApplication.h"
 #include "AeonGame.h"
 
 namespace Aeon
 {
 
-BaseApplication::BaseApplication(Game &game)
+BaseApplication::BaseApplication()
 :
-m_game(game)
+m_game(NULL),
+m_initialized(false)
 {
 
 }
@@ -16,26 +18,48 @@ BaseApplication::~BaseApplication()
 
 }
 
-void BaseApplication::initialize()
+bool BaseApplication::initialize(Game *game)
 {
-	__initialize();
-	m_game.on_initialize();
+	if(game == NULL)
+		return false;
+
+	m_game = game;
+
+	if(!__initialize())
+		return false;
+
+	//TODO: If this fails, should we call cleanup on the Application?
+	if(!m_game->on_initialize())
+		return false;
+
+	m_initialized = true;
+
+	return true;
 }
 
 void BaseApplication::cleanup()
 {
 	__cleanup();
-	m_game.on_cleanup();
+
+	if(m_game != NULL)
+		m_game->on_cleanup();
+
+	m_initialized = NULL;
 }
 
 void BaseApplication::run()
 {
+	if(!m_initialized)
+		return;
+
 	__run();
 }
 
 void BaseApplication::stop()
 {
-	m_game.on_stop();
+	if(m_game != NULL)
+		m_game->on_stop();
+
 	__stop();
 }
 
