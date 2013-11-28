@@ -3,7 +3,8 @@
 namespace Aeon
 {
 
-	class BaseApplication;
+class BaseApplication;
+class GameState;
 
 class Game
 {
@@ -13,22 +14,25 @@ friend class GLFWApplication;
 public:
 	virtual ~Game();
 
-	void initialize();
+	void					initialize();
 
-	BaseApplication & get_application() { return m_application; }
+	BaseApplication &		get_application() { return m_application; }
+
+	void					set_gamestate(GameState *gamestate);
 
 protected:
-	virtual bool on_initialize() = 0;
-	virtual void on_stop() = 0;
-	virtual void on_cleanup() = 0;
-
-	virtual bool on_update(float dt) = 0;
-	virtual void on_render() = 0;
+	virtual bool			on_initialize() = 0;
+	virtual void			on_stop() = 0;
+	virtual void			on_cleanup() = 0;
 
 private:
 	Game(BaseApplication &application);
 
-	BaseApplication &m_application;
+	bool					on_update(float dt);
+	void					on_render();
+
+	BaseApplication &		m_application;
+	GameState *				m_current_gamestate;
 };
 
 } //namespace Aeon

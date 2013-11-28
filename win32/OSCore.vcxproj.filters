@@ -5,6 +5,7 @@
     <ClInclude Include="..\include\AeonBaseApplication.h" />
     <ClInclude Include="..\include\AeonGLFWApplication.h" />
     <ClInclude Include="..\include\Aeon.h" />
+    <ClInclude Include="..\include\AeonGameState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonGame.cpp" />

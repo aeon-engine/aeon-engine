@@ -57,10 +57,10 @@ void GLFWApplication::__run()
 
 		m_game->on_render();
 
-		/* Swap front and back buffers */
+		// Swap front and back buffers
 		glfwSwapBuffers(m_window);
 
-		/* Poll for and process events */
+		// Poll and process events
 		glfwPollEvents();
 	}
 
