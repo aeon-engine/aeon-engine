@@ -21,6 +21,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\include\AeonBuildConfig.h" />
+    <ClInclude Include="..\include\AeonConsoleStdOutListener.h">
+      <Filter>Console</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonConsole.cpp">
@@ -34,6 +37,9 @@
     </ClCompile>
     <ClCompile Include="..\src\AeonGame.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonConsoleStdOutListener.cpp">
+      <Filter>Console</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
