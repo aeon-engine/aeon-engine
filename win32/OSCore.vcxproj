@@ -14,17 +14,23 @@
     <ClInclude Include="..\include\Aeon.h" />
     <ClInclude Include="..\include\AeonBaseApplication.h" />
     <ClInclude Include="..\include\AeonBuildConfig.h" />
+    <ClInclude Include="..\include\AeonConfigFile.h" />
     <ClInclude Include="..\include\AeonConsole.h" />
     <ClInclude Include="..\include\AeonConsoleListener.h" />
     <ClInclude Include="..\include\AeonConsoleStdOutListener.h" />
+    <ClInclude Include="..\include\AeonFileInput.h" />
+    <ClInclude Include="..\include\AeonFileOutput.h" />
     <ClInclude Include="..\include\AeonGame.h" />
     <ClInclude Include="..\include\AeonGameState.h" />
     <ClInclude Include="..\include\AeonGLFWApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonBaseApplication.cpp" />
+    <ClCompile Include="..\src\AeonConfigFile.cpp" />
     <ClCompile Include="..\src\AeonConsole.cpp" />
     <ClCompile Include="..\src\AeonConsoleStdOutListener.cpp" />
+    <ClCompile Include="..\src\AeonFileInput.cpp" />
+    <ClCompile Include="..\src\AeonFileOutput.cpp" />
     <ClCompile Include="..\src\AeonGame.cpp" />
     <ClCompile Include="..\src\AeonGLFWApplication.cpp" />
   </ItemGroup>

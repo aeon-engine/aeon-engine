@@ -8,22 +8,22 @@ void ConsoleStdOutListener::on_log_message(Console::LogLevel level, const char *
 {
 	switch(level)
 	{
-		case Console::LogLevel::FATAL:
+		case Console::LogLevel::Fatal:
 		{
 			printf("[ FATAL ] ");
 		}break;
-		case Console::LogLevel::ERROR:
+		case Console::LogLevel::Error:
 		{
 			printf("[ ERROR ] ");
 		}break;
-		case Console::LogLevel::WARNING:
+		case Console::LogLevel::Warning:
 		{
 			printf("[WARNING] ");
 		}break;
-		case Console::LogLevel::INFO: //Info displays nothing.
+		case Console::LogLevel::Info: //Info displays nothing.
 		{
 		}break;
-		case Console::LogLevel::DEBUG:
+		case Console::LogLevel::Debug:
 		{
 			printf("[ DEBUG ] ");
 		}break;

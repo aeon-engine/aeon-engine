@@ -24,6 +24,15 @@
     <ClInclude Include="..\include\AeonConsoleStdOutListener.h">
       <Filter>Console</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\AeonConfigFile.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonFileInput.h">
+      <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonFileOutput.h">
+      <Filter>Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonConsole.cpp">
@@ -41,6 +50,15 @@
     <ClCompile Include="..\src\AeonConsoleStdOutListener.cpp">
       <Filter>Console</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\AeonConfigFile.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonFileInput.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonFileOutput.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Console">
@@ -51,6 +69,12 @@
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{5266d726-7921-452c-9043-7321a2534409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{b862ebf3-9cbd-40ff-9b33-ceed92068171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files">
+      <UniqueIdentifier>{41a7e730-cbb9-413b-ad21-398e88c54a9e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

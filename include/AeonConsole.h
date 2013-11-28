@@ -11,11 +11,11 @@ class Console
 public:
 	enum class LogLevel : int
 	{
-		FATAL		= 1,
-		ERROR		= 2,
-		WARNING		= 3,
-		INFO		= 4,
-		DEBUG		= 99
+		Fatal		= 1,
+		Error		= 2,
+		Warning		= 3,
+		Info		= 4,
+		Debug		= 99
 	};
 
 	Console();
