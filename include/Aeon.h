@@ -5,6 +5,8 @@
 #include <stdarg.h>
 
 #include <string>
+#include <sstream>
+#include <iomanip>
 #include <vector>
 #include <map>
 #include <queue>
