@@ -5,37 +5,36 @@ namespace Aeon
 {
 
 class ConsoleListener;
-typedef std::set<ConsoleListener *> ConsoleListeners;
-class Console
+
+namespace Console
 {
-public:
-	enum class LogLevel : int
-	{
-		Fatal		= 1,
-		Error		= 2,
-		Warning		= 3,
-		Info		= 4,
-		Debug		= 99
-	};
 
-	Console();
-	~Console();
+typedef std::set<ConsoleListener *> ConsoleListeners;
 
-	void					log(LogLevel level, const char *format, ...);
-
-	void					set_loglevel(LogLevel level)	{ m_loglevel = level; }
-	LogLevel				get_loglevel()					{ return m_loglevel; }
-
-	void					add_console_listener(ConsoleListener *listener);
-	void					remove_console_listener(ConsoleListener *listener);
-
-private:
-	LogLevel				m_loglevel;
-	ConsoleListeners		m_console_listeners;
-
-	static char 			m_console_output_buffer[AEON_CONSOLE_BUFFER_SIZE];
+enum class LogLevel : int
+{
+	Fatal		= 1,
+	Error		= 2,
+	Warning		= 3,
+	Info		= 4,
+	Debug		= 99
 };
 
+void					fatal(const char *format, ...);
+void					error(const char *format, ...);
+void					warning(const char *format, ...);
+void					info(const char *format, ...);
+void					debug(const char *format, ...);
+
+void					set_loglevel(LogLevel level);
+LogLevel				get_loglevel();
+
+void					add_console_listener(ConsoleListener *listener);
+void					remove_console_listener(ConsoleListener *listener);
+void					remove_all_console_listeners();
+void					remove_and_delete_all_console_listeners();
+
+} //namespace Console
 } //namespace Aeon
 
 #endif // AeonConsole_h__

@@ -4,39 +4,21 @@
 
 namespace Aeon
 {
-
-char Console::m_console_output_buffer[AEON_CONSOLE_BUFFER_SIZE];
-
-Console::Console()
-:
-m_loglevel(AEON_DEFAULT_CONSOLE_LOG_LEVEL)
+namespace Console
 {
 
-}
+static LogLevel				m_loglevel = AEON_DEFAULT_CONSOLE_LOG_LEVEL;
+static ConsoleListeners		m_console_listeners;
+static char 				m_console_output_buffer[AEON_CONSOLE_BUFFER_SIZE];
 
-Console::~Console()
+static void log(LogLevel level, const char *format, va_list args)
 {
-	//Clean up all console listeners
-	for (ConsoleListeners::iterator itr = m_console_listeners.begin(); itr != m_console_listeners.end(); ++itr)
-	{
-		ConsoleListener *listener = (ConsoleListener *) *itr;
-		delete listener;
-	}
-
-	m_console_listeners.clear();
-}
-
-void Console::log(LogLevel level, const char *format, ...)
-{
-	va_list args;
-	va_start(args, format);
-
-	//Format the message
-	vsnprintf(m_console_output_buffer, AEON_CONSOLE_BUFFER_SIZE, format, args);
-
 	//Only log messages from our current log level and higher importance
 	if (level > m_loglevel)
 		return;
+
+	//Format the message
+	vsnprintf(m_console_output_buffer, AEON_CONSOLE_BUFFER_SIZE, format, args);
 
 	//Notify all console listeners
 	for (ConsoleListeners::iterator itr = m_console_listeners.begin(); itr != m_console_listeners.end(); ++itr)
@@ -44,8 +26,48 @@ void Console::log(LogLevel level, const char *format, ...)
 		ConsoleListener *listener = (ConsoleListener *)*itr;
 		listener->on_log_message(level, m_console_output_buffer);
 	}
+}
 
+void fatal(const char *format, ...)
+{
+	va_list args;
+	va_start(args, format);
+	log(LogLevel::Fatal, format, args);
 	va_end(args);
+}
+
+void error(const char *format, ...)
+{
+	va_list args;
+	va_start(args, format);
+	log(LogLevel::Error, format, args);
+	va_end(args);
+}
+
+void warning(const char *format, ...)
+{
+	va_list args;
+	va_start(args, format);
+	log(LogLevel::Warning, format, args);
+	va_end(args);
+}
+
+void info(const char *format, ...)
+{
+	va_list args;
+	va_start(args, format);
+	log(LogLevel::Info, format, args);
+	va_end(args);
+}
+
+void debug(const char *format, ...)
+{
+#ifdef AEON_CONSOLE_OUTPUT_DEBUG_MSGS
+	va_list args;
+	va_start(args, format);
+	log(LogLevel::Debug, format, args);
+	va_end(args);
+#endif
 }
 
 void Console::add_console_listener(ConsoleListener *listener)
@@ -58,4 +80,22 @@ void Console::remove_console_listener(ConsoleListener *listener)
 	m_console_listeners.erase(listener);
 }
 
+void remove_all_console_listeners()
+{
+	m_console_listeners.clear();
+}
+
+void remove_and_delete_all_console_listeners()
+{
+	//Clean up all console listeners
+	for (ConsoleListeners::iterator itr = m_console_listeners.begin(); itr != m_console_listeners.end(); ++itr)
+	{
+		ConsoleListener *listener = (ConsoleListener *)*itr;
+		delete listener;
+	}
+
+	remove_all_console_listeners();
+}
+
+} //namespace Console
 } //namespace Aeon

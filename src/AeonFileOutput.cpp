@@ -1,5 +1,6 @@
 #include "Aeon.h"
 #include "AeonFileOutput.h"
+#include "AeonConsole.h"
 
 namespace Aeon
 {
@@ -18,7 +19,7 @@ FileOutput::~FileOutput()
 
 bool FileOutput::open(const char *path)
 {
-	//Console::Print(Console::Debug, "Opening file: %s", path);
+	Console::debug("Opening file: %s", path);
 
 	//Open the file
 	m_file = fopen(path, "a");
@@ -44,7 +45,7 @@ void FileOutput::write(const char *text)
 {
 	if (!m_file || !text)
 	{
-		//Console::Print(Console::Error, "Could not write to file.");
+		Console::error("Could not write to file.");
 	}
 
 	fputs(text, m_file);

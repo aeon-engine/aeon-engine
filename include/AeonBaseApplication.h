@@ -1,8 +1,6 @@
 #ifndef AeonBaseApplication_h__
 #define AeonBaseApplication_h__
 
-#include "AeonConsole.h"
-
 namespace Aeon
 {
 
@@ -19,8 +17,6 @@ public:
 	void				run();
 	void				stop();
 
-	Console &			get_console() { return m_console; }
-
 protected:
 	virtual bool		__initialize() = 0;
 	virtual void		__cleanup() = 0;
@@ -30,7 +26,6 @@ protected:
 
 	Game *				m_game;
 	bool				m_initialized;
-	Console				m_console;
 };
 
 } //namespace Aeon

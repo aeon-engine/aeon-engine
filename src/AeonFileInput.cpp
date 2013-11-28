@@ -1,5 +1,6 @@
 #include "Aeon.h"
 #include "AeonFileInput.h"
+#include "AeonConsole.h"
 
 namespace Aeon
 {
@@ -24,14 +25,14 @@ bool FileInput::open(const char *path)
 
 	if (!m_file)
 	{
-		//Console::Print(Console::Error, "Could not open file: %s", path);
+		Console::error("Could not open file: %s", path);
 		return false;
 	}
 
 	//Determine file size
 	if (!seek(0, SeekDirection::End))
 	{
-		//Console::Print(Console::Error, "Could not determine file size for file: %s. Seek end failed.", path);
+		Console::error("Could not determine file size for file: %s. Seek end failed.", path);
 		return false;
 	}
 
@@ -39,12 +40,12 @@ bool FileInput::open(const char *path)
 
 	if (m_file_size == 0)
 	{
-		//Console::Print(Console::Warning, "File is empty: %s", path);
+		Console::warning("File is empty: %s", path);
 	}
 
 	if (!seek(0, SeekDirection::Begin))
 	{
-		//Console::Print(Console::Error, "Could not determine file size for file: %s. Seek begin failed.", path);
+		Console::error("Could not determine file size for file: %s. Seek begin failed.", path);
 		return false;
 	}
 
@@ -68,7 +69,7 @@ size_t FileInput::read(unsigned char *buffer, size_t size)
 {
 	if (!m_file || !buffer)
 	{
-		//Console::Print(Console::Error, "Could not read from file.");
+		Console::error("Could not read from file.");
 		return 0;
 	}
 
