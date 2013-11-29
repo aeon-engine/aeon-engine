@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\Aeon.h" />
     <ClInclude Include="..\include\AeonBaseApplication.h" />
+    <ClInclude Include="..\include\AeonBuffer.h" />
     <ClInclude Include="..\include\AeonBuildConfig.h" />
     <ClInclude Include="..\include\AeonConfigFile.h" />
     <ClInclude Include="..\include\AeonConsole.h" />
@@ -23,10 +24,13 @@
     <ClInclude Include="..\include\AeonGame.h" />
     <ClInclude Include="..\include\AeonGameState.h" />
     <ClInclude Include="..\include\AeonGLFWApplication.h" />
+    <ClInclude Include="..\include\AeonImage.h" />
+    <ClInclude Include="..\include\AeonResource.h" />
     <ClInclude Include="..\include\AeonStringUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonBaseApplication.cpp" />
+    <ClCompile Include="..\src\AeonBuffer.cpp" />
     <ClCompile Include="..\src\AeonConfigFile.cpp" />
     <ClCompile Include="..\src\AeonConsole.cpp" />
     <ClCompile Include="..\src\AeonConsoleStdOutListener.cpp" />
@@ -34,6 +38,7 @@
     <ClCompile Include="..\src\AeonFileOutput.cpp" />
     <ClCompile Include="..\src\AeonGame.cpp" />
     <ClCompile Include="..\src\AeonGLFWApplication.cpp" />
+    <ClCompile Include="..\src\AeonImage.cpp" />
     <ClCompile Include="..\src\AeonStringUtils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

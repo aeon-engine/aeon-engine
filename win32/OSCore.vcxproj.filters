@@ -36,6 +36,15 @@
     <ClInclude Include="..\include\AeonStringUtils.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\AeonImage.h">
+      <Filter>Resources\Images</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonResource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonBuffer.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonConsole.cpp">
@@ -65,6 +74,12 @@
     <ClCompile Include="..\src\AeonStringUtils.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\AeonImage.cpp">
+      <Filter>Resources\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonBuffer.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Console">
@@ -84,6 +99,12 @@
     </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{7c4a9e55-00c8-49ec-b965-13ff0b5a78dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{e4b9979d-b808-4b88-a9f9-300480960c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Images">
+      <UniqueIdentifier>{5f16743b-2ceb-4b72-a8db-d1c951f47dd1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
