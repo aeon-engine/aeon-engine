@@ -70,6 +70,16 @@ void debug(const char *format, ...)
 #endif
 }
 
+void set_loglevel(LogLevel level)
+{
+	m_loglevel = level;
+}
+
+LogLevel get_loglevel()
+{
+	return m_loglevel;
+}
+
 void Console::add_console_listener(ConsoleListener *listener)
 {
 	m_console_listeners.insert(listener);
