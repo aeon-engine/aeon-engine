@@ -21,7 +21,10 @@ std::string ConfigFile::get_string(std::string key, std::string default_val)
 
 	//If it could not find the key...
 	if (itr == m_entries.end())
+	{
+		set_string(key, default_val);
 		return default_val;
+	}
 
 	return itr->second;
 }
@@ -32,7 +35,10 @@ int ConfigFile::get_integer(std::string key, int default_val)
 
 	//If it could not find the key...
 	if (itr == m_entries.end())
+	{
+		set_integer(key, default_val);
 		return default_val;
+	}
 
 	int val = StringUtils::string_to_int(itr->second);
 	return val;
@@ -44,7 +50,10 @@ bool ConfigFile::get_boolean(std::string key, bool default_val)
 
 	//If it could not find the key...
 	if (itr == m_entries.end())
+	{
+		set_boolean(key, default_val);
 		return default_val;
+	}
 
 	return StringUtils::string_to_bool(itr->second);
 }
@@ -70,6 +79,7 @@ bool ConfigFile::load(const char *path)
 	if (!file.open(path))
 	{
 		Console::warning("Could not load config file: %s", path);
+		m_path = path;
 		return false;
 	}
 
@@ -95,7 +105,7 @@ void ConfigFile::save()
 	//Loop through all entries to save to file
 	for(Entries::iterator itr = m_entries.begin(); itr != m_entries.end(); ++itr)
 	{
-		std::string line = itr->first + "=" + itr->second;
+		std::string line = itr->first + "=" + itr->second + "\n";
 		file.write(line);
 	}
 
