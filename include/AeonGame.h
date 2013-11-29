@@ -23,6 +23,7 @@ public:
 
 protected:
 	virtual bool			on_initialize() = 0;
+	virtual void			on_run() = 0;
 	virtual void			on_stop() = 0;
 	virtual void			on_cleanup() = 0;
 

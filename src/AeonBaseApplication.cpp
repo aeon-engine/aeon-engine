@@ -64,6 +64,14 @@ void BaseApplication::run()
 
 	Console::debug("BaseApplication::run called. Entering render loop.");
 
+	if(m_game == NULL)
+	{
+		Console::fatal("Could not run application. No game found!");
+		return;
+	}
+
+	m_game->on_run();
+
 	__run();
 }
 
