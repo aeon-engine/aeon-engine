@@ -18,6 +18,11 @@ FileInput::~FileInput()
 	close();
 }
 
+bool FileInput::open(const std::string &path)
+{
+	return open(path.c_str());
+}
+
 bool FileInput::open(const char *path)
 {
 	//Open the file

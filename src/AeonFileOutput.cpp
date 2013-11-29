@@ -17,6 +17,11 @@ FileOutput::~FileOutput()
 	close();
 }
 
+bool FileOutput::open(const std::string &path)
+{
+	return open(path.c_str());
+}
+
 bool FileOutput::open(const char *path)
 {
 	Console::debug("Opening file: %s", path);
@@ -39,6 +44,11 @@ void FileOutput::close()
 		fclose(m_file);
 
 	m_file = NULL;
+}
+
+void FileOutput::write(const std::string &path)
+{
+	write(path.c_str());
 }
 
 void FileOutput::write(const char *text)

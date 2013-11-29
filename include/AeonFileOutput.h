@@ -11,10 +11,13 @@ public:
 	FileOutput();
 	~FileOutput();
 
+	bool				open(const std::string &path);
 	bool				open(const char *path);
 	void				close();
 
+	void				write(const std::string &path);
 	void				write(const char *text);
+
 
 	FILE *				get_descriptor()	{ return m_file; }
 

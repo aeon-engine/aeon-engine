@@ -3,6 +3,7 @@
 #include "AeonFileInput.h"
 #include "AeonConsole.h"
 #include "AeonStringUtils.h"
+#include "AeonFileOutput.h"
 
 namespace Aeon
 {
@@ -84,7 +85,21 @@ bool ConfigFile::load(const char *path)
 
 void ConfigFile::save()
 {
+	FileOutput file;
+	if(!file.open(m_path.c_str()))
+	{
+		Console::error("Could not save config file: %s", m_path.c_str());
+		return;
+	}
 
+	//Loop through all entries to save to file
+	for(Entries::iterator itr = m_entries.begin(); itr != m_entries.end(); ++itr)
+	{
+		std::string line = itr->first + "=" + itr->second;
+		file.write(line);
+	}
+
+	file.close();
 }
 
 bool ConfigFile::__parse_config_file(std::string &data)

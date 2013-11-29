@@ -18,6 +18,7 @@ public:
 	FileInput();
 	~FileInput();
 
+	bool				open(const std::string &path);
 	bool				open(const char *path);
 	void				close();
 
