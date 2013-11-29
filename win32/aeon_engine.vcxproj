@@ -26,6 +26,8 @@
     <ClInclude Include="..\include\AeonGameState.h" />
     <ClInclude Include="..\include\AeonGLFWApplication.h" />
     <ClInclude Include="..\include\AeonImage.h" />
+    <ClInclude Include="..\include\AeonImageLoader.h" />
+    <ClInclude Include="..\include\AeonImageLoader_png.h" />
     <ClInclude Include="..\include\AeonResource.h" />
     <ClInclude Include="..\include\AeonStringUtils.h" />
   </ItemGroup>
@@ -40,6 +42,7 @@
     <ClCompile Include="..\src\AeonGame.cpp" />
     <ClCompile Include="..\src\AeonGLFWApplication.cpp" />
     <ClCompile Include="..\src\AeonImage.cpp" />
+    <ClCompile Include="..\src\AeonImageLoader_png.cpp" />
     <ClCompile Include="..\src\AeonStringUtils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -72,13 +75,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)..\dep\aeon_engine.git\include\;$(SolutionDir)..\dep\glfw.git\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\dep\aeon_engine.git\include\;$(SolutionDir)..\dep\glfw.git\include\;$(SolutionDir)..\dep\libpng.git\include\;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)_d</TargetName>
     <OutDir>$(SolutionDir)..\bin\</OutDir>
     <IntDir>$(SolutionDir)..\build\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)..\dep\aeon_engine.git\include\;$(SolutionDir)..\dep\glfw.git\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\dep\aeon_engine.git\include\;$(SolutionDir)..\dep\glfw.git\include\;$(SolutionDir)..\dep\libpng.git\include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)..\bin\</OutDir>
     <IntDir>$(SolutionDir)..\build\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>

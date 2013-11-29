@@ -48,6 +48,12 @@
     <ClInclude Include="..\include\AeonFile.h">
       <Filter>Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\AeonImageLoader.h">
+      <Filter>Resources\Images</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonImageLoader_png.h">
+      <Filter>Resources\Images</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonConsole.cpp">
@@ -82,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="..\src\AeonBuffer.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonImageLoader_png.cpp">
+      <Filter>Resources\Images</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
