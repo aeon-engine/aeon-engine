@@ -4,25 +4,27 @@
 
 namespace Aeon
 {
+namespace File
+{
 
-FileOutput::FileOutput()
+Output::Output()
 :
 m_file(NULL)
 {
 
 }
 
-FileOutput::~FileOutput()
+Output::~Output()
 {
 	close();
 }
 
-bool FileOutput::open(const std::string &path)
+bool Output::open(const std::string &path)
 {
 	return open(path.c_str());
 }
 
-bool FileOutput::open(const char *path)
+bool Output::open(const char *path)
 {
 	Console::debug("Opening file: %s", path);
 
@@ -38,7 +40,7 @@ bool FileOutput::open(const char *path)
 	return true;
 }
 
-void FileOutput::close()
+void Output::close()
 {
 	if (m_file)
 		fclose(m_file);
@@ -46,12 +48,12 @@ void FileOutput::close()
 	m_file = NULL;
 }
 
-void FileOutput::write(const std::string &path)
+void Output::write(const std::string &path)
 {
 	write(path.c_str());
 }
 
-void FileOutput::write(const char *text)
+void Output::write(const char *text)
 {
 	if (!m_file || !text)
 	{
@@ -64,4 +66,5 @@ void FileOutput::write(const char *text)
 	fflush(m_file);
 }
 
+} //namespace File
 } //namespace Aeon

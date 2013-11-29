@@ -45,6 +45,9 @@
     <ClInclude Include="..\include\AeonBuffer.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\AeonFile.h">
+      <Filter>Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonConsole.cpp">

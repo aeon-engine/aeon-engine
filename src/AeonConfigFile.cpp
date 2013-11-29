@@ -75,28 +75,61 @@ void ConfigFile::set_boolean(std::string key, bool val)
 
 bool ConfigFile::load(const char *path)
 {
-	FileInput file;
-	if (!file.open(path))
+	Console::debug("Reading config file: %s", path);
+
+	File::Input file;
+	if (!file.open(path, File::Mode::Text))
 	{
 		Console::warning("Could not load config file: %s", path);
 		m_path = path;
 		return false;
 	}
 
-	std::string data;
-	file.read(data);
+	m_entries.clear();
 
-	bool result = __parse_config_file(data);
+	//Loop through all lines
+	int linenumber = 0;
+	while(!file.eof())
+	{
+		linenumber++;
+
+		std::string line;
+		if(!file.readline(line))
+			break;
+
+		//This shouldn't be possible, but just to make sure
+		if(line.empty())
+			continue;
+
+		//Ignore comments and empty lines (these should only have a \n)
+		if (line[0] == '#' || line[0] == '\n')
+			continue;
+
+		size_t pos = line.find_first_of('=');
+
+		if (pos == std::string::npos || pos == 0)
+		{
+			Console::warning("Ignoring invalid line in config file %s line %u.", path, linenumber);
+			continue;
+		}
+
+		std::string key = line.substr(0, pos);
+		std::string val = line.substr(pos+1);
+
+		m_entries[key] = val;
+	}
 
 	file.close();
 
-	return result;
+	Console::debug("Finished reading config file: %s", path);
+
+	return true;
 }
 
 void ConfigFile::save()
 {
-	FileOutput file;
-	if(!file.open(m_path.c_str()))
+	File::Output file;
+	if(!file.open(m_path))
 	{
 		Console::error("Could not save config file: %s", m_path.c_str());
 		return;
@@ -110,37 +143,6 @@ void ConfigFile::save()
 	}
 
 	file.close();
-}
-
-bool ConfigFile::__parse_config_file(std::string &data)
-{
-	m_entries.clear();
-	StringUtils::Strings lines = StringUtils::split(data, '\n', StringUtils::SplitMode::SkipEmpty);
-
-	//Loop through all lines
-	for(StringUtils::Strings::iterator itr = lines.begin(); itr != lines.end(); ++itr)
-	{
-		std::string &line = *itr;
-
-		//Ignore comments.
-		if(line[0] == '#')
-			continue;
-
-		size_t pos = line.find_first_of('=');
-
-		if(pos == std::string::npos || pos == 0)
-		{
-			Console::warning("Ignoring invalid line in config file: %s", line.c_str());
-			continue;
-		}
-
-		std::string key = line.substr(0, pos);
-		std::string val = line.substr(pos);
-
-		m_entries[key] = val;
-	}
-
-	return true;
 }
 
 } //namespace Aeon

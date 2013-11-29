@@ -1,15 +1,19 @@
 #ifndef AeonFileOutput_h__
 #define AeonFileOutput_h__
 
+#include "AeonFile.h"
+
 namespace Aeon
+{
+namespace File
 {
 
 //TODO: For now only text files. Support text and binary in a neat interface.
-class FileOutput
+class Output
 {
 public:
-	FileOutput();
-	~FileOutput();
+	Output();
+	~Output();
 
 	bool				open(const std::string &path);
 	bool				open(const char *path);
@@ -27,6 +31,7 @@ private:
 	FILE *				m_file;
 };
 
+} //namespace File
 } //namespace Aeon
 
 #endif // AeonFileOutput_h__

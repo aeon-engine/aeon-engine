@@ -4,29 +4,40 @@
 
 namespace Aeon
 {
+namespace File
+{
 
-FileInput::FileInput()
+char Input::m_line_buffer[AEON_FILE_LINE_BUFFER_SIZE];
+
+Input::Input()
 :
 m_file(NULL),
-m_file_size(0)
+m_size(0),
+m_mode(Mode::Binary)
 {
 
 }
 
-FileInput::~FileInput()
+Input::~Input()
 {
 	close();
 }
 
-bool FileInput::open(const std::string &path)
+bool Input::open(const std::string &path, Mode mode /*= Mode::Binary*/)
 {
 	return open(path.c_str());
 }
 
-bool FileInput::open(const char *path)
+bool Input::open(const char *path, Mode mode /*= Mode::Binary*/)
 {
+	m_mode = mode;
+	m_path = path;
+	
 	//Open the file
-	m_file = fopen(path, "rb");
+	if(mode == Mode::Binary)
+		m_file = fopen(path, "rb");
+	else
+		m_file = fopen(path, "r");
 
 	if (!m_file)
 	{
@@ -41,9 +52,9 @@ bool FileInput::open(const char *path)
 		return false;
 	}
 
-	m_file_size = ftell(m_file);
+	m_size = ftell(m_file);
 
-	if (m_file_size == 0)
+	if (m_size == 0)
 	{
 		Console::warning("File is empty: %s", path);
 	}
@@ -57,7 +68,7 @@ bool FileInput::open(const char *path)
 	return true;
 }
 
-void FileInput::close()
+void Input::close()
 {
 	if (m_file)
 		fclose(m_file);
@@ -65,12 +76,12 @@ void FileInput::close()
 	m_file = NULL;
 }
 
-size_t FileInput::read(unsigned char *buffer)
+size_t Input::read(unsigned char *buffer)
 {
-	return read(buffer, m_file_size);
+	return read(buffer, m_size);
 }
 
-size_t FileInput::read(unsigned char *buffer, size_t size)
+size_t Input::read(unsigned char *buffer, size_t size)
 {
 	if (!m_file || !buffer)
 	{
@@ -78,16 +89,50 @@ size_t FileInput::read(unsigned char *buffer, size_t size)
 		return 0;
 	}
 
+	if (m_mode == Mode::Text)
+	{
+		Console::error("Invalid read operation on file '%s'. File was opened as text.", m_path.c_str());
+		return 0;
+	}
+
 	return fread(buffer, 1, size, m_file);
 }
 
-size_t FileInput::read(std::string &string)
+size_t Input::read(std::string &string)
 {
-	string.reserve(m_file_size);
-	return read((unsigned char *)string.data(), m_file_size);
+	string.reserve(m_size);
+	return read((unsigned char *)string.data(), m_size);
 }
 
-bool FileInput::seek(size_t count, SeekDirection direction)
+bool Input::readline(std::string &string)
+{
+	if (!m_file)
+	{
+		Console::error("Could not read from file.");
+		return false;
+	}
+
+	if (m_mode == Mode::Binary)
+	{
+		Console::error("Invalid read operation on file '%s'. File was opened as binary.", m_path.c_str());
+		return false;
+	}
+
+	if(fgets(m_line_buffer, AEON_FILE_LINE_BUFFER_SIZE, m_file) == NULL)
+	{
+		//Only show an error if we're not actually eof.
+		if(!eof())
+		{
+			Console::error("Invalid read operation on file '%s'. Could not read line.", m_path.c_str());
+		}
+		return false;
+	}
+
+	string = m_line_buffer;
+	return true;
+}
+
+bool Input::seek(size_t count, SeekDirection direction)
 {
 	switch (direction)
 	{
@@ -108,4 +153,13 @@ bool FileInput::seek(size_t count, SeekDirection direction)
 	return false;
 }
 
+bool Input::eof()
+{
+	if(!m_file)
+		return true;
+
+	return !(feof(m_file) == 0);
+}
+
+} //namespace File
 } //namespace Aeon

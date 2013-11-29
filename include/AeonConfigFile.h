@@ -24,8 +24,6 @@ public:
 	void						save();
 
 private:
-	bool						__parse_config_file(std::string &data);
-
 	typedef std::map<std::string, std::string> Entries;
 
 	std::string					m_path;

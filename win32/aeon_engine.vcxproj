@@ -19,6 +19,7 @@
     <ClInclude Include="..\include\AeonConsole.h" />
     <ClInclude Include="..\include\AeonConsoleListener.h" />
     <ClInclude Include="..\include\AeonConsoleStdOutListener.h" />
+    <ClInclude Include="..\include\AeonFile.h" />
     <ClInclude Include="..\include\AeonFileInput.h" />
     <ClInclude Include="..\include\AeonFileOutput.h" />
     <ClInclude Include="..\include\AeonGame.h" />
