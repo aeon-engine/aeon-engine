@@ -44,6 +44,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{84B85853-F180-4866-86AE-9B60E98DE42F}</ProjectGuid>
     <RootNamespace>OSCore</RootNamespace>
+    <ProjectName>AeonEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -70,7 +71,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)..\include\;S:\other_repositories\aeon\glfw\install\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\dep\aeon_engine.git\include\;$(SolutionDir)..\dep\glfw.git\include\;$(IncludePath)</IncludePath>
+    <TargetName>$(ProjectName)_d</TargetName>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)..\dep\aeon_engine.git\include\;$(SolutionDir)..\dep\glfw.git\include\;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
