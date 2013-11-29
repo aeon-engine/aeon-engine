@@ -12,11 +12,12 @@ class Game
 friend class BaseApplication;
 friend class GLFWApplication;
 public:
+	Game();
 	virtual ~Game();
 
 	void					initialize();
 
-	BaseApplication &		get_application() { return m_application; }
+	BaseApplication *		get_application() { return m_application; }
 
 	void					set_gamestate(GameState *gamestate);
 
@@ -26,12 +27,12 @@ protected:
 	virtual void			on_cleanup() = 0;
 
 private:
-	Game(BaseApplication &application);
+	void					__register_application(BaseApplication *application) { m_application = application; }
 
 	bool					on_update(float dt);
 	void					on_render();
 
-	BaseApplication &		m_application;
+	BaseApplication *		m_application;
 	GameState *				m_current_gamestate;
 };
 

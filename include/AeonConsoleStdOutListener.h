@@ -6,7 +6,7 @@
 namespace Aeon
 {
 
-class ConsoleStdOutListener : ConsoleListener
+class ConsoleStdOutListener : public ConsoleListener
 {
 public:
 	ConsoleStdOutListener() {}

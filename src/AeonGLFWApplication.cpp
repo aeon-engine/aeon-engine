@@ -1,6 +1,7 @@
 #include "Aeon.h"
 #include "AeonGLFWApplication.h"
 #include "AeonGame.h"
+#include "AeonConsole.h"
 
 namespace Aeon
 {
@@ -21,15 +22,21 @@ GLFWApplication::~GLFWApplication()
 
 bool GLFWApplication::__initialize()
 {
+	Console::info("Initializing GLFW");
+
 	//Initialize GLFW
 	if(!glfwInit())
+	{
+		Console::fatal("Could not initialize GLFW");
 		return false;
+	}
 
 	//Create our window
 	m_window = glfwCreateWindow(640, 480, "Aeon", NULL, NULL);
 
 	if (m_window == NULL)
 	{
+		Console::fatal("Could not create GLFW window");
 		glfwTerminate();
 		return false;
 	}
@@ -41,6 +48,7 @@ bool GLFWApplication::__initialize()
 
 void GLFWApplication::__cleanup()
 {
+	Console::info("Terminating GLFW");
 	glfwTerminate();
 	m_window = NULL;
 }

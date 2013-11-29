@@ -5,9 +5,9 @@
 namespace Aeon
 {
 
-Game::Game(BaseApplication &application)
+Game::Game()
 :
-m_application(application),
+m_application(NULL),
 m_current_gamestate(NULL)
 {
 
