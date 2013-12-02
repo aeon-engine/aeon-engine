@@ -4,7 +4,7 @@
 
 namespace Aeon
 {
-
+#if 0
 Image::Image()
 :
 Resource(Resource::Type::Image),
@@ -35,5 +35,5 @@ void Image::set_data(BufferPtr buffer, unsigned int width, unsigned int height, 
 
 	__set_loaded();
 }
-
+#endif
 } //namespace Aeon

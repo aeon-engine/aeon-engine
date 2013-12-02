@@ -6,7 +6,7 @@
 
 namespace Aeon
 {
-
+/*
 class ImageLoaderPng : public ImageLoader
 {
 public:
@@ -15,7 +15,7 @@ public:
 
 	bool		load(ImagePtr image, const char *path);
 	bool		load(ImagePtr image, BufferPtr buffer);
-};
+};*/
 
 } //namespace Aeon
 

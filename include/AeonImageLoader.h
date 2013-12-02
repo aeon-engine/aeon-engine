@@ -3,7 +3,7 @@
 
 namespace Aeon
 {
-
+/*
 class ImageLoader
 {
 public:
@@ -15,7 +15,7 @@ public:
 };
 
 typedef std::shared_ptr<ImageLoader>		ImageLoaderPtr;
-
+*/
 } //namespace Aeon
 
 #endif // ImageLoader_h__

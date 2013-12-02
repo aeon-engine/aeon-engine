@@ -6,7 +6,7 @@
 
 namespace Aeon
 {
-
+/*
 class Image : public Resource
 {
 public:
@@ -36,7 +36,7 @@ private:
 
 typedef std::shared_ptr<Image>	ImagePtr;
 #define EMPTY_IMAGE		 ImagePtr();
-
+*/
 } //namespace Aeon
 
 #endif // AeonImage_h__

@@ -8,7 +8,7 @@
 
 namespace Aeon
 {
-
+#if 0
 ImageLoaderPng::ImageLoaderPng()
 {
 
@@ -172,5 +172,5 @@ bool ImageLoaderPng::load(ImagePtr image, BufferPtr buffer)
 	//TODO: Implement loading PNG from memory.
 	return false;
 }
-
+#endif
 } //namespace Aeon

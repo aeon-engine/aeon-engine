@@ -4,44 +4,34 @@
 namespace Aeon
 {
 
+class ResourceManager;
 class Resource
 {
 public:
-	enum class Type
+	typedef unsigned long Handle;
+
+	enum class LoadState
 	{
-		Image,
-		Texture,
-		Shader,
-		Font
+		Unloaded,
+		Preparing,
+		Prepared,
+		Loading,
+		Loaded,
+		Unloading,
 	};
 
-	Resource(Type type)
-	:
-	m_loaded(false),
-	m_type(type)
-	{}
-
-	virtual ~Resource() {}
-
-	bool				loaded()		{ return m_loaded; }
-	Type				get_type()		{ return m_type; }
-
-	//This is called once after this resource was queued as completely loaded on the render thread.
-	virtual void		finalize() {}
-
-private:
-	bool				m_loaded;
-	Type				m_type;
+	Resource(ResourceManager *creator, const std::string &name, Handle handle);
+	virtual ~Resource();
 
 protected:
-	void				__set_loaded()	{ m_loaded = true; }
+	ResourceManager *		m_creator;
+	std::string				m_name;
+	Handle					m_handle;
+
 };
 
-typedef std::shared_ptr<Resource>		ResourcePtr;
-//Used in the resource manager. The resource manager itself should not be owner of a resource.
-typedef std::weak_ptr<Resource>			ResourceWeakPtr;
-	
-#define EMPTY_RESOURCE	ResourcePtr()
+typedef std::shared_ptr<Resource> ResourcePtr;
+#define EMPTY_RESOURCE ResourcePtr()
 
 } //namespace Aeon
 

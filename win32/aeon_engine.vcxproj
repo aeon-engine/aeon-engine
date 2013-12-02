@@ -29,8 +29,11 @@
     <ClInclude Include="..\include\AeonImageLoader.h" />
     <ClInclude Include="..\include\AeonImageLoader_png.h" />
     <ClInclude Include="..\include\AeonResource.h" />
+    <ClInclude Include="..\include\AeonResourceManager.h" />
     <ClInclude Include="..\include\AeonSingleton.h" />
     <ClInclude Include="..\include\AeonStringUtils.h" />
+    <ClInclude Include="..\include\AeonTexture.h" />
+    <ClInclude Include="..\include\AeonTextureManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonBaseApplication.cpp" />
@@ -44,7 +47,11 @@
     <ClCompile Include="..\src\AeonGLFWApplication.cpp" />
     <ClCompile Include="..\src\AeonImage.cpp" />
     <ClCompile Include="..\src\AeonImageLoader_png.cpp" />
+    <ClCompile Include="..\src\AeonResource.cpp" />
+    <ClCompile Include="..\src\AeonResourceManager.cpp" />
     <ClCompile Include="..\src\AeonStringUtils.cpp" />
+    <ClCompile Include="..\src\AeonTexture.cpp" />
+    <ClCompile Include="..\src\AeonTextureManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{84B85853-F180-4866-86AE-9B60E98DE42F}</ProjectGuid>

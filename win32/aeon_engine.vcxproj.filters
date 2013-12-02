@@ -57,6 +57,15 @@
     <ClInclude Include="..\include\AeonSingleton.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\AeonResourceManager.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonTextureManager.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonTexture.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonConsole.cpp">
@@ -94,6 +103,18 @@
     </ClCompile>
     <ClCompile Include="..\src\AeonImageLoader_png.cpp">
       <Filter>Resources\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonResource.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonResourceManager.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonTextureManager.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonTexture.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
