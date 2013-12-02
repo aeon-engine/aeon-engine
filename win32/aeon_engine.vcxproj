@@ -29,6 +29,7 @@
     <ClInclude Include="..\include\AeonImageLoader.h" />
     <ClInclude Include="..\include\AeonImageLoader_png.h" />
     <ClInclude Include="..\include\AeonResource.h" />
+    <ClInclude Include="..\include\AeonSingleton.h" />
     <ClInclude Include="..\include\AeonStringUtils.h" />
   </ItemGroup>
   <ItemGroup>

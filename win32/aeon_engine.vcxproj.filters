@@ -54,6 +54,9 @@
     <ClInclude Include="..\include\AeonImageLoader_png.h">
       <Filter>Resources\Images</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\AeonSingleton.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonConsole.cpp">
