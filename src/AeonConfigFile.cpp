@@ -10,14 +10,14 @@ namespace Aeon
 
 bool ConfigFile::has_entry(std::string key)
 {
-	Entries::iterator itr = m_entries.find(key);
+	auto itr = m_entries.find(key);
 
 	return (itr != m_entries.end());
 }
 
 std::string ConfigFile::get_string(std::string key, std::string default_val)
 {
-	Entries::iterator itr = m_entries.find(key);
+	auto itr = m_entries.find(key);
 
 	//If it could not find the key...
 	if (itr == m_entries.end())
@@ -31,7 +31,7 @@ std::string ConfigFile::get_string(std::string key, std::string default_val)
 
 int ConfigFile::get_integer(std::string key, int default_val)
 {
-	Entries::iterator itr = m_entries.find(key);
+	auto itr = m_entries.find(key);
 
 	//If it could not find the key...
 	if (itr == m_entries.end())
@@ -46,7 +46,7 @@ int ConfigFile::get_integer(std::string key, int default_val)
 
 bool ConfigFile::get_boolean(std::string key, bool default_val)
 {
-	Entries::iterator itr = m_entries.find(key);
+	auto itr = m_entries.find(key);
 
 	//If it could not find the key...
 	if (itr == m_entries.end())
@@ -136,7 +136,7 @@ void ConfigFile::save()
 	}
 
 	//Loop through all entries to save to file
-	for(Entries::iterator itr = m_entries.begin(); itr != m_entries.end(); ++itr)
+	for(auto itr = m_entries.begin(); itr != m_entries.end(); ++itr)
 	{
 		std::string line = itr->first + "=" + itr->second + "\n";
 		file.write(line);
