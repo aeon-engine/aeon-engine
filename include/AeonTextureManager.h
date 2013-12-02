@@ -13,7 +13,7 @@ public:
 	TextureManager();
 	virtual ~TextureManager();
 
-	
+	//TexturePtr loadImage(
 
 protected:
 	Resource * __create_internal(const std::string &name, Resource::Handle handle);
