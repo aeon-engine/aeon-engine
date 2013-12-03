@@ -1,5 +1,5 @@
 #include "Aeon.h"
-#include "AeonDataStream.h"
+#include "AeonStream.h"
 
 namespace Aeon
 {

@@ -20,7 +20,7 @@ public:
 	void						set_integer(std::string key, int val);
 	void						set_boolean(std::string key, bool val);
 
-	bool						load(const char *path);
+	bool						load(const std::string &path);
 	void						save();
 
 private:

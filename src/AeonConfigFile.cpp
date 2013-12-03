@@ -73,7 +73,7 @@ void ConfigFile::set_boolean(std::string key, bool val)
 	set_string(key, val ? "1" : "0");
 }
 
-bool ConfigFile::load(const char *path)
+bool ConfigFile::load(const std::string &path)
 {
 	Console::debug("Reading config file: %s", path);
 

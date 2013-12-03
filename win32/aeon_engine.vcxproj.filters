@@ -66,7 +66,10 @@
     <ClInclude Include="..\include\AeonTexture.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\AeonDataStream.h">
+    <ClInclude Include="..\include\AeonFileStream.h">
+      <Filter>Streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonStream.h">
       <Filter>Streams</Filter>
     </ClInclude>
   </ItemGroup>
@@ -119,7 +122,10 @@
     <ClCompile Include="..\src\AeonTexture.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\AeonDataStream.cpp">
+    <ClCompile Include="..\src\AeonFileStream.cpp">
+      <Filter>Streams</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonStream.cpp">
       <Filter>Streams</Filter>
     </ClCompile>
   </ItemGroup>

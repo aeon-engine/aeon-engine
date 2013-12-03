@@ -12,7 +12,7 @@ public:
 	ConsoleStdOutListener() {}
 	~ConsoleStdOutListener() {}
 
-	void on_log_message(Console::LogLevel level, const char *message);
+	void on_log_message(Console::LogLevel level, const std::string &message);
 };
 
 } //namespace Aeon

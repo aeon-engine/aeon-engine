@@ -4,7 +4,7 @@
 namespace Aeon
 {
 
-void ConsoleStdOutListener::on_log_message(Console::LogLevel level, const char *message)
+void ConsoleStdOutListener::on_log_message(Console::LogLevel level, const std::string &message)
 {
 	switch(level)
 	{
@@ -29,7 +29,7 @@ void ConsoleStdOutListener::on_log_message(Console::LogLevel level, const char *
 		}break;
 	}
 
-	puts(message);
+	puts(message.c_str());
 }
 
 } //namespace Aeon
