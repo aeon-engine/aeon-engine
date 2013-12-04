@@ -14,7 +14,7 @@ public:
 
 protected:
 	void				__open_file();
-	size_t				__get_file_size();
+	void				__calculate_file_size();
 
 	virtual size_t		read(void *buffer, size_t count);
 	virtual size_t		write(const void *buffer, size_t count);
@@ -28,6 +28,7 @@ protected:
 
 	FILE *				m_file;
 
+	virtual void		flush();
 };
 
 } //namespace Aeon

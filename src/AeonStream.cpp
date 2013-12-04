@@ -19,6 +19,7 @@ m_access_mode(access_mode)
 
 Stream::~Stream()
 {
+	close();
 }
 
 } //namespace Aeon

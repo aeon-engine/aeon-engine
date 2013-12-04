@@ -53,6 +53,8 @@ public:
 	size_t							size() const { return m_size; }
 	virtual void					close() = 0;
 
+	virtual void					flush() {}
+
 protected:
 	std::string						m_name;
 	size_t							m_size;
