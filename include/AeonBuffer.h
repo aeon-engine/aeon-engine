@@ -8,18 +8,36 @@ class Buffer
 {
 public:
 	Buffer();
-	Buffer(long size);
+	Buffer(size_t size);
 	~Buffer();
 
-	void				alloc(long size);
+	//Prevent copying
+	Buffer(const Buffer&) = delete;
+	Buffer & operator=(const Buffer&) = delete;
+
+	//Allocate at least n bytes
+	bool				reserve(size_t n);
+
+	//Resize to the specified size.
+	bool				resize(size_t n);
+
+	bool				append(void *data, size_t len);
+
 	void				free();
 
-	unsigned char *		get()		{ return m_buffer; }
-	long				size()		{ return m_size; }
+	void *				get()		{ return m_buffer; }
+
+	size_t				size()		{ return m_size; }
+
+	void				disable_free_on_destruct();
 
 private:
-	unsigned char *		m_buffer;
-	long				m_size;
+	void *				m_buffer;
+
+	size_t				m_size;
+	size_t				m_reserved_size;
+
+	bool				m_disable_free;
 };
 
 typedef std::shared_ptr<Buffer> BufferPtr;

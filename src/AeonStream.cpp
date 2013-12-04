@@ -22,4 +22,14 @@ Stream::~Stream()
 	close();
 }
 
+BufferPtr Stream::get_as_buffer()
+{
+	size_t s = size();
+	
+	BufferPtr buff(new Buffer(s));
+	read(buff->get(), s);
+
+	return buff;
+}
+
 } //namespace Aeon

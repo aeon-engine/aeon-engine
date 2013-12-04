@@ -1,6 +1,8 @@
 #ifndef AeonDataStream_h__
 #define AeonDataStream_h__
 
+#include "AeonBuffer.h"
+
 namespace Aeon
 {
 
@@ -53,6 +55,8 @@ public:
 	virtual void					flush() {}
 
 	virtual bool					good() { return false; }
+
+	virtual BufferPtr				get_as_buffer();
 
 protected:
 	std::string						m_name;

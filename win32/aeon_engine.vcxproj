@@ -19,6 +19,7 @@
     <ClInclude Include="..\include\AeonConsole.h" />
     <ClInclude Include="..\include\AeonConsoleListener.h" />
     <ClInclude Include="..\include\AeonConsoleStdOutListener.h" />
+    <ClInclude Include="..\include\AeonMemoryStream.h" />
     <ClInclude Include="..\include\AeonStream.h" />
     <ClInclude Include="..\include\AeonFileStream.h" />
     <ClInclude Include="..\include\AeonGame.h" />
@@ -40,6 +41,7 @@
     <ClCompile Include="..\src\AeonConfigFile.cpp" />
     <ClCompile Include="..\src\AeonConsole.cpp" />
     <ClCompile Include="..\src\AeonConsoleStdOutListener.cpp" />
+    <ClCompile Include="..\src\AeonMemoryStream.cpp" />
     <ClCompile Include="..\src\AeonStream.cpp" />
     <ClCompile Include="..\src\AeonFileStream.cpp" />
     <ClCompile Include="..\src\AeonGame.cpp" />
