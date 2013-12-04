@@ -72,32 +72,29 @@ void ConfigFile::set_boolean(std::string key, bool val)
 	set_string(key, val ? "1" : "0");
 }
 
-bool ConfigFile::load(const std::string &path)
+bool ConfigFile::load(Stream &stream)
 {
-	Console::debug("Reading config file: %s", path.c_str());
-
-	FileStream file(path, Stream::AccessMode::READ);
-
-	if (!file.good())
+	if (!stream.good())
 	{
-		Console::warning("Could not load config file: %s", path.c_str());
-		m_path = path;
+		Console::warning("Could not load config file: %s", stream.get_name().c_str());
 		return false;
 	}
+	
+	Console::debug("Reading config file: %s", stream.get_name().c_str());
 
 	m_entries.clear();
 
 	//Loop through all lines
 	int linenumber = 0;
-	while(!file.eof())
+	while (!stream.eof())
 	{
 		linenumber++;
 
 		std::string line;
-		if(file.read(line) == 0)
+		if (stream.read(line) == 0)
 			continue;
 
-		if(line.empty())
+		if (line.empty())
 			continue;
 
 		//Ignore comments and empty lines (these should only have a \n)
@@ -108,41 +105,41 @@ bool ConfigFile::load(const std::string &path)
 
 		if (pos == std::string::npos || pos == 0)
 		{
-			Console::warning("Ignoring invalid line in config file %s line %u.", path.c_str(), linenumber);
+			Console::warning("Ignoring invalid line in config file %s line %u.", stream.get_name().c_str(), linenumber);
 			continue;
 		}
 
 		std::string key = line.substr(0, pos);
-		std::string val = line.substr(pos+1);
+		std::string val = line.substr(pos + 1);
 
 		m_entries[key] = val;
 	}
 
-	file.close();
+	Console::debug("Finished reading config file: %s", stream.get_name().c_str());
 
-	Console::debug("Finished reading config file: %s", path.c_str());
+	stream.close();
 
 	return true;
 }
 
-void ConfigFile::save()
+void ConfigFile::save(Stream &stream)
 {
-	FileStream file(m_path, Stream::AccessMode::WRITE);
-
-	if(!file.good())
+	if (!stream.good())
 	{
-		Console::error("Could not save config file: %s", m_path.c_str());
+		Console::error("Could not save config file: %s", stream.get_name().c_str());
 		return;
 	}
 
 	//Loop through all entries to save to file
-	for(auto itr = m_entries.begin(); itr != m_entries.end(); ++itr)
+	for (auto itr = m_entries.begin(); itr != m_entries.end(); ++itr)
 	{
 		std::string line = itr->first + "=" + itr->second + "\n";
-		file.write(line);
+		stream.write(line);
 	}
 
-	file.close();
+	Console::debug("Finished saving config file: %s", stream.get_name().c_str());
+
+	stream.close();
 }
 
 } //namespace Aeon

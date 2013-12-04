@@ -1,6 +1,8 @@
 #ifndef AeonConfigFile_h__
 #define AeonConfigFile_h__
 
+#include "AeonStream.h"
+
 namespace Aeon
 {
 
@@ -20,13 +22,12 @@ public:
 	void						set_integer(std::string key, int val);
 	void						set_boolean(std::string key, bool val);
 
-	bool						load(const std::string &path);
-	void						save();
+	bool						load(Stream &stream);
+	void						save(Stream &stream);
 
 private:
 	typedef std::map<std::string, std::string> Entries;
 
-	std::string					m_path;
 	Entries						m_entries;
 };
 
