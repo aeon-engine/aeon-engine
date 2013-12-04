@@ -5,6 +5,6 @@
 #define AEON_CONSOLE_BUFFER_SIZE			(10 * 1024)
 #define AEON_DEFAULT_CONSOLE_LOG_LEVEL		Console::LogLevel::Info
 
-#define AEON_FILE_LINE_BUFFER_SIZE			2048
+#define AEON_FILE_MAX_TEXT_LINE_LENGTH		2048
 
 #endif // AeonBuildConfig_h__

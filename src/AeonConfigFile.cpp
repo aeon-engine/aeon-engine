@@ -1,9 +1,8 @@
 #include "Aeon.h"
 #include "AeonConfigFile.h"
-#include "AeonFileInput.h"
 #include "AeonConsole.h"
 #include "AeonStringUtils.h"
-#include "AeonFileOutput.h"
+#include "AeonFileStream.h"
 
 namespace Aeon
 {
@@ -75,12 +74,13 @@ void ConfigFile::set_boolean(std::string key, bool val)
 
 bool ConfigFile::load(const std::string &path)
 {
-	Console::debug("Reading config file: %s", path);
+	Console::debug("Reading config file: %s", path.c_str());
 
-	File::Input file;
-	if (!file.open(path, File::Mode::Text))
+	FileStream file(path, Stream::AccessMode::READ);
+
+	if (!file.good())
 	{
-		Console::warning("Could not load config file: %s", path);
+		Console::warning("Could not load config file: %s", path.c_str());
 		m_path = path;
 		return false;
 	}
@@ -94,10 +94,9 @@ bool ConfigFile::load(const std::string &path)
 		linenumber++;
 
 		std::string line;
-		if(!file.readline(line))
-			break;
+		if(file.read(line) == 0)
+			continue;
 
-		//This shouldn't be possible, but just to make sure
 		if(line.empty())
 			continue;
 
@@ -109,7 +108,7 @@ bool ConfigFile::load(const std::string &path)
 
 		if (pos == std::string::npos || pos == 0)
 		{
-			Console::warning("Ignoring invalid line in config file %s line %u.", path, linenumber);
+			Console::warning("Ignoring invalid line in config file %s line %u.", path.c_str(), linenumber);
 			continue;
 		}
 
@@ -121,15 +120,16 @@ bool ConfigFile::load(const std::string &path)
 
 	file.close();
 
-	Console::debug("Finished reading config file: %s", path);
+	Console::debug("Finished reading config file: %s", path.c_str());
 
 	return true;
 }
 
 void ConfigFile::save()
 {
-	File::Output file;
-	if(!file.open(m_path))
+	FileStream file(m_path, Stream::AccessMode::WRITE);
+
+	if(!file.good())
 	{
 		Console::error("Could not save config file: %s", m_path.c_str());
 		return;

@@ -50,6 +50,9 @@ void FileStream::__calculate_file_size()
 		return;
 	}
 
+	if (!seek(0, SeekDirection::End))
+		Console::error("Could not determine file size for file: %s. Seek end failed.", m_name.c_str());
+
 	m_size = ftell(m_file);
 
 	if (m_size == 0)
@@ -76,6 +79,41 @@ size_t FileStream::read(void *buffer, size_t count)
 	return fread(buffer, 1, count, m_file);
 }
 
+size_t FileStream::read(std::string &str)
+{
+	if (!m_file)
+	{
+		Console::error("FileStream: Read on unopened file.");
+		return 0;
+	}
+
+	if (m_access_mode != AccessMode::READ)
+	{
+		Console::error("FileStream: Can not read from file in write mode for file %s.", m_name.c_str());
+		return 0;
+	}
+
+	//AEON_FILE_LINE_BUFFER_SIZE
+	std::string line;
+
+	for (int i = 0; i < AEON_FILE_MAX_TEXT_LINE_LENGTH; ++i)
+	{
+		char c = fgetc(m_file);
+
+		if(c == EOF)
+			break;
+
+		if(c == '\n')
+			break;
+
+		line += c;
+	}
+
+	str = line;
+
+	return line.length();
+}
+
 size_t FileStream::write(const void *buffer, size_t count)
 {
 	if (!m_file)
@@ -91,6 +129,11 @@ size_t FileStream::write(const void *buffer, size_t count)
 	}
 
 	return fwrite(buffer, 1, count, m_file);
+}
+
+size_t FileStream::write(const std::string &str)
+{
+	return write(str.c_str(), str.length());
 }
 
 bool FileStream::seek(size_t pos, SeekDirection direction)
@@ -163,6 +206,11 @@ void FileStream::flush()
 	}
 
 	fflush(m_file);
+}
+
+bool FileStream::good()
+{
+	return m_file != NULL;
 }
 
 } //namespace Aeon

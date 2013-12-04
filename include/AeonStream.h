@@ -42,8 +42,8 @@ public:
 	//virtual size_t					read_line(std::string &line, const std::string &delim = "\n") = 0;
 	
 	//Read the whole stream as string
-	//virtual size_t					read(std::string &str) = 0;
-	//virtual size_t					write(const std::string &str) = 0;
+	virtual size_t					read(std::string &str) = 0;
+	virtual size_t					write(const std::string &str) = 0;
 
 	virtual bool					seek(size_t pos, SeekDirection direction) = 0;
 	virtual size_t					tell() const = 0;
@@ -51,9 +51,11 @@ public:
 	virtual bool					eof() const = 0;
 
 	size_t							size() const { return m_size; }
-	virtual void					close() = 0;
+	virtual void					close() {}
 
 	virtual void					flush() {}
+
+	virtual bool					good() { return false; }
 
 protected:
 	std::string						m_name;

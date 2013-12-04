@@ -27,12 +27,6 @@
     <ClInclude Include="..\include\AeonConfigFile.h">
       <Filter>Config</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\AeonFileInput.h">
-      <Filter>Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\AeonFileOutput.h">
-      <Filter>Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\AeonStringUtils.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -44,9 +38,6 @@
     </ClInclude>
     <ClInclude Include="..\include\AeonBuffer.h">
       <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\AeonFile.h">
-      <Filter>Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\AeonImageLoader.h">
       <Filter>Resources\Images</Filter>
@@ -92,12 +83,6 @@
     <ClCompile Include="..\src\AeonConfigFile.cpp">
       <Filter>Config</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\AeonFileInput.cpp">
-      <Filter>Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\AeonFileOutput.cpp">
-      <Filter>Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\AeonStringUtils.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
@@ -141,9 +126,6 @@
     </Filter>
     <Filter Include="Config">
       <UniqueIdentifier>{b862ebf3-9cbd-40ff-9b33-ceed92068171}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Files">
-      <UniqueIdentifier>{41a7e730-cbb9-413b-ad21-398e88c54a9e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{7c4a9e55-00c8-49ec-b965-13ff0b5a78dd}</UniqueIdentifier>
