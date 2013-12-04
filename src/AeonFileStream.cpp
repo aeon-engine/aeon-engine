@@ -79,7 +79,7 @@ size_t FileStream::read(void *buffer, size_t count)
 	return fread(buffer, 1, count, m_file);
 }
 
-size_t FileStream::read(std::string &str)
+size_t FileStream::read_line(std::string &str)
 {
 	if (!m_file)
 	{
@@ -178,7 +178,7 @@ bool FileStream::eof() const
 {
 	if (!m_file)
 	{
-		Console::error("FileStream: Eof on unopened file.");
+		Console::error("FileStream: EOF on unopened file.");
 		return true;
 	}
 

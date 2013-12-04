@@ -91,7 +91,7 @@ bool ConfigFile::load(Stream &stream)
 		linenumber++;
 
 		std::string line;
-		if (stream.read(line) == 0)
+		if (stream.read_line(line) == 0)
 			continue;
 
 		if (line.empty())

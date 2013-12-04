@@ -37,12 +37,9 @@ public:
 
 	virtual size_t					read(void *buffer, size_t count) = 0;
 	virtual size_t					write(const void *buffer, size_t count) = 0;
-
-	//Read one line into a string
-	//virtual size_t					read_line(std::string &line, const std::string &delim = "\n") = 0;
 	
 	//Read the whole stream as string
-	virtual size_t					read(std::string &str) = 0;
+	virtual size_t					read_line(std::string &str) = 0;
 	virtual size_t					write(const std::string &str) = 0;
 
 	virtual bool					seek(size_t pos, SeekDirection direction) = 0;
@@ -62,6 +59,8 @@ protected:
 	size_t							m_size;
 	int								m_access_mode;
 };
+
+typedef std::shared_ptr<Stream> StreamPtr;
 
 } //namespace Aeon
 
