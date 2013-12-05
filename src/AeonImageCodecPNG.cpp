@@ -1,9 +1,31 @@
 #include "Aeon.h"
 #include "AeonImageCodecPNG.h"
 #include "AeonConsole.h"
+#include <png.h>
+
+#define PNG_HEADER_SIGNATURE_SIZE 8
 
 namespace Aeon
 {
+
+static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, png_size_t output_size)
+{
+	StreamPtr *stream = (StreamPtr *)png_get_io_ptr(png_ptr);
+
+	//Do we have a stream?
+	if(!stream)
+	{
+		Console::error("ImageCodecPNG: Could not decode PNG. Stream was null in read callback.");
+		return;
+	}
+
+	//Read the data
+	if ((*stream)->read(output_ptr, (size_t) output_size) != output_size)
+	{
+		Console::error("ImageCodecPNG: Could not decode PNG. Unexpected end of stream in read callback.");
+		return;
+	}
+}
 
 ImageCodecPNG::ImageCodecPNG()
 {
@@ -34,60 +56,60 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 
 	if (size == 0)
 	{
-		Console::error("ImageCodecPNG: Could not load PNG '%s'. Stream was empty.", stream->get_name().c_str());
-		return false;
+		Console::error("ImageCodecPNG: Could not decode PNG '%s'. Stream was empty.", stream->get_name().c_str());
+		return AeonEmptyImage;
 	}
 
 	//Read the header
-	png_byte png_header[8];
-	file.read(png_header, 8);
+	png_byte png_header[PNG_HEADER_SIGNATURE_SIZE];
+	stream->read(png_header, PNG_HEADER_SIGNATURE_SIZE);
 
 	//Check the header
-	if (png_sig_cmp(png_header, 0, 8))
+	if (png_sig_cmp(png_header, 0, PNG_HEADER_SIGNATURE_SIZE))
 	{
-		Console::error("Could not load PNG %s. Not a valid PNG file.", path);
-		return false;
+		Console::error("ImageCodecPNG: Could not decode PNG '%s'. Not a valid PNG format.", stream->get_name().c_str());
+		return AeonEmptyImage;
 	}
 
 	//Create the read struct for PNG
 	png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	if (!png_ptr)
 	{
-		Console::error("png_create_read_struct returned 0.");
-		return false;
+		Console::error("ImageCodecPNG: Could not decode PNG '%s'. png_create_read_struct failed.", stream->get_name().c_str());
+		return AeonEmptyImage;
 	}
 
 	// create png info struct
 	png_infop info_ptr = png_create_info_struct(png_ptr);
 	if (!info_ptr)
 	{
-		Console::error("png_create_info_struct returned 0.");
+		Console::error("ImageCodecPNG: Could not decode PNG '%s'. png_create_info_struct failed.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, (png_infopp)NULL, (png_infopp)NULL);
-		return false;
+		return AeonEmptyImage;
 	}
 
 	//create png info struct
 	png_infop end_info = png_create_info_struct(png_ptr);
 	if (!end_info)
 	{
-		Console::error("png_create_info_struct returned 0.");
+		Console::error("ImageCodecPNG: Could not decode PNG '%s'. png_create_info_struct failed.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
-		return false;
+		return AeonEmptyImage;
 	}
 
 	//Bind errors from libpng
 	if (setjmp(png_jmpbuf(png_ptr)))
 	{
-		Console::error("libPNG reported an error.");
+		Console::error("ImageCodecPNG: Could not decode PNG '%s'. libPNG reported an error.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-		return false;
+		return AeonEmptyImage;
 	}
 
-	// init png reading
-	png_init_io(png_ptr, file.get_descriptor());
+	// init png reading. We will be using a read function, as we can't read from a file.
+	png_set_read_fn(png_ptr, &stream, __png_read_callback); //png_init_io(png_ptr, file.get_descriptor());
 
-	// let libpng know you already read the first 8 bytes
-	png_set_sig_bytes(png_ptr, 8);
+	// let libpng know we already read the signature
+	png_set_sig_bytes(png_ptr, PNG_HEADER_SIGNATURE_SIZE);
 
 	// read all the info up to the image data
 	png_read_info(png_ptr, info_ptr);
@@ -104,17 +126,17 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 	if (color_type == PNG_COLOR_TYPE_RGB)
 	{
 		pixelformat = Image::PixelFormat::RGB;
-		Console::debug("RGB Pixel format is RGB");
+		Console::debug("ImageCodecPNG: RGB Pixel format is RGB");
 	}
 	else if (color_type == PNG_COLOR_TYPE_RGB_ALPHA)
 	{
 		pixelformat = Image::PixelFormat::RGBA;
-		Console::debug("RGB Pixel format is RGBA");
+		Console::debug("ImageCodecPNG: RGB Pixel format is RGBA");
 	}
 	else{
-		Console::error("Unsupported PNG pixel format.");
+		Console::error("ImageCodecPNG: Could not decode PNG '%s'. Unsupported PNG pixel format.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-		return false;
+		return AeonEmptyImage;
 	}
 
 	// Update the png info struct.
@@ -125,14 +147,14 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 	// glTexImage2d requires rows to be 4-byte aligned
 	//rowbytes += 3 - ((rowbytes-1) % 4);
 
-	// Allocate the image_data as a big block, to be given to opengl
+	// Allocate the image_data as a big block
 	BufferPtr bitmapBuffer = BufferPtr(new Buffer(rowbytes * temp_height * sizeof(png_byte)/* + 15*/));
 
 	if (bitmapBuffer == NULL || bitmapBuffer->get() == NULL)
 	{
 		Console::error("Could not allocate memory for PNG image data.");
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-		return false;
+		return AeonEmptyImage;
 	}
 
 	//Cast to png_byte since this is what libpng likes as buffer. Just passing the pointer
@@ -145,9 +167,9 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 
 	if (rowPointerBuffer == NULL || rowPointerBuffer->get() == NULL)
 	{
-		Console::error("Could not allocate memory for PNG row pointers.");
+		Console::error("ImageCodecPNG: Could not decode PNG '%s'. Could not allocate memory for PNG row pointers.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-		return false;
+		return AeonEmptyImage;
 	}
 
 	//cast to png_bytep
@@ -166,9 +188,9 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 	png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 
 	//Load the data into the image object
+	ImagePtr image(new Image());
 	image->set_data(bitmapBuffer, temp_width, temp_height, pixelformat);
-
-	return true;
+	return image;
 }
 
 std::string ImageCodecPNG::get_type_name() const
