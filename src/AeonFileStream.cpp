@@ -128,6 +128,18 @@ size_t FileStream::write(const void *buffer, size_t count)
 		return 0;
 	}
 
+	if (!buffer)
+	{
+		Console::error("FileStream: Input buffer is NULL.");
+		return 0;
+	}
+
+	if (count == 0)
+	{
+		Console::warning("FileStream: Tried writing 0 bytes.");
+		return 0;
+	}
+
 	return fwrite(buffer, 1, count, m_file);
 }
 

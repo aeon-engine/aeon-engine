@@ -31,7 +31,7 @@ protected:
 };
 
 typedef std::shared_ptr<Resource> ResourcePtr;
-#define EMPTY_RESOURCE ResourcePtr()
+#define AeonEmptyResource ResourcePtr()
 
 } //namespace Aeon
 

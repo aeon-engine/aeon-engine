@@ -1,13 +1,13 @@
 #ifndef AeonImage_h__
 #define AeonImage_h__
 
-#include "AeonResource.h"
 #include "AeonBuffer.h"
+#include "AeonStream.h"
 
 namespace Aeon
 {
-/*
-class Image : public Resource
+
+class Image
 {
 public:
 	enum class PixelFormat
@@ -26,6 +26,8 @@ public:
 	unsigned int			get_height()		{ return m_height; }
 	PixelFormat				get_pixelformat()	{ return m_pixel_format; }
 
+	bool					save_raw_to_stream(StreamPtr stream);
+
 private:
 	BufferPtr				m_buffer;
 
@@ -34,9 +36,9 @@ private:
 	PixelFormat				m_pixel_format;
 };
 
-typedef std::shared_ptr<Image>	ImagePtr;
-#define EMPTY_IMAGE		 ImagePtr();
-*/
+typedef std::shared_ptr<Image> ImagePtr;
+#define AeonEmptyImage ImagePtr();
+
 } //namespace Aeon
 
 #endif // AeonImage_h__

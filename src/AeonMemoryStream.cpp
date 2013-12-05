@@ -49,9 +49,21 @@ size_t MemoryStream::read(void *buffer, size_t count)
 
 	char *data = (char *) m_buffer->get();
 
-	if (data == NULL)
+	if (!data)
 	{
 		Console::error("MemoryStream: Read on empty stream. Buffer was NULL.");
+		return 0;
+	}
+
+	if(!buffer)
+	{
+		Console::error("MemoryStream: Input buffer is NULL.");
+		return 0;
+	}
+
+	if(count == 0)
+	{
+		Console::warning("MemoryStream: Tried writing 0 bytes.");
 		return 0;
 	}
 

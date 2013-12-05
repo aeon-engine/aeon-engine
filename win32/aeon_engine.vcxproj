@@ -19,6 +19,9 @@
     <ClInclude Include="..\include\AeonConsole.h" />
     <ClInclude Include="..\include\AeonConsoleListener.h" />
     <ClInclude Include="..\include\AeonConsoleStdOutListener.h" />
+    <ClInclude Include="..\include\AeonImageCodec.h" />
+    <ClInclude Include="..\include\AeonImageCodecManager.h" />
+    <ClInclude Include="..\include\AeonImageCodecPNG.h" />
     <ClInclude Include="..\include\AeonMemoryStream.h" />
     <ClInclude Include="..\include\AeonStream.h" />
     <ClInclude Include="..\include\AeonFileStream.h" />
@@ -26,8 +29,6 @@
     <ClInclude Include="..\include\AeonGameState.h" />
     <ClInclude Include="..\include\AeonGLFWApplication.h" />
     <ClInclude Include="..\include\AeonImage.h" />
-    <ClInclude Include="..\include\AeonImageLoader.h" />
-    <ClInclude Include="..\include\AeonImageLoader_png.h" />
     <ClInclude Include="..\include\AeonResource.h" />
     <ClInclude Include="..\include\AeonResourceManager.h" />
     <ClInclude Include="..\include\AeonSingleton.h" />
@@ -41,6 +42,8 @@
     <ClCompile Include="..\src\AeonConfigFile.cpp" />
     <ClCompile Include="..\src\AeonConsole.cpp" />
     <ClCompile Include="..\src\AeonConsoleStdOutListener.cpp" />
+    <ClCompile Include="..\src\AeonImageCodecManager.cpp" />
+    <ClCompile Include="..\src\AeonImageCodecPNG.cpp" />
     <ClCompile Include="..\src\AeonMemoryStream.cpp" />
     <ClCompile Include="..\src\AeonStream.cpp" />
     <ClCompile Include="..\src\AeonFileStream.cpp" />

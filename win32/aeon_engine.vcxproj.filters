@@ -39,12 +39,6 @@
     <ClInclude Include="..\include\AeonBuffer.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\AeonImageLoader.h">
-      <Filter>Resources\Images</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\AeonImageLoader_png.h">
-      <Filter>Resources\Images</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\AeonSingleton.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -65,6 +59,15 @@
     </ClInclude>
     <ClInclude Include="..\include\AeonMemoryStream.h">
       <Filter>Streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonImageCodec.h">
+      <Filter>Resources\Images\Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonImageCodecManager.h">
+      <Filter>Resources\Images\Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonImageCodecPNG.h">
+      <Filter>Resources\Images\Codecs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +122,12 @@
     <ClCompile Include="..\src\AeonMemoryStream.cpp">
       <Filter>Streams</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\AeonImageCodecManager.cpp">
+      <Filter>Resources\Images\Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonImageCodecPNG.cpp">
+      <Filter>Resources\Images\Codecs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Console">
@@ -144,6 +153,9 @@
     </Filter>
     <Filter Include="Streams">
       <UniqueIdentifier>{0e905338-e8e6-410a-9b32-67d4ceb5e2d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Images\Codecs">
+      <UniqueIdentifier>{d6c897a7-7448-482d-8516-1e48974841c0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

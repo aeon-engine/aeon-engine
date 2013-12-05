@@ -41,6 +41,8 @@ public:
 	virtual size_t					read(void *buffer, size_t count) = 0;
 	virtual size_t					write(const void *buffer, size_t count) = 0;
 
+	virtual size_t					write(BufferPtr buffer);
+
 	virtual size_t					read_line(std::string &str) = 0;
 	virtual size_t					write(const std::string &str);
 
@@ -65,6 +67,7 @@ protected:
 };
 
 typedef std::shared_ptr<Stream> StreamPtr;
+#define AeonEmptyStream StreamPtr()
 
 } //namespace Aeon
 

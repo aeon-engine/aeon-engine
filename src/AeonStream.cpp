@@ -1,5 +1,6 @@
 #include "Aeon.h"
 #include "AeonStream.h"
+#include "AeonConsole.h"
 
 namespace Aeon
 {
@@ -35,6 +36,17 @@ BufferPtr Stream::get_as_buffer()
 size_t Stream::write(const std::string &str)
 {
 	return write(str.data(), str.size());
+}
+
+size_t Stream::write(BufferPtr buffer)
+{
+	if(!buffer)
+	{
+		Console::error("Stream: Tried writing an empty buffer to a stream.");
+		return 0;
+	}
+
+	return write(buffer->get(), buffer->size());
 }
 
 } //namespace Aeon

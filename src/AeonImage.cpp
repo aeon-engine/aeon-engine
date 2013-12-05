@@ -4,10 +4,9 @@
 
 namespace Aeon
 {
-#if 0
+
 Image::Image()
 :
-Resource(Resource::Type::Image),
 m_width(0),
 m_height(0),
 m_pixel_format(PixelFormat::RGBA)
@@ -24,7 +23,7 @@ void Image::set_data(BufferPtr buffer, unsigned int width, unsigned int height, 
 {
 	if (buffer == NULL || buffer->get() == NULL)
 	{
-		Console::warning("Image::setData buffer empty.");
+		Console::error("Image: Tried creating an image from an empty buffer.");
 		return;
 	}
 
@@ -32,8 +31,17 @@ void Image::set_data(BufferPtr buffer, unsigned int width, unsigned int height, 
 	m_width = width;
 	m_height = height;
 	m_pixel_format = pixelformat;
-
-	__set_loaded();
 }
-#endif
+
+bool Image::save_raw_to_stream(StreamPtr stream)
+{
+	if(!stream)
+		return false;
+
+	if(!stream->good())
+		return false;
+
+	
+}
+
 } //namespace Aeon

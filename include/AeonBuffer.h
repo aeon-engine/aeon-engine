@@ -50,6 +50,7 @@ private:
 };
 
 typedef std::shared_ptr<Buffer> BufferPtr;
+#define AeonEmptyBuffer BufferPtr()
 
 } //namespace Aeon
 

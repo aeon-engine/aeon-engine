@@ -45,6 +45,9 @@ protected:
 	size_t							m_buffer_offset;
 };
 
+typedef std::shared_ptr<MemoryStream> MemoryStreamPtr;
+#define AeonEmptyMemoryStream MemoryStreamPtr;
+
 } //namespace Aeon
 
 #endif // AeonMemoryStream_h__
