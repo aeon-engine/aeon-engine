@@ -124,10 +124,9 @@ bool Buffer::append(void *data, size_t len)
 
 void Buffer::free()
 {
-	if(m_buffer)
-		::free(m_buffer);
+	::free(m_buffer);
 
-	Console::debug("Buffer: Freed %u bytes at %x.", m_size, m_buffer);
+	Console::debug("Buffer: Freed %u bytes at %x.", m_reserved_size, m_buffer);
 
 	m_buffer = NULL;
 	m_size = 0;

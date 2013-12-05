@@ -40,6 +40,8 @@ public:
 	void				set_delete_mode(DeleteMode mode);
 	DeleteMode			get_delete_mode() { return m_delete_mode; }
 
+	void				set_size(size_t size) { m_size = size; }
+
 private:
 	void *				m_buffer;
 

@@ -158,10 +158,6 @@ bool MemoryStream::seek(size_t pos, SeekDirection direction)
 	if (new_pos >= m_buffer->size())
 		return false;
 
-	//Can't go out of bounds negatively
-	if (new_pos < 0)
-		return false;
-
 	//Set the new offset if all is good
 	m_buffer_offset = new_pos;
 	return true;
@@ -196,7 +192,7 @@ bool MemoryStream::good()
 		return false;
 
 	//Are we still within bounds?
-	if(m_buffer_offset >= m_buffer->size() || m_buffer_offset < 0)
+	if(m_buffer_offset >= m_buffer->size())
 		return false;
 
 	//All ok!

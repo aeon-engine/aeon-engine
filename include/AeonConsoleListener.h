@@ -9,6 +9,9 @@ namespace Aeon
 class ConsoleListener
 {
 public:
+	ConsoleListener() {}
+	virtual ~ConsoleListener() {}
+
 	virtual void on_log_message(Console::LogLevel level, const std::string &message) = 0;
 };
 

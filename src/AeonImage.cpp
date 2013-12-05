@@ -41,7 +41,16 @@ bool Image::save_raw_to_stream(StreamPtr stream)
 	if(!stream->good())
 		return false;
 
-	
+	if(!m_buffer)
+		return false;
+
+	if(m_buffer->get() == NULL)
+		return false;
+
+	if(stream->write(m_buffer->get(), m_buffer->size()) != m_buffer->size())
+		return false;
+
+	return true;
 }
 
 } //namespace Aeon

@@ -189,6 +189,7 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 
 	//Load the data into the image object
 	ImagePtr image(new Image());
+	bitmapBuffer->set_size(bitmapBuffer->reserved_size());
 	image->set_data(bitmapBuffer, temp_width, temp_height, pixelformat);
 	return image;
 }
