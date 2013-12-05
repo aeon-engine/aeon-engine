@@ -14,8 +14,9 @@ public:
 	public:
 		enum
 		{
-			READ = 1,
-			WRITE = 2
+			READ			= 1,
+			WRITE			= 2,
+			READ_WRITE		= 3
 		};
 	};
 
@@ -39,10 +40,9 @@ public:
 
 	virtual size_t					read(void *buffer, size_t count) = 0;
 	virtual size_t					write(const void *buffer, size_t count) = 0;
-	
-	//Read the whole stream as string
+
 	virtual size_t					read_line(std::string &str) = 0;
-	virtual size_t					write(const std::string &str) = 0;
+	virtual size_t					write(const std::string &str);
 
 	virtual bool					seek(size_t pos, SeekDirection direction) = 0;
 	virtual size_t					tell() const = 0;

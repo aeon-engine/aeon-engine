@@ -16,7 +16,6 @@ public:
 	virtual size_t		write(const void *buffer, size_t count);
 
 	virtual size_t		read_line(std::string &str);
-	virtual size_t		write(const std::string &str);
 
 	virtual bool		seek(size_t pos, SeekDirection direction);
 	virtual size_t		tell() const;

@@ -96,7 +96,7 @@ size_t FileStream::read_line(std::string &str)
 	//AEON_FILE_LINE_BUFFER_SIZE
 	std::string line;
 
-	for (int i = 0; i < AEON_FILE_MAX_TEXT_LINE_LENGTH; ++i)
+	for (int i = 0; i < AEON_STREAM_MAX_TEXT_LINE_LENGTH; ++i)
 	{
 		char c = fgetc(m_file);
 
@@ -129,11 +129,6 @@ size_t FileStream::write(const void *buffer, size_t count)
 	}
 
 	return fwrite(buffer, 1, count, m_file);
-}
-
-size_t FileStream::write(const std::string &str)
-{
-	return write(str.c_str(), str.length());
 }
 
 bool FileStream::seek(size_t pos, SeekDirection direction)

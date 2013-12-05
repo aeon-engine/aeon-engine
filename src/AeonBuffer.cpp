@@ -10,22 +10,32 @@ Buffer::Buffer()
 m_buffer(NULL),
 m_size(0),
 m_reserved_size(0),
-m_disable_free(false)
-{}
+m_delete_mode(DeleteMode::DeleteOnDestruct)
+{
+}
 
-Buffer::Buffer(size_t size)
+Buffer::Buffer(size_t size, DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/)
 :
 m_buffer(NULL),
 m_size(0),
 m_reserved_size(0),
-m_disable_free(false)
+m_delete_mode(delete_mode)
 {
 	reserve(size);
 }
 
+Buffer::Buffer(void *buffer, size_t size, DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/)
+:
+m_buffer(buffer),
+m_size(0),
+m_reserved_size(size),
+m_delete_mode(delete_mode)
+{
+}
+
 Buffer::~Buffer()
 {
-	if (!m_disable_free)
+	if (m_delete_mode == DeleteMode::DeleteOnDestruct)
 		free();
 }
 
@@ -102,9 +112,11 @@ bool Buffer::append(void *data, size_t len)
 			return false;
 	}
 
+	//Copy our data into the new buffer
 	char *buff = (char *) m_buffer;
 	memcpy(&buff[m_size], data, len);
 
+	//Adjust the size
 	m_size += len;
 
 	return true;
@@ -122,9 +134,9 @@ void Buffer::free()
 	m_reserved_size = 0;
 }
 
-void Buffer::disable_free_on_destruct()
+void Buffer::set_delete_mode(DeleteMode mode)
 {
-	m_disable_free = true;
+	m_delete_mode = mode;
 }
 
 } //namespace Aeon

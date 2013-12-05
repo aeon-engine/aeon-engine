@@ -32,4 +32,9 @@ BufferPtr Stream::get_as_buffer()
 	return buff;
 }
 
+size_t Stream::write(const std::string &str)
+{
+	return write(str.data(), str.size());
+}
+
 } //namespace Aeon

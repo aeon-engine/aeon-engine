@@ -7,8 +7,15 @@ namespace Aeon
 class Buffer
 {
 public:
+	enum class DeleteMode
+	{
+		None,
+		DeleteOnDestruct
+	};
+
 	Buffer();
-	Buffer(size_t size);
+	Buffer(size_t size, DeleteMode delete_mode = DeleteMode::DeleteOnDestruct);
+	Buffer(void *buffer, size_t size, DeleteMode delete_mode = DeleteMode::DeleteOnDestruct);
 	~Buffer();
 
 	//Prevent copying
@@ -25,11 +32,13 @@ public:
 
 	void				free();
 
-	void *				get()		{ return m_buffer; }
+	void *				get() { return m_buffer; }
 
-	size_t				size()		{ return m_size; }
+	size_t				size() { return m_size; }
+	size_t				reserved_size() { return m_reserved_size; }
 
-	void				disable_free_on_destruct();
+	void				set_delete_mode(DeleteMode mode);
+	DeleteMode			get_delete_mode() { return m_delete_mode; }
 
 private:
 	void *				m_buffer;
@@ -37,7 +46,7 @@ private:
 	size_t				m_size;
 	size_t				m_reserved_size;
 
-	bool				m_disable_free;
+	DeleteMode			m_delete_mode;
 };
 
 typedef std::shared_ptr<Buffer> BufferPtr;
