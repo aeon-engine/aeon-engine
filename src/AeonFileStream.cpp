@@ -110,7 +110,7 @@ size_t FileStream::read_line(std::string &str)
 
 	for (int i = 0; i < AEON_STREAM_MAX_TEXT_LINE_LENGTH; ++i)
 	{
-		char c = fgetc(m_file);
+		int c = fgetc(m_file);
 
 		if(c == EOF)
 			break;
@@ -118,7 +118,7 @@ size_t FileStream::read_line(std::string &str)
 		if(c == '\n')
 			break;
 
-		line += c;
+		line += (char) c;
 	}
 
 	str = line;
