@@ -148,7 +148,7 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 	//rowbytes += 3 - ((rowbytes-1) % 4);
 
 	// Allocate the image_data as a big block
-	BufferPtr bitmapBuffer = BufferPtr(new Buffer(rowbytes * temp_height * sizeof(png_byte)/* + 15*/));
+	auto bitmapBuffer = std::make_shared<Buffer>(rowbytes * temp_height * sizeof(png_byte)/* + 15*/);
 
 	if (bitmapBuffer == NULL || bitmapBuffer->get() == NULL)
 	{
@@ -163,7 +163,7 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 
 	// row_pointers is for pointing to image_data for reading the png with libpng
 
-	BufferPtr rowPointerBuffer = BufferPtr(new Buffer(temp_height * sizeof(png_bytep)));
+	auto rowPointerBuffer = std::make_shared<Buffer>(temp_height * sizeof(png_bytep));
 
 	if (rowPointerBuffer == NULL || rowPointerBuffer->get() == NULL)
 	{
@@ -188,7 +188,7 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 	png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 
 	//Load the data into the image object
-	ImagePtr image(new Image());
+	auto image = std::make_shared<Image>();
 	bitmapBuffer->set_size(bitmapBuffer->reserved_size());
 	image->set_data(bitmapBuffer, temp_width, temp_height, pixelformat);
 	return image;

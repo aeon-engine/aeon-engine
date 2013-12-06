@@ -28,10 +28,10 @@ BufferPtr Stream::get_as_buffer()
 {
 	size_t s = size();
 	
-	BufferPtr buff(new Buffer(s));
-	read(buff->get(), s);
+	auto buffer = std::make_shared<Buffer>(s);
+	read(buffer->get(), s);
 
-	return buff;
+	return buffer;
 }
 
 size_t Stream::write(const std::string &str)

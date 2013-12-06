@@ -52,7 +52,6 @@
     <ClCompile Include="..\src\AeonGame.cpp" />
     <ClCompile Include="..\src\AeonGLFWApplication.cpp" />
     <ClCompile Include="..\src\AeonImage.cpp" />
-    <ClCompile Include="..\src\AeonImageLoader_png.cpp" />
     <ClCompile Include="..\src\AeonResource.cpp" />
     <ClCompile Include="..\src\AeonResourceManager.cpp" />
     <ClCompile Include="..\src\AeonStringUtils.cpp" />

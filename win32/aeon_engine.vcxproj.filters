@@ -98,9 +98,6 @@
     <ClCompile Include="..\src\AeonBuffer.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\AeonImageLoader_png.cpp">
-      <Filter>Resources\Images</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\AeonResource.cpp">
       <Filter>Resources</Filter>
     </ClCompile>

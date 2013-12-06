@@ -23,8 +23,7 @@ static void log(LogLevel level, const char *format, va_list args)
 	//Notify all console listeners
 	for (auto itr = m_console_listeners.begin(); itr != m_console_listeners.end(); ++itr)
 	{
-		ConsoleListenerPtr console = *itr;
-		console->on_log_message(level, m_console_output_buffer);
+		(*itr)->on_log_message(level, m_console_output_buffer);
 	}
 }
 

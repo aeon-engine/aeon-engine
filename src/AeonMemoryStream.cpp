@@ -8,7 +8,7 @@ namespace Aeon
 MemoryStream::MemoryStream(DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/, int access_mode /*= AccessMode::READ_WRITE*/)
 :
 Stream(access_mode),
-m_buffer(BufferPtr(new Buffer())),
+m_buffer(std::make_shared<Buffer>()),
 m_buffer_offset(0)
 {
 	//Set the correct delete mode in our buffer
@@ -27,7 +27,7 @@ m_buffer_offset(0)
 MemoryStream::MemoryStream(void *buffer, size_t size, DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/, int access_mode /*= AccessMode::READ_WRITE*/)
 :
 Stream(access_mode),
-m_buffer(BufferPtr(new Buffer(buffer, size))),
+m_buffer(std::make_shared<Buffer>(buffer, size)),
 m_buffer_offset(0)
 {
 	//Set the correct delete mode in our buffer
@@ -177,7 +177,7 @@ void MemoryStream::close()
 {
 	//Create a new buffer, and remove all references to the old one.
 	//This may leak memory if DeleteOnDestruct was not set.
-	m_buffer = BufferPtr(new Buffer());
+	m_buffer = std::make_shared<Buffer>();
 }
 
 void MemoryStream::flush()
