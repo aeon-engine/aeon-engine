@@ -57,11 +57,16 @@ void GLFWApplication::__run()
 {
 	m_running = true;
 
+	//Make sure we don't get a huge first dt
+	glfwSetTime(0);
+
 	//While the window isn't closed and we're still running.
 	while (!glfwWindowShouldClose(m_window) || m_running == false)
 	{
+		double dt = glfwGetTime();
+
 		//If on_update returns false, we should stop.
-		if(!m_game->on_update(0.1f))
+		if (!m_game->on_update((float)dt))
 			m_running = false;
 
 		m_game->on_render();
@@ -71,6 +76,9 @@ void GLFWApplication::__run()
 
 		// Poll and process events
 		glfwPollEvents();
+
+		//Reset the timer back to 0
+		glfwSetTime(0);
 	}
 
 	m_running = false;

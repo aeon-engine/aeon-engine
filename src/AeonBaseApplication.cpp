@@ -2,6 +2,8 @@
 #include "AeonBaseApplication.h"
 #include "AeonGame.h"
 #include "AeonConsole.h"
+#include "AeonImageCodecManager.h"
+#include "AeonTextureManager.h"
 
 namespace Aeon
 {
@@ -11,12 +13,18 @@ BaseApplication::BaseApplication()
 m_game(NULL),
 m_initialized(false)
 {
+	Console::debug("BaseApplication created.");
 
+	ImageCodecManager::create();
+	TextureManager::create();
 }
 
 BaseApplication::~BaseApplication()
 {
+	Console::debug("BaseApplication disposed.");
 
+	ImageCodecManager::dispose();
+	TextureManager::dispose();
 }
 
 bool BaseApplication::initialize(GamePtr game)

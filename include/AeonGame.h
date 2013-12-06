@@ -30,7 +30,7 @@ protected:
 	virtual void			on_cleanup() = 0;
 
 private:
-	void					__register_application(BaseApplication *application) { m_application = application; }
+	void					__register_application(BaseApplication *application);
 
 	bool					on_update(float dt);
 	void					on_render();

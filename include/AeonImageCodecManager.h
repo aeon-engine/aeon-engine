@@ -8,7 +8,7 @@
 namespace Aeon
 {
 
-class ImageCodecManager : Singleton<ImageCodecManager>
+class ImageCodecManager : public Singleton<ImageCodecManager>
 {
 public:
 	ImageCodecManager();
