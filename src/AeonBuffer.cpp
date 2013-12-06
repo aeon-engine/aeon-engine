@@ -49,7 +49,7 @@ bool Buffer::reserve(size_t n)
 	bool result = resize(n);
 
 	if(result)
-		Console::debug("Buffer: Reserved %u bytes at %x.", n, m_buffer);
+		Console::debug("Buffer: Reserved %u bytes.", n);
 
 	return result;
 }
@@ -65,7 +65,7 @@ bool Buffer::resize(size_t n)
 		//Do we have data at all?
 		if(m_buffer != NULL)
 		{
-			Console::warning("Buffer: Failed to reallocate buffer from %u to %u at %x. Trying copy.", m_reserved_size, n, m_buffer);
+			Console::warning("Buffer: Failed to reallocate buffer from %u to %u. Trying copy.", m_reserved_size, n);
 
 			//Try a fallback method...
 			new_buffer = malloc(n);
@@ -73,7 +73,7 @@ bool Buffer::resize(size_t n)
 			//Did we fail again?!
 			if (new_buffer == NULL)
 			{
-				Console::fatal("Buffer: Failed to reallocate buffer from %u to %u at %x in fallback mode. Aborting", m_reserved_size, n, m_buffer);
+				Console::fatal("Buffer: Failed to reallocate buffer from %u to %u in fallback mode. Aborting", m_reserved_size, n);
 				return false;
 			}
 
@@ -126,7 +126,7 @@ void Buffer::free()
 {
 	::free(m_buffer);
 
-	Console::debug("Buffer: Freed %u bytes at %x.", m_reserved_size, m_buffer);
+	Console::debug("Buffer: Freed %u bytes.", m_reserved_size);
 
 	m_buffer = NULL;
 	m_size = 0;

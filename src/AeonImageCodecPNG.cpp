@@ -142,15 +142,16 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 	// Update the png info struct.
 	png_read_update_info(png_ptr, info_ptr);
 
-	int rowbytes = png_get_rowbytes(png_ptr, info_ptr);
+	size_t rowbytes = png_get_rowbytes(png_ptr, info_ptr);
 
 	// glTexImage2d requires rows to be 4-byte aligned
 	//rowbytes += 3 - ((rowbytes-1) % 4);
 
 	// Allocate the image_data as a big block
-	auto bitmapBuffer = std::make_shared<Buffer>(rowbytes * temp_height * sizeof(png_byte)/* + 15*/);
+	size_t bitmap_buff_size = rowbytes * size_t(temp_height) * sizeof(png_byte);
+	auto bitmap_buffer = std::make_shared<Buffer>(bitmap_buff_size);
 
-	if (bitmapBuffer == NULL || bitmapBuffer->get() == NULL)
+	if (bitmap_buffer == NULL || bitmap_buffer->get() == NULL)
 	{
 		Console::error("Could not allocate memory for PNG image data.");
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
@@ -159,13 +160,14 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 
 	//Cast to png_byte since this is what libpng likes as buffer. Just passing the pointer
 	//should be fine. But this ensures 100% compatibility.
-	png_byte * image_data = (png_byte *)bitmapBuffer->get();
+	png_byte * image_data = (png_byte *)bitmap_buffer->get();
 
 	// row_pointers is for pointing to image_data for reading the png with libpng
 
-	auto rowPointerBuffer = std::make_shared<Buffer>(temp_height * sizeof(png_bytep));
+	size_t rowpointer_buff_size = size_t(temp_height) * sizeof(png_bytep);
+	auto rowpointer_buffer = std::make_shared<Buffer>(rowpointer_buff_size);
 
-	if (rowPointerBuffer == NULL || rowPointerBuffer->get() == NULL)
+	if (rowpointer_buffer == NULL || rowpointer_buffer->get() == NULL)
 	{
 		Console::error("ImageCodecPNG: Could not decode PNG '%s'. Could not allocate memory for PNG row pointers.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
@@ -173,10 +175,10 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 	}
 
 	//cast to png_bytep
-	png_bytep * row_pointers = (png_bytep *)rowPointerBuffer->get();
+	png_bytep * row_pointers = (png_bytep *) rowpointer_buffer->get();
 
 	// set the individual row_pointers to point at the correct offsets of image_data
-	for (unsigned int i = 0; i < temp_height; i++)
+	for (size_t i = 0; i < size_t(temp_height); i++)
 	{
 		row_pointers[i] = image_data + i * rowbytes;
 	}
@@ -189,8 +191,8 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 
 	//Load the data into the image object
 	auto image = std::make_shared<Image>();
-	bitmapBuffer->set_size(bitmapBuffer->reserved_size());
-	image->set_data(bitmapBuffer, temp_width, temp_height, pixelformat);
+	bitmap_buffer->set_size(bitmap_buffer->reserved_size());
+	image->set_data(bitmap_buffer, temp_width, temp_height, pixelformat);
 	return image;
 }
 

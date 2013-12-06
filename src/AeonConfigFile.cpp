@@ -7,14 +7,14 @@
 namespace Aeon
 {
 
-bool ConfigFile::has_entry(std::string key)
+bool ConfigFile::has_entry(const std::string &key)
 {
 	auto itr = m_entries.find(key);
 
 	return (itr != m_entries.end());
 }
 
-std::string ConfigFile::get_string(std::string key, std::string default_val)
+std::string ConfigFile::get_string(const std::string &key, const std::string &default_val)
 {
 	auto itr = m_entries.find(key);
 
@@ -28,7 +28,7 @@ std::string ConfigFile::get_string(std::string key, std::string default_val)
 	return itr->second;
 }
 
-int ConfigFile::get_integer(std::string key, int default_val)
+int ConfigFile::get_integer(const std::string &key, int default_val)
 {
 	auto itr = m_entries.find(key);
 
@@ -43,7 +43,7 @@ int ConfigFile::get_integer(std::string key, int default_val)
 	return val;
 }
 
-bool ConfigFile::get_boolean(std::string key, bool default_val)
+bool ConfigFile::get_boolean(const std::string &key, bool default_val)
 {
 	auto itr = m_entries.find(key);
 
@@ -57,17 +57,17 @@ bool ConfigFile::get_boolean(std::string key, bool default_val)
 	return StringUtils::string_to_bool(itr->second);
 }
 
-void ConfigFile::set_string(std::string key, std::string val)
+void ConfigFile::set_string(const std::string &key, const std::string &val)
 {
 	m_entries[key] = val;
 }
 
-void ConfigFile::set_integer(std::string key, int val)
+void ConfigFile::set_integer(const std::string &key, int val)
 {
 	set_string(key, StringUtils::int_to_string(val));
 }
 
-void ConfigFile::set_boolean(std::string key, bool val)
+void ConfigFile::set_boolean(const std::string &key, bool val)
 {
 	set_string(key, val ? "1" : "0");
 }

@@ -62,7 +62,7 @@ std::string bool_to_string(bool val)
 /************************************************************************/
 /* From strings                                                         */
 /************************************************************************/
-unsigned int string_to_int(std::string str)
+unsigned int string_to_int(const std::string &str)
 {
 	std::stringstream myString(str);
 	int val = 0;
@@ -71,7 +71,7 @@ unsigned int string_to_int(std::string str)
 	return val;
 }
 
-bool string_to_bool(std::string str)
+bool string_to_bool(const std::string &str)
 {
 	if(str == "true" || str == "1")
 		return true;

@@ -21,8 +21,8 @@ std::string bool_to_string(bool val);
 /* From strings                                                         */
 /************************************************************************/
 
-unsigned int string_to_int(std::string str);
-bool string_to_bool(std::string str);
+unsigned int string_to_int(const std::string &str);
+bool string_to_bool(const std::string &str);
 
 /************************************************************************/
 /* String splitting                                                     */
