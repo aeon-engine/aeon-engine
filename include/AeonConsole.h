@@ -5,11 +5,12 @@ namespace Aeon
 {
 
 class ConsoleListener;
+typedef std::shared_ptr<ConsoleListener> ConsoleListenerPtr;
 
 namespace Console
 {
 
-typedef std::set<ConsoleListener *> ConsoleListeners;
+typedef std::set<ConsoleListenerPtr> ConsoleListeners;
 
 enum class LogLevel : int
 {
@@ -29,10 +30,9 @@ void					debug(const char *format, ...);
 void					set_loglevel(LogLevel level);
 LogLevel				get_loglevel();
 
-void					add_console_listener(ConsoleListener *listener);
-void					remove_console_listener(ConsoleListener *listener);
+void					add_console_listener(ConsoleListenerPtr listener);
+void					remove_console_listener(ConsoleListenerPtr listener);
 void					remove_all_console_listeners();
-void					remove_and_delete_all_console_listeners();
 
 } //namespace Console
 } //namespace Aeon

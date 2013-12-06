@@ -1,5 +1,5 @@
 #include "Aeon.h"
-#include "AeonConsole.h"
+//#include "AeonConsole.h"
 #include "AeonConsoleListener.h"
 
 namespace Aeon
@@ -23,8 +23,8 @@ static void log(LogLevel level, const char *format, va_list args)
 	//Notify all console listeners
 	for (auto itr = m_console_listeners.begin(); itr != m_console_listeners.end(); ++itr)
 	{
-		ConsoleListener *listener = (ConsoleListener *)*itr;
-		listener->on_log_message(level, m_console_output_buffer);
+		ConsoleListenerPtr console = *itr;
+		console->on_log_message(level, m_console_output_buffer);
 	}
 }
 
@@ -80,12 +80,12 @@ LogLevel get_loglevel()
 	return m_loglevel;
 }
 
-void Console::add_console_listener(ConsoleListener *listener)
+void Console::add_console_listener(ConsoleListenerPtr listener)
 {
 	m_console_listeners.insert(listener);
 }
 
-void Console::remove_console_listener(ConsoleListener *listener)
+void Console::remove_console_listener(ConsoleListenerPtr listener)
 {
 	m_console_listeners.erase(listener);
 }
@@ -93,18 +93,6 @@ void Console::remove_console_listener(ConsoleListener *listener)
 void remove_all_console_listeners()
 {
 	m_console_listeners.clear();
-}
-
-void remove_and_delete_all_console_listeners()
-{
-	//Clean up all console listeners
-	for (auto itr = m_console_listeners.begin(); itr != m_console_listeners.end(); ++itr)
-	{
-		ConsoleListener *listener = (ConsoleListener *)*itr;
-		delete listener;
-	}
-
-	remove_all_console_listeners();
 }
 
 } //namespace Console

@@ -21,9 +21,6 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\include\AeonBuildConfig.h" />
-    <ClInclude Include="..\include\AeonConsoleStdOutListener.h">
-      <Filter>Console</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\AeonConfigFile.h">
       <Filter>Config</Filter>
     </ClInclude>
@@ -69,6 +66,12 @@
     <ClInclude Include="..\include\AeonImageCodecPNG.h">
       <Filter>Resources\Images\Codecs</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\AeonIOStream.h">
+      <Filter>Streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AeonConsoleStreamListener.h">
+      <Filter>Console</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AeonConsole.cpp">
@@ -82,9 +85,6 @@
     </ClCompile>
     <ClCompile Include="..\src\AeonGame.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\AeonConsoleStdOutListener.cpp">
-      <Filter>Console</Filter>
     </ClCompile>
     <ClCompile Include="..\src\AeonConfigFile.cpp">
       <Filter>Config</Filter>
@@ -127,6 +127,12 @@
     </ClCompile>
     <ClCompile Include="..\src\AeonImageCodecPNG.cpp">
       <Filter>Resources\Images\Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonIOStream.cpp">
+      <Filter>Streams</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AeonConsoleStreamListener.cpp">
+      <Filter>Console</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
