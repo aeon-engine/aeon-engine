@@ -80,12 +80,12 @@ LogLevel get_loglevel()
 	return m_loglevel;
 }
 
-void Console::add_console_listener(ConsoleListenerPtr listener)
+void add_console_listener(ConsoleListenerPtr listener)
 {
 	m_console_listeners.insert(listener);
 }
 
-void Console::remove_console_listener(ConsoleListenerPtr listener)
+void remove_console_listener(ConsoleListenerPtr listener)
 {
 	m_console_listeners.erase(listener);
 }
