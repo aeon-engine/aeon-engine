@@ -34,9 +34,9 @@ void Game::on_render()
 	m_current_gamestate->on_render();
 }
 
-void Game::set_gamestate(GameState *gamestate)
+void Game::set_gamestate(GameStatePtr gamestate)
 {
-	if(m_current_gamestate != NULL)
+	if(!m_current_gamestate)
 		m_current_gamestate->on_leave();
 
 	m_current_gamestate = gamestate;

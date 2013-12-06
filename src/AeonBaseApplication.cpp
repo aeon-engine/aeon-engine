@@ -19,9 +19,9 @@ BaseApplication::~BaseApplication()
 
 }
 
-bool BaseApplication::initialize(Game *game)
+bool BaseApplication::initialize(GamePtr game)
 {
-	if(game == NULL)
+	if(!game)
 		return false;
 
 	m_game = game;
@@ -44,13 +44,7 @@ void BaseApplication::cleanup()
 {
 	__cleanup();
 
-	if(m_game != NULL)
-	{
-		m_game->on_cleanup();
-		delete m_game;
-		m_game = NULL;
-	}
-
+	m_game = NULL;
 	m_initialized = NULL;
 }
 
@@ -64,7 +58,7 @@ void BaseApplication::run()
 
 	Console::debug("BaseApplication::run called. Entering render loop.");
 
-	if(m_game == NULL)
+	if(!m_game)
 	{
 		Console::fatal("Could not run application. No game found!");
 		return;

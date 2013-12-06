@@ -1,6 +1,8 @@
 #ifndef AeonBaseApplication_h__
 #define AeonBaseApplication_h__
 
+#include "AeonGame.h"
+
 namespace Aeon
 {
 
@@ -11,7 +13,7 @@ public:
 	BaseApplication();
 	virtual ~BaseApplication();
 
-	bool				initialize(Game *game);
+	bool				initialize(GamePtr game);
 	void				cleanup();
 
 	void				run();
@@ -24,7 +26,7 @@ protected:
 	virtual void		__run() = 0;
 	virtual void		__stop() = 0;
 
-	Game *				m_game;
+	GamePtr 			m_game;
 	bool				m_initialized;
 };
 

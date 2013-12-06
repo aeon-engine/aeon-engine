@@ -17,6 +17,8 @@ public:
 	virtual void			on_render() = 0;
 };
 
+typedef std::shared_ptr<GameState> GameStatePtr;
+
 }
 
 #endif // AeonGameState_h__

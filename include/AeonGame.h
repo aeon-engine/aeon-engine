@@ -1,10 +1,12 @@
 #ifndef AeonGame_h__
 #define AeonGame_h__
+
+#include "AeonGameState.h"
+
 namespace Aeon
 {
 
 class BaseApplication;
-class GameState;
 
 class Game
 {
@@ -19,7 +21,7 @@ public:
 
 	BaseApplication *		get_application() { return m_application; }
 
-	void					set_gamestate(GameState *gamestate);
+	void					set_gamestate(GameStatePtr gamestate);
 
 protected:
 	virtual bool			on_initialize() = 0;
@@ -34,8 +36,10 @@ private:
 	void					on_render();
 
 	BaseApplication *		m_application;
-	GameState *				m_current_gamestate;
+	GameStatePtr			m_current_gamestate;
 };
+
+typedef std::shared_ptr<Game> GamePtr;
 
 } //namespace Aeon
 

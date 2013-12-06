@@ -18,6 +18,8 @@ public:
 
 };
 
+typedef std::shared_ptr<ImageCodec> ImageCodecPtr;
+
 } //namespace Aeon
 
 #endif // AeonImageCodec_h__
