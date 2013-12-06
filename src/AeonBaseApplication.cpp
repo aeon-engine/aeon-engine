@@ -3,6 +3,7 @@
 #include "AeonGame.h"
 #include "AeonConsole.h"
 #include "AeonImageCodecManager.h"
+#include "AeonImageCodecPNG.h"
 #include "AeonTextureManager.h"
 
 namespace Aeon
@@ -15,7 +16,10 @@ m_initialized(false)
 {
 	Console::debug("BaseApplication created.");
 
+	//Register codecs
 	ImageCodecManager::create();
+	ImageCodecManager::getSingleton().register_codec(std::make_shared<ImageCodecPNG>());
+
 	TextureManager::create();
 }
 
