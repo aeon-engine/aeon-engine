@@ -1,5 +1,4 @@
 #include "Aeon.h"
-//#include "AeonConsole.h"
 #include "AeonConsoleListener.h"
 
 namespace Aeon
@@ -21,9 +20,9 @@ static void log(LogLevel level, const char *format, va_list args)
 	vsnprintf(m_console_output_buffer, AEON_CONSOLE_BUFFER_SIZE, format, args);
 
 	//Notify all console listeners
-	for (auto itr = m_console_listeners.begin(); itr != m_console_listeners.end(); ++itr)
+	for (auto itr : m_console_listeners)
 	{
-		(*itr)->on_log_message(level, m_console_output_buffer);
+		itr->on_log_message(level, m_console_output_buffer);
 	}
 }
 

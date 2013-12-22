@@ -131,9 +131,9 @@ void ConfigFile::save(Stream &stream)
 	}
 
 	//Loop through all entries to save to file
-	for (auto itr = m_entries.begin(); itr != m_entries.end(); ++itr)
+	for (auto itr : m_entries)
 	{
-		std::string line = itr->first + "=" + itr->second + "\n";
+		std::string line = itr.first + "=" + itr.second + "\n";
 		stream.write(line);
 	}
 
