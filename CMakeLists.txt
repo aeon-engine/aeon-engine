@@ -16,11 +16,13 @@ find_package(OpenGL REQUIRED)
 find_package(GLFW3)
 find_package(GLEW REQUIRED)
 
-set(CMAKE_CXX_FLAGS "-c -Wall -Wfatal-errors -std=c++11 -O2")
+if (UNIX)
+	set(CMAKE_CXX_FLAGS "-c -Wall -Wfatal-errors -std=c++11 -O2")
+endif (UNIX)
 
 if (BUILD_SHARED_LIBS)
     set(_AEON_BUILD_DLL 1)
-endif()
+endif ()
 
 add_subdirectory(src)
 
