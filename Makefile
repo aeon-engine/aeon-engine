@@ -12,10 +12,14 @@ EXECUTABLE=libaeon
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(ARPATH) $(ARFLAGS) $(EXECUTABLE).a $(OBJECTS)
+	@echo "Linking..."
+	@$(ARPATH) $(ARFLAGS) $(EXECUTABLE).a $(OBJECTS)
+	@echo "Build successful."
 
 .cpp.o:
-	$(CXX) $(CXXPATHS) $(CXXFLAGS) $< -o $@
+	@echo ">> $<"
+	@$(CXX) $(CXXPATHS) $(CXXFLAGS) $< -o $@
 
 clean:
-	rm -rf ./src/*.o *.a
+	@echo "Cleaning..."
+	@rm -rf ./src/*.o *.a
