@@ -11,6 +11,7 @@ IF(WIN32)
     FIND_PATH( GLFW3_INCLUDE_PATH GLFW/glfw3.h
 		$ENV{PROGRAMFILES}/GLFW/include
 		${GLFW_ROOT_DIR}/include
+		${PROJECT_SOURCE_DIR}/dep/glfw/include
 		DOC "The directory where GLFW/glfw3.h resides")
 
     FIND_LIBRARY( GLFW3_LIBRARY
@@ -18,6 +19,7 @@ IF(WIN32)
         PATHS
         $ENV{PROGRAMFILES}/GLFW/lib
 		${GLFW_ROOT_DIR}/lib
+		${PROJECT_SOURCE_DIR}/dep/glfw/lib
         DOC "The GLFW library")
 ELSE(WIN32)
 	FIND_PATH( GLFW3_INCLUDE_PATH GLFW/glfw3.h
