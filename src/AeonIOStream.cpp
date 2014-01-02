@@ -96,8 +96,8 @@ size_t IOStream::read_line(std::string &str)
 
 bool IOStream::seek(size_t pos, SeekDirection direction)
 {
-	pos;
-	direction;
+	AEON_UNUSED(pos);
+	AEON_UNUSED(direction);
 
 	//This won't work for STDIN...
 	return false;

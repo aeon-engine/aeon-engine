@@ -15,3 +15,5 @@
 #include <set>
 #include <memory>
 
+#define AEON_UNUSED(x) (void)(x)
+
