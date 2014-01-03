@@ -13,8 +13,9 @@ option(AEON_CONSOLE_OUTPUT_DEBUG_MSGS "Output extra debug logging" OFF)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/modules)
 
 find_package(OpenGL REQUIRED)
-find_package(GLFW3)
 find_package(GLEW REQUIRED)
+find_package(PNG REQUIRED)
+find_package(GLFW3)
 
 if (UNIX)
 	set(CMAKE_CXX_FLAGS "-c -Wall -Wfatal-errors -std=c++11 -O2")
