@@ -1,8 +1,8 @@
 #ifndef AeonConsoleStreamListener_h__
 #define AeonConsoleStreamListener_h__
 
-#include "AeonStream.h"
-#include "AeonConsoleListener.h"
+#include "Aeon/Streams/Stream.h"
+#include "Aeon/Console/ConsoleListener.h"
 
 namespace Aeon
 {
