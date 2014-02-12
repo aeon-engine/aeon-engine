@@ -1,5 +1,5 @@
-#include "Aeon.h"
-#include "AeonTexture.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Resources/Texture.h"
 
 namespace Aeon
 {

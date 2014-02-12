@@ -1,6 +1,6 @@
-#include "Aeon.h"
-#include "AeonIOStream.h"
-#include "AeonConsole.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Streams/IOStream.h"
+#include "Aeon/Console/Console.h"
 
 namespace Aeon
 {

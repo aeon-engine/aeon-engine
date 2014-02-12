@@ -1,10 +1,10 @@
-#include "Aeon.h"
-#include "AeonBaseApplication.h"
-#include "AeonGame.h"
-#include "AeonConsole.h"
-#include "AeonImageCodecManager.h"
-#include "AeonImageCodecPNG.h"
-#include "AeonTextureManager.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/BaseApplication.h"
+#include "Aeon/Game.h"
+#include "Aeon/Console/Console.h"
+#include "Aeon/Resources/ImageCodecManager.h"
+#include "Aeon/Resources/ImageCodecPNG.h"
+#include "Aeon/Resources/TextureManager.h"
 
 namespace Aeon
 {

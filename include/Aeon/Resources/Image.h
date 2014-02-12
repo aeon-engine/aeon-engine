@@ -1,8 +1,8 @@
 #ifndef AeonImage_h__
 #define AeonImage_h__
 
-#include "AeonBuffer.h"
-#include "AeonStream.h"
+#include "Aeon/Utility/Buffer.h"
+#include "Aeon/Streams/Stream.h"
 
 namespace Aeon
 {

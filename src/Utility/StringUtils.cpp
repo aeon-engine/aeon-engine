@@ -1,5 +1,5 @@
-#include "Aeon.h"
-#include "AeonStringUtils.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Utility/StringUtils.h"
 
 namespace Aeon
 {

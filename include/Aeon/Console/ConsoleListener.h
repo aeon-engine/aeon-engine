@@ -1,7 +1,7 @@
 #ifndef AeonConsoleListener_h__
 #define AeonConsoleListener_h__
 
-#include "AeonConsole.h"
+#include "Aeon/Console/Console.h"
 
 namespace Aeon
 {

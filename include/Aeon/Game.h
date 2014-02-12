@@ -1,7 +1,7 @@
 #ifndef AeonGame_h__
 #define AeonGame_h__
 
-#include "AeonGameState.h"
+#include "Aeon/GameState.h"
 
 namespace Aeon
 {

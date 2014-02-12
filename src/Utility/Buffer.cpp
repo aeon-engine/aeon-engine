@@ -1,6 +1,6 @@
-#include "Aeon.h"
-#include "AeonBuffer.h"
-#include "AeonConsole.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Utility/Buffer.h"
+#include "Aeon/Console/Console.h"
 
 namespace Aeon
 {

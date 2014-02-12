@@ -1,8 +1,8 @@
 #ifndef AeonTextureManager_h__
 #define AeonTextureManager_h__
 
-#include "AeonResourceManager.h"
-#include "AeonSingleton.h"
+#include "Aeon/Resources/ResourceManager.h"
+#include "Aeon/Utility/Singleton.h"
 
 namespace Aeon
 {

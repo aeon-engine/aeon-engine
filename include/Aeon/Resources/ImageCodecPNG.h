@@ -1,7 +1,7 @@
 #ifndef AeonImageCodecPNG_h__
 #define AeonImageCodecPNG_h__
 
-#include "AeonImageCodec.h"
+#include "Aeon/Resources/ImageCodec.h"
 
 namespace Aeon
 {

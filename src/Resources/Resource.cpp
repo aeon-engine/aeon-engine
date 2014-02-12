@@ -1,5 +1,5 @@
-#include "Aeon.h"
-#include "AeonResource.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Resources/Resource.h"
 
 namespace Aeon
 {

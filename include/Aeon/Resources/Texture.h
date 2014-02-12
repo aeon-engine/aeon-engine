@@ -1,7 +1,7 @@
 #ifndef AeonTexture_h__
 #define AeonTexture_h__
 
-#include "AeonResource.h"
+#include "Aeon/Resources/Resource.h"
 
 namespace Aeon
 {

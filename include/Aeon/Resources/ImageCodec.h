@@ -1,8 +1,8 @@
 #ifndef AeonImageCodec_h__
 #define AeonImageCodec_h__
 
-#include "AeonStream.h"
-#include "AeonImage.h"
+#include "Aeon/Streams/Stream.h"
+#include "Aeon/Resources/Image.h"
 
 namespace Aeon
 {

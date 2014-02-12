@@ -1,8 +1,8 @@
-#include "Aeon.h"
-#include "AeonConfigFile.h"
-#include "AeonConsole.h"
-#include "AeonStringUtils.h"
-#include "AeonFileStream.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/ConfigFile.h"
+#include "Aeon/Console/Console.h"
+#include "Aeon/Utility/StringUtils.h"
+#include "Aeon/Streams/FileStream.h"
 
 namespace Aeon
 {

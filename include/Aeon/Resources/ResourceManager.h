@@ -1,7 +1,7 @@
 #ifndef AeonResourceManager_h__
 #define AeonResourceManager_h__
 
-#include "AeonResource.h"
+#include "Aeon/Resources/Resource.h"
 
 namespace Aeon
 {

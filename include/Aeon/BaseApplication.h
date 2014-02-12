@@ -1,7 +1,7 @@
 #ifndef AeonBaseApplication_h__
 #define AeonBaseApplication_h__
 
-#include "AeonGame.h"
+#include "Aeon/Game.h"
 
 namespace Aeon
 {

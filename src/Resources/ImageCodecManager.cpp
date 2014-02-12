@@ -1,6 +1,6 @@
-#include "Aeon.h"
-#include "AeonImageCodecManager.h"
-#include "AeonConsole.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Resources/ImageCodecManager.h"
+#include "Aeon/Console/Console.h"
 
 AeonInitializeSingleton(Aeon::ImageCodecManager);
 

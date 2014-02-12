@@ -1,7 +1,7 @@
 #ifndef AeonFileStream_h__
 #define AeonFileStream_h__
 
-#include "AeonStream.h"
+#include "Aeon/Streams/Stream.h"
 
 namespace Aeon
 {

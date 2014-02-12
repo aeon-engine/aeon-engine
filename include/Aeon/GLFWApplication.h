@@ -2,7 +2,7 @@
 #define AeonGLFWApplication_h__
 
 #include <GLFW/glfw3.h>
-#include "AeonBaseApplication.h"
+#include "Aeon/BaseApplication.h"
 
 namespace Aeon
 {

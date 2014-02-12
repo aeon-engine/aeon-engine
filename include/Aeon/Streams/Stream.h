@@ -1,7 +1,7 @@
 #ifndef AeonDataStream_h__
 #define AeonDataStream_h__
 
-#include "AeonBuffer.h"
+#include "Aeon/Utility/Buffer.h"
 
 namespace Aeon
 {

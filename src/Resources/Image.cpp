@@ -1,6 +1,6 @@
-#include "Aeon.h"
-#include "AeonImage.h"
-#include "AeonConsole.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Resources/Image.h"
+#include "Aeon/Console/Console.h"
 
 namespace Aeon
 {

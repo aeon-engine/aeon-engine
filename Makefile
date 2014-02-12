@@ -4,7 +4,8 @@ CXXFLAGS=-c -Wall -Wfatal-errors -std=c++11 -O2
 ARPATH=ar
 ARFLAGS=crf
 
-SOURCES=$(wildcard ./src/*.cpp)
+SOURCES=$(wildcard ./src/*.cpp) \
+	$(wildcard ./src/*/*.cpp) \
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=libaeon
@@ -23,4 +24,5 @@ $(EXECUTABLE): $(OBJECTS)
 clean:
 	@echo "Cleaning..."
 	@rm -rf $(wildcard ./src/*.o)
+	@rm -rf $(wildcard ./src/*/*.o)
 	@rm -rf *.a

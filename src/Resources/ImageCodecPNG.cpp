@@ -1,6 +1,6 @@
-#include "Aeon.h"
-#include "AeonImageCodecPNG.h"
-#include "AeonConsole.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Resources/ImageCodecPNG.h"
+#include "Aeon/Console/Console.h"
 #include <png.h>
 
 #define PNG_HEADER_SIGNATURE_SIZE 8

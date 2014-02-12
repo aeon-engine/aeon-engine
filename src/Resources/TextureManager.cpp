@@ -1,7 +1,7 @@
-#include "Aeon.h"
-#include "AeonTextureManager.h"
-#include "AeonTexture.h"
-#include "AeonConsole.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Resources/TextureManager.h"
+#include "Aeon/Resources/Texture.h"
+#include "Aeon/Console/Console.h"
 
 AeonInitializeSingleton(Aeon::TextureManager);
 

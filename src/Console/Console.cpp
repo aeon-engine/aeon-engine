@@ -1,5 +1,5 @@
-#include "Aeon.h"
-#include "AeonConsoleListener.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Console/ConsoleListener.h"
 
 namespace Aeon
 {

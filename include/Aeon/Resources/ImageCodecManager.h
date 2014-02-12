@@ -1,9 +1,9 @@
 #ifndef AeonImageCodecManager_h__
 #define AeonImageCodecManager_h__
 
-#include "AeonSingleton.h"
-#include "AeonImageCodec.h"
-#include "AeonStream.h"
+#include "Aeon/Utility/Singleton.h"
+#include "Aeon/Resources/ImageCodec.h"
+#include "Aeon/Streams/Stream.h"
 
 namespace Aeon
 {

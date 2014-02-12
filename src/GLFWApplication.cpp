@@ -1,7 +1,7 @@
-#include "Aeon.h"
-#include "AeonGLFWApplication.h"
-#include "AeonGame.h"
-#include "AeonConsole.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/GLFWApplication.h"
+#include "Aeon/Game.h"
+#include "Aeon/Console/Console.h"
 
 namespace Aeon
 {

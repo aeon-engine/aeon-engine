@@ -1,6 +1,6 @@
-#include "Aeon.h"
-#include "AeonGame.h"
-#include "AeonGameState.h"
+#include "Aeon/Aeon.h"
+#include "Aeon/Game.h"
+#include "Aeon/GameState.h"
 
 namespace Aeon
 {

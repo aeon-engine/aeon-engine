@@ -1,7 +1,7 @@
 #ifndef AeonMemoryStream_h__
 #define AeonMemoryStream_h__
 
-#include "AeonStream.h"
+#include "Aeon/Streams/Stream.h"
 
 namespace Aeon
 {
