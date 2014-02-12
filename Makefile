@@ -1,6 +1,6 @@
 CXX=g++
 CXXPATHS=-I./include/
-CXXFLAGS=-c -Wall -Wfatal-errors -std=c++11 -O2
+CXXFLAGS=-c -Wall -Wfatal-errors -std=c++11 -O2 -g
 ARPATH=ar
 ARFLAGS=crf
 
