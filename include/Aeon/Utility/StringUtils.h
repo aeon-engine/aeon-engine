@@ -16,6 +16,7 @@ std::string int_to_string(int val, int length = 0);
 std::string int64_to_string(long long val, int length = 0);
 std::string int_to_hex_string(int val, int length = 0);
 std::string bool_to_string(bool val);
+std::string float_to_string(float val, int precision = 0);
 
 /************************************************************************/
 /* From strings                                                         */

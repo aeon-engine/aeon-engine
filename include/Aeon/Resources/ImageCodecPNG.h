@@ -13,7 +13,7 @@ public:
 	virtual ~ImageCodecPNG();
 
 	virtual ImagePtr decode(StreamPtr stream);
-	virtual std::string get_type_name() const;
+	virtual std::string get_type_name() const;	
 };
 
 } //namespace Aeon

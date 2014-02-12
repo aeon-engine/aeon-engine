@@ -16,8 +16,7 @@ std::string int_to_string(int val, int length /* = 0 */)
 	if (length == 0)
 	{
 		stream << val;
-	}
-	else{
+	}else{
 		stream << std::setw(length) << std::setfill('0') << val;
 	}
 
@@ -31,8 +30,7 @@ std::string int64_to_string(long long val, int length /* = 0 */)
 	if (length == 0)
 	{
 		stream << val;
-	}
-	else{
+	}else{
 		stream << std::setw(length) << std::setfill('0') << val;
 	}
 
@@ -46,8 +44,7 @@ std::string int_to_hex_string(int val, int length /* = 0 */)
 	if (length == 0)
 	{
 		stream << val;
-	}
-	else{
+	}else{
 		stream << std::hex << std::setw(length) << std::setfill('0') << val;
 	}
 
@@ -57,6 +54,21 @@ std::string int_to_hex_string(int val, int length /* = 0 */)
 std::string bool_to_string(bool val)
 {
 	return val == true ? "true" : "false";
+}
+
+std::string float_to_string(float val, int precision /* = 0 */)
+{
+	std::stringstream stream;
+	stream.setf(std::ios::fixed);
+
+	if (precision == 0)
+	{
+	    stream << val;
+	}else{
+		stream << std::setw(precision) << val;
+	}
+
+    return stream.str();  
 }
 
 /************************************************************************/

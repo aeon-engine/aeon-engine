@@ -1,5 +1,6 @@
 #include "Aeon/Aeon.h"
 #include "Aeon/Console/ConsoleListener.h"
+#include "Aeon/Utility/Timer.h"
 
 namespace Aeon
 {
@@ -9,6 +10,7 @@ namespace Console
 static LogLevel				m_loglevel = AEON_DEFAULT_CONSOLE_LOG_LEVEL;
 static ConsoleListeners		m_console_listeners;
 static char 				m_console_output_buffer[AEON_CONSOLE_BUFFER_SIZE];
+static Aeon::Timer			m_diff_timer;
 
 static void log(LogLevel level, const char *format, va_list args)
 {
@@ -22,7 +24,7 @@ static void log(LogLevel level, const char *format, va_list args)
 	//Notify all console listeners
 	for (auto itr : m_console_listeners)
 	{
-		itr->on_log_message(level, m_console_output_buffer);
+		itr->on_log_message(m_diff_timer.get_time_difference(), level, m_console_output_buffer);
 	}
 }
 

@@ -4,6 +4,8 @@
 #include "Aeon/Streams/Stream.h"
 #include "Aeon/Console/ConsoleListener.h"
 
+#include <ctime>
+
 namespace Aeon
 {
 
@@ -13,7 +15,7 @@ public:
 	ConsoleStreamListener(StreamPtr stream);
 	~ConsoleStreamListener();
 
-	void on_log_message(Console::LogLevel level, const std::string &message);
+	void on_log_message(double time_diff, Console::LogLevel level, const std::string &message);
 
 private:
 	StreamPtr		m_stream;
