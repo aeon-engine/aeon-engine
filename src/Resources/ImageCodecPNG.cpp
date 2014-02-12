@@ -1,4 +1,7 @@
 #include "Aeon/Aeon.h"
+
+#ifdef AEON_USE_PNG
+
 #include "Aeon/Resources/ImageCodecPNG.h"
 #include "Aeon/Console/Console.h"
 #include <png.h>
@@ -202,3 +205,5 @@ std::string ImageCodecPNG::get_type_name() const
 }
 
 } //namespace Aeon
+
+#endif //AEON_USE_PNG

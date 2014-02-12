@@ -18,7 +18,10 @@ m_initialized(false)
 
 	//Register codecs
 	ImageCodecManager::create();
+
+#ifdef AEON_USE_PNG
 	ImageCodecManager::getSingleton().register_codec(std::make_shared<ImageCodecPNG>());
+#endif
 
 	TextureManager::create();
 }

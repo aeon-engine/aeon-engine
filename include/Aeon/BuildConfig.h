@@ -8,4 +8,6 @@
 #define AEON_STREAM_MAX_TEXT_LINE_LENGTH	2048
 #define AEON_STREAM_DEFAULT_NAME			"<UNNAMED>"
 
+#define AEON_USE_PNG
+
 #endif // AeonBuildConfig_h__
