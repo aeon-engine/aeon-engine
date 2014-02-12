@@ -22,4 +22,5 @@ $(EXECUTABLE): $(OBJECTS)
 
 clean:
 	@echo "Cleaning..."
-	@rm -rf ./src/*.o *.a
+	@rm -rf $(wildcard ./src/*.o)
+	@rm -rf *.a
