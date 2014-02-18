@@ -94,4 +94,9 @@ void BaseApplication::stop()
 	__stop();
 }
 
+void BaseApplication::__handle_events()
+{
+	TextureManager::getSingleton().finalize_textures();
+}
+
 } //namespace Aeon

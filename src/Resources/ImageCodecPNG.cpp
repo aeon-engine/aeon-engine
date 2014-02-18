@@ -136,7 +136,8 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 		pixelformat = Image::PixelFormat::RGBA;
 		Console::debug("ImageCodecPNG: RGB Pixel format is RGBA");
 	}
-	else{
+	else
+	{
 		Console::error("ImageCodecPNG: Could not decode PNG '%s'. Unsupported PNG pixel format.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 		return AeonEmptyImage;

@@ -18,6 +18,11 @@ TextureManager::~TextureManager()
 	Console::debug("TextureManager disposed.");
 }
 
+void TextureManager::finalize_textures()
+{
+
+}
+
 Resource * TextureManager::__create_internal(const std::string &name, Resource::Handle handle)
 {
 	return new Texture(this, name, handle);

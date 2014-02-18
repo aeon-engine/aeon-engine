@@ -26,6 +26,8 @@ protected:
 	virtual void		__run() = 0;
 	virtual void		__stop() = 0;
 
+	void				__handle_events();
+
 	GamePtr 			m_game;
 	bool				m_initialized;
 };

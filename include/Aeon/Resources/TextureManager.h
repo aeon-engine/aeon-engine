@@ -14,6 +14,9 @@ public:
 	virtual ~TextureManager();
 
 	//TexturePtr loadImage(
+	
+	//Call this only from the OpenGL render thread.
+	void finalize_textures();
 
 protected:
 	Resource * __create_internal(const std::string &name, Resource::Handle handle);
