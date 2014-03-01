@@ -23,7 +23,7 @@ void ConsoleStreamListener::on_log_message(double time_diff, Console::LogLevel l
 	if(!m_stream)
 		return;
 	
-	std::string time_string = Aeon::StringUtils::float_to_string(time_diff, 10) + ' ';
+	std::string time_string = Aeon::StringUtils::float_to_string((float) time_diff, 10) + ' ';
 	m_stream->write(time_string);
 
 	switch(level)
