@@ -12,13 +12,11 @@ public:
 	Root();
 	~Root();
 
-	bool				initialize();
-
 	void				render();
 	void				stop();
 
 protected:
-	bool				__initialize();
+	void				__initialize();
 	void				__cleanup();
 
 	bool				m_initialized;

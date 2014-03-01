@@ -28,4 +28,3 @@ double Timer::get_time_difference()
 }
 
 } //namespace Aeon
-
