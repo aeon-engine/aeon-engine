@@ -12,9 +12,6 @@ public:
 
 	virtual void			on_enter() = 0;
 	virtual void			on_leave() = 0;
-
-	virtual bool			on_update(float dt) = 0;
-	virtual void			on_render() = 0;
 };
 
 typedef std::shared_ptr<GameState> GameStatePtr;

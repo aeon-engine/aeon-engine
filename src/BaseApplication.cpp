@@ -44,12 +44,6 @@ bool BaseApplication::initialize(GamePtr game)
 	if(!__initialize())
 		return false;
 
-	//TODO: If this fails, should we call cleanup on the Application?
-	if(!m_game->on_initialize())
-		return false;
-
-	m_game->__register_application(this);
-
 	m_initialized = true;
 
 	return true;
@@ -79,18 +73,12 @@ void BaseApplication::run()
 		return;
 	}
 
-	m_game->on_run();
-
 	__run();
 }
 
 void BaseApplication::stop()
 {
 	Console::debug("BaseApplication::stop called.");
-
-	if(m_game != NULL)
-		m_game->on_stop();
-
 	__stop();
 }
 

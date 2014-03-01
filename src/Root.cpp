@@ -23,6 +23,27 @@ void Root::render()
 
 }
 
+void Root::stop()
+{
+
+}
+
+void Root::add_frame_listener(FrameListener *listener)
+{
+	m_frame_listeners.push_back(listener);
+}
+
+void Root::remove_frame_listener(FrameListener *listener)
+{
+	m_frame_listeners.remove(listener);
+}
+
+void Root::remove_all_frame_listeners()
+{
+	Console::debug("Removing all frame listeners.");
+	m_frame_listeners.clear();
+}
+
 void Root::__initialize()
 {
 	Console::debug("Aeon Root created.");

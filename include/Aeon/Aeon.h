@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <string.h>
 
+#include <list>
 #include <string>
 #include <sstream>
 #include <iomanip>

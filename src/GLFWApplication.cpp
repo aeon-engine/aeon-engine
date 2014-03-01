@@ -65,16 +65,13 @@ void GLFWApplication::__run()
 	{
 		double dt = glfwGetTime();
 
-		//If on_update returns false, we should stop.
-		if (!m_game->on_update((float)dt))
-			m_running = false;
+		//Call frame listeners
+		//...
 
-		m_game->on_render();
-
-		// Swap front and back buffers
+		//Swap front and back buffers
 		glfwSwapBuffers(m_window);
 
-		// Poll and process events
+		//Poll and process events
 		glfwPollEvents();
 
 		//Reset the timer back to 0

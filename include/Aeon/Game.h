@@ -6,20 +6,11 @@
 namespace Aeon
 {
 
-class BaseApplication;
-
 class Game
 {
-//TODO: Find a better way for this..
-friend class BaseApplication;
-friend class GLFWApplication;
 public:
 	Game();
 	virtual ~Game();
-
-	void					initialize();
-
-	BaseApplication *		get_application() { return m_application; }
 
 	void					set_gamestate(GameStatePtr gamestate);
 
@@ -30,12 +21,6 @@ protected:
 	virtual void			on_cleanup() = 0;
 
 private:
-	void					__register_application(BaseApplication *application);
-
-	bool					on_update(float dt);
-	void					on_render();
-
-	BaseApplication *		m_application;
 	GameStatePtr			m_current_gamestate;
 };
 
