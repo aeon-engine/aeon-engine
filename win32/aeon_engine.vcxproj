@@ -93,14 +93,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)..\include\;$(ETC)include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\include\;$(ETC)include\;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)_d</TargetName>
     <OutDir>$(SolutionDir)..\bin\</OutDir>
     <IntDir>$(SolutionDir)..\build\$(Configuration)\$(ProjectName)\</IntDir>
     <LibraryPath>$(ETC)lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)..\include\;$(ETC)include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\include\;$(ETC)include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)..\bin\</OutDir>
     <IntDir>$(SolutionDir)..\build\$(Configuration)\$(ProjectName)\</IntDir>
     <LibraryPath>$(ETC)lib\;$(LibraryPath)</LibraryPath>
