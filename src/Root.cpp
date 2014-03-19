@@ -8,6 +8,8 @@
 namespace Aeon
 {
 
+AeonInitializeSingleton(Root);
+
 Root::Root()
 {
 	__initialize();
@@ -20,7 +22,18 @@ Root::~Root()
 
 void Root::render()
 {
+	//TODO: Implement dt
+	float dt = 0.1f;
 
+	for(FrameListener *framelistener : m_frame_listeners)
+	{
+		framelistener->on_frame(dt);
+	}
+
+	for(FrameListener *framelistener : m_frame_listeners)
+	{
+		framelistener->on_render();
+	}
 }
 
 void Root::stop()
@@ -60,8 +73,8 @@ void Root::__initialize()
 
 void Root::__cleanup()
 {
-
+	ImageCodecManager::dispose();
+	TextureManager::dispose();
 }
 
 } //namespace Aeon
-

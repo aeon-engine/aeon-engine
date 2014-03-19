@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\src\BaseApplication.cpp" />
     <ClCompile Include="..\src\ConfigFile.cpp" />
-    <ClCompile Include="..\src\GLFWApplication.cpp" />
     <ClCompile Include="..\src\Root.cpp" />
     <ClCompile Include="..\src\Console\Console.cpp">
       <Filter>Console</Filter>
@@ -56,13 +54,14 @@
     <ClCompile Include="..\src\Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Platforms\GLFWPlatform.cpp">
+      <Filter>Platforms\GLFW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Aeon\Aeon.h" />
-    <ClInclude Include="..\include\Aeon\BaseApplication.h" />
     <ClInclude Include="..\include\Aeon\BuildConfig.h" />
     <ClInclude Include="..\include\Aeon\ConfigFile.h" />
-    <ClInclude Include="..\include\Aeon\GLFWApplication.h" />
     <ClInclude Include="..\include\Aeon\Root.h" />
     <ClInclude Include="..\include\Aeon\Console\Console.h">
       <Filter>Console</Filter>
@@ -128,6 +127,12 @@
     <ClInclude Include="..\include\Aeon\Game.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Aeon\Platforms\BasePlatform.h">
+      <Filter>Platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Aeon\Platforms\GLFWPlatform.h">
+      <Filter>Platforms\GLFW</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Console">
@@ -144,6 +149,12 @@
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{3611edd8-6604-4de4-9a33-e725c0bec4d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platforms">
+      <UniqueIdentifier>{d972ef0e-de17-41af-93db-e4e4b67d6cfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platforms\GLFW">
+      <UniqueIdentifier>{65458f58-71f1-4688-bca8-0c76037b8fee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -11,12 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\BaseApplication.cpp" />
     <ClCompile Include="..\src\ConfigFile.cpp" />
     <ClCompile Include="..\src\Console\Console.cpp" />
     <ClCompile Include="..\src\Console\StreamListener.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
-    <ClCompile Include="..\src\GLFWApplication.cpp" />
+    <ClCompile Include="..\src\Platforms\GLFWPlatform.cpp" />
     <ClCompile Include="..\src\Resources\Image.cpp" />
     <ClCompile Include="..\src\Resources\ImageCodecManager.cpp" />
     <ClCompile Include="..\src\Resources\ImageCodecPNG.cpp" />
@@ -35,7 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Aeon\Aeon.h" />
-    <ClInclude Include="..\include\Aeon\BaseApplication.h" />
     <ClInclude Include="..\include\Aeon\BuildConfig.h" />
     <ClInclude Include="..\include\Aeon\ConfigFile.h" />
     <ClInclude Include="..\include\Aeon\Console\Console.h" />
@@ -44,7 +42,8 @@
     <ClInclude Include="..\include\Aeon\FrameListener.h" />
     <ClInclude Include="..\include\Aeon\Game.h" />
     <ClInclude Include="..\include\Aeon\GameState.h" />
-    <ClInclude Include="..\include\Aeon\GLFWApplication.h" />
+    <ClInclude Include="..\include\Aeon\Platforms\BasePlatform.h" />
+    <ClInclude Include="..\include\Aeon\Platforms\GLFWPlatform.h" />
     <ClInclude Include="..\include\Aeon\Resources\Image.h" />
     <ClInclude Include="..\include\Aeon\Resources\ImageCodec.h" />
     <ClInclude Include="..\include\Aeon\Resources\ImageCodecManager.h" />
