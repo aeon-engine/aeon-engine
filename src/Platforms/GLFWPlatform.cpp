@@ -1,4 +1,7 @@
 #include "Aeon/Aeon.h"
+
+#ifdef AEON_USE_GLFW_PLATFORM
+
 #include "Aeon/Root.h"
 #include "Aeon/Platforms/GLFWPlatform.h"
 #include "Aeon/Game.h"
@@ -38,9 +41,6 @@ void GLFW::run()
 
 		//Poll and process events
 		glfwPollEvents();
-
-		//Reset the timer back to 0
-		glfwSetTime(0);
 	}
 
 	m_running = false;
@@ -65,7 +65,7 @@ bool GLFW::__initialize()
 	}
 
 	//Create our window
-	m_window = glfwCreateWindow(640, 480, "Aeon", NULL, NULL);
+	m_window = glfwCreateWindow(1280, 780, "Aeon", NULL, NULL);
 
 	if (m_window == NULL)
 	{
@@ -88,3 +88,5 @@ void GLFW::__cleanup()
 
 } /* namespace Platforms */
 } /* namespace Aeon */
+
+#endif /* AEON_USE_GLFW_PLATFORM */

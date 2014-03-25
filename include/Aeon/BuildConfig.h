@@ -9,5 +9,6 @@
 #define AEON_STREAM_DEFAULT_NAME			"<UNNAMED>"
 
 #define AEON_USE_PNG
+#define AEON_USE_GLFW_PLATFORM
 
 #endif // AeonBuildConfig_h__

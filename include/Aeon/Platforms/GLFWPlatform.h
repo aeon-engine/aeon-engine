@@ -1,6 +1,8 @@
 #ifndef GLFWPlatform_h__
 #define GLFWPlatform_h__
 
+#ifdef AEON_USE_GLFW_PLATFORM
+
 #include <GLFW/glfw3.h>
 #include "Aeon/Platforms/BasePlatform.h"
 
@@ -29,4 +31,5 @@ private:
 } /* namespace Platforms */
 } /* namespace Aeon */
 
-#endif // GLFWPlatform_h__
+#endif /* AEON_USE_GLFW_PLATFORM */
+#endif /* GLFWPlatform_h__ */
