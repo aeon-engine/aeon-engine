@@ -148,9 +148,6 @@ ImagePtr ImageCodecPNG::decode(StreamPtr stream)
 
 	size_t rowbytes = png_get_rowbytes(png_ptr, info_ptr);
 
-	// glTexImage2d requires rows to be 4-byte aligned
-	//rowbytes += 3 - ((rowbytes-1) % 4);
-
 	// Allocate the image_data as a big block
 	size_t bitmap_buff_size = rowbytes * size_t(temp_height) * sizeof(png_byte);
 	auto bitmap_buffer = std::make_shared<Buffer>(bitmap_buff_size);
