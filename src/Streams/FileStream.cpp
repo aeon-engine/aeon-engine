@@ -167,15 +167,15 @@ bool FileStream::seek(size_t pos, SeekDirection direction)
 	{
 		case SeekDirection::Begin:
 		{
-			return fseek(m_file, pos, SEEK_SET) == 0;
+			return fseek(m_file, (long) pos, SEEK_SET) == 0;
 		}break;
 		case SeekDirection::Current:
 		{
-			return fseek(m_file, pos, SEEK_CUR) == 0;
+			return fseek(m_file, (long) pos, SEEK_CUR) == 0;
 		}break;
 		case SeekDirection::End:
 		{
-			return fseek(m_file, pos, SEEK_END) == 0;
+			return fseek(m_file, (long) pos, SEEK_END) == 0;
 		}break;
 	};
 
