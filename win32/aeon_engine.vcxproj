@@ -126,8 +126,7 @@
     <LibraryPath>$(ETC)lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>$(ETC)lib\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)..\include\;$(ETC)include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\include\;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,8 +136,7 @@
     <LibraryPath>$(ETC)lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LibraryPath>$(ETC)lib\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)..\include\;$(ETC)include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
