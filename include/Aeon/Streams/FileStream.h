@@ -32,7 +32,7 @@ protected:
 	void				__open_file();
 	void				__calculate_file_size();
 
-	FILE *				m_file;
+	FILE *				file_;
 };
 
 typedef std::shared_ptr<FileStream> FileStreamPtr;

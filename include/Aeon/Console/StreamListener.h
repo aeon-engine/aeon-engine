@@ -18,7 +18,7 @@ public:
 	void on_log_message(double time_diff, Console::LogLevel level, const std::string &message);
 
 private:
-	StreamPtr		m_stream;
+	StreamPtr		stream_;
 };
 
 } //namespace Aeon

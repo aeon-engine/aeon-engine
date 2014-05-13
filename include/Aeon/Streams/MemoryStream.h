@@ -39,10 +39,10 @@ public:
 	virtual BufferPtr				get_as_buffer();
 
 protected:
-	BufferPtr						m_buffer;
-	DeleteMode						m_delete_mode;
+	BufferPtr						buffer_;
+	DeleteMode						delete_mode_;
 
-	size_t							m_buffer_offset;
+	size_t							buffer_offset_;
 };
 
 typedef std::shared_ptr<MemoryStream> MemoryStreamPtr;

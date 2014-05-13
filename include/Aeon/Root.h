@@ -26,9 +26,9 @@ protected:
 	void				__initialize();
 	void				__cleanup();
 
-	bool				m_initialized;
+	bool				initialized_;
 
-	FrameListeners		m_frame_listeners;
+	FrameListeners		frame_listeners_;
 };
 
 } //namespace Aeon

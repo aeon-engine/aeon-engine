@@ -25,12 +25,12 @@ void Root::render()
 	//TODO: Implement dt
 	float dt = 0.1f;
 
-	for(FrameListener *framelistener : m_frame_listeners)
+	for(FrameListener *framelistener : frame_listeners_)
 	{
 		framelistener->on_frame(dt);
 	}
 
-	for(FrameListener *framelistener : m_frame_listeners)
+	for(FrameListener *framelistener : frame_listeners_)
 	{
 		framelistener->on_render();
 	}
@@ -43,18 +43,18 @@ void Root::stop()
 
 void Root::add_frame_listener(FrameListener *listener)
 {
-	m_frame_listeners.push_back(listener);
+	frame_listeners_.push_back(listener);
 }
 
 void Root::remove_frame_listener(FrameListener *listener)
 {
-	m_frame_listeners.remove(listener);
+	frame_listeners_.remove(listener);
 }
 
 void Root::remove_all_frame_listeners()
 {
 	Console::debug("Removing all frame listeners.");
-	m_frame_listeners.clear();
+	frame_listeners_.clear();
 }
 
 void Root::__initialize()

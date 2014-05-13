@@ -6,9 +6,9 @@ namespace Aeon
 
 Resource::Resource(ResourceManager *creator, const std::string &name, Handle handle)
 :
-m_creator(creator),
-m_name(name),
-m_handle(handle)
+creator_(creator),
+name_(name),
+handle_(handle)
 {
 
 }

@@ -24,8 +24,8 @@ private:
 	bool				__initialize();
 	void				__cleanup();
 	
-	GLFWwindow *		m_window;
-	bool				m_running;
+	GLFWwindow *		window_;
+	bool				running_;
 };
 
 } /* namespace Platforms */

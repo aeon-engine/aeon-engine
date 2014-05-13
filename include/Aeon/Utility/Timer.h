@@ -18,7 +18,7 @@ public:
 	double													get_time_difference();
 
 private:
-	std::chrono::time_point<std::chrono::system_clock>		m_start_time;
+	std::chrono::time_point<std::chrono::system_clock>		start_time_;
 };
 
 } //namespace Aeon

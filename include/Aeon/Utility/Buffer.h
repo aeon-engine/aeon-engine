@@ -82,23 +82,23 @@ public:
 
 	void				free();
 
-	void *				get() { return m_buffer; }
+	void *				get() { return buffer_; }
 
-	size_t				size() { return m_size; }
-	size_t				reserved_size() { return m_reserved_size; }
+	size_t				size() { return size_; }
+	size_t				reserved_size() { return reserved_size_; }
 
 	void				set_delete_mode(DeleteMode mode);
-	DeleteMode			get_delete_mode() { return m_delete_mode; }
+	DeleteMode			get_delete_mode() { return delete_mode_; }
 
-	void				set_size(size_t size) { m_size = size; }
+	void				set_size(size_t size) { size_ = size; }
 
 private:
-	void *				m_buffer;
+	void *				buffer_;
 
-	size_t				m_size;
-	size_t				m_reserved_size;
+	size_t				size_;
+	size_t				reserved_size_;
 
-	DeleteMode			m_delete_mode;
+	DeleteMode			delete_mode_;
 };
 
 typedef std::shared_ptr<Buffer> BufferPtr;

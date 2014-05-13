@@ -14,8 +14,8 @@ namespace Platforms
 
 GLFW::GLFW()
 :
-m_window(NULL),
-m_running(false)
+window_(NULL),
+running_(false)
 {
 	__initialize();
 }
@@ -27,28 +27,28 @@ GLFW::~GLFW()
 
 void GLFW::run()
 {
-	m_running = true;
+	running_ = true;
 
 	Root *root = Root::getSingletonPtr();
 
 	//While the window isn't closed and we're still running.
-	while (!glfwWindowShouldClose(m_window) || m_running == false)
+	while (!glfwWindowShouldClose(window_) || running_ == false)
 	{
 		root->render();
 
 		//Swap front and back buffers
-		glfwSwapBuffers(m_window);
+		glfwSwapBuffers(window_);
 
 		//Poll and process events
 		glfwPollEvents();
 	}
 
-	m_running = false;
+	running_ = false;
 }
 
 void GLFW::stop()
 {
-	m_running = false;
+	running_ = false;
 }
 
 bool GLFW::__initialize()
@@ -65,16 +65,16 @@ bool GLFW::__initialize()
 	}
 
 	//Create our window
-	m_window = glfwCreateWindow(1280, 780, "Aeon", NULL, NULL);
+	window_ = glfwCreateWindow(1280, 780, "Aeon", NULL, NULL);
 
-	if (m_window == NULL)
+	if (window_ == NULL)
 	{
 		Console::fatal("Could not create GLFW window");
 		glfwTerminate();
 		return false;
 	}
 
-	glfwMakeContextCurrent(m_window);
+	glfwMakeContextCurrent(window_);
 
 	return true;
 }
@@ -83,7 +83,7 @@ void GLFW::__cleanup()
 {
 	Console::info("Terminating GLFW");
 	glfwTerminate();
-	m_window = NULL;
+	window_ = NULL;
 }
 
 } /* namespace Platforms */

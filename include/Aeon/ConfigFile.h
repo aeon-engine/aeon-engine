@@ -87,7 +87,7 @@ public:
 private:
 	typedef std::map<std::string, std::string> Entries;
 
-	Entries						m_entries;
+	Entries						entries_;
 };
 
 } //namespace Aeon

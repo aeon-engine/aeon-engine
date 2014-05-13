@@ -9,17 +9,17 @@ namespace Aeon
 
 bool ConfigFile::has_entry(const std::string &key)
 {
-	auto itr = m_entries.find(key);
+	auto itr = entries_.find(key);
 
-	return (itr != m_entries.end());
+	return (itr != entries_.end());
 }
 
 std::string ConfigFile::get_string(const std::string &key, const std::string &default_val)
 {
-	auto itr = m_entries.find(key);
+	auto itr = entries_.find(key);
 
 	//If it could not find the key...
-	if (itr == m_entries.end())
+	if (itr == entries_.end())
 	{
 		set_string(key, default_val);
 		return default_val;
@@ -30,10 +30,10 @@ std::string ConfigFile::get_string(const std::string &key, const std::string &de
 
 int ConfigFile::get_integer(const std::string &key, int default_val)
 {
-	auto itr = m_entries.find(key);
+	auto itr = entries_.find(key);
 
 	//If it could not find the key...
-	if (itr == m_entries.end())
+	if (itr == entries_.end())
 	{
 		set_integer(key, default_val);
 		return default_val;
@@ -45,10 +45,10 @@ int ConfigFile::get_integer(const std::string &key, int default_val)
 
 bool ConfigFile::get_boolean(const std::string &key, bool default_val)
 {
-	auto itr = m_entries.find(key);
+	auto itr = entries_.find(key);
 
 	//If it could not find the key...
-	if (itr == m_entries.end())
+	if (itr == entries_.end())
 	{
 		set_boolean(key, default_val);
 		return default_val;
@@ -59,7 +59,7 @@ bool ConfigFile::get_boolean(const std::string &key, bool default_val)
 
 void ConfigFile::set_string(const std::string &key, const std::string &val)
 {
-	m_entries[key] = val;
+	entries_[key] = val;
 }
 
 void ConfigFile::set_integer(const std::string &key, int val)
@@ -82,7 +82,7 @@ bool ConfigFile::load(Stream &stream)
 	
 	Console::debug("Reading config file: %s", stream.get_name().c_str());
 
-	m_entries.clear();
+	entries_.clear();
 
 	//Loop through all lines
 	int linenumber = 0;
@@ -112,7 +112,7 @@ bool ConfigFile::load(Stream &stream)
 		std::string key = line.substr(0, pos);
 		std::string val = line.substr(pos + 1);
 
-		m_entries[key] = val;
+		entries_[key] = val;
 	}
 
 	Console::debug("Finished reading config file: %s", stream.get_name().c_str());
@@ -131,7 +131,7 @@ void ConfigFile::save(Stream &stream)
 	}
 
 	//Loop through all entries to save to file
-	for (auto itr : m_entries)
+	for (auto itr : entries_)
 	{
 		std::string line = itr.first + "=" + itr.second + "\n";
 		stream.write(line);

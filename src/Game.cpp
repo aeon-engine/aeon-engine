@@ -7,7 +7,7 @@ namespace Aeon
 
 Game::Game()
 :
-m_current_gamestate(NULL)
+current_gamestate_(NULL)
 {
 
 }
@@ -19,12 +19,12 @@ Game::~Game()
 
 void Game::set_gamestate(GameStatePtr gamestate)
 {
-	if(m_current_gamestate)
-		m_current_gamestate->on_leave();
+	if(current_gamestate_)
+		current_gamestate_->on_leave();
 
-	m_current_gamestate = gamestate;
+	current_gamestate_ = gamestate;
 
-	m_current_gamestate->on_enter();
+	current_gamestate_->on_enter();
 }
 
 } //namespace Aeon

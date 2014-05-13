@@ -7,42 +7,42 @@ namespace Aeon
 
 Buffer::Buffer()
 :
-m_buffer(NULL),
-m_size(0),
-m_reserved_size(0),
-m_delete_mode(DeleteMode::DeleteOnDestruct)
+buffer_(NULL),
+size_(0),
+reserved_size_(0),
+delete_mode_(DeleteMode::DeleteOnDestruct)
 {
 }
 
 Buffer::Buffer(size_t size, DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/)
 :
-m_buffer(NULL),
-m_size(0),
-m_reserved_size(0),
-m_delete_mode(delete_mode)
+buffer_(NULL),
+size_(0),
+reserved_size_(0),
+delete_mode_(delete_mode)
 {
 	reserve(size);
 }
 
 Buffer::Buffer(void *buffer, size_t size, DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/)
 :
-m_buffer(buffer),
-m_size(0),
-m_reserved_size(size),
-m_delete_mode(delete_mode)
+buffer_(buffer),
+size_(0),
+reserved_size_(size),
+delete_mode_(delete_mode)
 {
 }
 
 Buffer::~Buffer()
 {
-	if (m_delete_mode == DeleteMode::DeleteOnDestruct)
+	if (delete_mode_ == DeleteMode::DeleteOnDestruct)
 		free();
 }
 
 bool Buffer::reserve(size_t n)
 {
 	//Do we already have this many bytes reserved?
-	if(n <= m_reserved_size)
+	if(n <= reserved_size_)
 		return true;
 
 	//Resize the array if we're requesting more bytes
@@ -57,15 +57,15 @@ bool Buffer::reserve(size_t n)
 bool Buffer::resize(size_t n)
 {
 	//Reallocate the buffer to be the new size
-	void *new_buffer = realloc(m_buffer, n);
+	void *new_buffer = realloc(buffer_, n);
 
 	//Did we fail to reallocate our buffer?
 	if(new_buffer == NULL)
 	{
 		//Do we have data at all?
-		if(m_buffer != NULL)
+		if(buffer_ != NULL)
 		{
-			Console::warning("Buffer: Failed to reallocate buffer from %u to %u. Trying copy.", m_reserved_size, n);
+			Console::warning("Buffer: Failed to reallocate buffer from %u to %u. Trying copy.", reserved_size_, n);
 
 			//Try a fallback method...
 			new_buffer = malloc(n);
@@ -73,20 +73,20 @@ bool Buffer::resize(size_t n)
 			//Did we fail again?!
 			if (new_buffer == NULL)
 			{
-				Console::fatal("Buffer: Failed to reallocate buffer from %u to %u in fallback mode. Aborting", m_reserved_size, n);
+				Console::fatal("Buffer: Failed to reallocate buffer from %u to %u in fallback mode. Aborting", reserved_size_, n);
 				return false;
 			}
 
 			//How many bytes do we need to copy? Are we increasing or shrinking?
-			size_t newsize = (n < m_reserved_size) ? n : m_reserved_size;
+			size_t newsize = (n < reserved_size_) ? n : reserved_size_;
 
 			//All ok! Lets copy!
-			memcpy(new_buffer, m_buffer, newsize);
+			memcpy(new_buffer, buffer_, newsize);
 
 			//Free the old buffer
-			::free(m_buffer);
+			::free(buffer_);
 
-			m_buffer = new_buffer;
+			buffer_ = new_buffer;
 
 			return true;
 		}
@@ -96,8 +96,8 @@ bool Buffer::resize(size_t n)
 	}
 
 	//All is ok! Let's keep our new data
-	m_buffer = new_buffer;
-	m_reserved_size = n;
+	buffer_ = new_buffer;
+	reserved_size_ = n;
 
 	return true;
 }
@@ -105,37 +105,37 @@ bool Buffer::resize(size_t n)
 bool Buffer::append(void *data, size_t len)
 {
 	//Does our appended data fit?
-	if(m_size + len > m_reserved_size)
+	if(size_ + len > reserved_size_)
 	{
 		//Make sure our buffer is able to fit this data
-		if(!reserve(m_reserved_size + len))
+		if(!reserve(reserved_size_ + len))
 			return false;
 	}
 
 	//Copy our data into the new buffer
-	char *buff = (char *) m_buffer;
-	memcpy(&buff[m_size], data, len);
+	char *buff = (char *) buffer_;
+	memcpy(&buff[size_], data, len);
 
 	//Adjust the size
-	m_size += len;
+	size_ += len;
 
 	return true;
 }
 
 void Buffer::free()
 {
-	::free(m_buffer);
+	::free(buffer_);
 
-	Console::debug("Buffer: Freed %u bytes.", m_reserved_size);
+	Console::debug("Buffer: Freed %u bytes.", reserved_size_);
 
-	m_buffer = NULL;
-	m_size = 0;
-	m_reserved_size = 0;
+	buffer_ = NULL;
+	size_ = 0;
+	reserved_size_ = 0;
 }
 
 void Buffer::set_delete_mode(DeleteMode mode)
 {
-	m_delete_mode = mode;
+	delete_mode_ = mode;
 }
 
 } //namespace Aeon

@@ -7,16 +7,16 @@ namespace Aeon
 
 Stream::Stream(int access_mode /*= AccessMode::READ*/)
 :
-m_name(AEON_STREAM_DEFAULT_NAME),
-m_size(0),
-m_access_mode(access_mode)
+name_(AEON_STREAM_DEFAULT_NAME),
+size_(0),
+access_mode_(access_mode)
 {}
 
 Stream::Stream(const std::string &name, int access_mode /*= AccessMode::READ*/)
 :
-m_name(name),
-m_size(0),
-m_access_mode(access_mode)
+name_(name),
+size_(0),
+access_mode_(access_mode)
 {}
 
 Stream::~Stream()

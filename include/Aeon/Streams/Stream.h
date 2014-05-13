@@ -82,7 +82,7 @@ public:
 	 *
 	 * \return The name of the stream as given to the constructor.
 	 */
-	const std::string &				get_name() { return m_name; }
+	const std::string &				get_name() { return name_; }
 
 	/*!
 	 * Get the access mode for this stream.
@@ -90,7 +90,7 @@ public:
 	 * \return The access mode
 	 * \sa AccessMode
 	 */
-	virtual int						get_access_mode() { return m_access_mode; }
+	virtual int						get_access_mode() { return access_mode_; }
 
 	/*!
 	 * Determine of the stream is readable (true if AccessMode::READ is set)
@@ -98,7 +98,7 @@ public:
 	 * \return True if the stream is readable.
 	 * \sa get_access_mode()
 	 */
-	virtual bool					is_readable() const { return (m_access_mode & AccessMode::READ) != 0; }
+	virtual bool					is_readable() const { return (access_mode_ & AccessMode::READ) != 0; }
 
 	/*!
 	 * Determine of the stream is writable (true if AccessMode::WRITE is set)
@@ -106,7 +106,7 @@ public:
 	 * \return True if the stream is writable.
 	 * \sa get_access_mode()
 	 */
-	virtual bool					is_writeable() const { return (m_access_mode & AccessMode::WRITE) != 0; }
+	virtual bool					is_writeable() const { return (access_mode_ & AccessMode::WRITE) != 0; }
 
 	/*!
 	 * Read raw data from the stream.
@@ -215,7 +215,7 @@ public:
 	 *
 	 * \return The size of the stream, if applicable. Returns 0 on error.
 	 */
-	size_t							size() const { return m_size; }
+	size_t							size() const { return size_; }
 
 	/*!
 	 * Close the stream.
@@ -252,9 +252,9 @@ public:
 	virtual BufferPtr				get_as_buffer();
 
 protected:
-	std::string						m_name;
-	size_t							m_size;
-	int								m_access_mode;
+	std::string						name_;
+	size_t							size_;
+	int								access_mode_;
 };
 
 typedef std::shared_ptr<Stream> StreamPtr;

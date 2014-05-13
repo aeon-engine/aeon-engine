@@ -20,7 +20,7 @@ public:
 
 private:
 	typedef std::map<const std::string, ImageCodecPtr> ImageCodecs;
-	ImageCodecs			m_registered_codecs;
+	ImageCodecs			registered_codecs_;
 };
 
 } //namespace Aeon

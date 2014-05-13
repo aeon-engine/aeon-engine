@@ -7,24 +7,27 @@ namespace Aeon
 namespace Console
 {
 
-static LogLevel				m_loglevel = AEON_DEFAULT_CONSOLE_LOG_LEVEL;
-static ConsoleListeners		m_console_listeners;
-static char 				m_console_output_buffer[AEON_CONSOLE_BUFFER_SIZE];
-static Aeon::Timer			m_diff_timer;
+static LogLevel				loglevel_ = AEON_DEFAULT_CONSOLE_LOG_LEVEL;
+static ConsoleListeners		console_listeners_;
+static char 				console_output_buffer_[AEON_CONSOLE_BUFFER_SIZE];
+static Aeon::Timer			diff_timer_;
+static std::mutex			console_mutex_;
 
 static void log(LogLevel level, const char *format, va_list args)
 {
+	std::lock_guard<std::mutex> lock(console_mutex_);
+
 	//Only log messages from our current log level and higher importance
-	if (level > m_loglevel)
+	if (level > loglevel_)
 		return;
 
 	//Format the message
-	vsnprintf(m_console_output_buffer, AEON_CONSOLE_BUFFER_SIZE, format, args);
+	vsnprintf(console_output_buffer_, AEON_CONSOLE_BUFFER_SIZE, format, args);
 
 	//Notify all console listeners
-	for (auto itr : m_console_listeners)
+	for (auto itr : console_listeners_)
 	{
-		itr->on_log_message(m_diff_timer.get_time_difference(), level, m_console_output_buffer);
+		itr->on_log_message(diff_timer_.get_time_difference(), level, console_output_buffer_);
 	}
 }
 
@@ -72,27 +75,34 @@ void debug(const char *format, ...)
 
 void set_loglevel(LogLevel level)
 {
-	m_loglevel = level;
+	std::lock_guard<std::mutex> lock(console_mutex_);
+	loglevel_ = level;
 }
 
 LogLevel get_loglevel()
 {
-	return m_loglevel;
+	std::lock_guard<std::mutex> lock(console_mutex_);
+	LogLevel level = loglevel_;
+
+	return level;
 }
 
 void add_console_listener(ConsoleListenerPtr listener)
 {
-	m_console_listeners.insert(listener);
+	std::lock_guard<std::mutex> lock(console_mutex_);
+	console_listeners_.insert(listener);
 }
 
 void remove_console_listener(ConsoleListenerPtr listener)
 {
-	m_console_listeners.erase(listener);
+	std::lock_guard<std::mutex> lock(console_mutex_);
+	console_listeners_.erase(listener);
 }
 
 void remove_all_console_listeners()
 {
-	m_console_listeners.clear();
+	std::lock_guard<std::mutex> lock(console_mutex_);
+	console_listeners_.clear();
 }
 
 } //namespace Console

@@ -21,7 +21,7 @@ protected:
 	virtual void			on_cleanup() = 0;
 
 private:
-	GameStatePtr			m_current_gamestate;
+	GameStatePtr			current_gamestate_;
 };
 
 typedef std::shared_ptr<Game> GamePtr;

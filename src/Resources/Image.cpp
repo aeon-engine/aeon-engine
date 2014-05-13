@@ -7,9 +7,9 @@ namespace Aeon
 
 Image::Image()
 :
-m_width(0),
-m_height(0),
-m_pixel_format(PixelFormat::RGBA)
+width_(0),
+height_(0),
+pixel_format_(PixelFormat::RGBA)
 {
 
 }
@@ -27,10 +27,10 @@ void Image::set_data(BufferPtr buffer, unsigned int width, unsigned int height, 
 		return;
 	}
 
-	m_buffer = buffer;
-	m_width = width;
-	m_height = height;
-	m_pixel_format = pixelformat;
+	buffer_ = buffer;
+	width_ = width;
+	height_ = height;
+	pixel_format_ = pixelformat;
 }
 
 bool Image::save_raw_to_stream(StreamPtr stream)
@@ -41,13 +41,13 @@ bool Image::save_raw_to_stream(StreamPtr stream)
 	if(!stream->good())
 		return false;
 
-	if(!m_buffer)
+	if(!buffer_)
 		return false;
 
-	if(m_buffer->get() == NULL)
+	if(buffer_->get() == NULL)
 		return false;
 
-	if(stream->write(m_buffer->get(), m_buffer->size()) != m_buffer->size())
+	if(stream->write(buffer_->get(), buffer_->size()) != buffer_->size())
 		return false;
 
 	return true;

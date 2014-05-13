@@ -1,7 +1,7 @@
 #ifndef AeonSingleton_h__
 #define AeonSingleton_h__
 
-#define AeonInitializeSingleton(type)					template <> type * Aeon::Singleton <type>::mSingleton = NULL
+#define AeonInitializeSingleton(type)					template <> type * Aeon::Singleton <type>::instance_ = NULL
 
 namespace Aeon
 {
@@ -12,10 +12,10 @@ class Singleton
 public:
 	Singleton()
 	{
-		assert(mSingleton == NULL);
-		mSingleton = static_cast<type *>(this);
+		assert(instance_ == NULL);
+		instance_ = static_cast<type *>(this);
 
-		if (mSingleton == NULL)
+		if (instance_ == NULL)
 		{
 			throw std::exception();
 		}
@@ -23,7 +23,7 @@ public:
 
 	virtual ~Singleton()
 	{
-		mSingleton = NULL;
+		instance_ = NULL;
 	}
 
 	static type *create()
@@ -33,29 +33,29 @@ public:
 
 	static void dispose()
 	{
-		if (mSingleton != NULL)
-			delete (type *)mSingleton;
+		if (instance_ != NULL)
+			delete (type *)instance_;
 	}
 
 	static type & getSingleton()
 	{
-		assert(mSingleton);
+		assert(instance_);
 
-		if (mSingleton == NULL)
+		if (instance_ == NULL)
 		{
 			throw std::exception();
 		}
 
-		return *mSingleton;
+		return *instance_;
 	}
 
 	static type * getSingletonPtr()
 	{
-		return mSingleton;
+		return instance_;
 	}
 
 protected:
-	static type * mSingleton;
+	static type * instance_;
 
 };
 

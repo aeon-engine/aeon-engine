@@ -21,19 +21,19 @@ public:
 
 	void					set_data(BufferPtr buffer, unsigned int width, unsigned int height, PixelFormat pixelformat = PixelFormat::RGBA);
 
-	BufferPtr				get_data()			{ return m_buffer; }
-	unsigned int			get_width()			{ return m_width; }
-	unsigned int			get_height()		{ return m_height; }
-	PixelFormat				get_pixelformat()	{ return m_pixel_format; }
+	BufferPtr				get_data()			{ return buffer_; }
+	unsigned int			get_width()			{ return width_; }
+	unsigned int			get_height()		{ return height_; }
+	PixelFormat				get_pixelformat()	{ return pixel_format_; }
 
 	bool					save_raw_to_stream(StreamPtr stream);
 
 private:
-	BufferPtr				m_buffer;
+	BufferPtr				buffer_;
 
-	unsigned int			m_width;
-	unsigned int			m_height;
-	PixelFormat				m_pixel_format;
+	unsigned int			width_;
+	unsigned int			height_;
+	PixelFormat				pixel_format_;
 };
 
 typedef std::shared_ptr<Image> ImagePtr;

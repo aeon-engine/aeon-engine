@@ -21,7 +21,7 @@ Stream(name, access_mode)
 
 size_t IOStream::read(void *buffer, size_t count)
 {
-	if (!(m_access_mode & AccessMode::READ))
+	if (!(access_mode_ & AccessMode::READ))
 	{
 		Console::error("IOStream: Read on write-only stream.");
 		return 0;
@@ -44,7 +44,7 @@ size_t IOStream::read(void *buffer, size_t count)
 
 size_t IOStream::write(const void *buffer, size_t count)
 {
-	if (m_access_mode != AccessMode::WRITE)
+	if (access_mode_ != AccessMode::WRITE)
 	{
 		Console::error("IOStream: Write on read-only stream.");
 		return 0;
@@ -67,7 +67,7 @@ size_t IOStream::write(const void *buffer, size_t count)
 
 size_t IOStream::read_line(std::string &str)
 {
-	if (m_access_mode != AccessMode::READ)
+	if (access_mode_ != AccessMode::READ)
 	{
 		Console::error("IOStream: Read on write-only stream.");
 		return 0;

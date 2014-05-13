@@ -24,9 +24,9 @@ public:
 	virtual ~Resource();
 
 protected:
-	ResourceManager *		m_creator;
-	std::string				m_name;
-	Handle					m_handle;
+	ResourceManager *		creator_;
+	std::string				name_;
+	Handle					handle_;
 
 };
 

@@ -23,15 +23,15 @@ void ImageCodecManager::register_codec(ImageCodecPtr codec)
 		return;
 	
 	const std::string &name = codec->get_type_name();
-	m_registered_codecs[name] = codec;
+	registered_codecs_[name] = codec;
 }
 
 ImagePtr ImageCodecManager::decode(const std::string &name, StreamPtr stream)
 {
-	auto codec = m_registered_codecs.find(name);
+	auto codec = registered_codecs_.find(name);
 
 	//Could not find the codec?
-	if(codec == m_registered_codecs.end())
+	if(codec == registered_codecs_.end())
 	{
 		Console::error("ImageCodecManager: Could not decode stream. Unknown decoder: '%s'", name.c_str());
 		return AeonEmptyImage;
