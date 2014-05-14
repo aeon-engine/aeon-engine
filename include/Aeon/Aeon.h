@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <string.h>
 
+#include <cstdint>
 #include <list>
 #include <string>
 #include <sstream>

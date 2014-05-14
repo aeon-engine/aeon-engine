@@ -73,7 +73,7 @@ bool Buffer::resize(size_t n)
 			//Did we fail again?!
 			if (new_buffer == NULL)
 			{
-				Console::fatal("Buffer: Failed to reallocate buffer from %u to %u in fallback mode. Aborting", reserved_size_, n);
+				Console::error("Buffer: Failed to reallocate buffer from %u to %u in fallback mode. Aborting", reserved_size_, n);
 				return false;
 			}
 
@@ -91,7 +91,7 @@ bool Buffer::resize(size_t n)
 			return true;
 		}
 
-		Console::fatal("Buffer: Could not allocate buffer for %u bytes.", n);
+		Console::error("Buffer: Could not allocate buffer for %u bytes.", n);
 		return false;
 	}
 

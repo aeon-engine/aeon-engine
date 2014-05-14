@@ -15,15 +15,16 @@ public:
 		DeleteOnDestruct
 	};
 
-	MemoryStream(DeleteMode delete_mode = DeleteMode::DeleteOnDestruct, int access_mode = AccessMode::READ_WRITE);
-	MemoryStream(BufferPtr buffer, int access_mode = AccessMode::READ_WRITE);
-	MemoryStream(void *buffer, size_t size, DeleteMode delete_mode = DeleteMode::DeleteOnDestruct, int access_mode = AccessMode::READ_WRITE);
+	MemoryStream(DeleteMode delete_mode = DeleteMode::DeleteOnDestruct, int access_mode = AccessMode::ReadWrite);
+	MemoryStream(BufferPtr buffer, int access_mode = AccessMode::ReadWrite);
+	MemoryStream(void *buffer, size_t size, DeleteMode delete_mode = DeleteMode::DeleteOnDestruct, int access_mode = AccessMode::ReadWrite);
 	~MemoryStream();
 
 	virtual size_t					read(void *buffer, size_t count);
 	virtual size_t					write(const void *buffer, size_t count);
 
-	virtual size_t					read_line(std::string &str);
+	virtual bool					read(std::uint8_t &data);
+	virtual bool					peek(std::uint8_t &data);
 
 	virtual bool					seek(size_t pos, SeekDirection direction);
 	virtual size_t					tell() const;

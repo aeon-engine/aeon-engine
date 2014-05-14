@@ -9,13 +9,14 @@ namespace Aeon
 class FileStream : public Stream
 {
 public:
-	FileStream(const std::string &path, int access_mode = AccessMode::READ);
+	FileStream(const std::string &path, int access_mode = AccessMode::Read);
 	virtual ~FileStream();
 
 	virtual size_t		read(void *buffer, size_t count);
 	virtual size_t		write(const void *buffer, size_t count);
 
-	virtual size_t		read_line(std::string &str);
+	virtual bool		read(std::uint8_t &data);
+	virtual bool		peek(std::uint8_t &data);
 
 	virtual bool		seek(size_t pos, SeekDirection direction);
 	virtual size_t		tell() const;

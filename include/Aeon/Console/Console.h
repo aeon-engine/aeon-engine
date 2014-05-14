@@ -14,14 +14,12 @@ typedef std::set<ConsoleListenerPtr> ConsoleListeners;
 
 enum class LogLevel : int
 {
-	Fatal		= 1,
-	Error		= 2,
-	Warning		= 3,
-	Info		= 4,
+	Error		= 1,
+	Warning		= 2,
+	Info		= 3,
 	Debug		= 99
 };
 
-void					fatal(const char *format, ...);
 void					error(const char *format, ...);
 void					warning(const char *format, ...);
 void					info(const char *format, ...);

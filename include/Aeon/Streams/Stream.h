@@ -26,9 +26,9 @@ public:
 	public:
 		enum
 		{
-			READ			= 1,	/**< enum Read-Only */
-			WRITE			= 2,	/**< enum Write-Only */
-			READ_WRITE		= 3		/**< enum Read-Write (Full access) */
+			Read			= 1,	/**< enum Read-Only */
+			Write			= 2,	/**< enum Write-Only */
+			ReadWrite		= 3		/**< enum Read-Write (Full access) */
 		};
 	};
 
@@ -54,10 +54,10 @@ public:
 	 * \param access_mode The access mode for the stream.
 	 * \sa AccessMode
  	 */
-	Stream(int access_mode = AccessMode::READ);
+	Stream(int access_mode = AccessMode::Read);
 
 	/*!
-	 * \brief Prefered constructor for Stream
+	 * \brief Preferred constructor for Stream
 	 *
 	 * This constructor will create a named stream.
 	 *
@@ -67,7 +67,7 @@ public:
 	 * \param access_mode The access mode for the stream.
 	 * \sa AccessMode
 	 */
-	Stream(const std::string &name, int access_mode = AccessMode::READ);
+	Stream(const std::string &name, int access_mode = AccessMode::Read);
 
 	/*!
 	 * Destructor.
@@ -93,25 +93,25 @@ public:
 	virtual int						get_access_mode() { return access_mode_; }
 
 	/*!
-	 * Determine of the stream is readable (true if AccessMode::READ is set)
+	 * Determine of the stream is readable (true if AccessMode::Read is set)
 	 *
 	 * \return True if the stream is readable.
 	 * \sa get_access_mode()
 	 */
-	virtual bool					is_readable() const { return (access_mode_ & AccessMode::READ) != 0; }
+	virtual bool					is_readable() const { return (access_mode_ & AccessMode::Read) != 0; }
 
 	/*!
-	 * Determine of the stream is writable (true if AccessMode::WRITE is set)
+	 * Determine of the stream is writable (true if AccessMode::Write is set)
 	 *
 	 * \return True if the stream is writable.
 	 * \sa get_access_mode()
 	 */
-	virtual bool					is_writeable() const { return (access_mode_ & AccessMode::WRITE) != 0; }
+	virtual bool					is_writeable() const { return (access_mode_ & AccessMode::Read) != 0; }
 
 	/*!
 	 * Read raw data from the stream.
 	 *
-	 * To be able to read from the stream, AccessMode::READ must have been set. This can also be checked with
+	 * To be able to read from the stream, AccessMode::Read must have been set. This can also be checked with
 	 * is_readable(). This function will return 0 if reading is not possible or permitted.
 	 *
 	 * \param buffer The buffer to read to. This buffer must be large enough to hold the requested data.
@@ -122,12 +122,36 @@ public:
 	virtual size_t					read(void *buffer, size_t count) = 0;
 
 	/*!
+	* Read 1 byte of raw data from the stream and increases the read offset forward by 1 byte.
+	*
+	* To be able to read from the stream, AccessMode::Read must have been set. This can also be checked with
+	* is_readable(). This function will return 0 if reading is not possible or permitted.
+	*
+	* \param data[in] A byte of data read from the current read pointer position. On error, it's value is undefined.
+	* \return Returns false on error, otherwise true.
+	* \sa is_readable()
+	*/
+	virtual bool		 			read(std::uint8_t &data) = 0;
+
+	/*!
+	* Read 1 byte of raw data from the stream. Does not increase the read offset.
+	*
+	* To be able to read from the stream, AccessMode::Read must have been set. This can also be checked with
+	* is_readable(). This function will return 0 if reading is not possible or permitted.
+	*
+	* \param data[in] A byte of data read from the current read pointer position. On error, it's value is undefined.
+	* \return Returns false on error, otherwise true.
+	* \sa is_readable()
+	*/
+	virtual bool		 			peek(std::uint8_t &data) = 0;
+
+	/*!
 	 * Write raw data into the stream.
 	 *
-	 * To be able to write to the stream, AccessMode::WRITE must have been set. This can also be checked with
+	 * To be able to write to the stream, AccessMode::Write must have been set. This can also be checked with
 	 * is_writable(). This function will return 0 if writing is not possible or permitted.
 	 *
-	 * \param buffer The buffer to write into the stream. This buffer must be atleast count in size.
+	 * \param buffer The buffer to write into the stream. This buffer must be at least count in size.
 	 * \param count The amount of data to write into the stream (read from buffer)
 	 * \return The actual amount of bytes that were written. May be equal or less than count. Returns 0 on error.
 	 * \sa is_writeable()
@@ -137,7 +161,7 @@ public:
 	/*!
 	 * Write raw data into the stream using a BufferPtr.
 	 *
-	 * To be able to write to the stream, AccessMode::WRITE must have been set. This can also be checked with
+	 * To be able to write to the stream, AccessMode::Write must have been set. This can also be checked with
 	 * is_writable(). This function will return 0 if writing is not possible or permitted.
 	 *
 	 * \param buffer The buffer object to write into the stream. The whole contents of this BufferPtr will be written.
@@ -150,26 +174,24 @@ public:
 	/*!
 	 * Read a line of text from the stream.
 	 *
-	 * This will read ascii characters until '\\n' is found with a maximum of AEON_STREAMS_MAX_TEXT_LINE_LENGTH
-	 * characters.
+	 * This will read ascii characters until a newline is found with a maximum of AEON_STREAMS_MAX_TEXT_LINE_LENGTH
+	 * characters. Line-ending types are automatically detected: windows, Linux and OSX are supported.
 	 *
-	 * Currently, other line ending types (for example Window's \\r\\n) are not supported.
-	 *
-	 * To be able to read from the stream, AccessMode::READ must have been set. This can also be checked with
+	 * To be able to read from the stream, AccessMode::Read must have been set. This can also be checked with
 	 * is_readable(). This function will return 0 if reading is not possible or permitted.
 	 *
 	 * \param str The string to read the characters to.
 	 * \return The amount of characters that were read. If 0 is returned, the content of str is undefined.
 	 * \sa is_readable()
 	 */
-	virtual size_t					read_line(std::string &str) = 0;
+	virtual size_t					read_line(std::string &str);
 
 	/*!
 	 * Write a string into the stream.
 	 *
 	 * The std::string will be written directly into the stream without modifications.
 	 *
-	 * To be able to write to the stream, AccessMode::WRITE must have been set. This can also be checked with
+	 * To be able to write to the stream, AccessMode::Write must have been set. This can also be checked with
 	 * is_writable(). This function will return 0 if writing is not possible or permitted.
 	 *
 	 * \param str The string to be written into the stream.

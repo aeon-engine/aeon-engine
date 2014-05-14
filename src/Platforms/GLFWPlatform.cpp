@@ -53,14 +53,20 @@ void GLFW::stop()
 
 bool GLFW::__initialize()
 {
-	Root::create();
+	Root *root = Root::getSingletonPtr();
+
+	if(root == nullptr)
+	{
+		Console::error("Root was not created.");
+		return false;
+	}
 
 	Console::info("Initializing GLFW platform");
 
 	//Initialize GLFW
 	if(!glfwInit())
 	{
-		Console::fatal("Could not initialize GLFW");
+		Console::error("Could not initialize GLFW");
 		return false;
 	}
 
@@ -69,7 +75,7 @@ bool GLFW::__initialize()
 
 	if (window_ == NULL)
 	{
-		Console::fatal("Could not create GLFW window");
+		Console::error("Could not create GLFW window");
 		glfwTerminate();
 		return false;
 	}

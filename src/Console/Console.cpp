@@ -31,14 +31,6 @@ static void log(LogLevel level, const char *format, va_list args)
 	}
 }
 
-void fatal(const char *format, ...)
-{
-	va_list args;
-	va_start(args, format);
-	log(LogLevel::Fatal, format, args);
-	va_end(args);
-}
-
 void error(const char *format, ...)
 {
 	va_list args;

@@ -28,25 +28,21 @@ void ConsoleStreamListener::on_log_message(double time_diff, Console::LogLevel l
 
 	switch(level)
 	{
-		case Console::LogLevel::Fatal:
-		{
-			stream_->write("[FATAL]  ");
-		}break;
 		case Console::LogLevel::Error:
 		{
-			stream_->write("[ERROR]  ");
+			stream_->write("[ERR] ");
 		}break;
 		case Console::LogLevel::Warning:
 		{
-			stream_->write("[WARNING]");
+			stream_->write("[WRN] ");
 		}break;
 		case Console::LogLevel::Info: //Info displays nothing.
 		{
-			stream_->write("[INFO]   ");
+			stream_->write("[INF] ");
 		}break;
 		case Console::LogLevel::Debug:
 		{
-			stream_->write("[DEBUG]  ");
+			stream_->write("[DBG] ");
 		}break;
 	}
 

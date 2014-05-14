@@ -5,14 +5,14 @@
 namespace Aeon
 {
 
-FileStream::FileStream(const std::string &path, int access_mode /*= AccessMode::READ*/)
+FileStream::FileStream(const std::string &path, int access_mode /*= AccessMode::Read*/)
 :
 Stream(access_mode),
 file_(NULL)
 {
 	name_ = path;
 
-	if(access_mode == (AccessMode::READ | AccessMode::WRITE))
+	if(access_mode == (AccessMode::Read | AccessMode::Write))
 	{
 		Console::error("FileStream: Invalid access mode: Read+Write on file %s.", name_.c_str());
 		return;
@@ -27,7 +27,7 @@ FileStream::~FileStream()
 
 void FileStream::__open_file()
 {
-	if (access_mode_ == AccessMode::READ)
+	if (access_mode_ == AccessMode::Read)
 		file_ = fopen(name_.c_str(), "rb");
 	else
 		file_ = fopen(name_.c_str(), "wb");
@@ -38,7 +38,7 @@ void FileStream::__open_file()
 		return;
 	}
 
-	if(access_mode_ == AccessMode::READ)
+	if(access_mode_ == AccessMode::Read)
 		__calculate_file_size();
 }
 
@@ -70,7 +70,7 @@ size_t FileStream::read(void *buffer, size_t count)
 		return 0;
 	}
 
-	if(access_mode_ != AccessMode::READ)
+	if(access_mode_ != AccessMode::Read)
 	{
 		Console::error("FileStream: Can not read from file in write mode for file %s.", name_.c_str());
 		return 0;
@@ -91,39 +91,42 @@ size_t FileStream::read(void *buffer, size_t count)
 	return fread(buffer, 1, count, file_);
 }
 
-size_t FileStream::read_line(std::string &str)
+bool FileStream::read(std::uint8_t &data)
 {
-	if (!file_)
-	{
-		Console::error("FileStream: Read on unopened file.");
-		return 0;
-	}
-
-	if (access_mode_ != AccessMode::READ)
+	if (access_mode_ != AccessMode::Read)
 	{
 		Console::error("FileStream: Can not read from file in write mode for file %s.", name_.c_str());
-		return 0;
+		return false;
 	}
 
-	//AEON_FILE_LINE_BUFFER_SIZE
-	std::string line;
+	int c = fgetc(file_);
 
-	for (int i = 0; i < AEON_STREAM_MAX_TEXT_LINE_LENGTH; ++i)
+	if(c == EOF)
+		return false;
+
+	data = (std::uint8_t) c;
+	return true;
+}
+
+bool FileStream::peek(std::uint8_t &data)
+{
+	if (access_mode_ != AccessMode::Read)
 	{
-		int c = fgetc(file_);
-
-		if(c == EOF)
-			break;
-
-		if(c == '\n')
-			break;
-
-		line += (char) c;
+		Console::error("FileStream: Can not peek from file in write mode for file %s.", name_.c_str());
+		return false;
 	}
 
-	str = line;
+	int c = fgetc(file_);
 
-	return line.length();
+	if (c == EOF)
+		return false;
+
+	//TODO: research if there is a good alternative for this.
+	if(ungetc(c, file_) == EOF)
+		return false;
+
+	data = (std::uint8_t) c;
+	return true;
 }
 
 size_t FileStream::write(const void *buffer, size_t count)
@@ -134,7 +137,7 @@ size_t FileStream::write(const void *buffer, size_t count)
 		return 0;
 	}
 
-	if (access_mode_ != AccessMode::WRITE)
+	if (access_mode_ != AccessMode::Write)
 	{
 		Console::error("FileStream: Can not write to file in read mode for file %s.", name_.c_str());
 		return 0;
