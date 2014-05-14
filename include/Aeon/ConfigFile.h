@@ -52,21 +52,21 @@ public:
 
 	/*!
 	* Set a string value in the loaded config file.
-	* \param key The entry key
+	* \param key The entry key. Must be in the format "header.keyname".
 	* \param val The value
 	*/
 	void						set_string(const std::string &key, const std::string &val);
 
 	/*!
 	* Set an integer value in the loaded config file.
-	* \param key The entry key
+	* \param key The entry key. Must be in the format "header.keyname".
 	* \param val The value
 	*/
 	void						set_integer(const std::string &key, int val);
 
 	/*!
 	* Set a boolean value in the loaded config file.
-	* \param key The entry key
+	* \param key The entry key. Must be in the format "header.keyname".
 	* \param val The value
 	*/
 	void						set_boolean(const std::string &key, bool val);
@@ -76,13 +76,13 @@ public:
 	 * \param stream The stream to load the config from
 	 * \returns True on success, false on error.
 	 */
-	bool						load(Stream &stream);
+	bool						load(StreamPtr stream);
 
 	/*!
 	* Save a config to a stream
 	* \param stream The stream to save the config to
 	*/
-	void						save(Stream &stream);
+	void						save(StreamPtr stream);
 
 private:
 	typedef std::map<std::string, std::string> Entries;

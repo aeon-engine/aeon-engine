@@ -72,74 +72,105 @@ void ConfigFile::set_boolean(const std::string &key, bool val)
 	set_string(key, val ? "1" : "0");
 }
 
-bool ConfigFile::load(Stream &stream)
+bool ConfigFile::load(StreamPtr stream)
 {
-	if (!stream.good())
+	if (!stream->good())
 	{
-		Console::warning("Could not load config file: %s", stream.get_name().c_str());
+		Console::warning("Could not load config file: %s", stream->get_name().c_str());
 		return false;
 	}
 	
-	Console::debug("Reading config file: %s", stream.get_name().c_str());
+	Console::debug("Reading config file: %s", stream->get_name().c_str());
 
 	entries_.clear();
 
 	//Loop through all lines
 	int linenumber = 0;
-	while (!stream.eof())
+	std::string header_name = "";
+	while (!stream->eof())
 	{
 		linenumber++;
 
 		std::string line;
-		if (stream.read_line(line) == 0)
+		if (stream->read_line(line) == 0)
 			continue;
 
 		if (line.empty())
 			continue;
 
-		//Ignore comments and empty lines (these should only have a \n)
-		if (line[0] == '#' || line[0] == '\n')
+		size_t length = line.size();
+
+		//Ignore comments
+		if (line[0] == '#')
 			continue;
+
+		//Is it a header?
+		if(line[0] == '[')
+		{
+			//then it should end with a ']'
+			if (line[length - 1] == ']')
+			{
+				header_name = line.substr(1, length - 2);
+				continue;
+			}
+		}
+
+		//A header name should have been set beyond this point.
+		if(header_name == "")
+		{
+			Console::warning("Ignoring invalid line in config file %s line %u. No header was found.", stream->get_name().c_str(), linenumber);
+			continue;
+		}
 
 		size_t pos = line.find_first_of('=');
 
 		if (pos == std::string::npos || pos == 0)
 		{
-			Console::warning("Ignoring invalid line in config file %s line %u.", stream.get_name().c_str(), linenumber);
+			Console::warning("Ignoring invalid line in config file %s line %u.", stream->get_name().c_str(), linenumber);
 			continue;
 		}
 
-		std::string key = line.substr(0, pos);
+		std::string key = header_name + "." + line.substr(0, pos);
 		std::string val = line.substr(pos + 1);
 
 		entries_[key] = val;
 	}
 
-	Console::debug("Finished reading config file: %s", stream.get_name().c_str());
+	Console::debug("Finished reading config file: %s", stream->get_name().c_str());
 
-	stream.close();
+	stream->close();
 
 	return true;
 }
 
-void ConfigFile::save(Stream &stream)
+void ConfigFile::save(StreamPtr stream)
 {
-	if (!stream.good())
+	if (!stream->good())
 	{
-		Console::error("Could not save config file: %s", stream.get_name().c_str());
+		Console::error("Could not save config file: %s", stream->get_name().c_str());
 		return;
 	}
 
 	//Loop through all entries to save to file
+	std::string header_name = "";
 	for (auto itr : entries_)
 	{
-		std::string line = itr.first + "=" + itr.second + "\n";
-		stream.write(line);
+		StringUtils::Strings key = StringUtils::split(itr.first, '.', StringUtils::SplitMode::SkipEmpty);
+
+		//do we have a new header name?
+		if(key[0] != header_name)
+		{
+			header_name = key[0];
+			stream->write("[" + header_name + "]\n");
+		}
+
+		std::string line = key[1] + "=" + itr.second + "\n";
+		stream->write(line);
 	}
 
-	Console::debug("Finished saving config file: %s", stream.get_name().c_str());
+	Console::debug("Finished saving config file: %s", stream->get_name().c_str());
 
-	stream.close();
+	stream->close();
 }
 
 } //namespace Aeon
