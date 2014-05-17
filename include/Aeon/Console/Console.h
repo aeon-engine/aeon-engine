@@ -35,4 +35,4 @@ void					remove_all_console_listeners();
 } //namespace Console
 } //namespace Aeon
 
-#endif // AeonConsole_h__
+#endif /* AeonConsole_h__ */

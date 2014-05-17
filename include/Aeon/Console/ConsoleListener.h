@@ -20,4 +20,4 @@ typedef std::shared_ptr<ConsoleListener> ConsoleListenerPtr;
 
 } //namespace Aeon
 
-#endif // AeonConsoleListener_h__
+#endif /* AeonConsoleListener_h__ */

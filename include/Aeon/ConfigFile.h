@@ -92,4 +92,4 @@ private:
 
 } //namespace Aeon
 
-#endif // AeonConfigFile_h__
+#endif /* AeonConfigFile_h__ */

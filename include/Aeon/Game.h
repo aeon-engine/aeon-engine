@@ -28,4 +28,4 @@ typedef std::shared_ptr<Game> GamePtr;
 
 } //namespace Aeon
 
-#endif // AeonGame_h__
+#endif /* AeonGame_h__ */

@@ -51,4 +51,4 @@ typedef std::shared_ptr<MemoryStream> MemoryStreamPtr;
 
 } //namespace Aeon
 
-#endif // AeonMemoryStream_h__
+#endif /* AeonMemoryStream_h__ */

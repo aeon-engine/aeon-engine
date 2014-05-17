@@ -41,4 +41,4 @@ Strings split(const std::string &s, char delim, SplitMode mode = SplitMode::Skip
 } //namespace StringUtils
 } //namespace Aeon
 
-#endif // AeonStringUtils_h__
+#endif /* AeonStringUtils_h__ */

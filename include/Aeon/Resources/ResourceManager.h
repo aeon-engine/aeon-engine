@@ -24,4 +24,4 @@ protected:
 
 } //namespace Aeon
 
-#endif // AeonResourceManager_h__
+#endif /* AeonResourceManager_h__ */

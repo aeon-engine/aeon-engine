@@ -22,4 +22,4 @@ typedef std::shared_ptr<ImageCodec> ImageCodecPtr;
 
 } //namespace Aeon
 
-#endif // AeonImageCodec_h__
+#endif /* AeonImageCodec_h__ */

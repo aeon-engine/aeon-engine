@@ -11,4 +11,7 @@
 #define AEON_USE_PNG
 #define AEON_USE_GLFW_PLATFORM
 
-#endif // AeonBuildConfig_h__
+#define AEON_DEFAULT_SCREEN_WIDTH			1280
+#define AEON_DEFAULT_SCREEN_HEIGHT			720
+
+#endif /* AeonBuildConfig_h__ */

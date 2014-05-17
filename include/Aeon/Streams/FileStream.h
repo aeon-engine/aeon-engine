@@ -40,4 +40,4 @@ typedef std::shared_ptr<FileStream> FileStreamPtr;
 
 } //namespace Aeon
 
-#endif // AeonFileStream_h__
+#endif /* AeonFileStream_h__ */

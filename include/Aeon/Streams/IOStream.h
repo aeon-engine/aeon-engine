@@ -32,4 +32,4 @@ public:
 
 } //namespace Aeon
 
-#endif // AeonIOStream_h__
+#endif /* AeonIOStream_h__ */

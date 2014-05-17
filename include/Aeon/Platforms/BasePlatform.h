@@ -21,4 +21,4 @@ public:
 } /* namespace Platforms */
 } /* namespace Aeon */
 
-#endif // BasePlatform_h__
+#endif /* BasePlatform_h__ */

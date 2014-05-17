@@ -16,4 +16,4 @@ public:
 
 } //namespace Aeon
 
-#endif // AeonTexture_h__
+#endif /* AeonTexture_h__ */

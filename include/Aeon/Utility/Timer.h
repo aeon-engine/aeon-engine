@@ -23,5 +23,4 @@ private:
 
 } //namespace Aeon
 
-#endif //AeonTimer_h__ 
-
+#endif /* AeonTimer_h__ */

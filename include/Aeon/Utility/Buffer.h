@@ -106,4 +106,4 @@ typedef std::shared_ptr<Buffer> BufferPtr;
 
 } //namespace Aeon
 
-#endif // AeonBuffer_h__
+#endif /* AeonBuffer_h__ */

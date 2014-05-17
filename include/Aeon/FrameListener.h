@@ -16,5 +16,4 @@ public:
 
 } //namespace Aeon
 
-#endif
-
+#endif /* AeonFrameListener_h__ */

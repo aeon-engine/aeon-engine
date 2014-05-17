@@ -25,4 +25,4 @@ private:
 
 } //namespace Aeon
 
-#endif // AeonImageCodecManager_h__
+#endif /* AeonImageCodecManager_h__ */

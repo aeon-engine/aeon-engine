@@ -23,4 +23,4 @@ private:
 
 } //namespace Aeon
 
-#endif // AeonConsoleStreamListener_h__
+#endif /* AeonConsoleStreamListener_h__ */

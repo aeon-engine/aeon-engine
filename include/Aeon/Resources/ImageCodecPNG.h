@@ -18,4 +18,4 @@ public:
 
 } //namespace Aeon
 
-#endif // AeonImageCodecPNG_h__
+#endif /* AeonImageCodecPNG_h__ */

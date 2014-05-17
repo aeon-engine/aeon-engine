@@ -35,4 +35,4 @@ typedef std::shared_ptr<Resource> ResourcePtr;
 
 } //namespace Aeon
 
-#endif // AeonResource_h__
+#endif /* AeonResource_h__ */

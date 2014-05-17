@@ -33,5 +33,4 @@ protected:
 
 } //namespace Aeon
 
-#endif
-
+#endif /* AeonRoot_h__ */

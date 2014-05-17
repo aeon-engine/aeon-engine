@@ -41,4 +41,4 @@ typedef std::shared_ptr<Image> ImagePtr;
 
 } //namespace Aeon
 
-#endif // AeonImage_h__
+#endif /* AeonImage_h__ */

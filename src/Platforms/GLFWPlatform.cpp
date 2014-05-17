@@ -71,7 +71,7 @@ bool GLFW::__initialize()
 	}
 
 	//Create our window
-	window_ = glfwCreateWindow(1280, 780, "Aeon", NULL, NULL);
+	window_ = glfwCreateWindow(AEON_DEFAULT_SCREEN_WIDTH, AEON_DEFAULT_SCREEN_HEIGHT, "Aeon", NULL, NULL);
 
 	if (window_ == NULL)
 	{

@@ -61,4 +61,4 @@ protected:
 
 } //namespace Aeon
 
-#endif // AeonSingleton_h__
+#endif /* AeonSingleton_h__ */

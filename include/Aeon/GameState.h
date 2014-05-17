@@ -18,4 +18,4 @@ typedef std::shared_ptr<GameState> GameStatePtr;
 
 }
 
-#endif // AeonGameState_h__
+#endif /* AeonGameState_h__ */

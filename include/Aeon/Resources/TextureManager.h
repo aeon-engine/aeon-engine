@@ -24,4 +24,4 @@ protected:
 
 } //namespace Aeon
 
-#endif // AeonTextureManager_h__
+#endif /* AeonTextureManager_h__ */
