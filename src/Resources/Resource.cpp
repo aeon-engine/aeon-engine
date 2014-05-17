@@ -18,4 +18,4 @@ Resource::~Resource()
 
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

@@ -235,4 +235,4 @@ bool FileStream::good()
 	return file_ != NULL;
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

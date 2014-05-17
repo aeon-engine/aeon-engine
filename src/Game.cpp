@@ -27,4 +27,4 @@ void Game::set_gamestate(GameStatePtr gamestate)
 	current_gamestate_->on_enter();
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

@@ -15,4 +15,4 @@ ResourceManager::~ResourceManager()
 	Console::debug("ResourceManager disposed.");
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

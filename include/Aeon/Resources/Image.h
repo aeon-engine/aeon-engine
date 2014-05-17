@@ -39,6 +39,6 @@ private:
 typedef std::shared_ptr<Image> ImagePtr;
 #define AeonEmptyImage ImagePtr();
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonImage_h__ */

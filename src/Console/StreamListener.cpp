@@ -50,4 +50,4 @@ void ConsoleStreamListener::on_log_message(double time_diff, Console::LogLevel l
 	stream_->write("\n");
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

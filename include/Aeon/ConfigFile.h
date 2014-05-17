@@ -90,6 +90,6 @@ private:
 	Entries						entries_;
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonConfigFile_h__ */

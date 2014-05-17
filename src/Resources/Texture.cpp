@@ -16,4 +16,4 @@ Texture::~Texture()
 
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

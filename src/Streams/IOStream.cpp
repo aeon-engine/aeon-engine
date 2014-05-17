@@ -134,4 +134,4 @@ Aeon::BufferPtr IOStream::get_as_buffer()
 	return AeonEmptyBuffer;
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

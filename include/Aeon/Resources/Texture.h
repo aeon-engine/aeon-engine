@@ -14,6 +14,6 @@ public:
 
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonTexture_h__ */

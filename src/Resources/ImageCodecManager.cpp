@@ -40,4 +40,4 @@ ImagePtr ImageCodecManager::decode(const std::string &name, StreamPtr stream)
 	return codec->second->decode(stream);
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

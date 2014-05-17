@@ -22,6 +22,6 @@ protected:
 	Resource * __create_internal(const std::string &name, Resource::Handle handle);
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonTextureManager_h__ */

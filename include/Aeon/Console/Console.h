@@ -32,7 +32,7 @@ void					add_console_listener(ConsoleListenerPtr listener);
 void					remove_console_listener(ConsoleListenerPtr listener);
 void					remove_all_console_listeners();
 
-} //namespace Console
-} //namespace Aeon
+} /* namespace Console */
+} /* namespace Aeon */
 
 #endif /* AeonConsole_h__ */

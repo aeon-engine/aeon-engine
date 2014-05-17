@@ -21,6 +21,6 @@ private:
 	StreamPtr		stream_;
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonConsoleStreamListener_h__ */

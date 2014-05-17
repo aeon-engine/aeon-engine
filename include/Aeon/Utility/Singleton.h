@@ -59,6 +59,6 @@ protected:
 
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonSingleton_h__ */

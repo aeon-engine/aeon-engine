@@ -118,5 +118,5 @@ Strings split(const std::string &s, char delim, SplitMode mode /* = SplitMode::S
 	return elems;
 }
 
-} //namespace StringUtils
-} //namespace Aeon
+} /* namespace StringUtils */
+} /* namespace Aeon */

@@ -138,4 +138,4 @@ void Buffer::set_delete_mode(DeleteMode mode)
 	delete_mode_ = mode;
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

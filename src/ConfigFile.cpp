@@ -173,4 +173,4 @@ void ConfigFile::save(StreamPtr stream)
 	stream->close();
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

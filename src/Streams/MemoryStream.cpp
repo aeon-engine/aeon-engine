@@ -201,4 +201,4 @@ BufferPtr MemoryStream::get_as_buffer()
 	return buffer_;
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

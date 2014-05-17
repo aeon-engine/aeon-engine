@@ -49,6 +49,6 @@ protected:
 typedef std::shared_ptr<MemoryStream> MemoryStreamPtr;
 #define AeonEmptyMemoryStream MemoryStreamPtr;
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonMemoryStream_h__ */

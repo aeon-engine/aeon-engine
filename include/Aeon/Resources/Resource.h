@@ -33,6 +33,6 @@ protected:
 typedef std::shared_ptr<Resource> ResourcePtr;
 #define AeonEmptyResource ResourcePtr()
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonResource_h__ */

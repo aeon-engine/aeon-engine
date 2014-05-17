@@ -105,4 +105,4 @@ size_t Stream::read_line(std::string &str)
 	return line.length();
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

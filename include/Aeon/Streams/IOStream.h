@@ -30,6 +30,6 @@ public:
 	virtual BufferPtr				get_as_buffer();
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonIOStream_h__ */

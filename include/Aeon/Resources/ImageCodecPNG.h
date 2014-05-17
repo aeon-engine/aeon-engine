@@ -16,6 +16,6 @@ public:
 	virtual std::string get_type_name() const;	
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonImageCodecPNG_h__ */

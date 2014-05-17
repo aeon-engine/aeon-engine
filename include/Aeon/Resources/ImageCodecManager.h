@@ -23,6 +23,6 @@ private:
 	ImageCodecs			registered_codecs_;
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonImageCodecManager_h__ */

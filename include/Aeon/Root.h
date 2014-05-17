@@ -31,6 +31,6 @@ protected:
 	FrameListeners		frame_listeners_;
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonRoot_h__ */

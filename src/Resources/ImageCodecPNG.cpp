@@ -202,6 +202,6 @@ std::string ImageCodecPNG::get_type_name() const
 	return "PNG";
 }
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif //AEON_USE_PNG

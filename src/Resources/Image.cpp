@@ -53,4 +53,4 @@ bool Image::save_raw_to_stream(StreamPtr stream)
 	return true;
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

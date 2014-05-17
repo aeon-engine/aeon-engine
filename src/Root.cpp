@@ -77,4 +77,4 @@ void Root::__cleanup()
 	TextureManager::dispose();
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

@@ -28,4 +28,4 @@ Resource * TextureManager::__create_internal(const std::string &name, Resource::
 	return new Texture(this, name, handle);
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

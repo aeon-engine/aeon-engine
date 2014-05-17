@@ -14,6 +14,6 @@ public:
 	virtual bool on_render() = 0;
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonFrameListener_h__ */

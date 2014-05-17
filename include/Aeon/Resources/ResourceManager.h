@@ -22,6 +22,6 @@ protected:
 
 };
 
-} //namespace Aeon
+} /* namespace Aeon */
 
 #endif /* AeonResourceManager_h__ */
