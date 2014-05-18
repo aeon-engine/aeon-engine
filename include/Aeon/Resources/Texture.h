@@ -14,11 +14,10 @@ public:
 	Texture(ResourceManager *creator, const std::string &name);
 	virtual ~Texture();
 
-	void					unload();
-
 protected:
-	virtual bool			__load(StreamPtr stream);
-	virtual bool			__finalize();
+	virtual bool			__load_impl(StreamPtr stream);
+	virtual bool			__unload_impl();
+	virtual bool			__finalize_impl();
 
 	ImagePtr				image_;
 	GLuint					texture_;

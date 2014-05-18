@@ -14,48 +14,19 @@ namespace Platforms
 
 GLFW::GLFW()
 :
-window_(NULL),
-running_(false)
+window_(NULL)
 {
-	__initialize();
 }
 
 GLFW::~GLFW()
 {
-	__cleanup();
 }
 
-void GLFW::run()
-{
-	running_ = true;
-
-	Root *root = Root::getSingletonPtr();
-
-	//While the window isn't closed and we're still running.
-	while(!glfwWindowShouldClose(window_) || running_ == false)
-	{
-		root->render();
-
-		//Swap front and back buffers
-		glfwSwapBuffers(window_);
-
-		//Poll and process events
-		glfwPollEvents();
-	}
-
-	running_ = false;
-}
-
-void GLFW::stop()
-{
-	running_ = false;
-}
-
-bool GLFW::__initialize()
+bool GLFW::initialize()
 {
 	Root *root = Root::getSingletonPtr();
 
-	if(root == nullptr)
+	if (!root)
 	{
 		Console::error("Root was not created.");
 		return false;
@@ -64,7 +35,7 @@ bool GLFW::__initialize()
 	Console::info("Initializing GLFW platform");
 
 	//Initialize GLFW
-	if(!glfwInit())
+	if (!glfwInit())
 	{
 		Console::error("Could not initialize GLFW");
 		return false;
@@ -73,7 +44,7 @@ bool GLFW::__initialize()
 	//Create our window
 	window_ = glfwCreateWindow(AEON_DEFAULT_SCREEN_WIDTH, AEON_DEFAULT_SCREEN_HEIGHT, "Aeon", NULL, NULL);
 
-	if(window_ == NULL)
+	if (window_ == NULL)
 	{
 		Console::error("Could not create GLFW window");
 		glfwTerminate();
@@ -85,11 +56,44 @@ bool GLFW::__initialize()
 	return true;
 }
 
-void GLFW::__cleanup()
+bool GLFW::pre_frame()
+{
+	if (!window_)
+		return false;
+
+	if (glfwWindowShouldClose(window_))
+		return false;
+
+	//Poll and process events
+	//We do this pre-frame to reduce input latency by 1 frame
+	glfwPollEvents();
+
+	return true;
+}
+
+bool GLFW::post_frame()
+{
+	if (!window_)
+		return false;
+
+	if (glfwWindowShouldClose(window_))
+		return false;
+
+	//Swap front and back buffers
+	glfwSwapBuffers(window_);
+
+	return true;
+}
+
+bool GLFW::dispose()
 {
 	Console::info("Terminating GLFW");
+
+	glfwMakeContextCurrent(NULL);
 	glfwTerminate();
 	window_ = NULL;
+
+	return true;
 }
 
 } /* namespace Platforms */

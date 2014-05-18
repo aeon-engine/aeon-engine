@@ -17,15 +17,15 @@ public:
 	GLFW();
 	virtual ~GLFW();
 
-	void				run();
-	void				stop();
+protected:
+	virtual bool		initialize();
 
-private:
-	bool				__initialize();
-	void				__cleanup();
+	virtual bool		pre_frame();
+	virtual bool		post_frame();
+
+	virtual bool		dispose();
 	
 	GLFWwindow *		window_;
-	bool				running_;
 };
 
 } /* namespace Platforms */

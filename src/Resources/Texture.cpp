@@ -20,12 +20,7 @@ Texture::~Texture()
 
 }
 
-void Texture::unload()
-{
-	glDeleteTextures(1, &texture_);
-}
-
-bool Texture::__load(StreamPtr stream)
+bool Texture::__load_impl(StreamPtr stream)
 {
 	image_ = ImageCodecManager::getSingleton().decode("PNG", stream);
 
@@ -38,7 +33,12 @@ bool Texture::__load(StreamPtr stream)
 	return true;
 }
 
-bool Texture::__finalize()
+bool Texture::__unload_impl()
+{
+	glDeleteTextures(1, &texture_);
+}
+
+bool Texture::__finalize_impl()
 {
 	if (!image_ || !image_->get_data())
 	{

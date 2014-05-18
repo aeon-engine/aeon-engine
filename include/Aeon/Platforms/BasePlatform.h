@@ -5,17 +5,26 @@
 
 namespace Aeon
 {
+
+class Root;
+
 namespace Platforms
 {
 
 class BasePlatform
 {
+friend class Root;
 public:
 	BasePlatform() {}
 	virtual ~BasePlatform() {}
 
-	virtual void		run() = 0;
-	virtual void		stop() = 0;
+protected:
+	virtual bool		initialize() = 0;
+
+	virtual bool		pre_frame() = 0;
+	virtual bool		post_frame() = 0;
+
+	virtual bool		dispose() = 0;
 };
 
 } /* namespace Platforms */

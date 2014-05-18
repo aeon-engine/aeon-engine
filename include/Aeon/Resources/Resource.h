@@ -10,24 +10,32 @@ class Resource
 {
 friend class ResourceManager;
 public:
-	enum class LoadState
+	enum class State
 	{
-		Retrieving,				/**< enum Retrieving data from the stream. This would normally mean loading from disk. */
-		ReadyForFinalize,		/**< enum Ready for upload to the GPU. Uploading must be done on the render thread. */
-		Loaded,					/**< enum Loaded and ready for use. */
-		Unloading,				/**< enum Unloading and freeing resources. This resource can no longer be used. */
+		Empty				= 0, /**< enum Default state. */
+		Retrieving			= 0, /**< enum Retrieving data from the stream. This would normally mean loading from disk. */
+		ReadyForFinalize	= 1, /**< enum Ready for upload to the GPU. Uploading must be done on the render thread. */
+		Loaded				= 2, /**< enum Loaded and ready for use. */
+		Unloading			= 3, /**< enum Texture waiting for the resource manager to free the handle. This resource can no longer be used. */
+		Unloaded			= 4, /**< enum Unloading and freeing resources. This resource can no longer be used. */
 	};
 
 	Resource(ResourceManager *creator, const std::string &name);
 	virtual ~Resource();
 
 protected:
-	virtual bool			__load(StreamPtr stream) = 0;
-	virtual bool			__finalize() = 0;
+	bool					__load(StreamPtr stream);
+	virtual bool			__load_impl(StreamPtr stream) = 0;
+
+	bool					__unload();
+	virtual bool			__unload_impl() = 0;
+
+	bool					__finalize();
+	virtual bool			__finalize_impl() = 0;
 
 	ResourceManager *		creator_;
 	std::string				name_;
-
+	State					state_;
 };
 
 typedef std::shared_ptr<Resource> ResourcePtr;
