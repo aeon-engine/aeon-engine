@@ -13,7 +13,7 @@ std::string int_to_string(int val, int length /* = 0 */)
 {
 	std::stringstream stream;
 
-	if (length == 0)
+	if(length == 0)
 	{
 		stream << val;
 	}else{
@@ -27,7 +27,7 @@ std::string int64_to_string(long long val, int length /* = 0 */)
 {
 	std::stringstream stream;
 
-	if (length == 0)
+	if(length == 0)
 	{
 		stream << val;
 	}else{
@@ -41,7 +41,7 @@ std::string int_to_hex_string(int val, int length /* = 0 */)
 {
 	std::stringstream stream;
 
-	if (length == 0)
+	if(length == 0)
 	{
 		stream << val;
 	}else{
@@ -61,7 +61,7 @@ std::string float_to_string(float val, int precision /* = 0 */)
 	std::stringstream stream;
 	stream.setf(std::ios::fixed);
 
-	if (precision == 0)
+	if(precision == 0)
 	{
 	    stream << val;
 	}else{
@@ -99,10 +99,10 @@ Strings &split(const std::string &s, char delim, Strings &elems, SplitMode mode 
 	std::stringstream ss(s);
 	std::string item;
 
-	while (std::getline(ss, item, delim))
+	while(std::getline(ss, item, delim))
 	{
 		//Do we need to skip empty items?
-		if (mode == SplitMode::SkipEmpty && item == "")
+		if(mode == SplitMode::SkipEmpty && item == "")
 			continue;
 
 		elems.push_back(item);

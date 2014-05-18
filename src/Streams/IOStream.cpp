@@ -21,19 +21,19 @@ Stream(name, access_mode)
 
 size_t IOStream::read(void *buffer, size_t count)
 {
-	if (!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & AccessMode::Read))
 	{
 		Console::error("IOStream: Read on write-only stream.");
 		return 0;
 	}
 
-	if (!buffer)
+	if(!buffer)
 	{
 		Console::error("IOStream: Input buffer is NULL.");
 		return 0;
 	}
 
-	if (count == 0)
+	if(count == 0)
 	{
 		Console::warning("IOStream: Tried writing 0 bytes.");
 		return 0;
@@ -44,7 +44,7 @@ size_t IOStream::read(void *buffer, size_t count)
 
 bool IOStream::read(std::uint8_t &data)
 {
-	if (!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & AccessMode::Read))
 	{
 		Console::error("IOStream: Read on write-only stream.");
 		return false;
@@ -52,7 +52,7 @@ bool IOStream::read(std::uint8_t &data)
 
 	int c = fgetc(stdin);
 
-	if (c == EOF)
+	if(c == EOF)
 		return false;
 
 	data = (std::uint8_t) c;
@@ -61,7 +61,7 @@ bool IOStream::read(std::uint8_t &data)
 
 bool IOStream::peek(std::uint8_t &data)
 {
-	if (!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & AccessMode::Read))
 	{
 		Console::error("IOStream: Peek on write-only stream.");
 		return false;
@@ -69,11 +69,11 @@ bool IOStream::peek(std::uint8_t &data)
 
 	int c = fgetc(stdin);
 
-	if (c == EOF)
+	if(c == EOF)
 		return false;
 
 	//TODO: research if there is a good alternative for this.
-	if (ungetc(c, stdin) == EOF)
+	if(ungetc(c, stdin) == EOF)
 		return false;
 
 	data = (std::uint8_t) c;
@@ -82,19 +82,19 @@ bool IOStream::peek(std::uint8_t &data)
 
 size_t IOStream::write(const void *buffer, size_t count)
 {
-	if (access_mode_ != AccessMode::Write)
+	if(access_mode_ != AccessMode::Write)
 	{
 		Console::error("IOStream: Write on read-only stream.");
 		return 0;
 	}
 
-	if (!buffer)
+	if(!buffer)
 	{
 		Console::error("IOStream: Input buffer is NULL.");
 		return 0;
 	}
 
-	if (count == 0)
+	if(count == 0)
 	{
 		Console::warning("IOStream: Tried writing 0 bytes.");
 		return 0;

@@ -46,6 +46,7 @@
     <ClInclude Include="..\include\Aeon\ConfigFile.h" />
     <ClInclude Include="..\include\Aeon\Console\Console.h" />
     <ClInclude Include="..\include\Aeon\Console\ConsoleListener.h" />
+    <ClInclude Include="..\include\Aeon\Console\ConsoleVariable.h" />
     <ClInclude Include="..\include\Aeon\Console\StreamListener.h" />
     <ClInclude Include="..\include\Aeon\FrameListener.h" />
     <ClInclude Include="..\include\Aeon\Game.h" />

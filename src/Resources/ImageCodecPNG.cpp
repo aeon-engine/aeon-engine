@@ -23,7 +23,7 @@ static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, png_s
 	}
 
 	//Read the data
-	if ((*stream)->read(output_ptr, (size_t) output_size) != output_size)
+	if((*stream)->read(output_ptr, (size_t) output_size) != output_size)
 	{
 		Console::error("ImageCodecPNG: Could not decode PNG. Unexpected end of stream in read callback.");
 		return;

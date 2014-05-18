@@ -7,6 +7,7 @@ namespace Aeon
 
 Stream::Stream(int access_mode /*= AccessMode::Read*/)
 :
+has_name_(false),
 name_(AEON_STREAM_DEFAULT_NAME),
 size_(0),
 access_mode_(access_mode)
@@ -14,6 +15,7 @@ access_mode_(access_mode)
 
 Stream::Stream(const std::string &name, int access_mode /*= AccessMode::Read*/)
 :
+has_name_(true),
 name_(name),
 size_(0),
 access_mode_(access_mode)
@@ -52,7 +54,7 @@ size_t Stream::write(BufferPtr buffer)
 
 size_t Stream::read_line(std::string &str)
 {
-	if (!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & AccessMode::Read))
 	{
 		Console::error("Stream: Read on write-only stream.");
 		return 0;
@@ -72,7 +74,7 @@ size_t Stream::read_line(std::string &str)
 			break;
 
 		//Check if it's a line-ending character
-		if (c == '\n')
+		if(c == '\n')
 		{
 			//Peek if the next character is a '\r'
 			result = peek(c);
@@ -85,7 +87,7 @@ size_t Stream::read_line(std::string &str)
 		}
 
 		//Check if it's a line-ending character
-		if (c == '\r')
+		if(c == '\r')
 		{
 			//Peek if the next character is a '\n'
 			result = peek(c);

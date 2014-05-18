@@ -76,8 +76,10 @@ public:
 	 */
 	virtual ~Stream();
 
+	const bool						has_name() { return has_name_; }
+
 	/*!
-	 * Get the name of the stream. The format of this name may be dependant on the implementation.
+	 * Get the name of the stream. The format of this name may be dependent on the implementation.
 	 * For example, in case of a FileStream, this contains the opened file name and path.
 	 *
 	 * \return The name of the stream as given to the constructor.
@@ -274,6 +276,7 @@ public:
 	virtual BufferPtr				get_as_buffer();
 
 protected:
+	bool							has_name_;
 	std::string						name_;
 	size_t							size_;
 	int								access_mode_;

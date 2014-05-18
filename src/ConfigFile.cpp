@@ -19,7 +19,7 @@ std::string ConfigFile::get_string(const std::string &key, const std::string &de
 	auto itr = entries_.find(key);
 
 	//If it could not find the key...
-	if (itr == entries_.end())
+	if(itr == entries_.end())
 	{
 		set_string(key, default_val);
 		return default_val;
@@ -33,7 +33,7 @@ int ConfigFile::get_integer(const std::string &key, int default_val)
 	auto itr = entries_.find(key);
 
 	//If it could not find the key...
-	if (itr == entries_.end())
+	if(itr == entries_.end())
 	{
 		set_integer(key, default_val);
 		return default_val;
@@ -48,7 +48,7 @@ bool ConfigFile::get_boolean(const std::string &key, bool default_val)
 	auto itr = entries_.find(key);
 
 	//If it could not find the key...
-	if (itr == entries_.end())
+	if(itr == entries_.end())
 	{
 		set_boolean(key, default_val);
 		return default_val;
@@ -74,7 +74,7 @@ void ConfigFile::set_boolean(const std::string &key, bool val)
 
 bool ConfigFile::load(StreamPtr stream)
 {
-	if (!stream->good())
+	if(!stream->good())
 	{
 		Console::warning("Could not load config file: %s", stream->get_name().c_str());
 		return false;
@@ -87,21 +87,21 @@ bool ConfigFile::load(StreamPtr stream)
 	//Loop through all lines
 	int linenumber = 0;
 	std::string header_name = "";
-	while (!stream->eof())
+	while(!stream->eof())
 	{
 		linenumber++;
 
 		std::string line;
-		if (stream->read_line(line) == 0)
+		if(stream->read_line(line) == 0)
 			continue;
 
-		if (line.empty())
+		if(line.empty())
 			continue;
 
 		size_t length = line.size();
 
 		//Ignore comments
-		if (line[0] == '#')
+		if(line[0] == '#')
 			continue;
 
 		//Is it a header?
@@ -124,7 +124,7 @@ bool ConfigFile::load(StreamPtr stream)
 
 		size_t pos = line.find_first_of('=');
 
-		if (pos == std::string::npos || pos == 0)
+		if(pos == std::string::npos || pos == 0)
 		{
 			Console::warning("Ignoring invalid line in config file %s line %u.", stream->get_name().c_str(), linenumber);
 			continue;
@@ -145,7 +145,7 @@ bool ConfigFile::load(StreamPtr stream)
 
 void ConfigFile::save(StreamPtr stream)
 {
-	if (!stream->good())
+	if(!stream->good())
 	{
 		Console::error("Could not save config file: %s", stream->get_name().c_str());
 		return;
@@ -153,7 +153,7 @@ void ConfigFile::save(StreamPtr stream)
 
 	//Loop through all entries to save to file
 	std::string header_name = "";
-	for (auto itr : entries_)
+	for(auto itr : entries_)
 	{
 		StringUtils::Strings key = StringUtils::split(itr.first, '.', StringUtils::SplitMode::SkipEmpty);
 

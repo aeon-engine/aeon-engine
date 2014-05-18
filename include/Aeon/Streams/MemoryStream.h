@@ -15,9 +15,12 @@ public:
 		DeleteOnDestruct
 	};
 
-	MemoryStream(DeleteMode delete_mode = DeleteMode::DeleteOnDestruct, int access_mode = AccessMode::ReadWrite);
+	MemoryStream(DeleteMode delete_mode = DeleteMode::DeleteOnDestruct);
 	MemoryStream(BufferPtr buffer, int access_mode = AccessMode::ReadWrite);
-	MemoryStream(void *buffer, size_t size, DeleteMode delete_mode = DeleteMode::DeleteOnDestruct, int access_mode = AccessMode::ReadWrite);
+
+	MemoryStream(const std::string &name, DeleteMode delete_mode = DeleteMode::DeleteOnDestruct);
+	MemoryStream(const std::string &name, BufferPtr buffer, int access_mode = AccessMode::ReadWrite);
+
 	~MemoryStream();
 
 	virtual size_t					read(void *buffer, size_t count);

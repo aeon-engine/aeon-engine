@@ -112,9 +112,6 @@
     <ClInclude Include="..\include\Aeon\Resources\Texture.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Resources\TextureManager.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Aeon\Utility\Timer.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -132,6 +129,12 @@
     </ClInclude>
     <ClInclude Include="..\include\Aeon\Platforms\GLFWPlatform.h">
       <Filter>Platforms\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Aeon\Console\ConsoleVariable.h">
+      <Filter>Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Aeon\Resources\TextureManager.h">
+      <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

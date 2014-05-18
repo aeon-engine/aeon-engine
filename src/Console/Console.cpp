@@ -18,14 +18,14 @@ static void log(LogLevel level, const char *format, va_list args)
 	std::lock_guard<std::mutex> lock(console_mutex_);
 
 	//Only log messages from our current log level and higher importance
-	if (level > loglevel_)
+	if(level > loglevel_)
 		return;
 
 	//Format the message
 	vsnprintf(console_output_buffer_, AEON_CONSOLE_BUFFER_SIZE, format, args);
 
 	//Notify all console listeners
-	for (auto itr : console_listeners_)
+	for(auto itr : console_listeners_)
 	{
 		itr->on_log_message(diff_timer_.get_time_difference(), level, console_output_buffer_);
 	}

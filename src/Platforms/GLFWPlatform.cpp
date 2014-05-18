@@ -32,7 +32,7 @@ void GLFW::run()
 	Root *root = Root::getSingletonPtr();
 
 	//While the window isn't closed and we're still running.
-	while (!glfwWindowShouldClose(window_) || running_ == false)
+	while(!glfwWindowShouldClose(window_) || running_ == false)
 	{
 		root->render();
 
@@ -73,7 +73,7 @@ bool GLFW::__initialize()
 	//Create our window
 	window_ = glfwCreateWindow(AEON_DEFAULT_SCREEN_WIDTH, AEON_DEFAULT_SCREEN_HEIGHT, "Aeon", NULL, NULL);
 
-	if (window_ == NULL)
+	if(window_ == NULL)
 	{
 		Console::error("Could not create GLFW window");
 		glfwTerminate();

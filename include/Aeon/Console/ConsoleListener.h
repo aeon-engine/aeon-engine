@@ -2,7 +2,6 @@
 #define AeonConsoleListener_h__
 
 #include "Aeon/Console/Console.h"
-#include <ctime>
 
 namespace Aeon
 {

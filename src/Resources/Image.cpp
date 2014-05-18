@@ -21,7 +21,7 @@ Image::~Image()
 
 void Image::set_data(BufferPtr buffer, unsigned int width, unsigned int height, PixelFormat pixelformat /*= PixelFormat::RGBA*/)
 {
-	if (buffer == NULL || buffer->get() == NULL)
+	if(buffer == NULL || buffer->get() == NULL)
 	{
 		Console::error("Image: Tried creating an image from an empty buffer.");
 		return;

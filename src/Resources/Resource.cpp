@@ -4,11 +4,10 @@
 namespace Aeon
 {
 
-Resource::Resource(ResourceManager *creator, const std::string &name, Handle handle)
+Resource::Resource(ResourceManager *creator, const std::string &name)
 :
 creator_(creator),
-name_(name),
-handle_(handle)
+name_(name)
 {
 
 }

@@ -5,9 +5,9 @@
 namespace Aeon
 {
 
-MemoryStream::MemoryStream(DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/, int access_mode /*= AccessMode::ReadWrite*/)
+MemoryStream::MemoryStream(DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/)
 :
-Stream(access_mode),
+Stream(AccessMode::Write),
 buffer_(std::make_shared<Buffer>()),
 buffer_offset_(0)
 {
@@ -24,14 +24,23 @@ buffer_offset_(0)
 
 }
 
-MemoryStream::MemoryStream(void *buffer, size_t size, DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/, int access_mode /*= AccessMode::ReadWrite*/)
+MemoryStream::MemoryStream(const std::string &name, DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/)
 :
-Stream(access_mode),
-buffer_(std::make_shared<Buffer>(buffer, size)),
+Stream(name, AccessMode::Write),
+buffer_(std::make_shared<Buffer>()),
 buffer_offset_(0)
 {
 	//Set the correct delete mode in our buffer
 	buffer_->set_delete_mode(delete_mode == DeleteMode::DeleteOnDestruct ? Buffer::DeleteMode::DeleteOnDestruct : Buffer::DeleteMode::None);
+}
+
+MemoryStream::MemoryStream(const std::string &name, BufferPtr buffer, int access_mode /*= AccessMode::ReadWrite*/)
+:
+Stream(access_mode),
+buffer_(buffer),
+buffer_offset_(0)
+{
+
 }
 
 MemoryStream::~MemoryStream()
@@ -41,7 +50,7 @@ MemoryStream::~MemoryStream()
 
 size_t MemoryStream::read(void *buffer, size_t count)
 {
-	if (!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & AccessMode::Read))
 	{
 		Console::error("MemoryStream: Read on write-only stream.");
 		return 0;
@@ -49,7 +58,7 @@ size_t MemoryStream::read(void *buffer, size_t count)
 
 	char *data = (char *) buffer_->get();
 
-	if (!data)
+	if(!data)
 	{
 		Console::error("MemoryStream: Read on empty stream. Buffer was NULL.");
 		return 0;
@@ -68,7 +77,7 @@ size_t MemoryStream::read(void *buffer, size_t count)
 	}
 
 	//Only read what we have
-	if (buffer_->size() < buffer_offset_ + count)
+	if(buffer_->size() < buffer_offset_ + count)
 		count = buffer_->size() - buffer_offset_;
 
 	//Are we really out of bounds?
@@ -83,14 +92,14 @@ size_t MemoryStream::read(void *buffer, size_t count)
 
 bool MemoryStream::read(std::uint8_t &data)
 {
-	if (!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & AccessMode::Read))
 	{
 		Console::error("MemoryStream: Read on write-only stream.");
 		return false;
 	}
 
 	//Are we trying to read out of bounds?
-	if (buffer_->size() >= buffer_offset_)
+	if(buffer_->size() >= buffer_offset_)
 		return false;
 
 	char *buff = (char *)buffer_->get();
@@ -101,7 +110,7 @@ bool MemoryStream::read(std::uint8_t &data)
 
 bool MemoryStream::peek(std::uint8_t &data)
 {
-	if (!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & AccessMode::Read))
 	{
 		Console::error("MemoryStream: Peek on write-only stream.");
 		return false;
@@ -119,14 +128,14 @@ bool MemoryStream::peek(std::uint8_t &data)
 
 size_t MemoryStream::write(const void *buffer, size_t count)
 {
-	if (!(access_mode_ & AccessMode::Write))
+	if(!(access_mode_ & AccessMode::Write))
 	{
 		Console::error("MemoryStream: WRITE on read-only stream.");
 		return 0;
 	}
 
 	//Make sure we have enough space in the buffer
-	if (!buffer_->reserve(buffer_offset_ + count))
+	if(!buffer_->reserve(buffer_offset_ + count))
 	{
 		Console::error("MemoryStream: WRITE on stream failed. Could not reserve memory.");
 		return 0;
@@ -152,7 +161,7 @@ bool MemoryStream::seek(size_t pos, SeekDirection direction)
 	};
 
 	//Can't go higher then the size of our buffer...
-	if (new_pos >= buffer_->size())
+	if(new_pos >= buffer_->size())
 		return false;
 
 	//Set the new offset if all is good

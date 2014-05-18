@@ -2,6 +2,7 @@
 #define AeonResourceManager_h__
 
 #include "Aeon/Resources/Resource.h"
+#include "Aeon/Streams/Stream.h"
 
 namespace Aeon
 {
@@ -9,17 +10,22 @@ namespace Aeon
 class ResourceManager
 {
 public:
-	typedef std::map<std::string, ResourcePtr> ResourceMap;
-	typedef std::map<Resource::Handle, ResourcePtr> ResourceHandleMap;
+	typedef std::map<std::string, ResourceWeakPtr> ResourceMap;
 
 	ResourceManager();
 	virtual ~ResourceManager();
 
+	ResourcePtr				load(StreamPtr stream);
+	ResourcePtr				load(const std::string &name);
+
 protected:
-	ResourcePtr __create_or_retrieve(const std::string &name, Resource::Handle handle);
+	bool					__is_name_unique(const std::string &name);
+	ResourcePtr				__load(StreamPtr stream);
 
-	virtual Resource * __create_internal(const std::string &name, Resource::Handle handle) = 0;
+	virtual Resource *		__create_new_resource(const std::string &name) = 0;
 
+private:
+	ResourceMap				resources_;
 };
 
 } /* namespace Aeon */

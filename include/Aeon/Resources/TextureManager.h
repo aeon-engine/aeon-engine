@@ -3,6 +3,8 @@
 
 #include "Aeon/Resources/ResourceManager.h"
 #include "Aeon/Utility/Singleton.h"
+#include "Aeon/Streams/Stream.h"
+#include "Aeon/Resources/Texture.h"
 
 namespace Aeon
 {
@@ -13,13 +15,14 @@ public:
 	TextureManager();
 	virtual ~TextureManager();
 
-	//TexturePtr loadImage(
+	TexturePtr		load(StreamPtr stream);
+	TexturePtr		load(const std::string &name);
 	
 	//Call this only from the OpenGL render thread.
-	void finalize_textures();
+	void			finalize_textures();
 
 protected:
-	Resource * __create_internal(const std::string &name, Resource::Handle handle);
+	Resource *		__create_new_resource(const std::string &name);
 };
 
 } /* namespace Aeon */
