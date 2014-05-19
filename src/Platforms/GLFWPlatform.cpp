@@ -2,7 +2,6 @@
 
 #ifdef AEON_USE_GLFW_PLATFORM
 
-#include "Aeon/Root.h"
 #include "Aeon/Platforms/GLFWPlatform.h"
 #include "Aeon/Game.h"
 #include "Aeon/Console/Console.h"
@@ -24,14 +23,6 @@ GLFW::~GLFW()
 
 bool GLFW::initialize()
 {
-	Root *root = Root::getSingletonPtr();
-
-	if (!root)
-	{
-		Console::error("Root was not created.");
-		return false;
-	}
-
 	Console::info("Initializing GLFW platform");
 
 	//Initialize GLFW

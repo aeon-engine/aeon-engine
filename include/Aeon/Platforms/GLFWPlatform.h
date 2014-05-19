@@ -2,8 +2,6 @@
 #define GLFWPlatform_h__
 
 #ifdef AEON_USE_GLFW_PLATFORM
-
-#include <GLFW/glfw3.h>
 #include "Aeon/Platforms/BasePlatform.h"
 
 namespace Aeon
@@ -18,14 +16,14 @@ public:
 	virtual ~GLFW();
 
 protected:
-	virtual bool		initialize();
+	virtual bool				initialize();
 
-	virtual bool		pre_frame();
-	virtual bool		post_frame();
+	virtual bool				pre_frame();
+	virtual bool				post_frame();
 
-	virtual bool		dispose();
+	virtual bool				dispose();
 	
-	GLFWwindow *		window_;
+	GLFWwindow *				window_;
 };
 
 } /* namespace Platforms */

@@ -10,9 +10,12 @@ namespace Aeon
 
 AeonInitializeSingleton(Root);
 
-Root::Root()
+Root::Root(Platforms::BasePlatformPtr platform)
+:
+initialized_(false),
+running_(false)
 {
-	__initialize();
+	platform_ = platform;
 }
 
 Root::~Root()
@@ -20,25 +23,68 @@ Root::~Root()
 
 }
 
-void Root::render()
+bool Root::initialize(Platforms::BasePlatformPtr platform)
 {
+	if(!instance_)
+	{
+		Root *r = new Root(platform);
+		if (!r)
+		{
+			Console::info("[Root] Could not create Root.");
+			return false;
+		}
+
+		return r->__initialize_impl(platform);
+	}
+
+	Console::error("[Root] Can not initialize. Initialize was already called.");
+	return false;
+}
+
+void Root::run()
+{
+	if (!initialized_)
+	{
+		Console::error("[Root] Can't run without initializing.");
+		return;
+	}
+
 	//TODO: Implement dt
 	float dt = 0.1f;
 
-	for(FrameListener *framelistener : frame_listeners_)
+	running_ = true;
+	while (running_)
 	{
-		framelistener->on_frame(dt);
+		if(!platform_->pre_frame())
+			break;
+
+		for(FrameListener *framelistener : frame_listeners_)
+		{
+			framelistener->on_frame(dt);
+		}
+
+		for(FrameListener *framelistener : frame_listeners_)
+		{
+			framelistener->on_render();
+		}
+
+		if(!platform_->post_frame())
+			break;
 	}
 
-	for(FrameListener *framelistener : frame_listeners_)
-	{
-		framelistener->on_render();
-	}
+	if(!platform_->dispose())
+		Console::error("[Root] Platform reported an error while disposing.");
+
+	ImageCodecManager::dispose();
+	TextureManager::dispose();
+
+	running_ = false;
+	initialized_ = false;
 }
 
 void Root::stop()
 {
-
+	running_ = false;
 }
 
 void Root::add_frame_listener(FrameListener *listener)
@@ -53,14 +99,33 @@ void Root::remove_frame_listener(FrameListener *listener)
 
 void Root::remove_all_frame_listeners()
 {
-	Console::debug("Removing all frame listeners.");
+	Console::debug("[Root] Removing all frame listeners.");
 	frame_listeners_.clear();
 }
 
-void Root::__initialize()
+bool Root::__initialize_impl(Platforms::BasePlatformPtr platform)
 {
-	Console::debug("Aeon Root created.");
+	if (initialized_)
+	{
+		Console::warning("[Root] Already initialized. Can not initialize twice.");
+		return false;
+	}
 
+	Console::info("[Root] Initializing.");
+
+	if (!platform_)
+	{
+		Console::error("[Root] Could not create platform.");
+		return false;
+	}
+
+	if (!platform_->initialize())
+	{
+		Console::error("[Root] Failed to initialize platform.");
+		return false;
+	}
+
+	//TODO: Should we check if the singletons were properly created?
 	//Register codecs
 	ImageCodecManager::create();
 
@@ -69,12 +134,9 @@ void Root::__initialize()
 #endif
 
 	TextureManager::create();
-}
 
-void Root::__cleanup()
-{
-	ImageCodecManager::dispose();
-	TextureManager::dispose();
+	initialized_ = true;
+	return true;
 }
 
 } /* namespace Aeon */

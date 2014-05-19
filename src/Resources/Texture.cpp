@@ -35,7 +35,16 @@ bool Texture::__load_impl(StreamPtr stream)
 
 bool Texture::__unload_impl()
 {
+	if (texture_ == 0)
+	{
+		Console::warning("[Texture]: Texture '%s' could not be unloaded. Unload called on previously unloaded texture.");
+		return false;
+	}
+
 	glDeleteTextures(1, &texture_);
+	texture_ = 0;
+
+	return true;
 }
 
 bool Texture::__finalize_impl()

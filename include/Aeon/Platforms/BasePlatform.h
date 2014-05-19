@@ -19,13 +19,15 @@ public:
 	virtual ~BasePlatform() {}
 
 protected:
-	virtual bool		initialize() = 0;
+	virtual bool				initialize() = 0;
 
-	virtual bool		pre_frame() = 0;
-	virtual bool		post_frame() = 0;
+	virtual bool				pre_frame() = 0;
+	virtual bool				post_frame() = 0;
 
-	virtual bool		dispose() = 0;
+	virtual bool				dispose() = 0;
 };
+
+typedef std::shared_ptr<BasePlatform> BasePlatformPtr;
 
 } /* namespace Platforms */
 } /* namespace Aeon */

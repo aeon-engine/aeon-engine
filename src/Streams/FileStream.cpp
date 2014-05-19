@@ -7,7 +7,7 @@ namespace Aeon
 
 FileStream::FileStream(const std::string &path, int access_mode /*= AccessMode::Read*/)
 :
-Stream(name_, access_mode),
+Stream(path, access_mode),
 file_(NULL)
 {
 	if(access_mode == (AccessMode::Read | AccessMode::Write))

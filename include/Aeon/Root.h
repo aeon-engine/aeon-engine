@@ -3,6 +3,11 @@
 
 #include "Aeon/Utility/Singleton.h"
 #include "Aeon/FrameListener.h"
+#include "Aeon/Platforms/BasePlatform.h"
+
+#ifdef AEON_USE_GLFW_PLATFORM
+#  include "Aeon/Platforms/GLFWPlatform.h"
+#endif
 
 namespace Aeon
 {
@@ -12,23 +17,27 @@ typedef std::list<FrameListener *> FrameListeners;
 class Root : public Singleton<Root>
 {
 public:
-	Root();
 	~Root();
 
-	void				render();
-	void				stop();
+	static bool						initialize(Platforms::BasePlatformPtr platform);
 
-	void				add_frame_listener(FrameListener *listener);
-	void				remove_frame_listener(FrameListener *listener);
-	void				remove_all_frame_listeners();
+	void							run();
+	void							stop();
+
+	void							add_frame_listener(FrameListener *listener);
+	void							remove_frame_listener(FrameListener *listener);
+	void							remove_all_frame_listeners();
 
 protected:
-	void				__initialize();
-	void				__cleanup();
+	Root(Platforms::BasePlatformPtr platform);
 
-	bool				initialized_;
+	bool							__initialize_impl(Platforms::BasePlatformPtr platform);
 
-	FrameListeners		frame_listeners_;
+	bool							initialized_;
+	bool							running_;
+
+	FrameListeners					frame_listeners_;
+	Platforms::BasePlatformPtr		platform_;
 };
 
 } /* namespace Aeon */

@@ -19,5 +19,11 @@
 #include <set>
 #include <memory>
 
+#ifdef AEON_USE_GLFW_PLATFORM
+#  include <GLFW/glfw3.h>
+#endif
+
+#include <GL/GL.h>
+
 #define AEON_UNUSED(x) (void)(x)
 
