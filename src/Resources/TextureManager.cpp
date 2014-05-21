@@ -28,11 +28,6 @@ TexturePtr TextureManager::load(const std::string &name)
 	return std::dynamic_pointer_cast<Texture>(ResourceManager::load(name));
 }
 
-void TextureManager::finalize_textures()
-{
-
-}
-
 Resource * TextureManager::__create_new_resource(const std::string &name)
 {
 	return new Texture(this, name);

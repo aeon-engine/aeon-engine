@@ -9,8 +9,10 @@ namespace Aeon
 
 class ResourceManager
 {
+friend class Resource;
 public:
 	typedef std::map<std::string, ResourceWeakPtr> ResourceMap;
+	typedef std::queue<ResourcePtr> ResourceQueue;
 
 	ResourceManager();
 	virtual ~ResourceManager();
@@ -18,14 +20,21 @@ public:
 	ResourcePtr				load(StreamPtr stream);
 	ResourcePtr				load(const std::string &name);
 
+	int						finalize_resources();
+
 protected:
 	bool					__is_name_unique(const std::string &name);
 	ResourcePtr				__load(StreamPtr stream);
 
 	virtual Resource *		__create_new_resource(const std::string &name) = 0;
 
-private:
-	ResourceMap				resources_;
+	void					__mark_as_finalize(ResourcePtr resource);
+	
+	ResourceMap				resource_map_;
+	std::mutex				resource_map_mutex_;
+
+	ResourceQueue			resource_queue_;
+	std::mutex				resource_queue_mutex_;
 };
 
 } /* namespace Aeon */

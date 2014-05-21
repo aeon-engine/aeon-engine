@@ -17,9 +17,6 @@ public:
 
 	TexturePtr		load(StreamPtr stream);
 	TexturePtr		load(const std::string &name);
-	
-	//Call this only from the OpenGL render thread.
-	void			finalize_textures();
 
 protected:
 	Resource *		__create_new_resource(const std::string &name);

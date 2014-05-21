@@ -43,12 +43,14 @@ ResourcePtr ResourceManager::load(StreamPtr stream)
 
 ResourcePtr ResourceManager::load(const std::string &name)
 {
+	std::lock_guard<std::mutex> lock(resource_map_mutex_);
+
 	Console::debug("[ResourceManager]: Loading resource '%s' by name.", name.c_str());
 
 	//Check if this resource was already loaded before.
-	ResourceMap::iterator itr = resources_.find(name);
+	ResourceMap::iterator itr = resource_map_.find(name);
 
-	if(itr != resources_.end())
+	if (itr != resource_map_.end())
 	{
 		ResourceWeakPtr weak_resource_ptr = itr->second;
 		ResourcePtr resource_ptr = weak_resource_ptr.lock();
@@ -60,7 +62,7 @@ ResourcePtr ResourceManager::load(const std::string &name)
 		}
 
 		Console::debug("[ResourceManager]: Resource '%s' no longer exists. Removing old reference and reloading.", name.c_str());
-		resources_.erase(itr);
+		resource_map_.erase(itr);
 	}
 
 	FileStreamPtr filestream = std::make_shared<FileStream>(name, Stream::AccessMode::Read);
@@ -80,10 +82,30 @@ ResourcePtr ResourceManager::load(const std::string &name)
 	return __load(filestream);
 }
 
+int ResourceManager::finalize_resources()
+{
+	std::lock_guard<std::mutex> lock(resource_queue_mutex_);
+	
+	int count = 0;
+	while(!resource_queue_.empty())
+	{
+		ResourcePtr resource = resource_queue_.front();
+		resource->__finalize();
+
+		resource_queue_.pop();
+
+		++count;
+	}
+
+	return count;
+}
+
 bool ResourceManager::__is_name_unique(const std::string &name)
 {
+	std::lock_guard<std::mutex> lock(resource_map_mutex_);
+
 	//If the result of find is equal to end, then name was not found.
-	return resources_.find(name) == resources_.end();
+	return resource_map_.find(name) == resource_map_.end();
 }
 
 ResourcePtr ResourceManager::__load(StreamPtr stream)
@@ -103,6 +125,12 @@ ResourcePtr ResourceManager::__load(StreamPtr stream)
 	}
 
 	return resource;
+}
+
+void ResourceManager::__mark_as_finalize(ResourcePtr resource)
+{
+	std::lock_guard<std::mutex> lock(resource_queue_mutex_);
+	resource_queue_.push(resource);
 }
 
 } /* namespace Aeon */

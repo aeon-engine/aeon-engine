@@ -23,6 +23,8 @@ public:
 	Resource(ResourceManager *creator, const std::string &name);
 	virtual ~Resource();
 
+	State					get_state() { return state_; }
+
 protected:
 	bool					__load(StreamPtr stream);
 	virtual bool			__load_impl(StreamPtr stream) = 0;
