@@ -24,6 +24,7 @@ public:
 	virtual ~Resource();
 
 	State					get_state() { return state_; }
+	const std::string &		get_name()	{ return name_; }
 
 protected:
 	bool					__load(StreamPtr stream);

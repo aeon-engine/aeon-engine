@@ -90,7 +90,12 @@ int ResourceManager::finalize_resources()
 	while(!resource_queue_.empty())
 	{
 		ResourcePtr resource = resource_queue_.front();
-		resource->__finalize();
+		if (resource->get_state() == Resource::State::ReadyForFinalize)
+			resource->__finalize();
+		else if (resource->get_state() == Resource::State::Unloading)
+			resource->__unload();
+		else
+			Console::warning("[ResourceManager]: Queued resource %s was not in finalize or unloading state.", resource->get_name().c_str());
 
 		resource_queue_.pop();
 
