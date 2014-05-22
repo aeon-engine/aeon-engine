@@ -23,12 +23,12 @@ GLFW::~GLFW()
 
 bool GLFW::initialize()
 {
-	Console::info("Initializing GLFW platform");
+	Console::info("[GLFW] Initializing GLFW platform");
 
 	//Initialize GLFW
 	if (!glfwInit())
 	{
-		Console::error("Could not initialize GLFW");
+		Console::error("[GLFW] Could not initialize GLFW");
 		return false;
 	}
 
@@ -37,7 +37,7 @@ bool GLFW::initialize()
 
 	if (window_ == NULL)
 	{
-		Console::error("Could not create GLFW window");
+		Console::error("[GLFW] Could not create GLFW window");
 		glfwTerminate();
 		return false;
 	}
@@ -78,7 +78,7 @@ bool GLFW::post_frame()
 
 bool GLFW::dispose()
 {
-	Console::info("Terminating GLFW");
+	Console::info("[GLFW] Terminating GLFW");
 
 	glfwMakeContextCurrent(NULL);
 	glfwTerminate();
