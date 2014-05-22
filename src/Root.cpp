@@ -119,9 +119,20 @@ bool Root::__initialize_impl(Platforms::BasePlatformPtr platform)
 		return false;
 	}
 
+	Console::info("[Root] Initializing platform.");
+
 	if (!platform_->initialize())
 	{
 		Console::error("[Root] Failed to initialize platform.");
+		return false;
+	}
+
+	Console::info("[Root] Initializing glew.");
+
+	GLenum err = glewInit();
+	if (err != GLEW_OK)
+	{
+		Console::error("[Root] Failed to initialize glew: %s", glewGetErrorString(err));
 		return false;
 	}
 
