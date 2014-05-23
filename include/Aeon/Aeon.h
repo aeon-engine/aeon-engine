@@ -20,7 +20,7 @@
 #include <memory>
 
 #include <GL/glew.h>
-#include <GL/GL.h>
+#include <GL/gl.h>
 
 #ifdef AEON_USE_GLFW_PLATFORM
 #  include <GLFW/glfw3.h>

@@ -13,7 +13,7 @@ namespace Platforms
 
 class BasePlatform
 {
-friend class Root;
+friend class Aeon::Root;
 public:
 	BasePlatform() {}
 	virtual ~BasePlatform() {}
