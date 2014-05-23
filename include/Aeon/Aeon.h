@@ -18,6 +18,7 @@
 #include <mutex>
 #include <set>
 #include <memory>
+#include <atomic>
 
 #include <GL/glew.h>
 #include <GL/gl.h>

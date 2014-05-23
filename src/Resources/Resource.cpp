@@ -23,7 +23,7 @@ bool Resource::__load(StreamPtr stream)
 {
 	if (state_ != State::Empty)
 	{
-		Console::warning("[Resource]: Load called on resource while in wrong state: %u", (int) state_);
+		Console::warning("[Resource]: Load called on resource while in wrong state: %u", (int) state_.load());
 		return false;
 	}
 
@@ -34,7 +34,7 @@ bool Resource::__unload()
 {
 	if(state_ != State::Loaded)
 	{
-		Console::warning("[Resource]: Unload called on resource while in wrong state: %u", (int) state_);
+		Console::warning("[Resource]: Unload called on resource while in wrong state: %u", (int) state_.load());
 		return false;
 	}
 
@@ -52,7 +52,7 @@ bool Resource::__finalize()
 {
 	if (state_ != State::ReadyForFinalize)
 	{
-		Console::warning("[Resource]: Finalize called on resource while in wrong state: %u", (int) state_);
+		Console::warning("[Resource]: Finalize called on resource while in wrong state: %u", (int) state_.load());
 		return false;
 	}
 

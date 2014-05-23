@@ -52,8 +52,7 @@ ResourcePtr ResourceManager::load(const std::string &name)
 
 	if (itr != resource_map_.end())
 	{
-		ResourceWeakPtr weak_resource_ptr = itr->second;
-		ResourcePtr resource_ptr = weak_resource_ptr.lock();
+		ResourcePtr resource_ptr = itr->second;
 
 		if (resource_ptr)
 		{
@@ -80,6 +79,18 @@ ResourcePtr ResourceManager::load(const std::string &name)
 	}
 
 	return __load(filestream);
+}
+
+bool ResourceManager::unload(ResourcePtr resource)
+{
+	std::lock_guard<std::mutex> lock(resource_map_mutex_);
+	//resource_map_.find(resource_map_);
+	return false;
+}
+
+bool ResourceManager::unload(const std::string &name)
+{
+	return false;
 }
 
 int ResourceManager::finalize_resources()

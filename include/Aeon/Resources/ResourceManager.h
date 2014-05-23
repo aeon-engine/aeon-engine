@@ -11,7 +11,7 @@ class ResourceManager
 {
 friend class Resource;
 public:
-	typedef std::map<std::string, ResourceWeakPtr> ResourceMap;
+	typedef std::map<std::string, ResourcePtr> ResourceMap;
 	typedef std::queue<ResourcePtr> ResourceQueue;
 
 	ResourceManager();
@@ -19,6 +19,9 @@ public:
 
 	ResourcePtr				load(StreamPtr stream);
 	ResourcePtr				load(const std::string &name);
+
+	bool					unload(ResourcePtr resource);
+	bool					unload(const std::string &name);
 
 	int						finalize_resources();
 

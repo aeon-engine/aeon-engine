@@ -38,11 +38,10 @@ protected:
 
 	ResourceManager *		creator_;
 	std::string				name_;
-	State					state_;
+	std::atomic<State>		state_;
 };
 
 typedef std::shared_ptr<Resource> ResourcePtr;
-typedef std::weak_ptr<Resource> ResourceWeakPtr;
 
 #define AeonEmptyResource ResourcePtr()
 
