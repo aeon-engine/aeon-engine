@@ -1,67 +1,67 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Resources/Resource.h"
-#include "Aeon/Console/Console.h"
+#include "aeon/aeon.h"
+#include "aeon/resources/resource.h"
+#include "aeon/console/console.h"
 
-namespace Aeon
+namespace aeon
 {
 
-Resource::Resource(ResourceManager *creator, const std::string &name)
+resource::resource(resource_manager *creator, const std::string &name)
 :
 creator_(creator),
 name_(name),
-state_(State::Empty)
+state_(state::empty)
 {
 
 }
 
-Resource::~Resource()
+resource::~resource()
 {
 
 }
 
-bool Resource::__load(StreamPtr stream)
+bool resource::__load(stream_ptr stream)
 {
-	if (state_ != State::Empty)
+	if (state_ != state::empty)
 	{
-		Console::warning("[Resource]: Load called on resource while in wrong state: %u", (int) state_.load());
+		console::warning("[Resource]: Load called on resource while in wrong state: %u", (int) state_.load());
 		return false;
 	}
 
 	return __load_impl(stream);
 }
 
-bool Resource::__unload()
+bool resource::__unload()
 {
-	if(state_ != State::Loaded)
+	if(state_ != state::loaded)
 	{
-		Console::warning("[Resource]: Unload called on resource while in wrong state: %u", (int) state_.load());
+		console::warning("[Resource]: Unload called on resource while in wrong state: %u", (int) state_.load());
 		return false;
 	}
 
-	state_ = State::Unloading;
+	state_ = state::unloading;
 
 	bool result = __unload_impl();
 
 	if(result)
-		state_ = State::Unloaded;
+		state_ = state::unloaded;
 
 	return result;
 }
 
-bool Resource::__finalize()
+bool resource::__finalize()
 {
-	if (state_ != State::ReadyForFinalize)
+	if (state_ != state::ready_for_finalize)
 	{
-		Console::warning("[Resource]: Finalize called on resource while in wrong state: %u", (int) state_.load());
+		console::warning("[Resource]: Finalize called on resource while in wrong state: %u", (int) state_.load());
 		return false;
 	}
 
 	bool result = __finalize_impl();
 
 	if(result)
-		state_ = State::Loaded;
+		state_ = state::loaded;
 
 	return result;
 }
 
-} /* namespace Aeon */
+} //namespace aeon

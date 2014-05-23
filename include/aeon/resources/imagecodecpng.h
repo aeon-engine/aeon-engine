@@ -1,21 +1,21 @@
-#ifndef AeonImageCodecPNG_h__
-#define AeonImageCodecPNG_h__
+#ifndef imagecodecpng_h__
+#define imagecodecpng_h__
 
-#include "Aeon/Resources/ImageCodec.h"
+#include "aeon/resources/imagecodec.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class ImageCodecPNG : public ImageCodec
+class image_codec_png : public image_codec
 {
 public:
-	ImageCodecPNG();
-	virtual ~ImageCodecPNG();
+	image_codec_png();
+	virtual ~image_codec_png();
 
-	virtual ImagePtr decode(StreamPtr stream);
+	virtual image_ptr decode(stream_ptr stream);
 	virtual std::string get_type_name() const;	
 };
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonImageCodecPNG_h__ */
+#endif // imagecodecpng_h__

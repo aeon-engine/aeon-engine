@@ -1,26 +1,26 @@
-#ifndef AeonConsoleStreamListener_h__
-#define AeonConsoleStreamListener_h__
+#ifndef streamlistener_h__
+#define streamlistener_h__
 
-#include "Aeon/Streams/Stream.h"
-#include "Aeon/Console/ConsoleListener.h"
+#include "aeon/streams/stream.h"
+#include "aeon/console/consolelistener.h"
 
 #include <ctime>
 
-namespace Aeon
+namespace aeon
 {
 
-class ConsoleStreamListener : public ConsoleListener
+class console_stream_listener : public console_listener
 {
 public:
-	ConsoleStreamListener(StreamPtr stream);
-	~ConsoleStreamListener();
+	console_stream_listener(stream_ptr stream);
+	~console_stream_listener();
 
-	void on_log_message(double time_diff, Console::LogLevel level, const std::string &message);
+	void on_log_message(double time_diff, console::log_level level, const std::string &message);
 
 private:
-	StreamPtr		stream_;
+	stream_ptr		stream_;
 };
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonConsoleStreamListener_h__ */
+#endif // streamlistener_h__

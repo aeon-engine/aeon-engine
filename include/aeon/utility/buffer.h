@@ -1,7 +1,7 @@
-#ifndef AeonBuffer_h__
-#define AeonBuffer_h__
+#ifndef buffer_h__
+#define buffer_h__
 
-namespace Aeon
+namespace aeon
 {
 
 /*!
@@ -10,24 +10,24 @@ namespace Aeon
  * This class serves as a memory buffer wrapper. This makes working with buffers much easier,
  * helping to prevent memory leaks.
  */
-class Buffer
+class buffer
 {
 public:
 	/*!
 	 * The delete mode for a Buffer. This determines if the internal buffer is automatically deleted
 	 * in the destructor.
 	 */
-	enum class DeleteMode
+	enum class delete_mode
 	{
-		None,
-		DeleteOnDestruct
+		none,
+		delete_on_destruct
 	};
 
 	/*!
 	 * Construct an empty buffer. This constructor is merely used to construct an empty container
 	 * that can be used to allocate memory later.
 	 */
-	Buffer();
+	buffer();
 
 	/*!
 	 * Create a buffer of size bytes. If delete_mode is set to DeleteMode::None, this internal buffer
@@ -39,7 +39,7 @@ public:
 	 * \param delete_mode Determines if the internal buffer should be automatically freed or not.
 	 * \sa DeleteMode
 	 */
-	Buffer(size_t size, DeleteMode delete_mode = DeleteMode::DeleteOnDestruct);
+	buffer(size_t size, delete_mode mode = delete_mode::delete_on_destruct);
 
 	/*!
 	 * Wrap around a buffer of size bytes. If delete_mode is set to DeleteMode::None, this buffer will not
@@ -53,24 +53,24 @@ public:
 	 * \param delete_mode Determines if the internal buffer should be automatically freed or not.
 	 * \sa DeleteMode 
 	 */
-	Buffer(void *buffer, size_t size, DeleteMode delete_mode = DeleteMode::DeleteOnDestruct);
+	buffer(void *buffer, size_t size, delete_mode mode = delete_mode::delete_on_destruct);
 
 	/*!
 	 * Destructor
 	 *
 	 * If the DeleteMode is set to DeleteMode::DeleteOnDestruct, the buffer will be automatically freed.
 	 */
-	~Buffer();
+	~buffer();
 
 	/*!
 	 * Prevent copying this class.
 	 */
-	Buffer(const Buffer&) = delete;
+	buffer(const buffer&) = delete;
 
 	/*!
 	 * Prevent copying this class.
 	 */
-	Buffer & operator=(const Buffer&) = delete;
+	buffer & operator=(const buffer&) = delete;
 
 	//Allocate at least n bytes
 	bool				reserve(size_t n);
@@ -87,8 +87,8 @@ public:
 	size_t				size() { return size_; }
 	size_t				reserved_size() { return reserved_size_; }
 
-	void				set_delete_mode(DeleteMode mode);
-	DeleteMode			get_delete_mode() { return delete_mode_; }
+	void				set_delete_mode(delete_mode mode);
+	delete_mode			get_delete_mode() { return delete_mode_; }
 
 	void				set_size(size_t size) { size_ = size; }
 
@@ -98,12 +98,12 @@ private:
 	size_t				size_;
 	size_t				reserved_size_;
 
-	DeleteMode			delete_mode_;
+	delete_mode			delete_mode_;
 };
 
-typedef std::shared_ptr<Buffer> BufferPtr;
-#define AeonEmptyBuffer BufferPtr()
+typedef std::shared_ptr<buffer> buffer_ptr;
+#define aeon_empty_buffer buffer_ptr()
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonBuffer_h__ */
+#endif // buffer_h__

@@ -1,19 +1,19 @@
-#ifndef AeonFrameListener_h__
-#define AeonFrameListener_h__
+#ifndef framelistener_h__
+#define framelistener_h__
 
-namespace Aeon
+namespace aeon
 {
 
-class FrameListener
+class framelistener
 {
 public:
-	FrameListener() {}
-	~FrameListener() {}
+	framelistener() {}
+	~framelistener() {}
 
 	virtual bool on_frame(float dt) = 0;
 	virtual bool on_render() = 0;
 };
 
-} /* namespace Aeon */
+} //namespace Aeon
 
-#endif /* AeonFrameListener_h__ */
+#endif // framelistener_h__

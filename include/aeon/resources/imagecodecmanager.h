@@ -1,28 +1,28 @@
-#ifndef AeonImageCodecManager_h__
-#define AeonImageCodecManager_h__
+#ifndef imagecodecmanager_h__
+#define imagecodecmanager_h__
 
-#include "Aeon/Utility/Singleton.h"
-#include "Aeon/Resources/ImageCodec.h"
-#include "Aeon/Streams/Stream.h"
+#include "aeon/utility/singleton.h"
+#include "aeon/resources/imagecodec.h"
+#include "aeon/streams/stream.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class ImageCodecManager : public Singleton<ImageCodecManager>
+class image_codec_manager : public singleton<image_codec_manager>
 {
 public:
-	ImageCodecManager();
-	~ImageCodecManager();
+	image_codec_manager();
+	~image_codec_manager();
 
-	void				register_codec(ImageCodecPtr codec);
+	void				register_codec(image_codec_ptr codec);
 	
-	ImagePtr			decode(const std::string &name, StreamPtr stream);
+	image_ptr			decode(const std::string &name, stream_ptr stream);
 
 private:
-	typedef std::map<const std::string, ImageCodecPtr> ImageCodecs;
-	ImageCodecs			registered_codecs_;
+	typedef std::map<const std::string, image_codec_ptr> image_codecs;
+	image_codecs		registered_codecs_;
 };
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonImageCodecManager_h__ */
+#endif // imagecodecmanager_h__

@@ -1,34 +1,34 @@
-#include "Aeon/Aeon.h"
+#include "aeon/aeon.h"
 
 #ifdef AEON_USE_GLFW_PLATFORM
 
-#include "Aeon/Platforms/GLFWPlatform.h"
-#include "Aeon/Game.h"
-#include "Aeon/Console/Console.h"
+#include "aeon/platforms/glfwplatform.h"
+#include "aeon/game.h"
+#include "aeon/console/console.h"
 
-namespace Aeon
+namespace aeon
 {
-namespace Platforms
+namespace platforms
 {
 
-GLFW::GLFW()
+glfw::glfw()
 :
 window_(NULL)
 {
 }
 
-GLFW::~GLFW()
+glfw::~glfw()
 {
 }
 
-bool GLFW::initialize()
+bool glfw::initialize()
 {
-	Console::info("[GLFW] Initializing GLFW platform");
+	console::info("[GLFW] Initializing GLFW platform");
 
 	//Initialize GLFW
 	if (!glfwInit())
 	{
-		Console::error("[GLFW] Could not initialize GLFW");
+		console::error("[GLFW] Could not initialize GLFW");
 		return false;
 	}
 
@@ -37,7 +37,7 @@ bool GLFW::initialize()
 
 	if (window_ == NULL)
 	{
-		Console::error("[GLFW] Could not create GLFW window");
+		console::error("[GLFW] Could not create GLFW window");
 		glfwTerminate();
 		return false;
 	}
@@ -47,7 +47,7 @@ bool GLFW::initialize()
 	return true;
 }
 
-bool GLFW::pre_frame()
+bool glfw::pre_frame()
 {
 	if (!window_)
 		return false;
@@ -62,7 +62,7 @@ bool GLFW::pre_frame()
 	return true;
 }
 
-bool GLFW::post_frame()
+bool glfw::post_frame()
 {
 	if (!window_)
 		return false;
@@ -76,9 +76,9 @@ bool GLFW::post_frame()
 	return true;
 }
 
-bool GLFW::dispose()
+bool glfw::dispose()
 {
-	Console::info("[GLFW] Terminating GLFW");
+	console::info("[GLFW] Terminating GLFW");
 
 	glfwMakeContextCurrent(NULL);
 	glfwTerminate();
@@ -87,7 +87,7 @@ bool GLFW::dispose()
 	return true;
 }
 
-} /* namespace Platforms */
-} /* namespace Aeon */
+} //namespace platforms
+} //namespace aeon
 
 #endif /* AEON_USE_GLFW_PLATFORM */

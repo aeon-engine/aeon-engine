@@ -1,21 +1,21 @@
-#ifndef AeonGameState_h__
-#define AeonGameState_h__
+#ifndef gamestate_h__
+#define gamestate_h__
 
-namespace Aeon
+namespace aeon
 {
 
-class GameState
+class game_state
 {
 public:
-	GameState() {}
-	virtual ~GameState() {}
+	game_state() {}
+	virtual ~game_state() {}
 
 	virtual void			on_enter() = 0;
 	virtual void			on_leave() = 0;
 };
 
-typedef std::shared_ptr<GameState> GameStatePtr;
+typedef std::shared_ptr<game_state> game_state_ptr;
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonGameState_h__ */
+#endif // gamestate_h__

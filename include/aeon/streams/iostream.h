@@ -1,16 +1,16 @@
-#ifndef AeonIOStream_h__
-#define AeonIOStream_h__
+#ifndef iostream_h__
+#define iostream_h__
 
-#include "Aeon/Streams/Stream.h"
+#include "aeon/streams/stream.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class IOStream : public Stream
+class io_stream : public stream
 {
 public:
-	IOStream(int access_mode = AccessMode::Read);
-	IOStream(const std::string &name, int access_mode = AccessMode::Read);
+	io_stream(int mode = access_mode::read);
+	io_stream(const std::string &name, int mode = access_mode::read);
 
 	virtual size_t					read(void *buffer, size_t count);
 	virtual size_t					write(const void *buffer, size_t count);
@@ -18,7 +18,7 @@ public:
 	virtual bool					read(std::uint8_t &data);
 	virtual bool					peek(std::uint8_t &data);
 
-	virtual bool					seek(size_t pos, SeekDirection direction);
+	virtual bool					seek(size_t pos, seek_direction direction);
 	virtual size_t					tell() const;
 
 	virtual bool					eof() const;
@@ -27,9 +27,9 @@ public:
 
 	virtual bool					good() { return true; }
 
-	virtual BufferPtr				get_as_buffer();
+	virtual buffer_ptr				get_as_buffer();
 };
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonIOStream_h__ */
+#endif // iostream_h__

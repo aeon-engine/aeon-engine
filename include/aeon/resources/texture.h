@@ -1,31 +1,31 @@
-#ifndef AeonTexture_h__
-#define AeonTexture_h__
+#ifndef texture_h__
+#define texture_h__
 
-#include "Aeon/Resources/Resource.h"
-#include "Aeon/Streams/Stream.h"
-#include "Aeon/Resources/Image.h"
+#include "aeon/resources/resource.h"
+#include "aeon/streams/stream.h"
+#include "aeon/resources/image.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class Texture : public Resource
+class texture : public resource
 {
 public:
-	Texture(ResourceManager *creator, const std::string &name);
-	virtual ~Texture();
+	texture(resource_manager *creator, const std::string &name);
+	virtual ~texture();
 
 protected:
-	virtual bool			__load_impl(StreamPtr stream);
+	virtual bool			__load_impl(stream_ptr stream);
 	virtual bool			__unload_impl();
 	virtual bool			__finalize_impl();
 
-	ImagePtr				image_;
+	image_ptr				image_;
 	GLuint					texture_;
 };
 
-typedef std::shared_ptr<Texture> TexturePtr;
-#define AeonEmptyTexture TexturePtr()
+typedef std::shared_ptr<texture> texture_ptr;
+#define aeon_empty_texture texture_ptr()
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonTexture_h__ */
+#endif // texture_h__

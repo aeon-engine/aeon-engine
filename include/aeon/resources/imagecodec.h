@@ -4,21 +4,21 @@
 #include "Aeon/Streams/Stream.h"
 #include "Aeon/Resources/Image.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class ImageCodec
+class image_codec
 {
 public:
-	ImageCodec() {}
-	virtual ~ImageCodec() {}
+	image_codec() {}
+	virtual ~image_codec() {}
 
-	virtual ImagePtr decode(StreamPtr stream) = 0;
+	virtual image_ptr decode(stream_ptr stream) = 0;
 	virtual std::string get_type_name() const = 0;
 
 };
 
-typedef std::shared_ptr<ImageCodec> ImageCodecPtr;
+typedef std::shared_ptr<image_codec> image_codec_ptr;
 
 } /* namespace Aeon */
 

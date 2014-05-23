@@ -1,44 +1,44 @@
-#ifndef AeonImage_h__
-#define AeonImage_h__
+#ifndef image_h__
+#define image_h__
 
-#include "Aeon/Utility/Buffer.h"
-#include "Aeon/Streams/Stream.h"
+#include "aeon/utility/buffer.h"
+#include "aeon/streams/stream.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class Image
+class image
 {
 public:
-	enum class PixelFormat
+	enum class pixel_format
 	{
-		RGB,
-		RGBA,
+		rgb,
+		rgba,
 	};
 
-	Image();
-	~Image();
+	image();
+	~image();
 
-	void					set_data(BufferPtr buffer, unsigned int width, unsigned int height, PixelFormat pixelformat = PixelFormat::RGBA);
+	void					set_data(buffer_ptr buffer, unsigned int width, unsigned int height, pixel_format pixelformat = pixel_format::rgba);
 
-	BufferPtr				get_data()			{ return buffer_; }
+	buffer_ptr				get_data()			{ return buffer_; }
 	unsigned int			get_width()			{ return width_; }
 	unsigned int			get_height()		{ return height_; }
-	PixelFormat				get_pixelformat()	{ return pixel_format_; }
+	pixel_format			get_pixelformat()	{ return pixel_format_; }
 
-	bool					save_raw_to_stream(StreamPtr stream);
+	bool					save_raw_to_stream(stream_ptr stream);
 
 private:
-	BufferPtr				buffer_;
+	buffer_ptr				buffer_;
 
 	unsigned int			width_;
 	unsigned int			height_;
-	PixelFormat				pixel_format_;
+	pixel_format			pixel_format_;
 };
 
-typedef std::shared_ptr<Image> ImagePtr;
-#define AeonEmptyImage ImagePtr();
+typedef std::shared_ptr<image> image_ptr;
+#define aeon_empty_image image_ptr();
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonImage_h__ */
+#endif // image_h__

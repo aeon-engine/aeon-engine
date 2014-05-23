@@ -1,9 +1,9 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Utility/StringUtils.h"
+#include "aeon/aeon.h"
+#include "aeon/utility/stringutils.h"
 
-namespace Aeon
+namespace aeon
 {
-namespace StringUtils
+namespace string_utils
 {
 
 /************************************************************************/
@@ -94,7 +94,7 @@ bool string_to_bool(const std::string &str)
 /************************************************************************/
 /* String splitting                                                     */
 /************************************************************************/
-Strings &split(const std::string &s, char delim, Strings &elems, SplitMode mode /* = SplitMode::SkipEmpty */)
+strings &split(const std::string &s, char delim, strings &elems, splitmode mode /* = SplitMode::SkipEmpty */)
 {
 	std::stringstream ss(s);
 	std::string item;
@@ -102,7 +102,7 @@ Strings &split(const std::string &s, char delim, Strings &elems, SplitMode mode 
 	while(std::getline(ss, item, delim))
 	{
 		//Do we need to skip empty items?
-		if(mode == SplitMode::SkipEmpty && item == "")
+		if(mode == splitmode::skip_empty && item == "")
 			continue;
 
 		elems.push_back(item);
@@ -111,9 +111,9 @@ Strings &split(const std::string &s, char delim, Strings &elems, SplitMode mode 
 	return elems;
 }
 
-Strings split(const std::string &s, char delim, SplitMode mode /* = SplitMode::SkipEmpty */)
+strings split(const std::string &s, char delim, splitmode mode /* = SplitMode::SkipEmpty */)
 {
-	Strings elems;
+	strings elems;
 	split(s, delim, elems, mode);
 	return elems;
 }

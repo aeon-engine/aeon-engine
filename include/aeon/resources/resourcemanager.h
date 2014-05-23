@@ -4,34 +4,34 @@
 #include "Aeon/Resources/Resource.h"
 #include "Aeon/Streams/Stream.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class ResourceManager
+class resource_manager
 {
-friend class Resource;
+friend class resource;
 public:
-	typedef std::map<std::string, ResourcePtr> ResourceMap;
-	typedef std::queue<ResourcePtr> ResourceQueue;
+	typedef std::map<std::string, resource_ptr> ResourceMap;
+	typedef std::queue<resource_ptr> ResourceQueue;
 
-	ResourceManager();
-	virtual ~ResourceManager();
+	resource_manager();
+	virtual ~resource_manager();
 
-	ResourcePtr				load(StreamPtr stream);
-	ResourcePtr				load(const std::string &name);
+	resource_ptr				load(stream_ptr stream);
+	resource_ptr				load(const std::string &name);
 
-	bool					unload(ResourcePtr resource);
+	bool					unload(resource_ptr resource);
 	bool					unload(const std::string &name);
 
 	int						finalize_resources();
 
 protected:
 	bool					__is_name_unique(const std::string &name);
-	ResourcePtr				__load(StreamPtr stream);
+	resource_ptr				__load(stream_ptr stream);
 
-	virtual Resource *		__create_new_resource(const std::string &name) = 0;
+	virtual resource *		__create_new_resource(const std::string &name) = 0;
 
-	void					__mark_as_finalize(ResourcePtr resource);
+	void					__mark_as_finalize(resource_ptr resource);
 	
 	ResourceMap				resource_map_;
 	std::mutex				resource_map_mutex_;

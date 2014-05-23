@@ -1,18 +1,18 @@
-#ifndef AeonGame_h__
-#define AeonGame_h__
+#ifndef game_h__
+#define game_h__
 
-#include "Aeon/GameState.h"
+#include "aeon/gameState.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class Game
+class game
 {
 public:
-	Game();
-	virtual ~Game();
+	game();
+	virtual ~game();
 
-	void					set_gamestate(GameStatePtr gamestate);
+	void					set_gamestate(game_state_ptr gamestate);
 
 protected:
 	virtual bool			on_initialize() = 0;
@@ -21,11 +21,11 @@ protected:
 	virtual void			on_cleanup() = 0;
 
 private:
-	GameStatePtr			current_gamestate_;
+	game_state_ptr			current_gamestate_;
 };
 
-typedef std::shared_ptr<Game> GamePtr;
+typedef std::shared_ptr<game> game_ptr;
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonGame_h__ */
+#endif // game_h__

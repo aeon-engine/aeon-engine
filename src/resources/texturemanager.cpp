@@ -1,36 +1,36 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Resources/TextureManager.h"
-#include "Aeon/Resources/Texture.h"
-#include "Aeon/Console/Console.h"
+#include "aeon/aeon.h"
+#include "aeon/resources/texturemanager.h"
+#include "aeon/resources/texture.h"
+#include "aeon/console/console.h"
 
-AeonInitializeSingleton(Aeon::TextureManager);
+aeon_initialize_singleton(aeon::texture_manager);
 
-namespace Aeon
+namespace aeon
 {
 
-TextureManager::TextureManager()
+texture_manager::texture_manager()
 {
-	Console::debug("[TextureManager]: created.");
+	console::debug("[TextureManager]: created.");
 }
 
-TextureManager::~TextureManager()
+texture_manager::~texture_manager()
 {
-	Console::debug("[TextureManager]: disposed.");
+	console::debug("[TextureManager]: disposed.");
 }
 
-TexturePtr TextureManager::load(StreamPtr stream)
+texture_ptr texture_manager::load(stream_ptr stream)
 {
-	return std::dynamic_pointer_cast<Texture>(ResourceManager::load(stream));
+	return std::dynamic_pointer_cast<texture>(resource_manager::load(stream));
 }
 
-TexturePtr TextureManager::load(const std::string &name)
+texture_ptr texture_manager::load(const std::string &name)
 {
-	return std::dynamic_pointer_cast<Texture>(ResourceManager::load(name));
+	return std::dynamic_pointer_cast<texture>(resource_manager::load(name));
 }
 
-Resource * TextureManager::__create_new_resource(const std::string &name)
+resource * texture_manager::__create_new_resource(const std::string &name)
 {
-	return new Texture(this, name);
+	return new texture(this, name);
 }
 
-} /* namespace Aeon */
+} //namespace aeon

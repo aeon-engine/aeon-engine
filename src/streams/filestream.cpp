@@ -1,99 +1,99 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Streams/FileStream.h"
-#include "Aeon/Console/Console.h"
+#include "aeon/aeon.h"
+#include "aeon/streams/filestream.h"
+#include "aeon/console/console.h"
 
-namespace Aeon
+namespace aeon
 {
 
-FileStream::FileStream(const std::string &path, int access_mode /*= AccessMode::Read*/)
+file_stream::file_stream(const std::string &path, int mode /*= access_mode::read*/)
 :
-Stream(path, access_mode),
+stream(path, mode),
 file_(NULL)
 {
-	if(access_mode == (AccessMode::Read | AccessMode::Write))
+	if (mode == (access_mode::read | access_mode::write))
 	{
-		Console::error("FileStream: Invalid access mode: Read+Write on file %s.", name_.c_str());
+		console::error("FileStream: Invalid access mode: Read+Write on file %s.", name_.c_str());
 		return;
 	}
 
 	__open_file();
 }
 
-FileStream::~FileStream()
+file_stream::~file_stream()
 {
 }
 
-void FileStream::__open_file()
+void file_stream::__open_file()
 {
-	if(access_mode_ == AccessMode::Read)
+	if(access_mode_ == access_mode::read)
 		file_ = fopen(name_.c_str(), "rb");
 	else
 		file_ = fopen(name_.c_str(), "wb");
 
 	if(!file_)
 	{
-		Console::error("FileStream: Could not open file: %s", name_.c_str());
+		console::error("FileStream: Could not open file: %s", name_.c_str());
 		return;
 	}
 
-	if(access_mode_ == AccessMode::Read)
+	if(access_mode_ == access_mode::read)
 		__calculate_file_size();
 }
 
-void FileStream::__calculate_file_size()
+void file_stream::__calculate_file_size()
 {
 	if(!file_)
 	{
-		Console::error("FileStream: Size requested on unopened file.");
+		console::error("FileStream: Size requested on unopened file.");
 		return;
 	}
 
-	if(!seek(0, SeekDirection::End))
-		Console::error("Could not determine file size for file: %s. Seek end failed.", name_.c_str());
+	if(!seek(0, seek_direction::end))
+		console::error("Could not determine file size for file: %s. Seek end failed.", name_.c_str());
 
 	size_ = ftell(file_);
 
 	if(size_ == 0)
-		Console::warning("FileStream: File is empty: %s", name_.c_str());
+		console::warning("FileStream: File is empty: %s", name_.c_str());
 
-	if(!seek(0, SeekDirection::Begin))
-		Console::error("Could not determine file size for file: %s. Seek begin failed.", name_.c_str());
+	if(!seek(0, seek_direction::begin))
+		console::error("Could not determine file size for file: %s. Seek begin failed.", name_.c_str());
 }
 
-size_t FileStream::read(void *buffer, size_t count)
+size_t file_stream::read(void *buffer, size_t count)
 {
 	if(!file_)
 	{
-		Console::error("FileStream: Read on unopened file.");
+		console::error("FileStream: Read on unopened file.");
 		return 0;
 	}
 
-	if(access_mode_ != AccessMode::Read)
+	if(access_mode_ != access_mode::read)
 	{
-		Console::error("FileStream: Can not read from file in write mode for file %s.", name_.c_str());
+		console::error("FileStream: Can not read from file in write mode for file %s.", name_.c_str());
 		return 0;
 	}
 
 	if(!buffer)
 	{
-		Console::error("FileStream: Input buffer is NULL.");
+		console::error("FileStream: Input buffer is NULL.");
 		return 0;
 	}
 
 	if(count == 0)
 	{
-		Console::warning("FileStream: Tried writing 0 bytes.");
+		console::warning("FileStream: Tried writing 0 bytes.");
 		return 0;
 	}
 
 	return fread(buffer, 1, count, file_);
 }
 
-bool FileStream::read(std::uint8_t &data)
+bool file_stream::read(std::uint8_t &data)
 {
-	if(access_mode_ != AccessMode::Read)
+	if(access_mode_ != access_mode::read)
 	{
-		Console::error("FileStream: Can not read from file in write mode for file %s.", name_.c_str());
+		console::error("FileStream: Can not read from file in write mode for file %s.", name_.c_str());
 		return false;
 	}
 
@@ -106,11 +106,11 @@ bool FileStream::read(std::uint8_t &data)
 	return true;
 }
 
-bool FileStream::peek(std::uint8_t &data)
+bool file_stream::peek(std::uint8_t &data)
 {
-	if(access_mode_ != AccessMode::Read)
+	if(access_mode_ != access_mode::read)
 	{
-		Console::error("FileStream: Can not peek from file in write mode for file %s.", name_.c_str());
+		console::error("FileStream: Can not peek from file in write mode for file %s.", name_.c_str());
 		return false;
 	}
 
@@ -127,54 +127,54 @@ bool FileStream::peek(std::uint8_t &data)
 	return true;
 }
 
-size_t FileStream::write(const void *buffer, size_t count)
+size_t file_stream::write(const void *buffer, size_t count)
 {
 	if(!file_)
 	{
-		Console::error("FileStream: Write on unopened file.");
+		console::error("FileStream: Write on unopened file.");
 		return 0;
 	}
 
-	if(access_mode_ != AccessMode::Write)
+	if(access_mode_ != access_mode::write)
 	{
-		Console::error("FileStream: Can not write to file in read mode for file %s.", name_.c_str());
+		console::error("FileStream: Can not write to file in read mode for file %s.", name_.c_str());
 		return 0;
 	}
 
 	if(!buffer)
 	{
-		Console::error("FileStream: Input buffer is NULL.");
+		console::error("FileStream: Input buffer is NULL.");
 		return 0;
 	}
 
 	if(count == 0)
 	{
-		Console::warning("FileStream: Tried writing 0 bytes.");
+		console::warning("FileStream: Tried writing 0 bytes.");
 		return 0;
 	}
 
 	return fwrite(buffer, 1, count, file_);
 }
 
-bool FileStream::seek(size_t pos, SeekDirection direction)
+bool file_stream::seek(size_t pos, seek_direction direction)
 {
 	if(!file_)
 	{
-		Console::error("FileStream: Seek on unopened file.");
+		console::error("FileStream: Seek on unopened file.");
 		return false;
 	}
 
 	switch(direction)
 	{
-		case SeekDirection::Begin:
+		case seek_direction::begin:
 		{
 			return fseek(file_, (long) pos, SEEK_SET) == 0;
 		}break;
-		case SeekDirection::Current:
+		case seek_direction::current:
 		{
 			return fseek(file_, (long) pos, SEEK_CUR) == 0;
 		}break;
-		case SeekDirection::End:
+		case seek_direction::end:
 		{
 			return fseek(file_, (long) pos, SEEK_END) == 0;
 		}break;
@@ -183,33 +183,33 @@ bool FileStream::seek(size_t pos, SeekDirection direction)
 	return false;
 }
 
-size_t FileStream::tell() const
+size_t file_stream::tell() const
 {
 	if(!file_)
 	{
-		Console::error("FileStream: Tell on unopened file.");
+		console::error("FileStream: Tell on unopened file.");
 		return 0;
 	}
 
 	return ftell(file_);
 }
 
-bool FileStream::eof() const
+bool file_stream::eof() const
 {
 	if(!file_)
 	{
-		Console::error("FileStream: EOF on unopened file.");
+		console::error("FileStream: EOF on unopened file.");
 		return true;
 	}
 
 	return (feof(file_) != 0);
 }
 
-void FileStream::close()
+void file_stream::close()
 {
 	if(!file_)
 	{
-		Console::error("FileStream: Close on unopened file.");
+		console::error("FileStream: Close on unopened file.");
 		return;
 	}
 
@@ -217,20 +217,20 @@ void FileStream::close()
 	file_ = NULL;
 }
 
-void FileStream::flush()
+void file_stream::flush()
 {
 	if(!file_)
 	{
-		Console::error("FileStream: Close on unopened file.");
+		console::error("FileStream: Close on unopened file.");
 		return;
 	}
 
 	fflush(file_);
 }
 
-bool FileStream::good()
+bool file_stream::good()
 {
 	return file_ != NULL;
 }
 
-} /* namespace Aeon */
+} //namespace Aeon

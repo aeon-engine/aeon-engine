@@ -1,62 +1,62 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Streams/Stream.h"
-#include "Aeon/Console/Console.h"
+#include "aeon/aeon.h"
+#include "aeon/streams/stream.h"
+#include "aeon/console/console.h"
 
-namespace Aeon
+namespace aeon
 {
 
-Stream::Stream(int access_mode /*= AccessMode::Read*/)
+stream::stream(int mode /*= access_mode::read*/)
 :
 has_name_(false),
 name_(AEON_STREAM_DEFAULT_NAME),
 size_(0),
-access_mode_(access_mode)
+access_mode_(mode)
 {}
 
-Stream::Stream(const std::string &name, int access_mode /*= AccessMode::Read*/)
+stream::stream(const std::string &name, int mode /*= access_mode::read*/)
 :
 has_name_(true),
 name_(name),
 size_(0),
-access_mode_(access_mode)
+access_mode_(mode)
 {}
 
-Stream::~Stream()
+stream::~stream()
 {
 	close();
 }
 
-BufferPtr Stream::get_as_buffer()
+buffer_ptr stream::get_as_buffer()
 {
 	size_t s = size();
 	
-	auto buffer = std::make_shared<Buffer>(s);
-	read(buffer->get(), s);
+	auto buff = std::make_shared<buffer>(s);
+	read(buff->get(), s);
 
-	return buffer;
+	return buff;
 }
 
-size_t Stream::write(const std::string &str)
+size_t stream::write(const std::string &str)
 {
 	return write(str.data(), str.size());
 }
 
-size_t Stream::write(BufferPtr buffer)
+size_t stream::write(buffer_ptr buffer)
 {
 	if(!buffer)
 	{
-		Console::error("Stream: Tried writing an empty buffer to a stream.");
+		console::error("Stream: Tried writing an empty buffer to a stream.");
 		return 0;
 	}
 
 	return write(buffer->get(), buffer->size());
 }
 
-size_t Stream::read_line(std::string &str)
+size_t stream::read_line(std::string &str)
 {
-	if(!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & access_mode::read))
 	{
-		Console::error("Stream: Read on write-only stream.");
+		console::error("Stream: Read on write-only stream.");
 		return 0;
 	}
 
@@ -81,7 +81,7 @@ size_t Stream::read_line(std::string &str)
 
 			//If it's '\r', then we should seek 1 byte ahead
 			if (result && c == '\r')
-				seek(1, SeekDirection::Current);
+				seek(1, seek_direction::current);
 
 			break;
 		}
@@ -94,7 +94,7 @@ size_t Stream::read_line(std::string &str)
 
 			//If it's '\n', then we should seek 1 byte ahead
 			if (result && c == '\n')
-				seek(1, SeekDirection::Current);
+				seek(1, seek_direction::current);
 
 			break;
 		}
@@ -107,4 +107,4 @@ size_t Stream::read_line(std::string &str)
 	return line.length();
 }
 
-} /* namespace Aeon */
+} //namespace Aeon

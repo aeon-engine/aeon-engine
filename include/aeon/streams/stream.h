@@ -1,9 +1,9 @@
-#ifndef AeonStream_h__
-#define AeonStream_h__
+#ifndef stream_h__
+#define stream_h__
 
-#include "Aeon/Utility/Buffer.h"
+#include "aeon/utility/buffer.h"
 
-namespace Aeon
+namespace aeon
 {
 
 /*!
@@ -11,7 +11,7 @@ namespace Aeon
  *
  * This class serves as the base class for all streams. When implementing a new steam, derive from this class.
  */
-class Stream
+class stream
 {
 public:
 	/*!
@@ -21,14 +21,14 @@ public:
  	 * This is implemented as a anonymous enum within a class, since enum classes do not support bitflags
  	 * at this moment.
  	 */
-	class AccessMode
+	class access_mode
 	{
 	public:
 		enum
 		{
-			Read			= 1,	/**< enum Read-Only */
-			Write			= 2,	/**< enum Write-Only */
-			ReadWrite		= 3		/**< enum Read-Write (Full access) */
+			read			= 1,	/**< enum Read-Only */
+			write			= 2,	/**< enum Write-Only */
+			read_write		= 3		/**< enum Read-Write (Full access) */
 		};
 	};
 
@@ -36,11 +36,11 @@ public:
  	 * The seek direction used in the Stream::Seek function. This determines the behaviour of the pos
  	 * parameter.
  	 */ 
-	enum class SeekDirection
+	enum class seek_direction
 	{
-		Begin,						/**< enum Seek forwards from the beginning */
-		Current,					/**< enum Seek forwards from wherever the read pointer currently is */
-		End							/**< enum Seek backwards from the end */
+		begin,						/**< enum Seek forwards from the beginning */
+		current,					/**< enum Seek forwards from wherever the read pointer currently is */
+		end							/**< enum Seek backwards from the end */
 	};
 
 	/*!
@@ -54,7 +54,7 @@ public:
 	 * \param access_mode The access mode for the stream.
 	 * \sa AccessMode
  	 */
-	Stream(int access_mode = AccessMode::Read);
+	stream(int mode = access_mode::read);
 
 	/*!
 	 * \brief Preferred constructor for Stream
@@ -67,14 +67,14 @@ public:
 	 * \param access_mode The access mode for the stream.
 	 * \sa AccessMode
 	 */
-	Stream(const std::string &name, int access_mode = AccessMode::Read);
+	stream(const std::string &name, int mode = access_mode::read);
 
 	/*!
 	 * Destructor.
 	 *
 	 * This will call close() to let the implementation close the stream properly if needed.
 	 */
-	virtual ~Stream();
+	virtual ~stream();
 
 	const bool						has_name() { return has_name_; }
 
@@ -100,7 +100,7 @@ public:
 	 * \return True if the stream is readable.
 	 * \sa get_access_mode()
 	 */
-	virtual bool					is_readable() const { return (access_mode_ & AccessMode::Read) != 0; }
+	virtual bool					is_readable() const { return (access_mode_ & access_mode::read) != 0; }
 
 	/*!
 	 * Determine of the stream is writable (true if AccessMode::Write is set)
@@ -108,7 +108,7 @@ public:
 	 * \return True if the stream is writable.
 	 * \sa get_access_mode()
 	 */
-	virtual bool					is_writeable() const { return (access_mode_ & AccessMode::Read) != 0; }
+	virtual bool					is_writeable() const { return (access_mode_ & access_mode::read) != 0; }
 
 	/*!
 	 * Read raw data from the stream.
@@ -171,7 +171,7 @@ public:
 	 * \sa is_writeable()
 	 * \sa Buffer
 	 */
-	virtual size_t					write(BufferPtr buffer);
+	virtual size_t					write(buffer_ptr buffer);
 
 	/*!
 	 * Read a line of text from the stream.
@@ -210,7 +210,7 @@ public:
 	 * \return True if succeeded, false on fail.
 	 * \sa SeekDirection
 	 */
-	virtual bool					seek(size_t pos, SeekDirection direction) = 0;
+	virtual bool					seek(size_t pos, seek_direction direction) = 0;
 
 	/*!
 	 * Get the read/write position within the stream.
@@ -273,7 +273,7 @@ public:
 	 * this may not be a copy.
 	 * \sa Buffer
 	 */
-	virtual BufferPtr				get_as_buffer();
+	virtual buffer_ptr				get_as_buffer();
 
 protected:
 	bool							has_name_;
@@ -282,9 +282,9 @@ protected:
 	int								access_mode_;
 };
 
-typedef std::shared_ptr<Stream> StreamPtr;
-#define AeonEmptyStream StreamPtr()
+typedef std::shared_ptr<stream> stream_ptr;
+#define aeon_empty_stream stream_ptr()
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonStream_h__ */
+#endif // stream_h__

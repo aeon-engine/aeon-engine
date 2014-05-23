@@ -1,43 +1,43 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Console/Console.h"
-#include "Aeon/Resources/Texture.h"
-#include "Aeon/Resources/Image.h"
-#include "Aeon/Resources/ImageCodecManager.h"
+#include "aeon/aeon.h"
+#include "aeon/console/console.h"
+#include "aeon/resources/texture.h"
+#include "aeon/resources/image.h"
+#include "aeon/resources/imagecodecmanager.h"
 
-namespace Aeon
+namespace aeon
 {
 
-Texture::Texture(ResourceManager *creator, const std::string &name)
+texture::texture(resource_manager *creator, const std::string &name)
 :
-Resource(creator, name),
+resource(creator, name),
 texture_(0)
 {
 
 }
 
-Texture::~Texture()
+texture::~texture()
 {
 
 }
 
-bool Texture::__load_impl(StreamPtr stream)
+bool texture::__load_impl(stream_ptr stream)
 {
-	image_ = ImageCodecManager::getSingleton().decode("PNG", stream);
+	image_ = image_codec_manager::get_singleton().decode("PNG", stream);
 
 	if (!image_)
 	{
-		Console::warning("[Texture]: Texture '%s' could not be loaded. Image decode reported an error.", stream->get_name().c_str());
+		console::warning("[Texture]: Texture '%s' could not be loaded. Image decode reported an error.", stream->get_name().c_str());
 		return false;
 	}
 
 	return true;
 }
 
-bool Texture::__unload_impl()
+bool texture::__unload_impl()
 {
 	if (texture_ == 0)
 	{
-		Console::warning("[Texture]: Texture '%s' could not be unloaded. Unload called on previously unloaded texture.");
+		console::warning("[Texture]: Texture '%s' could not be unloaded. Unload called on previously unloaded texture.");
 		return false;
 	}
 
@@ -47,16 +47,15 @@ bool Texture::__unload_impl()
 	return true;
 }
 
-bool Texture::__finalize_impl()
+bool texture::__finalize_impl()
 {
 	if (!image_ || !image_->get_data())
 	{
-		Console::warning("[Texture]: Texture could not be finalized. Image is invalid.");
+		console::warning("[Texture]: Texture could not be finalized. Image is invalid.");
 		return false;
 	}
-
 
 	return true;
 }
 
-} /* namespace Aeon */
+} //namespace aeon

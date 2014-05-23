@@ -1,58 +1,58 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Streams/MemoryStream.h"
-#include "Aeon/Console/Console.h"
+#include "aeon/aeon.h"
+#include "aeon/streams/memorystream.h"
+#include "aeon/console/console.h"
 
-namespace Aeon
+namespace aeon
 {
 
-MemoryStream::MemoryStream(DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/)
+memory_stream::memory_stream(delete_mode mode /*= delete_mode::delete_on_destruct*/)
 :
-Stream(AccessMode::Write),
-buffer_(std::make_shared<Buffer>()),
+stream(access_mode::write),
+buffer_(std::make_shared<buffer>()),
 buffer_offset_(0)
 {
 	//Set the correct delete mode in our buffer
-	buffer_->set_delete_mode(delete_mode == DeleteMode::DeleteOnDestruct ? Buffer::DeleteMode::DeleteOnDestruct : Buffer::DeleteMode::None);
+	buffer_->set_delete_mode(mode == delete_mode::delete_on_destruct ? buffer::delete_mode::delete_on_destruct : buffer::delete_mode::none);
 }
 
-MemoryStream::MemoryStream(BufferPtr buffer, int access_mode /*= AccessMode::ReadWrite*/)
+memory_stream::memory_stream(buffer_ptr buffer, int mode /*= access_mode::read_write*/)
 :
-Stream(access_mode),
+stream(mode),
 buffer_(buffer),
 buffer_offset_(0)
 {
 
 }
 
-MemoryStream::MemoryStream(const std::string &name, DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/)
+memory_stream::memory_stream(const std::string &name, delete_mode mode /*= delete_mode::delete_on_destruct*/)
 :
-Stream(name, AccessMode::Write),
-buffer_(std::make_shared<Buffer>()),
+stream(name, access_mode::write),
+buffer_(std::make_shared<buffer>()),
 buffer_offset_(0)
 {
 	//Set the correct delete mode in our buffer
-	buffer_->set_delete_mode(delete_mode == DeleteMode::DeleteOnDestruct ? Buffer::DeleteMode::DeleteOnDestruct : Buffer::DeleteMode::None);
+	buffer_->set_delete_mode(mode == delete_mode::delete_on_destruct ? buffer::delete_mode::delete_on_destruct : buffer::delete_mode::none);
 }
 
-MemoryStream::MemoryStream(const std::string &name, BufferPtr buffer, int access_mode /*= AccessMode::ReadWrite*/)
+memory_stream::memory_stream(const std::string &name, buffer_ptr buffer, int access_mode /*= access_mode::read_write*/)
 :
-Stream(access_mode),
+stream(access_mode),
 buffer_(buffer),
 buffer_offset_(0)
 {
 
 }
 
-MemoryStream::~MemoryStream()
+memory_stream::~memory_stream()
 {
 
 }
 
-size_t MemoryStream::read(void *buffer, size_t count)
+size_t memory_stream::read(void *buffer, size_t count)
 {
-	if(!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & access_mode::read))
 	{
-		Console::error("MemoryStream: Read on write-only stream.");
+		console::error("MemoryStream: Read on write-only stream.");
 		return 0;
 	}
 
@@ -60,19 +60,19 @@ size_t MemoryStream::read(void *buffer, size_t count)
 
 	if(!data)
 	{
-		Console::error("MemoryStream: Read on empty stream. Buffer was NULL.");
+		console::error("MemoryStream: Read on empty stream. Buffer was NULL.");
 		return 0;
 	}
 
 	if(!buffer)
 	{
-		Console::error("MemoryStream: Input buffer is NULL.");
+		console::error("MemoryStream: Input buffer is NULL.");
 		return 0;
 	}
 
 	if(count == 0)
 	{
-		Console::warning("MemoryStream: Tried writing 0 bytes.");
+		console::warning("MemoryStream: Tried writing 0 bytes.");
 		return 0;
 	}
 
@@ -90,11 +90,11 @@ size_t MemoryStream::read(void *buffer, size_t count)
 	return count;
 }
 
-bool MemoryStream::read(std::uint8_t &data)
+bool memory_stream::read(std::uint8_t &data)
 {
-	if(!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & access_mode::read))
 	{
-		Console::error("MemoryStream: Read on write-only stream.");
+		console::error("MemoryStream: Read on write-only stream.");
 		return false;
 	}
 
@@ -108,11 +108,11 @@ bool MemoryStream::read(std::uint8_t &data)
 	return true;
 }
 
-bool MemoryStream::peek(std::uint8_t &data)
+bool memory_stream::peek(std::uint8_t &data)
 {
-	if(!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & access_mode::read))
 	{
-		Console::error("MemoryStream: Peek on write-only stream.");
+		console::error("MemoryStream: Peek on write-only stream.");
 		return false;
 	}
 
@@ -126,18 +126,18 @@ bool MemoryStream::peek(std::uint8_t &data)
 	return true;
 }
 
-size_t MemoryStream::write(const void *buffer, size_t count)
+size_t memory_stream::write(const void *buffer, size_t count)
 {
-	if(!(access_mode_ & AccessMode::Write))
+	if(!(access_mode_ & access_mode::write))
 	{
-		Console::error("MemoryStream: WRITE on read-only stream.");
+		console::error("MemoryStream: WRITE on read-only stream.");
 		return 0;
 	}
 
 	//Make sure we have enough space in the buffer
 	if(!buffer_->reserve(buffer_offset_ + count))
 	{
-		Console::error("MemoryStream: WRITE on stream failed. Could not reserve memory.");
+		console::error("MemoryStream: WRITE on stream failed. Could not reserve memory.");
 		return 0;
 	}
 
@@ -150,14 +150,14 @@ size_t MemoryStream::write(const void *buffer, size_t count)
 	return count;
 }
 
-bool MemoryStream::seek(size_t pos, SeekDirection direction)
+bool memory_stream::seek(size_t pos, seek_direction direction)
 {
 	size_t new_pos = 0;
 	switch(direction)
 	{
-		case SeekDirection::Begin:		{ new_pos = pos; } break;
-		case SeekDirection::Current:	{ new_pos = buffer_offset_ + pos; } break;
-		case SeekDirection::End:		{ new_pos = buffer_->size() - pos; } break;
+		case seek_direction::begin:		{ new_pos = pos; } break;
+		case seek_direction::current:	{ new_pos = buffer_offset_ + pos; } break;
+		case seek_direction::end:		{ new_pos = buffer_->size() - pos; } break;
 	};
 
 	//Can't go higher then the size of our buffer...
@@ -169,29 +169,29 @@ bool MemoryStream::seek(size_t pos, SeekDirection direction)
 	return true;
 }
 
-size_t MemoryStream::tell() const
+size_t memory_stream::tell() const
 {
 	return buffer_offset_;
 }
 
-bool MemoryStream::eof() const
+bool memory_stream::eof() const
 {
 	return buffer_offset_ >= buffer_->size();
 }
 
-void MemoryStream::close()
+void memory_stream::close()
 {
 	//Create a new buffer, and remove all references to the old one.
 	//This may leak memory if DeleteOnDestruct was not set.
-	buffer_ = std::make_shared<Buffer>();
+	buffer_ = std::make_shared<buffer>();
 }
 
-void MemoryStream::flush()
+void memory_stream::flush()
 {
 	//Nothing to do here.
 }
 
-bool MemoryStream::good()
+bool memory_stream::good()
 {
 	//Do we have a buffer?
 	if(!(buffer_->get() != NULL))
@@ -205,9 +205,9 @@ bool MemoryStream::good()
 	return true;
 }
 
-BufferPtr MemoryStream::get_as_buffer()
+buffer_ptr memory_stream::get_as_buffer()
 {
 	return buffer_;
 }
 
-} /* namespace Aeon */
+} //namespace Aeon

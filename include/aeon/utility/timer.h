@@ -1,17 +1,17 @@
-#ifndef AeonTimer_h__
-#define AeonTimer_h__
+#ifndef timer_h__
+#define timer_h__
 
 #include <ctime>
 #include <chrono>
 
-namespace Aeon
+namespace aeon
 {
 
-class Timer
+class timer
 {
 public:
-	Timer();
-	~Timer();
+	timer();
+	~timer();
 
 	void													reset();
 
@@ -21,6 +21,6 @@ private:
 	std::chrono::time_point<std::chrono::system_clock>		start_time_;
 };
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonTimer_h__ */
+#endif // timer_h__

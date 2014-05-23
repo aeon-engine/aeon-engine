@@ -1,25 +1,25 @@
 #include "Aeon/Aeon.h"
 #include "Aeon/Utility/Timer.h"
 
-namespace Aeon
+namespace aeon
 {
 
-Timer::Timer()
+timer::timer()
 {
 	reset();
 }
 
-Timer::~Timer()
+timer::~timer()
 {
 
 }
 
-void Timer::reset()
+void timer::reset()
 {
 	start_time_ = std::chrono::system_clock::now();
 }
 
-double Timer::get_time_difference()
+double timer::get_time_difference()
 {
 	std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now(); 
     std::chrono::duration<double> elapsed_seconds = now - start_time_;

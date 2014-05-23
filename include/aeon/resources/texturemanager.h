@@ -1,27 +1,27 @@
-#ifndef AeonTextureManager_h__
-#define AeonTextureManager_h__
+#ifndef texturemanager_h__
+#define texturemanager_h__
 
-#include "Aeon/Resources/ResourceManager.h"
-#include "Aeon/Utility/Singleton.h"
-#include "Aeon/Streams/Stream.h"
-#include "Aeon/Resources/Texture.h"
+#include "aeon/resources/resourcemanager.h"
+#include "aeon/utility/singleton.h"
+#include "aeon/streams/stream.h"
+#include "aeon/resources/texture.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class TextureManager : public ResourceManager, public Singleton<TextureManager>
+class texture_manager : public resource_manager, public singleton<texture_manager>
 {
 public:
-	TextureManager();
-	virtual ~TextureManager();
+	texture_manager();
+	virtual ~texture_manager();
 
-	TexturePtr		load(StreamPtr stream);
-	TexturePtr		load(const std::string &name);
+	texture_ptr		load(stream_ptr stream);
+	texture_ptr		load(const std::string &name);
 
 protected:
-	Resource *		__create_new_resource(const std::string &name);
+	resource *		__create_new_resource(const std::string &name);
 };
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonTextureManager_h__ */
+#endif // texturemanager_h__

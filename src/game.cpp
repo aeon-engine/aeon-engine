@@ -1,23 +1,23 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Game.h"
-#include "Aeon/GameState.h"
+#include "aeon/aeon.h"
+#include "aeon/game.h"
+#include "aeon/gamestate.h"
 
-namespace Aeon
+namespace aeon
 {
 
-Game::Game()
+game::game()
 :
 current_gamestate_(NULL)
 {
 
 }
 
-Game::~Game()
+game::~game()
 {
 
 }
 
-void Game::set_gamestate(GameStatePtr gamestate)
+void game::set_gamestate(game_state_ptr gamestate)
 {
 	if(current_gamestate_)
 		current_gamestate_->on_leave();
@@ -27,4 +27,4 @@ void Game::set_gamestate(GameStatePtr gamestate)
 	current_gamestate_->on_enter();
 }
 
-} /* namespace Aeon */
+} //namespace aeon

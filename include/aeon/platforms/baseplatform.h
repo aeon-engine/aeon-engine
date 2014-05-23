@@ -1,22 +1,22 @@
-#ifndef BasePlatform_h__
-#define BasePlatform_h__
+#ifndef baseplatform_h__
+#define baseplatform_h__
 
-#include "Aeon/Game.h"
+#include "aeon/game.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class Root;
+class root;
 
-namespace Platforms
+namespace platforms
 {
 
-class BasePlatform
+class base_platform
 {
-friend class Aeon::Root;
+friend class aeon::root;
 public:
-	BasePlatform() {}
-	virtual ~BasePlatform() {}
+	base_platform() {}
+	virtual ~base_platform() {}
 
 protected:
 	virtual bool				initialize() = 0;
@@ -27,9 +27,9 @@ protected:
 	virtual bool				dispose() = 0;
 };
 
-typedef std::shared_ptr<BasePlatform> BasePlatformPtr;
+typedef std::shared_ptr<base_platform> base_platform_ptr;
 
-} /* namespace Platforms */
-} /* namespace Aeon */
+} //namespace platforms
+} //namespace aeon
 
-#endif /* BasePlatform_h__ */
+#endif // baseplatform_h__

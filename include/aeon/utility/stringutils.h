@@ -1,12 +1,12 @@
-#ifndef AeonStringUtils_h__
-#define AeonStringUtils_h__
+#ifndef stringutils_h__
+#define stringutils_h__
 
-namespace Aeon
+namespace aeon
 {
-namespace StringUtils
+namespace string_utils
 {
 
-typedef std::vector<std::string> Strings;
+typedef std::vector<std::string> strings;
 
 /************************************************************************/
 /* To strings                                                           */
@@ -29,16 +29,16 @@ bool string_to_bool(const std::string &str);
 /* String splitting                                                     */
 /************************************************************************/
 
-enum class SplitMode
+enum class splitmode
 {
-	All,
-	SkipEmpty
+	all,
+	skip_empty
 };
 
-Strings &split(const std::string &s, char delim, Strings &elems, SplitMode mode = SplitMode::SkipEmpty);
-Strings split(const std::string &s, char delim, SplitMode mode = SplitMode::SkipEmpty);
+strings &split(const std::string &s, char delim, strings &elems, splitmode mode = splitmode::skip_empty);
+strings split(const std::string &s, char delim, splitmode mode = splitmode::skip_empty);
 
-} //namespace StringUtils
-} //namespace Aeon
+} //namespace strin_utils
+} //namespace aeon
 
-#endif /* AeonStringUtils_h__ */
+#endif // stringutils_h__

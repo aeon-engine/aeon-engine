@@ -1,22 +1,22 @@
-#ifndef AeonConsoleListener_h__
-#define AeonConsoleListener_h__
+#ifndef consolelistener_h__
+#define consolelistener_h__
 
-#include "Aeon/Console/Console.h"
+#include "aeon/console/console.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class ConsoleListener
+class console_listener
 {
 public:
-	ConsoleListener() {}
-	virtual ~ConsoleListener() {}
+	console_listener() {}
+	virtual ~console_listener() {}
 
-	virtual void on_log_message(double time_diff, Console::LogLevel level, const std::string &message) = 0;
+	virtual void on_log_message(double time_diff, console::log_level level, const std::string &message) = 0;
 };
 
-typedef std::shared_ptr<ConsoleListener> ConsoleListenerPtr;
+typedef std::shared_ptr<console_listener> console_listener_ptr;
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonConsoleListener_h__ */
+#endif // consolelistener_h__

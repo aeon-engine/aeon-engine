@@ -1,23 +1,23 @@
-#ifndef AeonConfigFile_h__
-#define AeonConfigFile_h__
+#ifndef configfile_h__
+#define configfile_h__
 
-#include "Aeon/Streams/Stream.h"
+#include "aeon/streams/stream.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class ConfigFile
+class configfile
 {
 public:
 	/*!
 	* Constructor
 	*/
-	ConfigFile() {}
+	configfile() {}
 
 	/*!
 	 * Destructor
 	 */
-	~ConfigFile() {}
+	~configfile() {}
 
 	/*!
 	 * Check if the loaded config file has a certain entry key
@@ -76,13 +76,13 @@ public:
 	 * \param stream The stream to load the config from
 	 * \returns True on success, false on error.
 	 */
-	bool						load(StreamPtr stream);
+	bool						load(stream_ptr stream);
 
 	/*!
 	* Save a config to a stream
 	* \param stream The stream to save the config to
 	*/
-	void						save(StreamPtr stream);
+	void						save(stream_ptr stream);
 
 private:
 	typedef std::map<std::string, std::string> Entries;
@@ -90,6 +90,6 @@ private:
 	Entries						entries_;
 };
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonConfigFile_h__ */
+#endif // configfile_h__

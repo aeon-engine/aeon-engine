@@ -1,19 +1,19 @@
-#ifndef GLFWPlatform_h__
-#define GLFWPlatform_h__
+#ifndef glfwplatform_h__
+#define glfwplatform_h__
 
 #ifdef AEON_USE_GLFW_PLATFORM
-#include "Aeon/Platforms/BasePlatform.h"
+#include "aeon/platforms/baseplatform.h"
 
-namespace Aeon
+namespace aeon
 {
-namespace Platforms
+namespace platforms
 {
 
-class GLFW : public BasePlatform
+class glfw : public base_platform
 {
 public:
-	GLFW();
-	virtual ~GLFW();
+	glfw();
+	virtual ~glfw();
 
 protected:
 	virtual bool				initialize();
@@ -26,8 +26,9 @@ protected:
 	GLFWwindow *				window_;
 };
 
-} /* namespace Platforms */
-} /* namespace Aeon */
+} //namespace platforms
+} //namespace aeon
 
 #endif /* AEON_USE_GLFW_PLATFORM */
-#endif /* GLFWPlatform_h__ */
+
+#endif // glfwplatform_h__

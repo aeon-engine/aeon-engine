@@ -1,16 +1,16 @@
-#ifndef AeonFileStream_h__
-#define AeonFileStream_h__
+#ifndef filestream_h__
+#define filestream_h__
 
-#include "Aeon/Streams/Stream.h"
+#include "aeon/streams/stream.h"
 
-namespace Aeon
+namespace aeon
 {
 
-class FileStream : public Stream
+class file_stream : public stream
 {
 public:
-	FileStream(const std::string &path, int access_mode = AccessMode::Read);
-	virtual ~FileStream();
+	file_stream(const std::string &path, int mode = access_mode::read);
+	virtual ~file_stream();
 
 	virtual size_t		read(void *buffer, size_t count);
 	virtual size_t		write(const void *buffer, size_t count);
@@ -18,7 +18,7 @@ public:
 	virtual bool		read(std::uint8_t &data);
 	virtual bool		peek(std::uint8_t &data);
 
-	virtual bool		seek(size_t pos, SeekDirection direction);
+	virtual bool		seek(size_t pos, seek_direction direction);
 	virtual size_t		tell() const;
 
 	virtual bool		eof() const;
@@ -36,8 +36,8 @@ protected:
 	FILE *				file_;
 };
 
-typedef std::shared_ptr<FileStream> FileStreamPtr;
+typedef std::shared_ptr<file_stream> file_stream_ptr;
 
 } //namespace Aeon
 
-#endif /* AeonFileStream_h__ */
+#endif // filestream_h__

@@ -1,16 +1,16 @@
-#ifndef AeonSingleton_h__
-#define AeonSingleton_h__
+#ifndef singleton_h__
+#define singleton_h__
 
-#define AeonInitializeSingleton(type)					template <> type * Aeon::Singleton <type>::instance_ = NULL
+#define aeon_initialize_singleton(type)					template <> type * aeon::singleton <type>::instance_ = NULL
 
-namespace Aeon
+namespace aeon
 {
 
 template <class type>
-class Singleton
+class singleton
 {
 public:
-	Singleton()
+	singleton()
 	{
 		assert(instance_ == NULL);
 		instance_ = static_cast<type *>(this);
@@ -21,7 +21,7 @@ public:
 		}
 	}
 
-	virtual ~Singleton()
+	virtual ~singleton()
 	{
 		instance_ = NULL;
 	}
@@ -37,7 +37,7 @@ public:
 			delete (type *)instance_;
 	}
 
-	static type & getSingleton()
+	static type & get_singleton()
 	{
 		assert(instance_);
 
@@ -49,7 +49,7 @@ public:
 		return *instance_;
 	}
 
-	static type * getSingletonPtr()
+	static type * get_singleton_ptr()
 	{
 		return instance_;
 	}
@@ -59,6 +59,6 @@ protected:
 
 };
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonSingleton_h__ */
+#endif // singleton_h__

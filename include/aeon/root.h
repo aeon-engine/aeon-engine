@@ -1,45 +1,45 @@
-#ifndef AeonRoot_h__
-#define AeonRoot_h__
+#ifndef root_h__
+#define root_h__
 
-#include "Aeon/Utility/Singleton.h"
-#include "Aeon/FrameListener.h"
-#include "Aeon/Platforms/BasePlatform.h"
+#include "aeon/utility/singleton.h"
+#include "aeon/frameListener.h"
+#include "aeon/platforms/BasePlatform.h"
 
 #ifdef AEON_USE_GLFW_PLATFORM
-#  include "Aeon/Platforms/GLFWPlatform.h"
+#  include "aeon/platforms/glfwplatform.h"
 #endif
 
-namespace Aeon
+namespace aeon
 {
 
-typedef std::list<FrameListener *> FrameListeners;
+typedef std::list<framelistener *> framelisteners;
 
-class Root : public Singleton<Root>
+class root : public singleton<root>
 {
 public:
-	~Root();
+	~root();
 
-	static bool						initialize(Platforms::BasePlatformPtr platform);
+	static bool						initialize(platforms::base_platform_ptr platform);
 
 	void							run();
 	void							stop();
 
-	void							add_frame_listener(FrameListener *listener);
-	void							remove_frame_listener(FrameListener *listener);
+	void							add_frame_listener(framelistener *listener);
+	void							remove_frame_listener(framelistener *listener);
 	void							remove_all_frame_listeners();
 
 protected:
-	Root(Platforms::BasePlatformPtr platform);
+	root(platforms::base_platform_ptr platform);
 
-	bool							__initialize_impl(Platforms::BasePlatformPtr platform);
+	bool							__initialize_impl(platforms::base_platform_ptr platform);
 
 	bool							initialized_;
 	bool							running_;
 
-	FrameListeners					frame_listeners_;
-	Platforms::BasePlatformPtr		platform_;
+	framelisteners					frame_listeners_;
+	platforms::base_platform_ptr	platform_;
 };
 
-} /* namespace Aeon */
+} //namespace aeon
 
-#endif /* AeonRoot_h__ */
+#endif /* root_h__ */

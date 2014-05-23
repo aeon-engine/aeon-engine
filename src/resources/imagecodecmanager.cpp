@@ -1,23 +1,23 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Resources/ImageCodecManager.h"
-#include "Aeon/Console/Console.h"
+#include "aeon/aeon.h"
+#include "aeon/resources/imagecodecmanager.h"
+#include "aeon/console/console.h"
 
-AeonInitializeSingleton(Aeon::ImageCodecManager);
+aeon_initialize_singleton(aeon::image_codec_manager);
 
-namespace Aeon
+namespace aeon
 {
 
-ImageCodecManager::ImageCodecManager()
-{
-
-}
-
-ImageCodecManager::~ImageCodecManager()
+image_codec_manager::image_codec_manager()
 {
 
 }
 
-void ImageCodecManager::register_codec(ImageCodecPtr codec)
+image_codec_manager::~image_codec_manager()
+{
+
+}
+
+void image_codec_manager::register_codec(image_codec_ptr codec)
 {
 	if(!codec)
 		return;
@@ -26,18 +26,18 @@ void ImageCodecManager::register_codec(ImageCodecPtr codec)
 	registered_codecs_[name] = codec;
 }
 
-ImagePtr ImageCodecManager::decode(const std::string &name, StreamPtr stream)
+image_ptr image_codec_manager::decode(const std::string &name, stream_ptr stream)
 {
 	auto codec = registered_codecs_.find(name);
 
 	//Could not find the codec?
 	if(codec == registered_codecs_.end())
 	{
-		Console::error("ImageCodecManager: Could not decode stream. Unknown decoder: '%s'", name.c_str());
-		return AeonEmptyImage;
+		console::error("ImageCodecManager: Could not decode stream. Unknown decoder: '%s'", name.c_str());
+		return aeon_empty_image;
 	}
 
 	return codec->second->decode(stream);
 }
 
-} /* namespace Aeon */
+} //namespace aeon

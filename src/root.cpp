@@ -1,16 +1,16 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Root.h"
-#include "Aeon/Console/Console.h"
-#include "Aeon/Resources/ImageCodecManager.h"
-#include "Aeon/Resources/ImageCodecPNG.h"
-#include "Aeon/Resources/TextureManager.h"
+#include "aeon/aeon.h"
+#include "aeon/root.h"
+#include "aeon/console/console.h"
+#include "aeon/resources/imagecodecmanager.h"
+#include "aeon/resources/imagecodecpng.h"
+#include "aeon/resources/texturemanager.h"
 
-namespace Aeon
+namespace aeon
 {
 
-AeonInitializeSingleton(Root);
+aeon_initialize_singleton(root);
 
-Root::Root(Platforms::BasePlatformPtr platform)
+root::root(platforms::base_platform_ptr platform)
 :
 initialized_(false),
 running_(false)
@@ -18,34 +18,34 @@ running_(false)
 	platform_ = platform;
 }
 
-Root::~Root()
+root::~root()
 {
 
 }
 
-bool Root::initialize(Platforms::BasePlatformPtr platform)
+bool root::initialize(platforms::base_platform_ptr platform)
 {
 	if(!instance_)
 	{
-		Root *r = new Root(platform);
+		root *r = new root(platform);
 		if (!r)
 		{
-			Console::info("[Root] Could not create Root.");
+			console::info("[Root] Could not create Root.");
 			return false;
 		}
 
 		return r->__initialize_impl(platform);
 	}
 
-	Console::error("[Root] Can not initialize. Initialize was already called.");
+	console::error("[Root] Can not initialize. Initialize was already called.");
 	return false;
 }
 
-void Root::run()
+void root::run()
 {
 	if (!initialized_)
 	{
-		Console::error("[Root] Can't run without initializing.");
+		console::error("[Root] Can't run without initializing.");
 		return;
 	}
 
@@ -58,12 +58,12 @@ void Root::run()
 		if(!platform_->pre_frame())
 			break;
 
-		for(FrameListener *framelistener : frame_listeners_)
+		for(framelistener *framelistener : frame_listeners_)
 		{
 			framelistener->on_frame(dt);
 		}
 
-		for(FrameListener *framelistener : frame_listeners_)
+		for(framelistener *framelistener : frame_listeners_)
 		{
 			framelistener->on_render();
 		}
@@ -73,81 +73,81 @@ void Root::run()
 	}
 
 	if(!platform_->dispose())
-		Console::error("[Root] Platform reported an error while disposing.");
+		console::error("[Root] Platform reported an error while disposing.");
 
-	ImageCodecManager::dispose();
-	TextureManager::dispose();
+	image_codec_manager::dispose();
+	texture_manager::dispose();
 
 	running_ = false;
 	initialized_ = false;
 }
 
-void Root::stop()
+void root::stop()
 {
 	running_ = false;
 }
 
-void Root::add_frame_listener(FrameListener *listener)
+void root::add_frame_listener(framelistener *listener)
 {
 	frame_listeners_.push_back(listener);
 }
 
-void Root::remove_frame_listener(FrameListener *listener)
+void root::remove_frame_listener(framelistener *listener)
 {
 	frame_listeners_.remove(listener);
 }
 
-void Root::remove_all_frame_listeners()
+void root::remove_all_frame_listeners()
 {
-	Console::debug("[Root] Removing all frame listeners.");
+	console::debug("[Root] Removing all frame listeners.");
 	frame_listeners_.clear();
 }
 
-bool Root::__initialize_impl(Platforms::BasePlatformPtr platform)
+bool root::__initialize_impl(platforms::base_platform_ptr platform)
 {
 	if (initialized_)
 	{
-		Console::warning("[Root] Already initialized. Can not initialize twice.");
+		console::warning("[Root] Already initialized. Can not initialize twice.");
 		return false;
 	}
 
-	Console::info("[Root] Initializing.");
+	console::info("[Root] Initializing.");
 
 	if (!platform_)
 	{
-		Console::error("[Root] Could not create platform.");
+		console::error("[Root] Could not create platform.");
 		return false;
 	}
 
-	Console::info("[Root] Initializing platform.");
+	console::info("[Root] Initializing platform.");
 
 	if (!platform_->initialize())
 	{
-		Console::error("[Root] Failed to initialize platform.");
+		console::error("[Root] Failed to initialize platform.");
 		return false;
 	}
 
-	Console::info("[Root] Initializing glew.");
+	console::info("[Root] Initializing glew.");
 
 	GLenum err = glewInit();
 	if (err != GLEW_OK)
 	{
-		Console::error("[Root] Failed to initialize glew: %s", glewGetErrorString(err));
+		console::error("[Root] Failed to initialize glew: %s", glewGetErrorString(err));
 		return false;
 	}
 
 	//TODO: Should we check if the singletons were properly created?
 	//Register codecs
-	ImageCodecManager::create();
+	image_codec_manager::create();
 
 #ifdef AEON_USE_PNG
-	ImageCodecManager::getSingleton().register_codec(std::make_shared<ImageCodecPNG>());
+	image_codec_manager::get_singleton().register_codec(std::make_shared<image_codec_png>());
 #endif
 
-	TextureManager::create();
+	texture_manager::create();
 
 	initialized_ = true;
 	return true;
 }
 
-} /* namespace Aeon */
+} /* namespace aeon */

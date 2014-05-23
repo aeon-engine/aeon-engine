@@ -1,45 +1,45 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Utility/Buffer.h"
-#include "Aeon/Console/Console.h"
+#include "aeon/aeon.h"
+#include "aeon/utility/buffer.h"
+#include "aeon/console/console.h"
 
-namespace Aeon
+namespace aeon
 {
 
-Buffer::Buffer()
+buffer::buffer()
 :
 buffer_(NULL),
 size_(0),
 reserved_size_(0),
-delete_mode_(DeleteMode::DeleteOnDestruct)
+delete_mode_(delete_mode::delete_on_destruct)
 {
 }
 
-Buffer::Buffer(size_t size, DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/)
+buffer::buffer(size_t size, delete_mode mode /*= delete_mode::delete_on_destruct*/)
 :
 buffer_(NULL),
 size_(0),
 reserved_size_(0),
-delete_mode_(delete_mode)
+delete_mode_(mode)
 {
 	reserve(size);
 }
 
-Buffer::Buffer(void *buffer, size_t size, DeleteMode delete_mode /*= DeleteMode::DeleteOnDestruct*/)
+buffer::buffer(void *buffer, size_t size, delete_mode mode /*= DeleteMode::delete_on_destruct*/)
 :
 buffer_(buffer),
 size_(0),
 reserved_size_(size),
-delete_mode_(delete_mode)
+delete_mode_(mode)
 {
 }
 
-Buffer::~Buffer()
+buffer::~buffer()
 {
-	if (delete_mode_ == DeleteMode::DeleteOnDestruct)
+	if (delete_mode_ == delete_mode::delete_on_destruct)
 		free();
 }
 
-bool Buffer::reserve(size_t n)
+bool buffer::reserve(size_t n)
 {
 	//Do we already have this many bytes reserved?
 	if(n <= reserved_size_)
@@ -49,12 +49,12 @@ bool Buffer::reserve(size_t n)
 	bool result = resize(n);
 
 	if(result)
-		Console::debug("Buffer: Reserved %u bytes.", n);
+		console::debug("Buffer: Reserved %u bytes.", n);
 
 	return result;
 }
 
-bool Buffer::resize(size_t n)
+bool buffer::resize(size_t n)
 {
 	//Reallocate the buffer to be the new size
 	void *new_buffer = realloc(buffer_, n);
@@ -65,7 +65,7 @@ bool Buffer::resize(size_t n)
 		//Do we have data at all?
 		if(buffer_ != NULL)
 		{
-			Console::warning("Buffer: Failed to reallocate buffer from %u to %u. Trying copy.", reserved_size_, n);
+			console::warning("Buffer: Failed to reallocate buffer from %u to %u. Trying copy.", reserved_size_, n);
 
 			//Try a fallback method...
 			new_buffer = malloc(n);
@@ -73,7 +73,7 @@ bool Buffer::resize(size_t n)
 			//Did we fail again?!
 			if (new_buffer == NULL)
 			{
-				Console::error("Buffer: Failed to reallocate buffer from %u to %u in fallback mode. Aborting", reserved_size_, n);
+				console::error("Buffer: Failed to reallocate buffer from %u to %u in fallback mode. Aborting", reserved_size_, n);
 				return false;
 			}
 
@@ -91,7 +91,7 @@ bool Buffer::resize(size_t n)
 			return true;
 		}
 
-		Console::error("Buffer: Could not allocate buffer for %u bytes.", n);
+		console::error("Buffer: Could not allocate buffer for %u bytes.", n);
 		return false;
 	}
 
@@ -102,7 +102,7 @@ bool Buffer::resize(size_t n)
 	return true;
 }
 
-bool Buffer::append(void *data, size_t len)
+bool buffer::append(void *data, size_t len)
 {
 	//Does our appended data fit?
 	if(size_ + len > reserved_size_)
@@ -122,20 +122,20 @@ bool Buffer::append(void *data, size_t len)
 	return true;
 }
 
-void Buffer::free()
+void buffer::free()
 {
 	::free(buffer_);
 
-	Console::debug("Buffer: Freed %u bytes.", reserved_size_);
+	console::debug("Buffer: Freed %u bytes.", reserved_size_);
 
 	buffer_ = NULL;
 	size_ = 0;
 	reserved_size_ = 0;
 }
 
-void Buffer::set_delete_mode(DeleteMode mode)
+void buffer::set_delete_mode(delete_mode mode)
 {
 	delete_mode_ = mode;
 }
 
-} /* namespace Aeon */
+} //namespace aeon

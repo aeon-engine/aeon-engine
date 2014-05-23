@@ -1,29 +1,29 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Resources/Image.h"
-#include "Aeon/Console/Console.h"
+#include "aeon/aeon.h"
+#include "aeon/resources/image.h"
+#include "aeon/console/console.h"
 
-namespace Aeon
+namespace aeon
 {
 
-Image::Image()
+image::image()
 :
 width_(0),
 height_(0),
-pixel_format_(PixelFormat::RGBA)
+pixel_format_(pixel_format::rgba)
 {
 
 }
 
-Image::~Image()
+image::~image()
 {
 
 }
 
-void Image::set_data(BufferPtr buffer, unsigned int width, unsigned int height, PixelFormat pixelformat /*= PixelFormat::RGBA*/)
+void image::set_data(buffer_ptr buffer, unsigned int width, unsigned int height, pixel_format pixelformat /*= pixel_format::rgba*/)
 {
 	if(buffer == NULL || buffer->get() == NULL)
 	{
-		Console::error("Image: Tried creating an image from an empty buffer.");
+		console::error("Image: Tried creating an image from an empty buffer.");
 		return;
 	}
 
@@ -33,7 +33,7 @@ void Image::set_data(BufferPtr buffer, unsigned int width, unsigned int height, 
 	pixel_format_ = pixelformat;
 }
 
-bool Image::save_raw_to_stream(StreamPtr stream)
+bool image::save_raw_to_stream(stream_ptr stream)
 {
 	if(!stream)
 		return false;
@@ -53,4 +53,4 @@ bool Image::save_raw_to_stream(StreamPtr stream)
 	return true;
 }
 
-} /* namespace Aeon */
+} //namespace aeon

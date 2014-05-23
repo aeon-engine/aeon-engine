@@ -1,11 +1,11 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Console/StreamListener.h"
-#include "Aeon/Utility/StringUtils.h"
+#include "aeon/aeon.h"
+#include "aeon/console/streamlistener.h"
+#include "aeon/utility/stringutils.h"
 
-namespace Aeon
+namespace aeon
 {
 
-ConsoleStreamListener::ConsoleStreamListener(StreamPtr stream)
+console_stream_listener::console_stream_listener(stream_ptr stream)
 :
 stream_(stream)
 {
@@ -13,34 +13,34 @@ stream_(stream)
 }
 
 
-ConsoleStreamListener::~ConsoleStreamListener()
+console_stream_listener::~console_stream_listener()
 {
 
 }
 
-void ConsoleStreamListener::on_log_message(double time_diff, Console::LogLevel level, const std::string &message)
+void console_stream_listener::on_log_message(double time_diff, console::log_level level, const std::string &message)
 {
 	if(!stream_)
 		return;
 	
-	std::string time_string = Aeon::StringUtils::float_to_string((float) time_diff, 10) + ' ';
+	std::string time_string = aeon::string_utils::float_to_string((float) time_diff, 10) + ' ';
 	stream_->write(time_string);
 
 	switch(level)
 	{
-		case Console::LogLevel::Error:
+		case console::log_level::error:
 		{
 			stream_->write("[ERR] ");
 		}break;
-		case Console::LogLevel::Warning:
+		case console::log_level::warning:
 		{
 			stream_->write("[WRN] ");
 		}break;
-		case Console::LogLevel::Info: //Info displays nothing.
+		case console::log_level::info: //Info displays nothing.
 		{
 			stream_->write("[INF] ");
 		}break;
-		case Console::LogLevel::Debug:
+		case console::log_level::debug:
 		{
 			stream_->write("[DBG] ");
 		}break;
@@ -50,4 +50,4 @@ void ConsoleStreamListener::on_log_message(double time_diff, Console::LogLevel l
 	stream_->write("\n");
 }
 
-} /* namespace Aeon */
+} //namespace aeon

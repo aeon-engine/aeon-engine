@@ -1,20 +1,20 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/ConfigFile.h"
-#include "Aeon/Console/Console.h"
-#include "Aeon/Utility/StringUtils.h"
-#include "Aeon/Streams/FileStream.h"
+#include "aeon/aeon.h"
+#include "aeon/configfile.h"
+#include "aeon/console/console.h"
+#include "aeon/utility/stringutils.h"
+#include "aeon/streams/filestream.h"
 
-namespace Aeon
+namespace aeon
 {
 
-bool ConfigFile::has_entry(const std::string &key)
+bool configfile::has_entry(const std::string &key)
 {
 	auto itr = entries_.find(key);
 
 	return (itr != entries_.end());
 }
 
-std::string ConfigFile::get_string(const std::string &key, const std::string &default_val)
+std::string configfile::get_string(const std::string &key, const std::string &default_val)
 {
 	auto itr = entries_.find(key);
 
@@ -28,7 +28,7 @@ std::string ConfigFile::get_string(const std::string &key, const std::string &de
 	return itr->second;
 }
 
-int ConfigFile::get_integer(const std::string &key, int default_val)
+int configfile::get_integer(const std::string &key, int default_val)
 {
 	auto itr = entries_.find(key);
 
@@ -39,11 +39,11 @@ int ConfigFile::get_integer(const std::string &key, int default_val)
 		return default_val;
 	}
 
-	int val = StringUtils::string_to_int(itr->second);
+	int val = string_utils::string_to_int(itr->second);
 	return val;
 }
 
-bool ConfigFile::get_boolean(const std::string &key, bool default_val)
+bool configfile::get_boolean(const std::string &key, bool default_val)
 {
 	auto itr = entries_.find(key);
 
@@ -54,33 +54,33 @@ bool ConfigFile::get_boolean(const std::string &key, bool default_val)
 		return default_val;
 	}
 
-	return StringUtils::string_to_bool(itr->second);
+	return string_utils::string_to_bool(itr->second);
 }
 
-void ConfigFile::set_string(const std::string &key, const std::string &val)
+void configfile::set_string(const std::string &key, const std::string &val)
 {
 	entries_[key] = val;
 }
 
-void ConfigFile::set_integer(const std::string &key, int val)
+void configfile::set_integer(const std::string &key, int val)
 {
-	set_string(key, StringUtils::int_to_string(val));
+	set_string(key, string_utils::int_to_string(val));
 }
 
-void ConfigFile::set_boolean(const std::string &key, bool val)
+void configfile::set_boolean(const std::string &key, bool val)
 {
 	set_string(key, val ? "1" : "0");
 }
 
-bool ConfigFile::load(StreamPtr stream)
+bool configfile::load(stream_ptr stream)
 {
 	if(!stream->good())
 	{
-		Console::warning("Could not load config file: %s", stream->get_name().c_str());
+		console::warning("Could not load config file: %s", stream->get_name().c_str());
 		return false;
 	}
 	
-	Console::debug("Reading config file: %s", stream->get_name().c_str());
+	console::debug("Reading config file: %s", stream->get_name().c_str());
 
 	entries_.clear();
 
@@ -118,7 +118,7 @@ bool ConfigFile::load(StreamPtr stream)
 		//A header name should have been set beyond this point.
 		if(header_name == "")
 		{
-			Console::warning("Ignoring invalid line in config file %s line %u. No header was found.", stream->get_name().c_str(), linenumber);
+			console::warning("Ignoring invalid line in config file %s line %u. No header was found.", stream->get_name().c_str(), linenumber);
 			continue;
 		}
 
@@ -126,7 +126,7 @@ bool ConfigFile::load(StreamPtr stream)
 
 		if(pos == std::string::npos || pos == 0)
 		{
-			Console::warning("Ignoring invalid line in config file %s line %u.", stream->get_name().c_str(), linenumber);
+			console::warning("Ignoring invalid line in config file %s line %u.", stream->get_name().c_str(), linenumber);
 			continue;
 		}
 
@@ -136,18 +136,18 @@ bool ConfigFile::load(StreamPtr stream)
 		entries_[key] = val;
 	}
 
-	Console::debug("Finished reading config file: %s", stream->get_name().c_str());
+	console::debug("Finished reading config file: %s", stream->get_name().c_str());
 
 	stream->close();
 
 	return true;
 }
 
-void ConfigFile::save(StreamPtr stream)
+void configfile::save(stream_ptr stream)
 {
 	if(!stream->good())
 	{
-		Console::error("Could not save config file: %s", stream->get_name().c_str());
+		console::error("Could not save config file: %s", stream->get_name().c_str());
 		return;
 	}
 
@@ -155,7 +155,7 @@ void ConfigFile::save(StreamPtr stream)
 	std::string header_name = "";
 	for(auto itr : entries_)
 	{
-		StringUtils::Strings key = StringUtils::split(itr.first, '.', StringUtils::SplitMode::SkipEmpty);
+		string_utils::strings key = string_utils::split(itr.first, '.', string_utils::splitmode::skip_empty);
 
 		//do we have a new header name?
 		if(key[0] != header_name)
@@ -168,9 +168,9 @@ void ConfigFile::save(StreamPtr stream)
 		stream->write(line);
 	}
 
-	Console::debug("Finished saving config file: %s", stream->get_name().c_str());
+	console::debug("Finished saving config file: %s", stream->get_name().c_str());
 
 	stream->close();
 }
 
-} /* namespace Aeon */
+} /* namespace aeon */

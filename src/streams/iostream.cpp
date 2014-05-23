@@ -1,52 +1,52 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Streams/IOStream.h"
-#include "Aeon/Console/Console.h"
+#include "aeon/aeon.h"
+#include "aeon/streams/iostream.h"
+#include "aeon/console/console.h"
 
-namespace Aeon
+namespace aeon
 {
 
-IOStream::IOStream(int access_mode /*= AccessMode::Read*/)
+io_stream::io_stream(int mode /*= access_mode::read*/)
 :
-Stream(access_mode)
+stream(mode)
 {
 
 }
 
-IOStream::IOStream(const std::string &name, int access_mode /*= AccessMode::Read*/)
+io_stream::io_stream(const std::string &name, int mode /*= access_mode::read*/)
 :
-Stream(name, access_mode)
+stream(name, mode)
 {
 
 }
 
-size_t IOStream::read(void *buffer, size_t count)
+size_t io_stream::read(void *buffer, size_t count)
 {
-	if(!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & access_mode::read))
 	{
-		Console::error("IOStream: Read on write-only stream.");
+		console::error("IOStream: Read on write-only stream.");
 		return 0;
 	}
 
 	if(!buffer)
 	{
-		Console::error("IOStream: Input buffer is NULL.");
+		console::error("IOStream: Input buffer is NULL.");
 		return 0;
 	}
 
 	if(count == 0)
 	{
-		Console::warning("IOStream: Tried writing 0 bytes.");
+		console::warning("IOStream: Tried writing 0 bytes.");
 		return 0;
 	}
 
 	return fread(buffer, 1, count, stdin);
 }
 
-bool IOStream::read(std::uint8_t &data)
+bool io_stream::read(std::uint8_t &data)
 {
-	if(!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & access_mode::read))
 	{
-		Console::error("IOStream: Read on write-only stream.");
+		console::error("IOStream: Read on write-only stream.");
 		return false;
 	}
 
@@ -59,11 +59,11 @@ bool IOStream::read(std::uint8_t &data)
 	return true;
 }
 
-bool IOStream::peek(std::uint8_t &data)
+bool io_stream::peek(std::uint8_t &data)
 {
-	if(!(access_mode_ & AccessMode::Read))
+	if(!(access_mode_ & access_mode::read))
 	{
-		Console::error("IOStream: Peek on write-only stream.");
+		console::error("IOStream: Peek on write-only stream.");
 		return false;
 	}
 
@@ -80,30 +80,30 @@ bool IOStream::peek(std::uint8_t &data)
 	return true;
 }
 
-size_t IOStream::write(const void *buffer, size_t count)
+size_t io_stream::write(const void *buffer, size_t count)
 {
-	if(access_mode_ != AccessMode::Write)
+	if(access_mode_ != access_mode::write)
 	{
-		Console::error("IOStream: Write on read-only stream.");
+		console::error("IOStream: Write on read-only stream.");
 		return 0;
 	}
 
 	if(!buffer)
 	{
-		Console::error("IOStream: Input buffer is NULL.");
+		console::error("IOStream: Input buffer is NULL.");
 		return 0;
 	}
 
 	if(count == 0)
 	{
-		Console::warning("IOStream: Tried writing 0 bytes.");
+		console::warning("IOStream: Tried writing 0 bytes.");
 		return 0;
 	}
 
 	return fwrite(buffer, 1, count, stdout);
 }
 
-bool IOStream::seek(size_t pos, SeekDirection direction)
+bool io_stream::seek(size_t pos, seek_direction direction)
 {
 	AEON_UNUSED(pos);
 	AEON_UNUSED(direction);
@@ -112,26 +112,26 @@ bool IOStream::seek(size_t pos, SeekDirection direction)
 	return false;
 }
 
-size_t IOStream::tell() const
+size_t io_stream::tell() const
 {
 	//This won't work for STDIN...
 	return 0;
 }
 
-bool IOStream::eof() const
+bool io_stream::eof() const
 {
 	return (feof(stdin) != 0);
 }
 
-void IOStream::flush()
+void io_stream::flush()
 {
 	fflush(stdout);
 }
 
-Aeon::BufferPtr IOStream::get_as_buffer()
+aeon::buffer_ptr io_stream::get_as_buffer()
 {
 	//This won't work for STDIN...
-	return AeonEmptyBuffer;
+	return aeon_empty_buffer;
 }
 
-} /* namespace Aeon */
+} //namespace aeon
