@@ -1,162 +1,162 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\src\ConfigFile.cpp" />
-    <ClCompile Include="..\src\Root.cpp" />
-    <ClCompile Include="..\src\Console\Console.cpp">
-      <Filter>Console</Filter>
+    <ClCompile Include="..\src\configfile.cpp" />
+    <ClCompile Include="..\src\root.cpp" />
+    <ClCompile Include="..\src\console\console.cpp">
+      <Filter>console</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Resources\Resource.cpp">
-      <Filter>Resources</Filter>
+    <ClCompile Include="..\src\resources\resource.cpp">
+      <Filter>resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Resources\ResourceManager.cpp">
-      <Filter>Resources</Filter>
+    <ClCompile Include="..\src\resources\resourcemanager.cpp">
+      <Filter>resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Resources\Image.cpp">
-      <Filter>Resources</Filter>
+    <ClCompile Include="..\src\resources\image.cpp">
+      <Filter>resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Resources\ImageCodecManager.cpp">
-      <Filter>Resources</Filter>
+    <ClCompile Include="..\src\resources\imagecodecmanager.cpp">
+      <Filter>resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Resources\ImageCodecPNG.cpp">
-      <Filter>Resources</Filter>
+    <ClCompile Include="..\src\resources\imagecodecpng.cpp">
+      <Filter>resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Streams\FileStream.cpp">
-      <Filter>Stream</Filter>
+    <ClCompile Include="..\src\streams\filestream.cpp">
+      <Filter>stream</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Streams\Stream.cpp">
-      <Filter>Stream</Filter>
+    <ClCompile Include="..\src\streams\stream.cpp">
+      <Filter>stream</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Utility\StringUtils.cpp">
-      <Filter>Utility</Filter>
+    <ClCompile Include="..\src\utility\stringutils.cpp">
+      <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Streams\MemoryStream.cpp">
-      <Filter>Stream</Filter>
+    <ClCompile Include="..\src\streams\memorystream.cpp">
+      <Filter>stream</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Streams\IOStream.cpp">
-      <Filter>Stream</Filter>
+    <ClCompile Include="..\src\streams\iostream.cpp">
+      <Filter>stream</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Console\StreamListener.cpp">
-      <Filter>Console</Filter>
+    <ClCompile Include="..\src\console\streamlistener.cpp">
+      <Filter>console</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Resources\Texture.cpp">
-      <Filter>Resources</Filter>
+    <ClCompile Include="..\src\resources\texture.cpp">
+      <Filter>resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Resources\TextureManager.cpp">
-      <Filter>Resources</Filter>
+    <ClCompile Include="..\src\resources\texturemanager.cpp">
+      <Filter>resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Utility\Timer.cpp">
-      <Filter>Utility</Filter>
+    <ClCompile Include="..\src\utility\timer.cpp">
+      <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Utility\Buffer.cpp">
-      <Filter>Utility</Filter>
+    <ClCompile Include="..\src\utility\buffer.cpp">
+      <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Game.cpp">
-      <Filter>Game</Filter>
+    <ClCompile Include="..\src\game.cpp">
+      <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Platforms\GLFWPlatform.cpp">
-      <Filter>Platforms\GLFW</Filter>
+    <ClCompile Include="..\src\platforms\glfwplatform.cpp">
+      <Filter>platforms\glfw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Aeon\Aeon.h" />
-    <ClInclude Include="..\include\Aeon\BuildConfig.h" />
-    <ClInclude Include="..\include\Aeon\ConfigFile.h" />
-    <ClInclude Include="..\include\Aeon\Root.h" />
-    <ClInclude Include="..\include\Aeon\Console\Console.h">
-      <Filter>Console</Filter>
+    <ClInclude Include="..\include\aeon\aeon.h" />
+    <ClInclude Include="..\include\aeon\buildconfig.h" />
+    <ClInclude Include="..\include\aeon\configfile.h" />
+    <ClInclude Include="..\include\aeon\root.h" />
+    <ClInclude Include="..\include\aeon\console\console.h">
+      <Filter>console</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Console\ConsoleListener.h">
-      <Filter>Console</Filter>
+    <ClInclude Include="..\include\aeon\console\consolelistener.h">
+      <Filter>console</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Resources\Resource.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="..\include\aeon\resources\resource.h">
+      <Filter>resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Resources\ResourceManager.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="..\include\aeon\resources\resourcemanager.h">
+      <Filter>resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Resources\Image.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="..\include\aeon\resources\image.h">
+      <Filter>resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Resources\ImageCodec.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="..\include\aeon\resources\imagecodec.h">
+      <Filter>resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Resources\ImageCodecManager.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="..\include\aeon\resources\ImageCodecManager.h">
+      <Filter>resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Resources\ImageCodecPNG.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="..\include\aeon\resources\imagecodecpng.h">
+      <Filter>resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Streams\FileStream.h">
-      <Filter>Stream</Filter>
+    <ClInclude Include="..\include\aeon\streams\filestream.h">
+      <Filter>stream</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Streams\Stream.h">
-      <Filter>Stream</Filter>
+    <ClInclude Include="..\include\aeon\streams\stream.h">
+      <Filter>stream</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Utility\StringUtils.h">
-      <Filter>Utility</Filter>
+    <ClInclude Include="..\include\aeon\utility\stringutils.h">
+      <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Utility\Singleton.h">
-      <Filter>Utility</Filter>
+    <ClInclude Include="..\include\aeon\utility\singleton.h">
+      <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Streams\MemoryStream.h">
-      <Filter>Stream</Filter>
+    <ClInclude Include="..\include\aeon\streams\memorystream.h">
+      <Filter>stream</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Streams\IOStream.h">
-      <Filter>Stream</Filter>
+    <ClInclude Include="..\include\aeon\streams\iostream.h">
+      <Filter>stream</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\FrameListener.h" />
-    <ClInclude Include="..\include\Aeon\Console\StreamListener.h">
-      <Filter>Console</Filter>
+    <ClInclude Include="..\include\aeon\frameListener.h" />
+    <ClInclude Include="..\include\aeon\console\streamlistener.h">
+      <Filter>console</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Resources\Texture.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="..\include\aeon\resources\texture.h">
+      <Filter>resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Utility\Timer.h">
-      <Filter>Utility</Filter>
+    <ClInclude Include="..\include\aeon\utility\timer.h">
+      <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Utility\Buffer.h">
-      <Filter>Utility</Filter>
+    <ClInclude Include="..\include\aeon\utility\buffer.h">
+      <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\GameState.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="..\include\aeon\gameState.h">
+      <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Game.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="..\include\aeon\game.h">
+      <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Platforms\BasePlatform.h">
-      <Filter>Platforms</Filter>
+    <ClInclude Include="..\include\aeon\platforms\baseplatform.h">
+      <Filter>platforms</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Platforms\GLFWPlatform.h">
-      <Filter>Platforms\GLFW</Filter>
+    <ClInclude Include="..\include\aeon\platforms\glfwplatform.h">
+      <Filter>platforms\glfw</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Console\ConsoleVariable.h">
-      <Filter>Console</Filter>
+    <ClInclude Include="..\include\aeon\console\consolevariable.h">
+      <Filter>console</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Aeon\Resources\TextureManager.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="..\include\aeon\resources\texturemanager.h">
+      <Filter>resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Console">
+    <Filter Include="console">
       <UniqueIdentifier>{f9d60ba6-a5d3-4516-bc9c-4eb2694ab8ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources">
+    <Filter Include="resources">
       <UniqueIdentifier>{77693c0e-a2f8-4994-978b-80307ecaf8f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Stream">
+    <Filter Include="stream">
       <UniqueIdentifier>{2b6151b0-adc1-4c78-87a8-63b211e9cb24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utility">
+    <Filter Include="utility">
       <UniqueIdentifier>{8ad3c670-636a-4761-8f6e-3bc22148d7a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game">
+    <Filter Include="game">
       <UniqueIdentifier>{3611edd8-6604-4de4-9a33-e725c0bec4d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platforms">
+    <Filter Include="platforms">
       <UniqueIdentifier>{d972ef0e-de17-41af-93db-e4e4b67d6cfe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platforms\GLFW">
+    <Filter Include="platforms\glfw">
       <UniqueIdentifier>{65458f58-71f1-4688-bca8-0c76037b8fee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
