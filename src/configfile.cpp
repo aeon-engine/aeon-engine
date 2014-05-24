@@ -76,11 +76,11 @@ bool configfile::load(stream_ptr stream)
 {
 	if(!stream->good())
 	{
-		console::warning("Could not load config file: %s", stream->get_name().c_str());
+		console::warning("[ConfigFile]: Could not load config file: %s", stream->get_name().c_str());
 		return false;
 	}
 	
-	console::debug("Reading config file: %s", stream->get_name().c_str());
+	console::debug("[ConfigFile]: Reading config file: %s", stream->get_name().c_str());
 
 	entries_.clear();
 
@@ -118,7 +118,7 @@ bool configfile::load(stream_ptr stream)
 		//A header name should have been set beyond this point.
 		if(header_name == "")
 		{
-			console::warning("Ignoring invalid line in config file %s line %u. No header was found.", stream->get_name().c_str(), linenumber);
+			console::warning("[ConfigFile]: Ignoring invalid line in config file %s line %u. No header was found.", stream->get_name().c_str(), linenumber);
 			continue;
 		}
 
@@ -126,7 +126,7 @@ bool configfile::load(stream_ptr stream)
 
 		if(pos == std::string::npos || pos == 0)
 		{
-			console::warning("Ignoring invalid line in config file %s line %u.", stream->get_name().c_str(), linenumber);
+			console::warning("[ConfigFile]: Ignoring invalid line in config file %s line %u.", stream->get_name().c_str(), linenumber);
 			continue;
 		}
 
@@ -136,7 +136,7 @@ bool configfile::load(stream_ptr stream)
 		entries_[key] = val;
 	}
 
-	console::debug("Finished reading config file: %s", stream->get_name().c_str());
+	console::debug("[ConfigFile]: Finished reading config file: %s", stream->get_name().c_str());
 
 	stream->close();
 
@@ -147,7 +147,7 @@ void configfile::save(stream_ptr stream)
 {
 	if(!stream->good())
 	{
-		console::error("Could not save config file: %s", stream->get_name().c_str());
+		console::error("[ConfigFile]: Could not save config file: %s", stream->get_name().c_str());
 		return;
 	}
 
@@ -168,7 +168,7 @@ void configfile::save(stream_ptr stream)
 		stream->write(line);
 	}
 
-	console::debug("Finished saving config file: %s", stream->get_name().c_str());
+	console::debug("[ConfigFile]: Finished saving config file: %s", stream->get_name().c_str());
 
 	stream->close();
 }

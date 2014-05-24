@@ -18,14 +18,14 @@ static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, png_s
 	//Do we have a stream?
 	if(!stream)
 	{
-		console::error("ImageCodecPNG: Could not decode PNG. Stream was null in read callback.");
+		console::error("[ImageCodec]: Could not decode PNG. Stream was null in read callback.");
 		return;
 	}
 
 	//Read the data
 	if((*stream)->read(output_ptr, (size_t) output_size) != output_size)
 	{
-		console::error("ImageCodecPNG: Could not decode PNG. Unexpected end of stream in read callback.");
+		console::error("[ImageCodec]: Could not decode PNG. Unexpected end of stream in read callback.");
 		return;
 	}
 }
@@ -45,13 +45,13 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 	//Check our stream
 	if (!stream)
 	{
-		console::error("ImageCodecPNG: Could not decode PNG '%s'. Stream was null.", stream->get_name().c_str());
+		console::error("[ImageCodec]: Could not decode PNG '%s'. Stream was null.", stream->get_name().c_str());
 		return aeon_empty_image;
 	}
 
 	if(!stream->good())
 	{
-		console::error("ImageCodecPNG: Could not decode PNG '%s'. Stream was bad.", stream->get_name().c_str());
+		console::error("[ImageCodec]: Could not decode PNG '%s'. Stream was bad.", stream->get_name().c_str());
 		return aeon_empty_image;
 	}
 
@@ -59,7 +59,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 
 	if (size == 0)
 	{
-		console::error("ImageCodecPNG: Could not decode PNG '%s'. Stream was empty.", stream->get_name().c_str());
+		console::error("[ImageCodec]: Could not decode PNG '%s'. Stream was empty.", stream->get_name().c_str());
 		return aeon_empty_image;
 	}
 
@@ -70,7 +70,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 	//Check the header
 	if (png_sig_cmp(png_header, 0, PNG_HEADER_SIGNATURE_SIZE))
 	{
-		console::error("ImageCodecPNG: Could not decode PNG '%s'. Not a valid PNG format.", stream->get_name().c_str());
+		console::error("[ImageCodec]: Could not decode PNG '%s'. Not a valid PNG format.", stream->get_name().c_str());
 		return aeon_empty_image;
 	}
 
@@ -78,7 +78,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 	png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	if (!png_ptr)
 	{
-		console::error("ImageCodecPNG: Could not decode PNG '%s'. png_create_read_struct failed.", stream->get_name().c_str());
+		console::error("[ImageCodec]: Could not decode PNG '%s'. png_create_read_struct failed.", stream->get_name().c_str());
 		return aeon_empty_image;
 	}
 
@@ -86,7 +86,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 	png_infop info_ptr = png_create_info_struct(png_ptr);
 	if (!info_ptr)
 	{
-		console::error("ImageCodecPNG: Could not decode PNG '%s'. png_create_info_struct failed.", stream->get_name().c_str());
+		console::error("[ImageCodec]: Could not decode PNG '%s'. png_create_info_struct failed.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, (png_infopp)NULL, (png_infopp)NULL);
 		return aeon_empty_image;
 	}
@@ -95,7 +95,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 	png_infop end_info = png_create_info_struct(png_ptr);
 	if (!end_info)
 	{
-		console::error("ImageCodecPNG: Could not decode PNG '%s'. png_create_info_struct failed.", stream->get_name().c_str());
+		console::error("[ImageCodec]: Could not decode PNG '%s'. png_create_info_struct failed.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
 		return aeon_empty_image;
 	}
@@ -103,7 +103,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 	//Bind errors from libpng
 	if (setjmp(png_jmpbuf(png_ptr)))
 	{
-		console::error("ImageCodecPNG: Could not decode PNG '%s'. libPNG reported an error.", stream->get_name().c_str());
+		console::error("[ImageCodec]: Could not decode PNG '%s'. libPNG reported an error.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 		return aeon_empty_image;
 	}
@@ -129,16 +129,16 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 	if (color_type == PNG_COLOR_TYPE_RGB)
 	{
 		pixelformat = image::pixel_format::rgb;
-		console::debug("ImageCodecPNG: RGB Pixel format is RGB");
+		console::debug("[ImageCodec]: RGB Pixel format is RGB");
 	}
 	else if (color_type == PNG_COLOR_TYPE_RGB_ALPHA)
 	{
 		pixelformat = image::pixel_format::rgba;
-		console::debug("ImageCodecPNG: RGB Pixel format is RGBA");
+		console::debug("[ImageCodec]: RGB Pixel format is RGBA");
 	}
 	else
 	{
-		console::error("ImageCodecPNG: Could not decode PNG '%s'. Unsupported PNG pixel format.", stream->get_name().c_str());
+		console::error("[ImageCodec]: Could not decode PNG '%s'. Unsupported PNG pixel format.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 		return aeon_empty_image;
 	}
@@ -154,7 +154,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 
 	if (bitmap_buffer == NULL || bitmap_buffer->get() == NULL)
 	{
-		console::error("Could not allocate memory for PNG image data.");
+		console::error("[ImageCodec]: Could not allocate memory for PNG image data.");
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 		return aeon_empty_image;
 	}
@@ -170,7 +170,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 
 	if (rowpointer_buffer == NULL || rowpointer_buffer->get() == NULL)
 	{
-		console::error("ImageCodecPNG: Could not decode PNG '%s'. Could not allocate memory for PNG row pointers.", stream->get_name().c_str());
+		console::error("[ImageCodec]: Could not decode PNG '%s'. Could not allocate memory for PNG row pointers.", stream->get_name().c_str());
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 		return aeon_empty_image;
 	}

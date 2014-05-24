@@ -49,7 +49,7 @@ bool buffer::reserve(size_t n)
 	bool result = resize(n);
 
 	if(result)
-		console::debug("Buffer: Reserved %u bytes.", n);
+		console::debug("[Buffer]: Reserved %u bytes.", n);
 
 	return result;
 }
@@ -65,7 +65,7 @@ bool buffer::resize(size_t n)
 		//Do we have data at all?
 		if(buffer_ != NULL)
 		{
-			console::warning("Buffer: Failed to reallocate buffer from %u to %u. Trying copy.", reserved_size_, n);
+			console::warning("[Buffer]: Failed to reallocate buffer from %u to %u. Trying copy.", reserved_size_, n);
 
 			//Try a fallback method...
 			new_buffer = malloc(n);
@@ -73,7 +73,7 @@ bool buffer::resize(size_t n)
 			//Did we fail again?!
 			if (new_buffer == NULL)
 			{
-				console::error("Buffer: Failed to reallocate buffer from %u to %u in fallback mode. Aborting", reserved_size_, n);
+				console::error("[Buffer]: Failed to reallocate buffer from %u to %u in fallback mode. Aborting", reserved_size_, n);
 				return false;
 			}
 
@@ -91,7 +91,7 @@ bool buffer::resize(size_t n)
 			return true;
 		}
 
-		console::error("Buffer: Could not allocate buffer for %u bytes.", n);
+		console::error("[Buffer]: Could not allocate buffer for %u bytes.", n);
 		return false;
 	}
 
@@ -126,7 +126,7 @@ void buffer::free()
 {
 	::free(buffer_);
 
-	console::debug("Buffer: Freed %u bytes.", reserved_size_);
+	console::debug("[Buffer]: Freed %u bytes.", reserved_size_);
 
 	buffer_ = NULL;
 	size_ = 0;

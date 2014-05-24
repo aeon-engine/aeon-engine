@@ -23,7 +23,7 @@ void image::set_data(buffer_ptr buffer, unsigned int width, unsigned int height,
 {
 	if(buffer == NULL || buffer->get() == NULL)
 	{
-		console::error("Image: Tried creating an image from an empty buffer.");
+		console::error("[Image]: Tried creating an image from an empty buffer.");
 		return;
 	}
 
