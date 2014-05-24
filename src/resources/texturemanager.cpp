@@ -30,7 +30,7 @@ texture_ptr texture_manager::load(const std::string &name)
 
 resource * texture_manager::__create_new_resource(const std::string &name)
 {
-	return new texture(this, name);
+	return new texture(this, name, __get_unique_handle());
 }
 
 } //namespace aeon

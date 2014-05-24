@@ -20,11 +20,12 @@ public:
 		unloaded			= 4, /**< enum Unloading and freeing resources. This resource can no longer be used. */
 	};
 
-	resource(resource_manager *creator, const std::string &name);
+	resource(resource_manager *creator, const std::string &name, std::uint64_t handle);
 	virtual ~resource();
 
-	state					get_state() { return state_; }
-	const std::string &		get_name()	{ return name_; }
+	state					get_state()		{ return state_; }
+	const std::string &		get_name()		{ return name_; }
+	std::uint64_t			get_handle()	{ return handle_; }
 
 protected:
 	bool					__load(stream_ptr stream);
@@ -38,6 +39,7 @@ protected:
 
 	resource_manager *		creator_;
 	std::string				name_;
+	std::uint64_t			handle_;
 	std::atomic<state>		state_;
 };
 

@@ -1,14 +1,16 @@
 #include "aeon/aeon.h"
 #include "aeon/resources/resource.h"
+#include "aeon/resources/resourcemanager.h"
 #include "aeon/console/console.h"
 
 namespace aeon
 {
 
-resource::resource(resource_manager *creator, const std::string &name)
+resource::resource(resource_manager *creator, const std::string &name, std::uint64_t handle)
 :
 creator_(creator),
 name_(name),
+handle_(handle),
 state_(state::empty)
 {
 
@@ -27,7 +29,12 @@ bool resource::__load(stream_ptr stream)
 		return false;
 	}
 
-	return __load_impl(stream);
+	bool result = __load_impl(stream);
+
+	if(result)
+		state_ = state::ready_for_finalize;
+
+	return result;
 }
 
 bool resource::__unload()
@@ -39,13 +46,7 @@ bool resource::__unload()
 	}
 
 	state_ = state::unloading;
-
-	bool result = __unload_impl();
-
-	if(result)
-		state_ = state::unloaded;
-
-	return result;
+	return true;
 }
 
 bool resource::__finalize()

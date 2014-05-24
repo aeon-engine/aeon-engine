@@ -11,7 +11,7 @@ namespace aeon
 class texture : public resource
 {
 public:
-	texture(resource_manager *creator, const std::string &name);
+	texture(resource_manager *creator, const std::string &name, std::uint64_t handle);
 	virtual ~texture();
 
 protected:

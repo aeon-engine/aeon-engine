@@ -55,6 +55,8 @@ void root::run()
 	running_ = true;
 	while (running_)
 	{
+		texture_manager::get_singleton().finalize_resources();
+
 		if(!platform_->pre_frame())
 			break;
 
