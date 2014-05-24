@@ -49,7 +49,7 @@ bool buffer::reserve(size_t n)
 	bool result = resize(n);
 
 	if(result)
-		console::debug("[Buffer]: Reserved %u bytes.", n);
+		console::debug("[Buffer]: Reserved %u bytes at %p.", n, buffer_);
 
 	return result;
 }
@@ -126,7 +126,7 @@ void buffer::free()
 {
 	::free(buffer_);
 
-	console::debug("[Buffer]: Freed %u bytes.", reserved_size_);
+	console::debug("[Buffer]: Freed %u bytes from %p.", reserved_size_, buffer_);
 
 	buffer_ = NULL;
 	size_ = 0;
