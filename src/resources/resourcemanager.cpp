@@ -47,7 +47,7 @@ resource_ptr resource_manager::load(const std::string &name)
 {
 	console::debug("[ResourceManager]: Loading resource '%s' by name.", name.c_str());
 
-	std::lock_guard<std::mutex> lock(resources_mutex_);
+	resources_mutex_.lock();
 
 	//Check if this resource was already loaded before.
 	resources::iterator itr = __find_resource_by_name(name);
@@ -59,12 +59,15 @@ resource_ptr resource_manager::load(const std::string &name)
 		if (resource_ptr)
 		{
 			console::debug("[ResourceManager]: Resource '%s' was already loaded.", name.c_str());
+			resources_mutex_.unlock();
 			return resource_ptr;
 		}
 
 		console::debug("[ResourceManager]: Resource '%s' no longer exists. Removing old reference and reloading.", name.c_str());
 		resources_.erase(itr);
 	}
+
+	resources_mutex_.unlock();
 
 	file_stream_ptr filestream = std::make_shared<file_stream>(name, stream::access_mode::read);
 
@@ -161,6 +164,10 @@ resource_ptr resource_manager::__load(stream_ptr stream)
 		console::warning("[ResourceManager]: Could not load resource '%s' from stream. Load failed.", stream->get_name().c_str());
 		return aeon_empty_resource;
 	}
+
+	resources_mutex_.lock();
+	resources_.push_back(resource);
+	resources_mutex_.unlock();
 
 	__add_to_finalize_queue(resource);
 

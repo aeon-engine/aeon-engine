@@ -41,6 +41,8 @@ bool texture::__unload_impl()
 		return false;
 	}
 
+	console::debug("[Texture]: Deleting OpenGL texture handle %u.", texture_);
+
 	glDeleteTextures(1, &texture_);
 	texture_ = 0;
 
