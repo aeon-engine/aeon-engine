@@ -4,6 +4,7 @@
 #include "aeon/resources/imagecodecmanager.h"
 #include "aeon/resources/imagecodecpng.h"
 #include "aeon/resources/texturemanager.h"
+#include "aeon/resources/shadermanager.h"
 
 namespace aeon
 {
@@ -79,6 +80,7 @@ void root::run()
 
 	image_codec_manager::dispose();
 	texture_manager::dispose();
+	shader_manager::dispose();
 
 	running_ = false;
 	initialized_ = false;
@@ -147,6 +149,7 @@ bool root::__initialize_impl(platforms::base_platform_ptr platform)
 #endif
 
 	texture_manager::create();
+	shader_manager::create();
 
 	initialized_ = true;
 	return true;
