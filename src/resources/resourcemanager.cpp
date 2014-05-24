@@ -10,12 +10,10 @@ resource_manager::resource_manager()
 :
 last_resource_handle_(0)
 {
-	console::debug("[ResourceManager]: created.");
 }
 
 resource_manager::~resource_manager()
 {
-	console::debug("[ResourceManager]: disposed.");
 }
 
 resource_ptr resource_manager::load(stream_ptr stream)
