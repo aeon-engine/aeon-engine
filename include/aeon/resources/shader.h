@@ -14,11 +14,24 @@ public:
 	virtual ~shader();
 
 protected:
+	enum class program_type
+	{
+		none,
+		fragment,
+		vertex
+	};
+
 	virtual bool			__load_impl(stream_ptr stream);
 	virtual bool			__unload_impl();
 	virtual bool			__finalize_impl();
 
-	GLuint					texture_;
+	GLuint					__load_shader(const std::string &source, GLenum type);
+	GLuint					__link_program(GLuint vertexshader, GLuint fragmentshader);
+
+	std::string				fragment_src_;
+	std::string				vertex_src_;
+
+	GLuint					program_;
 };
 
 typedef std::shared_ptr<shader> shader_ptr;
