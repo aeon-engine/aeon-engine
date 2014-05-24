@@ -39,12 +39,6 @@
     <ClCompile Include="..\src\console\streamlistener.cpp">
       <Filter>console</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\resources\texture.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resources\texturemanager.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\utility\timer.cpp">
       <Filter>utility</Filter>
     </ClCompile>
@@ -56,6 +50,18 @@
     </ClCompile>
     <ClCompile Include="..\src\platforms\glfwplatform.cpp">
       <Filter>platforms\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\resources\texturemanager.cpp">
+      <Filter>resources\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\resources\texture.cpp">
+      <Filter>resources\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\resources\shadermanager.cpp">
+      <Filter>resources\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\resources\shader.cpp">
+      <Filter>resources\opengl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,9 +115,6 @@
     <ClInclude Include="..\include\aeon\console\streamlistener.h">
       <Filter>console</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\texture.h">
-      <Filter>resources</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\aeon\utility\timer.h">
       <Filter>utility</Filter>
     </ClInclude>
@@ -134,7 +137,16 @@
       <Filter>console</Filter>
     </ClInclude>
     <ClInclude Include="..\include\aeon\resources\texturemanager.h">
-      <Filter>resources</Filter>
+      <Filter>resources\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\aeon\resources\texture.h">
+      <Filter>resources\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\aeon\resources\shader.h">
+      <Filter>resources\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\aeon\resources\shadermanager.h">
+      <Filter>resources\opengl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +170,9 @@
     </Filter>
     <Filter Include="platforms\glfw">
       <UniqueIdentifier>{65458f58-71f1-4688-bca8-0c76037b8fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\opengl">
+      <UniqueIdentifier>{973f7b01-bfa4-4d5b-93e0-50c6a24568a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

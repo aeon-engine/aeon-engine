@@ -29,6 +29,8 @@
     <ClCompile Include="..\src\resources\imagecodecpng.cpp" />
     <ClCompile Include="..\src\resources\resource.cpp" />
     <ClCompile Include="..\src\resources\resourcemanager.cpp" />
+    <ClCompile Include="..\src\resources\shader.cpp" />
+    <ClCompile Include="..\src\resources\shadermanager.cpp" />
     <ClCompile Include="..\src\resources\texture.cpp" />
     <ClCompile Include="..\src\resources\texturemanager.cpp" />
     <ClCompile Include="..\src\root.cpp" />
@@ -59,6 +61,8 @@
     <ClInclude Include="..\include\aeon\resources\imagecodecpng.h" />
     <ClInclude Include="..\include\aeon\resources\resource.h" />
     <ClInclude Include="..\include\aeon\resources\resourcemanager.h" />
+    <ClInclude Include="..\include\aeon\resources\shader.h" />
+    <ClInclude Include="..\include\aeon\resources\shadermanager.h" />
     <ClInclude Include="..\include\aeon\resources\texture.h" />
     <ClInclude Include="..\include\aeon\resources\texturemanager.h" />
     <ClInclude Include="..\include\aeon\root.h" />
