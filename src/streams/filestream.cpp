@@ -12,7 +12,7 @@ file_(NULL)
 {
 	if (mode == (access_mode::read | access_mode::write))
 	{
-		console::error("FileStream: Invalid access mode: Read+Write on file %s.", name_.c_str());
+		console::error("[FileStream]: Invalid access mode: Read+Write on file %s.", name_.c_str());
 		return;
 	}
 
@@ -32,7 +32,7 @@ void file_stream::__open_file()
 
 	if(!file_)
 	{
-		console::error("FileStream: Could not open file: %s", name_.c_str());
+		console::error("[FileStream]: Could not open file: %s", name_.c_str());
 		return;
 	}
 
@@ -44,45 +44,45 @@ void file_stream::__calculate_file_size()
 {
 	if(!file_)
 	{
-		console::error("FileStream: Size requested on unopened file.");
+		console::error("[FileStream]: Size requested on unopened file.");
 		return;
 	}
 
 	if(!seek(0, seek_direction::end))
-		console::error("Could not determine file size for file: %s. Seek end failed.", name_.c_str());
+		console::error("[FileStream]: Could not determine file size for file: %s. Seek end failed.", name_.c_str());
 
 	size_ = ftell(file_);
 
 	if(size_ == 0)
-		console::warning("FileStream: File is empty: %s", name_.c_str());
+		console::warning("[FileStream]: File is empty: %s", name_.c_str());
 
 	if(!seek(0, seek_direction::begin))
-		console::error("Could not determine file size for file: %s. Seek begin failed.", name_.c_str());
+		console::error("[FileStream]: Could not determine file size for file: %s. Seek begin failed.", name_.c_str());
 }
 
 size_t file_stream::read(void *buffer, size_t count)
 {
 	if(!file_)
 	{
-		console::error("FileStream: Read on unopened file.");
+		console::error("[FileStream]: Read on unopened file.");
 		return 0;
 	}
 
 	if(access_mode_ != access_mode::read)
 	{
-		console::error("FileStream: Can not read from file in write mode for file %s.", name_.c_str());
+		console::error("[FileStream]: Can not read from file in write mode for file %s.", name_.c_str());
 		return 0;
 	}
 
 	if(!buffer)
 	{
-		console::error("FileStream: Input buffer is NULL.");
+		console::error("[FileStream]: Input buffer is NULL.");
 		return 0;
 	}
 
 	if(count == 0)
 	{
-		console::warning("FileStream: Tried writing 0 bytes.");
+		console::warning("[FileStream]: Tried writing 0 bytes.");
 		return 0;
 	}
 
@@ -93,7 +93,7 @@ bool file_stream::read(std::uint8_t &data)
 {
 	if(access_mode_ != access_mode::read)
 	{
-		console::error("FileStream: Can not read from file in write mode for file %s.", name_.c_str());
+		console::error("[FileStream]: Can not read from file in write mode for file %s.", name_.c_str());
 		return false;
 	}
 
@@ -110,7 +110,7 @@ bool file_stream::peek(std::uint8_t &data)
 {
 	if(access_mode_ != access_mode::read)
 	{
-		console::error("FileStream: Can not peek from file in write mode for file %s.", name_.c_str());
+		console::error("[FileStream]: Can not peek from file in write mode for file %s.", name_.c_str());
 		return false;
 	}
 
@@ -131,25 +131,25 @@ size_t file_stream::write(const void *buffer, size_t count)
 {
 	if(!file_)
 	{
-		console::error("FileStream: Write on unopened file.");
+		console::error("[FileStream]: Write on unopened file.");
 		return 0;
 	}
 
 	if(access_mode_ != access_mode::write)
 	{
-		console::error("FileStream: Can not write to file in read mode for file %s.", name_.c_str());
+		console::error("[FileStream]: Can not write to file in read mode for file %s.", name_.c_str());
 		return 0;
 	}
 
 	if(!buffer)
 	{
-		console::error("FileStream: Input buffer is NULL.");
+		console::error("[FileStream]: Input buffer is NULL.");
 		return 0;
 	}
 
 	if(count == 0)
 	{
-		console::warning("FileStream: Tried writing 0 bytes.");
+		console::warning("[FileStream]: Tried writing 0 bytes.");
 		return 0;
 	}
 
@@ -160,7 +160,7 @@ bool file_stream::seek(size_t pos, seek_direction direction)
 {
 	if(!file_)
 	{
-		console::error("FileStream: Seek on unopened file.");
+		console::error("[FileStream]: Seek on unopened file.");
 		return false;
 	}
 
@@ -187,7 +187,7 @@ size_t file_stream::tell() const
 {
 	if(!file_)
 	{
-		console::error("FileStream: Tell on unopened file.");
+		console::error("[FileStream]: Tell on unopened file.");
 		return 0;
 	}
 
@@ -198,7 +198,7 @@ bool file_stream::eof() const
 {
 	if(!file_)
 	{
-		console::error("FileStream: EOF on unopened file.");
+		console::error("[FileStream]: EOF on unopened file.");
 		return true;
 	}
 
@@ -209,9 +209,11 @@ void file_stream::close()
 {
 	if(!file_)
 	{
-		console::error("FileStream: Close on unopened file.");
+		console::error("[FileStream]: Close on unopened file.");
 		return;
 	}
+
+	console::debug("[FileStream]: Closing file stream.");
 
 	fclose(file_);
 	file_ = NULL;
@@ -221,7 +223,7 @@ void file_stream::flush()
 {
 	if(!file_)
 	{
-		console::error("FileStream: Close on unopened file.");
+		console::error("[FileStream]: Close on unopened file.");
 		return;
 	}
 
