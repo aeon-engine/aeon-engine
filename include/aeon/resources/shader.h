@@ -32,6 +32,10 @@ protected:
 	std::string				vertex_src_;
 
 	GLuint					program_;
+
+	GLint					matrix_handle_;
+	GLint					texture0_handle_;
+	GLint					color_handle_;
 };
 
 typedef std::shared_ptr<shader> shader_ptr;

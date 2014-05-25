@@ -8,7 +8,10 @@ namespace aeon
 shader::shader(resource_manager *creator, const std::string &name, std::uint64_t handle)
 :
 resource(creator, name, handle),
-program_(0)
+program_(0),
+matrix_handle_(0),
+texture0_handle_(0),
+color_handle_(0)
 {
 
 }
@@ -149,6 +152,20 @@ bool shader::__finalize_impl()
 	//deleted when the program is deleted.
 	glDeleteShader(vertexshader);
 	glDeleteShader(fragmentshader);
+
+	//Set up the uniform locations for the matrices in this shader
+	matrix_handle_ = glGetUniformLocation(program_, AEON_SHADER_MATRIX_NAME);
+	texture0_handle_ = glGetUniformLocation(program_, AEON_SHADER_TEXTURE0_NAME);
+	color_handle_ = glGetUniformLocation(program_, AEON_SHADER_COLOR_NAME);
+
+	if(matrix_handle_ == -1)
+		console::warning("[Shader]: Could not find '%s' in shader.", AEON_SHADER_MATRIX_NAME);
+
+	if(texture0_handle_ == -1)
+		console::warning("[Shader]: Could not find '%s' in shader.", AEON_SHADER_TEXTURE0_NAME);
+
+	if (texture0_handle_ == -1)
+		console::warning("[Shader]: Could not find '%s' in shader.", AEON_SHADER_COLOR_NAME);
 
 	return true;
 }

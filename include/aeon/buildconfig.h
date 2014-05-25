@@ -15,9 +15,13 @@
 #define AEON_DEFAULT_SCREEN_HEIGHT			720
 
 #define AEON_SHADER_ATTRIB_VERTEX_ID		0
-#define AEON_SHADER_ATTRIB_VERTEX_NAME		"in_Position"
+#define AEON_SHADER_ATTRIB_VERTEX_NAME		"in_position"
 
 #define AEON_SHADER_ATTRIB_TEXCOORD_ID		1
-#define AEON_SHADER_ATTRIB_TEXCOORD_NAME	"in_Texcoord"
+#define AEON_SHADER_ATTRIB_TEXCOORD_NAME	"in_texcoord0"
+
+#define AEON_SHADER_MATRIX_NAME				"in_matrix"
+#define AEON_SHADER_TEXTURE0_NAME			"in_texture0"
+#define AEON_SHADER_COLOR_NAME				"in_color"
 
 #endif // buildconfig_h__
