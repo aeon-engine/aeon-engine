@@ -20,6 +20,11 @@ texture::~texture()
 
 }
 
+void texture::bind()
+{
+	glBindTexture(GL_TEXTURE_2D, texture_);
+}
+
 bool texture::__load_impl(stream_ptr stream)
 {
 	image_ = image_codec_manager::get_singleton().decode("PNG", stream);
