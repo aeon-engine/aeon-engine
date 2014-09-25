@@ -10,11 +10,11 @@ namespace aeon
 class image_codec
 {
 public:
-	image_codec() {}
-	virtual ~image_codec() {}
+    image_codec() {}
+    virtual ~image_codec() {}
 
-	virtual image_ptr decode(stream_ptr stream) = 0;
-	virtual std::string get_type_name() const = 0;
+    virtual image_ptr decode(stream_ptr stream) = 0;
+    virtual std::string get_type_name() const = 0;
 
 };
 

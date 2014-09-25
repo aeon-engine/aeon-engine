@@ -10,17 +10,17 @@ namespace aeon
 {
 
 class texture_manager : public resource_manager, 
-	public singleton<texture_manager>
+    public singleton<texture_manager>
 {
 public:
-	texture_manager();
-	virtual ~texture_manager();
+    texture_manager();
+    virtual ~texture_manager();
 
-	texture_ptr load(stream_ptr stream);
-	texture_ptr load(const std::string &name);
+    texture_ptr load(stream_ptr stream);
+    texture_ptr load(const std::string &name);
 
 protected:
-	resource *__create_new_resource(const std::string &name);
+    resource *__create_new_resource(const std::string &name);
 };
 
 } //namespace aeon

@@ -11,18 +11,19 @@ namespace aeon
 class texture : public resource
 {
 public:
-	texture(resource_manager *creator, const std::string &name, std::uint64_t handle);
-	virtual ~texture();
+    texture(resource_manager *creator, const std::string &name, 
+        std::uint64_t handle);
+    virtual ~texture();
 
-	void bind();
+    void bind();
 
 protected:
-	virtual bool __load_impl(stream_ptr stream);
-	virtual bool __unload_impl();
-	virtual bool __finalize_impl();
+    virtual bool __load_impl(stream_ptr stream);
+    virtual bool __unload_impl();
+    virtual bool __finalize_impl();
 
-	image_ptr image_;
-	GLuint texture_;
+    image_ptr image_;
+    GLuint texture_;
 };
 
 typedef std::shared_ptr<texture> texture_ptr;

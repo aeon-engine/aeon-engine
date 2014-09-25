@@ -11,16 +11,16 @@ namespace aeon
 class image_codec_manager : public singleton<image_codec_manager>
 {
 public:
-	image_codec_manager();
-	~image_codec_manager();
+    image_codec_manager();
+    ~image_codec_manager();
 
-	void register_codec(image_codec_ptr codec);
-	
-	image_ptr decode(const std::string &name, stream_ptr stream);
+    void register_codec(image_codec_ptr codec);
+    
+    image_ptr decode(const std::string &name, stream_ptr stream);
 
 private:
-	typedef std::map<const std::string, image_codec_ptr> image_codecs;
-	image_codecs registered_codecs_;
+    typedef std::map<const std::string, image_codec_ptr> image_codecs;
+    image_codecs registered_codecs_;
 };
 
 } //namespace aeon

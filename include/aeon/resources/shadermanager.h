@@ -10,17 +10,17 @@ namespace aeon
 {
 
 class shader_manager : public resource_manager, 
-	public singleton<shader_manager>
+    public singleton<shader_manager>
 {
 public:
-	shader_manager();
-	virtual ~shader_manager();
+    shader_manager();
+    virtual ~shader_manager();
 
-	shader_ptr load(stream_ptr stream);
-	shader_ptr load(const std::string &name);
+    shader_ptr load(stream_ptr stream);
+    shader_ptr load(const std::string &name);
 
 protected:
-	resource *__create_new_resource(const std::string &name);
+    resource *__create_new_resource(const std::string &name);
 };
 
 } //namespace aeon

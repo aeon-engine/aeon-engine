@@ -9,11 +9,11 @@ namespace aeon
 class console_listener
 {
 public:
-	console_listener() {}
-	virtual ~console_listener() {}
+    console_listener() {}
+    virtual ~console_listener() {}
 
-	virtual void on_log_message(double time_diff, console::log_level level, 
-		const std::string &message) = 0;
+    virtual void on_log_message(double time_diff, console::log_level level, 
+        const std::string &message) = 0;
 };
 
 typedef std::shared_ptr<console_listener> console_listener_ptr;

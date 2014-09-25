@@ -11,62 +11,62 @@ namespace string_utils
 /************************************************************************/
 std::string int_to_string(int val, int length /* = 0 */)
 {
-	std::stringstream stream;
+    std::stringstream stream;
 
-	if(length == 0)
-	{
-		stream << val;
-	}else{
-		stream << std::setw(length) << std::setfill('0') << val;
-	}
+    if(length == 0)
+    {
+        stream << val;
+    }else{
+        stream << std::setw(length) << std::setfill('0') << val;
+    }
 
-	return stream.str();
+    return stream.str();
 }
 
 std::string int64_to_string(long long val, int length /* = 0 */)
 {
-	std::stringstream stream;
+    std::stringstream stream;
 
-	if(length == 0)
-	{
-		stream << val;
-	}else{
-		stream << std::setw(length) << std::setfill('0') << val;
-	}
+    if(length == 0)
+    {
+        stream << val;
+    }else{
+        stream << std::setw(length) << std::setfill('0') << val;
+    }
 
-	return stream.str();
+    return stream.str();
 }
 
 std::string int_to_hex_string(int val, int length /* = 0 */)
 {
-	std::stringstream stream;
+    std::stringstream stream;
 
-	if(length == 0)
-	{
-		stream << val;
-	}else{
-		stream << std::hex << std::setw(length) << std::setfill('0') << val;
-	}
+    if(length == 0)
+    {
+        stream << val;
+    }else{
+        stream << std::hex << std::setw(length) << std::setfill('0') << val;
+    }
 
-	return stream.str();
+    return stream.str();
 }
 
 std::string bool_to_string(bool val)
 {
-	return val == true ? "true" : "false";
+    return val == true ? "true" : "false";
 }
 
 std::string float_to_string(float val, int precision /* = 0 */)
 {
-	std::stringstream stream;
-	stream.setf(std::ios::fixed);
+    std::stringstream stream;
+    stream.setf(std::ios::fixed);
 
-	if(precision == 0)
-	{
-	    stream << val;
-	}else{
-		stream << std::setw(precision) << val;
-	}
+    if(precision == 0)
+    {
+        stream << val;
+    }else{
+        stream << std::setw(precision) << val;
+    }
 
     return stream.str();  
 }
@@ -76,48 +76,48 @@ std::string float_to_string(float val, int precision /* = 0 */)
 /************************************************************************/
 unsigned int string_to_int(const std::string &str)
 {
-	std::stringstream myString(str);
-	int val = 0;
-	myString >> val;
+    std::stringstream myString(str);
+    int val = 0;
+    myString >> val;
 
-	return val;
+    return val;
 }
 
 bool string_to_bool(const std::string &str)
 {
-	if(str == "true" || str == "1")
-		return true;
+    if(str == "true" || str == "1")
+        return true;
 
-	return false;
+    return false;
 }
 
 /************************************************************************/
 /* String splitting                                                     */
 /************************************************************************/
 strings &split(const std::string &s, char delim, strings &elems, 
-	splitmode mode /* = SplitMode::SkipEmpty */)
+    splitmode mode /* = SplitMode::SkipEmpty */)
 {
-	std::stringstream ss(s);
-	std::string item;
+    std::stringstream ss(s);
+    std::string item;
 
-	while(std::getline(ss, item, delim))
-	{
-		//Do we need to skip empty items?
-		if(mode == splitmode::skip_empty && item == "")
-			continue;
+    while(std::getline(ss, item, delim))
+    {
+        //Do we need to skip empty items?
+        if(mode == splitmode::skip_empty && item == "")
+            continue;
 
-		elems.push_back(item);
-	}
+        elems.push_back(item);
+    }
 
-	return elems;
+    return elems;
 }
 
 strings split(const std::string &s, char delim, 
-	splitmode mode /* = SplitMode::SkipEmpty */)
+    splitmode mode /* = SplitMode::SkipEmpty */)
 {
-	strings elems;
-	split(s, delim, elems, mode);
-	return elems;
+    strings elems;
+    split(s, delim, elems, mode);
+    return elems;
 }
 
 } /* namespace StringUtils */

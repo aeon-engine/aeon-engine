@@ -7,11 +7,11 @@ namespace aeon
 class framelistener
 {
 public:
-	framelistener() {}
-	~framelistener() {}
+    framelistener() {}
+    ~framelistener() {}
 
-	virtual bool on_frame(float dt) = 0;
-	virtual bool on_render() = 0;
+    virtual bool on_frame(float dt) = 0;
+    virtual bool on_render() = 0;
 };
 
 } //namespace Aeon
