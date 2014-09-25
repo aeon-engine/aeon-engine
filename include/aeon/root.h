@@ -1,14 +1,6 @@
 #ifndef root_h__
 #define root_h__
 
-#include "aeon/utility/singleton.h"
-#include "aeon/frameListener.h"
-#include "aeon/platforms/BasePlatform.h"
-
-#ifdef AEON_USE_GLFW_PLATFORM
-#  include "aeon/platforms/glfwplatform.h"
-#endif
-
 namespace aeon
 {
 

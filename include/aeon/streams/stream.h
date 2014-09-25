@@ -1,8 +1,6 @@
 #ifndef stream_h__
 #define stream_h__
 
-#include "aeon/utility/buffer.h"
-
 namespace aeon
 {
 
@@ -55,7 +53,7 @@ public:
      *
      * \param access_mode The access mode for the stream.
      * \sa AccessMode
-      */
+     */
     stream(int mode = access_mode::read);
 
     /*!

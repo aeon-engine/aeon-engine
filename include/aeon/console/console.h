@@ -14,10 +14,10 @@ typedef std::set<console_listener_ptr> console_listeners;
 
 enum class log_level : int
 {
-    error        = 1,
-    warning        = 2,
-    info        = 3,
-    debug        = 99
+    error    = 1,
+    warning  = 2,
+    info     = 3,
+    debug    = 99
 };
 
 void error(const char *format, ...);

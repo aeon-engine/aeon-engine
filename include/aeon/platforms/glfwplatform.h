@@ -2,7 +2,6 @@
 #define glfwplatform_h__
 
 #ifdef AEON_USE_GLFW_PLATFORM
-#include "aeon/platforms/baseplatform.h"
 
 namespace aeon
 {

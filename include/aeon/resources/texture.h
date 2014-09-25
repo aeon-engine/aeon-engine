@@ -1,10 +1,6 @@
 #ifndef texture_h__
 #define texture_h__
 
-#include "aeon/resources/resource.h"
-#include "aeon/streams/stream.h"
-#include "aeon/resources/image.h"
-
 namespace aeon
 {
 

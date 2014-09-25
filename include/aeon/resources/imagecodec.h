@@ -1,9 +1,6 @@
 #ifndef imagecodec_h__
 #define imagecodec_h__
 
-#include "aeon/streams/stream.h"
-#include "aeon/resources/image.h"
-
 namespace aeon
 {
 

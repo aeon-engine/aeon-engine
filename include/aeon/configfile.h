@@ -1,8 +1,6 @@
 #ifndef configfile_h__
 #define configfile_h__
 
-#include "aeon/streams/stream.h"
-
 namespace aeon
 {
 

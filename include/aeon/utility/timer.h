@@ -1,9 +1,6 @@
 #ifndef timer_h__
 #define timer_h__
 
-#include <ctime>
-#include <chrono>
-
 namespace aeon
 {
 

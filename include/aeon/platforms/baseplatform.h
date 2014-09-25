@@ -1,8 +1,6 @@
 #ifndef baseplatform_h__
 #define baseplatform_h__
 
-#include "aeon/game.h"
-
 namespace aeon
 {
 

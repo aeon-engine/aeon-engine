@@ -1,9 +1,6 @@
 #ifndef image_h__
 #define image_h__
 
-#include "aeon/utility/buffer.h"
-#include "aeon/streams/stream.h"
-
 namespace aeon
 {
 

@@ -1,9 +1,6 @@
 #ifndef resourcemanager_h__
 #define resourcemanager_h__
 
-#include "aeon/resources/resource.h"
-#include "aeon/streams/stream.h"
-
 namespace aeon
 {
 

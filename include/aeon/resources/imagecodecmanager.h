@@ -1,10 +1,6 @@
 #ifndef imagecodecmanager_h__
 #define imagecodecmanager_h__
 
-#include "aeon/utility/singleton.h"
-#include "aeon/resources/imagecodec.h"
-#include "aeon/streams/stream.h"
-
 namespace aeon
 {
 

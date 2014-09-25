@@ -1,11 +1,6 @@
 #ifndef streamlistener_h__
 #define streamlistener_h__
 
-#include "aeon/streams/stream.h"
-#include "aeon/console/consolelistener.h"
-
-#include <ctime>
-
 namespace aeon
 {
 
@@ -19,7 +14,7 @@ public:
         const std::string &message);
 
 private:
-    stream_ptr        stream_;
+    stream_ptr stream_;
 };
 
 } /* namespace aeon */

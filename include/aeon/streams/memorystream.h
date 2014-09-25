@@ -1,8 +1,6 @@
 #ifndef memorystream_h__
 #define memorystream_h__
 
-#include "aeon/streams/stream.h"
-
 namespace aeon
 {
 

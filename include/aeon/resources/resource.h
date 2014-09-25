@@ -1,8 +1,6 @@
 #ifndef resource_h__
 #define resource_h__
 
-#include "aeon/streams/stream.h"
-
 namespace aeon
 {
 

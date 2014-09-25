@@ -1,8 +1,6 @@
 #ifndef consolelistener_h__
 #define consolelistener_h__
 
-#include "aeon/console/console.h"
-
 namespace aeon
 {
 

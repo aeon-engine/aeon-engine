@@ -1,11 +1,6 @@
 #ifndef texturemanager_h__
 #define texturemanager_h__
 
-#include "aeon/resources/resourcemanager.h"
-#include "aeon/utility/singleton.h"
-#include "aeon/streams/stream.h"
-#include "aeon/resources/texture.h"
-
 namespace aeon
 {
 

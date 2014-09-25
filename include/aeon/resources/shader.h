@@ -1,9 +1,6 @@
 #ifndef shader_h__
 #define shader_h__
 
-#include "aeon/resources/resource.h"
-#include "aeon/streams/stream.h"
-
 namespace aeon
 {
 
