@@ -1,6 +1,4 @@
-#include "aeon/aeon.h"
-#include "aeon/console/consolelistener.h"
-#include "aeon/utility/timer.h"
+#include "aeon/stdafx.h"
 
 namespace aeon
 {

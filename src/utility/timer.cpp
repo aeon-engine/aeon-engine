@@ -1,5 +1,4 @@
-#include "Aeon/Aeon.h"
-#include "Aeon/Utility/Timer.h"
+#include "aeon/stdafx.h"
 
 namespace aeon
 {

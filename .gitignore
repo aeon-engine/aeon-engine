@@ -1,7 +1,9 @@
 *.suo
 *.sdf
+*.opensdf
 *.o
 *.a
+*.ipch
 *.swp
 build
 bin

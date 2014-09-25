@@ -1,6 +1,4 @@
-#include "aeon/aeon.h"
-#include "aeon/console/streamlistener.h"
-#include "aeon/utility/stringutils.h"
+#include "aeon/stdafx.h"
 
 namespace aeon
 {

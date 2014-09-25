@@ -1,8 +1,4 @@
-#include "aeon/aeon.h"
-#include "aeon/console/console.h"
-#include "aeon/resources/texture.h"
-#include "aeon/resources/image.h"
-#include "aeon/resources/imagecodecmanager.h"
+#include "aeon/stdafx.h"
 
 namespace aeon
 {

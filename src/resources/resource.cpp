@@ -1,7 +1,4 @@
-#include "aeon/aeon.h"
-#include "aeon/resources/resource.h"
-#include "aeon/resources/resourcemanager.h"
-#include "aeon/console/console.h"
+#include "aeon/stdafx.h"
 
 namespace aeon
 {

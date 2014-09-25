@@ -1,6 +1,4 @@
-#include "aeon/aeon.h"
-#include "aeon/console/console.h"
-#include "aeon/resources/shader.h"
+#include "aeon/stdafx.h"
 
 namespace aeon
 {

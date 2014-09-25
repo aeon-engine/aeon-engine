@@ -1,11 +1,6 @@
 #ifndef shadermanager_h__
 #define shadermanager_h__
 
-#include "aeon/resources/resourcemanager.h"
-#include "aeon/utility/singleton.h"
-#include "aeon/streams/stream.h"
-#include "aeon/resources/shader.h"
-
 namespace aeon
 {
 

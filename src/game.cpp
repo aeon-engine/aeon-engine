@@ -1,6 +1,4 @@
-#include "aeon/aeon.h"
-#include "aeon/game.h"
-#include "aeon/gamestate.h"
+#include "aeon/stdafx.h"
 
 namespace aeon
 {

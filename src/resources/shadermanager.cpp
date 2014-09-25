@@ -1,7 +1,4 @@
-#include "aeon/aeon.h"
-#include "aeon/resources/shadermanager.h"
-#include "aeon/resources/shader.h"
-#include "aeon/console/console.h"
+#include "aeon/stdafx.h"
 
 aeon_initialize_singleton(aeon::shader_manager);
 

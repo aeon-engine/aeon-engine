@@ -63,9 +63,9 @@
     <ClCompile Include="..\src\resources\shader.cpp">
       <Filter>resources\opengl</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\aeon\aeon.h" />
     <ClInclude Include="..\include\aeon\buildconfig.h" />
     <ClInclude Include="..\include\aeon\configfile.h" />
     <ClInclude Include="..\include\aeon\root.h" />
@@ -148,6 +148,7 @@
     <ClInclude Include="..\include\aeon\resources\shadermanager.h">
       <Filter>resources\opengl</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\aeon\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="console">

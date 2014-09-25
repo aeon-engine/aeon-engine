@@ -1,7 +1,4 @@
-#include "aeon/aeon.h"
-#include "aeon/resources/texturemanager.h"
-#include "aeon/resources/texture.h"
-#include "aeon/console/console.h"
+#include "aeon/stdafx.h"
 
 aeon_initialize_singleton(aeon::texture_manager);
 

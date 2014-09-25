@@ -1,10 +1,6 @@
-#include "aeon/aeon.h"
+#include "aeon/stdafx.h"
 
 #ifdef AEON_USE_GLFW_PLATFORM
-
-#include "aeon/platforms/glfwplatform.h"
-#include "aeon/game.h"
-#include "aeon/console/console.h"
 
 namespace aeon
 {

@@ -34,6 +34,10 @@
     <ClCompile Include="..\src\resources\texture.cpp" />
     <ClCompile Include="..\src\resources\texturemanager.cpp" />
     <ClCompile Include="..\src\root.cpp" />
+    <ClCompile Include="..\src\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\src\streams\filestream.cpp" />
     <ClCompile Include="..\src\streams\iostream.cpp" />
     <ClCompile Include="..\src\streams\memorystream.cpp" />
@@ -43,7 +47,7 @@
     <ClCompile Include="..\src\utility\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\aeon\aeon.h" />
+    <ClInclude Include="..\include\aeon\stdafx.h" />
     <ClInclude Include="..\include\aeon\buildconfig.h" />
     <ClInclude Include="..\include\aeon\configfile.h" />
     <ClInclude Include="..\include\aeon\console\console.h" />
@@ -154,6 +158,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>aeon/stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -178,6 +184,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>aeon/stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
