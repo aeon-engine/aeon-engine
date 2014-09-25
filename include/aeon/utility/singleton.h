@@ -60,6 +60,6 @@ protected:
 
 };
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // singleton_h__
+#endif /* singleton_h__ */

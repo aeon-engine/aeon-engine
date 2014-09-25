@@ -29,7 +29,7 @@ protected:
 
 typedef std::shared_ptr<base_platform> base_platform_ptr;
 
-} //namespace platforms
-} //namespace aeon
+} /* namespace platforms */
+} /* namespace aeon */
 
-#endif // baseplatform_h__
+#endif /* baseplatform_h__ */

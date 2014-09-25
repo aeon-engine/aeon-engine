@@ -5,6 +5,7 @@
 
 namespace aeon
 {
+
 class resource_manager;
 class resource
 {
@@ -56,6 +57,6 @@ typedef std::shared_ptr<resource> resource_ptr;
 
 #define aeon_empty_resource resource_ptr()
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // resource_h__
+#endif /* resource_h__ */

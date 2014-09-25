@@ -26,6 +26,6 @@ private:
 
 typedef std::shared_ptr<game> game_ptr;
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // game_h__
+#endif /* game_h__ */

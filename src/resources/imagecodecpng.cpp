@@ -16,7 +16,7 @@ static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr,
 {
     stream_ptr *stream = (stream_ptr *)png_get_io_ptr(png_ptr);
 
-    //Do we have a stream?
+    // Do we have a stream?
     if(!stream)
     {
         console::error("[ImageCodec]: Could not decode PNG. Stream was null "
@@ -24,7 +24,7 @@ static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr,
         return;
     }
 
-    //Read the data
+    // Read the data
     if((*stream)->read(output_ptr, (size_t) output_size) != output_size)
     {
         console::error("[ImageCodec]: Could not decode PNG. Unexpected end "
@@ -223,6 +223,6 @@ std::string image_codec_png::get_type_name() const
     return "PNG";
 }
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif //AEON_USE_PNG
+#endif /* AEON_USE_PNG */

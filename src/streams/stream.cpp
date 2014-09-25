@@ -66,33 +66,33 @@ size_t stream::read_line(std::string &str)
     std::string line;
     for (int i = 0; i < AEON_STREAM_MAX_TEXT_LINE_LENGTH; ++i)
     {
-        //Read a character
+        // Read a character
         result = read(c);
 
-        //Could we read anything?
+        // Could we read anything?
         if(!result)
             break;
 
-        //Check if it's a line-ending character
+        // Check if it's a line-ending character
         if(c == '\n')
         {
-            //Peek if the next character is a '\r'
+            // Peek if the next character is a '\r'
             result = peek(c);
 
-            //If it's '\r', then we should seek 1 byte ahead
+            // If it's '\r', then we should seek 1 byte ahead
             if (result && c == '\r')
                 seek(1, seek_direction::current);
 
             break;
         }
 
-        //Check if it's a line-ending character
+        // Check if it's a line-ending character
         if(c == '\r')
         {
-            //Peek if the next character is a '\n'
+            // Peek if the next character is a '\n'
             result = peek(c);
 
-            //If it's '\n', then we should seek 1 byte ahead
+            // If it's '\n', then we should seek 1 byte ahead
             if (result && c == '\n')
                 seek(1, seek_direction::current);
 
@@ -107,4 +107,4 @@ size_t stream::read_line(std::string &str)
     return line.length();
 }
 
-} //namespace Aeon
+} /* namespace aeon */

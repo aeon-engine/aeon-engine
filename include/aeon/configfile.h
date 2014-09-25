@@ -94,6 +94,6 @@ private:
     Entries entries_;
 };
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // configfile_h__
+#endif /* configfile_h__ */

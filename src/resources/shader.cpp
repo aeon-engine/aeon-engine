@@ -54,8 +54,8 @@ bool shader::__load_impl(stream_ptr stream)
                 parsing_program_type == program_type::fragment
             )
             {
-                //If we had previously read vertex shader source before,
-                //we did not expect another [vertex] tag.
+                // If we had previously read vertex shader source before,
+                // we did not expect another [vertex] tag.
                 if(!vertex_src_.empty())
                 {
                     console::warning("[Shader]: Unexpected line '[vertex]' "
@@ -79,8 +79,8 @@ bool shader::__load_impl(stream_ptr stream)
                 parsing_program_type == program_type::vertex
                 )
             {
-                //If we had previously read fragment shader source before,
-                //we did not expect another [fragment] tag.
+                // If we had previously read fragment shader source before,
+                // we did not expect another [fragment] tag.
                 if(!fragment_src_.empty())
                 {
                     console::warning("[Shader]: Unexpected line '[fragment]' "
@@ -147,7 +147,7 @@ bool shader::__finalize_impl()
         return false;
     }
 
-    //Link the shaders together into a program.
+    // Link the shaders together into a program.
     console::debug("[Shader]: Linking program.");
     program_ = __link_program(vertexshader, fragmentshader);
 
@@ -161,12 +161,12 @@ bool shader::__finalize_impl()
 
     console::debug("[Shader]: Program linked.");
 
-    //Decrease the reference count on our shader objects so they get
-    //deleted when the program is deleted.
+    // Decrease the reference count on our shader objects so they get
+    // deleted when the program is deleted.
     glDeleteShader(vertexshader);
     glDeleteShader(fragmentshader);
 
-    //Set up the uniform locations for the matrices in this shader
+    // Set up the uniform locations for the matrices in this shader
     matrix_handle_ = glGetUniformLocation(program_, AEON_SHADER_MATRIX_NAME);
     texture0_handle_ = glGetUniformLocation(program_, 
         AEON_SHADER_TEXTURE0_NAME);
@@ -189,7 +189,7 @@ bool shader::__finalize_impl()
 
 GLuint shader::__load_shader(const std::string &source, GLenum type)
 {
-    //Create the shader object
+    // Create the shader object
     GLuint shader = glCreateShader(type);
 
     if (shader == 0)
@@ -200,20 +200,20 @@ GLuint shader::__load_shader(const std::string &source, GLenum type)
 
     const char *shader_src = source.c_str();
 
-    //Load the shader source
+    // Load the shader source
     glShaderSource(shader, 1, &shader_src, NULL);
 
-    //Compile the shader
+    // Compile the shader
     glCompileShader(shader);
 
-    //Check the compile status
+    // Check the compile status
     GLint status;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
 
-    //Did the compile fail?
+    // Did the compile fail?
     if (!status)
     {
-        //Do we have a log message? (compile errors etc.?)
+        // Do we have a log message? (compile errors etc.?)
         GLint info_len = 0;
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_len);
 
@@ -225,7 +225,7 @@ GLuint shader::__load_shader(const std::string &source, GLenum type)
             free(info_log);
         }
 
-        //Free the shader resource, since we can't use it anymore.
+        // Free the shader resource, since we can't use it anymore.
         glDeleteShader(shader);
         return 0;
     }
@@ -243,11 +243,11 @@ GLuint shader::__link_program(GLuint vertexshader, GLuint fragmentshader)
         return 0;
     }
 
-    //Attach both fragment and vertex shaders to our program.
+    // Attach both fragment and vertex shaders to our program.
     glAttachShader(program, vertexshader);
     glAttachShader(program, fragmentshader);
 
-    //Bind attrib locations (the bind points for vertex buffers to the shader)
+    // Bind attrib locations (the bind points for vertex buffers to the shader)
     glBindAttribLocation(program, AEON_SHADER_ATTRIB_VERTEX_ID, 
         AEON_SHADER_ATTRIB_VERTEX_NAME);
     glBindAttribLocation(program, AEON_SHADER_ATTRIB_TEXCOORD_ID, 
@@ -260,10 +260,10 @@ GLuint shader::__link_program(GLuint vertexshader, GLuint fragmentshader)
     GLint status;
     glGetProgramiv(program, GL_LINK_STATUS, &status);
 
-    //Did linking fail?
+    // Did linking fail?
     if (!status)
     {
-        //Do we have a log message? (linker errors etc.?)
+        // Do we have a log message? (linker errors etc.?)
         GLint info_len = 0;
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_len);
 
@@ -282,4 +282,4 @@ GLuint shader::__link_program(GLuint vertexshader, GLuint fragmentshader)
     return program;
 }
 
-} //namespace aeon
+} /* namespace aeon */

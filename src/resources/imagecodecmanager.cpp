@@ -31,7 +31,7 @@ image_ptr image_codec_manager::decode(const std::string &name,
 {
     auto codec = registered_codecs_.find(name);
 
-    //Could not find the codec?
+    // Could not find the codec?
     if(codec == registered_codecs_.end())
     {
         console::error("ImageCodecManager: Could not decode stream. "
@@ -42,4 +42,4 @@ image_ptr image_codec_manager::decode(const std::string &name,
     return codec->second->decode(stream);
 }
 
-} //namespace aeon
+} /* namespace aeon */

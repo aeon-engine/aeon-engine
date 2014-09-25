@@ -29,4 +29,4 @@ double timer::get_time_difference()
     return elapsed_seconds.count();
 }
 
-} /* namespace Aeon */
+} /* namespace aeon */

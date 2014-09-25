@@ -23,6 +23,6 @@ protected:
     resource *__create_new_resource(const std::string &name);
 };
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // shadermanager_h__
+#endif /* shadermanager_h__ */

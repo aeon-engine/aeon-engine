@@ -25,14 +25,14 @@ bool glfw::initialize()
 {
     console::info("[GLFW] Initializing GLFW platform");
 
-    //Initialize GLFW
+    // Initialize GLFW
     if (!glfwInit())
     {
         console::error("[GLFW] Could not initialize GLFW");
         return false;
     }
 
-    //Create our window
+    // Create our window
     window_ = glfwCreateWindow(AEON_DEFAULT_SCREEN_WIDTH, 
         AEON_DEFAULT_SCREEN_HEIGHT, "Aeon", NULL, NULL);
 
@@ -56,8 +56,8 @@ bool glfw::pre_frame()
     if (glfwWindowShouldClose(window_))
         return false;
 
-    //Poll and process events
-    //We do this pre-frame to reduce input latency by 1 frame
+    // Poll and process events. We do this pre-frame to reduce input latency 
+    // by 1 frame
     glfwPollEvents();
 
     return true;
@@ -71,7 +71,7 @@ bool glfw::post_frame()
     if (glfwWindowShouldClose(window_))
         return false;
 
-    //Swap front and back buffers
+    // Swap front and back buffers
     glfwSwapBuffers(window_);
 
     return true;
@@ -88,7 +88,7 @@ bool glfw::dispose()
     return true;
 }
 
-} //namespace platforms
-} //namespace aeon
+} /* namespace platforms */
+} /* namespace aeon */
 
 #endif /* AEON_USE_GLFW_PLATFORM */

@@ -16,6 +16,6 @@ public:
 
 typedef std::shared_ptr<game_state> game_state_ptr;
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // gamestate_h__
+#endif /* gamestate_h__ */

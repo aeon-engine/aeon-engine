@@ -51,7 +51,7 @@ void root::run()
         return;
     }
 
-    //TODO: Implement dt
+    // TODO: Implement dt
     float dt = 0.1f;
 
     running_ = true;
@@ -144,8 +144,8 @@ bool root::__initialize_impl(platforms::base_platform_ptr platform)
         return false;
     }
 
-    //TODO: Should we check if the singletons were properly created?
-    //Register codecs
+    // TODO: Should we check if the singletons were properly created?
+    // Register codecs
     image_codec_manager::create();
 
 #ifdef AEON_USE_PNG

@@ -19,7 +19,7 @@ std::string configfile::get_string(const std::string &key,
 {
     auto itr = entries_.find(key);
 
-    //If it could not find the key...
+    // If it could not find the key...
     if(itr == entries_.end())
     {
         set_string(key, default_val);
@@ -33,7 +33,7 @@ int configfile::get_integer(const std::string &key, int default_val)
 {
     auto itr = entries_.find(key);
 
-    //If it could not find the key...
+    // If it could not find the key...
     if(itr == entries_.end())
     {
         set_integer(key, default_val);
@@ -48,7 +48,7 @@ bool configfile::get_boolean(const std::string &key, bool default_val)
 {
     auto itr = entries_.find(key);
 
-    //If it could not find the key...
+    // If it could not find the key...
     if(itr == entries_.end())
     {
         set_boolean(key, default_val);
@@ -87,7 +87,7 @@ bool configfile::load(stream_ptr stream)
 
     entries_.clear();
 
-    //Loop through all lines
+    // Loop through all lines
     int linenumber = 0;
     std::string header_name = "";
     while(!stream->eof())
@@ -103,14 +103,14 @@ bool configfile::load(stream_ptr stream)
 
         size_t length = line.size();
 
-        //Ignore comments
+        // Ignore comments
         if(line[0] == '#')
             continue;
 
-        //Is it a header?
+        // Is it a header?
         if(line[0] == '[')
         {
-            //then it should end with a ']'
+            // Then it should end with a ']'
             if (line[length - 1] == ']')
             {
                 header_name = line.substr(1, length - 2);
@@ -118,7 +118,7 @@ bool configfile::load(stream_ptr stream)
             }
         }
 
-        //A header name should have been set beyond this point.
+        // A header name should have been set beyond this point.
         if(header_name == "")
         {
             console::warning("[ConfigFile]: Ignoring invalid line in config "
@@ -159,14 +159,14 @@ void configfile::save(stream_ptr stream)
         return;
     }
 
-    //Loop through all entries to save to file
+    // Loop through all entries to save to file
     std::string header_name = "";
     for(auto itr : entries_)
     {
         string_utils::strings key = string_utils::split(
             itr.first, '.', string_utils::splitmode::skip_empty);
 
-        //do we have a new header name?
+        // Do we have a new header name?
         if(key[0] != header_name)
         {
             header_name = key[0];

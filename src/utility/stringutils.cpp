@@ -102,7 +102,7 @@ strings &split(const std::string &s, char delim, strings &elems,
 
     while(std::getline(ss, item, delim))
     {
-        //Do we need to skip empty items?
+        // Do we need to skip empty items?
         if(mode == splitmode::skip_empty && item == "")
             continue;
 
@@ -120,5 +120,5 @@ strings split(const std::string &s, char delim,
     return elems;
 }
 
-} /* namespace StringUtils */
-} /* namespace Aeon */
+} /* namespace string_utils */
+} /* namespace aeon */

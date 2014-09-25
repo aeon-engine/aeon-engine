@@ -21,6 +21,6 @@ private:
     std::chrono::time_point<std::chrono::system_clock> start_time_;
 };
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // timer_h__
+#endif /* timer_h__ */

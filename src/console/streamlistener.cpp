@@ -12,7 +12,6 @@ stream_(stream)
 
 }
 
-
 console_stream_listener::~console_stream_listener()
 {
 
@@ -38,7 +37,7 @@ void console_stream_listener::on_log_message(double time_diff,
         {
             stream_->write("[WRN] ");
         }break;
-        case console::log_level::info: //Info displays nothing.
+        case console::log_level::info:
         {
             stream_->write("[INF] ");
         }break;
@@ -52,4 +51,4 @@ void console_stream_listener::on_log_message(double time_diff,
     stream_->write("\n");
 }
 
-} //namespace aeon
+} /* namespace aeon */

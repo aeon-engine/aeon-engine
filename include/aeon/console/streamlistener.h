@@ -22,6 +22,6 @@ private:
     stream_ptr        stream_;
 };
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // streamlistener_h__
+#endif /* streamlistener_h__ */

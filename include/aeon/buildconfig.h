@@ -24,4 +24,4 @@
 #define AEON_SHADER_TEXTURE0_NAME           "in_texture0"
 #define AEON_SHADER_COLOR_NAME              "in_color"
 
-#endif // buildconfig_h__
+#endif /* buildconfig_h__ */

@@ -126,7 +126,7 @@ bool file_stream::peek(std::uint8_t &data)
     if(c == EOF)
         return false;
 
-    //TODO: research if there is a good alternative for this.
+    // TODO: research if there is a good alternative for this.
     if(ungetc(c, file_) == EOF)
         return false;
 
@@ -243,4 +243,4 @@ bool file_stream::good()
     return file_ != NULL;
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

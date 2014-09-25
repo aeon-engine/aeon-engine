@@ -55,4 +55,4 @@ bool image::save_raw_to_stream(stream_ptr stream)
     return true;
 }
 
-} //namespace aeon
+} /* namespace aeon */

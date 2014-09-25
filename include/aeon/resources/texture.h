@@ -29,6 +29,6 @@ protected:
 typedef std::shared_ptr<texture> texture_ptr;
 #define aeon_empty_texture texture_ptr()
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // texture_h__
+#endif /* texture_h__ */

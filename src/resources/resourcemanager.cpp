@@ -52,7 +52,7 @@ resource_ptr resource_manager::load(const std::string &name)
 
     resources_mutex_.lock();
 
-    //Check if this resource was already loaded before.
+    // Check if this resource was already loaded before.
     resources::iterator itr = __find_resource_by_name(name);
 
     if (itr != resources_.end())
@@ -158,7 +158,7 @@ bool resource_manager::__is_name_unique(const std::string &name)
 {
     std::lock_guard<std::mutex> lock(resources_mutex_);
 
-    //If the result of find is equal to end, then name was not found.
+    // If the result of find is equal to end, then name was not found.
     return __find_resource_by_name(name) == resources_.end();
 }
 
@@ -251,4 +251,4 @@ resource_manager::resources::
     return itr;
 }
 
-} //namespace aeon
+} /* namespace aeon */

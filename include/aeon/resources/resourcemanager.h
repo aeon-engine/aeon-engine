@@ -1,8 +1,8 @@
-#ifndef AeonResourceManager_h__
-#define AeonResourceManager_h__
+#ifndef resourcemanager_h__
+#define resourcemanager_h__
 
-#include "Aeon/Resources/Resource.h"
-#include "Aeon/Streams/Stream.h"
+#include "aeon/resources/resource.h"
+#include "aeon/streams/stream.h"
 
 namespace aeon
 {
@@ -49,6 +49,6 @@ private:
     std::uint64_t last_resource_handle_;
 };
 
-} /* namespace Aeon */
+} /* namespace aeon */
 
-#endif /* AeonResourceManager_h__ */
+#endif /* resourcemanager_h__ */

@@ -33,4 +33,4 @@ resource * texture_manager::__create_new_resource(const std::string &name)
     return new texture(this, name, __get_unique_handle());
 }
 
-} //namespace aeon
+} /* namespace aeon */

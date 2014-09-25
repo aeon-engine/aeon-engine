@@ -43,11 +43,11 @@ buffer::~buffer()
 
 bool buffer::reserve(size_t n)
 {
-    //Do we already have this many bytes reserved?
+    // Do we already have this many bytes reserved?
     if(n <= reserved_size_)
         return true;
 
-    //Resize the array if we're requesting more bytes
+    // Resize the array if we're requesting more bytes
     bool result = resize(n);
 
     if(result)
@@ -58,22 +58,22 @@ bool buffer::reserve(size_t n)
 
 bool buffer::resize(size_t n)
 {
-    //Reallocate the buffer to be the new size
+    // Reallocate the buffer to be the new size
     void *new_buffer = realloc(buffer_, n);
 
-    //Did we fail to reallocate our buffer?
+    // Did we fail to reallocate our buffer?
     if(new_buffer == NULL)
     {
-        //Do we have data at all?
+        // Do we have data at all?
         if(buffer_ != NULL)
         {
             console::warning("[Buffer]: Failed to reallocate buffer from "
                 "%u to %u. Trying copy.", reserved_size_, n);
 
-            //Try a fallback method...
+            // Try a fallback method...
             new_buffer = malloc(n);
 
-            //Did we fail again?!
+            // Did we fail again?!
             if (new_buffer == NULL)
             {
                 console::error("[Buffer]: Failed to reallocate buffer from "
@@ -81,14 +81,14 @@ bool buffer::resize(size_t n)
                 return false;
             }
 
-            //How many bytes do we need to copy? 
-            //Are we increasing or shrinking?
+            // How many bytes do we need to copy? 
+            // Are we increasing or shrinking?
             size_t newsize = (n < reserved_size_) ? n : reserved_size_;
 
-            //All ok! Lets copy!
+            // All ok! Lets copy!
             memcpy(new_buffer, buffer_, newsize);
 
-            //Free the old buffer
+            // Free the old buffer
             ::free(buffer_);
 
             buffer_ = new_buffer;
@@ -100,7 +100,7 @@ bool buffer::resize(size_t n)
         return false;
     }
 
-    //All is ok! Let's keep our new data
+    // All is ok! Let's keep our new data
     buffer_ = new_buffer;
     reserved_size_ = n;
 
@@ -109,19 +109,19 @@ bool buffer::resize(size_t n)
 
 bool buffer::append(void *data, size_t len)
 {
-    //Does our appended data fit?
+    // Does our appended data fit?
     if(size_ + len > reserved_size_)
     {
-        //Make sure our buffer is able to fit this data
+        // Make sure our buffer is able to fit this data
         if(!reserve(reserved_size_ + len))
             return false;
     }
 
-    //Copy our data into the new buffer
+    // Copy our data into the new buffer
     char *buff = (char *) buffer_;
     memcpy(&buff[size_], data, len);
 
-    //Adjust the size
+    // Adjust the size
     size_ += len;
 
     return true;
@@ -144,4 +144,4 @@ void buffer::set_delete_mode(delete_mode mode)
     delete_mode_ = mode;
 }
 
-} //namespace aeon
+} /* namespace aeon */

@@ -40,6 +40,6 @@ protected:
     platforms::base_platform_ptr platform_;
 };
 
-} //namespace aeon
+} /* namespace aeon */
 
 #endif /* root_h__ */

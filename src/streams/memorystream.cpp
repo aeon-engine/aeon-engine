@@ -12,7 +12,7 @@ stream(access_mode::write),
 buffer_(std::make_shared<buffer>()),
 buffer_offset_(0)
 {
-    //Set the correct delete mode in our buffer
+    // Set the correct delete mode in our buffer
     buffer_->set_delete_mode(mode == delete_mode::delete_on_destruct ? 
         buffer::delete_mode::delete_on_destruct : buffer::delete_mode::none);
 }
@@ -34,7 +34,7 @@ stream(name, access_mode::write),
 buffer_(std::make_shared<buffer>()),
 buffer_offset_(0)
 {
-    //Set the correct delete mode in our buffer
+    // Set the correct delete mode in our buffer
     buffer_->set_delete_mode(mode == delete_mode::delete_on_destruct ? 
         buffer::delete_mode::delete_on_destruct : buffer::delete_mode::none);
 }
@@ -82,15 +82,15 @@ size_t memory_stream::read(void *buffer, size_t count)
         return 0;
     }
 
-    //Only read what we have
+    // Only read what we have
     if(buffer_->size() < buffer_offset_ + count)
         count = buffer_->size() - buffer_offset_;
 
-    //Are we really out of bounds?
+    // Are we really out of bounds?
     if(count <= 0)
         return 0;
 
-    //Copy our data
+    // Copy our data
     memcpy(buffer, &data[buffer_offset_], count);
 
     return count;
@@ -104,7 +104,7 @@ bool memory_stream::read(std::uint8_t &data)
         return false;
     }
 
-    //Are we trying to read out of bounds?
+    // Are we trying to read out of bounds?
     if(buffer_->size() >= buffer_offset_)
         return false;
 
@@ -122,7 +122,7 @@ bool memory_stream::peek(std::uint8_t &data)
         return false;
     }
 
-    //Are we trying to read out of bounds?
+    // Are we trying to read out of bounds?
     if (buffer_->size() >= buffer_offset_)
         return false;
 
@@ -140,7 +140,7 @@ size_t memory_stream::write(const void *buffer, size_t count)
         return 0;
     }
 
-    //Make sure we have enough space in the buffer
+    // Make sure we have enough space in the buffer
     if(!buffer_->reserve(buffer_offset_ + count))
     {
         console::error("MemoryStream: WRITE on stream failed. "
@@ -148,10 +148,10 @@ size_t memory_stream::write(const void *buffer, size_t count)
         return 0;
     }
 
-    //Get our data pointer
+    // Get our data pointer
     char *data = (char *)buffer_->get();
     
-    //Copy our data
+    // Copy our data
     memcpy(&data[buffer_offset_], buffer, count);
 
     return count;
@@ -173,11 +173,11 @@ bool memory_stream::seek(size_t pos, seek_direction direction)
             break;
     };
 
-    //Can't go higher then the size of our buffer...
+    // Can't go higher then the size of our buffer...
     if(new_pos >= buffer_->size())
         return false;
 
-    //Set the new offset if all is good
+    // Set the new offset if all is good
     buffer_offset_ = new_pos;
     return true;
 }
@@ -194,27 +194,27 @@ bool memory_stream::eof() const
 
 void memory_stream::close()
 {
-    //Create a new buffer, and remove all references to the old one.
-    //This may leak memory if DeleteOnDestruct was not set.
+    // Create a new buffer, and remove all references to the old one.
+    // This may leak memory if DeleteOnDestruct was not set.
     buffer_ = std::make_shared<buffer>();
 }
 
 void memory_stream::flush()
 {
-    //Nothing to do here.
+    // Nothing to do here.
 }
 
 bool memory_stream::good()
 {
-    //Do we have a buffer?
+    // Do we have a buffer?
     if(!(buffer_->get() != NULL))
         return false;
 
-    //Are we still within bounds?
+    // Are we still within bounds?
     if(buffer_offset_ >= buffer_->size())
         return false;
 
-    //All ok!
+    // All ok!
     return true;
 }
 
@@ -223,4 +223,4 @@ buffer_ptr memory_stream::get_as_buffer()
     return buffer_;
 }
 
-} //namespace Aeon
+} /* namespace Aeon */

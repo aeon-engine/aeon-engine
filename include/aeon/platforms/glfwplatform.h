@@ -26,9 +26,9 @@ protected:
     GLFWwindow *window_;
 };
 
-} //namespace platforms
-} //namespace aeon
+} /*namespace platforms */
+} /*namespace aeon */
 
 #endif /* AEON_USE_GLFW_PLATFORM */
 
-#endif // glfwplatform_h__
+#endif /* glfwplatform_h__ */

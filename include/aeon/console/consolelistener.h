@@ -18,6 +18,6 @@ public:
 
 typedef std::shared_ptr<console_listener> console_listener_ptr;
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // consolelistener_h__
+#endif /* consolelistener_h__ */

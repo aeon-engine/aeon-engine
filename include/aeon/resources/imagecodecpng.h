@@ -16,6 +16,6 @@ public:
     virtual std::string get_type_name() const;    
 };
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // imagecodecpng_h__
+#endif /* imagecodecpng_h__ */

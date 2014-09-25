@@ -38,6 +38,6 @@ protected:
 
 typedef std::shared_ptr<file_stream> file_stream_ptr;
 
-} //namespace Aeon
+} /* namespace aeon */
 
-#endif // filestream_h__
+#endif /* filestream_h__ */

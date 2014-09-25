@@ -105,10 +105,11 @@ bool texture::__finalize_impl()
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
-    //Remove our reference to this image so it can be unloaded when no longer in use.
+    // Remove our reference to this image so it can be unloaded when no 
+    // longer in use.
     image_.reset();
 
     return true;
 }
 
-} //namespace aeon
+} /* namespace aeon */

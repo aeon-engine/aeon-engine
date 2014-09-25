@@ -72,7 +72,7 @@ bool io_stream::peek(std::uint8_t &data)
     if(c == EOF)
         return false;
 
-    //TODO: research if there is a good alternative for this.
+    // TODO: research if there is a good alternative for this.
     if(ungetc(c, stdin) == EOF)
         return false;
 
@@ -108,13 +108,13 @@ bool io_stream::seek(size_t pos, seek_direction direction)
     AEON_UNUSED(pos);
     AEON_UNUSED(direction);
 
-    //This won't work for STDIN...
+    // This won't work for STDIN...
     return false;
 }
 
 size_t io_stream::tell() const
 {
-    //This won't work for STDIN...
+    // This won't work for STDIN...
     return 0;
 }
 
@@ -130,8 +130,8 @@ void io_stream::flush()
 
 aeon::buffer_ptr io_stream::get_as_buffer()
 {
-    //This won't work for STDIN...
+    // This won't work for STDIN...
     return aeon_empty_buffer;
 }
 
-} //namespace aeon
+} /* namespace aeon */

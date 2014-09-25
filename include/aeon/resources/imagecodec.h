@@ -1,8 +1,8 @@
-#ifndef AeonImageCodec_h__
-#define AeonImageCodec_h__
+#ifndef imagecodec_h__
+#define imagecodec_h__
 
-#include "Aeon/Streams/Stream.h"
-#include "Aeon/Resources/Image.h"
+#include "aeon/streams/stream.h"
+#include "aeon/resources/image.h"
 
 namespace aeon
 {
@@ -20,6 +20,6 @@ public:
 
 typedef std::shared_ptr<image_codec> image_codec_ptr;
 
-} /* namespace Aeon */
+} /* namespace aeon */
 
-#endif /* AeonImageCodec_h__ */
+#endif /* imagecodec_h__ */

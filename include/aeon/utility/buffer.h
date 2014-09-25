@@ -79,10 +79,14 @@ public:
      */
     buffer & operator=(const buffer&) = delete;
 
-    //Allocate at least n bytes
+    /*!
+     * Allocate at least n bytes
+     */
     bool reserve(size_t n);
 
-    //Resize to the specified size.
+    /*!
+     * Resize to the specified size.
+     */
     bool resize(size_t n);
 
     bool append(void *data, size_t len);
@@ -111,6 +115,6 @@ private:
 typedef std::shared_ptr<buffer> buffer_ptr;
 #define aeon_empty_buffer buffer_ptr()
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // buffer_h__
+#endif /* buffer_h__ */

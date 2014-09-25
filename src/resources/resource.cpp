@@ -69,4 +69,4 @@ bool resource::__finalize()
     return result;
 }
 
-} //namespace aeon
+} /* namespace aeon */

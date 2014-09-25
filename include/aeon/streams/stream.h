@@ -317,6 +317,6 @@ protected:
 typedef std::shared_ptr<stream> stream_ptr;
 #define aeon_empty_stream stream_ptr()
 
-} //namespace aeon
+} /* namespace aeon */
 
-#endif // stream_h__
+#endif /* stream_h__ */
