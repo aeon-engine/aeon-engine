@@ -17,36 +17,36 @@ public:
 	resource_manager();
 	virtual ~resource_manager();
 
-	resource_ptr			load(stream_ptr stream);
-	resource_ptr			load(const std::string &name);
+	resource_ptr load(stream_ptr stream);
+	resource_ptr load(const std::string &name);
 
-	bool					unload(resource_ptr resource);
-	bool					unload(const std::string &name);
+	bool unload(resource_ptr resource);
+	bool unload(const std::string &name);
 
-	int						finalize_resources();
+	int finalize_resources();
 
 protected:
-	bool					__is_name_unique(const std::string &name);
-	resource_ptr			__load(stream_ptr stream);
-	bool					__unload(const std::string &name, resources::iterator itr);
+	bool __is_name_unique(const std::string &name);
+	resource_ptr __load(stream_ptr stream);
+	bool __unload(const std::string &name, resources::iterator itr);
 
-	virtual resource *		__create_new_resource(const std::string &name) = 0;
+	virtual resource * __create_new_resource(const std::string &name) = 0;
 
-	void					__add_to_finalize_queue(resource_ptr resource);
+	void __add_to_finalize_queue(resource_ptr resource);
 
-	std::uint64_t			__get_unique_handle() { return ++last_resource_handle_; }
+	std::uint64_t __get_unique_handle() { return ++last_resource_handle_; }
 
-	resources::iterator		__find_resource_by_name(const std::string &name);
-	resources::iterator		__find_resource_by_handle(std::uint64_t handle);
+	resources::iterator __find_resource_by_name(const std::string &name);
+	resources::iterator __find_resource_by_handle(std::uint64_t handle);
 
-	resources				resources_;
-	std::mutex				resources_mutex_;
+	resources resources_;
+	std::mutex resources_mutex_;
 
-	resource_queue			resource_queue_;
-	std::mutex				resource_queue_mutex_;
+	resource_queue resource_queue_;
+	std::mutex resource_queue_mutex_;
 
 private:
-	std::uint64_t			last_resource_handle_;
+	std::uint64_t last_resource_handle_;
 };
 
 } /* namespace Aeon */

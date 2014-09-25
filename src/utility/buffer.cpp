@@ -14,7 +14,8 @@ delete_mode_(delete_mode::delete_on_destruct)
 {
 }
 
-buffer::buffer(size_t size, delete_mode mode /*= delete_mode::delete_on_destruct*/)
+buffer::buffer(size_t size, 
+	delete_mode mode /*= delete_mode::delete_on_destruct*/)
 :
 buffer_(NULL),
 size_(0),
@@ -24,7 +25,8 @@ delete_mode_(mode)
 	reserve(size);
 }
 
-buffer::buffer(void *buffer, size_t size, delete_mode mode /*= DeleteMode::delete_on_destruct*/)
+buffer::buffer(void *buffer, size_t size, 
+	delete_mode mode /*= DeleteMode::delete_on_destruct*/)
 :
 buffer_(buffer),
 size_(0),
@@ -65,7 +67,8 @@ bool buffer::resize(size_t n)
 		//Do we have data at all?
 		if(buffer_ != NULL)
 		{
-			console::warning("[Buffer]: Failed to reallocate buffer from %u to %u. Trying copy.", reserved_size_, n);
+			console::warning("[Buffer]: Failed to reallocate buffer from "
+				"%u to %u. Trying copy.", reserved_size_, n);
 
 			//Try a fallback method...
 			new_buffer = malloc(n);
@@ -73,11 +76,13 @@ bool buffer::resize(size_t n)
 			//Did we fail again?!
 			if (new_buffer == NULL)
 			{
-				console::error("[Buffer]: Failed to reallocate buffer from %u to %u in fallback mode. Aborting", reserved_size_, n);
+				console::error("[Buffer]: Failed to reallocate buffer from "
+					"%u to %u in fallback mode. Aborting", reserved_size_, n);
 				return false;
 			}
 
-			//How many bytes do we need to copy? Are we increasing or shrinking?
+			//How many bytes do we need to copy? 
+			//Are we increasing or shrinking?
 			size_t newsize = (n < reserved_size_) ? n : reserved_size_;
 
 			//All ok! Lets copy!
@@ -126,7 +131,8 @@ void buffer::free()
 {
 	::free(buffer_);
 
-	console::debug("[Buffer]: Freed %u bytes from %p.", reserved_size_, buffer_);
+	console::debug("[Buffer]: Freed %u bytes from %p.", 
+		reserved_size_, buffer_);
 
 	buffer_ = NULL;
 	size_ = 0;

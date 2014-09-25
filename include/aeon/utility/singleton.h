@@ -1,7 +1,8 @@
 #ifndef singleton_h__
 #define singleton_h__
 
-#define aeon_initialize_singleton(type)					template <> type * aeon::singleton <type>::instance_ = NULL
+#define aeon_initialize_singleton(type) \
+	template <> type * aeon::singleton <type>::instance_ = NULL
 
 namespace aeon
 {

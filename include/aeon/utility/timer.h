@@ -13,12 +13,12 @@ public:
 	timer();
 	~timer();
 
-	void													reset();
+	void reset();
 
-	double													get_time_difference();
+	double get_time_difference();
 
 private:
-	std::chrono::time_point<std::chrono::system_clock>		start_time_;
+	std::chrono::time_point<std::chrono::system_clock> start_time_;
 };
 
 } //namespace aeon

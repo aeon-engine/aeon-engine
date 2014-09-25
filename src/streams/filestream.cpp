@@ -5,14 +5,16 @@
 namespace aeon
 {
 
-file_stream::file_stream(const std::string &path, int mode /*= access_mode::read*/)
+file_stream::file_stream(const std::string &path, 
+	int mode /*= access_mode::read*/)
 :
 stream(path, mode),
 file_(NULL)
 {
 	if (mode == (access_mode::read | access_mode::write))
 	{
-		console::error("[FileStream]: Invalid access mode: Read+Write on file %s.", name_.c_str());
+		console::error("[FileStream]: Invalid access mode: "
+			"Read+Write on file %s.", name_.c_str());
 		return;
 	}
 
@@ -49,7 +51,8 @@ void file_stream::__calculate_file_size()
 	}
 
 	if(!seek(0, seek_direction::end))
-		console::error("[FileStream]: Could not determine file size for file: %s. Seek end failed.", name_.c_str());
+		console::error("[FileStream]: Could not determine file size for file: "
+			"%s. Seek end failed.", name_.c_str());
 
 	size_ = ftell(file_);
 
@@ -57,7 +60,8 @@ void file_stream::__calculate_file_size()
 		console::warning("[FileStream]: File is empty: %s", name_.c_str());
 
 	if(!seek(0, seek_direction::begin))
-		console::error("[FileStream]: Could not determine file size for file: %s. Seek begin failed.", name_.c_str());
+		console::error("[FileStream]: Could not determine file size for file: "
+			"%s. Seek begin failed.", name_.c_str());
 }
 
 size_t file_stream::read(void *buffer, size_t count)
@@ -70,7 +74,8 @@ size_t file_stream::read(void *buffer, size_t count)
 
 	if(access_mode_ != access_mode::read)
 	{
-		console::error("[FileStream]: Can not read from file in write mode for file %s.", name_.c_str());
+		console::error("[FileStream]: Can not read from file in write mode "
+			"for file %s.", name_.c_str());
 		return 0;
 	}
 
@@ -93,7 +98,8 @@ bool file_stream::read(std::uint8_t &data)
 {
 	if(access_mode_ != access_mode::read)
 	{
-		console::error("[FileStream]: Can not read from file in write mode for file %s.", name_.c_str());
+		console::error("[FileStream]: Can not read from file in write mode "
+			"for file %s.", name_.c_str());
 		return false;
 	}
 
@@ -110,7 +116,8 @@ bool file_stream::peek(std::uint8_t &data)
 {
 	if(access_mode_ != access_mode::read)
 	{
-		console::error("[FileStream]: Can not peek from file in write mode for file %s.", name_.c_str());
+		console::error("[FileStream]: Can not peek from file in write mode "
+			"for file %s.", name_.c_str());
 		return false;
 	}
 
@@ -137,7 +144,8 @@ size_t file_stream::write(const void *buffer, size_t count)
 
 	if(access_mode_ != access_mode::write)
 	{
-		console::error("[FileStream]: Can not write to file in read mode for file %s.", name_.c_str());
+		console::error("[FileStream]: Can not write to file in read mode "
+			"for file %s.", name_.c_str());
 		return 0;
 	}
 

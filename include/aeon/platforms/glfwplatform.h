@@ -16,14 +16,14 @@ public:
 	virtual ~glfw();
 
 protected:
-	virtual bool				initialize();
+	virtual bool initialize();
 
-	virtual bool				pre_frame();
-	virtual bool				post_frame();
+	virtual bool pre_frame();
+	virtual bool post_frame();
 
-	virtual bool				dispose();
+	virtual bool dispose();
 	
-	GLFWwindow *				window_;
+	GLFWwindow *window_;
 };
 
 } //namespace platforms

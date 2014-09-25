@@ -5,17 +5,20 @@
 namespace aeon
 {
 
-memory_stream::memory_stream(delete_mode mode /*= delete_mode::delete_on_destruct*/)
+memory_stream::memory_stream(
+	delete_mode mode /*= delete_mode::delete_on_destruct*/)
 :
 stream(access_mode::write),
 buffer_(std::make_shared<buffer>()),
 buffer_offset_(0)
 {
 	//Set the correct delete mode in our buffer
-	buffer_->set_delete_mode(mode == delete_mode::delete_on_destruct ? buffer::delete_mode::delete_on_destruct : buffer::delete_mode::none);
+	buffer_->set_delete_mode(mode == delete_mode::delete_on_destruct ? 
+		buffer::delete_mode::delete_on_destruct : buffer::delete_mode::none);
 }
 
-memory_stream::memory_stream(buffer_ptr buffer, int mode /*= access_mode::read_write*/)
+memory_stream::memory_stream(buffer_ptr buffer, 
+	int mode /*= access_mode::read_write*/)
 :
 stream(mode),
 buffer_(buffer),
@@ -24,17 +27,20 @@ buffer_offset_(0)
 
 }
 
-memory_stream::memory_stream(const std::string &name, delete_mode mode /*= delete_mode::delete_on_destruct*/)
+memory_stream::memory_stream(const std::string &name, 
+	delete_mode mode /*= delete_mode::delete_on_destruct*/)
 :
 stream(name, access_mode::write),
 buffer_(std::make_shared<buffer>()),
 buffer_offset_(0)
 {
 	//Set the correct delete mode in our buffer
-	buffer_->set_delete_mode(mode == delete_mode::delete_on_destruct ? buffer::delete_mode::delete_on_destruct : buffer::delete_mode::none);
+	buffer_->set_delete_mode(mode == delete_mode::delete_on_destruct ? 
+		buffer::delete_mode::delete_on_destruct : buffer::delete_mode::none);
 }
 
-memory_stream::memory_stream(const std::string &name, buffer_ptr buffer, int access_mode /*= access_mode::read_write*/)
+memory_stream::memory_stream(const std::string &name, 
+	buffer_ptr buffer, int access_mode /*= access_mode::read_write*/)
 :
 stream(access_mode),
 buffer_(buffer),
@@ -137,7 +143,8 @@ size_t memory_stream::write(const void *buffer, size_t count)
 	//Make sure we have enough space in the buffer
 	if(!buffer_->reserve(buffer_offset_ + count))
 	{
-		console::error("MemoryStream: WRITE on stream failed. Could not reserve memory.");
+		console::error("MemoryStream: WRITE on stream failed. "
+			"Could not reserve memory.");
 		return 0;
 	}
 
@@ -156,8 +163,10 @@ bool memory_stream::seek(size_t pos, seek_direction direction)
 	switch(direction)
 	{
 		case seek_direction::begin:		{ new_pos = pos; } break;
-		case seek_direction::current:	{ new_pos = buffer_offset_ + pos; } break;
-		case seek_direction::end:		{ new_pos = buffer_->size() - pos; } break;
+		case seek_direction::current:	{ new_pos = buffer_offset_ + pos; } 
+			break;
+		case seek_direction::end:		{ new_pos = buffer_->size() - pos; }
+			break;
 	};
 
 	//Can't go higher then the size of our buffer...

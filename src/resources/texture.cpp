@@ -7,7 +7,8 @@
 namespace aeon
 {
 
-texture::texture(resource_manager *creator, const std::string &name, std::uint64_t handle)
+texture::texture(resource_manager *creator, const std::string &name, 
+	std::uint64_t handle)
 :
 resource(creator, name, handle),
 texture_(0)
@@ -31,7 +32,8 @@ bool texture::__load_impl(stream_ptr stream)
 
 	if (!image_)
 	{
-		console::warning("[Texture]: Texture '%s' could not be loaded. Image decode reported an error.", stream->get_name().c_str());
+		console::warning("[Texture]: Texture '%s' could not be loaded. "
+			"Image decode reported an error.", stream->get_name().c_str());
 		return false;
 	}
 
@@ -42,7 +44,8 @@ bool texture::__unload_impl()
 {
 	if (texture_ == 0)
 	{
-		console::warning("[Texture]: Texture '%s' could not be unloaded. Unload called on previously unloaded texture.");
+		console::warning("[Texture]: Texture '%s' could not be unloaded. "
+			"Unload called on previously unloaded texture.");
 		return false;
 	}
 
@@ -58,14 +61,16 @@ bool texture::__finalize_impl()
 {
 	if (!image_ || !image_->get_data())
 	{
-		console::warning("[Texture]: Texture could not be finalized. Image is invalid.");
+		console::warning("[Texture]: Texture could not be finalized. "
+			"Image is invalid.");
 		return false;
 	}
 
 	glGenTextures(1, &texture_);
 	glBindTexture(GL_TEXTURE_2D, texture_);
 
-	console::debug("[Texture]: Finalizing OpenGL texture handle %u.", texture_);
+	console::debug("[Texture]: Finalizing OpenGL texture handle %u.", 
+		texture_);
 
 	GLenum glpixelformat = 0;
 
@@ -83,7 +88,8 @@ bool texture::__finalize_impl()
 		}break;
 		default:
 		{
-			console::error("[Texture]: Failed to load texture: Unknown pixel format given.");
+			console::error("[Texture]: Failed to load texture: Unknown "
+				"pixel format given.");
 			return false;
 		}
 	}
@@ -92,7 +98,8 @@ bool texture::__finalize_impl()
 	GLsizei height = (GLsizei)image_->get_height();
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexImage2D(GL_TEXTURE_2D, 0, glpixelformat, width, height, 0, glpixelformat, GL_UNSIGNED_BYTE, image_->get_data()->get());
+	glTexImage2D(GL_TEXTURE_2D, 0, glpixelformat, width, height, 0, 
+		glpixelformat, GL_UNSIGNED_BYTE, image_->get_data()->get());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);

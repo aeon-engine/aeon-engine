@@ -21,7 +21,9 @@ void timer::reset()
 
 double timer::get_time_difference()
 {
-	std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now(); 
+	std::chrono::time_point<std::chrono::system_clock> now = 
+		std::chrono::system_clock::now();
+	
     std::chrono::duration<double> elapsed_seconds = now - start_time_;
 
 	return elapsed_seconds.count();

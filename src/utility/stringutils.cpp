@@ -94,7 +94,8 @@ bool string_to_bool(const std::string &str)
 /************************************************************************/
 /* String splitting                                                     */
 /************************************************************************/
-strings &split(const std::string &s, char delim, strings &elems, splitmode mode /* = SplitMode::SkipEmpty */)
+strings &split(const std::string &s, char delim, strings &elems, 
+	splitmode mode /* = SplitMode::SkipEmpty */)
 {
 	std::stringstream ss(s);
 	std::string item;
@@ -111,7 +112,8 @@ strings &split(const std::string &s, char delim, strings &elems, splitmode mode 
 	return elems;
 }
 
-strings split(const std::string &s, char delim, splitmode mode /* = SplitMode::SkipEmpty */)
+strings split(const std::string &s, char delim, 
+	splitmode mode /* = SplitMode::SkipEmpty */)
 {
 	strings elems;
 	split(s, delim, elems, mode);

@@ -19,11 +19,13 @@ image::~image()
 
 }
 
-void image::set_data(buffer_ptr buffer, unsigned int width, unsigned int height, pixel_format pixelformat /*= pixel_format::rgba*/)
+void image::set_data(buffer_ptr buffer, unsigned int width, 
+	unsigned int height, pixel_format pixelformat /*= pixel_format::rgba*/)
 {
 	if(buffer == NULL || buffer->get() == NULL)
 	{
-		console::error("[Image]: Tried creating an image from an empty buffer.");
+		console::error("[Image]: Tried creating an image from an "
+			"empty buffer.");
 		return;
 	}
 

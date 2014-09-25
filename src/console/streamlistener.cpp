@@ -18,12 +18,14 @@ console_stream_listener::~console_stream_listener()
 
 }
 
-void console_stream_listener::on_log_message(double time_diff, console::log_level level, const std::string &message)
+void console_stream_listener::on_log_message(double time_diff, 
+	console::log_level level, const std::string &message)
 {
 	if(!stream_)
 		return;
 	
-	std::string time_string = aeon::string_utils::float_to_string((float) time_diff, 10) + ' ';
+	std::string time_string = aeon::string_utils::float_to_string(
+		(float) time_diff, 10) + ' ';
 	stream_->write(time_string);
 
 	switch(level)

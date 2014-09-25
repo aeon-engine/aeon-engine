@@ -38,7 +38,8 @@ bool root::initialize(platforms::base_platform_ptr platform)
 		return r->__initialize_impl(platform);
 	}
 
-	console::error("[Root] Can not initialize. Initialize was already called.");
+	console::error("[Root] Can not initialize. "
+		"Initialize was already called.");
 	return false;
 }
 
@@ -112,7 +113,8 @@ bool root::__initialize_impl(platforms::base_platform_ptr platform)
 {
 	if (initialized_)
 	{
-		console::warning("[Root] Already initialized. Can not initialize twice.");
+		console::warning("[Root] Already initialized. "
+			"Can not initialize twice.");
 		return false;
 	}
 
@@ -137,7 +139,8 @@ bool root::__initialize_impl(platforms::base_platform_ptr platform)
 	GLenum err = glewInit();
 	if (err != GLEW_OK)
 	{
-		console::error("[Root] Failed to initialize glew: %s", glewGetErrorString(err));
+		console::error("[Root] Failed to initialize glew: %s", 
+			glewGetErrorString(err));
 		return false;
 	}
 
@@ -146,7 +149,8 @@ bool root::__initialize_impl(platforms::base_platform_ptr platform)
 	image_codec_manager::create();
 
 #ifdef AEON_USE_PNG
-	image_codec_manager::get_singleton().register_codec(std::make_shared<image_codec_png>());
+	image_codec_manager::get_singleton().register_codec(
+		std::make_shared<image_codec_png>());
 #endif
 
 	texture_manager::create();

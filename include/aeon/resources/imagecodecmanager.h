@@ -14,13 +14,13 @@ public:
 	image_codec_manager();
 	~image_codec_manager();
 
-	void				register_codec(image_codec_ptr codec);
+	void register_codec(image_codec_ptr codec);
 	
-	image_ptr			decode(const std::string &name, stream_ptr stream);
+	image_ptr decode(const std::string &name, stream_ptr stream);
 
 private:
 	typedef std::map<const std::string, image_codec_ptr> image_codecs;
-	image_codecs		registered_codecs_;
+	image_codecs registered_codecs_;
 };
 
 } //namespace aeon

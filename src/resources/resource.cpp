@@ -6,7 +6,8 @@
 namespace aeon
 {
 
-resource::resource(resource_manager *creator, const std::string &name, std::uint64_t handle)
+resource::resource(resource_manager *creator, const std::string &name, 
+	std::uint64_t handle)
 :
 creator_(creator),
 name_(name),
@@ -25,7 +26,8 @@ bool resource::__load(stream_ptr stream)
 {
 	if (state_ != state::empty)
 	{
-		console::warning("[Resource]: Load called on resource while in wrong state: %u", (int) state_.load());
+		console::warning("[Resource]: Load called on resource while in wrong "
+			"state: %u", (int) state_.load());
 		return false;
 	}
 
@@ -41,7 +43,8 @@ bool resource::__unload()
 {
 	if(state_ != state::loaded)
 	{
-		console::warning("[Resource]: Unload called on resource while in wrong state: %u", (int) state_.load());
+		console::warning("[Resource]: Unload called on resource while in "
+			"wrong state: %u", (int) state_.load());
 		return false;
 	}
 
@@ -53,7 +56,8 @@ bool resource::__finalize()
 {
 	if (state_ != state::ready_for_finalize)
 	{
-		console::warning("[Resource]: Finalize called on resource while in wrong state: %u", (int) state_.load());
+		console::warning("[Resource]: Finalize called on resource while in "
+			"wrong state: %u", (int) state_.load());
 		return false;
 	}
 

@@ -18,35 +18,37 @@ public:
 	memory_stream(delete_mode delete_mode = delete_mode::delete_on_destruct);
 	memory_stream(buffer_ptr buffer, int mode = access_mode::read_write);
 
-	memory_stream(const std::string &name, delete_mode delete_mode = delete_mode::delete_on_destruct);
-	memory_stream(const std::string &name, buffer_ptr buffer, int mode = access_mode::read_write);
+	memory_stream(const std::string &name, 
+		delete_mode delete_mode = delete_mode::delete_on_destruct);
+	memory_stream(const std::string &name, buffer_ptr buffer, 
+		int mode = access_mode::read_write);
 
 	~memory_stream();
 
-	virtual size_t					read(void *buffer, size_t count);
-	virtual size_t					write(const void *buffer, size_t count);
+	virtual size_t read(void *buffer, size_t count);
+	virtual size_t write(const void *buffer, size_t count);
 
-	virtual bool					read(std::uint8_t &data);
-	virtual bool					peek(std::uint8_t &data);
+	virtual bool read(std::uint8_t &data);
+	virtual bool peek(std::uint8_t &data);
 
-	virtual bool					seek(size_t pos, seek_direction direction);
-	virtual size_t					tell() const;
+	virtual bool seek(size_t pos, seek_direction direction);
+	virtual size_t tell() const;
 
-	virtual bool					eof() const;
+	virtual bool eof() const;
 
-	virtual void					close();
+	virtual void close();
 
-	virtual void					flush();
+	virtual void flush();
 
-	virtual bool					good();
+	virtual bool good();
 
-	virtual buffer_ptr				get_as_buffer();
+	virtual buffer_ptr get_as_buffer();
 
 protected:
-	buffer_ptr						buffer_;
-	delete_mode						delete_mode_;
+	buffer_ptr buffer_;
+	delete_mode delete_mode_;
 
-	size_t							buffer_offset_;
+	size_t buffer_offset_;
 };
 
 typedef std::shared_ptr<memory_stream> memory_stream_ptr;
