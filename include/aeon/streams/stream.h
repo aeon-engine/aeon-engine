@@ -14,12 +14,12 @@ class stream
 {
 public:
     /*!
-      * The available access modes for this stream. This allows an 
+     * The available access modes for this stream. This allows an 
      * implementation to ask the stream for it's access permissions.
-      *
-      * This is implemented as a anonymous enum within a class, since 
+     *
+     * This is implemented as a anonymous enum within a class, since 
      * enum classes do not support bitflags at this moment.
-      */
+     */
     class access_mode
     {
     public:
@@ -32,9 +32,9 @@ public:
     };
 
     /*!
-      * The seek direction used in the Stream::Seek function. This determines 
+     * The seek direction used in the Stream::Seek function. This determines 
      * the behaviour of the pos parameter.
-      */ 
+     */ 
     enum class seek_direction
     {
         begin,   /**< enum Seek forwards from the beginning */
@@ -131,33 +131,33 @@ public:
     virtual size_t read(void *buffer, size_t count) = 0;
 
     /*!
-    * Read 1 byte of raw data from the stream and increases the read offset 
-    * forward by 1 byte.
-    *
-    * To be able to read from the stream, AccessMode::Read must have been set. 
-    * This can also be checked with is_readable(). This function will return 0 
-    * if reading is not possible or permitted.
-    *
-    * \param data[in] A byte of data read from the current read pointer 
-    *                 position. On error, it's value is undefined.
-    * \return Returns false on error, otherwise true.
-    * \sa is_readable()
-    */
+     * Read 1 byte of raw data from the stream and increases the read offset 
+     * forward by 1 byte.
+     *
+     * To be able to read from the stream, AccessMode::Read must have been set. 
+     * This can also be checked with is_readable(). This function will return 0 
+     * if reading is not possible or permitted.
+     *
+     * \param data[in] A byte of data read from the current read pointer 
+     *                 position. On error, it's value is undefined.
+     * \return Returns false on error, otherwise true.
+     * \sa is_readable()
+     */
     virtual bool read(std::uint8_t &data) = 0;
 
     /*!
-    * Read 1 byte of raw data from the stream. Does not increase the read 
-    * offset.
-    *
-    * To be able to read from the stream, AccessMode::Read must have been set. 
-    * This can also be checked with is_readable(). This function will return 0 
-    * if reading is not possible or permitted.
-    *
-    * \param data[in] A byte of data read from the current read pointer 
-    *                 position. On error, it's value is undefined.
-    * \return Returns false on error, otherwise true.
-    * \sa is_readable()
-    */
+     * Read 1 byte of raw data from the stream. Does not increase the read 
+     * offset.
+     *
+     * To be able to read from the stream, AccessMode::Read must have been set. 
+     * This can also be checked with is_readable(). This function will return 0 
+     * if reading is not possible or permitted.
+     *
+     * \param data[in] A byte of data read from the current read pointer 
+     *                 position. On error, it's value is undefined.
+     * \return Returns false on error, otherwise true.
+     * \sa is_readable()
+     */
     virtual bool peek(std::uint8_t &data) = 0;
 
     /*!
