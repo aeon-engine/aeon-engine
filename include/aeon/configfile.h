@@ -4,6 +4,13 @@
 namespace aeon
 {
 
+/*!
+ * \brief Reader and writer for files in .ini file format
+ *
+ * Allows reading and writing configuration settings to a stream. Usually this
+ * means a config ini file. If the config file contains syntax errors, messages
+ * are logged to the console.
+ */
 class configfile
 {
 public:
