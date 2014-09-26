@@ -11,20 +11,17 @@ friend class resource_manager;
 public:
     enum class state
     {
-        empty               = 0, /**< enum Default state. */
-        retrieving          = 0, /**< enum Retrieving data from the stream. 
-                                           This would normally mean loading 
-                                           from disk. */
-        ready_for_finalize  = 1, /**< enum Ready for upload to the GPU. 
-                                           Uploading must be done on the 
-                                           render thread. */
-        loaded              = 2, /**< enum Loaded and ready for use. */
-        unloading           = 3, /**< enum Texture waiting for the resource 
-                                           manager to free the handle. This 
-                                           resource can no longer be used. */
-        unloaded            = 4, /**< enum Unloading and freeing resources. 
-                                           This resource can no longer be 
-                                           used. */
+        empty               = 0, /**< Default state. */
+        retrieving          = 0, /**< Retrieving data from the stream. This 
+                                      would normally mean loading from disk. */
+        ready_for_finalize  = 1, /**< Ready for upload to the GPU. Uploading 
+                                      must be done on the render thread. */
+        loaded              = 2, /**< Loaded and ready for use. */
+        unloading           = 3, /**< Texture waiting for the resource manager 
+                                      to free the handle. This resource can no 
+                                      longer be used. */
+        unloaded            = 4, /**< Unloading and freeing resources. This 
+                                      resource can no longer be used. */
     };
 
     resource(resource_manager *creator, const std::string &name,

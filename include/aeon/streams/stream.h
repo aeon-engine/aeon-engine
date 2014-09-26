@@ -25,9 +25,9 @@ public:
     public:
         enum
         {
-            read       = 1, /**< enum Read-Only */
-            write      = 2, /**< enum Write-Only */
-            read_write = 3  /**< enum Read-Write (Full access) */
+            read       = 1, /**< Read-Only */
+            write      = 2, /**< Write-Only */
+            read_write = 3  /**< Read-Write (Full access) */
         };
     };
 
@@ -37,10 +37,10 @@ public:
      */ 
     enum class seek_direction
     {
-        begin,   /**< enum Seek forwards from the beginning */
-        current, /**< enum Seek forwards from wherever the read pointer 
-                           currently is */
-        end      /**< enum Seek backwards from the end */
+        begin,   /**< Seek forwards from the beginning */
+        current, /**< Seek forwards from wherever the read pointer currently 
+                      is */
+        end      /**< Seek backwards from the end */
     };
 
     /*!
