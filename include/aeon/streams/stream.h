@@ -306,9 +306,27 @@ public:
     virtual buffer_ptr get_as_buffer();
 
 protected:
+    /*!
+     * True if this stream has been assigned a name other than 
+     * AEON_STREAM_DEFAULT_NAME
+     */
     bool has_name_;
+    
+    /*!
+     * The name of the stream
+     */
     std::string name_;
+    
+    /*!
+     * The size of the underlying data in the stream, if applicable.
+     */
     size_t size_;
+    
+    /*!
+     * Bitflags representing the accessmode of this stream. 
+     * May be read and or write.
+     * \sa access_mode
+     */
     int access_mode_;
 };
 
