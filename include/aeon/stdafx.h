@@ -1,3 +1,6 @@
+#ifndef stdafx_h__
+#define stdafx_h__
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,5 +70,6 @@
 #include "aeon/gamestate.h"
 #include "aeon/game.h"
 
-
 #include "aeon/root.h"
+
+#endif /* stdafx_h__ */
