@@ -22,7 +22,12 @@
 #include <atomic>
 
 #include <GL/glew.h>
-#include <GL/gl.h>
+
+#ifdef __APPLE__
+#  include <OpenGL/gl.h>
+#else
+#  include <GL/gl.h>
+#endif
 
 #ifdef AEON_USE_GLFW_PLATFORM
 #  include <GLFW/glfw3.h>
