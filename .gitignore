@@ -5,5 +5,6 @@
 *.a
 *.ipch
 *.swp
+.DS_Store
 build
 bin
