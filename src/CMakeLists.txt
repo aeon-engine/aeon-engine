@@ -5,14 +5,33 @@
 include_directories(${AEON_SOURCE_DIR}/include)
 link_directories(${AEON_BINARY_DIR}/src)
 
-set(common_SOURCES AeonBaseApplication.cpp AeonImage.cpp AeonBuffer.cpp AeonIOStream.cpp
-AeonConfigFile.cpp AeonMemoryStream.cpp AeonConsole.cpp AeonResource.cpp AeonConsoleStreamListener.cpp 
-AeonResourceManager.cpp AeonFileStream.cpp AeonStream.cpp AeonGame.cpp AeonStringUtils.cpp 
-AeonTexture.cpp AeonImageCodecManager.cpp AeonTextureManager.cpp AeonImageCodecPNG.cpp)
+set(common_SOURCES
+	root.cpp
+	game.cpp
+	configfile.cpp
+	console/console.cpp
+	console/streamlistener.cpp
+	resources/image.cpp
+	resources/imagecodecmanager.cpp
+	resources/imagecodecpng.cpp
+	resources/resource.cpp
+	resources/resourcemanager.cpp
+	resources/shader.cpp
+	resources/shadermanager.cpp
+	resources/texture.cpp
+	resources/texturemanager.cpp
+	streams/filestream.cpp
+	streams/iostream.cpp
+	streams/memorystream.cpp
+	streams/stream.cpp
+	utility/buffer.cpp
+	utility/stringutils.cpp
+	utility/timer.cpp
+)
 
 if(GLFW3_FOUND)
 	message(STATUS "Compiling with GLFW Application")
-	set(optional_SOURCES AeonGLFWApplication.cpp)
+	set(optional_SOURCES platforms/glfwplatform.cpp)
 
 endif(GLFW3_FOUND)
 
