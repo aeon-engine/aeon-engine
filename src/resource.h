@@ -50,8 +50,6 @@ protected:
 
 typedef std::shared_ptr<resource> resource_ptr;
 
-#define aeon_empty_resource resource_ptr()
-
 } /* namespace aeon */
 
 #endif /* resource_h__ */

@@ -46,14 +46,14 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "Stream was null.", stream->get_name().c_str());
-        return aeon_empty_image;
+        return nullptr;
     }
 
     if(!stream->good())
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "Stream was bad.", stream->get_name().c_str());
-        return aeon_empty_image;
+        return nullptr;
     }
 
     size_t size = stream->size();
@@ -62,7 +62,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "Stream was empty.", stream->get_name().c_str());
-        return aeon_empty_image;
+        return nullptr;
     }
 
     // Read the header
@@ -74,7 +74,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "Not a valid PNG format.", stream->get_name().c_str());
-        return aeon_empty_image;
+        return nullptr;
     }
 
     // Create the read struct for PNG
@@ -84,7 +84,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "png_create_read_struct failed.", stream->get_name().c_str());
-        return aeon_empty_image;
+        return nullptr;
     }
 
     // Create png info struct
@@ -94,7 +94,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "png_create_info_struct failed.", stream->get_name().c_str());
         png_destroy_read_struct(&png_ptr, (png_infopp)NULL, (png_infopp)NULL);
-        return aeon_empty_image;
+        return nullptr;
     }
 
     // Create png info struct
@@ -104,7 +104,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "png_create_info_struct failed.", stream->get_name().c_str());
         png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
-        return aeon_empty_image;
+        return nullptr;
     }
 
     // Bind errors from libpng
@@ -113,7 +113,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "libPNG reported an error.", stream->get_name().c_str());
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-        return aeon_empty_image;
+        return nullptr;
     }
 
     // Init png reading. We will be using a read function, as we can't read 
@@ -151,7 +151,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "Unsupported PNG pixel format.", stream->get_name().c_str());
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-        return aeon_empty_image;
+        return nullptr;
     }
 
     // Update the png info struct.
@@ -169,7 +169,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
         console::error("[ImageCodec]: Could not allocate memory for "
             "PNG image data.");
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-        return aeon_empty_image;
+        return nullptr;
     }
 
     // Cast to png_byte since this is what libpng likes as buffer. 
@@ -188,7 +188,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
             "Could not allocate memory for PNG row pointers.", 
             stream->get_name().c_str());
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-        return aeon_empty_image;
+        return nullptr;
     }
 
     // Cast to png_bytep

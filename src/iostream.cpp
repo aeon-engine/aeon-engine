@@ -129,7 +129,7 @@ void io_stream::flush()
 aeon::buffer_ptr io_stream::get_as_buffer()
 {
     // This won't work for STDIN...
-    return aeon_empty_buffer;
+    return nullptr;
 }
 
 } /* namespace aeon */

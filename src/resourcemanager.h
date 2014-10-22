@@ -36,6 +36,8 @@ protected:
     resources::iterator __find_resource_by_name(const std::string &name);
     resources::iterator __find_resource_by_handle(std::uint64_t handle);
 
+    resource_ptr __get_resource_by_name(const std::string &name);
+
     resources resources_;
     std::mutex resources_mutex_;
 

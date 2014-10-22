@@ -19,14 +19,14 @@ resource_ptr resource_manager::load(stream_ptr stream)
     {
         console::warning("[ResourceManager]: Could not load resource from "
             "stream. Stream was NULL.");
-        return aeon_empty_resource;
+        return nullptr;
     }
 
     if (!stream->has_name())
     {
         console::warning("[ResourceManager]: Could not load resource from "
             "stream. Name was not set.");
-        return aeon_empty_resource;
+        return nullptr;
     }
 
     console::debug("[ResourceManager]: Loading resource '%s' by stream.", 
@@ -36,7 +36,7 @@ resource_ptr resource_manager::load(stream_ptr stream)
     {
         console::warning("[ResourceManager]: Could not load resource '%s' "
             "from stream. Name was not unique.", stream->get_name().c_str());
-        return aeon_empty_resource;
+        return nullptr;
     }
 
     return __load(stream);
@@ -46,30 +46,12 @@ resource_ptr resource_manager::load(const std::string &name)
 {
     console::debug("[ResourceManager]: Loading resource '%s' by name.", 
         name.c_str());
+    
+    // Check if the resource was already loaded
+    auto resource = __get_resource_by_name(name);
 
-    resources_mutex_.lock();
-
-    // Check if this resource was already loaded before.
-    resources::iterator itr = __find_resource_by_name(name);
-
-    if (itr != resources_.end())
-    {
-        resource_ptr resource_ptr = *itr;
-
-        if (resource_ptr)
-        {
-            console::debug("[ResourceManager]: Resource '%s' was already "
-                "loaded.", name.c_str());
-            resources_mutex_.unlock();
-            return resource_ptr;
-        }
-
-        console::debug("[ResourceManager]: Resource '%s' no longer exists. "
-            "Removing old reference and reloading.", name.c_str());
-        resources_.erase(itr);
-    }
-
-    resources_mutex_.unlock();
+    if(resource)
+        return resource;
 
     file_stream_ptr filestream = std::make_shared<file_stream>(name, 
         stream::access_mode::read);
@@ -78,14 +60,14 @@ resource_ptr resource_manager::load(const std::string &name)
     {
         console::warning("[ResourceManager]: Could not load resource '%s'. "
             "FileStream could not be made.", name.c_str());
-        return aeon_empty_resource;
+        return nullptr;
     }
 
     if (!filestream->good())
     {
         console::warning("[ResourceManager]: Could not load resource '%s'. "
             "FileStream was bad.", name.c_str());
-        return aeon_empty_resource;
+        return nullptr;
     }
 
     return __load(filestream);
@@ -169,14 +151,14 @@ resource_ptr resource_manager::__load(stream_ptr stream)
         console::warning("[ResourceManager]: Could not load resource '%s' "
             "from stream. Resource object was NULL.", 
             stream->get_name().c_str());
-        return aeon_empty_resource;
+        return nullptr;
     }
 
     if(!resource->__load(stream))
     {
         console::warning("[ResourceManager]: Could not load resource '%s' "
             "from stream. Load failed.", stream->get_name().c_str());
-        return aeon_empty_resource;
+        return nullptr;
     }
 
     resources_mutex_.lock();
@@ -246,6 +228,33 @@ resource_manager::resources::
     );
 
     return itr;
+}
+
+resource_ptr resource_manager::__get_resource_by_name(const std::string &name)
+{
+    std::lock_guard<std::mutex> lock(resources_mutex_);
+
+    // Check if this resource was already loaded before.
+    resources::iterator itr = __find_resource_by_name(name);
+
+    if (itr != resources_.end())
+    {
+        resource_ptr resource_ptr = *itr;
+
+        if (resource_ptr)
+        {
+            console::debug("[ResourceManager]: Resource '%s' was already "
+                "loaded.", name.c_str());
+
+            return resource_ptr;
+        }
+
+        console::debug("[ResourceManager]: Resource '%s' no longer exists. "
+            "Removing old reference and reloading.", name.c_str());
+        resources_.erase(itr);
+    }
+
+    return nullptr;
 }
 
 } /* namespace aeon */

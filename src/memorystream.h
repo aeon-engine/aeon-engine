@@ -49,9 +49,6 @@ protected:
     size_t buffer_offset_;
 };
 
-typedef std::shared_ptr<memory_stream> memory_stream_ptr;
-#define aeon_empty_memory_stream memory_stream_ptr;
-
 } /* namespace aeon */
 
 #endif /* memorystream_h__ */

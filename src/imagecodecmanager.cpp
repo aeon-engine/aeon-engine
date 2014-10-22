@@ -34,7 +34,7 @@ image_ptr image_codec_manager::decode(const std::string &name,
     {
         console::error("ImageCodecManager: Could not decode stream. "
             "Unknown decoder: '%s'", name.c_str());
-        return aeon_empty_image;
+        return nullptr;
     }
 
     return codec->second->decode(stream);

@@ -113,7 +113,6 @@ private:
 };
 
 typedef std::shared_ptr<buffer> buffer_ptr;
-#define aeon_empty_buffer buffer_ptr()
 
 } /* namespace aeon */
 
