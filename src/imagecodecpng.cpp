@@ -210,7 +210,12 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     //Load the data into the image object
     auto img = std::make_shared<image>();
     bitmap_buffer->set_size(bitmap_buffer->reserved_size());
-    img->set_data(bitmap_buffer, temp_width, temp_height, pixelformat);
+    img->set_data(
+        bitmap_buffer,
+        (unsigned int) temp_width,
+        (unsigned int) temp_height,
+        pixelformat
+    );
     return img;
 }
 
