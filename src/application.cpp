@@ -38,7 +38,7 @@ void application::main(int argc, char *argv[])
     aeon::console::add_console_listener(console_file_listener);
 
     aeon::configfile config_file;
-    config_file.load(std::make_shared<aeon::file_stream>("test.txt", aeon::stream::access_mode::read));
+    config_file.load(std::make_shared<aeon::file_stream>("resources/test.txt", aeon::stream::access_mode::read));
 
     aeon::root::initialize(std::make_shared<aeon::platforms::glfw>());
 
@@ -46,9 +46,9 @@ void application::main(int argc, char *argv[])
     aeon::root::get_singleton().add_frame_listener(this);
 
     //auto input_png_file = std::make_shared<Aeon::FileStream>("test.png", Aeon::Stream::AccessMode::Read);
-    aeon::texture_ptr texture = aeon::texture_manager::get_singleton().load("test.png");
+    aeon::texture_ptr texture = aeon::texture_manager::get_singleton().load("resources/test.png");
 
-    aeon::shader_ptr shader = aeon::shader_manager::get_singleton().load("shader.txt");
+    aeon::shader_ptr shader = aeon::shader_manager::get_singleton().load("resources/shader.txt");
 
     //Aeon::ImagePtr image = Aeon::ImageCodecManager::getSingleton().decode("PNG", input_png_file);
 

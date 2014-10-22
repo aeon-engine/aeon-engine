@@ -3,8 +3,13 @@
 *.opensdf
 *.o
 *.a
+*.ilk
+*.exe
+*.log
+*.lib
+*.pdb
 *.ipch
 *.swp
+win32/testCaseCollection.xml
 .DS_Store
 build
-bin
