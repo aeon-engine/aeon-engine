@@ -50,6 +50,8 @@ public:
     */
     int get_integer(const std::string &key, int default_val);
 
+    float get_float(const std::string &key, float default_val);
+
     /*!
     * Get a boolean value from the loaded config file.
     * \param key The entry key
@@ -75,6 +77,8 @@ public:
     * \param val The value
     */
     void set_integer(const std::string &key, int val);
+
+    void set_float(const std::string &key, float val);
 
     /*!
     * Set a boolean value in the loaded config file.

@@ -36,8 +36,20 @@ int configfile::get_integer(const std::string &key, int default_val)
         return default_val;
     }
 
-    int val = string_utils::string_to_int(itr->second);
-    return val;
+    return string_utils::string_to_int(itr->second);
+}
+
+float configfile::get_float(const std::string &key, float default_val)
+{
+    auto itr = entries_.find(key);
+
+    if (itr == entries_.end())
+    {
+        set_float(key, default_val);
+        return default_val;
+    }
+
+    return string_utils::string_to_float(itr->second);
 }
 
 bool configfile::get_boolean(const std::string &key, bool default_val)
@@ -75,6 +87,11 @@ void configfile::set_string(const std::string &key, const std::string &val)
 void configfile::set_integer(const std::string &key, int val)
 {
     set_string(key, string_utils::int_to_string(val));
+}
+
+void configfile::set_float(const std::string &key, float val)
+{
+    set_string(key, string_utils::float_to_string(val));
 }
 
 void configfile::set_boolean(const std::string &key, bool val)
