@@ -64,6 +64,7 @@
       <Filter>resources\opengl</Filter>
     </ClCompile>
     <ClCompile Include="..\src\stdafx.cpp" />
+    <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\aeon\buildconfig.h" />

@@ -1,6 +1,8 @@
 #ifndef stdafx_h__
 #define stdafx_h__
 
+#include "aeon/buildconfig.h"
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,6 +23,7 @@
 #include <memory>
 #include <atomic>
 
+#define GLEW_STATIC
 #include <GL/glew.h>
 
 #ifdef __APPLE__
@@ -37,7 +40,6 @@
 
 #include "aeon/console/console.h"
 #include "aeon/console/consolelistener.h"
-#include "aeon/buildconfig.h"
 #include "aeon/framelistener.h"
 #include "aeon/utility/singleton.h"
 #include "aeon/utility/stringutils.h"
