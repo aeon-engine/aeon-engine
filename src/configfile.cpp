@@ -16,7 +16,7 @@ std::string configfile::get_string(const std::string &key,
     auto itr = entries_.find(key);
 
     // If it could not find the key...
-    if(itr == entries_.end())
+    if (itr == entries_.end())
     {
         set_string(key, default_val);
         return default_val;
@@ -30,7 +30,7 @@ int configfile::get_integer(const std::string &key, int default_val)
     auto itr = entries_.find(key);
 
     // If it could not find the key...
-    if(itr == entries_.end())
+    if (itr == entries_.end())
     {
         set_integer(key, default_val);
         return default_val;
@@ -45,13 +45,26 @@ bool configfile::get_boolean(const std::string &key, bool default_val)
     auto itr = entries_.find(key);
 
     // If it could not find the key...
-    if(itr == entries_.end())
+    if (itr == entries_.end())
     {
         set_boolean(key, default_val);
         return default_val;
     }
 
     return string_utils::string_to_bool(itr->second);
+}
+
+glm::fvec4 configfile::get_vector4f(const std::string &key, glm::fvec4 default_val)
+{
+    auto itr = entries_.find(key);
+
+    if (itr == entries_.end())
+    {
+        set_vector4f(key, default_val);
+        return default_val;
+    }
+
+    return string_utils::string_to_vector4f(itr->second);
 }
 
 void configfile::set_string(const std::string &key, const std::string &val)
@@ -67,6 +80,11 @@ void configfile::set_integer(const std::string &key, int val)
 void configfile::set_boolean(const std::string &key, bool val)
 {
     set_string(key, val ? "1" : "0");
+}
+
+void configfile::set_vector4f(const std::string &key, glm::fvec4 val)
+{
+    set_string(key, string_utils::vector4f_to_string(val));
 }
 
 bool configfile::load(stream_ptr stream)

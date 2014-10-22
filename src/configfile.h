@@ -59,6 +59,9 @@ public:
     */
     bool get_boolean(const std::string &key, bool default_val);
 
+    
+    glm::fvec4 get_vector4f(const std::string &key, glm::fvec4 default_val);
+
     /*!
     * Set a string value in the loaded config file.
     * \param key The entry key. Must be in the format "header.keyname".
@@ -79,6 +82,8 @@ public:
     * \param val The value
     */
     void set_boolean(const std::string &key, bool val);
+    
+    void set_vector4f(const std::string &key, glm::fvec4 val);
 
     /*!
      * Load a config from a stream

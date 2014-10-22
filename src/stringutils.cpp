@@ -12,7 +12,7 @@ std::string int_to_string(int val, int length /* = 0 */)
 {
     std::stringstream stream;
 
-    if(length == 0)
+    if (length == 0)
     {
         stream << val;
     }else{
@@ -26,7 +26,7 @@ std::string int64_to_string(long long val, int length /* = 0 */)
 {
     std::stringstream stream;
 
-    if(length == 0)
+    if (length == 0)
     {
         stream << val;
     }else{
@@ -40,7 +40,7 @@ std::string int_to_hex_string(int val, int length /* = 0 */)
 {
     std::stringstream stream;
 
-    if(length == 0)
+    if (length == 0)
     {
         stream << val;
     }else{
@@ -60,7 +60,7 @@ std::string float_to_string(float val, int precision /* = 0 */)
     std::stringstream stream;
     stream.setf(std::ios::fixed);
 
-    if(precision == 0)
+    if (precision == 0)
     {
         stream << val;
     }else{
@@ -68,6 +68,20 @@ std::string float_to_string(float val, int precision /* = 0 */)
     }
 
     return stream.str();  
+}
+
+std::string vector4f_to_string(glm::fvec4 val)
+{
+    std::string vector_str;
+    vector_str += string_utils::float_to_string(val.x);
+    vector_str += ' ';
+    vector_str += string_utils::float_to_string(val.y);
+    vector_str += ' ';
+    vector_str += string_utils::float_to_string(val.z);
+    vector_str += ' ';
+    vector_str += string_utils::float_to_string(val.w);
+
+    return vector_str;
 }
 
 /************************************************************************/
@@ -82,12 +96,36 @@ unsigned int string_to_int(const std::string &str)
     return val;
 }
 
+float string_to_float(const std::string &str)
+{
+    std::stringstream myString(str);
+    float val = 0;
+    myString >> val;
+
+    return val;
+}
+
 bool string_to_bool(const std::string &str)
 {
-    if(str == "true" || str == "1")
+    if (str == "true" || str == "1")
         return true;
 
     return false;
+}
+
+glm::fvec4 string_to_vector4f(const std::string &str)
+{
+    strings elements = split(str, ' ');
+
+    float vec[4] = {1.0};
+
+    for (std::size_t i = 0; i < 4; ++i)
+    {
+        if (elements.size() >= i + 1)
+            vec[i] = string_to_float(elements[i]);
+    }
+
+    return glm::fvec4(vec[0], vec[1], vec[2], vec[3]);
 }
 
 /************************************************************************/
@@ -99,10 +137,10 @@ strings &split(const std::string &s, char delim, strings &elems,
     std::stringstream ss(s);
     std::string item;
 
-    while(std::getline(ss, item, delim))
+    while (std::getline(ss, item, delim))
     {
         // Do we need to skip empty items?
-        if(mode == splitmode::skip_empty && item == "")
+        if (mode == splitmode::skip_empty && item == "")
             continue;
 
         elems.push_back(item);
