@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\application.h" />
     <ClInclude Include="..\src\baseplatform.h" />
     <ClInclude Include="..\src\buffer.h" />
     <ClInclude Include="..\src\buildconfig.h" />
@@ -29,6 +30,7 @@
     <ClInclude Include="..\src\framelistener.h" />
     <ClInclude Include="..\src\game.h" />
     <ClInclude Include="..\src\gamestate.h" />
+    <ClInclude Include="..\src\gamestate_game.h" />
     <ClInclude Include="..\src\glfwplatform.h" />
     <ClInclude Include="..\src\image.h" />
     <ClInclude Include="..\src\imagecodec.h" />
@@ -39,6 +41,7 @@
     <ClInclude Include="..\src\resource.h" />
     <ClInclude Include="..\src\resourcemanager.h" />
     <ClInclude Include="..\src\root.h" />
+    <ClInclude Include="..\src\rpggame.h" />
     <ClInclude Include="..\src\shader.h" />
     <ClInclude Include="..\src\shadermanager.h" />
     <ClInclude Include="..\src\singleton.h" />
@@ -51,11 +54,13 @@
     <ClInclude Include="..\src\timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\application.cpp" />
     <ClCompile Include="..\src\buffer.cpp" />
     <ClCompile Include="..\src\configfile.cpp" />
     <ClCompile Include="..\src\console.cpp" />
     <ClCompile Include="..\src\filestream.cpp" />
     <ClCompile Include="..\src\game.cpp" />
+    <ClCompile Include="..\src\gamestate_game.cpp" />
     <ClCompile Include="..\src\glfwplatform.cpp" />
     <ClCompile Include="..\src\image.cpp" />
     <ClCompile Include="..\src\imagecodecmanager.cpp" />
@@ -66,6 +71,7 @@
     <ClCompile Include="..\src\resource.cpp" />
     <ClCompile Include="..\src\resourcemanager.cpp" />
     <ClCompile Include="..\src\root.cpp" />
+    <ClCompile Include="..\src\rpggame.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="..\src\shadermanager.cpp" />
     <ClCompile Include="..\src\stdafx.cpp">

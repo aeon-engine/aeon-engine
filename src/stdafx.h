@@ -3,6 +3,10 @@
 
 #include "buildconfig.h"
 
+/************************************************************************/
+/* Common headers                                                       */
+/************************************************************************/
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,6 +27,9 @@
 #include <memory>
 #include <atomic>
 
+/************************************************************************/
+/* External libraries                                                   */
+/************************************************************************/
 #define GLEW_STATIC
 #include <GL/glew.h>
 
@@ -40,6 +47,13 @@
 #  include <png.h>
 #endif
 
+#ifdef AEON_USE_GLFW_PLATFORM
+#  include <GLFW/glfw3.h>
+#endif
+
+/************************************************************************/
+/* Engine                                                               */
+/************************************************************************/
 #define AEON_UNUSED(x) (void)(x)
 
 #include "console.h"
@@ -53,7 +67,6 @@
 #include "baseplatform.h"
 
 #ifdef AEON_USE_GLFW_PLATFORM
-#  include <GLFW/glfw3.h>
 #  include "glfwplatform.h"
 #endif
 
@@ -82,5 +95,12 @@
 #include "game.h"
 
 #include "root.h"
+
+/************************************************************************/
+/* Game implementation                                                  */
+/************************************************************************/
+#include "application.h"
+#include "rpggame.h"
+#include "gamestate_game.h"
 
 #endif /* stdafx_h__ */

@@ -83,6 +83,13 @@
     <ClInclude Include="..\src\timer.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\application.h" />
+    <ClInclude Include="..\src\rpggame.h">
+      <Filter>rpggame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gamestate_game.h">
+      <Filter>rpggame\gamestates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
@@ -151,6 +158,13 @@
     <ClCompile Include="..\src\buffer.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\application.cpp" />
+    <ClCompile Include="..\src\rpggame.cpp">
+      <Filter>rpggame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gamestate_game.cpp">
+      <Filter>rpggame\gamestates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="console">
@@ -170,6 +184,12 @@
     </Filter>
     <Filter Include="gamebase">
       <UniqueIdentifier>{8221c7cb-cd5b-48a6-b5e3-8eb6e42be202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rpggame">
+      <UniqueIdentifier>{bea7d569-c721-49fb-a002-bd0b40fc193d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rpggame\gamestates">
+      <UniqueIdentifier>{e482431e-f235-4dd8-af2e-e8f584f8dbda}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
