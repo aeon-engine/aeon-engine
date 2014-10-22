@@ -1,180 +1,175 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\src\configfile.cpp" />
-    <ClCompile Include="..\src\root.cpp" />
-    <ClCompile Include="..\src\console\console.cpp">
-      <Filter>console</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resources\resource.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resources\resourcemanager.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resources\image.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resources\imagecodecmanager.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resources\imagecodecpng.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\streams\filestream.cpp">
-      <Filter>stream</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\streams\stream.cpp">
-      <Filter>stream</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\utility\stringutils.cpp">
-      <Filter>utility</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\streams\memorystream.cpp">
-      <Filter>stream</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\streams\iostream.cpp">
-      <Filter>stream</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\console\streamlistener.cpp">
-      <Filter>console</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\utility\timer.cpp">
-      <Filter>utility</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\utility\buffer.cpp">
-      <Filter>utility</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\game.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\platforms\glfwplatform.cpp">
-      <Filter>platforms\glfw</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resources\texturemanager.cpp">
-      <Filter>resources\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resources\texture.cpp">
-      <Filter>resources\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resources\shadermanager.cpp">
-      <Filter>resources\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resources\shader.cpp">
-      <Filter>resources\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\stdafx.cpp" />
-    <ClCompile Include="..\src\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\include\aeon\buildconfig.h" />
-    <ClInclude Include="..\include\aeon\configfile.h" />
-    <ClInclude Include="..\include\aeon\root.h" />
-    <ClInclude Include="..\include\aeon\console\console.h">
+    <ClInclude Include="..\src\framelistener.h" />
+    <ClInclude Include="..\src\root.h" />
+    <ClInclude Include="..\src\stdafx.h" />
+    <ClInclude Include="..\src\buildconfig.h" />
+    <ClInclude Include="..\src\console.h">
       <Filter>console</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\aeon\console\consolelistener.h">
+    <ClInclude Include="..\src\consolelistener.h">
       <Filter>console</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\resource.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\resourcemanager.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\image.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\imagecodec.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\ImageCodecManager.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\imagecodecpng.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\streams\filestream.h">
-      <Filter>stream</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\streams\stream.h">
-      <Filter>stream</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\utility\stringutils.h">
-      <Filter>utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\utility\singleton.h">
-      <Filter>utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\streams\memorystream.h">
-      <Filter>stream</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\streams\iostream.h">
-      <Filter>stream</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\frameListener.h" />
-    <ClInclude Include="..\include\aeon\console\streamlistener.h">
+    <ClInclude Include="..\src\streamlistener.h">
       <Filter>console</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\aeon\utility\timer.h">
-      <Filter>utility</Filter>
+    <ClInclude Include="..\src\game.h">
+      <Filter>gamebase</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\aeon\utility\buffer.h">
-      <Filter>utility</Filter>
+    <ClInclude Include="..\src\gamestate.h">
+      <Filter>gamebase</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\aeon\gameState.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\game.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\platforms\baseplatform.h">
+    <ClInclude Include="..\src\glfwplatform.h">
       <Filter>platforms</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\aeon\platforms\glfwplatform.h">
-      <Filter>platforms\glfw</Filter>
+    <ClInclude Include="..\src\baseplatform.h">
+      <Filter>platforms</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\aeon\console\consolevariable.h">
+    <ClInclude Include="..\src\image.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\imagecodec.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\imagecodecmanager.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\imagecodecpng.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\resource.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\resourcemanager.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shader.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shadermanager.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\texture.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\texturemanager.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\filestream.h">
+      <Filter>streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iostream.h">
+      <Filter>streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\memorystream.h">
+      <Filter>streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\stream.h">
+      <Filter>streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\buffer.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\configfile.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\singleton.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\stringutils.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\timer.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\root.cpp" />
+    <ClCompile Include="..\src\stdafx.cpp" />
+    <ClCompile Include="..\src\streamlistener.cpp">
       <Filter>console</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\texturemanager.h">
-      <Filter>resources\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\texture.h">
-      <Filter>resources\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\shader.h">
-      <Filter>resources\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\resources\shadermanager.h">
-      <Filter>resources\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\aeon\stdafx.h" />
+    </ClCompile>
+    <ClCompile Include="..\src\console.cpp">
+      <Filter>console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game.cpp">
+      <Filter>gamebase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\glfwplatform.cpp">
+      <Filter>platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\imagecodecmanager.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\imagecodecpng.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\resource.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\resourcemanager.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\shader.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\shadermanager.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\texture.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\texturemanager.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\image.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\filestream.cpp">
+      <Filter>streams</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iostream.cpp">
+      <Filter>streams</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\memorystream.cpp">
+      <Filter>streams</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\stream.cpp">
+      <Filter>streams</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\configfile.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\stringutils.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\timer.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\buffer.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="console">
-      <UniqueIdentifier>{f9d60ba6-a5d3-4516-bc9c-4eb2694ab8ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="resources">
-      <UniqueIdentifier>{77693c0e-a2f8-4994-978b-80307ecaf8f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="stream">
-      <UniqueIdentifier>{2b6151b0-adc1-4c78-87a8-63b211e9cb24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utility">
-      <UniqueIdentifier>{8ad3c670-636a-4761-8f6e-3bc22148d7a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game">
-      <UniqueIdentifier>{3611edd8-6604-4de4-9a33-e725c0bec4d4}</UniqueIdentifier>
+      <UniqueIdentifier>{7eea423b-0390-40e2-ab9c-4fc7841189d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="platforms">
-      <UniqueIdentifier>{d972ef0e-de17-41af-93db-e4e4b67d6cfe}</UniqueIdentifier>
+      <UniqueIdentifier>{0957e4d0-1323-4d9c-aefd-c278820ac21b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="platforms\glfw">
-      <UniqueIdentifier>{65458f58-71f1-4688-bca8-0c76037b8fee}</UniqueIdentifier>
+    <Filter Include="resources">
+      <UniqueIdentifier>{a06480c0-c3a3-4160-9719-2ba1382ede9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resources\opengl">
-      <UniqueIdentifier>{973f7b01-bfa4-4d5b-93e0-50c6a24568a5}</UniqueIdentifier>
+    <Filter Include="streams">
+      <UniqueIdentifier>{315c47fe-f810-4bd4-878c-df9bb9879fe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{aba17997-e356-464a-8898-6503a7f108cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gamebase">
+      <UniqueIdentifier>{8221c7cb-cd5b-48a6-b5e3-8eb6e42be202}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

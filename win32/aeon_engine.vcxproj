@@ -19,66 +19,65 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\baseplatform.h" />
+    <ClInclude Include="..\src\buffer.h" />
+    <ClInclude Include="..\src\buildconfig.h" />
+    <ClInclude Include="..\src\configfile.h" />
+    <ClInclude Include="..\src\console.h" />
+    <ClInclude Include="..\src\consolelistener.h" />
+    <ClInclude Include="..\src\filestream.h" />
+    <ClInclude Include="..\src\framelistener.h" />
+    <ClInclude Include="..\src\game.h" />
+    <ClInclude Include="..\src\gamestate.h" />
+    <ClInclude Include="..\src\glfwplatform.h" />
+    <ClInclude Include="..\src\image.h" />
+    <ClInclude Include="..\src\imagecodec.h" />
+    <ClInclude Include="..\src\imagecodecmanager.h" />
+    <ClInclude Include="..\src\imagecodecpng.h" />
+    <ClInclude Include="..\src\iostream.h" />
+    <ClInclude Include="..\src\memorystream.h" />
+    <ClInclude Include="..\src\resource.h" />
+    <ClInclude Include="..\src\resourcemanager.h" />
+    <ClInclude Include="..\src\root.h" />
+    <ClInclude Include="..\src\shader.h" />
+    <ClInclude Include="..\src\shadermanager.h" />
+    <ClInclude Include="..\src\singleton.h" />
+    <ClInclude Include="..\src\stdafx.h" />
+    <ClInclude Include="..\src\stream.h" />
+    <ClInclude Include="..\src\streamlistener.h" />
+    <ClInclude Include="..\src\stringutils.h" />
+    <ClInclude Include="..\src\texture.h" />
+    <ClInclude Include="..\src\texturemanager.h" />
+    <ClInclude Include="..\src\timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\buffer.cpp" />
     <ClCompile Include="..\src\configfile.cpp" />
-    <ClCompile Include="..\src\console\console.cpp" />
-    <ClCompile Include="..\src\console\streamlistener.cpp" />
+    <ClCompile Include="..\src\console.cpp" />
+    <ClCompile Include="..\src\filestream.cpp" />
     <ClCompile Include="..\src\game.cpp" />
+    <ClCompile Include="..\src\glfwplatform.cpp" />
+    <ClCompile Include="..\src\image.cpp" />
+    <ClCompile Include="..\src\imagecodecmanager.cpp" />
+    <ClCompile Include="..\src\imagecodecpng.cpp" />
+    <ClCompile Include="..\src\iostream.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\platforms\glfwplatform.cpp" />
-    <ClCompile Include="..\src\resources\image.cpp" />
-    <ClCompile Include="..\src\resources\imagecodecmanager.cpp" />
-    <ClCompile Include="..\src\resources\imagecodecpng.cpp" />
-    <ClCompile Include="..\src\resources\resource.cpp" />
-    <ClCompile Include="..\src\resources\resourcemanager.cpp" />
-    <ClCompile Include="..\src\resources\shader.cpp" />
-    <ClCompile Include="..\src\resources\shadermanager.cpp" />
-    <ClCompile Include="..\src\resources\texture.cpp" />
-    <ClCompile Include="..\src\resources\texturemanager.cpp" />
+    <ClCompile Include="..\src\memorystream.cpp" />
+    <ClCompile Include="..\src\resource.cpp" />
+    <ClCompile Include="..\src\resourcemanager.cpp" />
     <ClCompile Include="..\src\root.cpp" />
+    <ClCompile Include="..\src\shader.cpp" />
+    <ClCompile Include="..\src\shadermanager.cpp" />
     <ClCompile Include="..\src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\src\streams\filestream.cpp" />
-    <ClCompile Include="..\src\streams\iostream.cpp" />
-    <ClCompile Include="..\src\streams\memorystream.cpp" />
-    <ClCompile Include="..\src\streams\stream.cpp" />
-    <ClCompile Include="..\src\utility\buffer.cpp" />
-    <ClCompile Include="..\src\utility\stringutils.cpp" />
-    <ClCompile Include="..\src\utility\timer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\include\aeon\stdafx.h" />
-    <ClInclude Include="..\include\aeon\buildconfig.h" />
-    <ClInclude Include="..\include\aeon\configfile.h" />
-    <ClInclude Include="..\include\aeon\console\console.h" />
-    <ClInclude Include="..\include\aeon\console\consolelistener.h" />
-    <ClInclude Include="..\include\aeon\console\consolevariable.h" />
-    <ClInclude Include="..\include\aeon\console\streamlistener.h" />
-    <ClInclude Include="..\include\aeon\framelistener.h" />
-    <ClInclude Include="..\include\aeon\game.h" />
-    <ClInclude Include="..\include\aeon\gamestate.h" />
-    <ClInclude Include="..\include\aeon\platforms\baseplatform.h" />
-    <ClInclude Include="..\include\aeon\platforms\glfwplatform.h" />
-    <ClInclude Include="..\include\aeon\resources\image.h" />
-    <ClInclude Include="..\include\aeon\resources\imagecodec.h" />
-    <ClInclude Include="..\include\aeon\resources\imagecodecmanager.h" />
-    <ClInclude Include="..\include\aeon\resources\imagecodecpng.h" />
-    <ClInclude Include="..\include\aeon\resources\resource.h" />
-    <ClInclude Include="..\include\aeon\resources\resourcemanager.h" />
-    <ClInclude Include="..\include\aeon\resources\shader.h" />
-    <ClInclude Include="..\include\aeon\resources\shadermanager.h" />
-    <ClInclude Include="..\include\aeon\resources\texture.h" />
-    <ClInclude Include="..\include\aeon\resources\texturemanager.h" />
-    <ClInclude Include="..\include\aeon\root.h" />
-    <ClInclude Include="..\include\aeon\streams\filestream.h" />
-    <ClInclude Include="..\include\aeon\streams\iostream.h" />
-    <ClInclude Include="..\include\aeon\streams\memorystream.h" />
-    <ClInclude Include="..\include\aeon\streams\stream.h" />
-    <ClInclude Include="..\include\aeon\utility\buffer.h" />
-    <ClInclude Include="..\include\aeon\utility\singleton.h" />
-    <ClInclude Include="..\include\aeon\utility\stringutils.h" />
-    <ClInclude Include="..\include\aeon\utility\timer.h" />
+    <ClCompile Include="..\src\stream.cpp" />
+    <ClCompile Include="..\src\streamlistener.cpp" />
+    <ClCompile Include="..\src\stringutils.cpp" />
+    <ClCompile Include="..\src\texture.cpp" />
+    <ClCompile Include="..\src\texturemanager.cpp" />
+    <ClCompile Include="..\src\timer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{84B85853-F180-4866-86AE-9B60E98DE42F}</ProjectGuid>
@@ -159,7 +158,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>aeon/stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -186,7 +184,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>aeon/stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
