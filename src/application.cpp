@@ -48,8 +48,6 @@ void application::main(int argc, char *argv[])
     //auto input_png_file = std::make_shared<Aeon::FileStream>("test.png", Aeon::Stream::AccessMode::Read);
     aeon::texture_ptr texture = aeon::texture_manager::get_singleton().load("resources/test.png");
 
-    aeon::shader_ptr shader = aeon::shader_manager::get_singleton().load("resources/shader.txt");
-
     //Aeon::ImagePtr image = Aeon::ImageCodecManager::getSingleton().decode("PNG", input_png_file);
 
     //if (image == nullptr)
