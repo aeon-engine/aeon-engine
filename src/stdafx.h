@@ -87,9 +87,11 @@
 #include "resource.h"
 #include "texture.h"
 #include "shader.h"
+#include "material.h"
 #include "resourcemanager.h"
 #include "texturemanager.h"
 #include "shadermanager.h"
+#include "materialmanager.h"
 
 #include "gamestate.h"
 #include "game.h"

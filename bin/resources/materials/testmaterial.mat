@@ -1,0 +1,6 @@
+[material]
+diffuse=1.0 1.0 1.0
+specular=1.0 1.0 1.0
+emissive=0 0 0.1
+shininess=64
+texture=resources/textures/test.png

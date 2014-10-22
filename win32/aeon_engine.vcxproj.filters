@@ -26,34 +26,10 @@
     <ClInclude Include="..\src\baseplatform.h">
       <Filter>platforms</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\image.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\imagecodec.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\imagecodecmanager.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\imagecodecpng.h">
-      <Filter>resources</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\resource.h">
       <Filter>resources</Filter>
     </ClInclude>
     <ClInclude Include="..\src\resourcemanager.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\shader.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\shadermanager.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\texture.h">
-      <Filter>resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\texturemanager.h">
       <Filter>resources</Filter>
     </ClInclude>
     <ClInclude Include="..\src\filestream.h">
@@ -90,6 +66,36 @@
     <ClInclude Include="..\src\gamestate_game.h">
       <Filter>rpggame\gamestates</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\image.h">
+      <Filter>resources\images</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\imagecodec.h">
+      <Filter>resources\images</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\imagecodecmanager.h">
+      <Filter>resources\images</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\imagecodecpng.h">
+      <Filter>resources\images</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shadermanager.h">
+      <Filter>resources\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shader.h">
+      <Filter>resources\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\texturemanager.h">
+      <Filter>resources\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\texture.h">
+      <Filter>resources\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\material.h">
+      <Filter>resources\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\materialmanager.h">
+      <Filter>resources\materials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
@@ -107,31 +113,10 @@
     <ClCompile Include="..\src\glfwplatform.cpp">
       <Filter>platforms</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\imagecodecmanager.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\imagecodecpng.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\resource.cpp">
       <Filter>resources</Filter>
     </ClCompile>
     <ClCompile Include="..\src\resourcemanager.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\shader.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\shadermanager.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\texture.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\texturemanager.cpp">
-      <Filter>resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\image.cpp">
       <Filter>resources</Filter>
     </ClCompile>
     <ClCompile Include="..\src\filestream.cpp">
@@ -165,6 +150,33 @@
     <ClCompile Include="..\src\gamestate_game.cpp">
       <Filter>rpggame\gamestates</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\image.cpp">
+      <Filter>resources\images</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\imagecodecmanager.cpp">
+      <Filter>resources\images</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\imagecodecpng.cpp">
+      <Filter>resources\images</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\shadermanager.cpp">
+      <Filter>resources\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\shader.cpp">
+      <Filter>resources\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\texture.cpp">
+      <Filter>resources\textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\texturemanager.cpp">
+      <Filter>resources\textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\material.cpp">
+      <Filter>resources\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\materialmanager.cpp">
+      <Filter>resources\materials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="console">
@@ -190,6 +202,18 @@
     </Filter>
     <Filter Include="rpggame\gamestates">
       <UniqueIdentifier>{e482431e-f235-4dd8-af2e-e8f584f8dbda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\images">
+      <UniqueIdentifier>{c487b309-1602-496e-9020-e9efd13bb7f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\shaders">
+      <UniqueIdentifier>{d23da148-421b-4618-a5ee-a19bcad04fcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\textures">
+      <UniqueIdentifier>{2d5e8ce8-3e5b-4eeb-8f19-b7677f165b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\materials">
+      <UniqueIdentifier>{ae9b2e9a-7c3f-4036-9185-cd3e85ed5bc1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

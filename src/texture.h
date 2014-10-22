@@ -23,7 +23,6 @@ protected:
 };
 
 typedef std::shared_ptr<texture> texture_ptr;
-#define aeon_empty_texture texture_ptr()
 
 } /* namespace aeon */
 

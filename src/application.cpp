@@ -26,38 +26,31 @@ void application::main(int argc, char *argv[])
     aeon::console::set_loglevel(aeon::console::log_level::debug);
 
     //Create console streams
-    auto console_stdoutput = std::make_shared<aeon::io_stream>(aeon::stream::access_mode::write);
-    auto console_fileoutput = std::make_shared<aeon::file_stream>("console.log", aeon::stream::access_mode::write);
+    auto console_stdoutput = std::make_shared<aeon::io_stream>
+        (aeon::stream::access_mode::write);
+    auto console_fileoutput = std::make_shared<aeon::file_stream>
+        ("console.log", aeon::stream::access_mode::write);
 
     //Create listeners with these streams
-    auto console_std_listener = std::make_shared<aeon::console_stream_listener>(console_stdoutput);
-    auto console_file_listener = std::make_shared<aeon::console_stream_listener>(console_fileoutput);
+    auto console_std_listener = 
+        std::make_shared<aeon::console_stream_listener>(console_stdoutput);
+    auto console_file_listener = 
+        std::make_shared<aeon::console_stream_listener>(console_fileoutput);
 
     //Bind a default console
     aeon::console::add_console_listener(console_std_listener);
     aeon::console::add_console_listener(console_file_listener);
 
     aeon::configfile config_file;
-    config_file.load(std::make_shared<aeon::file_stream>("resources/test.txt", aeon::stream::access_mode::read));
+    config_file.load(std::make_shared<aeon::file_stream>
+        ("resources/test.txt", aeon::stream::access_mode::read));
 
     aeon::root::initialize(std::make_shared<aeon::platforms::glfw>());
 
     //Register us as a frame listener
     aeon::root::get_singleton().add_frame_listener(this);
-
-    //auto input_png_file = std::make_shared<Aeon::FileStream>("test.png", Aeon::Stream::AccessMode::Read);
-    aeon::texture_ptr texture = aeon::texture_manager::get_singleton().load("resources/test.png");
-
-    //Aeon::ImagePtr image = Aeon::ImageCodecManager::getSingleton().decode("PNG", input_png_file);
-
-    //if (image == nullptr)
-    //	return;
-
-    //auto file_output = std::make_shared<Aeon::FileStream>("dump.raw", Aeon::Stream::AccessMode::Write);
-    //image->save_raw_to_stream(file_output);
-
-    //file_output->flush();
-    //file_output->close();
+    aeon::texture_ptr texture = 
+        aeon::texture_manager::get_singleton().load("resources/test.png");
 
     aeon::root::get_singleton().run();
 }

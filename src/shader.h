@@ -37,7 +37,6 @@ protected:
 };
 
 typedef std::shared_ptr<shader> shader_ptr;
-#define aeon_empty_shader shader_ptr()
 
 } /* namespace aeon */
 
