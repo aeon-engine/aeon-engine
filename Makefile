@@ -1,20 +1,27 @@
+AEONDEV=/Users/robindegen/Development/Libraries
 CXX=g++
-CXXPATHS=-I./include/
+CXXPATHS=-I$(AEONDEV)/include/
 CXXFLAGS=-c -Wall -Wfatal-errors -std=c++11 -O2 -g
-ARPATH=ar
-ARFLAGS=crf
+LDPATHS=-L$(AEONDEV)/lib/
+LDFLAGS=\
+	-lglfw3 \
+	-lGLEW \
+	-lpng \
+	-framework Cocoa \
+	-framework OpenGL \
+	-framework IOKit \
+	-framework CoreVideo
 
-SOURCES=$(wildcard ./src/*.cpp) \
-	$(wildcard ./src/*/*.cpp) \
+SRCS=$(wildcard ./src/*.cpp)
+OBJS=$(SRCS:.cpp=.o)
 
-OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=libaeon
+EXECUTABLE=bin/aeon_engine
 
-all: $(SOURCES) $(EXECUTABLE)
+all: $(SRCS) $(EXECUTABLE)
 
-$(EXECUTABLE): $(OBJECTS)
+$(EXECUTABLE): $(OBJS)
 	@echo "Linking..."
-	@$(ARPATH) $(ARFLAGS) $(EXECUTABLE).a $(OBJECTS)
+	@$(CXX) $(LDPATHS) $(LDFLAGS) -o $@ $(OBJS)
 	@echo "Build successful."
 
 .cpp.o:
@@ -23,6 +30,6 @@ $(EXECUTABLE): $(OBJECTS)
 
 clean:
 	@echo "Cleaning..."
-	@rm -rf $(wildcard ./src/*.o)
-	@rm -rf $(wildcard ./src/*/*.o)
-	@rm -rf *.a
+	@rm -rf $(OBJS)
+	@rm -rf $(EXECUTABLE)
+
