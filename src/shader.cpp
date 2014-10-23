@@ -20,6 +20,11 @@ shader::~shader()
 
 }
 
+void shader::bind()
+{
+    glUseProgram(program_);
+}
+
 bool shader::__load_impl(stream_ptr stream)
 {
     if (!stream->good())
@@ -165,7 +170,7 @@ bool shader::__finalize_impl()
     glDeleteShader(fragmentshader);
 
     // Set up the uniform locations for the matrices in this shader
-    matrix_handle_ = glGetUniformLocation(program_, AEON_SHADER_MATRIX_NAME);
+    /*matrix_handle_ = glGetUniformLocation(program_, AEON_SHADER_MATRIX_NAME);
     texture0_handle_ = glGetUniformLocation(program_, 
         AEON_SHADER_TEXTURE0_NAME);
     color_handle_ = glGetUniformLocation(program_, AEON_SHADER_COLOR_NAME);
@@ -180,7 +185,7 @@ bool shader::__finalize_impl()
 
     if (texture0_handle_ == -1)
         console::warning("[Shader]: Could not find '%s' in shader.",
-            AEON_SHADER_COLOR_NAME);
+            AEON_SHADER_COLOR_NAME);*/
 
     return true;
 }

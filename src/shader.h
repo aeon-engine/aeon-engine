@@ -11,6 +11,8 @@ public:
         std::uint64_t handle);
     virtual ~shader();
 
+    void bind();
+
 protected:
     enum class program_type
     {
