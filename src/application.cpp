@@ -125,7 +125,7 @@ void DemoLight(void)
 float pos = 0.0f;
 bool application::on_render()
 {
-    glViewport(0, 0, 1280, 720);						// Reset The Current Viewport
+    //glViewport(0, 0, 1280, 720);						// Reset The Current Viewport
 
     glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix
     glLoadIdentity();									// Reset The Projection Matrix
