@@ -3,7 +3,8 @@
 
 varying vec3 normal;
 varying vec3 vertex_to_light_vector;
- 
+varying vec2 texture_coordinate;
+
 void main()
 {
     // Transforming The Vertex
@@ -13,10 +14,13 @@ void main()
     normal = gl_NormalMatrix * gl_Normal;
  
     // Transforming The Vertex Position To ModelView-Space
-    vec4 vertex_in_modelview_space = gl_ModelViewMatrx * gl_Vertex;
+    vec4 vertex_in_modelview_space = gl_ModelViewMatrix * gl_Vertex;
  
     // Calculating The Vector From The Vertex Position To The Light Position
-    vertex_to_light_vector = vec3(gl_LightSource[0].position  vertex_in_modelview_space);
+	//gl_LightSource[0].position *
+    vertex_to_light_vector = vec3(gl_LightSource[0].position * vertex_in_modelview_space);
+	
+	texture_coordinate = vec2(gl_MultiTexCoord0);
 }
 
 [fragment]
@@ -24,6 +28,8 @@ void main()
 
 varying vec3 normal;
 varying vec3 vertex_to_light_vector;
+varying vec2 texture_coordinate;
+uniform sampler2D my_color_texture;
  
 void main()
 {
@@ -39,5 +45,5 @@ void main()
     float DiffuseTerm = clamp(dot(normal, vertex_to_light_vector), 0.0, 1.0);
  
     // Calculating The Final Color
-    gl_FragColor = AmbientColor + DiffuseColor * DiffuseTerm;
+    gl_FragColor = texture2D(my_color_texture, texture_coordinate) + (AmbientColor + DiffuseColor * DiffuseTerm);
 }
