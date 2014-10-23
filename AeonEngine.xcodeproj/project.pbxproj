@@ -24,7 +24,6 @@
 		92BF0CC419F839E50050B000 /* imagecodecpng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BF0C9819F839E50050B000 /* imagecodecpng.cpp */; };
 		92BF0CC519F839E50050B000 /* iostream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BF0C9A19F839E50050B000 /* iostream.cpp */; };
 		92BF0CC619F839E50050B000 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BF0C9C19F839E50050B000 /* main.cpp */; };
-		92BF0CC719F839E50050B000 /* memorystream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BF0C9D19F839E50050B000 /* memorystream.cpp */; };
 		92BF0CC819F839E50050B000 /* resource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BF0C9F19F839E50050B000 /* resource.cpp */; };
 		92BF0CC919F839E50050B000 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BF0CA119F839E50050B000 /* resourcemanager.cpp */; };
 		92BF0CCA19F839E50050B000 /* root.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BF0CA319F839E50050B000 /* root.cpp */; };
@@ -40,7 +39,13 @@
 		92BF0CD419F839E50050B000 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BF0CB819F839E50050B000 /* timer.cpp */; };
 		92BF0CD619F83A0E0050B000 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BF0CD519F83A0E0050B000 /* libGLEW.a */; };
 		92BF0CD919F83A240050B000 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BF0CD719F83A240050B000 /* libglfw3.a */; };
-		92BF0CDA19F83A240050B000 /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BF0CD819F83A240050B000 /* libpng12.a */; };
+		92CC3B6219F993E10014AAA0 /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CC3B5519F993E10014AAA0 /* material.cpp */; };
+		92CC3B6319F993E10014AAA0 /* materialmanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CC3B5719F993E10014AAA0 /* materialmanager.cpp */; };
+		92CC3B6419F993E10014AAA0 /* memorystream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CC3B5919F993E10014AAA0 /* memorystream.cpp */; };
+		92CC3B6519F993E10014AAA0 /* model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CC3B5B19F993E10014AAA0 /* model.cpp */; };
+		92CC3B6619F993E10014AAA0 /* modelcodecassimp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CC3B5E19F993E10014AAA0 /* modelcodecassimp.cpp */; };
+		92CC3B6719F993E10014AAA0 /* modelcodecmanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CC3B6019F993E10014AAA0 /* modelcodecmanager.cpp */; };
+		92CC3B6919F994FB0014AAA0 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CC3B6819F994FB0014AAA0 /* libpng16.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -92,7 +97,6 @@
 		92BF0C9A19F839E50050B000 /* iostream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = iostream.cpp; path = src/iostream.cpp; sourceTree = SOURCE_ROOT; };
 		92BF0C9B19F839E50050B000 /* iostream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iostream.h; path = src/iostream.h; sourceTree = SOURCE_ROOT; };
 		92BF0C9C19F839E50050B000 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
-		92BF0C9D19F839E50050B000 /* memorystream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = memorystream.cpp; path = src/memorystream.cpp; sourceTree = SOURCE_ROOT; };
 		92BF0C9E19F839E50050B000 /* memorystream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = memorystream.h; path = src/memorystream.h; sourceTree = SOURCE_ROOT; };
 		92BF0C9F19F839E50050B000 /* resource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource.cpp; path = src/resource.cpp; sourceTree = SOURCE_ROOT; };
 		92BF0CA019F839E50050B000 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = src/resource.h; sourceTree = SOURCE_ROOT; };
@@ -123,7 +127,20 @@
 		92BF0CB919F839E50050B000 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timer.h; path = src/timer.h; sourceTree = SOURCE_ROOT; };
 		92BF0CD519F83A0E0050B000 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../Libraries/lib/libGLEW.a; sourceTree = "<group>"; };
 		92BF0CD719F83A240050B000 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../Libraries/lib/libglfw3.a; sourceTree = "<group>"; };
-		92BF0CD819F83A240050B000 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng12.a; path = ../Libraries/lib/libpng12.a; sourceTree = "<group>"; };
+		92CC3B5519F993E10014AAA0 /* material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = material.cpp; path = src/material.cpp; sourceTree = SOURCE_ROOT; };
+		92CC3B5619F993E10014AAA0 /* material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = material.h; path = src/material.h; sourceTree = SOURCE_ROOT; };
+		92CC3B5719F993E10014AAA0 /* materialmanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = materialmanager.cpp; path = src/materialmanager.cpp; sourceTree = SOURCE_ROOT; };
+		92CC3B5819F993E10014AAA0 /* materialmanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materialmanager.h; path = src/materialmanager.h; sourceTree = SOURCE_ROOT; };
+		92CC3B5919F993E10014AAA0 /* memorystream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = memorystream.cpp; path = src/memorystream.cpp; sourceTree = SOURCE_ROOT; };
+		92CC3B5A19F993E10014AAA0 /* memorystream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = memorystream.h; path = src/memorystream.h; sourceTree = SOURCE_ROOT; };
+		92CC3B5B19F993E10014AAA0 /* model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = model.cpp; path = src/model.cpp; sourceTree = SOURCE_ROOT; };
+		92CC3B5C19F993E10014AAA0 /* model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = model.h; path = src/model.h; sourceTree = SOURCE_ROOT; };
+		92CC3B5D19F993E10014AAA0 /* modelcodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelcodec.h; path = src/modelcodec.h; sourceTree = SOURCE_ROOT; };
+		92CC3B5E19F993E10014AAA0 /* modelcodecassimp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelcodecassimp.cpp; path = src/modelcodecassimp.cpp; sourceTree = SOURCE_ROOT; };
+		92CC3B5F19F993E10014AAA0 /* modelcodecassimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelcodecassimp.h; path = src/modelcodecassimp.h; sourceTree = SOURCE_ROOT; };
+		92CC3B6019F993E10014AAA0 /* modelcodecmanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelcodecmanager.cpp; path = src/modelcodecmanager.cpp; sourceTree = SOURCE_ROOT; };
+		92CC3B6119F993E10014AAA0 /* modelcodecmanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelcodecmanager.h; path = src/modelcodecmanager.h; sourceTree = SOURCE_ROOT; };
+		92CC3B6819F994FB0014AAA0 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../../../../usr/local/Cellar/libpng/1.6.13/lib/libpng16.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92BF0CDA19F83A240050B000 /* libpng12.a in Frameworks */,
+				92CC3B6919F994FB0014AAA0 /* libpng16.a in Frameworks */,
 				92BF0CD619F83A0E0050B000 /* libGLEW.a in Frameworks */,
 				92475EC919F8356800B9FD88 /* OpenGL.framework in Frameworks */,
 				92475EC719F8355D00B9FD88 /* IOKit.framework in Frameworks */,
@@ -147,8 +164,8 @@
 		92475E5819F828F100B9FD88 = {
 			isa = PBXGroup;
 			children = (
+				92CC3B6819F994FB0014AAA0 /* libpng16.a */,
 				92BF0CD719F83A240050B000 /* libglfw3.a */,
-				92BF0CD819F83A240050B000 /* libpng12.a */,
 				92BF0CD519F83A0E0050B000 /* libGLEW.a */,
 				92475EC819F8356800B9FD88 /* OpenGL.framework */,
 				92475EC619F8355D00B9FD88 /* IOKit.framework */,
@@ -201,7 +218,19 @@
 				92BF0C9A19F839E50050B000 /* iostream.cpp */,
 				92BF0C9B19F839E50050B000 /* iostream.h */,
 				92BF0C9C19F839E50050B000 /* main.cpp */,
-				92BF0C9D19F839E50050B000 /* memorystream.cpp */,
+				92CC3B5519F993E10014AAA0 /* material.cpp */,
+				92CC3B5619F993E10014AAA0 /* material.h */,
+				92CC3B5719F993E10014AAA0 /* materialmanager.cpp */,
+				92CC3B5819F993E10014AAA0 /* materialmanager.h */,
+				92CC3B5919F993E10014AAA0 /* memorystream.cpp */,
+				92CC3B5A19F993E10014AAA0 /* memorystream.h */,
+				92CC3B5B19F993E10014AAA0 /* model.cpp */,
+				92CC3B5C19F993E10014AAA0 /* model.h */,
+				92CC3B5D19F993E10014AAA0 /* modelcodec.h */,
+				92CC3B5E19F993E10014AAA0 /* modelcodecassimp.cpp */,
+				92CC3B5F19F993E10014AAA0 /* modelcodecassimp.h */,
+				92CC3B6019F993E10014AAA0 /* modelcodecmanager.cpp */,
+				92CC3B6119F993E10014AAA0 /* modelcodecmanager.h */,
 				92BF0C9E19F839E50050B000 /* memorystream.h */,
 				92BF0C9F19F839E50050B000 /* resource.cpp */,
 				92BF0CA019F839E50050B000 /* resource.h */,
@@ -291,24 +320,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				92BF0CC319F839E50050B000 /* imagecodecmanager.cpp in Sources */,
+				92CC3B6619F993E10014AAA0 /* modelcodecassimp.cpp in Sources */,
 				92BF0CCC19F839E50050B000 /* shader.cpp in Sources */,
 				92BF0CCB19F839E50050B000 /* rpggame.cpp in Sources */,
 				92BF0CC519F839E50050B000 /* iostream.cpp in Sources */,
 				92BF0CD219F839E50050B000 /* texture.cpp in Sources */,
 				92BF0CBA19F839E50050B000 /* application.cpp in Sources */,
+				92CC3B6319F993E10014AAA0 /* materialmanager.cpp in Sources */,
 				92BF0CBB19F839E50050B000 /* buffer.cpp in Sources */,
+				92CC3B6419F993E10014AAA0 /* memorystream.cpp in Sources */,
 				92BF0CD319F839E50050B000 /* texturemanager.cpp in Sources */,
 				92BF0CD419F839E50050B000 /* timer.cpp in Sources */,
-				92BF0CC719F839E50050B000 /* memorystream.cpp in Sources */,
 				92BF0CC419F839E50050B000 /* imagecodecpng.cpp in Sources */,
 				92BF0CCD19F839E50050B000 /* shadermanager.cpp in Sources */,
 				92BF0CCF19F839E50050B000 /* stream.cpp in Sources */,
 				92BF0CBC19F839E50050B000 /* configfile.cpp in Sources */,
 				92BF0CC919F839E50050B000 /* resourcemanager.cpp in Sources */,
 				92BF0CCA19F839E50050B000 /* root.cpp in Sources */,
+				92CC3B6219F993E10014AAA0 /* material.cpp in Sources */,
 				92BF0CD019F839E50050B000 /* streamlistener.cpp in Sources */,
 				92BF0CCE19F839E50050B000 /* stdafx.cpp in Sources */,
 				92BF0CBE19F839E50050B000 /* filestream.cpp in Sources */,
+				92CC3B6719F993E10014AAA0 /* modelcodecmanager.cpp in Sources */,
 				92BF0CD119F839E50050B000 /* stringutils.cpp in Sources */,
 				92BF0CBD19F839E50050B000 /* console.cpp in Sources */,
 				92BF0CC019F839E50050B000 /* gamestate_game.cpp in Sources */,
@@ -316,6 +349,7 @@
 				92BF0CC819F839E50050B000 /* resource.cpp in Sources */,
 				92BF0CC619F839E50050B000 /* main.cpp in Sources */,
 				92BF0CBF19F839E50050B000 /* game.cpp in Sources */,
+				92CC3B6519F993E10014AAA0 /* model.cpp in Sources */,
 				92BF0CC219F839E50050B000 /* image.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,12 +438,17 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/Users/robindegen/Development/Libraries/include/,
+					/usr/local/include/,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/robindegen/Development/Libraries/lib,
+					/usr/local/Cellar/libpng/1.6.13/lib,
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = /Users/robindegen/Development/Libraries/lib/;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					/Users/robindegen/Development/Libraries/lib/,
+					/usr/local/lib/,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -420,6 +459,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/robindegen/Development/Libraries/lib,
+					/usr/local/Cellar/libpng/1.6.13/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

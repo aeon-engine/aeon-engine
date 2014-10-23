@@ -23,7 +23,7 @@ std::string vector4f_to_string(glm::fvec4 val);
 /************************************************************************/
 
 int string_to_int(const std::string &str);
-int string_to_uint(const std::string &str);
+unsigned long string_to_uint(const std::string &str);
 float string_to_float(const std::string &str);
 bool string_to_bool(const std::string &str);
 glm::fvec4 string_to_vector4f(const std::string &str);

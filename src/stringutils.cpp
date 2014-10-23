@@ -74,7 +74,7 @@ int string_to_int(const std::string &str)
     return std::stoi(str);
 }
 
-int string_to_uint(const std::string &str)
+unsigned long string_to_uint(const std::string &str)
 {
     return std::stoul(str);
 }
