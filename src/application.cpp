@@ -24,17 +24,19 @@ void application::main(int argc, char *argv[])
 {
     __setup_console();
 
-    aeon::configfile config_file;
+    configfile config_file;
     config_file.load(std::make_shared<aeon::file_stream>
         ("config.ini", aeon::stream::access_mode::read));
 
-    aeon::root::initialize(std::make_shared<aeon::platforms::glfw>());
+    root::initialize(std::make_shared<aeon::platforms::glfw>());
 
     // Register us as a frame listener
-    aeon::root::get_singleton().add_frame_listener(this);
+    root::get_singleton().add_frame_listener(this);
+
+    material_ptr mat = material_manager::get_singleton().load("resources/materials/testmaterial.mat");
 
     // Enter the main loop
-    aeon::root::get_singleton().run();
+    root::get_singleton().run();
 }
 
 bool application::on_frame(float dt)

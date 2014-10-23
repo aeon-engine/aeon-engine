@@ -1,6 +1,38 @@
 #ifndef buildconfig_h__
 #define buildconfig_h__
 
+/************************************************************************/
+/* Build options                                                        */
+/************************************************************************/
+
+/*!
+* Define if Aeon should have support for loading PNG files
+*/
+#define AEON_USE_PNG
+
+/*!
+* Define if Aeon should have support for using GLFW as a platform
+*/
+#define AEON_USE_GLFW_PLATFORM
+
+/************************************************************************/
+/* Default settings                                                     */
+/************************************************************************/
+
+/*!
+* The default horizontal resolution
+*/
+#define AEON_DEFAULT_SCREEN_WIDTH           1280
+
+/*!
+* The default vertical resolution
+*/
+#define AEON_DEFAULT_SCREEN_HEIGHT          720
+
+/************************************************************************/
+/* Console                                                              */
+/************************************************************************/
+
 /*!
  * Define if Aeon should log debug messages.
  */
@@ -16,6 +48,10 @@
  */
 #define AEON_DEFAULT_CONSOLE_LOG_LEVEL      console::log_level::info
 
+/************************************************************************/
+/* Streams                                                              */
+/************************************************************************/
+
 /*!
  * The maximum length of a line read in a stream. If the line is longer, the
  * line will be truncated into seemingly multiple lines.
@@ -29,25 +65,50 @@
  */
 #define AEON_STREAM_DEFAULT_NAME            "<UNNAMED>"
 
-/*!
- * Define if Aeon should have support for loading PNG files
- */
-#define AEON_USE_PNG
+/************************************************************************/
+/* Materials                                                            */
+/************************************************************************/
 
 /*!
- * Define if Aeon should have support for using GLFW as a platform
+ * The maximum number of textures that can be bound from a material
+ * for use in a shader.
+ * TODO: glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &texture_units);
  */
-#define AEON_USE_GLFW_PLATFORM
+#define AEON_MATERIAL_MAX_TEXTURE_BINDS     8
 
 /*!
- * The default horizontal resolution
+ * The default ambient RGBA reflectance of a material.
+ * These are the OpenGL default values for GL_AMBIENT
  */
-#define AEON_DEFAULT_SCREEN_WIDTH           1280
+#define AEON_MATERIAL_DEFAULT_AMBIENT       0.2, 0.2, 0.2, 1.0
 
 /*!
- * The default vertical resolution
+ * The default diffuse RGBA reflectance of a material.
+ * These are the OpenGL default values for GL_DIFFUSE
  */
-#define AEON_DEFAULT_SCREEN_HEIGHT          720
+#define AEON_MATERIAL_DEFAULT_DIFFUSE       0.8, 0.8, 0.8, 1.0
+
+/*!
+* The default specular RGBA reflectance of a material.
+* These are the OpenGL default values for GL_SPECULAR
+*/
+#define AEON_MATERIAL_DEFAULT_SPECULAR      0.0, 0.0, 0.0, 1.0
+
+/*!
+* The default RGBA emitted light intensity of a material.
+* These are the OpenGL default values for GL_EMISSION
+*/
+#define AEON_MATERIAL_DEFAULT_EMISSION      0.0, 0.0, 0.0, 1.0
+
+/*!
+* The default RGBA specular exponent of a material.
+* This is the OpenGL default value for GL_SHININESS
+*/
+#define AEON_MATERIAL_DEFAULT_SHININESS     0
+
+/************************************************************************/
+/* Shaders                                                              */
+/************************************************************************/
 
 /*!
  * The OpenGL attribute ID for vertex data

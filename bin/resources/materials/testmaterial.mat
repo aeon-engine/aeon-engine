@@ -1,6 +1,10 @@
 [material]
+shader=resources/shaders/ambient_test.prg
+ambient=0.2 0.4 0.4 1.0
 diffuse=1.0 1.0 1.0
-specular=1.0 1.0 1.0
-emissive=0 0 0.1
+specular=1.0 1.0 1.0 1.0
+emission=0 0 0.1 0.5
 shininess=64
-texture=resources/textures/test.png
+texture0=resources/textures/test.png
+texture1=resources/textures/test.png
+texture2=resources/textures/test.png

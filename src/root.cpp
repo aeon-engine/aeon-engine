@@ -53,6 +53,7 @@ void root::run()
     {
         shader_manager::get_singleton().finalize_resources();
         texture_manager::get_singleton().finalize_resources();
+        material_manager::get_singleton().finalize_resources();
 
         if(!platform_->pre_frame())
             break;
@@ -74,6 +75,8 @@ void root::run()
     if(!platform_->dispose())
         console::error("[Root] Platform reported an error while disposing.");
 
+    // TODO: Make sure everything gets properly deleted and freed.
+    material_manager::dispose();
     image_codec_manager::dispose();
     texture_manager::dispose();
     shader_manager::dispose();
@@ -149,6 +152,7 @@ bool root::__initialize_impl(platforms::base_platform_ptr platform)
 
     texture_manager::create();
     shader_manager::create();
+    material_manager::create();
 
     initialized_ = true;
     return true;
