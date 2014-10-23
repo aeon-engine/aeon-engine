@@ -40,6 +40,10 @@
     <ClInclude Include="..\src\material.h" />
     <ClInclude Include="..\src\materialmanager.h" />
     <ClInclude Include="..\src\memorystream.h" />
+    <ClInclude Include="..\src\model.h" />
+    <ClInclude Include="..\src\modelcodec.h" />
+    <ClInclude Include="..\src\modelcodecassimp.h" />
+    <ClInclude Include="..\src\modelcodecmanager.h" />
     <ClInclude Include="..\src\resource.h" />
     <ClInclude Include="..\src\resourcemanager.h" />
     <ClInclude Include="..\src\root.h" />
@@ -72,6 +76,9 @@
     <ClCompile Include="..\src\material.cpp" />
     <ClCompile Include="..\src\materialmanager.cpp" />
     <ClCompile Include="..\src\memorystream.cpp" />
+    <ClCompile Include="..\src\model.cpp" />
+    <ClCompile Include="..\src\modelcodecassimp.cpp" />
+    <ClCompile Include="..\src\modelcodecmanager.cpp" />
     <ClCompile Include="..\src\resource.cpp" />
     <ClCompile Include="..\src\resourcemanager.cpp" />
     <ClCompile Include="..\src\root.cpp" />

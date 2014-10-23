@@ -15,6 +15,12 @@
 */
 #define AEON_USE_GLFW_PLATFORM
 
+/*!
+* Define if Aeon should have support for using the 
+* Open Asset Import Library (Assimp)
+*/
+#define AEON_USE_ASSIMP
+
 /************************************************************************/
 /* Default settings                                                     */
 /************************************************************************/

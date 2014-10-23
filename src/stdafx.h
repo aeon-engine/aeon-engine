@@ -87,10 +87,19 @@
 #  include "imagecodecpng.h"
 #endif
 
+#include "model.h"
+#include "modelcodec.h"
+#include "modelcodecmanager.h"
+
+#ifdef AEON_USE_ASSIMP
+#  include "modelcodecassimp.h"
+#endif
+
 #include "resource.h"
 #include "texture.h"
 #include "shader.h"
 #include "material.h"
+
 #include "resourcemanager.h"
 #include "texturemanager.h"
 #include "shadermanager.h"

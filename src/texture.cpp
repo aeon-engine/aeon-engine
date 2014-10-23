@@ -24,6 +24,8 @@ void texture::bind()
 
 bool texture::__load_impl(stream_ptr stream)
 {
+    // TODO: It should be possible to support different image codecs.
+    // For now we assume PNG.
     image_ = image_codec_manager::get_singleton().decode("PNG", stream);
 
     if (!image_)
