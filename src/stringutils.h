@@ -13,7 +13,6 @@ typedef std::vector<std::string> strings;
 /************************************************************************/
 
 std::string int_to_string(int val, int length = 0);
-std::string int64_to_string(long long val, int length = 0);
 std::string int_to_hex_string(int val, int length = 0);
 std::string bool_to_string(bool val);
 std::string float_to_string(float val, int precision = 0);
@@ -23,10 +22,10 @@ std::string vector4f_to_string(glm::fvec4 val);
 /* From strings                                                         */
 /************************************************************************/
 
-unsigned int string_to_int(const std::string &str);
+int string_to_int(const std::string &str);
+int string_to_uint(const std::string &str);
 float string_to_float(const std::string &str);
 bool string_to_bool(const std::string &str);
-
 glm::fvec4 string_to_vector4f(const std::string &str);
 
 /************************************************************************/

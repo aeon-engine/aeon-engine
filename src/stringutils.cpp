@@ -10,29 +10,13 @@ namespace string_utils
 /************************************************************************/
 std::string int_to_string(int val, int length /* = 0 */)
 {
-    std::stringstream stream;
-
     if (length == 0)
     {
-        stream << val;
-    }else{
-        stream << std::setw(length) << std::setfill('0') << val;
+        return std::to_string(val);
     }
 
-    return stream.str();
-}
-
-std::string int64_to_string(long long val, int length /* = 0 */)
-{
     std::stringstream stream;
-
-    if (length == 0)
-    {
-        stream << val;
-    }else{
-        stream << std::setw(length) << std::setfill('0') << val;
-    }
-
+    stream << std::setw(length) << std::setfill('0') << val;
     return stream.str();
 }
 
@@ -42,7 +26,7 @@ std::string int_to_hex_string(int val, int length /* = 0 */)
 
     if (length == 0)
     {
-        stream << val;
+        stream << std::hex << val;
     }else{
         stream << std::hex << std::setw(length) << std::setfill('0') << val;
     }
@@ -57,16 +41,14 @@ std::string bool_to_string(bool val)
 
 std::string float_to_string(float val, int precision /* = 0 */)
 {
-    std::stringstream stream;
-    stream.setf(std::ios::fixed);
-
     if (precision == 0)
     {
-        stream << val;
-    }else{
-        stream << std::setw(precision) << val;
+        return std::to_string(val);
     }
 
+    std::stringstream stream;
+    stream.setf(std::ios::fixed);
+    stream << std::setw(precision) << val;
     return stream.str();  
 }
 
@@ -87,22 +69,19 @@ std::string vector4f_to_string(glm::fvec4 val)
 /************************************************************************/
 /* From strings                                                         */
 /************************************************************************/
-unsigned int string_to_int(const std::string &str)
+int string_to_int(const std::string &str)
 {
-    std::stringstream myString(str);
-    int val = 0;
-    myString >> val;
+    return std::stoi(str);
+}
 
-    return val;
+int string_to_uint(const std::string &str)
+{
+    return std::stoul(str);
 }
 
 float string_to_float(const std::string &str)
 {
-    std::stringstream myString(str);
-    float val = 0;
-    myString >> val;
-
-    return val;
+    return std::stof(str);
 }
 
 bool string_to_bool(const std::string &str)
