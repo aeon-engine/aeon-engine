@@ -12,7 +12,7 @@ material::material(resource_manager *creator, const std::string &name,
     emission(AEON_MATERIAL_DEFAULT_EMISSION),
     shininess(AEON_MATERIAL_DEFAULT_SHININESS),
     shader_resource(nullptr),
-    texture_resource({nullptr})
+    texture_resource({{nullptr}})
 {
 
 }
