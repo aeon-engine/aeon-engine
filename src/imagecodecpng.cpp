@@ -10,7 +10,7 @@ namespace aeon
 static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, 
     png_size_t output_size)
 {
-    stream_ptr *stream = (stream_ptr *)png_get_io_ptr(png_ptr);
+    stream_ptr *stream = static_cast<stream_ptr *>(png_get_io_ptr(png_ptr));
 
     // Do we have a stream?
     if(!stream)
@@ -192,7 +192,8 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     }
 
     // Cast to png_bytep
-    png_bytep * row_pointers = (png_bytep *) rowpointer_buffer->get();
+    png_bytep * row_pointers =
+        static_cast<png_bytep *>(rowpointer_buffer->get());
 
     // Set the individual row_pointers to point at the correct offsets 
     // of image_data
