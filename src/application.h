@@ -16,6 +16,8 @@ public:
     bool on_render();
 
 private:
+    void __setup_console();
+
     aeon::platforms::glfw *platform_;
 };
 
