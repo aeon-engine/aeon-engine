@@ -25,7 +25,7 @@ public:
     };
 
     resource(resource_manager *creator, const std::string &name,
-        std::uint64_t handle);
+             std::uint64_t handle);
     virtual ~resource();
 
     state get_state() { return state_; }

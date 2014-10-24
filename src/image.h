@@ -17,7 +17,8 @@ public:
     ~image();
 
     void set_data(buffer_ptr buffer, unsigned int width, 
-        unsigned int height, pixel_format pixelformat = pixel_format::rgba);
+                  unsigned int height, 
+                  pixel_format pixelformat = pixel_format::rgba);
 
     buffer_ptr get_data() { return buffer_; }
     unsigned int get_width() { return width_; }

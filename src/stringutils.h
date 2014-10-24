@@ -39,9 +39,9 @@ enum class splitmode
 };
 
 strings &split(const std::string &s, char delim, strings &elems, 
-    splitmode mode = splitmode::skip_empty);
+               splitmode mode = splitmode::skip_empty);
 strings split(const std::string &s, char delim, 
-    splitmode mode = splitmode::skip_empty);
+              splitmode mode = splitmode::skip_empty);
 
 } /* namespace strin_utils */
 } /* namespace aeon */

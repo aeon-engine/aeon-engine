@@ -17,9 +17,9 @@ public:
     memory_stream(buffer_ptr buffer, int mode = access_mode::read_write);
 
     memory_stream(const std::string &name, 
-        delete_mode delete_mode = delete_mode::delete_on_destruct);
+                  delete_mode delete_mode = delete_mode::delete_on_destruct);
     memory_stream(const std::string &name, buffer_ptr buffer, 
-        int mode = access_mode::read_write);
+                  int mode = access_mode::read_write);
 
     ~memory_stream();
 

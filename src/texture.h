@@ -8,7 +8,7 @@ class texture : public resource
 {
 public:
     texture(resource_manager *creator, const std::string &name, 
-        std::uint64_t handle);
+            std::uint64_t handle);
     virtual ~texture();
 
     void bind();

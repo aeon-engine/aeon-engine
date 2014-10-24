@@ -7,9 +7,8 @@ namespace aeon
 namespace platforms
 {
 
-glfw::glfw()
-:
-window_(NULL)
+glfw::glfw() :
+    window_(NULL)
 {
 }
 

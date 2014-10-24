@@ -4,10 +4,9 @@ namespace aeon
 {
 
 texture::texture(resource_manager *creator, const std::string &name, 
-    std::uint64_t handle)
-:
-resource(creator, name, handle),
-texture_(0)
+                 std::uint64_t handle) :
+    resource(creator, name, handle),
+    texture_(0)
 {
 
 }

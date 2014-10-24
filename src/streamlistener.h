@@ -11,7 +11,7 @@ public:
     ~console_stream_listener();
 
     void on_log_message(double time_diff, console::log_level level, 
-        const std::string &message);
+                        const std::string &message);
 
 private:
     stream_ptr stream_;

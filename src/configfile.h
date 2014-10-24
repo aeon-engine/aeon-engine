@@ -39,7 +39,7 @@ public:
      * \returns The value or the default value
      */
     std::string get_string(const std::string &key, 
-        const std::string &default_val);
+                           const std::string &default_val);
 
     /*!
     * Get an integer value from the loaded config file.

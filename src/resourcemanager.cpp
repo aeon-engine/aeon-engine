@@ -3,9 +3,8 @@
 namespace aeon
 {
 
-resource_manager::resource_manager()
-:
-last_resource_handle_(0)
+resource_manager::resource_manager() :
+    last_resource_handle_(0)
 {
 }
 
@@ -50,7 +49,7 @@ resource_ptr resource_manager::load(const std::string &name)
     // Check if the resource was already loaded
     auto resource = __get_resource_by_name(name);
 
-    if(resource)
+    if (resource)
         return resource;
 
     file_stream_ptr filestream = std::make_shared<file_stream>(name, 
@@ -75,7 +74,7 @@ resource_ptr resource_manager::load(const std::string &name)
 
 bool resource_manager::unload(resource_ptr resource)
 {
-    if(!resource)
+    if (!resource)
     {
         console::warning("[ResourceManager]: Resource given to unload was "
             "NULL.");
@@ -102,7 +101,7 @@ int resource_manager::finalize_resources()
     std::lock_guard<std::mutex> lock(resource_queue_mutex_);
     
     int count = 0;
-    while(!resource_queue_.empty())
+    while (!resource_queue_.empty())
     {
         bool result = false;
 
@@ -127,7 +126,7 @@ int resource_manager::finalize_resources()
         ++count;
     }
 
-    if(count > 0)
+    if (count > 0)
         console::debug("[ResourceManager]: Finalized %u resources.", count);
 
     return count;
@@ -154,7 +153,7 @@ resource_ptr resource_manager::__load(stream_ptr stream)
         return nullptr;
     }
 
-    if(!resource->__load(stream))
+    if (!resource->__load(stream))
     {
         console::warning("[ResourceManager]: Could not load resource '%s' "
             "from stream. Load failed.", stream->get_name().c_str());
@@ -171,7 +170,7 @@ resource_ptr resource_manager::__load(stream_ptr stream)
 }
 
 bool resource_manager::__unload(const std::string &name, 
-    resources::iterator itr)
+                                resources::iterator itr)
 {
     if (itr == resources_.end())
     {
@@ -200,8 +199,8 @@ void resource_manager::__add_to_finalize_queue(resource_ptr resource)
     resource_queue_.push(resource);
 }
 
-resource_manager::resources::
-    iterator resource_manager::__find_resource_by_name(const std::string &name)
+resource_manager::resources::iterator
+    resource_manager::__find_resource_by_name(const std::string &name)
 {
     resources::iterator itr = std::find_if(
         resources_.begin(),
@@ -215,8 +214,8 @@ resource_manager::resources::
     return itr;
 }
 
-resource_manager::resources::
-    iterator resource_manager::__find_resource_by_handle(std::uint64_t handle)
+resource_manager::resources::iterator
+    resource_manager::__find_resource_by_handle(std::uint64_t handle)
 {
     resources::iterator itr = std::find_if(
         resources_.begin(),

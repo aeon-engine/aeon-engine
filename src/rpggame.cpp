@@ -3,8 +3,7 @@
 namespace aeon
 {
 
-rpg_game::rpg_game()
-    :
+rpg_game::rpg_game() :
     gamestate_game_(std::make_shared<game_state_game>())
 {
 

@@ -59,7 +59,7 @@ public:
      * \sa DeleteMode 
      */
     buffer(void *buffer, size_t size, 
-        delete_mode mode = delete_mode::delete_on_destruct);
+           delete_mode mode = delete_mode::delete_on_destruct);
 
     /*!
      * Destructor
