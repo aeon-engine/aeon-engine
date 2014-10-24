@@ -3,12 +3,12 @@
 namespace aeon
 {
 
-model::model()
+scene::scene()
 {
 
 }
 
-model::~model()
+scene::~scene()
 {
 
 }

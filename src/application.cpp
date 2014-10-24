@@ -37,6 +37,9 @@ void application::main(int argc, char *argv[])
 
     mat = material_manager::get_singleton().load("resources/materials/testmaterial.mat");
 
+	file_stream_ptr file = std::make_shared<file_stream>("resources/scenes/testscene2.dae", file_stream::access_mode::read);
+	scene_codec_manager::get_singleton().decode("ASSIMP", file);
+
     // Enter the main loop
     root::get_singleton().run();
 }

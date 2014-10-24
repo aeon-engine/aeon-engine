@@ -4,17 +4,17 @@
 namespace aeon
 {
 
-class model
+class scene
 {
 public:
-    model();
-    ~model();
+    scene();
+    ~scene();
 
 private:
 
 };
 
-typedef std::shared_ptr<model> model_ptr;
+typedef std::shared_ptr<scene> scene_ptr;
 
 } /* namespace aeon */
 

@@ -16,7 +16,7 @@ buffer::buffer(size_t size,
     delete_mode mode /*= delete_mode::delete_on_destruct*/)
 :
 buffer_(NULL),
-size_(0),
+size_(size),
 reserved_size_(0),
 delete_mode_(mode)
 {

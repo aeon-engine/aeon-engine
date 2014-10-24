@@ -52,6 +52,12 @@
 #  include <GLFW/glfw3.h>
 #endif
 
+#ifdef AEON_USE_ASSIMP
+#  include <assimp/Importer.hpp>
+#  include <assimp/scene.h>
+#  include <assimp/postprocess.h>
+#endif
+
 #include <glm/glm.hpp>
 
 /************************************************************************/
@@ -87,12 +93,12 @@
 #  include "imagecodecpng.h"
 #endif
 
-#include "model.h"
-#include "modelcodec.h"
-#include "modelcodecmanager.h"
+#include "scene.h"
+#include "scenecodec.h"
+#include "scenecodecmanager.h"
 
 #ifdef AEON_USE_ASSIMP
-#  include "modelcodecassimp.h"
+#  include "scenecodecassimp.h"
 #endif
 
 #include "resource.h"

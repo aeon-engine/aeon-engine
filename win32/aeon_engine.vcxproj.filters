@@ -96,17 +96,17 @@
     <ClInclude Include="..\src\materialmanager.h">
       <Filter>resources\materials</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\modelcodec.h">
-      <Filter>resources\models</Filter>
+    <ClInclude Include="..\src\scene.h">
+      <Filter>resources\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\modelcodecassimp.h">
-      <Filter>resources\models</Filter>
+    <ClInclude Include="..\src\scenecodec.h">
+      <Filter>resources\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\modelcodecmanager.h">
-      <Filter>resources\models</Filter>
+    <ClInclude Include="..\src\scenecodecassimp.h">
+      <Filter>resources\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\model.h">
-      <Filter>resources\models</Filter>
+    <ClInclude Include="..\src\scenecodecmanager.h">
+      <Filter>resources\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -189,14 +189,14 @@
     <ClCompile Include="..\src\materialmanager.cpp">
       <Filter>resources\materials</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\modelcodecassimp.cpp">
-      <Filter>resources\models</Filter>
+    <ClCompile Include="..\src\scene.cpp">
+      <Filter>resources\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\modelcodecmanager.cpp">
-      <Filter>resources\models</Filter>
+    <ClCompile Include="..\src\scenecodecassimp.cpp">
+      <Filter>resources\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\model.cpp">
-      <Filter>resources\models</Filter>
+    <ClCompile Include="..\src\scenecodecmanager.cpp">
+      <Filter>resources\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,7 +236,7 @@
     <Filter Include="resources\materials">
       <UniqueIdentifier>{ae9b2e9a-7c3f-4036-9185-cd3e85ed5bc1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resources\models">
+    <Filter Include="resources\scenes">
       <UniqueIdentifier>{f2d8c012-6b53-4f87-82cd-c5b8a79b2cd0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

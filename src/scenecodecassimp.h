@@ -4,13 +4,13 @@
 namespace aeon
 {
 
-class model_codec_assimp : public model_codec
+class scene_codec_assimp : public scene_codec
 {
 public:
-    model_codec_assimp();
-    virtual ~model_codec_assimp();
+    scene_codec_assimp();
+    virtual ~scene_codec_assimp();
 
-    virtual model_ptr decode(stream_ptr stream);
+    virtual scene_ptr decode(stream_ptr stream);
     virtual std::string get_type_name() const;
 };
 

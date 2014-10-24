@@ -4,18 +4,18 @@
 namespace aeon
 {
 
-class model_codec
+class scene_codec
 {
 public:
-    model_codec() {}
-    virtual ~model_codec() {}
+    scene_codec() {}
+    virtual ~scene_codec() {}
 
-    virtual model_ptr decode(stream_ptr stream) = 0;
+    virtual scene_ptr decode(stream_ptr stream) = 0;
     virtual std::string get_type_name() const = 0;
 
 };
 
-typedef std::shared_ptr<model_codec> model_codec_ptr;
+typedef std::shared_ptr<scene_codec> scene_codec_ptr;
 
 } /* namespace aeon */
 

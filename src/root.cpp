@@ -150,11 +150,11 @@ bool root::__initialize_impl(platforms::base_platform_ptr platform)
         std::make_shared<image_codec_png>());
 #endif
 
-    model_codec_manager::create();
+    scene_codec_manager::create();
 
 #ifdef AEON_USE_ASSIMP
-    model_codec_manager::get_singleton().register_codec(
-        std::make_shared<model_codec_assimp>());
+    scene_codec_manager::get_singleton().register_codec(
+        std::make_shared<scene_codec_assimp>());
 #endif
 
     texture_manager::create();

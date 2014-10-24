@@ -3,19 +3,19 @@
 namespace aeon
 {
 
-aeon_initialize_singleton(aeon::model_codec_manager);
+aeon_initialize_singleton(aeon::scene_codec_manager);
 
-model_codec_manager::model_codec_manager()
+scene_codec_manager::scene_codec_manager()
 {
 
 }
 
-model_codec_manager::~model_codec_manager()
+scene_codec_manager::~scene_codec_manager()
 {
 
 }
 
-void model_codec_manager::register_codec(model_codec_ptr codec)
+void scene_codec_manager::register_codec(scene_codec_ptr codec)
 {
     if (!codec)
         return;
@@ -24,7 +24,7 @@ void model_codec_manager::register_codec(model_codec_ptr codec)
     registered_codecs_[name] = codec;
 }
 
-model_ptr model_codec_manager::decode(const std::string &name,
+scene_ptr scene_codec_manager::decode(const std::string &name,
     stream_ptr stream)
 {
     auto codec = registered_codecs_.find(name);
