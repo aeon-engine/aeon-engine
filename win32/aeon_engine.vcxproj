@@ -57,6 +57,7 @@
     <ClInclude Include="..\src\stream.h" />
     <ClInclude Include="..\src\streamlistener.h" />
     <ClInclude Include="..\src\stringutils.h" />
+    <ClInclude Include="..\src\submesh.h" />
     <ClInclude Include="..\src\texture.h" />
     <ClInclude Include="..\src\texturemanager.h" />
     <ClInclude Include="..\src\timer.h" />

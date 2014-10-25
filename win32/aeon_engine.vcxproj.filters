@@ -114,6 +114,9 @@
     <ClInclude Include="..\src\mesh.h">
       <Filter>resources\meshes</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\submesh.h">
+      <Filter>resources\meshes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
