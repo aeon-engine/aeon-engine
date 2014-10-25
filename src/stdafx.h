@@ -105,11 +105,13 @@
 #include "texture.h"
 #include "shader.h"
 #include "material.h"
+#include "mesh.h"
 
 #include "resourcemanager.h"
 #include "texturemanager.h"
 #include "shadermanager.h"
 #include "materialmanager.h"
+#include "meshmanager.h"
 
 #include "gamestate.h"
 #include "game.h"

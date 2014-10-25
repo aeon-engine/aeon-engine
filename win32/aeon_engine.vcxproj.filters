@@ -108,6 +108,12 @@
     <ClInclude Include="..\src\scenecodecmanager.h">
       <Filter>resources\scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\meshmanager.h">
+      <Filter>resources\meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mesh.h">
+      <Filter>resources\meshes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
@@ -198,6 +204,12 @@
     <ClCompile Include="..\src\scenecodecmanager.cpp">
       <Filter>resources\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mesh.cpp">
+      <Filter>resources\meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\meshmanager.cpp">
+      <Filter>resources\meshes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="console">
@@ -238,6 +250,9 @@
     </Filter>
     <Filter Include="resources\scenes">
       <UniqueIdentifier>{f2d8c012-6b53-4f87-82cd-c5b8a79b2cd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\meshes">
+      <UniqueIdentifier>{46da5e30-5faf-40e7-a0b4-b285d0c3ffcc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

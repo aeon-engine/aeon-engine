@@ -3,7 +3,6 @@
 namespace aeon
 {
 
-
 scene_codec_assimp::scene_codec_assimp()
 {
 
