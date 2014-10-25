@@ -3,9 +3,8 @@
 namespace aeon
 {
 
-console_stream_listener::console_stream_listener(stream_ptr stream)
-:
-stream_(stream)
+console_stream_listener::console_stream_listener(stream_ptr stream) :
+    stream_(stream)
 {
 
 }
@@ -16,16 +15,17 @@ console_stream_listener::~console_stream_listener()
 }
 
 void console_stream_listener::on_log_message(double time_diff, 
-    console::log_level level, const std::string &message)
+                                             console::log_level level,
+                                             const std::string &message)
 {
-    if(!stream_)
+    if (!stream_)
         return;
     
     std::string time_string = aeon::string_utils::float_to_string(
         (float) time_diff, 10) + ' ';
     stream_->write(time_string);
 
-    switch(level)
+    switch (level)
     {
         case console::log_level::error:
         {

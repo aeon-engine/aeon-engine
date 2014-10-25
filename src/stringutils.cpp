@@ -27,7 +27,9 @@ std::string int_to_hex_string(int val, int length /* = 0 */)
     if (length == 0)
     {
         stream << std::hex << val;
-    }else{
+    }
+    else
+    {
         stream << std::hex << std::setw(length) << std::setfill('0') << val;
     }
 
@@ -111,7 +113,7 @@ glm::fvec4 string_to_vector4f(const std::string &str)
 /* String splitting                                                     */
 /************************************************************************/
 strings &split(const std::string &s, char delim, strings &elems, 
-    splitmode mode /* = SplitMode::SkipEmpty */)
+               splitmode mode /* = SplitMode::SkipEmpty */)
 {
     std::stringstream ss(s);
     std::string item;
@@ -129,7 +131,7 @@ strings &split(const std::string &s, char delim, strings &elems,
 }
 
 strings split(const std::string &s, char delim, 
-    splitmode mode /* = SplitMode::SkipEmpty */)
+              splitmode mode /* = SplitMode::SkipEmpty */)
 {
     strings elems;
     split(s, delim, elems, mode);

@@ -17,7 +17,7 @@ image_codec_manager::~image_codec_manager()
 
 void image_codec_manager::register_codec(image_codec_ptr codec)
 {
-    if(!codec)
+    if (!codec)
         return;
     
     const std::string &name = codec->get_type_name();
@@ -25,12 +25,12 @@ void image_codec_manager::register_codec(image_codec_ptr codec)
 }
 
 image_ptr image_codec_manager::decode(const std::string &name, 
-    stream_ptr stream)
+                                      stream_ptr stream)
 {
     auto codec = registered_codecs_.find(name);
 
     // Could not find the codec?
-    if(codec == registered_codecs_.end())
+    if (codec == registered_codecs_.end())
     {
         console::error("ImageCodecManager: Could not decode stream. "
             "Unknown decoder: '%s'", name.c_str());

@@ -3,33 +3,30 @@
 namespace aeon
 {
 
-buffer::buffer()
-:
-buffer_(NULL),
-size_(0),
-reserved_size_(0),
-delete_mode_(delete_mode::delete_on_destruct)
+buffer::buffer() :
+    buffer_(NULL),
+    size_(0),
+    reserved_size_(0),
+    delete_mode_(delete_mode::delete_on_destruct)
 {
 }
 
 buffer::buffer(size_t size, 
-    delete_mode mode /*= delete_mode::delete_on_destruct*/)
-:
-buffer_(NULL),
-size_(size),
-reserved_size_(0),
-delete_mode_(mode)
+               delete_mode mode /*= delete_mode::delete_on_destruct*/) :
+    buffer_(NULL),
+    size_(size),
+    reserved_size_(size),
+    delete_mode_(mode)
 {
     reserve(size);
 }
 
 buffer::buffer(void *buffer, size_t size, 
-    delete_mode mode /*= DeleteMode::delete_on_destruct*/)
-:
-buffer_(buffer),
-size_(0),
-reserved_size_(size),
-delete_mode_(mode)
+               delete_mode mode /*= DeleteMode::delete_on_destruct*/) :
+    buffer_(buffer),
+    size_(size),
+    reserved_size_(size),
+    delete_mode_(mode)
 {
 }
 
@@ -42,7 +39,7 @@ buffer::~buffer()
 bool buffer::reserve(size_t n)
 {
     // Do we already have this many bytes reserved?
-    if(n <= reserved_size_)
+    if (n <= reserved_size_)
         return true;
 
     // Resize the array if we're requesting more bytes
@@ -60,10 +57,10 @@ bool buffer::resize(size_t n)
     void *new_buffer = realloc(buffer_, n);
 
     // Did we fail to reallocate our buffer?
-    if(new_buffer == NULL)
+    if (new_buffer == NULL)
     {
         // Do we have data at all?
-        if(buffer_ != NULL)
+        if (buffer_ != NULL)
         {
             console::warning("[Buffer]: Failed to reallocate buffer from "
                 "%u to %u. Trying copy.", reserved_size_, n);
@@ -108,10 +105,10 @@ bool buffer::resize(size_t n)
 bool buffer::append(void *data, size_t len)
 {
     // Does our appended data fit?
-    if(size_ + len > reserved_size_)
+    if (size_ + len > reserved_size_)
     {
         // Make sure our buffer is able to fit this data
-        if(!reserve(reserved_size_ + len))
+        if (!reserve(reserved_size_ + len))
             return false;
     }
 

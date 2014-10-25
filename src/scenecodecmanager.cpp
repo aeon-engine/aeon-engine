@@ -25,7 +25,7 @@ void scene_codec_manager::register_codec(scene_codec_ptr codec)
 }
 
 scene_ptr scene_codec_manager::decode(const std::string &name,
-    stream_ptr stream)
+                                      stream_ptr stream)
 {
     auto codec = registered_codecs_.find(name);
 

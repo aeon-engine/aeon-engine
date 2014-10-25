@@ -3,11 +3,10 @@
 namespace aeon
 {
 
-image::image()
-:
-width_(0),
-height_(0),
-pixel_format_(pixel_format::rgba)
+image::image() :
+    width_(0),
+    height_(0),
+    pixel_format_(pixel_format::rgba)
 {
 
 }
@@ -18,9 +17,10 @@ image::~image()
 }
 
 void image::set_data(buffer_ptr buffer, unsigned int width, 
-    unsigned int height, pixel_format pixelformat /*= pixel_format::rgba*/)
+                     unsigned int height, 
+                     pixel_format pixelformat /*= pixel_format::rgba*/)
 {
-    if(buffer == NULL || buffer->get() == NULL)
+    if (buffer == NULL || buffer->get() == NULL)
     {
         console::error("[Image]: Tried creating an image from an "
             "empty buffer.");
@@ -35,19 +35,19 @@ void image::set_data(buffer_ptr buffer, unsigned int width,
 
 bool image::save_raw_to_stream(stream_ptr stream)
 {
-    if(!stream)
+    if (!stream)
         return false;
 
-    if(!stream->good())
+    if (!stream->good())
         return false;
 
-    if(!buffer_)
+    if (!buffer_)
         return false;
 
-    if(buffer_->get() == NULL)
+    if (buffer_->get() == NULL)
         return false;
 
-    if(stream->write(buffer_->get(), buffer_->size()) != buffer_->size())
+    if (stream->write(buffer_->get(), buffer_->size()) != buffer_->size())
         return false;
 
     return true;

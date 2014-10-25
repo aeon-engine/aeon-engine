@@ -5,10 +5,9 @@ namespace aeon
 
 aeon_initialize_singleton(root);
 
-root::root(platforms::base_platform_ptr platform)
-:
-initialized_(false),
-running_(false)
+root::root(platforms::base_platform_ptr platform) :
+    initialized_(false),
+    running_(false)
 {
     platform_ = platform;
 }
@@ -20,7 +19,7 @@ root::~root()
 
 bool root::initialize(platforms::base_platform_ptr platform)
 {
-    if(!instance_)
+    if (!instance_)
     {
         root *r = new root(platform);
         if (!r)
@@ -55,24 +54,24 @@ void root::run()
         texture_manager::get_singleton().finalize_resources();
         material_manager::get_singleton().finalize_resources();
 
-        if(!platform_->pre_frame())
+        if (!platform_->pre_frame())
             break;
 
-        for(framelistener *framelistener : frame_listeners_)
+        for (framelistener *framelistener : frame_listeners_)
         {
             framelistener->on_frame(dt);
         }
 
-        for(framelistener *framelistener : frame_listeners_)
+        for (framelistener *framelistener : frame_listeners_)
         {
             framelistener->on_render();
         }
 
-        if(!platform_->post_frame())
+        if (!platform_->post_frame())
             break;
     }
 
-    if(!platform_->dispose())
+    if (!platform_->dispose())
         console::error("[Root] Platform reported an error while disposing.");
 
     // TODO: Make sure everything gets properly deleted and freed.

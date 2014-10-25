@@ -8,12 +8,12 @@ namespace aeon
 {
 
 static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, 
-    png_size_t output_size)
+                                png_size_t output_size)
 {
     stream_ptr *stream = static_cast<stream_ptr *>(png_get_io_ptr(png_ptr));
 
     // Do we have a stream?
-    if(!stream)
+    if (!stream)
     {
         console::error("[ImageCodec]: Could not decode PNG. Stream was null "
             "in read callback.");
@@ -21,7 +21,7 @@ static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr,
     }
 
     // Read the data
-    if((*stream)->read(output_ptr, (size_t) output_size) != output_size)
+    if ((*stream)->read(output_ptr, (size_t) output_size) != output_size)
     {
         console::error("[ImageCodec]: Could not decode PNG. Unexpected end "
             "of stream in read callback.");
@@ -49,7 +49,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
         return nullptr;
     }
 
-    if(!stream->good())
+    if (!stream->good())
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "Stream was bad.", stream->get_name().c_str());
@@ -80,6 +80,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     // Create the read struct for PNG
     png_structp png_ptr = png_create_read_struct(
         PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+
     if (!png_ptr)
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "

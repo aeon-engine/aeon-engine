@@ -11,7 +11,7 @@ bool configfile::has_entry(const std::string &key)
 }
 
 std::string configfile::get_string(const std::string &key, 
-    const std::string &default_val)
+                                   const std::string &default_val)
 {
     auto itr = entries_.find(key);
 
@@ -66,7 +66,8 @@ bool configfile::get_boolean(const std::string &key, bool default_val)
     return string_utils::string_to_bool(itr->second);
 }
 
-glm::fvec4 configfile::get_vector4f(const std::string &key, glm::fvec4 default_val)
+glm::fvec4 configfile::get_vector4f(const std::string &key,
+                                    glm::fvec4 default_val)
 {
     auto itr = entries_.find(key);
 
@@ -106,7 +107,7 @@ void configfile::set_vector4f(const std::string &key, glm::fvec4 val)
 
 bool configfile::load(stream_ptr stream)
 {
-    if(!stream->good())
+    if (!stream->good())
     {
         console::warning("[ConfigFile]: Could not load config file: %s",
             stream->get_name().c_str());
@@ -121,25 +122,25 @@ bool configfile::load(stream_ptr stream)
     // Loop through all lines
     int linenumber = 0;
     std::string header_name = "";
-    while(!stream->eof())
+    while (!stream->eof())
     {
         linenumber++;
 
         std::string line;
-        if(stream->read_line(line) == 0)
+        if (stream->read_line(line) == 0)
             continue;
 
-        if(line.empty())
+        if (line.empty())
             continue;
 
         size_t length = line.size();
 
         // Ignore comments
-        if(line[0] == '#')
+        if (line[0] == '#')
             continue;
 
         // Is it a header?
-        if(line[0] == '[')
+        if (line[0] == '[')
         {
             // Then it should end with a ']'
             if (line[length - 1] == ']')
@@ -150,7 +151,7 @@ bool configfile::load(stream_ptr stream)
         }
 
         // A header name should have been set beyond this point.
-        if(header_name == "")
+        if (header_name == "")
         {
             console::warning("[ConfigFile]: Ignoring invalid line in config "
                 "file %s line %u. No header was found.", 
@@ -160,7 +161,7 @@ bool configfile::load(stream_ptr stream)
 
         size_t pos = line.find_first_of('=');
 
-        if(pos == std::string::npos || pos == 0)
+        if (pos == std::string::npos || pos == 0)
         {
             console::warning("[ConfigFile]: Ignoring invalid line in config "
                 "file %s line %u.", stream->get_name().c_str(), linenumber);
@@ -183,7 +184,7 @@ bool configfile::load(stream_ptr stream)
 
 void configfile::save(stream_ptr stream)
 {
-    if(!stream->good())
+    if (!stream->good())
     {
         console::error("[ConfigFile]: Could not save config file: %s",
             stream->get_name().c_str());
@@ -192,13 +193,13 @@ void configfile::save(stream_ptr stream)
 
     // Loop through all entries to save to file
     std::string header_name = "";
-    for(auto itr : entries_)
+    for (auto itr : entries_)
     {
         string_utils::strings key = string_utils::split(
             itr.first, '.', string_utils::splitmode::skip_empty);
 
         // Do we have a new header name?
-        if(key[0] != header_name)
+        if (key[0] != header_name)
         {
             header_name = key[0];
             stream->write("[" + header_name + "]\n");

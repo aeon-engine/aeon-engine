@@ -3,20 +3,18 @@
 namespace aeon
 {
 
-stream::stream(int mode /*= access_mode::read*/)
-:
-has_name_(false),
-name_(AEON_STREAM_DEFAULT_NAME),
-size_(0),
-access_mode_(mode)
+stream::stream(int mode /*= access_mode::read*/) :
+    has_name_(false),
+    name_(AEON_STREAM_DEFAULT_NAME),
+    size_(0),
+    access_mode_(mode)
 {}
 
-stream::stream(const std::string &name, int mode /*= access_mode::read*/)
-:
-has_name_(true),
-name_(name),
-size_(0),
-access_mode_(mode)
+stream::stream(const std::string &name, int mode /*= access_mode::read*/) :
+    has_name_(true),
+    name_(name),
+    size_(0),
+    access_mode_(mode)
 {}
 
 stream::~stream()
@@ -41,7 +39,7 @@ size_t stream::write(const std::string &str)
 
 size_t stream::write(buffer_ptr buffer)
 {
-    if(!buffer)
+    if (!buffer)
     {
         console::error("Stream: Tried writing an empty buffer to a stream.");
         return 0;
@@ -52,7 +50,7 @@ size_t stream::write(buffer_ptr buffer)
 
 size_t stream::read_line(std::string &str)
 {
-    if(!(access_mode_ & access_mode::read))
+    if (!(access_mode_ & access_mode::read))
     {
         console::error("Stream: Read on write-only stream.");
         return 0;
@@ -68,11 +66,11 @@ size_t stream::read_line(std::string &str)
         result = read(c);
 
         // Could we read anything?
-        if(!result)
+        if (!result)
             break;
 
         // Check if it's a line-ending character
-        if(c == '\n')
+        if (c == '\n')
         {
             // Peek if the next character is a '\r'
             result = peek(c);
@@ -85,7 +83,7 @@ size_t stream::read_line(std::string &str)
         }
 
         // Check if it's a line-ending character
-        if(c == '\r')
+        if (c == '\r')
         {
             // Peek if the next character is a '\n'
             result = peek(c);

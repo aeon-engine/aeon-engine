@@ -4,7 +4,7 @@ namespace aeon
 {
 
 material::material(resource_manager *creator, const std::string &name,
-    std::uint64_t handle) :
+                   std::uint64_t handle) :
     resource(creator, name, handle),
     ambient(AEON_MATERIAL_DEFAULT_AMBIENT),
     diffuse(AEON_MATERIAL_DEFAULT_DIFFUSE),
@@ -14,12 +14,10 @@ material::material(resource_manager *creator, const std::string &name,
     shader_resource(nullptr),
     texture_resource({{nullptr}})
 {
-
 }
 
 material::~material()
 {
-
 }
 
 bool material::__load_impl(stream_ptr stream)

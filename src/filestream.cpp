@@ -4,10 +4,9 @@ namespace aeon
 {
 
 file_stream::file_stream(const std::string &path, 
-    int mode /*= access_mode::read*/)
-:
-stream(path, mode),
-file_(NULL)
+                         int mode /*= access_mode::read*/) :
+    stream(path, mode),
+    file_(NULL)
 {
     if (mode == (access_mode::read | access_mode::write))
     {
@@ -25,12 +24,12 @@ file_stream::~file_stream()
 
 void file_stream::__open_file()
 {
-    if(access_mode_ == access_mode::read)
+    if (access_mode_ == access_mode::read)
         file_ = fopen(name_.c_str(), "rb");
     else
         file_ = fopen(name_.c_str(), "wb");
 
-    if(!file_)
+    if (!file_)
     {
         console::error("[FileStream]: Could not open file: %s", name_.c_str());
         return;
@@ -42,48 +41,48 @@ void file_stream::__open_file()
 
 void file_stream::__calculate_file_size()
 {
-    if(!file_)
+    if (!file_)
     {
         console::error("[FileStream]: Size requested on unopened file.");
         return;
     }
 
-    if(!seek(0, seek_direction::end))
+    if (!seek(0, seek_direction::end))
         console::error("[FileStream]: Could not determine file size for file: "
             "%s. Seek end failed.", name_.c_str());
 
     size_ = ftell(file_);
 
-    if(size_ == 0)
+    if (size_ == 0)
         console::warning("[FileStream]: File is empty: %s", name_.c_str());
 
-    if(!seek(0, seek_direction::begin))
+    if (!seek(0, seek_direction::begin))
         console::error("[FileStream]: Could not determine file size for file: "
             "%s. Seek begin failed.", name_.c_str());
 }
 
 size_t file_stream::read(void *buffer, size_t count)
 {
-    if(!file_)
+    if (!file_)
     {
         console::error("[FileStream]: Read on unopened file.");
         return 0;
     }
 
-    if(access_mode_ != access_mode::read)
+    if (access_mode_ != access_mode::read)
     {
         console::error("[FileStream]: Can not read from file in write mode "
             "for file %s.", name_.c_str());
         return 0;
     }
 
-    if(!buffer)
+    if (!buffer)
     {
         console::error("[FileStream]: Input buffer is NULL.");
         return 0;
     }
 
-    if(count == 0)
+    if (count == 0)
     {
         console::warning("[FileStream]: Tried writing 0 bytes.");
         return 0;
@@ -94,7 +93,7 @@ size_t file_stream::read(void *buffer, size_t count)
 
 bool file_stream::read(std::uint8_t &data)
 {
-    if(access_mode_ != access_mode::read)
+    if (access_mode_ != access_mode::read)
     {
         console::error("[FileStream]: Can not read from file in write mode "
             "for file %s.", name_.c_str());
@@ -103,7 +102,7 @@ bool file_stream::read(std::uint8_t &data)
 
     int c = fgetc(file_);
 
-    if(c == EOF)
+    if (c == EOF)
         return false;
 
     data = (std::uint8_t) c;
@@ -112,7 +111,7 @@ bool file_stream::read(std::uint8_t &data)
 
 bool file_stream::peek(std::uint8_t &data)
 {
-    if(access_mode_ != access_mode::read)
+    if (access_mode_ != access_mode::read)
     {
         console::error("[FileStream]: Can not peek from file in write mode "
             "for file %s.", name_.c_str());
@@ -121,11 +120,11 @@ bool file_stream::peek(std::uint8_t &data)
 
     int c = fgetc(file_);
 
-    if(c == EOF)
+    if (c == EOF)
         return false;
 
     // TODO: research if there is a good alternative for this.
-    if(ungetc(c, file_) == EOF)
+    if (ungetc(c, file_) == EOF)
         return false;
 
     data = (std::uint8_t) c;
@@ -134,26 +133,26 @@ bool file_stream::peek(std::uint8_t &data)
 
 size_t file_stream::write(const void *buffer, size_t count)
 {
-    if(!file_)
+    if (!file_)
     {
         console::error("[FileStream]: Write on unopened file.");
         return 0;
     }
 
-    if(access_mode_ != access_mode::write)
+    if (access_mode_ != access_mode::write)
     {
         console::error("[FileStream]: Can not write to file in read mode "
             "for file %s.", name_.c_str());
         return 0;
     }
 
-    if(!buffer)
+    if (!buffer)
     {
         console::error("[FileStream]: Input buffer is NULL.");
         return 0;
     }
 
-    if(count == 0)
+    if (count == 0)
     {
         console::warning("[FileStream]: Tried writing 0 bytes.");
         return 0;
@@ -164,13 +163,13 @@ size_t file_stream::write(const void *buffer, size_t count)
 
 bool file_stream::seek(size_t pos, seek_direction direction)
 {
-    if(!file_)
+    if (!file_)
     {
         console::error("[FileStream]: Seek on unopened file.");
         return false;
     }
 
-    switch(direction)
+    switch (direction)
     {
         case seek_direction::begin:
         {

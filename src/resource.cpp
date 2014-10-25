@@ -4,12 +4,11 @@ namespace aeon
 {
 
 resource::resource(resource_manager *creator, const std::string &name, 
-    std::uint64_t handle)
-:
-creator_(creator),
-name_(name),
-handle_(handle),
-state_(state::empty)
+                   std::uint64_t handle) :
+    creator_(creator),
+    name_(name),
+    handle_(handle),
+    state_(state::empty)
 {
 
 }
@@ -30,7 +29,7 @@ bool resource::__load(stream_ptr stream)
 
     bool result = __load_impl(stream);
 
-    if(result)
+    if (result)
         state_ = state::ready_for_finalize;
 
     return result;
@@ -38,7 +37,7 @@ bool resource::__load(stream_ptr stream)
 
 bool resource::__unload()
 {
-    if(state_ != state::loaded)
+    if (state_ != state::loaded)
     {
         console::warning("[Resource]: Unload called on resource while in "
             "wrong state: %u", (int) state_.load());
@@ -60,7 +59,7 @@ bool resource::__finalize()
 
     bool result = __finalize_impl();
 
-    if(result)
+    if (result)
         state_ = state::loaded;
 
     return result;

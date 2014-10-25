@@ -4,13 +4,12 @@ namespace aeon
 {
 
 shader::shader(resource_manager *creator, const std::string &name, 
-    std::uint64_t handle)
-:
-resource(creator, name, handle),
-program_(0),
-matrix_handle_(0),
-texture0_handle_(0),
-color_handle_(0)
+               std::uint64_t handle) :
+    resource(creator, name, handle),
+    program_(0),
+    matrix_handle_(0),
+    texture0_handle_(0),
+    color_handle_(0)
 {
 
 }
@@ -59,7 +58,7 @@ bool shader::__load_impl(stream_ptr stream)
             {
                 // If we had previously read vertex shader source before,
                 // we did not expect another [vertex] tag.
-                if(!vertex_src_.empty())
+                if (!vertex_src_.empty())
                 {
                     console::warning("[Shader]: Unexpected line '[vertex]' "
                         "in shader %s at line %u", stream->get_name().c_str(), 
@@ -68,7 +67,9 @@ bool shader::__load_impl(stream_ptr stream)
                 }
                 
                 parsing_program_type = program_type::vertex;
-            }else{
+            }
+            else
+            {
                 console::warning("[Shader]: Unexpected line '[vertex]' "
                     "in shader %s at line %u", stream->get_name().c_str(), 
                     linenumber);
@@ -84,7 +85,7 @@ bool shader::__load_impl(stream_ptr stream)
             {
                 // If we had previously read fragment shader source before,
                 // we did not expect another [fragment] tag.
-                if(!fragment_src_.empty())
+                if (!fragment_src_.empty())
                 {
                     console::warning("[Shader]: Unexpected line '[fragment]' "
                         "in shader %s at line %u", stream->get_name().c_str(), 
@@ -94,18 +95,21 @@ bool shader::__load_impl(stream_ptr stream)
                 
                 parsing_program_type = program_type::fragment;
             }
-            else{
+            else
+            {
                 console::warning("[Shader]: Unexpected line '[fragment]' in "
                     "shader %s at line %u", stream->get_name().c_str(), 
                     linenumber);
                 warning_count++;
             }
-        }else{
-            if(parsing_program_type == program_type::fragment)
+        }
+        else
+        {
+            if (parsing_program_type == program_type::fragment)
             {
                 fragment_src_ += line + "\n";
             }
-            else if(parsing_program_type == program_type::vertex)
+            else if (parsing_program_type == program_type::vertex)
             {
                 vertex_src_ += line + "\n";
             }
