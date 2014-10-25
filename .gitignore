@@ -14,4 +14,8 @@ win32/testCaseCollection.xml
 .DS_Store
 build
 bin/aeon_engine
+bin/*.dll
+bin/*.lastcodeanalys*
+bin/*.7z
 xcuserdata
+*.cppcheck
