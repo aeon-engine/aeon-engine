@@ -174,7 +174,7 @@ bool memory_stream::seek(size_t pos, seek_direction direction)
     switch(direction)
     {
         case seek_direction::begin:
-		    { new_pos = pos; } 
+            { new_pos = pos; } 
             break;
         case seek_direction::current:
             { new_pos = buffer_offset_ + pos; } 

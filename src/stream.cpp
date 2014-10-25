@@ -77,7 +77,7 @@ size_t stream::read_line(std::string &str)
     for (int i = 0; i < AEON_STREAM_MAX_TEXT_LINE_LENGTH; ++i)
     {
         // Read a character
-		bool result = read(c);
+        bool result = read(c);
 
         // Could we read anything?
         if (!result)
