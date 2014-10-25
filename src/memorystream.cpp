@@ -83,7 +83,7 @@ size_t memory_stream::read(void *buffer, size_t count)
         count = buffer_->size() - buffer_offset_;
 
     // Are we really out of bounds?
-    if (count <= 0)
+    if (count == 0)
         return 0;
 
     // Copy our data

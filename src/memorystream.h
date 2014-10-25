@@ -44,8 +44,6 @@ public:
 
 protected:
     buffer_ptr buffer_;
-    delete_mode delete_mode_;
-
     size_t buffer_offset_;
 };
 
