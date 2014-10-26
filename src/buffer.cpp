@@ -19,7 +19,7 @@ namespace aeon
 {
 
 buffer::buffer() :
-    buffer_(NULL),
+    buffer_(nullptr),
     size_(0),
     reserved_size_(0),
     delete_mode_(delete_mode::delete_on_destruct)
@@ -28,12 +28,12 @@ buffer::buffer() :
 
 buffer::buffer(size_t size, 
                delete_mode mode /*= delete_mode::delete_on_destruct*/) :
-    buffer_(NULL),
+    buffer_(nullptr),
     size_(size),
     reserved_size_(size),
     delete_mode_(mode)
 {
-    reserve(size);
+    resize(size);
 }
 
 buffer::buffer(void *buffer, size_t size, 
@@ -43,6 +43,7 @@ buffer::buffer(void *buffer, size_t size,
     reserved_size_(size),
     delete_mode_(mode)
 {
+    resize(size);
 }
 
 buffer::~buffer()
@@ -72,10 +73,10 @@ bool buffer::resize(size_t n)
     void *new_buffer = realloc(buffer_, n);
 
     // Did we fail to reallocate our buffer?
-    if (new_buffer == NULL)
+    if (new_buffer == nullptr)
     {
         // Do we have data at all?
-        if (buffer_ != NULL)
+        if (buffer_ != nullptr)
         {
             console::warning("[Buffer]: Failed to reallocate buffer from "
                 "%u to %u. Trying copy.", reserved_size_, n);
@@ -144,7 +145,7 @@ void buffer::free()
     console::debug("[Buffer]: Freed %u bytes from %p.", 
         reserved_size_, buffer_);
 
-    buffer_ = NULL;
+    buffer_ = nullptr;
     size_ = 0;
     reserved_size_ = 0;
 }
