@@ -17,7 +17,7 @@
 #define singleton_h__
 
 #define aeon_initialize_singleton(type) \
-    template <> type * aeon::singleton <type>::instance_ = NULL
+    template <> type * aeon::singleton <type>::instance_ = nullptr
 
 namespace aeon
 {
@@ -28,10 +28,10 @@ class singleton
 public:
     singleton()
     {
-        assert(instance_ == NULL);
+        assert(instance_ == nullptr);
         instance_ = static_cast<type *>(this);
 
-        if (instance_ == NULL)
+        if (instance_ == nullptr)
         {
             throw std::exception();
         }
@@ -39,7 +39,7 @@ public:
 
     virtual ~singleton()
     {
-        instance_ = NULL;
+        instance_ = nullptr;
     }
 
     static type *create()
@@ -49,15 +49,15 @@ public:
 
     static void dispose()
     {
-        if (instance_ != NULL)
-            delete (type *)instance_;
+        if (instance_ != nullptr)
+            delete static_cast<type *>(instance_);
     }
 
     static type & get_singleton()
     {
         assert(instance_);
 
-        if (instance_ == NULL)
+        if (instance_ == nullptr)
         {
             throw std::exception();
         }

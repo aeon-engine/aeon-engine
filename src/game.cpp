@@ -19,7 +19,7 @@ namespace aeon
 {
 
 game::game() :
-    current_gamestate_(NULL)
+    current_gamestate_(nullptr)
 {
 
 }

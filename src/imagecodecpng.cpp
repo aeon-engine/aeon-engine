@@ -94,7 +94,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 
     // Create the read struct for PNG
     png_structp png_ptr = png_create_read_struct(
-        PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+        PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
     if (!png_ptr)
     {
@@ -109,7 +109,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "png_create_info_struct failed.", stream->get_name().c_str());
-        png_destroy_read_struct(&png_ptr, (png_infopp)NULL, (png_infopp)NULL);
+        png_destroy_read_struct(&png_ptr, (png_infopp) nullptr, (png_infopp) nullptr);
         return nullptr;
     }
 
@@ -119,7 +119,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "png_create_info_struct failed.", stream->get_name().c_str());
-        png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
+        png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp) nullptr);
         return nullptr;
     }
 
@@ -148,7 +148,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
 
     // Get info about png
     png_get_IHDR(png_ptr, info_ptr, &temp_width, &temp_height, &bit_depth, 
-        &color_type, NULL, NULL, NULL);
+        &color_type, nullptr, nullptr, nullptr);
 
     // Check the pixel format
     image::pixel_format pixelformat = image::pixel_format::rgb;
@@ -180,7 +180,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
         size_t(temp_height) * sizeof(png_byte);
     auto bitmap_buffer = std::make_shared<buffer>(bitmap_buff_size);
 
-    if (bitmap_buffer == NULL || bitmap_buffer->get() == NULL)
+    if (bitmap_buffer == nullptr || bitmap_buffer->get() == nullptr)
     {
         console::error("[ImageCodec]: Could not allocate memory for "
             "PNG image data.");
@@ -191,14 +191,14 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     // Cast to png_byte since this is what libpng likes as buffer. 
     // Just passing the pointer should be fine. But this ensures 100% 
     // compatibility.
-    png_byte * image_data = (png_byte *)bitmap_buffer->get();
+    png_byte * image_data = static_cast<png_byte *>(bitmap_buffer->get());
 
     // Row_pointers is for pointing to image_data for reading the 
     // png with libpng
     size_t rowpointer_buff_size = size_t(temp_height) * sizeof(png_bytep);
     auto rowpointer_buffer = std::make_shared<buffer>(rowpointer_buff_size);
 
-    if (rowpointer_buffer == NULL || rowpointer_buffer->get() == NULL)
+    if (rowpointer_buffer == nullptr || rowpointer_buffer->get() == nullptr)
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
             "Could not allocate memory for PNG row pointers.", 

@@ -21,7 +21,7 @@ namespace aeon
 file_stream::file_stream(const std::string &path, 
                          int mode /*= access_mode::read*/) :
     stream(path, mode),
-    file_(NULL)
+    file_(nullptr)
 {
     if (mode == (access_mode::read | access_mode::write))
     {
@@ -236,7 +236,7 @@ void file_stream::close()
     console::debug("[FileStream]: Closing file stream.");
 
     fclose(file_);
-    file_ = NULL;
+    file_ = nullptr;
 }
 
 void file_stream::flush()
@@ -252,7 +252,7 @@ void file_stream::flush()
 
 bool file_stream::good()
 {
-    return file_ != NULL;
+    return file_ != nullptr;
 }
 
 } /* namespace Aeon */

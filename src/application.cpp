@@ -22,7 +22,7 @@ namespace aeon
 {
 
 application::application() :
-    platform_(NULL)
+    platform_(nullptr)
 {
 
 }
@@ -32,7 +32,7 @@ application::~application()
     if (platform_)
         delete platform_;
 
-    platform_ = NULL;
+    platform_ = nullptr;
 }
 
 material_ptr mat;

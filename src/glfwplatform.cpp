@@ -23,7 +23,7 @@ namespace platforms
 {
 
 glfw::glfw() :
-    window_(NULL)
+    window_(nullptr)
 {
 }
 
@@ -44,9 +44,9 @@ bool glfw::initialize()
 
     // Create our window
     window_ = glfwCreateWindow(AEON_DEFAULT_SCREEN_WIDTH, 
-        AEON_DEFAULT_SCREEN_HEIGHT, "Aeon", NULL, NULL);
+        AEON_DEFAULT_SCREEN_HEIGHT, "Aeon", nullptr, nullptr);
 
-    if (window_ == NULL)
+    if (window_ == nullptr)
     {
         console::error("[GLFW] Could not create GLFW window");
         glfwTerminate();
@@ -91,9 +91,9 @@ bool glfw::dispose()
 {
     console::info("[GLFW] Terminating GLFW");
 
-    glfwMakeContextCurrent(NULL);
+    glfwMakeContextCurrent(nullptr);
     glfwTerminate();
-    window_ = NULL;
+    window_ = nullptr;
 
     return true;
 }

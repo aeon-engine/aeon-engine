@@ -223,7 +223,7 @@ GLuint shader::__load_shader(const std::string &source, GLenum type)
     const char *shader_src = source.c_str();
 
     // Load the shader source
-    glShaderSource(shader, 1, &shader_src, NULL);
+    glShaderSource(shader, 1, &shader_src, nullptr);
 
     // Compile the shader
     glCompileShader(shader);
@@ -241,10 +241,9 @@ GLuint shader::__load_shader(const std::string &source, GLenum type)
 
         if (info_len > 1)
         {
-            char *info_log = (char *)malloc(info_len * sizeof(char));
-            glGetShaderInfoLog(shader, info_len, NULL, info_log);
-            console::error("[Shader]: Error compiling shader: %s", info_log);
-            free(info_log);
+            buffer_ptr info_log = std::make_shared<buffer>(info_len);
+            glGetShaderInfoLog(shader, info_len, nullptr, static_cast<GLchar *>(info_log->get()));
+            console::error("[Shader]: Error compiling shader: %s", static_cast<char *>(info_log->get()));
         }
 
         // Free the shader resource, since we can't use it anymore.
@@ -291,10 +290,9 @@ GLuint shader::__link_program(GLuint vertexshader, GLuint fragmentshader)
 
         if (info_len > 1)
         {
-            char *info_log = (char *)malloc(info_len * sizeof(char));
-            glGetProgramInfoLog(program, info_len, NULL, info_log);
-            console::error("[Shader]: Error linking shader: %s", info_log);
-            free(info_log);
+            buffer_ptr info_log = std::make_shared<buffer>(info_len);
+            glGetProgramInfoLog(program, info_len, NULL, static_cast<GLchar *>(info_log->get()));
+            console::error("[Shader]: Error linking shader: %s", static_cast<char *>(info_log->get()));
         }
 
         glDeleteProgram(program);

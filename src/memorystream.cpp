@@ -73,7 +73,7 @@ size_t memory_stream::read(void *buffer, size_t count)
         return 0;
     }
 
-    char *data = (char *) buffer_->get();
+    char *data = static_cast<char *>(buffer_->get());
 
     if (!data)
     {
@@ -160,7 +160,7 @@ size_t memory_stream::write(const void *buffer, size_t count)
     }
 
     // Get our data pointer
-    char *data = (char *)buffer_->get();
+    char *data = static_cast<char *>(buffer_->get());
     
     // Copy our data
     memcpy(&data[buffer_offset_], buffer, count);
@@ -218,7 +218,7 @@ void memory_stream::flush()
 bool memory_stream::good()
 {
     // Do we have a buffer?
-    if (!(buffer_->get() != NULL))
+    if (!(buffer_->get() != nullptr))
         return false;
 
     // Are we still within bounds?

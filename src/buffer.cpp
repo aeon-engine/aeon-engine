@@ -85,7 +85,7 @@ bool buffer::resize(size_t n)
             new_buffer = malloc(n);
 
             // Did we fail again?!
-            if (new_buffer == NULL)
+            if (new_buffer == nullptr)
             {
                 console::error("[Buffer]: Failed to reallocate buffer from "
                     "%u to %u in fallback mode. Aborting", reserved_size_, n);
@@ -129,7 +129,7 @@ bool buffer::append(void *data, size_t len)
     }
 
     // Copy our data into the new buffer
-    char *buff = (char *) buffer_;
+    char *buff = static_cast<char *>(buffer_);
     memcpy(&buff[size_], data, len);
 
     // Adjust the size
