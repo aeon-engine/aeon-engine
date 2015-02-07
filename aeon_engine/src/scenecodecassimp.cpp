@@ -46,7 +46,7 @@ aeon::scene_ptr scene_codec_assimp::decode(stream_ptr stream)
             "Assimp reported an error: %s",
             importer.GetErrorString()
         );
-        return false;
+        return nullptr;
     }
 
     return nullptr;

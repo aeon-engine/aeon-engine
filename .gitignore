@@ -1,21 +1,10 @@
-*.suo
-*.sdf
-*.opensdf
-*.o
-*.a
-*.ilk
-*.exe
-*.log
-*.lib
-*.pdb
-*.ipch
-*.swp
-win32/testCaseCollection.xml
+# OSX
 .DS_Store
+xcode_build
+
+# Vim
+*.swp
+
+# Unix
 build
-bin/aeon_engine
-bin/*.dll
-bin/*.lastcodeanalys*
-bin/*.7z
-xcuserdata
-*.cppcheck
+
