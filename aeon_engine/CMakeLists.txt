@@ -101,8 +101,8 @@ target_link_libraries(aeon_engine
     ${ASSIMP_LIBRARY}
     ${Boost_LIBRARIES}
     ${OPENGL_LIBRARIES}
-    ${ZLIB_LIBRARIES}
-    ${PNG_LIBRARIES}
+    ${ZLIB_LIBRARY}
+    ${PNG_LIBRARY}
 )
 
 if (APPLE)
