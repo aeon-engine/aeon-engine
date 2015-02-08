@@ -1,0 +1,3 @@
+[submodule "dep/libaeon"]
+	path = dep/libaeon
+	url = https://bitbucket.org/robindegen/libaeon.git
