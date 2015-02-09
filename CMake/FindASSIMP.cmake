@@ -25,7 +25,14 @@ if (ASSIMP_ROOT_DIR)
     set (ASSIMP_INCLUDE_DIRS ${ASSIMP_ROOT_DIR}/include)
 
     set (ASSIMP_LIBRARY_DIR ${ASSIMP_ROOT_DIR}/lib/)
-    find_library(ASSIMP_LIBRARY "assimp" HINTS ${ASSIMP_LIBRARY_DIR})
+
+    if (MSVC)
+        find_library(ASSIMP_LIBRARY_DEBUG "assimpd" HINTS ${ASSIMP_LIBRARY_DIR})
+        find_library(ASSIMP_LIBRARY_RELEASE "assimp" HINTS ${ASSIMP_LIBRARY_DIR})
+    else ()
+        find_library(ASSIMP_LIBRARY_DEBUG "assimp" HINTS ${ASSIMP_LIBRARY_DIR})
+        find_library(ASSIMP_LIBRARY_RELEASE "assimp" HINTS ${ASSIMP_LIBRARY_DIR})
+    endif ()
 
     message (STATUS "Found Open Asset Import Library: ${ASSIMP_ROOT_DIR}")
 else ()

@@ -25,8 +25,14 @@ if (GLFW_ROOT_DIR)
     set (GLFW_INCLUDE_DIRS ${GLFW_ROOT_DIR}/include)
 
     set (GLFW_LIBRARY_DIR ${GLFW_ROOT_DIR}/lib/)
-    find_library(GLFW_LIBRARY "glfw3" HINTS ${GLFW_LIBRARY_DIR})
 
+    if (MSVC)
+        find_library(GLFW_LIBRARY_DEBUG "glfw3d" HINTS ${GLFW_LIBRARY_DIR})
+        find_library(GLFW_LIBRARY_RELEASE "glfw3" HINTS ${GLFW_LIBRARY_DIR})
+    else ()
+        find_library(GLFW_LIBRARY_DEBUG "glfw3" HINTS ${GLFW_LIBRARY_DIR})
+        find_library(GLFW_LIBRARY_RELEASE "glfw3" HINTS ${GLFW_LIBRARY_DIR})
+    endif ()
 
     message (STATUS "Found GLFW: ${GLFW_ROOT_DIR}")
 else ()

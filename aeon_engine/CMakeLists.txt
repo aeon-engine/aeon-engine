@@ -94,16 +94,18 @@ set(AEON_ENGINE_SOURCE
 )
 
 add_executable(aeon_engine ${AEON_ENGINE_SOURCE})
+
 target_link_libraries(aeon_engine
     aeon
-    ${GLFW_LIBRARY}
-    ${GLEW_LIBRARY}
-    ${ASSIMP_LIBRARY}
     ${Boost_LIBRARIES}
     ${OPENGL_LIBRARIES}
-    ${ZLIB_LIBRARY}
-    ${PNG_LIBRARY}
 )
+
+target_link_libraries(aeon_engine debug ${GLFW_LIBRARY_DEBUG} optimized ${GLFW_LIBRARY_RELEASE})
+target_link_libraries(aeon_engine debug ${GLEW_LIBRARY_DEBUG} optimized ${GLEW_LIBRARY_RELEASE})
+target_link_libraries(aeon_engine debug ${ASSIMP_LIBRARY_DEBUG} optimized ${ASSIMP_LIBRARY_RELEASE})
+target_link_libraries(aeon_engine debug ${ZLIB_LIBRARY_DEBUG} optimized ${ZLIB_LIBRARY_RELEASE})
+target_link_libraries(aeon_engine debug ${PNG_LIBRARY_DEBUG} optimized ${PNG_LIBRARY_RELEASE})
 
 if (APPLE)
     target_link_libraries(aeon_engine ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY})

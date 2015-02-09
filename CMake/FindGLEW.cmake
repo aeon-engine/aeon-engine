@@ -25,7 +25,14 @@ if (GLEW_ROOT_DIR)
     set (GLEW_INCLUDE_DIRS ${GLEW_ROOT_DIR}/include)
 
     set (GLEW_LIBRARY_DIR ${GLEW_ROOT_DIR}/lib/)
-    find_library(GLEW_LIBRARY "glew" HINTS ${GLEW_LIBRARY_DIR})
+
+    if (MSVC)
+        find_library(GLEW_LIBRARY_DEBUG "glew32sd" HINTS ${GLEW_LIBRARY_DIR})
+        find_library(GLEW_LIBRARY_RELEASE "glew32s" HINTS ${GLEW_LIBRARY_DIR})
+    else ()
+        find_library(GLEW_LIBRARY_DEBUG "glew" HINTS ${GLEW_LIBRARY_DIR})
+        find_library(GLEW_LIBRARY_RELEASE "glew" HINTS ${GLEW_LIBRARY_DIR})
+    endif ()
 
     message (STATUS "Found GLEW: ${GLEW_ROOT_DIR}")
 else ()

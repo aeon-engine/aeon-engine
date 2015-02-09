@@ -25,7 +25,14 @@ if (ZLIB_ROOT_DIR)
     set (ZLIB_INCLUDE_DIRS ${ZLIB_ROOT_DIR}/include)
 
     set (ZLIB_LIBRARY_DIR ${ZLIB_ROOT_DIR}/lib/)
-    find_library(ZLIB_LIBRARY "z" HINTS ${ZLIB_LIBRARY_DIR})
+
+    if (MSVC)
+        find_library(ZLIB_LIBRARY_DEBUG "zlibd" HINTS ${ZLIB_LIBRARY_DIR})
+        find_library(ZLIB_LIBRARY_RELEASE "zlib" HINTS ${ZLIB_LIBRARY_DIR})
+    else ()
+        find_library(ZLIB_LIBRARY_DEBUG "z" HINTS ${ZLIB_LIBRARY_DIR})
+        find_library(ZLIB_LIBRARY_RELEASE "z" HINTS ${ZLIB_LIBRARY_DIR})
+    endif ()
 
     message (STATUS "Found Zlib: ${ZLIB_ROOT_DIR}")
 else ()

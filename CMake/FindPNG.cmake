@@ -25,7 +25,14 @@ if (PNG_ROOT_DIR)
     set (PNG_INCLUDE_DIRS ${PNG_ROOT_DIR}/include)
 
     set (PNG_LIBRARY_DIR ${PNG_ROOT_DIR}/lib/)
-    find_library(PNG_LIBRARY "png" HINTS ${PNG_LIBRARY_DIR})
+
+    if (MSVC)
+        find_library(PNG_LIBRARY_DEBUG "libpng16d" HINTS ${PNG_LIBRARY_DIR})
+        find_library(PNG_LIBRARY_RELEASE "libpng16" HINTS ${PNG_LIBRARY_DIR})
+    else ()
+        find_library(PNG_LIBRARY_DEBUG "png" HINTS ${PNG_LIBRARY_DIR})
+        find_library(PNG_LIBRARY_RELEASE "png" HINTS ${PNG_LIBRARY_DIR})
+    endif ()
 
     message (STATUS "Found PNG: ${PNG_ROOT_DIR}")
 else ()

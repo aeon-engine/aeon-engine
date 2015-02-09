@@ -8,3 +8,5 @@ xcode_build
 # Unix
 build
 
+# Windows
+vs_build
