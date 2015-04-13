@@ -94,15 +94,16 @@ set(AEON_ENGINE_SOURCE
 )
 
 add_executable(aeon_engine ${AEON_ENGINE_SOURCE})
+
 target_link_libraries(aeon_engine
     aeon
-    ${GLFW_LIBRARY}
-    ${GLEW_LIBRARY}
-    ${ASSIMP_LIBRARY}
     ${Boost_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    ${ASSIMP_LIBRARIES}
     ${OPENGL_LIBRARIES}
-    ${ZLIB_LIBRARY}
-    ${PNG_LIBRARY}
+    ${PNG_LIBRARIES}
+    ${ZLIB_LIBRARIES}
 )
 
 if (APPLE)
@@ -112,4 +113,3 @@ endif ()
 if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_DEPRECATE -D_WIN32_WINNT=0x0601")
 endif (MSVC)
-

@@ -1,34 +1,37 @@
-include (SelectLibraryConfigurations)
-include (FindPackageHandleStandardArgs)
-
-# The HINTS option should only be used for values computed from the system.
-set (_GLEW_HINTS
-    $ENV{GLEW_ROOT}
-)
-# Hard-coded guesses should still go in PATHS. This ensures that the user
-# environment can always override hard guesses.
-set (_GLEW_PATHS
-    $ENV{GLEW_ROOT}
+find_path(GLEW_INCLUDE_DIRS "GL/glew.h"
+    PATHS $ENV{GLEW_ROOT}
+    PATH_SUFFIXES include
 )
 
-find_path (GLEW_ROOT_DIR "glew.h"
-    HINTS ${_GLEW_HINTS}
-    PATHS ${_GLEW_PATHS}
-    PATH_SUFFIXES
-        include/GL
-)
+if (GLEW_INCLUDE_DIRS)
+    set(GLEW_FOUND "YES")
 
-if (GLEW_ROOT_DIR)
-    set (GLEW_FOUND "YES")
+    get_filename_component(GLEW_ROOT_DIR "${GLEW_INCLUDE_DIRS}/../" ABSOLUTE)
+    set(GLEW_LIBRARY_DIR ${GLEW_ROOT_DIR}/lib/)
 
-    get_filename_component(GLEW_ROOT_DIR "${GLEW_ROOT_DIR}/../../" ABSOLUTE)
-    set (GLEW_INCLUDE_DIRS ${GLEW_ROOT_DIR}/include)
+    if (MSVC)
+        find_library(GLEW_LIBRARY_DEBUG "glew32d" HINTS ${GLEW_LIBRARY_DIR})
+        find_library(GLEW_LIBRARY_RELEASE "glew32" HINTS ${GLEW_LIBRARY_DIR})
+    else ()
+        find_library(GLEW_LIBRARY_DEBUG "glew" HINTS ${GLEW_LIBRARY_DIR})
+        find_library(GLEW_LIBRARY_RELEASE "glew" HINTS ${GLEW_LIBRARY_DIR})
+    endif ()
 
-    set (GLEW_LIBRARY_DIR ${GLEW_ROOT_DIR}/lib/)
-    find_library(GLEW_LIBRARY "glew" HINTS ${GLEW_LIBRARY_DIR})
+    if (NOT GLEW_LIBRARY_DEBUG)
+        message(FATAL_ERROR "GLEW not found!")
+    endif ()
 
-    message (STATUS "Found GLEW: ${GLEW_ROOT_DIR}")
+    if (NOT GLEW_LIBRARY_RELEASE)
+        message(FATAL_ERROR "GLEW not found!")
+    endif ()
+
+    set(GLEW_LIBRARIES
+        debug ${GLEW_LIBRARY_DEBUG}
+        optimized ${GLEW_LIBRARY_RELEASE}
+    )
+
+    message(STATUS "Found GLEW: ${GLEW_ROOT_DIR}")
 else ()
-    message (FATAL_ERROR "GLEW not found!")
+    message(FATAL_ERROR "GLEW not found!")
 endif ()
 
