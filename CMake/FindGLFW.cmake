@@ -1,30 +1,13 @@
-include (SelectLibraryConfigurations)
-include (FindPackageHandleStandardArgs)
-
-# The HINTS option should only be used for values computed from the system.
-set (_GLFW_HINTS
-    $ENV{GLFW_ROOT}
-)
-# Hard-coded guesses should still go in PATHS. This ensures that the user
-# environment can always override hard guesses.
-set (_GLFW_PATHS
-    $ENV{GLFW_ROOT}
+find_path (GLFW_INCLUDE_DIRS "GLFW/glfw3.h"
+    PATHS $ENV{GLFW_ROOT}
+    PATH_SUFFIXES include
 )
 
-find_path (GLFW_ROOT_DIR "glfw3.h"
-    HINTS ${_GLFW_HINTS}
-    PATHS ${_GLFW_PATHS}
-    PATH_SUFFIXES
-        include/GLFW
-)
+if (GLFW_INCLUDE_DIRS)
+    set(GLFW_FOUND "YES")
 
-if (GLFW_ROOT_DIR)
-    set (GLFW_FOUND "YES")
-
-    get_filename_component(GLFW_ROOT_DIR "${GLFW_ROOT_DIR}/../../" ABSOLUTE)
-    set (GLFW_INCLUDE_DIRS ${GLFW_ROOT_DIR}/include)
-
-    set (GLFW_LIBRARY_DIR ${GLFW_ROOT_DIR}/lib/)
+    get_filename_component(GLFW_ROOT_DIR "${GLFW_INCLUDE_DIRS}/../" ABSOLUTE)
+    set(GLFW_LIBRARY_DIR ${GLFW_ROOT_DIR}/lib/)
 
     if (MSVC)
         find_library(GLFW_LIBRARY_DEBUG "glfw3d" HINTS ${GLFW_LIBRARY_DIR})
@@ -34,8 +17,20 @@ if (GLFW_ROOT_DIR)
         find_library(GLFW_LIBRARY_RELEASE "glfw3" HINTS ${GLFW_LIBRARY_DIR})
     endif ()
 
-    message (STATUS "Found GLFW: ${GLFW_ROOT_DIR}")
-else ()
-    message (FATAL_ERROR "GLFW not found!")
-endif ()
+    if (NOT GLFW_LIBRARY_DEBUG)
+        message(FATAL_ERROR "GLFW not found!")
+    endif ()
 
+    if (NOT GLFW_LIBRARY_RELEASE)
+        message(FATAL_ERROR "GLFW not found!")
+    endif ()
+
+    set(GLEW_LIBRARIES
+        debug ${GLFW_LIBRARY_DEBUG}
+        optimized ${GLFW_LIBRARY_RELEASE}
+    )
+
+    message(STATUS "Found GLFW: ${GLFW_ROOT_DIR}")
+else ()
+    message(FATAL_ERROR "GLFW not found!")
+endif ()

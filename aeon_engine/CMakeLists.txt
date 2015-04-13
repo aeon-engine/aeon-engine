@@ -98,14 +98,13 @@ add_executable(aeon_engine ${AEON_ENGINE_SOURCE})
 target_link_libraries(aeon_engine
     aeon
     ${Boost_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    ${ASSIMP_LIBRARIES}
     ${OPENGL_LIBRARIES}
+    ${PNG_LIBRARIES}
+    ${ZLIB_LIBRARIES}
 )
-
-target_link_libraries(aeon_engine debug ${GLFW_LIBRARY_DEBUG} optimized ${GLFW_LIBRARY_RELEASE})
-target_link_libraries(aeon_engine debug ${GLEW_LIBRARY_DEBUG} optimized ${GLEW_LIBRARY_RELEASE})
-target_link_libraries(aeon_engine debug ${ASSIMP_LIBRARY_DEBUG} optimized ${ASSIMP_LIBRARY_RELEASE})
-target_link_libraries(aeon_engine debug ${ZLIB_LIBRARY_DEBUG} optimized ${ZLIB_LIBRARY_RELEASE})
-target_link_libraries(aeon_engine debug ${PNG_LIBRARY_DEBUG} optimized ${PNG_LIBRARY_RELEASE})
 
 if (APPLE)
     target_link_libraries(aeon_engine ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY})
@@ -114,4 +113,3 @@ endif ()
 if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_DEPRECATE -D_WIN32_WINNT=0x0601")
 endif (MSVC)
-
