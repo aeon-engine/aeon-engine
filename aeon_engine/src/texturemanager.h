@@ -20,7 +20,7 @@ namespace aeon
 {
 
 class texture_manager : public resource_manager, 
-                        public singleton<texture_manager>
+                        public aeon::utility::singleton<texture_manager>
 {
 public:
     texture_manager();

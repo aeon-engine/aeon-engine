@@ -18,7 +18,7 @@
 namespace aeon
 {
 
-aeon_initialize_singleton(aeon::scene_codec_manager);
+aeon_utility_initialize_singleton(aeon::scene_codec_manager);
 
 scene_codec_manager::scene_codec_manager()
 {

@@ -20,7 +20,7 @@ namespace aeon
 {
 
 class shader_manager : public resource_manager, 
-                       public singleton<shader_manager>
+                       public aeon::utility::singleton<shader_manager>
 {
 public:
     shader_manager();

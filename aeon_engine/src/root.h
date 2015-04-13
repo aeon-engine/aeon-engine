@@ -30,7 +30,7 @@ typedef std::list<framelistener *> framelisteners;
  * - Main loop
  * - Cleaning up on shutdown
  */
-class root : public singleton<root>
+class root : public aeon::utility::singleton<root>
 {
 public:
     /*!

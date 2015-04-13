@@ -20,7 +20,7 @@ namespace aeon
 {
 
 class mesh_manager : public resource_manager,
-    public singleton<mesh_manager>
+    public aeon::utility::singleton<mesh_manager>
 {
 public:
     mesh_manager();

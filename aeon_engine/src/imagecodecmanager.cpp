@@ -15,7 +15,7 @@
 
 #include "stdafx.h"
 
-aeon_initialize_singleton(aeon::image_codec_manager);
+aeon_utility_initialize_singleton(aeon::image_codec_manager);
 
 namespace aeon
 {

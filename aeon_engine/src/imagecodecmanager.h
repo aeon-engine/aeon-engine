@@ -19,7 +19,7 @@
 namespace aeon
 {
 
-class image_codec_manager : public singleton<image_codec_manager>
+class image_codec_manager : public aeon::utility::singleton<image_codec_manager>
 {
 public:
     image_codec_manager();

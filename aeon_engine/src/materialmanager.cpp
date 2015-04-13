@@ -15,7 +15,7 @@
 
 #include "stdafx.h"
 
-aeon_initialize_singleton(aeon::material_manager);
+aeon_utility_initialize_singleton(aeon::material_manager);
 
 namespace aeon
 {

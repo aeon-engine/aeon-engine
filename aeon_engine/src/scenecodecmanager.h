@@ -19,7 +19,7 @@
 namespace aeon
 {
 
-class scene_codec_manager : public singleton<scene_codec_manager>
+class scene_codec_manager : public aeon::utility::singleton<scene_codec_manager>
 {
 public:
     scene_codec_manager();

@@ -73,6 +73,7 @@
 #endif
 
 #include <glm/glm.hpp>
+#include <aeon/utility.h>
 
 /************************************************************************/
 /* Engine                                                               */
@@ -82,11 +83,8 @@
 #include "console.h"
 #include "consolelistener.h"
 #include "framelistener.h"
-#include "singleton.h"
 #include "stringutils.h"
 #include "buffer.h"
-#include "timer.h"
-
 #include "baseplatform.h"
 
 #ifdef AEON_USE_GLFW_PLATFORM

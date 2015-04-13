@@ -1,4 +1,5 @@
 include_directories(
+    ${CMAKE_SOURCE_DIR}/dep/libaeon/include
     ${Boost_INCLUDE_DIRS}
     ${GLEW_INCLUDE_DIRS}
     ${GLFW_INCLUDE_DIRS}
@@ -69,7 +70,6 @@ set(AEON_ENGINE_MAIN_SOURCE
     src/shader.h
     src/shadermanager.cpp
     src/shadermanager.h
-    src/singleton.h
     src/stdafx.cpp
     src/stdafx.h
     src/stream.cpp
@@ -83,8 +83,6 @@ set(AEON_ENGINE_MAIN_SOURCE
     src/texture.h
     src/texturemanager.cpp
     src/texturemanager.h
-    src/timer.cpp
-    src/timer.h
 )
 
 source_group(main FILES ${AEON_ENGINE_MAIN_SOURCE})

@@ -20,7 +20,7 @@ namespace aeon
 {
 
 class material_manager : public resource_manager,
-                         public singleton<material_manager>
+                         public aeon::utility::singleton<material_manager>
 {
 public:
     material_manager();

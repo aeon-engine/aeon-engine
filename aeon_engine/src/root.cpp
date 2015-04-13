@@ -18,7 +18,7 @@
 namespace aeon
 {
 
-aeon_initialize_singleton(root);
+aeon_utility_initialize_singleton(root);
 
 root::root(platforms::base_platform_ptr platform) :
     initialized_(false),
