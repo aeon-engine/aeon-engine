@@ -1,6 +1,7 @@
 find_path (ZLIB_INCLUDE_DIRS "zlib.h"
     PATHS $ENV{ZLIB_ROOT}
     PATH_SUFFIXES include
+    NO_DEFAULT_PATH
 )
 
 if (ZLIB_INCLUDE_DIRS)
@@ -10,11 +11,11 @@ if (ZLIB_INCLUDE_DIRS)
     set(ZLIB_LIBRARY_DIR ${ZLIB_ROOT_DIR}/lib/)
 
     if (MSVC)
-        find_library(ZLIB_LIBRARY_DEBUG "zlibd" HINTS ${ZLIB_LIBRARY_DIR})
-        find_library(ZLIB_LIBRARY_RELEASE "zlib" HINTS ${ZLIB_LIBRARY_DIR})
+        find_library(ZLIB_LIBRARY_DEBUG "zlibd" PATHS ${ZLIB_LIBRARY_DIR} NO_DEFAULT_PATH)
+        find_library(ZLIB_LIBRARY_RELEASE "zlib" PATHS ${ZLIB_LIBRARY_DIR} NO_DEFAULT_PATH)
     else ()
-        find_library(ZLIB_LIBRARY_DEBUG "z" HINTS ${ZLIB_LIBRARY_DIR})
-        find_library(ZLIB_LIBRARY_RELEASE "z" HINTS ${ZLIB_LIBRARY_DIR})
+        find_library(ZLIB_LIBRARY_DEBUG "z" PATHS ${ZLIB_LIBRARY_DIR} NO_DEFAULT_PATH)
+        find_library(ZLIB_LIBRARY_RELEASE "z" PATHS ${ZLIB_LIBRARY_DIR} NO_DEFAULT_PATH)
     endif ()
 
     if (NOT ZLIB_LIBRARY_DEBUG)

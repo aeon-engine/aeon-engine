@@ -96,7 +96,7 @@ add_executable(aeon_engine ${AEON_ENGINE_SOURCE})
 target_link_libraries(aeon_engine
     aeon
     ${Boost_LIBRARIES}
-    ${GLEW_LIBRARIES}
+    ${GLFW_LIBRARIES}
     ${GLEW_LIBRARIES}
     ${ASSIMP_LIBRARIES}
     ${OPENGL_LIBRARIES}

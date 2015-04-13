@@ -1,6 +1,7 @@
 find_path (PNG_INCLUDE_DIRS "png.h"
     PATHS $ENV{PNG_ROOT}
     PATH_SUFFIXES include
+    NO_DEFAULT_PATH
 )
 
 if (PNG_INCLUDE_DIRS)
@@ -10,13 +11,13 @@ if (PNG_INCLUDE_DIRS)
     set(PNG_LIBRARY_DIR ${PNG_ROOT_DIR}/lib/)
 
     if (MSVC)
-        find_library(PNG_LIBRARY_DEBUG "libpng16d" HINTS ${PNG_LIBRARY_DIR})
-        find_library(PNG_LIBRARY_RELEASE "libpng16" HINTS ${PNG_LIBRARY_DIR})
+        find_library(PNG_LIBRARY_DEBUG "libpng16d" PATHS ${PNG_LIBRARY_DIR} NO_DEFAULT_PATH)
+        find_library(PNG_LIBRARY_RELEASE "libpng16" PATHS ${PNG_LIBRARY_DIR} NO_DEFAULT_PATH)
     else ()
-        find_library(PNG_LIBRARY_DEBUG "png" HINTS ${PNG_LIBRARY_DIR})
-        find_library(PNG_LIBRARY_RELEASE "png" HINTS ${PNG_LIBRARY_DIR})
+        find_library(PNG_LIBRARY_DEBUG "png" PATHS ${PNG_LIBRARY_DIR} NO_DEFAULT_PATH)
+        find_library(PNG_LIBRARY_RELEASE "png" PATHS ${PNG_LIBRARY_DIR} NO_DEFAULT_PATH)
     endif ()
-    
+
     if (NOT PNG_LIBRARY_DEBUG)
         message(FATAL_ERROR "PNG not found!")
     endif ()
