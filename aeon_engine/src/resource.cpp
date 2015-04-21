@@ -33,7 +33,7 @@ resource::~resource()
 
 }
 
-bool resource::__load(stream_ptr stream)
+bool resource::__load(aeon::streams::stream_ptr stream)
 {
     if (state_ != state::empty)
     {
@@ -80,4 +80,4 @@ bool resource::__finalize()
     return result;
 }
 
-} /* namespace aeon */
+} // namespace aeon

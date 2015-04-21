@@ -31,8 +31,6 @@ if (GLEW_INCLUDE_DIRS)
         optimized ${GLEW_LIBRARY_RELEASE}
     )
 
-    message("${GLEW_LIBRARIES}")
-
     message(STATUS "Found GLEW: ${GLEW_ROOT_DIR}")
 else ()
     message(FATAL_ERROR "GLEW not found!")

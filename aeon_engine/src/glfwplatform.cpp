@@ -46,7 +46,7 @@ bool glfw::initialize()
     window_ = glfwCreateWindow(AEON_DEFAULT_SCREEN_WIDTH, 
         AEON_DEFAULT_SCREEN_HEIGHT, "Aeon", nullptr, nullptr);
 
-    if (window_ == nullptr)
+    if (!window_)
     {
         console::error("[GLFW] Could not create GLFW window");
         glfwTerminate();
@@ -98,7 +98,7 @@ bool glfw::dispose()
     return true;
 }
 
-} /* namespace platforms */
-} /* namespace aeon */
+} // namespace platforms
+} // namespace aeon
 
-#endif /* AEON_USE_GLFW_PLATFORM */
+#endif // AEON_USE_GLFW_PLATFORM

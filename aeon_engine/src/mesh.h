@@ -27,13 +27,13 @@ public:
     virtual ~mesh();
 
     protected:
-    virtual bool __load_impl(stream_ptr stream);
+    virtual bool __load_impl(aeon::streams::stream_ptr stream);
     virtual bool __unload_impl();
     virtual bool __finalize_impl();
 };
 
 typedef std::shared_ptr<mesh> mesh_ptr;
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* mesh_h__ */
+#endif // mesh_h__

@@ -22,10 +22,10 @@
 namespace aeon
 {
 
-static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, 
+static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr,
                                 png_size_t output_size)
 {
-    stream_ptr *stream = static_cast<stream_ptr *>(png_get_io_ptr(png_ptr));
+    aeon::streams::stream_ptr *stream = static_cast<aeon::streams::stream_ptr *>(png_get_io_ptr(png_ptr));
 
     // Do we have a stream?
     if (!stream)
@@ -54,7 +54,7 @@ image_codec_png::~image_codec_png()
 
 }
 
-image_ptr image_codec_png::decode(stream_ptr stream)
+image_ptr image_codec_png::decode(aeon::streams::stream_ptr stream)
 {
     // Check our stream
     if (!stream)
@@ -132,7 +132,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
         return nullptr;
     }
 
-    // Init png reading. We will be using a read function, as we can't read 
+    // Init png reading. We will be using a read function, as we can't read
     // from a file.
     png_set_read_fn(png_ptr, &stream, __png_read_callback);
 
@@ -147,7 +147,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     png_uint_32 temp_width, temp_height;
 
     // Get info about png
-    png_get_IHDR(png_ptr, info_ptr, &temp_width, &temp_height, &bit_depth, 
+    png_get_IHDR(png_ptr, info_ptr, &temp_width, &temp_height, &bit_depth,
         &color_type, nullptr, nullptr, nullptr);
 
     // Check the pixel format
@@ -176,11 +176,11 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     size_t rowbytes = png_get_rowbytes(png_ptr, info_ptr);
 
     // Allocate the image_data as a big block
-    size_t bitmap_buff_size = rowbytes * 
+    size_t bitmap_buff_size = rowbytes *
         size_t(temp_height) * sizeof(png_byte);
     auto bitmap_buffer = std::make_shared<buffer>(bitmap_buff_size);
 
-    if (bitmap_buffer == nullptr || bitmap_buffer->get() == nullptr)
+    if (!bitmap_buffer || !bitmap_buffer->get())
     {
         console::error("[ImageCodec]: Could not allocate memory for "
             "PNG image data.");
@@ -188,12 +188,12 @@ image_ptr image_codec_png::decode(stream_ptr stream)
         return nullptr;
     }
 
-    // Cast to png_byte since this is what libpng likes as buffer. 
-    // Just passing the pointer should be fine. But this ensures 100% 
+    // Cast to png_byte since this is what libpng likes as buffer.
+    // Just passing the pointer should be fine. But this ensures 100%
     // compatibility.
     png_byte * image_data = static_cast<png_byte *>(bitmap_buffer->get());
 
-    // Row_pointers is for pointing to image_data for reading the 
+    // Row_pointers is for pointing to image_data for reading the
     // png with libpng
     size_t rowpointer_buff_size = size_t(temp_height) * sizeof(png_bytep);
     auto rowpointer_buffer = std::make_shared<buffer>(rowpointer_buff_size);
@@ -201,7 +201,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     if (rowpointer_buffer == nullptr || rowpointer_buffer->get() == nullptr)
     {
         console::error("[ImageCodec]: Could not decode PNG '%s'. "
-            "Could not allocate memory for PNG row pointers.", 
+            "Could not allocate memory for PNG row pointers.",
             stream->get_name().c_str());
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
         return nullptr;
@@ -211,7 +211,7 @@ image_ptr image_codec_png::decode(stream_ptr stream)
     png_bytep * row_pointers =
         static_cast<png_bytep *>(rowpointer_buffer->get());
 
-    // Set the individual row_pointers to point at the correct offsets 
+    // Set the individual row_pointers to point at the correct offsets
     // of image_data
     for (size_t i = 0; i < size_t(temp_height); i++)
     {
@@ -241,6 +241,6 @@ std::string image_codec_png::get_type_name() const
     return "PNG";
 }
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* AEON_USE_PNG */
+#endif // AEON_USE_PNG

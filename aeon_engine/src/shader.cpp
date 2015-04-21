@@ -18,7 +18,7 @@
 namespace aeon
 {
 
-shader::shader(resource_manager *creator, const std::string &name, 
+shader::shader(resource_manager *creator, const std::string &name,
                std::uint64_t handle) :
     resource(creator, name, handle),
     program_(0),
@@ -39,16 +39,16 @@ void shader::bind()
     glUseProgram(program_);
 }
 
-bool shader::__load_impl(stream_ptr stream)
+bool shader::__load_impl(aeon::streams::stream_ptr stream)
 {
     if (!stream->good())
     {
-        console::error("[Shader]: Could not load shader: %s", 
+        console::error("[Shader]: Could not load shader: %s",
             stream->get_name().c_str());
         return false;
     }
 
-    console::debug("[Shader]: Parsing shader file: %s", 
+    console::debug("[Shader]: Parsing shader file: %s",
         stream->get_name().c_str());
 
     //Loop through all lines
@@ -56,18 +56,18 @@ bool shader::__load_impl(stream_ptr stream)
     int warning_count = 0;
     program_type parsing_program_type = program_type::none;
 
+    aeon::streams::stream_reader stream_reader(*stream);
+
     while (!stream->eof())
     {
         linenumber++;
 
-        std::string line;
-        if (stream->read_line(line) == 0)
-            continue;
+        std::string line = stream_reader.read_line();
 
         if (line == "[vertex]")
         {
             if(
-                parsing_program_type == program_type::none || 
+                parsing_program_type == program_type::none ||
                 parsing_program_type == program_type::fragment
             )
             {
@@ -76,17 +76,17 @@ bool shader::__load_impl(stream_ptr stream)
                 if (!vertex_src_.empty())
                 {
                     console::warning("[Shader]: Unexpected line '[vertex]' "
-                        "in shader %s at line %u", stream->get_name().c_str(), 
+                        "in shader %s at line %u", stream->get_name().c_str(),
                         linenumber);
                     warning_count++;
                 }
-                
+
                 parsing_program_type = program_type::vertex;
             }
             else
             {
                 console::warning("[Shader]: Unexpected line '[vertex]' "
-                    "in shader %s at line %u", stream->get_name().c_str(), 
+                    "in shader %s at line %u", stream->get_name().c_str(),
                     linenumber);
                 warning_count++;
             }
@@ -103,17 +103,17 @@ bool shader::__load_impl(stream_ptr stream)
                 if (!fragment_src_.empty())
                 {
                     console::warning("[Shader]: Unexpected line '[fragment]' "
-                        "in shader %s at line %u", stream->get_name().c_str(), 
+                        "in shader %s at line %u", stream->get_name().c_str(),
                         linenumber);
                     warning_count++;
                 }
-                
+
                 parsing_program_type = program_type::fragment;
             }
             else
             {
                 console::warning("[Shader]: Unexpected line '[fragment]' in "
-                    "shader %s at line %u", stream->get_name().c_str(), 
+                    "shader %s at line %u", stream->get_name().c_str(),
                     linenumber);
                 warning_count++;
             }
@@ -190,12 +190,12 @@ bool shader::__finalize_impl()
 
     // Set up the uniform locations for the matrices in this shader
     /*matrix_handle_ = glGetUniformLocation(program_, AEON_SHADER_MATRIX_NAME);
-    texture0_handle_ = glGetUniformLocation(program_, 
+    texture0_handle_ = glGetUniformLocation(program_,
         AEON_SHADER_TEXTURE0_NAME);
     color_handle_ = glGetUniformLocation(program_, AEON_SHADER_COLOR_NAME);
 
     if(matrix_handle_ == -1)
-        console::warning("[Shader]: Could not find '%s' in shader.", 
+        console::warning("[Shader]: Could not find '%s' in shader.",
             AEON_SHADER_MATRIX_NAME);
 
     if(texture0_handle_ == -1)
@@ -269,9 +269,9 @@ GLuint shader::__link_program(GLuint vertexshader, GLuint fragmentshader)
     glAttachShader(program, fragmentshader);
 
     // Bind attrib locations (the bind points for vertex buffers to the shader)
-    glBindAttribLocation(program, AEON_SHADER_ATTRIB_VERTEX_ID, 
+    glBindAttribLocation(program, AEON_SHADER_ATTRIB_VERTEX_ID,
         AEON_SHADER_ATTRIB_VERTEX_NAME);
-    glBindAttribLocation(program, AEON_SHADER_ATTRIB_TEXCOORD_ID, 
+    glBindAttribLocation(program, AEON_SHADER_ATTRIB_TEXCOORD_ID,
         AEON_SHADER_ATTRIB_TEXCOORD_NAME);
 
     // Link the program
@@ -302,4 +302,4 @@ GLuint shader::__link_program(GLuint vertexshader, GLuint fragmentshader)
     return program;
 }
 
-} /* namespace aeon */
+} // namespace aeon

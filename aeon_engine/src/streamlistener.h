@@ -22,16 +22,16 @@ namespace aeon
 class console_stream_listener : public console_listener
 {
 public:
-    console_stream_listener(stream_ptr stream);
+    console_stream_listener(aeon::streams::stream_ptr stream);
     ~console_stream_listener();
 
-    void on_log_message(double time_diff, console::log_level level, 
+    void on_log_message(double time_diff, console::log_level level,
                         const std::string &message);
 
 private:
-    stream_ptr stream_;
+    aeon::streams::stream_ptr stream_;
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* streamlistener_h__ */
+#endif // streamlistener_h__

@@ -18,7 +18,7 @@
 namespace aeon
 {
 
-texture::texture(resource_manager *creator, const std::string &name, 
+texture::texture(resource_manager *creator, const std::string &name,
                  std::uint64_t handle) :
     resource(creator, name, handle),
     texture_(0)
@@ -36,7 +36,7 @@ void texture::bind()
     glBindTexture(GL_TEXTURE_2D, texture_);
 }
 
-bool texture::__load_impl(stream_ptr stream)
+bool texture::__load_impl(aeon::streams::stream_ptr stream)
 {
     // TODO: It should be possible to support different image codecs.
     // For now we assume PNG.
@@ -81,7 +81,7 @@ bool texture::__finalize_impl()
     glGenTextures(1, &texture_);
     glBindTexture(GL_TEXTURE_2D, texture_);
 
-    console::debug("[Texture]: Finalizing OpenGL texture handle %u.", 
+    console::debug("[Texture]: Finalizing OpenGL texture handle %u.",
         texture_);
 
     GLenum glpixelformat = 0;
@@ -110,18 +110,18 @@ bool texture::__finalize_impl()
     GLsizei height = (GLsizei)image_->get_height();
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glTexImage2D(GL_TEXTURE_2D, 0, glpixelformat, width, height, 0, 
+    glTexImage2D(GL_TEXTURE_2D, 0, glpixelformat, width, height, 0,
         glpixelformat, GL_UNSIGNED_BYTE, image_->get_data()->get());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
-    // Remove our reference to this image so it can be unloaded when no 
+    // Remove our reference to this image so it can be unloaded when no
     // longer in use.
     image_.reset();
 
     return true;
 }
 
-} /* namespace aeon */
+} // namespace aeon

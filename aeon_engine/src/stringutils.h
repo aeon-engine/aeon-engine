@@ -58,7 +58,7 @@ strings &split(const std::string &s, char delim, strings &elems,
 strings split(const std::string &s, char delim, 
               splitmode mode = splitmode::skip_empty);
 
-} /* namespace strin_utils */
-} /* namespace aeon */
+} // namespace strin_utils
+} // namespace aeon
 
-#endif /* stringutils_h__ */
+#endif // stringutils_h__

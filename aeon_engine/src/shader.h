@@ -22,7 +22,7 @@ namespace aeon
 class shader : public resource
 {
 public:
-    shader(resource_manager *creator, const std::string &name, 
+    shader(resource_manager *creator, const std::string &name,
            std::uint64_t handle);
     virtual ~shader();
 
@@ -36,7 +36,7 @@ protected:
         vertex
     };
 
-    virtual bool __load_impl(stream_ptr stream);
+    virtual bool __load_impl(aeon::streams::stream_ptr stream);
     virtual bool __unload_impl();
     virtual bool __finalize_impl();
 
@@ -55,6 +55,6 @@ protected:
 
 typedef std::shared_ptr<shader> shader_ptr;
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* shader_h__ */
+#endif // shader_h__

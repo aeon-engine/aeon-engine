@@ -29,7 +29,7 @@ public:
     resource_manager();
     virtual ~resource_manager();
 
-    resource_ptr load(stream_ptr stream);
+    resource_ptr load(aeon::streams::stream_ptr stream);
     resource_ptr load(const std::string &name);
 
     bool unload(resource_ptr resource);
@@ -39,7 +39,7 @@ public:
 
 protected:
     bool __is_name_unique(const std::string &name);
-    resource_ptr __load(stream_ptr stream);
+    resource_ptr __load(aeon::streams::stream_ptr stream);
     bool __unload(const std::string &name, resources::iterator itr);
 
     virtual resource * __create_new_resource(const std::string &name) = 0;
@@ -63,6 +63,6 @@ private:
     std::uint64_t last_resource_handle_;
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* resourcemanager_h__ */
+#endif // resourcemanager_h__

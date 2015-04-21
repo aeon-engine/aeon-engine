@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.1)
 project(AeonEngine)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/;${CMAKE_SOURCE_DIR}/CMake")
+
+################################################################################
 
 if (NOT MSVC)
     list(APPEND CMAKE_CXX_FLAGS "-std=c++1y ${CMAKE_CXX_FLAGS}")
 endif (NOT MSVC)
+
+################################################################################
 
 set(Boost_ADDITIONAL_VERSIONS "1.57" "1.57.0")
 set(Boost_USE_STATIC_LIBS        ON)
@@ -28,6 +32,8 @@ find_package(ASSIMP)
 find_package(ZLIB)
 find_package(PNG)
 
+################################################################################
+
 if (APPLE)
     message(STATUS "Building on Apple. Finding Frameworks.")
     find_library(COCOA_LIBRARY Cocoa)
@@ -39,6 +45,8 @@ if (APPLE)
     message(STATUS "IOKit: ${IOKIT_LIBRARY}")
     message(STATUS "CoreVideo: ${COREVIDEO_LIBRARY}")
 endif ()
+
+################################################################################
 
 add_subdirectory(dep)
 add_subdirectory(aeon_engine)

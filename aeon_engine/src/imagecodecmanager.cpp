@@ -34,13 +34,13 @@ void image_codec_manager::register_codec(image_codec_ptr codec)
 {
     if (!codec)
         return;
-    
+
     const std::string &name = codec->get_type_name();
     registered_codecs_[name] = codec;
 }
 
-image_ptr image_codec_manager::decode(const std::string &name, 
-                                      stream_ptr stream)
+image_ptr image_codec_manager::decode(const std::string &name,
+                                      aeon::streams::stream_ptr stream)
 {
     auto codec = registered_codecs_.find(name);
 
@@ -55,4 +55,4 @@ image_ptr image_codec_manager::decode(const std::string &name,
     return codec->second->decode(stream);
 }
 
-} /* namespace aeon */
+} // namespace aeon

@@ -89,12 +89,6 @@ void root::run()
     if (!platform_->dispose())
         console::error("[Root] Platform reported an error while disposing.");
 
-    // TODO: Make sure everything gets properly deleted and freed.
-    material_manager::dispose();
-    image_codec_manager::dispose();
-    texture_manager::dispose();
-    shader_manager::dispose();
-
     running_ = false;
     initialized_ = false;
 }
@@ -179,4 +173,4 @@ bool root::__initialize_impl(platforms::base_platform_ptr platform)
     return true;
 }
 
-} /* namespace aeon */
+} // namespace aeon

@@ -47,7 +47,7 @@ void add_console_listener(console_listener_ptr listener);
 void remove_console_listener(console_listener_ptr listener);
 void remove_all_console_listeners();
 
-} /* namespace console */
-} /* namespace aeon */
+} // namespace console
+} // namespace aeon
 
-#endif /* console_h__ */
+#endif // console_h__

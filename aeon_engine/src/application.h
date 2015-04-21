@@ -36,6 +36,6 @@ private:
     aeon::platforms::glfw *platform_;
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* application_h__ */
+#endif // application_h__

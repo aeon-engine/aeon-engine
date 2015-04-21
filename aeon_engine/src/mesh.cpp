@@ -30,7 +30,7 @@ mesh::~mesh()
 
 }
 
-bool mesh::__load_impl(stream_ptr stream)
+bool mesh::__load_impl(aeon::streams::stream_ptr stream)
 {
     return true;
 }
@@ -46,4 +46,4 @@ bool mesh::__finalize_impl()
     return true;
 }
 
-} /* namespace aeon */
+} // namespace aeon

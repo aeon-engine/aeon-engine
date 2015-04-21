@@ -35,11 +35,11 @@ material::~material()
 {
 }
 
-bool material::__load_impl(stream_ptr stream)
+bool material::__load_impl(aeon::streams::stream_ptr stream)
 {
     // A material file has the same syntax as a config file
-    configfile material_file;
-    
+    aeon::utility::configfile material_file;
+
     if (!material_file.load(stream))
         return false;
 
@@ -57,7 +57,7 @@ bool material::__load_impl(stream_ptr stream)
 
 bool material::__unload_impl()
 {
-    // Remove all references to the textures. This should be done automatically 
+    // Remove all references to the textures. This should be done automatically
     // on the stack, but this is more predictable.
     size_t texture_count = texture_resource.size();
     for (size_t i = 0; i < texture_count; ++i)
@@ -77,25 +77,41 @@ bool material::__finalize_impl()
     return true;
 }
 
-void material::__read_attributes(configfile &material_file)
+void material::__read_attributes(aeon::utility::configfile &material_file)
 {
-    ambient = material_file.get_vector4f(
-        "material.ambient", glm::fvec4(AEON_MATERIAL_DEFAULT_AMBIENT));
-    diffuse = material_file.get_vector4f(
-        "material.diffuse", glm::fvec4(AEON_MATERIAL_DEFAULT_DIFFUSE));
-    specular = material_file.get_vector4f(
-        "material.specular", glm::fvec4(AEON_MATERIAL_DEFAULT_SPECULAR));
-    emission = material_file.get_vector4f(
-        "material.emission", glm::fvec4(AEON_MATERIAL_DEFAULT_EMISSION));
+    std::string ambient_str = material_file.get_string(
+        "ambient",
+        string_utils::vector4f_to_string(glm::fvec4(AEON_MATERIAL_DEFAULT_AMBIENT))
+    );
+    ambient = string_utils::string_to_vector4f(ambient_str);
+
+    std::string diffuse_str = material_file.get_string(
+        "diffuse",
+        string_utils::vector4f_to_string(glm::fvec4(AEON_MATERIAL_DEFAULT_DIFFUSE))
+    );
+    diffuse = string_utils::string_to_vector4f(diffuse_str);
+
+    std::string specular_str = material_file.get_string(
+        "specular",
+        string_utils::vector4f_to_string(glm::fvec4(AEON_MATERIAL_DEFAULT_SPECULAR))
+    );
+    specular = string_utils::string_to_vector4f(specular_str);
+
+    std::string emission_str = material_file.get_string(
+        "emission",
+        string_utils::vector4f_to_string(glm::fvec4(AEON_MATERIAL_DEFAULT_EMISSION))
+    );
+    emission = string_utils::string_to_vector4f(emission_str);
+
     shininess = material_file.get_float(
-        "material.shininess", AEON_MATERIAL_DEFAULT_SHININESS);
+        "shininess", AEON_MATERIAL_DEFAULT_SHININESS);
 }
 
-void material::__read_and_load_shader(configfile &material_file)
+void material::__read_and_load_shader(aeon::utility::configfile &material_file)
 {
     // Read the path of the texture
     std::string shader_filename =
-        material_file.get_string("material.shader", "");
+        material_file.get_string("shader", "");
 
     // Don't read empty shader paths
     if (shader_filename.empty())
@@ -105,12 +121,12 @@ void material::__read_and_load_shader(configfile &material_file)
         shader_manager::get_singleton().load(shader_filename);
 }
 
-void material::__read_and_load_textures(configfile &material_file)
+void material::__read_and_load_textures(aeon::utility::configfile &material_file)
 {
     size_t texture_count = texture_resource.size();
     for (size_t i = 0; i < texture_count; ++i)
     {
-        std::string texture_key = "material.texture" + std::to_string(i);
+        std::string texture_key = "texture" + std::to_string(i);
 
         // Check if this texture is defined in the material
         if (!material_file.has_entry(texture_key))
@@ -125,9 +141,9 @@ void material::__read_and_load_textures(configfile &material_file)
             continue;
 
         // Load the texture
-        texture_resource[i] = 
+        texture_resource[i] =
             texture_manager::get_singleton().load(texture_filename);
     }
 }
 
-} /* namespace aeon */
+} // namespace aeon

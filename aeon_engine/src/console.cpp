@@ -111,5 +111,5 @@ void remove_all_console_listeners()
     console_listeners_.clear();
 }
 
-} /* namespace console */
-} /* namespace aeon */
+} // namespace console
+} // namespace aeon

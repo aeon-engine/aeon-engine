@@ -153,5 +153,5 @@ strings split(const std::string &s, char delim,
     return elems;
 }
 
-} /* namespace string_utils */
-} /* namespace aeon */
+} // namespace string_utils
+} // namespace aeon

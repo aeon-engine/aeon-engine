@@ -25,10 +25,10 @@ public:
     image_codec_png();
     virtual ~image_codec_png();
 
-    virtual image_ptr decode(stream_ptr stream);
-    virtual std::string get_type_name() const;    
+    virtual image_ptr decode(aeon::streams::stream_ptr stream);
+    virtual std::string get_type_name() const;
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* imagecodecpng_h__ */
+#endif // imagecodecpng_h__

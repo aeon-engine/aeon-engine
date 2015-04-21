@@ -70,23 +70,6 @@
 #define AEON_DEFAULT_CONSOLE_LOG_LEVEL      console::log_level::info
 
 /************************************************************************/
-/* Streams                                                              */
-/************************************************************************/
-
-/*!
- * The maximum length of a line read in a stream. If the line is longer, the
- * line will be truncated into seemingly multiple lines.
- */
-#define AEON_STREAM_MAX_TEXT_LINE_LENGTH    2048
-
-/*!
- * The default name of a stream. A stream in Aeon can have a name, which for
- * example in case of a FileStream, holds the name of the opened file. This
- * is useful for logging and debugging purposes.
- */
-#define AEON_STREAM_DEFAULT_NAME            "<UNNAMED>"
-
-/************************************************************************/
 /* Materials                                                            */
 /************************************************************************/
 
@@ -166,4 +149,4 @@
  */
 #define AEON_SHADER_COLOR_NAME              "in_color"
 
-#endif /* buildconfig_h__ */
+#endif // buildconfig_h__

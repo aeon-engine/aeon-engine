@@ -45,7 +45,9 @@
 /************************************************************************/
 /* External libraries                                                   */
 /************************************************************************/
-#define GLEW_STATIC
+#ifndef _MSC_VER
+#  define GLEW_STATIC
+#endif
 #include <GL/glew.h>
 
 #ifdef __APPLE__
@@ -73,6 +75,7 @@
 #endif
 
 #include <glm/glm.hpp>
+#include <aeon/streams.h>
 #include <aeon/utility.h>
 
 /************************************************************************/
@@ -91,11 +94,7 @@
 #  include "glfwplatform.h"
 #endif
 
-#include "stream.h"
-#include "filestream.h"
 #include "iostream.h"
-#include "memorystream.h"
-#include "configfile.h"
 #include "streamlistener.h"
 #include "image.h"
 #include "imagecodec.h"
@@ -137,4 +136,4 @@
 #include "rpggame.h"
 #include "gamestate_game.h"
 
-#endif /* stdafx_h__ */
+#endif // stdafx_h__

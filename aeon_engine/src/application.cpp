@@ -41,9 +41,9 @@ void application::main(int argc, char *argv[])
 {
     __setup_console();
 
-    configfile config_file;
-    config_file.load(std::make_shared<aeon::file_stream>
-        ("config.ini", aeon::stream::access_mode::read));
+    aeon::utility::configfile config_file;
+    std::string config_file_path = "config.ini";
+    config_file.load(std::make_shared<aeon::streams::file_stream>(config_file_path));
 
     root::initialize(std::make_shared<aeon::platforms::glfw>());
 
@@ -52,7 +52,9 @@ void application::main(int argc, char *argv[])
 
     mat = material_manager::get_singleton().load("resources/materials/testmaterial.mat");
 
-	file_stream_ptr file = std::make_shared<file_stream>("resources/scenes/testscene2.dae", file_stream::access_mode::read);
+    std::string model_file = "resources/scenes/testscene2.dae";
+	aeon::streams::file_stream_ptr file = std::make_shared<aeon::streams::file_stream>
+        (model_file, aeon::streams::access_mode::read);
 	scene_codec_manager::get_singleton().decode("ASSIMP", file);
 
     // Enter the main loop
@@ -110,7 +112,7 @@ void DemoLight(void)
     glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, Kq);
 
 
-    // ------------------------------------------- 
+    // -------------------------------------------
     // Lighting parameters:
 
     GLfloat light_pos[] = { 0.0f, 0.0f, 5.0f, 1.0f };
@@ -162,7 +164,7 @@ bool application::on_render()
     glEnable(GL_LIGHTING);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);         // Clear Screen And Depth Buffer
-    
+
     glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
     glLoadIdentity();                           // Reset The Current Matrix
     glTranslatef(0.0f, 0.0f, -5.0f);                      // Move Into The Screen 5 Units
@@ -236,9 +238,11 @@ void application::__setup_console()
 
     //Create console streams
     auto console_stdoutput = std::make_shared<aeon::io_stream>
-        (aeon::stream::access_mode::write);
-    auto console_fileoutput = std::make_shared<aeon::file_stream>
-        ("console.log", aeon::stream::access_mode::write);
+        (aeon::streams::access_mode::write);
+
+    std::string console_log_file = "console.log";
+    auto console_fileoutput = std::make_shared<aeon::streams::file_stream>
+        (console_log_file, aeon::streams::access_mode::write);
 
     //Create listeners with these streams
     auto console_std_listener =
@@ -251,4 +255,4 @@ void application::__setup_console()
     aeon::console::add_console_listener(console_file_listener);
 }
 
-} /* namespace aeon */
+} // namespace aeon

@@ -30,7 +30,7 @@ material_manager::~material_manager()
     console::debug("[MaterialManager]: disposed.");
 }
 
-material_ptr material_manager::load(stream_ptr stream)
+material_ptr material_manager::load(aeon::streams::stream_ptr stream)
 {
     return std::dynamic_pointer_cast<material>(resource_manager::load(stream));
 }
@@ -45,4 +45,4 @@ resource * material_manager::__create_new_resource(const std::string &name)
     return new material(this, name, __get_unique_handle());
 }
 
-} /* namespace aeon */
+} // namespace aeon

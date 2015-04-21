@@ -28,9 +28,10 @@ scene_codec_assimp::~scene_codec_assimp()
 
 }
 
-aeon::scene_ptr scene_codec_assimp::decode(stream_ptr stream)
+aeon::scene_ptr scene_codec_assimp::decode(aeon::streams::stream_ptr stream)
 {
-    buffer_ptr buffer = stream->get_as_buffer();
+    buffer_ptr buffer = std::make_shared<aeon::buffer>(stream->size());
+    stream->read((std::uint8_t *) buffer->get(), stream->size());
 
     Assimp::Importer importer;
 
@@ -57,4 +58,4 @@ std::string scene_codec_assimp::get_type_name() const
     return "ASSIMP";
 }
 
-} /* namespace aeon */
+} // namespace aeon

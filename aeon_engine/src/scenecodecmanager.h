@@ -23,17 +23,17 @@ class scene_codec_manager : public aeon::utility::singleton<scene_codec_manager>
 {
 public:
     scene_codec_manager();
-    ~scene_codec_manager();
+    virtual ~scene_codec_manager();
 
     void register_codec(scene_codec_ptr codec);
 
-    scene_ptr decode(const std::string &name, stream_ptr stream);
+    scene_ptr decode(const std::string &name, aeon::streams::stream_ptr stream);
 
 private:
     typedef std::map<const std::string, scene_codec_ptr> scene_codecs;
     scene_codecs registered_codecs_;
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* modelcodecmanager_h__ */
+#endif // modelcodecmanager_h__

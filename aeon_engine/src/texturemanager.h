@@ -19,20 +19,20 @@
 namespace aeon
 {
 
-class texture_manager : public resource_manager, 
+class texture_manager : public resource_manager,
                         public aeon::utility::singleton<texture_manager>
 {
 public:
     texture_manager();
     virtual ~texture_manager();
 
-    texture_ptr load(stream_ptr stream);
+    texture_ptr load(aeon::streams::stream_ptr stream);
     texture_ptr load(const std::string &name);
 
 protected:
     resource *__create_new_resource(const std::string &name);
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* texturemanager_h__ */
+#endif // texturemanager_h__

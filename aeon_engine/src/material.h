@@ -35,17 +35,17 @@ public:
     std::array<texture_ptr, AEON_MATERIAL_MAX_TEXTURE_BINDS> texture_resource;
 
 protected:
-    virtual bool __load_impl(stream_ptr stream);
+    virtual bool __load_impl(aeon::streams::stream_ptr stream);
     virtual bool __unload_impl();
     virtual bool __finalize_impl();
 
-    void __read_attributes(configfile &material_file);
-    void __read_and_load_shader(configfile &material_file);
-    void __read_and_load_textures(configfile &material_file);
+    void __read_attributes(aeon::utility::configfile &material_file);
+    void __read_and_load_shader(aeon::utility::configfile &material_file);
+    void __read_and_load_textures(aeon::utility::configfile &material_file);
 };
 
 typedef std::shared_ptr<material> material_ptr;
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* material_h__ */
+#endif // material_h__

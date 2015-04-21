@@ -53,4 +53,4 @@ void rpg_game::on_cleanup()
     console::debug("RPGGame::on_cleanup()");
 }
 
-} /* namespace aeon */
+} // namespace aeon

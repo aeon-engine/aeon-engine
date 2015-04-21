@@ -36,6 +36,6 @@ protected:
     game_state_ptr gamestate_game_;
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* rpggame_h__ */
+#endif // rpggame_h__

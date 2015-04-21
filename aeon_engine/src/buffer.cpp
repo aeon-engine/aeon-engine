@@ -73,10 +73,10 @@ bool buffer::resize(size_t n)
     void *new_buffer = realloc(buffer_, n);
 
     // Did we fail to reallocate our buffer?
-    if (new_buffer == nullptr)
+    if (!new_buffer)
     {
         // Do we have data at all?
-        if (buffer_ != nullptr)
+        if (buffer_)
         {
             console::warning("[Buffer]: Failed to reallocate buffer from "
                 "%u to %u. Trying copy.", reserved_size_, n);
@@ -85,7 +85,7 @@ bool buffer::resize(size_t n)
             new_buffer = malloc(n);
 
             // Did we fail again?!
-            if (new_buffer == nullptr)
+            if (!new_buffer)
             {
                 console::error("[Buffer]: Failed to reallocate buffer from "
                     "%u to %u in fallback mode. Aborting", reserved_size_, n);
@@ -155,4 +155,4 @@ void buffer::set_delete_mode(delete_mode mode)
     delete_mode_ = mode;
 }
 
-} /* namespace aeon */
+} // namespace aeon

@@ -18,7 +18,7 @@
 namespace aeon
 {
 
-console_stream_listener::console_stream_listener(stream_ptr stream) :
+console_stream_listener::console_stream_listener(aeon::streams::stream_ptr stream) :
     stream_(stream)
 {
 
@@ -29,39 +29,42 @@ console_stream_listener::~console_stream_listener()
 
 }
 
-void console_stream_listener::on_log_message(double time_diff, 
+void console_stream_listener::on_log_message(double time_diff,
                                              console::log_level level,
                                              const std::string &message)
 {
     if (!stream_)
         return;
-    
+
     std::string time_string = aeon::string_utils::float_to_string(
         (float) time_diff, 10) + ' ';
-    stream_->write(time_string);
+
+    aeon::streams::stream_writer stream_writer(*stream_);
+
+    stream_writer << time_string;
 
     switch (level)
     {
         case console::log_level::error:
         {
-            stream_->write("[ERR] ");
+            stream_writer << "[ERR] ";
         }break;
         case console::log_level::warning:
         {
-            stream_->write("[WRN] ");
+            stream_writer << "[WRN] ";
         }break;
         case console::log_level::info:
         {
-            stream_->write("[INF] ");
+            stream_writer << "[INF] ";
         }break;
         case console::log_level::debug:
         {
-            stream_->write("[DBG] ");
+            stream_writer << "[DBG] ";
         }break;
     }
 
-    stream_->write(message);
-    stream_->write("\n");
+    stream_writer << message;
+    stream_writer << "\n";
 }
 
-} /* namespace aeon */
+} // namespace aeon
