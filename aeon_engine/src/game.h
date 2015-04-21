@@ -16,7 +16,7 @@
 #ifndef game_h__
 #define game_h__
 
-#include "gameState.h"
+#include "gamestate.h"
 
 namespace aeon
 {
