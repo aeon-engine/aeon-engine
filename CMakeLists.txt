@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.0.1)
 project(AeonEngine)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/;${CMAKE_SOURCE_DIR}/CMake")
@@ -11,7 +11,6 @@ endif (NOT MSVC)
 
 ################################################################################
 
-set(Boost_ADDITIONAL_VERSIONS "1.57" "1.57.0")
 set(Boost_USE_STATIC_LIBS        ON)
 set(Boost_USE_MULTITHREADED      ON)
 set(Boost_USE_STATIC_RUNTIME    OFF)
