@@ -29,6 +29,6 @@ protected:
 
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* submesh_h__ */
+#endif // submesh_h__

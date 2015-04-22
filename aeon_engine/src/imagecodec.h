@@ -25,13 +25,13 @@ public:
     image_codec() {}
     virtual ~image_codec() {}
 
-    virtual image_ptr decode(stream_ptr stream) = 0;
+    virtual image_ptr decode(aeon::streams::stream_ptr stream) = 0;
     virtual std::string get_type_name() const = 0;
 
 };
 
 typedef std::shared_ptr<image_codec> image_codec_ptr;
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* imagecodec_h__ */
+#endif // imagecodec_h__

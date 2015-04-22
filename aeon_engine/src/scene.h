@@ -31,6 +31,6 @@ private:
 
 typedef std::shared_ptr<scene> scene_ptr;
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* model_h__ */
+#endif // model_h__

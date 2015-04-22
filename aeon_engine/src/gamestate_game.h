@@ -32,6 +32,6 @@ public:
     void on_render();
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* gamestate_game_h__ */
+#endif // gamestate_game_h__

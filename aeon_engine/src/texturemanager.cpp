@@ -30,7 +30,7 @@ texture_manager::~texture_manager()
     console::debug("[TextureManager]: disposed.");
 }
 
-texture_ptr texture_manager::load(stream_ptr stream)
+texture_ptr texture_manager::load(aeon::streams::stream_ptr stream)
 {
     return std::dynamic_pointer_cast<texture>(resource_manager::load(stream));
 }
@@ -45,4 +45,4 @@ resource * texture_manager::__create_new_resource(const std::string &name)
     return new texture(this, name, __get_unique_handle());
 }
 
-} /* namespace aeon */
+} // namespace aeon

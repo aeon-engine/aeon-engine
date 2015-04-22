@@ -27,7 +27,7 @@ resource_manager::~resource_manager()
 {
 }
 
-resource_ptr resource_manager::load(stream_ptr stream)
+resource_ptr resource_manager::load(aeon::streams::stream_ptr stream)
 {
     if (!stream)
     {
@@ -43,7 +43,7 @@ resource_ptr resource_manager::load(stream_ptr stream)
         return nullptr;
     }
 
-    console::debug("[ResourceManager]: Loading resource '%s' by stream.", 
+    console::debug("[ResourceManager]: Loading resource '%s' by stream.",
         stream->get_name().c_str());
 
     if (!__is_name_unique(stream->get_name()))
@@ -58,17 +58,17 @@ resource_ptr resource_manager::load(stream_ptr stream)
 
 resource_ptr resource_manager::load(const std::string &name)
 {
-    console::debug("[ResourceManager]: Loading resource '%s' by name.", 
+    console::debug("[ResourceManager]: Loading resource '%s' by name.",
         name.c_str());
-    
+
     // Check if the resource was already loaded
     auto resource = __get_resource_by_name(name);
 
     if (resource)
         return resource;
 
-    file_stream_ptr filestream = std::make_shared<file_stream>(name, 
-        stream::access_mode::read);
+    aeon::streams::file_stream_ptr filestream = std::make_shared<aeon::streams::file_stream>(name,
+        aeon::streams::access_mode::read);
 
     if (!filestream)
     {
@@ -114,7 +114,7 @@ bool resource_manager::unload(const std::string &name)
 int resource_manager::finalize_resources()
 {
     std::lock_guard<std::mutex> lock(resource_queue_mutex_);
-    
+
     int count = 0;
     while (!resource_queue_.empty())
     {
@@ -127,7 +127,7 @@ int resource_manager::finalize_resources()
             result = resource->__unload_impl();
         else
             console::warning("[ResourceManager]: Queued resource %s was not "
-                "in finalize or unloading state.", 
+                "in finalize or unloading state.",
                 resource->get_name().c_str());
 
         if (!result)
@@ -155,7 +155,7 @@ bool resource_manager::__is_name_unique(const std::string &name)
     return __find_resource_by_name(name) == resources_.end();
 }
 
-resource_ptr resource_manager::__load(stream_ptr stream)
+resource_ptr resource_manager::__load(aeon::streams::stream_ptr stream)
 {
     resource_ptr resource = resource_ptr(__create_new_resource(
         stream->get_name()));
@@ -163,7 +163,7 @@ resource_ptr resource_manager::__load(stream_ptr stream)
     if (!resource)
     {
         console::warning("[ResourceManager]: Could not load resource '%s' "
-            "from stream. Resource object was NULL.", 
+            "from stream. Resource object was NULL.",
             stream->get_name().c_str());
         return nullptr;
     }
@@ -184,7 +184,7 @@ resource_ptr resource_manager::__load(stream_ptr stream)
     return resource;
 }
 
-bool resource_manager::__unload(const std::string &name, 
+bool resource_manager::__unload(const std::string &name,
                                 resources::iterator itr)
 {
     if (itr == resources_.end())
@@ -271,4 +271,4 @@ resource_ptr resource_manager::__get_resource_by_name(const std::string &name)
     return nullptr;
 }
 
-} /* namespace aeon */
+} // namespace aeon

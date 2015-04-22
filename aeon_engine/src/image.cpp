@@ -31,11 +31,11 @@ image::~image()
 
 }
 
-void image::set_data(buffer_ptr buffer, unsigned int width, 
-                     unsigned int height, 
+void image::set_data(buffer_ptr buffer, unsigned int width,
+                     unsigned int height,
                      pixel_format pixelformat /*= pixel_format::rgba*/)
 {
-    if (buffer == nullptr || buffer->get() == nullptr)
+    if (!buffer || !buffer->get())
     {
         console::error("[Image]: Tried creating an image from an "
             "empty buffer.");
@@ -48,7 +48,7 @@ void image::set_data(buffer_ptr buffer, unsigned int width,
     pixel_format_ = pixelformat;
 }
 
-bool image::save_raw_to_stream(stream_ptr stream)
+bool image::save_raw_to_stream(aeon::streams::stream_ptr stream)
 {
     if (!stream)
         return false;
@@ -59,13 +59,13 @@ bool image::save_raw_to_stream(stream_ptr stream)
     if (!buffer_)
         return false;
 
-    if (buffer_->get() == nullptr)
+    if (!buffer_->get())
         return false;
 
-    if (stream->write(buffer_->get(), buffer_->size()) != buffer_->size())
+    if (stream->write((std::uint8_t *) buffer_->get(), buffer_->size()) != buffer_->size())
         return false;
 
     return true;
 }
 
-} /* namespace aeon */
+} // namespace aeon

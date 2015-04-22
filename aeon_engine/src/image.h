@@ -31,8 +31,8 @@ public:
     image();
     ~image();
 
-    void set_data(buffer_ptr buffer, unsigned int width, 
-                  unsigned int height, 
+    void set_data(buffer_ptr buffer, unsigned int width,
+                  unsigned int height,
                   pixel_format pixelformat = pixel_format::rgba);
 
     buffer_ptr get_data() { return buffer_; }
@@ -40,7 +40,7 @@ public:
     unsigned int get_height() { return height_; }
     pixel_format get_pixelformat() { return pixel_format_; }
 
-    bool save_raw_to_stream(stream_ptr stream);
+    bool save_raw_to_stream(aeon::streams::stream_ptr stream);
 
 private:
     buffer_ptr buffer_;
@@ -51,6 +51,6 @@ private:
 
 typedef std::shared_ptr<image> image_ptr;
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* image_h__ */
+#endif // image_h__

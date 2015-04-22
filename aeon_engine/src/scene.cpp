@@ -28,4 +28,4 @@ scene::~scene()
 
 }
 
-} /* namespace aeon */
+} // namespace aeon

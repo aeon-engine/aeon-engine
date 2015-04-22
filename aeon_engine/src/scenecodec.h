@@ -25,13 +25,13 @@ public:
     scene_codec() {}
     virtual ~scene_codec() {}
 
-    virtual scene_ptr decode(stream_ptr stream) = 0;
+    virtual scene_ptr decode(aeon::streams::stream_ptr stream) = 0;
     virtual std::string get_type_name() const = 0;
 
 };
 
 typedef std::shared_ptr<scene_codec> scene_codec_ptr;
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* modelcodec_h__ */
+#endif // modelcodec_h__

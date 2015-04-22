@@ -14,16 +14,16 @@ if (GLEW_INCLUDE_DIRS)
         find_library(GLEW_LIBRARY_DEBUG "glew32d" PATHS ${GLEW_LIBRARY_DIR} NO_DEFAULT_PATH)
         find_library(GLEW_LIBRARY_RELEASE "glew32" PATHS ${GLEW_LIBRARY_DIR} NO_DEFAULT_PATH)
     else ()
-        find_library(GLEW_LIBRARY_DEBUG "glew" PATHS ${GLEW_LIBRARY_DIR} NO_DEFAULT_PATH)
-        find_library(GLEW_LIBRARY_RELEASE "glew" PATHS ${GLEW_LIBRARY_DIR} NO_DEFAULT_PATH)
+        find_library(GLEW_LIBRARY_DEBUG "GLEW" PATHS ${GLEW_LIBRARY_DIR} NO_DEFAULT_PATH)
+        find_library(GLEW_LIBRARY_RELEASE "GLEW" PATHS ${GLEW_LIBRARY_DIR} NO_DEFAULT_PATH)
     endif ()
 
     if (NOT GLEW_LIBRARY_DEBUG)
-        message(FATAL_ERROR "GLEW not found!")
+        message(FATAL_ERROR "GLEW not found! 1")
     endif ()
 
     if (NOT GLEW_LIBRARY_RELEASE)
-        message(FATAL_ERROR "GLEW not found!")
+        message(FATAL_ERROR "GLEW not found! 2")
     endif ()
 
     set(GLEW_LIBRARIES
@@ -31,9 +31,7 @@ if (GLEW_INCLUDE_DIRS)
         optimized ${GLEW_LIBRARY_RELEASE}
     )
 
-    message("${GLEW_LIBRARIES}")
-
     message(STATUS "Found GLEW: ${GLEW_ROOT_DIR}")
 else ()
-    message(FATAL_ERROR "GLEW not found!")
+    message(FATAL_ERROR "GLEW not found! 3")
 endif ()

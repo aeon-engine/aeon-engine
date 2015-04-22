@@ -39,4 +39,4 @@ void game::set_gamestate(game_state_ptr gamestate)
     current_gamestate_->on_enter();
 }
 
-} /* namespace aeon */
+} // namespace aeon

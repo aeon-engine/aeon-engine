@@ -25,10 +25,10 @@ public:
     scene_codec_assimp();
     virtual ~scene_codec_assimp();
 
-    virtual scene_ptr decode(stream_ptr stream);
+    virtual scene_ptr decode(aeon::streams::stream_ptr stream);
     virtual std::string get_type_name() const;
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* modelcodecassimp_h__ */
+#endif // modelcodecassimp_h__

@@ -26,13 +26,13 @@ public:
     material_manager();
     virtual ~material_manager();
 
-    material_ptr load(stream_ptr stream);
+    material_ptr load(aeon::streams::stream_ptr stream);
     material_ptr load(const std::string &name);
 
 protected:
     resource *__create_new_resource(const std::string &name);
 };
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* materialmanager_h__ */
+#endif // materialmanager_h__

@@ -49,4 +49,4 @@ void game_state_game::on_render()
     //console::debug("GameStateGame::on_render()");
 }
 
-} /* namespace aeon */
+} // namespace aeon

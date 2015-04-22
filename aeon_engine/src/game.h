@@ -16,7 +16,7 @@
 #ifndef game_h__
 #define game_h__
 
-#include "gameState.h"
+#include "gamestate.h"
 
 namespace aeon
 {
@@ -41,6 +41,6 @@ private:
 
 typedef std::shared_ptr<game> game_ptr;
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* game_h__ */
+#endif // game_h__

@@ -30,7 +30,7 @@ shader_manager::~shader_manager()
     console::debug("[ShaderManager]: disposed.");
 }
 
-shader_ptr shader_manager::load(stream_ptr stream)
+shader_ptr shader_manager::load(aeon::streams::stream_ptr stream)
 {
     return std::dynamic_pointer_cast<shader>(resource_manager::load(stream));
 }
@@ -45,4 +45,4 @@ resource * shader_manager::__create_new_resource(const std::string &name)
     return new shader(this, name, __get_unique_handle());
 }
 
-} /* namespace aeon */
+} // namespace aeon

@@ -129,6 +129,6 @@ private:
 
 typedef std::shared_ptr<buffer> buffer_ptr;
 
-} /* namespace aeon */
+} // namespace aeon
 
-#endif /* buffer_h__ */
+#endif // buffer_h__
