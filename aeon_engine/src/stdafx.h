@@ -94,7 +94,6 @@
 #  include "glfwplatform.h"
 #endif
 
-#include "iostream.h"
 #include "streamlistener.h"
 #include "image.h"
 #include "imagecodec.h"

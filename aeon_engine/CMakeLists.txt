@@ -18,8 +18,6 @@ set(AEON_ENGINE_MAIN_SOURCE
     src/buffer.cpp
     src/buffer.h
     src/buildconfig.h
-    src/iostream.cpp
-    src/iostream.h
     src/main.cpp
     src/root.cpp
     src/root.h

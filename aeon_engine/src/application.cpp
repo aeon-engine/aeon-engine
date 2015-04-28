@@ -237,8 +237,10 @@ void application::__setup_console()
     aeon::console::set_loglevel(aeon::console::log_level::debug);
 
     //Create console streams
-    auto console_stdoutput = std::make_shared<aeon::io_stream>
+    auto console_stdoutput = std::make_shared<aeon::streams::io_stream>
         (aeon::streams::access_mode::write);
+
+    //console_stdoutput->set_color(aeon::streams::color::blue, aeon::streams::weight::bold);
 
     std::string console_log_file = "console.log";
     auto console_fileoutput = std::make_shared<aeon::streams::file_stream>
