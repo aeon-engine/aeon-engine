@@ -49,3 +49,29 @@ endif ()
 
 add_subdirectory(dep)
 add_subdirectory(aeon_engine)
+
+################################################################################
+
+include(CopyToRuntimePath)
+
+copy_folder_to_runtime_path(
+    PATH bin
+)
+
+if (MSVC)
+    copy_files_to_runtime_path(
+        FILES
+            ${GLEW_ROOT_DIR}/bin/glew32d.dll
+            ${PNG_ROOT_DIR}/bin/libpng16d.dll
+            ${ZLIB_ROOT_DIR}/bin/zlibd.dll
+        CONFIGURATIONS Debug
+    )
+
+    copy_files_to_runtime_path(
+        FILES
+            ${GLEW_ROOT_DIR}/bin/glew32.dll
+            ${PNG_ROOT_DIR}/bin/libpng16.dll
+            ${ZLIB_ROOT_DIR}/bin/zlib.dll
+        CONFIGURATIONS Release
+    )
+endif ()

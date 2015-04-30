@@ -10,3 +10,6 @@ build
 
 # Windows
 vs_build
+
+# Clion
+.idea
