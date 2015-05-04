@@ -37,7 +37,7 @@ buffer::buffer(size_t size,
 }
 
 buffer::buffer(void *buffer, size_t size, 
-               delete_mode mode /*= DeleteMode::delete_on_destruct*/) :
+               delete_mode mode /*= delete_mode::delete_on_destruct*/) :
     buffer_(buffer),
     size_(size),
     reserved_size_(size),
