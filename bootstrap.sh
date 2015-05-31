@@ -7,9 +7,9 @@ export GLM_ROOT=/Development/Libraries/Binary/glm/current
 export ASSIMP_ROOT=/Development/Libraries/Binary/assimp/current
 export PNG_ROOT=/Development/Libraries/Binary/png/current
 export ZLIB_ROOT=/Development/Libraries/Binary/zlib/current
-rm -rf xcode_build
-mkdir xcode_build
-cd xcode_build
-cmake ../ -G "Xcode"
+rm -rf build
+mkdir build
+cd build
+cmake ../
 cd ..
 
