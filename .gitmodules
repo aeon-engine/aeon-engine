@@ -1,6 +1,6 @@
 [submodule "dep/libaeon"]
 	path = dep/libaeon
-	url = http://git.robindegen.nl/r/aeon/libaeon.git
+	url = http://gitlab.robindegen.nl/aeon/libaeon.git
 [submodule "dep/cmake"]
 	path = dep/cmake
-	url = http://git.robindegen.nl/r/cmake-scripts.git
+	url = http://gitlab.robindegen.nl/aeon/cmake_scripts.git
