@@ -3,10 +3,12 @@ project(AeonEngine)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/;${CMAKE_SOURCE_DIR}/CMake")
 
+set(CMAKE_PREFIX_PATH "/Users/robindegen/Development/Libraries/Binary;${CMAKE_PREFIX_PATH}")
+
 ################################################################################
 
 if (NOT MSVC)
-    list(APPEND CMAKE_CXX_FLAGS "-std=c++1y ${CMAKE_CXX_FLAGS}")
+    set(CMAKE_CXX_FLAGS "-stdlib=libc++ -std=c++1y ${CMAKE_CXX_FLAGS}")
 endif (NOT MSVC)
 
 ################################################################################

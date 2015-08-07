@@ -1,7 +1,6 @@
 find_path(ASSIMP_INCLUDE_DIRS "assimp/scene.h"
     PATHS $ENV{ASSIMP_ROOT}
     PATH_SUFFIXES include
-    NO_DEFAULT_PATH
 )
 
 if (ASSIMP_INCLUDE_DIRS)
@@ -11,11 +10,11 @@ if (ASSIMP_INCLUDE_DIRS)
     set(ASSIMP_LIBRARY_DIR ${ASSIMP_ROOT_DIR}/lib/)
 
     if (MSVC)
-        find_library(ASSIMP_LIBRARY_DEBUG "assimpd" PATHS ${ASSIMP_LIBRARY_DIR} NO_DEFAULT_PATH)
-        find_library(ASSIMP_LIBRARY_RELEASE "assimp" PATHS ${ASSIMP_LIBRARY_DIR} NO_DEFAULT_PATH)
+        find_library(ASSIMP_LIBRARY_DEBUG "assimpd" PATHS ${ASSIMP_LIBRARY_DIR})
+        find_library(ASSIMP_LIBRARY_RELEASE "assimp" PATHS ${ASSIMP_LIBRARY_DIR})
     else ()
-        find_library(ASSIMP_LIBRARY_DEBUG "assimp" PATHS ${ASSIMP_LIBRARY_DIR} NO_DEFAULT_PATH)
-        find_library(ASSIMP_LIBRARY_RELEASE "assimp" PATHS ${ASSIMP_LIBRARY_DIR} NO_DEFAULT_PATH)
+        find_library(ASSIMP_LIBRARY_DEBUG "assimp" PATHS ${ASSIMP_LIBRARY_DIR})
+        find_library(ASSIMP_LIBRARY_RELEASE "assimp" PATHS ${ASSIMP_LIBRARY_DIR})
     endif ()
 
     if (NOT ASSIMP_LIBRARY_DEBUG)

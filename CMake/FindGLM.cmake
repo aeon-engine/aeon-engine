@@ -1,6 +1,5 @@
 find_path (GLM_INCLUDE_DIRS "glm/glm.hpp"
     PATHS $ENV{GLM_ROOT}
-    NO_DEFAULT_PATH
 )
 
 if (GLM_INCLUDE_DIRS)

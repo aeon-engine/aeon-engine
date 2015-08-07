@@ -1,7 +1,6 @@
 find_path (GLFW_INCLUDE_DIRS "GLFW/glfw3.h"
     PATHS $ENV{GLFW_ROOT}
     PATH_SUFFIXES include
-    NO_DEFAULT_PATH
 )
 
 if (GLFW_INCLUDE_DIRS)
@@ -11,11 +10,11 @@ if (GLFW_INCLUDE_DIRS)
     set(GLFW_LIBRARY_DIR ${GLFW_ROOT_DIR}/lib/)
 
     if (MSVC)
-        find_library(GLFW_LIBRARY_DEBUG "glfw3d" PATHS ${GLFW_LIBRARY_DIR} NO_DEFAULT_PATH)
-        find_library(GLFW_LIBRARY_RELEASE "glfw3" PATHS ${GLFW_LIBRARY_DIR} NO_DEFAULT_PATH)
+        find_library(GLFW_LIBRARY_DEBUG "glfw3d" PATHS ${GLFW_LIBRARY_DIR})
+        find_library(GLFW_LIBRARY_RELEASE "glfw3" PATHS ${GLFW_LIBRARY_DIR})
     else ()
-        find_library(GLFW_LIBRARY_DEBUG "glfw" "glfw3" PATHS ${GLFW_LIBRARY_DIR} NO_DEFAULT_PATH)
-        find_library(GLFW_LIBRARY_RELEASE "glfw" "glfw3" PATHS ${GLFW_LIBRARY_DIR} NO_DEFAULT_PATH)
+        find_library(GLFW_LIBRARY_DEBUG "glfw" "glfw3" PATHS ${GLFW_LIBRARY_DIR})
+        find_library(GLFW_LIBRARY_RELEASE "glfw" "glfw3" PATHS ${GLFW_LIBRARY_DIR})
     endif ()
 
     if (NOT GLFW_LIBRARY_DEBUG)
