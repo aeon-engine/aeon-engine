@@ -56,7 +56,7 @@ bool shader::__load_impl(aeon::streams::stream_ptr stream)
     int warning_count = 0;
     program_type parsing_program_type = program_type::none;
 
-    aeon::streams::stream_reader stream_reader(*stream);
+    aeon::streams::stream_reader<aeon::streams::stream> stream_reader(*stream);
 
     while (!stream->eof())
     {

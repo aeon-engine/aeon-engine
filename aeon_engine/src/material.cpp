@@ -40,8 +40,7 @@ bool material::__load_impl(aeon::streams::stream_ptr stream)
     // A material file has the same syntax as a config file
     aeon::utility::configfile material_file;
 
-    if (!material_file.load(stream))
-        return false;
+    material_file.load(std::dynamic_pointer_cast<aeon::streams::file_stream>(stream));
 
     // Read all the material settings
     __read_attributes(material_file);
