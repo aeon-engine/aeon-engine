@@ -1,5 +1,5 @@
-find_path (GLFW_INCLUDE_DIRS "GLFW/glfw3.h"
-    PATHS $ENV{GLFW_ROOT}
+find_path(
+    GLFW_INCLUDE_DIRS "GLFW/glfw3.h"
     PATH_SUFFIXES include
 )
 

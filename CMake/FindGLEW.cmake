@@ -1,5 +1,5 @@
-find_path(GLEW_INCLUDE_DIRS "GL/glew.h"
-    PATHS $ENV{GLEW_ROOT}
+find_path(
+    GLEW_INCLUDE_DIRS "GL/glew.h"
     PATH_SUFFIXES include
 )
 
@@ -18,11 +18,11 @@ if (GLEW_INCLUDE_DIRS)
     endif ()
 
     if (NOT GLEW_LIBRARY_DEBUG)
-        message(FATAL_ERROR "GLEW not found! 1")
+        message(FATAL_ERROR "GLEW not found!")
     endif ()
 
     if (NOT GLEW_LIBRARY_RELEASE)
-        message(FATAL_ERROR "GLEW not found! 2")
+        message(FATAL_ERROR "GLEW not found!")
     endif ()
 
     set(GLEW_LIBRARIES
@@ -32,5 +32,5 @@ if (GLEW_INCLUDE_DIRS)
 
     message(STATUS "Found GLEW: ${GLEW_ROOT_DIR}")
 else ()
-    message(FATAL_ERROR "GLEW not found! 3")
+    message(FATAL_ERROR "GLEW not found!")
 endif ()

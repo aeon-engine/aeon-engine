@@ -1,5 +1,4 @@
 find_path (ZLIB_INCLUDE_DIRS "zlib.h"
-    PATHS $ENV{ZLIB_ROOT}
     PATH_SUFFIXES include
 )
 
@@ -30,7 +29,7 @@ if (ZLIB_INCLUDE_DIRS)
         optimized ${ZLIB_LIBRARY_RELEASE}
     )
 
-    message (STATUS "Found Zlib: ${ZLIB_ROOT_DIR}")
+    message(STATUS "Found Zlib: ${ZLIB_ROOT_DIR}")
 else ()
-    message (FATAL_ERROR "Zlib not found!")
+    message(FATAL_ERROR "Zlib not found!")
 endif ()

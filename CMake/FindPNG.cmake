@@ -1,5 +1,5 @@
-find_path (PNG_INCLUDE_DIRS "png.h"
-    PATHS $ENV{PNG_ROOT}
+find_path(
+    PNG_INCLUDE_DIRS "png.h"
     PATH_SUFFIXES include
 )
 
@@ -30,7 +30,7 @@ if (PNG_INCLUDE_DIRS)
         optimized ${PNG_LIBRARY_RELEASE}
     )
 
-    message (STATUS "Found PNG: ${PNG_ROOT_DIR}")
+    message(STATUS "Found PNG: ${PNG_ROOT_DIR}")
 else ()
-    message (FATAL_ERROR "PNG not found!")
+    message(FATAL_ERROR "PNG not found!")
 endif ()

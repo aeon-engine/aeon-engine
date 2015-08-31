@@ -1,5 +1,6 @@
-find_path (GLM_INCLUDE_DIRS "glm/glm.hpp"
-    PATHS $ENV{GLM_ROOT}
+find_path(
+    GLM_INCLUDE_DIRS "glm/glm.hpp"
+    PATH_SUFFIXES include
 )
 
 if (GLM_INCLUDE_DIRS)

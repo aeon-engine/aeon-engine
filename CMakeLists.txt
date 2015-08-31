@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.0.1)
 project(AeonEngine)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/;${CMAKE_SOURCE_DIR}/CMake")
-
-set(CMAKE_PREFIX_PATH "/Users/robindegen/Development/Libraries/Binary;${CMAKE_PREFIX_PATH}")
+set(CMAKE_PREFIX_PATH "$ENV{AEON_LIBRARIES_PATH};${CMAKE_PREFIX_PATH}")
 
 ################################################################################
 
@@ -16,7 +15,7 @@ endif (NOT MSVC)
 set(Boost_USE_STATIC_LIBS        ON)
 set(Boost_USE_MULTITHREADED      ON)
 set(Boost_USE_STATIC_RUNTIME    OFF)
-find_package (Boost COMPONENTS
+find_package(Boost COMPONENTS
     system
     date_time
     filesystem
@@ -66,6 +65,7 @@ if (MSVC)
             ${GLEW_ROOT_DIR}/bin/glew32d.dll
             ${PNG_ROOT_DIR}/bin/libpng16d.dll
             ${ZLIB_ROOT_DIR}/bin/zlibd.dll
+            ${ASSIMP_ROOT_DIR}/bin/assimpd.dll
         CONFIGURATIONS Debug
     )
 
@@ -74,6 +74,7 @@ if (MSVC)
             ${GLEW_ROOT_DIR}/bin/glew32.dll
             ${PNG_ROOT_DIR}/bin/libpng16.dll
             ${ZLIB_ROOT_DIR}/bin/zlib.dll
+            ${ASSIMP_ROOT_DIR}/bin/assimp.dll
         CONFIGURATIONS Release
     )
 endif ()

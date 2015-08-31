@@ -1,5 +1,5 @@
-find_path(ASSIMP_INCLUDE_DIRS "assimp/scene.h"
-    PATHS $ENV{ASSIMP_ROOT}
+find_path(
+    ASSIMP_INCLUDE_DIRS "assimp/scene.h"
     PATH_SUFFIXES include
 )
 
