@@ -1,5 +1,6 @@
 build:
   script:
+    - git submodule update --init
     - export WORKSPACE=$PWD
     - cd $AEON_LIBRARIES_PATH
     - git fetch --prune
