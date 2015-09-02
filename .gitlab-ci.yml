@@ -10,7 +10,6 @@ build:
     - cd $BUILD_DIR
     - cmake -DCMAKE_INSTALL_PREFIX=install ../
     - cmake --build . --target install --config Debug
-    - ctest -C Debug --verbose
 
 cppcheck:
   script:
