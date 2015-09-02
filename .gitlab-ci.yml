@@ -10,8 +10,4 @@ build:
     - mkdir $BUILD_DIR
     - cd $BUILD_DIR
     - cmake -DCMAKE_INSTALL_PREFIX=install ../
-    - cmake --build . --target install --config Debug
-
-cppcheck:
-  script:
-    - cppcheck --enable=all --std=posix -q -I include/ src
+    - cmake --build . --config Debug
