@@ -43,6 +43,7 @@ Compiling
 
 - Clone of the above mentioned precompiled library repositories.
 - Create an environment variable AEON_LIBRARIES_PATH that points to this repository
+  Be sure you use forward slashes; even on windows!
 - Run either bootstrap.sh (osx/linux) or bootstrap.cmd (windows).
 
 Code style
