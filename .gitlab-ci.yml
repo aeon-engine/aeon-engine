@@ -1,0 +1,17 @@
+build:
+  script:
+    - export WORKSPACE=$PWD
+    - cd $AEON_LIBRARIES_PATH
+    - git fetch --prune
+    - git checkout origin/master
+    - cd $WORKSPACE
+    - export BUILD_DIR=ci_build
+    - mkdir $BUILD_DIR
+    - cd $BUILD_DIR
+    - cmake -DCMAKE_INSTALL_PREFIX=install ../
+    - cmake --build . --target install --config Debug
+    - ctest -C Debug --verbose
+
+cppcheck:
+  script:
+    - cppcheck --enable=all --std=posix -q -I include/ src
