@@ -48,8 +48,30 @@ endif ()
 
 ################################################################################
 
+option(AEON_GFX_GL "Use OpenGL as graphics renderer." ON)
+option(AEON_PLATFORM_GLFW "Use GLFW as platform (creates the window and context)" ON)
+
+################################################################################
+
+if (AEON_GFX_GL)
+    message ("Using OpenGL as graphics renderer.")
+else ()
+    message (FATAL_ERROR "No graphics renderer selected.")
+endif ()
+
+if (AEON_PLATFORM_GLFW)
+    if (NOT AEON_GFX_GL)
+        message (FATAL_ERROR "GLFW requires OpenGL; Please set AEON_GFX_GL.")
+    endif()
+    message ("Using GLFW as platform.")
+else ()
+    message (FATAL_ERROR "No platform selected.")
+endif ()
+
+################################################################################
+
 add_subdirectory(dep)
-add_subdirectory(aeon_engine)
+add_subdirectory(src)
 
 ################################################################################
 
