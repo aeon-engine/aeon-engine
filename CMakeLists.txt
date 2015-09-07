@@ -16,9 +16,13 @@ enable_testing()
 ################################################################################
 
 if (APPLE)
-    option(AEON_ENABLE_CLANG_COVERAGE "Use OpenGL as graphics renderer." OFF)
+    option(AEON_ENABLE_CLANG_COVERAGE "Compile with code coverage enabled for GCOV on OSX." ON)
 
     if (AEON_ENABLE_CLANG_COVERAGE)
+        message("Compiling with code coverage enabled for GCOV on OSX.")
+        message(" - fprofile-arcs")
+        message(" - ftest-coverage")
+
         set(AEON_CLANG_COVERAGE_COMPILER_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${AEON_CLANG_COVERAGE_COMPILER_FLAGS}")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${AEON_CLANG_COVERAGE_COMPILER_FLAGS}")
