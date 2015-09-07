@@ -10,8 +10,10 @@ build:
     - mkdir $BUILD_DIR
     - cd $BUILD_DIR
     - cmake -DCMAKE_INSTALL_PREFIX=install -DAEON_ENABLE_CLANG_COVERAGE=1 ../
-    - cmake --build . --config Debug
+    - cmake --build . --config Debug -- -j4
     - lcov -b ../ -c -i -d . -o test.info
     - ctest -C Debug --verbose
-    - lcov --remove test.info '/Applications/Xcode.app/*' '*/Gitlab/osx_clang/*' '*/tests/test_*' --output-file test.info.clean
-    - lcov -l test.info.clean
+    - lcov -b ../ -c -d . -o test2.info
+    - lcov --add-tracefile test2.info -t test2 -a test.info -t test -o test_merged.info
+    - lcov --remove test_merged.info '/Applications/Xcode.app/*' '*/Gitlab/osx_clang/*' '*/tests/test_*' --output-file test_merged.info.clean
+    - lcov -l test_merged.info.clean
