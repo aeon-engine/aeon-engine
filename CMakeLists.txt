@@ -4,12 +4,26 @@ project(AeonEngine)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/;${CMAKE_SOURCE_DIR}/CMake")
 set(CMAKE_PREFIX_PATH "$ENV{AEON_LIBRARIES_PATH};${CMAKE_PREFIX_PATH}")
 
+include(CompilerFlags)
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-include(CompilerFlags)
+################################################################################
 
 include(CTest)
 enable_testing()
+
+################################################################################
+
+if (APPLE)
+    option(AEON_ENABLE_CLANG_COVERAGE "Use OpenGL as graphics renderer." OFF)
+
+    if (AEON_ENABLE_CLANG_COVERAGE)
+        set(AEON_CLANG_COVERAGE_COMPILER_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${AEON_CLANG_COVERAGE_COMPILER_FLAGS}")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${AEON_CLANG_COVERAGE_COMPILER_FLAGS}")
+    endif ()
+endif ()
 
 ################################################################################
 
