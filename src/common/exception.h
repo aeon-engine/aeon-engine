@@ -40,5 +40,16 @@ private:
     const std::string message_;
 };
 
+#define DEFINE_EXCEPTION_OBJECT(name, base, message) \
+    class name : base \
+    { \
+        name() : \
+            base(#message) \
+        {} \
+        name(const std::string &msg) : \
+            base(msg) \
+        {} \
+    };
+
 } // namespace common
 } // namespace aeon

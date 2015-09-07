@@ -16,40 +16,32 @@
 #pragma once
 
 #include <string>
-#include <cstdint>
 
 namespace aeon
 {
 namespace common
 {
 
-using cached_handle = std::uint64_t;
-
 class cached_object
 {
+template <typename T>
+friend class object_cache;
 public:
-    cached_object(cached_handle handle, const std::string &name) :
-        handle_(handle),
-        name_(name)
+    cached_object() :
+        name_("Unnamed")
     {
     }
     
     virtual ~cached_object()
     {
     }
-    
-    const cached_handle get_cached_handle() const
-    {
-        return handle_;
-    }
-    
+
     const std::string &get_cached_name() const
     {
         return name_;
     }
     
 private:
-    cached_handle handle_;
     std::string name_;
 };
 
