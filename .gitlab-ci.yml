@@ -15,7 +15,7 @@ build:
     - lcov -b ../ -c -i -d . -o test.info
     - ctest -C Debug --verbose
     - lcov -b ../ -c -d . -o test2.info
-    - lcov --add-tracefile test2.info -t test2 -a test.info -t test -o test_merged.info
+    - lcov --add-tracefile test.info -t test -a test2.info -t test2 -o test_merged.info
     - lcov --remove test_merged.info '/Applications/Xcode.app/*' '*/Gitlab/osx_clang/*' '/usr/include/*' '*/tests/test_*' --output-file test_merged.info.clean
     - lcov -l test_merged.info.clean
     - genhtml -o ${GIT_COMMIT_HASH} test_merged.info.clean
