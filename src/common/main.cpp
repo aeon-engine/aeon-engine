@@ -13,22 +13,12 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#ifndef imagecodecpng_h__
-#define imagecodecpng_h__
+#include <common/application.h>
 
-namespace aeon
+int main(int argc, char* argv[])
 {
+    aeon::application app;
+    app.main(argc, argv);
 
-class image_codec_png : public image_codec
-{
-public:
-    image_codec_png();
-    virtual ~image_codec_png();
-
-    virtual image_ptr decode(aeon::streams::stream_ptr stream);
-    virtual std::string get_type_name() const;
-};
-
-} // namespace aeon
-
-#endif // imagecodecpng_h__
+    return 0;
+}

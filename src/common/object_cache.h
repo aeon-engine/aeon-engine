@@ -13,25 +13,36 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#ifndef imagecodec_h__
-#define imagecodec_h__
+#pragma once
+
+#include <common/cached_object.h>
+#include <aeon/utility.h>
+#include <vector>
+#include <queue>
 
 namespace aeon
 {
+namespace common
+{
 
-class image_codec
+template <typename T>
+class object_cache
 {
 public:
-    image_codec() {}
-    virtual ~image_codec() {}
+    using cached_object = std::weak_ptr<T>;
+    using cached_objects = aeon::utility::linear_map<std::string, cached_object>;
 
-    virtual image_ptr decode(aeon::streams::stream_ptr stream) = 0;
-    virtual std::string get_type_name() const = 0;
+    object_cache()
+    {
+    }
+    
+    virtual ~object_cache()
+    {
+    }
 
+private:
+    cached_objects objects_;
 };
 
-typedef std::shared_ptr<image_codec> image_codec_ptr;
-
+} // namespace common
 } // namespace aeon
-
-#endif // imagecodec_h__

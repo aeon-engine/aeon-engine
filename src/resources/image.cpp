@@ -13,9 +13,13 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include "stdafx.h"
+#include <exception>
+#include <console/console.h>
+#include <resources/image.h>
 
 namespace aeon
+{
+namespace resources
 {
 
 image::image() :
@@ -31,15 +35,19 @@ image::~image()
 
 }
 
-void image::set_data(buffer_ptr buffer, unsigned int width,
-                     unsigned int height,
-                     pixel_format pixelformat /*= pixel_format::rgba*/)
+void image::set_data(common::buffer_ptr_u8 buffer, unsigned int width,
+                     unsigned int height, pixel_format pixelformat /*= pixel_format::rgba*/)
 {
-    if (!buffer || !buffer->get())
+    if (!buffer)
     {
-        console::error("[Image]: Tried creating an image from an "
-            "empty buffer.");
-        return;
+        console::error("[Image]: Tried creating an image from a null buffer.");
+        throw std::runtime_error("Tried creating an image from a null buffer.");
+    }
+
+    if (buffer->empty())
+    {
+        console::error("[Image]: Tried creating an image from an empty buffer.");
+        throw std::runtime_error("Tried creating an image from an empty buffer.");
     }
 
     buffer_ = buffer;
@@ -59,13 +67,14 @@ bool image::save_raw_to_stream(aeon::streams::stream_ptr stream)
     if (!buffer_)
         return false;
 
-    if (!buffer_->get())
+    if (buffer_->empty())
         return false;
 
-    if (stream->write((std::uint8_t *) buffer_->get(), buffer_->size()) != buffer_->size())
+    if (stream->write(static_cast<std::uint8_t *>(&(*buffer_)[0]), buffer_->size()) != buffer_->size())
         return false;
 
     return true;
 }
 
+} // namespace resources
 } // namespace aeon

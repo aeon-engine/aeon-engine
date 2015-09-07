@@ -13,23 +13,21 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gl/gfx_gl_texture.h>
+#pragma once
 
 namespace aeon
 {
-namespace gfx
-{
-namespace gl
-{
 
-texture::texture()
+class application
 {
-}
+public:
+    application();
+    ~application();
 
-texture::~texture()
-{
-}
+    void main(int argc, char *argv[]);
 
-} // namespace gl
-} // namespace gfx
+private:
+    void __setup_console();
+};
+
 } // namespace aeon

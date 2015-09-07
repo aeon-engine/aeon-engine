@@ -14,6 +14,8 @@
  */
 
 #include "stdafx.h"
+#include <resources/codec/image_codec_manager.h>
+#include <resources/codec/image_codec_png.h>
 
 namespace aeon
 {
@@ -151,11 +153,11 @@ bool root::__initialize_impl(platforms::base_platform_ptr platform)
 
     // TODO: Should we check if the singletons were properly created?
     // Register codecs
-    image_codec_manager::create();
+    resources::image_codec_manager::create();
 
 #ifdef AEON_USE_PNG
-    image_codec_manager::get_singleton().register_codec(
-        std::make_shared<image_codec_png>());
+    resources::image_codec_manager::get_singleton().register_codec(
+        std::make_shared<resources::image_codec_png>());
 #endif
 
     scene_codec_manager::create();

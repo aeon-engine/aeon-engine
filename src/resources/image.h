@@ -13,10 +13,16 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#ifndef image_h__
-#define image_h__
+#pragma once
+
+#include <common/buffer.h>
+#include <aeon/streams.h>
+#include <vector>
+#include <memory>
 
 namespace aeon
+{
+namespace resources
 {
 
 class image
@@ -31,11 +37,11 @@ public:
     image();
     ~image();
 
-    void set_data(buffer_ptr buffer, unsigned int width,
+    void set_data(common::buffer_ptr_u8 buffer, unsigned int width,
                   unsigned int height,
                   pixel_format pixelformat = pixel_format::rgba);
 
-    buffer_ptr get_data() { return buffer_; }
+    common::buffer_ptr_u8 get_data() { return buffer_; }
     unsigned int get_width() { return width_; }
     unsigned int get_height() { return height_; }
     pixel_format get_pixelformat() { return pixel_format_; }
@@ -43,14 +49,13 @@ public:
     bool save_raw_to_stream(aeon::streams::stream_ptr stream);
 
 private:
-    buffer_ptr buffer_;
+    common::buffer_ptr_u8 buffer_;
     unsigned int width_;
     unsigned int height_;
     pixel_format pixel_format_;
 };
 
-typedef std::shared_ptr<image> image_ptr;
+using image_ptr = std::shared_ptr<image>;
 
+} // namespace resources
 } // namespace aeon
-
-#endif // image_h__

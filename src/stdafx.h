@@ -60,10 +60,6 @@
 #  include <GLFW/glfw3.h>
 #endif
 
-#ifdef AEON_USE_PNG
-#  include <png.h>
-#endif
-
 #ifdef AEON_USE_GLFW_PLATFORM
 #  include <GLFW/glfw3.h>
 #endif
@@ -83,8 +79,8 @@
 /************************************************************************/
 #define AEON_UNUSED(x) (void)(x)
 
-#include "console.h"
-#include "consolelistener.h"
+#include "console/console.h"
+#include "console/consolelistener.h"
 #include "framelistener.h"
 #include "stringutils.h"
 #include "buffer.h"
@@ -95,13 +91,6 @@
 #endif
 
 #include "streamlistener.h"
-#include "image.h"
-#include "imagecodec.h"
-#include "imagecodecmanager.h"
-
-#ifdef AEON_USE_PNG
-#  include "imagecodecpng.h"
-#endif
 
 #include "scene.h"
 #include "scenecodec.h"

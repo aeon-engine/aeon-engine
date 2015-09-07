@@ -13,23 +13,27 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gl/gfx_gl_texture.h>
+#pragma once
+
+#include <memory>
+#include <vector>
+#include <cstdint>
 
 namespace aeon
 {
-namespace gfx
-{
-namespace gl
+namespace common
 {
 
-texture::texture()
-{
-}
+template <typename T>
+using buffer = std::vector<T>;
 
-texture::~texture()
-{
-}
+using buffer_u8 = buffer<std::uint8_t>;
+using buffer_pu8 = buffer<std::uint8_t *>;
 
-} // namespace gl
-} // namespace gfx
+template <typename T>
+using buffer_ptr = std::shared_ptr<buffer<T>>;
+
+using buffer_ptr_u8 = buffer_ptr<std::uint8_t>;
+
+} // namespace common
 } // namespace aeon

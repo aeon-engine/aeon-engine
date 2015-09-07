@@ -13,24 +13,25 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#ifndef consolelistener_h__
-#define consolelistener_h__
+#pragma once
+
+#include <resources/codec/image_codec.h>
+#include <resources/image.h>
 
 namespace aeon
 {
+namespace resources
+{
 
-class console_listener
+class image_codec_png : public image_codec
 {
 public:
-    console_listener() {}
-    virtual ~console_listener() {}
+    image_codec_png();
+    virtual ~image_codec_png();
 
-    virtual void on_log_message(double time_diff, console::log_level level, 
-                                const std::string &message) = 0;
+    virtual image_ptr decode(aeon::streams::stream_ptr stream);
+    virtual std::string get_type_name() const;
 };
 
-typedef std::shared_ptr<console_listener> console_listener_ptr;
-
+} // namespace resources
 } // namespace aeon
-
-#endif // consolelistener_h__

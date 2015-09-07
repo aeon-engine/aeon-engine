@@ -15,23 +15,38 @@
 
 #pragma once
 
-#include <gfx/gfx_device.h>
+#include <memory>
+#include <set>
 
 namespace aeon
 {
-namespace gfx
-{
-namespace gl
+
+namespace console
 {
 
-class device : gfx::device
-{
-public:
-    device();
-    virtual ~device();
+class listener;
+using listener_ptr = std::shared_ptr<listener>;
+using listeners = std::set<listener_ptr>;
 
+enum class log_level : int
+{
+    error    = 1,
+    warning  = 2,
+    info     = 3,
+    debug    = 99
 };
 
-} // namespace gl
-} // namespace gfx
+void error(const char *format, ...);
+void warning(const char *format, ...);
+void info(const char *format, ...);
+void debug(const char *format, ...);
+
+void set_loglevel(log_level level);
+log_level get_loglevel();
+
+void add_console_listener(listener_ptr listener);
+void remove_console_listener(listener_ptr listener);
+void remove_all_console_listeners();
+
+} // namespace console
 } // namespace aeon

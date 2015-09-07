@@ -13,7 +13,12 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include "stdafx.h"
+#include <buildconfig.h>
+#include <console/console.h>
+#include <console/consolelistener.h>
+#include <aeon/utility.h>
+#include <cstdarg>
+#include <mutex>
 
 namespace aeon
 {
@@ -21,7 +26,7 @@ namespace console
 {
 
 static log_level                loglevel_ = AEON_DEFAULT_CONSOLE_LOG_LEVEL;
-static console_listeners        console_listeners_;
+static listeners                console_listeners_;
 static char                     console_output_buffer_[AEON_CONSOLE_BUFFER_SIZE];
 static aeon::utility::timer     diff_timer_;
 static std::mutex               console_mutex_;
@@ -93,13 +98,13 @@ log_level get_loglevel()
     return level;
 }
 
-void add_console_listener(console_listener_ptr listener)
+void add_console_listener(listener_ptr listener)
 {
     std::lock_guard<std::mutex> lock(console_mutex_);
     console_listeners_.insert(listener);
 }
 
-void remove_console_listener(console_listener_ptr listener)
+void remove_console_listener(listener_ptr listener)
 {
     std::lock_guard<std::mutex> lock(console_mutex_);
     console_listeners_.erase(listener);

@@ -11,3 +11,4 @@ build:
     - cd $BUILD_DIR
     - cmake -DCMAKE_INSTALL_PREFIX=install ../
     - cmake --build . --config Debug
+    - ctest -C Debug --verbose

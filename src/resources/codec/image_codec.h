@@ -13,27 +13,26 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#ifndef imagecodecmanager_h__
-#define imagecodecmanager_h__
+#pragma once
+
+#include <resources/image.h>
 
 namespace aeon
 {
+namespace resources
+{
 
-class image_codec_manager : public aeon::utility::singleton<image_codec_manager>
+class image_codec
 {
 public:
-    image_codec_manager();
-    virtual ~image_codec_manager();
+    image_codec() {}
+    virtual ~image_codec() {}
 
-    void register_codec(image_codec_ptr codec);
-
-    image_ptr decode(const std::string &name, aeon::streams::stream_ptr stream);
-
-private:
-    typedef std::map<const std::string, image_codec_ptr> image_codecs;
-    image_codecs registered_codecs_;
+    virtual image_ptr decode(aeon::streams::stream_ptr stream) = 0;
+    virtual std::string get_type_name() const = 0;
 };
 
-} // namespace aeon
+typedef std::shared_ptr<image_codec> image_codec_ptr;
 
-#endif // imagecodecmanager_h__
+} // namespace resources
+} // namespace aeon

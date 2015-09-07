@@ -19,7 +19,7 @@
 namespace aeon
 {
 
-class console_stream_listener : public console_listener
+class console_stream_listener : public console::listener
 {
 public:
     console_stream_listener(aeon::streams::stream_ptr stream);

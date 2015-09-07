@@ -13,23 +13,30 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gl/gfx_gl_texture.h>
+#pragma once
+
+#include <resources/codec/image_codec.h>
+#include <aeon/utility.h>
 
 namespace aeon
 {
-namespace gfx
-{
-namespace gl
+namespace resources
 {
 
-texture::texture()
+class image_codec_manager : public aeon::utility::singleton<image_codec_manager>
 {
-}
+public:
+    image_codec_manager();
+    virtual ~image_codec_manager();
 
-texture::~texture()
-{
-}
+    void register_codec(image_codec_ptr codec);
 
-} // namespace gl
-} // namespace gfx
+    image_ptr decode(const std::string &name, aeon::streams::stream_ptr stream);
+
+private:
+    typedef std::map<const std::string, image_codec_ptr> image_codecs;
+    image_codecs registered_codecs_;
+};
+
+} // namespace resources
 } // namespace aeon

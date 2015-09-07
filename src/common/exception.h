@@ -13,23 +13,32 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gl/gfx_gl_texture.h>
+#pragma once
+
+#include <exception>
+#include <string>
 
 namespace aeon
 {
-namespace gfx
-{
-namespace gl
+namespace common
 {
 
-texture::texture()
+class exception : std::exception
 {
-}
+public:
+    exception(const std::string &message = "") :
+        message_(message)
+    {
+    }
 
-texture::~texture()
-{
-}
+    const char* what() const
+    {
+        return message_.c_str();
+    }
 
-} // namespace gl
-} // namespace gfx
+private:
+    const std::string message_;
+};
+
+} // namespace common
 } // namespace aeon

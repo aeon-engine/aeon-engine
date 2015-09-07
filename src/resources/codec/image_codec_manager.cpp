@@ -13,11 +13,14 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include "stdafx.h"
+#include <console/console.h>
+#include <resources/codec/image_codec_manager.h>
 
-aeon_utility_initialize_singleton(aeon::image_codec_manager);
+aeon_utility_initialize_singleton(aeon::resources::image_codec_manager);
 
 namespace aeon
+{
+namespace resources
 {
 
 image_codec_manager::image_codec_manager()
@@ -55,4 +58,5 @@ image_ptr image_codec_manager::decode(const std::string &name,
     return codec->second->decode(stream);
 }
 
+} // namespace resources
 } // namespace aeon

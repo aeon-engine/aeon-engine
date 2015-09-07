@@ -56,7 +56,7 @@ In short:
 - Prefer C++11 standards above boost or any other library
 - 4 spaces, no tabs.
 - No CamelCase. Variables and types must be named_like_this.
-- 80 character maximum line length.
+- 120 character maximum line length.
 - No compiler or static analysis warnings. Ever.
 
 The following comment MUST be at the top of all source files, and must be kept
