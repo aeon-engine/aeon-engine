@@ -15,27 +15,25 @@
 
 #pragma once
 
-#include <resources/codec/image_codec.h>
-#include <aeon/utility.h>
+#include <common/exception.h>
+#include <resources/codec.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class image_codec_manager : public aeon::utility::singleton<image_codec_manager>
+DEFINE_EXCEPTION_OBJECT(codec_png_decode_exception, codec_decode_exception,
+    "Error while decoding PNG image resource.");
+
+class image_codec_png : codec
 {
 public:
-    image_codec_manager();
-    virtual ~image_codec_manager();
+    image_codec_png();
+    ~image_codec_png() override;
 
-    void register_codec(image_codec_ptr codec);
-
-    image_ptr decode(const std::string &name, aeon::streams::stream_ptr stream);
-
-private:
-    typedef std::map<const std::string, image_codec_ptr> image_codecs;
-    image_codecs registered_codecs_;
+    void decode(common::buffer_u8 &input, common::buffer_u8 &output, codec_metadata &metadata) override;
+    resource_encoding get_codec_type() const override;
 };
 
 } // namespace resources

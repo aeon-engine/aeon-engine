@@ -13,26 +13,24 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <resources/image.h>
+#include <resources/resource_interface.h>
+#include <resources/resource.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class image_codec
+resource_interface::resource_interface(resource &parent, common::buffer_u8 &&buffer) :
+    parent_(parent),
+    buffer_(std::move(buffer))
 {
-public:
-    image_codec() {}
-    virtual ~image_codec() {}
+}
 
-    virtual image_ptr decode(aeon::streams::stream_ptr stream) = 0;
-    virtual std::string get_type_name() const = 0;
-};
+resource_interface::~resource_interface()
+{
+}
 
-typedef std::shared_ptr<image_codec> image_codec_ptr;
 
 } // namespace resources
 } // namespace aeon

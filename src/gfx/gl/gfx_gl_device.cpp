@@ -13,6 +13,9 @@
  * prior written permission is obtained from Robin Degen.
  */
 
+#include <memory>
+#include <gfx/gl/gfx_gl_texture_manager.h>
+#include <gfx/gl/gfx_gl_shader_manager.h>
 #include <gfx/gl/gfx_gl_device.h>
 
 namespace aeon
@@ -24,6 +27,8 @@ namespace gl
 
 device::device()
 {
+    texture_manager_ = std::make_shared<gl::texture_manager>();
+    shader_manager_ = std::make_shared<gl::shader_manager>();
 }
 
 device::~device()

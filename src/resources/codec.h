@@ -15,17 +15,35 @@
 
 #pragma once
 
+#include <common/exception.h>
+#include <common/buffer.h>
+#include <resources/resource_encoding.h>
+#include <resources/codec_metadata.h>
+#include <memory>
+
 namespace aeon
 {
-namespace gfx
+namespace resources
 {
 
-class shader_manager
+DEFINE_EXCEPTION_OBJECT(codec_exception, aeon::common::exception,
+    "Generic Codec exception.");
+
+DEFINE_EXCEPTION_OBJECT(codec_decode_exception, codec_exception,
+    "Error while decoding resource.");
+
+class codec
 {
 public:
-    shader_manager();
-    virtual ~shader_manager();
+    codec() {}
+    virtual ~codec() {}
+
+    virtual void decode(common::buffer_u8 &input, common::buffer_u8 &output, codec_metadata &metadata) = 0;
+    virtual resource_encoding get_codec_type() const = 0;
+
 };
 
-} // namespace gfx
+using codec_ptr = std::unique_ptr<codec>;
+
+} // namespace resources
 } // namespace aeon

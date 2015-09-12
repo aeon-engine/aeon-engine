@@ -17,15 +17,20 @@
 
 namespace aeon
 {
-namespace gfx
+namespace resources
 {
 
-class shader_manager
+enum class resource_type
 {
-public:
-    shader_manager();
-    virtual ~shader_manager();
+    unknown,
+    raw,
+    config,
+    image,
+    shader,
+    material,
+    mesh,
+    world
 };
 
-} // namespace gfx
+} // namespace resources
 } // namespace aeon

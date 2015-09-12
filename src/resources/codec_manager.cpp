@@ -13,26 +13,30 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <string>
-#include <memory>
+#include <resources/codec_manager.h>
 
 namespace aeon
 {
-namespace gfx
+namespace resources
 {
 
-class resource
+codec_manager::codec_manager()
 {
-public:
-    resource();
-    virtual ~resource();
+}
 
-    virtual const std::string to_string() const = 0;
-};
+codec_manager::~codec_manager()
+{
+}
 
-using resource_ptr = std::shared_ptr<resource>;
+void codec_manager::decode(common::buffer_u8& input, resource_encoding encoding, common::buffer_u8& output, codec_metadata& metadata)
+{
+    auto result = codecs_.find(encoding);
 
-} // namespace gfx
+    if (result == codecs_.end())
+        throw codec_manager_unknown_codec_exception();
+
+    result->second->decode(input, output, metadata);
+}
+
+} // namespace resources
 } // namespace aeon

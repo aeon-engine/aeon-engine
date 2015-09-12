@@ -28,6 +28,20 @@ texture_manager::~texture_manager()
 {
 }
 
+texture_ptr texture_manager::load_texture(resources::image_ptr image)
+{
+    texture_ptr tex = cache_.get_cached_object(image->get_path());
+
+    if (tex)
+        return tex;
+
+    tex = __load_texture(image);
+
+    if (tex)
+        cache_.add_cached_object(image->get_path(), tex);
+
+    return tex;
+}
+
 } // namespace gfx
 } // namespace aeon
-

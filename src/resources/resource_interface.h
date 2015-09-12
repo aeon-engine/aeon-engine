@@ -15,17 +15,34 @@
 
 #pragma once
 
+#include <resources/resource_type.h>
+#include <memory>
+#include <common/buffer.h>
+
 namespace aeon
 {
-namespace gfx
+namespace resources
 {
 
-class shader_manager
+class resource;
+
+class resource_interface;
+using resource_interface_ptr = std::shared_ptr<resource_interface>;
+
+class resource_interface
 {
+friend class resource;
 public:
-    shader_manager();
-    virtual ~shader_manager();
+    virtual ~resource_interface();
+
+private:
+    resource_interface(resource &parent, common::buffer_u8 &&buffer);
+
+    resource &parent_;
+    common::buffer_u8 buffer_;
 };
 
-} // namespace gfx
+
+
+} // namespace resources
 } // namespace aeon

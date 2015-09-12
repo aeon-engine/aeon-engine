@@ -31,7 +31,7 @@ public:
     {
     }
 
-    const char* what() const
+    const char* what() const noexcept override
     {
         return message_.c_str();
     }
@@ -43,13 +43,14 @@ private:
 #define DEFINE_EXCEPTION_OBJECT(name, base, message) \
     class name : base \
     { \
+    public: \
         name() : \
             base(#message) \
         {} \
         name(const std::string &msg) : \
             base(msg) \
         {} \
-    };
+    }
 
 } // namespace common
 } // namespace aeon

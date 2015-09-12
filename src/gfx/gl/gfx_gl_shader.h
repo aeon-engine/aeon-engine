@@ -29,7 +29,7 @@ class shader : gfx::shader
 {
 public:
     shader();
-    virtual ~shader();
+    ~shader() override;
 
 private:
     GLuint handle_;

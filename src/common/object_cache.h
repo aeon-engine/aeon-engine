@@ -48,18 +48,17 @@ public:
     {
     }
 
-protected:
-    cached_object_ptr __get_cached_object(const std::string &name)
+    cached_object_ptr get_cached_object(const std::string &name)
     {
         auto result = objects_.find(name);
 
-        if (!result)
+        if (result == objects_.end())
             return nullptr;
 
         return result->second.lock();
     }
 
-    void __add_cached_object(const std::string &name, cached_object_ptr obj)
+    void add_cached_object(const std::string &name, cached_object_ptr obj)
     {
         obj->name_ = name;
 
@@ -67,9 +66,14 @@ protected:
             throw object_cache_name_exception();
     }
 
-    void __garbage_collect_cached_objects()
+    void garbage_collect_cached_objects()
     {
-
+        objects_.erase_if(
+            [](const typename cached_objects::pair_type &obj)
+            {
+                return obj.second->expired();
+            }
+        );
     }
 
 private:

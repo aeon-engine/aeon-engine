@@ -15,20 +15,24 @@
 
 #pragma once
 
-#include <gfx/gfx_resource.h>
+#include <string>
+#include <memory>
+#include <common/cached_object.h>
 
 namespace aeon
 {
 namespace gfx
 {
 
-class texture : resource
+class texture : public common::cached_object
 {
 public:
     texture();
     virtual ~texture();
 
 };
+
+using texture_ptr = std::shared_ptr<texture>;
 
 } // namespace gfx
 } // namespace aeon

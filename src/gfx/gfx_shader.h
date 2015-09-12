@@ -15,14 +15,12 @@
 
 #pragma once
 
-#include <gfx/gfx_resource.h>
-
 namespace aeon
 {
 namespace gfx
 {
 
-class shader : resource
+class shader
 {
 public:
     shader();

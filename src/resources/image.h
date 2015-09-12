@@ -34,25 +34,30 @@ public:
         rgba,
     };
 
-    image();
+    image(const std::string &path);
     ~image();
 
-    void set_data(common::buffer_ptr_u8 buffer, unsigned int width,
+    void set_data(common::buffer_u8 buffer, unsigned int width,
                   unsigned int height,
                   pixel_format pixelformat = pixel_format::rgba);
 
-    common::buffer_ptr_u8 get_data() { return buffer_; }
-    unsigned int get_width() { return width_; }
-    unsigned int get_height() { return height_; }
+    bool has_data() const { return buffer_.empty(); }
+    common::buffer_u8 &get_data() { return buffer_; }
+    unsigned int get_width() const { return width_; }
+    unsigned int get_height() const { return height_; }
     pixel_format get_pixelformat() { return pixel_format_; }
+    const std::string &get_path() const { return path_; }
+
+    void clear_data();
 
     bool save_raw_to_stream(aeon::streams::stream_ptr stream);
 
 private:
-    common::buffer_ptr_u8 buffer_;
+    common::buffer_u8 buffer_;
     unsigned int width_;
     unsigned int height_;
     pixel_format pixel_format_;
+    std::string path_;
 };
 
 using image_ptr = std::shared_ptr<image>;

@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <GL/glew.h>
 #include <gfx/gfx_texture.h>
 
 namespace aeon
@@ -26,10 +27,13 @@ namespace gl
 
 class texture : gfx::texture
 {
+friend class gfx_gl_texture_manager;
 public:
     texture();
-    virtual ~texture();
+    ~texture() override;
 
+private:
+    GLuint handle_;
 };
 
 } // namespace gl

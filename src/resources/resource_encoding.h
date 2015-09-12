@@ -13,20 +13,18 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gfx_resource.h>
+#pragma once
 
 namespace aeon
 {
-namespace gfx
+namespace resources
 {
 
-resource::resource()
+enum class resource_encoding
 {
-}
+    unknown,
+    image_png
+};
 
-resource::~resource()
-{
-}
-
-} // namespace gfx
+} // namespace resources
 } // namespace aeon

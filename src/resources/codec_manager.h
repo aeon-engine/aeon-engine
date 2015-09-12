@@ -15,22 +15,34 @@
 
 #pragma once
 
-#include <resources/codec/image_codec.h>
-#include <resources/image.h>
+#include <common/exception.h>
+#include <aeon/utility.h>
+#include <resources/resource_encoding.h>
+#include <resources/codec.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class image_codec_png : public image_codec
-{
-public:
-    image_codec_png();
-    virtual ~image_codec_png();
+DEFINE_EXCEPTION_OBJECT(codec_manager_exception, aeon::common::exception,
+    "Generic Codec Manager exception.");
 
-    virtual image_ptr decode(aeon::streams::stream_ptr stream);
-    virtual std::string get_type_name() const;
+DEFINE_EXCEPTION_OBJECT(codec_manager_unknown_codec_exception, codec_manager_exception,
+    "Unknown or unsupported codec requested from codec manager.");
+
+class codec_manager
+{
+using codec_map = utility::linear_map<resource_encoding, codec_ptr>;
+
+public:
+    codec_manager();
+    ~codec_manager();
+
+    void decode(common::buffer_u8 &input, resource_encoding encoding, common::buffer_u8 &output, codec_metadata &metadata);
+
+private:
+    codec_map codecs_;
 };
 
 } // namespace resources

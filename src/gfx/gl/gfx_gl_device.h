@@ -28,7 +28,7 @@ class device : gfx::device
 {
 public:
     device();
-    virtual ~device();
+    ~device() override;
 
 };
 

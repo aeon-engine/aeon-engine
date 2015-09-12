@@ -24,11 +24,11 @@ namespace gfx
 namespace gl
 {
 
-class shader_manager
+class shader_manager : public gfx::shader_manager
 {
 public:
     shader_manager();
-    ~shader_manager();
+    ~shader_manager() override;
 };
 
 } // namespace gl
