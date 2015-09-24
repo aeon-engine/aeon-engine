@@ -30,7 +30,7 @@ texture_manager::~texture_manager()
 {
 }
 
-texture_ptr texture_manager::__load_texture(resources::image_ptr image)
+texture_ptr texture_manager::__load_texture(int image)
 {
     return nullptr;
 }

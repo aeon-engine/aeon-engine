@@ -13,36 +13,35 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <resources/resource_type.h>
-#include <memory>
-#include <common/buffer.h>
+#include <resources/image_resource.h>
+#include <resources/resource_manager.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class resource;
-
-class resource_interface;
-using resource_interface_ptr = std::shared_ptr<resource_interface>;
-
-class resource_interface
+image_resource::image_resource(resource_manager &parent, const std::string &path,
+                               resource_provider_weak_ptr provider) :
+    resource(parent, path, provider)
 {
-friend class resource;
-public:
-    virtual ~resource_interface();
+    if (get_type() != resource_type::image)
+        throw resource_type_exception();
+}
 
-private:
-    resource_interface(resource &parent, common::buffer_u8 &&buffer);
+image_resource::~image_resource()
+{
+}
 
-    resource &parent_;
-    common::buffer_u8 buffer_;
-};
+image_ptr image_resource::open()
+{
+    image_codec_ptr codec = __get_parent().get_codec_manager().get_image_codec(get_encoding());
 
+    common::buffer_u8 buffer;
+    __read_raw(buffer);
 
+    return codec->decode(buffer);
+}
 
 } // namespace resources
 } // namespace aeon

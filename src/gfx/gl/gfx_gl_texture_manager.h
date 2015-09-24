@@ -31,7 +31,7 @@ public:
     ~texture_manager() override;
 
 private:
-    texture_ptr __load_texture(resources::image_ptr image) override;
+    texture_ptr __load_texture(int image) override;
 };
 
 } // namespace gl

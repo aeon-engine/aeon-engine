@@ -32,7 +32,8 @@ resource_manager::~resource_manager()
 {
 }
 
-void resource_manager::mount(resource_provider_ptr provider, const std::string &mountpoint /* = "/"*/)
+void resource_manager::mount(resource_provider_ptr provider,
+    const std::string &mountpoint /* = "/"*/)
 {
     auto result = mount_points_.insert_ex(mountpoint, provider);
 
@@ -45,7 +46,19 @@ void resource_manager::unmount(const std::string &mountpoint)
     mount_points_.erase(mountpoint);
 }
 
-resource_ptr resource_manager::load(const std::string &path)
+image_resource_ptr resource_manager::load_image(const std::string &path)
+{
+    std::string real_path;
+    resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
+
+    if (!best_match_provider)
+        return nullptr;
+
+    // Note: std::make_shared doesn't work due to private constructor
+    return image_resource_ptr(new image_resource(*this, real_path, best_match_provider));
+}
+
+resource_provider_ptr resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)
 {
     // TODO: This needs optimization. Too much looping and string manipulation going on.
 
@@ -57,6 +70,8 @@ resource_ptr resource_manager::load(const std::string &path)
         std::string p = mountpoint.first;
         std::size_t p_length = p.length();
 
+        // Due to possible mountpoints being inside other mountpoints, the best match provider is the one that
+        // has the most in common with the path
         if (p_length > best_match_length)
         {
             if (path.compare(0, p_length, p) == 0)
@@ -70,10 +85,9 @@ resource_ptr resource_manager::load(const std::string &path)
     if (!best_match_provider)
         return nullptr;
 
-    std::string real_path = path.substr(best_match_length);
+    provider_path = path.substr(best_match_length);
 
-    // Note: std::make_shared doesn't work due to private constructor
-    return resource_ptr(new resource(*this, real_path, best_match_provider));
+    return best_match_provider;
 }
 
 } // namespace resources

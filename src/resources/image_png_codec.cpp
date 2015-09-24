@@ -109,7 +109,7 @@ image_codec_png::~image_codec_png()
 
 }
 
-void image_codec_png::decode(common::buffer_u8 &input, common::buffer_u8& output, codec_metadata &metadata)
+image_ptr image_codec_png::decode(common::buffer_u8 &input)
 {
     aeon::streams::memory_stream stream(std::move(input), aeon::streams::access_mode::read);
 
@@ -154,14 +154,15 @@ void image_codec_png::decode(common::buffer_u8 &input, common::buffer_u8& output
     png_get_IHDR(png_structs.png_ptr(), png_structs.info_ptr(), &temp_width, &temp_height, &bit_depth,
         &color_type, nullptr, nullptr, nullptr);
 
+    image::pixel_format pixel_format = image::pixel_format::rgba;
     // Check the pixel format
     switch (color_type)
     {
         case PNG_COLOR_TYPE_RGB:
-            metadata.set_value("pixel_format", "rgb");
+            pixel_format = image::pixel_format::rgb;
             break;
         case PNG_COLOR_TYPE_RGB_ALPHA:
-            metadata.set_value("pixel_format", "rgba");
+            pixel_format = image::pixel_format::rgba;
             break;
         default:
             throw codec_png_decode_exception();
@@ -202,11 +203,13 @@ void image_codec_png::decode(common::buffer_u8 &input, common::buffer_u8& output
     // Read the png into image_data through row_pointers
     png_read_image(png_structs.png_ptr(), row_pointers);
 
-    //Load the data into the image object
-    //auto img = std::make_shared<image>(path);
-    metadata.set_value("width", static_cast<int>(temp_width));
-    metadata.set_value("height", static_cast<int>(temp_height));
-    output = std::move(bitmap_buffer);
+    // Create the image object
+    return std::make_shared<image>(
+        std::move(bitmap_buffer),
+        temp_width,
+        temp_height,
+        pixel_format
+    );
 }
 
 resource_encoding image_codec_png::get_codec_type() const

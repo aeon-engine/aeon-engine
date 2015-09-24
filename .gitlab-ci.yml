@@ -1,4 +1,4 @@
 build:
   script:
     - source scripts/build_osx.sh
-    - source scripts/coverage_lcov.sh
+    - source scripts/run_tests.sh

@@ -22,7 +22,8 @@ namespace aeon
 namespace resources
 {
 
-static boost::filesystem::path __get_real_path(boost::filesystem::path base, const std::string &path)
+static boost::filesystem::path __get_real_path(boost::filesystem::path base,
+    const std::string &path)
 {
     boost::filesystem::path p(path);
     return base/p;

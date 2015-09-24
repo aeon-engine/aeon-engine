@@ -15,8 +15,6 @@
 
 #pragma once
 
-#include <resources/codec_metadata.h>
-#include <resources/resource_interface.h>
 #include <resources/resource_type.h>
 #include <resources/resource_encoding.h>
 #include <resources/resource_provider.h>
@@ -33,8 +31,9 @@ DEFINE_EXCEPTION_OBJECT(resource_exception, aeon::common::exception,
 DEFINE_EXCEPTION_OBJECT(resource_closed_exception, resource_exception,
     "Resource is no longer available. It may have been unmounted.");
 DEFINE_EXCEPTION_OBJECT(resource_type_exception, resource_exception,
-    "Unknown resource encoding or type.");
+    "Unknown resource encoding or actual type does not match expected resource type.");
 
+class resource_manager;
 class resource
 {
 friend class resource_interface;
@@ -42,19 +41,18 @@ friend class resource_manager;
 public:
     virtual ~resource();
 
-    resource_interface_ptr open();
-
-    resource_interface_ptr open_raw();
-
     resource_type get_type() const;
+    resource_encoding get_encoding() const { return encoding_; }
 
-private:
-    resource(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
+protected:
+    resource(resource_manager &parent, const std::string &path,
+        resource_provider_weak_ptr provider);
 
+    resource_manager &__get_parent() { return parent_; }
+    resource_provider_weak_ptr __get_provider() { return provider_; }
     void __read_raw(common::buffer_u8 &buffer);
 
-    void __decode(common::buffer_u8 &input, common::buffer_u8 &output, codec_metadata &metadata);
-
+private:
     resource_manager &parent_;
     std::string path_;
     resource_provider_weak_ptr provider_;

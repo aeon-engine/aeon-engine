@@ -15,31 +15,34 @@
 
 #pragma once
 
-#include <common/exception.h>
-#include <resources/resource_encoding.h>
+#include <resources/resource.h>
 #include <memory>
+#include <string>
 
 namespace aeon
 {
 namespace resources
 {
 
-DEFINE_EXCEPTION_OBJECT(codec_exception, aeon::common::exception,
-    "Generic Codec exception.");
+class image;
+using image_ptr = std::shared_ptr<image>;
 
-DEFINE_EXCEPTION_OBJECT(codec_decode_exception, codec_exception,
-    "Error while decoding resource.");
-
-class codec
+class image_resource : public resource
 {
+friend class resource_interface;
+friend class resource_manager;
 public:
-    codec() {}
-    virtual ~codec() {}
+    virtual ~image_resource();
 
-    virtual resource_encoding get_codec_type() const = 0;
+    image_ptr open();
+
+protected:
+    image_resource(resource_manager &parent, const std::string &path,
+        resource_provider_weak_ptr provider);
+
 };
 
-using codec_ptr = std::shared_ptr<codec>;
+using image_resource_ptr = std::shared_ptr<image_resource>;
 
 } // namespace resources
 } // namespace aeon

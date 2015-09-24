@@ -16,7 +16,6 @@
 #pragma once
 
 #include <common/object_cache.h>
-#include <resources/image.h>
 #include <gfx/gfx_texture.h>
 
 namespace aeon
@@ -30,10 +29,11 @@ public:
     texture_manager();
     virtual ~texture_manager();
 
-    texture_ptr load_texture(resources::image_ptr image);
+    // TODO
+    texture_ptr load_texture(int image);
 
 private:
-    virtual texture_ptr __load_texture(resources::image_ptr image) = 0;
+    virtual texture_ptr __load_texture(int image) = 0;
 
     common::object_cache<gfx::texture> cache_;
 };

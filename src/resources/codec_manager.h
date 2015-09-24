@@ -18,7 +18,9 @@
 #include <common/exception.h>
 #include <aeon/utility.h>
 #include <resources/resource_encoding.h>
+#include <resources/resource_type.h>
 #include <resources/codec.h>
+#include <resources/image_codec.h>
 
 namespace aeon
 {
@@ -31,6 +33,9 @@ DEFINE_EXCEPTION_OBJECT(codec_manager_exception, aeon::common::exception,
 DEFINE_EXCEPTION_OBJECT(codec_manager_unknown_codec_exception, codec_manager_exception,
     "Unknown or unsupported codec requested from codec manager.");
 
+DEFINE_EXCEPTION_OBJECT(codec_manager_codec_mismatch_exception, codec_manager_exception,
+    "Resource encoding does not match expected resource type.");
+
 class codec_manager
 {
 using codec_map = utility::linear_map<resource_encoding, codec_ptr>;
@@ -39,7 +44,10 @@ public:
     codec_manager();
     ~codec_manager();
 
-    void decode(common::buffer_u8 &input, resource_encoding encoding, common::buffer_u8 &output, codec_metadata &metadata);
+    codec_ptr get_codec(resource_encoding encoding);
+    image_codec_ptr get_image_codec(resource_encoding encoding);
+
+    resource_type get_resource_type_by_encoding(resource_encoding encoding) const;
 
 private:
     codec_map codecs_;

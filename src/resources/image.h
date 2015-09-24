@@ -15,15 +15,20 @@
 
 #pragma once
 
+#include <common/exception.h>
 #include <common/buffer.h>
-#include <aeon/streams.h>
-#include <vector>
 #include <memory>
 
 namespace aeon
 {
 namespace resources
 {
+
+DEFINE_EXCEPTION_OBJECT(image_exception, aeon::common::exception,
+    "Image resource exception.");
+
+DEFINE_EXCEPTION_OBJECT(image_data_exception, image_exception,
+    "Image resource data exception.");
 
 class image
 {
@@ -34,30 +39,28 @@ public:
         rgba,
     };
 
-    image(const std::string &path);
+    image();
+    image(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
+        pixel_format pixelformat = pixel_format::rgba);
+
     ~image();
 
-    void set_data(common::buffer_u8 buffer, unsigned int width,
-                  unsigned int height,
-                  pixel_format pixelformat = pixel_format::rgba);
+    void set_data(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
+        pixel_format pixelformat = pixel_format::rgba);
 
     bool has_data() const { return buffer_.empty(); }
     common::buffer_u8 &get_data() { return buffer_; }
     unsigned int get_width() const { return width_; }
     unsigned int get_height() const { return height_; }
-    pixel_format get_pixelformat() { return pixel_format_; }
-    const std::string &get_path() const { return path_; }
+    pixel_format get_pixelformat() const { return pixel_format_; }
 
     void clear_data();
-
-    bool save_raw_to_stream(aeon::streams::stream_ptr stream);
 
 private:
     common::buffer_u8 buffer_;
     unsigned int width_;
     unsigned int height_;
     pixel_format pixel_format_;
-    std::string path_;
 };
 
 using image_ptr = std::shared_ptr<image>;

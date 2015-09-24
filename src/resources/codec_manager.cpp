@@ -28,14 +28,34 @@ codec_manager::~codec_manager()
 {
 }
 
-void codec_manager::decode(common::buffer_u8& input, resource_encoding encoding, common::buffer_u8& output, codec_metadata& metadata)
+codec_ptr codec_manager::get_codec(resource_encoding encoding)
 {
     auto result = codecs_.find(encoding);
 
     if (result == codecs_.end())
         throw codec_manager_unknown_codec_exception();
 
-    result->second->decode(input, output, metadata);
+    return result->second;
+}
+
+image_codec_ptr codec_manager::get_image_codec(resource_encoding encoding)
+{
+    if (get_resource_type_by_encoding(encoding) != resource_type::image)
+        throw codec_manager_codec_mismatch_exception();
+
+    return std::dynamic_pointer_cast<image_codec>(get_codec(encoding));
+}
+
+resource_type codec_manager::get_resource_type_by_encoding(resource_encoding encoding) const
+{
+    switch (encoding)
+    {
+        case resource_encoding::image_png:
+            return resource_type::image;
+        case resource_encoding::unknown:
+        default:
+            throw codec_manager_unknown_codec_exception();
+    }
 }
 
 } // namespace resources

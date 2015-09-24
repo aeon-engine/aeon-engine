@@ -13,24 +13,35 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <resources/resource_interface.h>
-#include <resources/resource.h>
+#pragma once
+
+#include <common/exception.h>
+#include <common/buffer.h>
+#include <resources/resource_encoding.h>
+#include <resources/codec.h>
+#include <resources/image.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-resource_interface::resource_interface(resource &parent, common::buffer_u8 &&buffer) :
-    parent_(parent),
-    buffer_(std::move(buffer))
-{
-}
+DEFINE_EXCEPTION_OBJECT(image_codec_decode_exception, codec_decode_exception,
+    "Error while decoding resource.");
 
-resource_interface::~resource_interface()
-{
-}
+class image;
+using image_ptr = std::shared_ptr<image>;
 
+class image_codec : codec
+{
+public:
+    image_codec() {}
+    virtual ~image_codec() {}
+
+    virtual image_ptr decode(common::buffer_u8 &input) = 0;
+};
+
+using image_codec_ptr = std::shared_ptr<image_codec>;
 
 } // namespace resources
 } // namespace aeon

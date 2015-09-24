@@ -16,7 +16,7 @@
 #pragma once
 
 #include <common/exception.h>
-#include <resources/codec.h>
+#include <resources/image_codec.h>
 
 namespace aeon
 {
@@ -26,13 +26,14 @@ namespace resources
 DEFINE_EXCEPTION_OBJECT(codec_png_decode_exception, codec_decode_exception,
     "Error while decoding PNG image resource.");
 
-class image_codec_png : codec
+class image_codec_png : image_codec
 {
 public:
     image_codec_png();
     ~image_codec_png() override;
 
-    void decode(common::buffer_u8 &input, common::buffer_u8 &output, codec_metadata &metadata) override;
+
+    image_ptr decode(common::buffer_u8 &input) override;
     resource_encoding get_codec_type() const override;
 };
 
