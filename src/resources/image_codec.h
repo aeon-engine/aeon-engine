@@ -32,7 +32,7 @@ DEFINE_EXCEPTION_OBJECT(image_codec_decode_exception, codec_decode_exception,
 class image;
 using image_ptr = std::shared_ptr<image>;
 
-class image_codec : codec
+class image_codec : public codec
 {
 public:
     image_codec() {}

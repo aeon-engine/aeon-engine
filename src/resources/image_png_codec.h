@@ -26,7 +26,7 @@ namespace resources
 DEFINE_EXCEPTION_OBJECT(codec_png_decode_exception, codec_decode_exception,
     "Error while decoding PNG image resource.");
 
-class image_codec_png : image_codec
+class image_codec_png : public image_codec
 {
 public:
     image_codec_png();

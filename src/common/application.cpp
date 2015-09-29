@@ -17,6 +17,11 @@
 #include <common/application.h>
 #include <console/console.h>
 
+#include <resources/resource_manager.h>
+#include <resources/filesystem_provider.h>
+#include <resources/image_resource.h>
+#include <resources/image.h>
+
 namespace aeon
 {
 
@@ -32,9 +37,20 @@ void application::main(int argc, char *argv[])
 {
     __setup_console();
 
-    aeon::utility::configfile config_file;
-    std::string config_file_path = "config.ini";
-    config_file.load(std::make_shared<aeon::streams::file_stream>(config_file_path));
+    resources::resource_manager mgr;
+    resources::resource_provider_ptr provider = std::make_shared<resources::filesystem_provider>(
+        "/Users/robindegen/Development/Projects/aeon/build/bin");
+
+    mgr.mount(provider, "/");
+
+    resources::image_resource_ptr img_res = mgr.load_image("/resources/textures/test.png");
+    resources::image_ptr img = img_res->open();
+
+    std::cout << img->get_width();
+
+    //aeon::utility::configfile config_file;
+    //std::string config_file_path = "config.ini";
+    //config_file.load(std::make_shared<aeon::streams::file_stream>(config_file_path));
 }
 
 void application::__setup_console()

@@ -88,14 +88,14 @@ private:
 static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr,
                                 png_size_t output_size)
 {
-    aeon::streams::stream_ptr *stream = static_cast<aeon::streams::stream_ptr *>(png_get_io_ptr(png_ptr));
+    aeon::streams::stream *stream = static_cast<aeon::streams::stream *>(png_get_io_ptr(png_ptr));
 
     // Do we have a stream?
     if (!stream)
         throw codec_png_decode_exception();
 
     // Read the data
-    if ((*stream)->read(output_ptr, (size_t) output_size) != output_size)
+    if (stream->read(output_ptr, (size_t) output_size) != output_size)
         throw codec_png_decode_exception();
 }
 

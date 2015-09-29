@@ -50,6 +50,8 @@ public:
     resource_type get_resource_type_by_encoding(resource_encoding encoding) const;
 
 private:
+    void __register_codecs();
+
     codec_map codecs_;
 };
 

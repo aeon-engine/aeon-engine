@@ -14,6 +14,7 @@
  */
 
 #include <resources/codec_manager.h>
+#include <resources/image_png_codec.h>
 
 namespace aeon
 {
@@ -22,6 +23,7 @@ namespace resources
 
 codec_manager::codec_manager()
 {
+    __register_codecs();
 }
 
 codec_manager::~codec_manager()
@@ -57,6 +59,12 @@ resource_type codec_manager::get_resource_type_by_encoding(resource_encoding enc
             throw codec_manager_unknown_codec_exception();
     }
 }
+
+void codec_manager::__register_codecs()
+{
+    codecs_[resource_encoding::image_png] = std::make_shared<image_codec_png>();
+}
+
 
 } // namespace resources
 } // namespace aeon

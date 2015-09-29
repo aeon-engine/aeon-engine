@@ -99,7 +99,7 @@ resource_encoding filesystem_provider::get_encoding(const std::string &path) con
     if (offset == std::string::npos)
         throw filesystem_provider_type_exception();
 
-    std::string extension = path.substr(offset);
+    std::string extension = path.substr(offset + 1);
 
     if (extension == "png")
     {
