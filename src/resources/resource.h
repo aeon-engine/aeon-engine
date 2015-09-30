@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <resources/exceptions.h>
 #include <resources/resource_type.h>
 #include <resources/resource_encoding.h>
 #include <resources/resource_provider.h>
@@ -25,13 +26,6 @@ namespace aeon
 {
 namespace resources
 {
-
-DEFINE_EXCEPTION_OBJECT(resource_exception, aeon::common::exception,
-    "Generic Resource exception.");
-DEFINE_EXCEPTION_OBJECT(resource_closed_exception, resource_exception,
-    "Resource is no longer available. It may have been unmounted.");
-DEFINE_EXCEPTION_OBJECT(resource_type_exception, resource_exception,
-    "Unknown resource encoding or actual type does not match expected resource type.");
 
 class resource_manager;
 class resource

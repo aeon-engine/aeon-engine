@@ -39,9 +39,11 @@ void application::main(int argc, char *argv[])
 
     resources::resource_manager mgr;
     resources::resource_provider_ptr provider = std::make_shared<resources::filesystem_provider>(
-        "/Users/robindegen/Development/Projects/aeon/build/bin");
+        "D:/dev/other/engine/bin/");
 
     mgr.mount(provider, "/");
+
+    auto result = provider->list("/resources");
 
     resources::image_resource_ptr img_res = mgr.load_image("/resources/textures/test.png");
     resources::image_ptr img = img_res->open();

@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <common/exception.h>
+#include <resources/exceptions.h>
 #include <common/buffer.h>
 #include <memory>
 
@@ -23,12 +23,6 @@ namespace aeon
 {
 namespace resources
 {
-
-DEFINE_EXCEPTION_OBJECT(image_exception, aeon::common::exception,
-    "Image resource exception.");
-
-DEFINE_EXCEPTION_OBJECT(image_data_exception, image_exception,
-    "Image resource data exception.");
 
 class image
 {

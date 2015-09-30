@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <common/exception.h>
+#include <resources/exceptions.h>
 #include <common/buffer.h>
 #include <resources/resource_encoding.h>
 #include <resources/codec.h>
@@ -25,9 +25,6 @@ namespace aeon
 {
 namespace resources
 {
-
-DEFINE_EXCEPTION_OBJECT(image_codec_decode_exception, codec_decode_exception,
-    "Error while decoding resource.");
 
 class image;
 using image_ptr = std::shared_ptr<image>;

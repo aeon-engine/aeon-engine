@@ -18,7 +18,7 @@
 #include <resources/resource_provider.h>
 #include <resources/resource_encoding.h>
 #include <common/buffer.h>
-#include <common/exception.h>
+#include <resources/exceptions.h>
 #include <vector>
 #include <string>
 
@@ -26,12 +26,6 @@ namespace aeon
 {
 namespace resources
 {
-
-DEFINE_EXCEPTION_OBJECT(resourcefile_provider_exception, resource_provider_exception,
-    "Generic ResourceFile Provider exception.");
-
-DEFINE_EXCEPTION_OBJECT(resourcefile_provider_not_implemented_exception, resourcefile_provider_exception,
-    "Generic ResourceFile Provider not implemented exception.");
 
 class resourcefile_provider : public resource_provider
 {

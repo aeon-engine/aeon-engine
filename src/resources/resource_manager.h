@@ -17,7 +17,7 @@
 
 #include <resources/image_resource.h>
 #include <resources/resource_provider.h>
-#include <common/exception.h>
+#include <resources/exceptions.h>
 #include <resources/resource.h>
 #include <aeon/utility.h>
 #include <resources/codec_manager.h>
@@ -26,15 +26,6 @@ namespace aeon
 {
 namespace resources
 {
-
-DEFINE_EXCEPTION_OBJECT(resource_manager_exception, aeon::common::exception,
-    "Generic resource manager exception.");
-
-DEFINE_EXCEPTION_OBJECT(resource_manager_mount_exception, resource_manager_exception,
-    "Could not mount resource provider.");
-
-DEFINE_EXCEPTION_OBJECT(resource_manager_duplicate_mount_exception, resource_manager_mount_exception,
-    "Could not mount resource provider. Duplicate mountpoint given.");
 
 class resource;
 using resource_ptr = std::shared_ptr<resource>;

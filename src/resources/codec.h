@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <common/exception.h>
+#include <resources/exceptions.h>
 #include <resources/resource_encoding.h>
 #include <memory>
 
@@ -23,12 +23,6 @@ namespace aeon
 {
 namespace resources
 {
-
-DEFINE_EXCEPTION_OBJECT(codec_exception, aeon::common::exception,
-    "Generic Codec exception.");
-
-DEFINE_EXCEPTION_OBJECT(codec_decode_exception, codec_exception,
-    "Error while decoding resource.");
 
 class codec
 {

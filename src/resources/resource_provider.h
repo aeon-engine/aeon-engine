@@ -17,7 +17,7 @@
 
 #include <resources/resource_encoding.h>
 #include <common/buffer.h>
-#include <common/exception.h>
+#include <resources/exceptions.h>
 #include <vector>
 #include <string>
 #include <memory>
@@ -26,9 +26,6 @@ namespace aeon
 {
 namespace resources
 {
-
-DEFINE_EXCEPTION_OBJECT(resource_provider_exception, aeon::common::exception,
-    "Generic Resource Provider exception.");
 
 enum class resource_node_type
 {
