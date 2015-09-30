@@ -95,7 +95,7 @@ static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr,
         throw codec_png_decode_exception();
 
     // Read the data
-    if (stream->read(output_ptr, (size_t) output_size) != output_size)
+    if (stream->read(output_ptr, static_cast<size_t>(output_size)) != output_size)
         throw codec_png_decode_exception();
 }
 

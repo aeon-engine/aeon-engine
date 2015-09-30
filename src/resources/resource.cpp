@@ -38,29 +38,7 @@ resource::resource(resource_manager &parent, const std::string &path,\
 resource::~resource()
 {
 }
-/*
-resource_interface_ptr resource::open()
-{
-    common::buffer_u8 raw_buffer;
-    __read_raw(raw_buffer);
 
-    common::buffer_u8 decoded_buffer;
-    //codec_metadata decoded_metadata;
-    //__decode(raw_buffer, decoded_buffer, decoded_metadata);
-
-    // Note: we can not use make_shared due to private constructor
-    return resource_interface_ptr(new resource_interface(*this, std::move(raw_buffer)));
-}
-
-resource_interface_ptr resource::open_raw()
-{
-    common::buffer_u8 raw_buffer;
-    __read_raw(raw_buffer);
-
-    // Note: we can not use make_shared due to private constructor
-    return resource_interface_ptr(new resource_interface(*this, std::move(raw_buffer)));
-}
-*/
 resource_type resource::get_type() const
 {
     return parent_.get_codec_manager().get_resource_type_by_encoding(encoding_);
@@ -75,15 +53,6 @@ void resource::__read_raw(common::buffer_u8 &buffer)
 
     p->read(path_, buffer);
 }
-
-/*
-void resource::__decode(common::buffer_u8 &input, common::buffer_u8 &output)
-{
-    if (encoding_ == resource_encoding::unknown)
-        throw resource_type_exception();
-
-    //parent_.get_codec_manager().decode(input, encoding_, output, metadata);
-}*/
 
 } // namespace resources
 } // namespace aeon
