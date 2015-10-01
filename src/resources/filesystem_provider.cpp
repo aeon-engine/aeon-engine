@@ -70,7 +70,8 @@ std::vector<resource_node> filesystem_provider::list(const std::string &path)
 void filesystem_provider::read(const std::string &path, common::buffer_u8 &buffer)
 {
     boost::filesystem::path p = __get_real_path(base_path_, path);
-    aeon::streams::file_stream file(p, aeon::streams::access_mode::read);
+    aeon::streams::file_stream file(p.string(), aeon::streams::access_mode::read,
+        aeon::streams::file_mode::binary);
 
     if (!file.good())
         throw filesystem_provider_read_exception();
