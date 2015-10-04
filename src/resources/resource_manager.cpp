@@ -14,7 +14,7 @@
  */
 
 #include <resources/resource_manager.h>
-#include <resources/resource.h>
+#include <resources/resource_wrapper.h>
 #include <resources/resource_type.h>
 #include <memory>
 #include <string>
@@ -46,7 +46,7 @@ void resource_manager::unmount(const std::string &mountpoint)
     mount_points_.erase(mountpoint);
 }
 
-image_resource_ptr resource_manager::load_image(const std::string &path)
+image_resource_wrapper_ptr resource_manager::load_image(const std::string &path)
 {
     std::string real_path;
     resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
@@ -55,7 +55,7 @@ image_resource_ptr resource_manager::load_image(const std::string &path)
         return nullptr;
 
     // Note: std::make_shared doesn't work due to private constructor
-    return image_resource_ptr(new image_resource(*this, real_path, best_match_provider));
+    return image_resource_wrapper_ptr(new image_resource_wrapper(*this, real_path, best_match_provider));
 }
 
 resource_provider_ptr resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)

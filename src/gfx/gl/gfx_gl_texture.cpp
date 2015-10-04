@@ -22,7 +22,9 @@ namespace gfx
 namespace gl
 {
 
-texture::texture()
+texture::texture(resources::image_resource_wrapper_ptr image) :
+    gfx::texture(image),
+    handle_(0)
 {
 }
 

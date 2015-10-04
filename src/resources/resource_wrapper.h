@@ -28,18 +28,19 @@ namespace resources
 {
 
 class resource_manager;
-class resource
+class resource_wrapper
 {
 friend class resource_interface;
 friend class resource_manager;
 public:
-    virtual ~resource();
+    virtual ~resource_wrapper();
 
     resource_type get_type() const;
     resource_encoding get_encoding() const { return encoding_; }
+    const std::string &get_path() const { return path_; }
 
 protected:
-    resource(resource_manager &parent, const std::string &path,
+    resource_wrapper(resource_manager &parent, const std::string &path,
         resource_provider_weak_ptr provider);
 
     resource_manager &__get_parent() { return parent_; }
@@ -53,7 +54,7 @@ private:
     resource_encoding encoding_;
 };
 
-using resource_ptr = std::shared_ptr<resource>;
+using resource_wrapper_ptr = std::shared_ptr<resource_wrapper>;
 
 } // namespace resources
 } // namespace aeon

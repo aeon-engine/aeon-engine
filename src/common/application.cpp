@@ -19,7 +19,7 @@
 
 #include <resources/resource_manager.h>
 #include <resources/filesystem_provider.h>
-#include <resources/image_resource.h>
+#include <resources/image_resource_wrapper.h>
 #include <resources/image.h>
 
 namespace aeon
@@ -38,14 +38,10 @@ void application::main(int argc, char *argv[])
     __setup_console();
 
     resources::resource_manager mgr;
-    resources::resource_provider_ptr provider = std::make_shared<resources::filesystem_provider>(
-        "D:/dev/other/engine/bin/");
-
+    resources::resource_provider_ptr provider = std::make_shared<resources::filesystem_provider>(".");
     mgr.mount(provider, "/");
 
-    auto result = provider->list("/resources");
-
-    resources::image_resource_ptr img_res = mgr.load_image("/resources/textures/test.png");
+    resources::image_resource_wrapper_ptr img_res = mgr.load_image("/resources/textures/test.png");
     resources::image_ptr img = img_res->open();
 
     std::cout << img->get_width();

@@ -16,6 +16,8 @@
 #pragma once
 
 #include <gfx/gfx_texture_manager.h>
+#include <resources/image.h>
+#include <GL/glew.h>
 
 namespace aeon
 {
@@ -31,7 +33,9 @@ public:
     ~texture_manager() override;
 
 private:
-    texture_ptr __load_texture(int image) override;
+    texture_ptr __load_texture(resources::image_resource_wrapper_ptr image) override;
+    
+    GLint __image_pixelformat_to_gl(resources::image::pixel_format format);
 };
 
 } // namespace gl

@@ -25,16 +25,18 @@ namespace gfx
 namespace gl
 {
 
-class texture : gfx::texture
+class texture : public gfx::texture
 {
-friend class gfx_gl_texture_manager;
+friend class texture_manager;
 public:
-    texture();
+    explicit texture(resources::image_resource_wrapper_ptr image);
     ~texture() override;
 
 private:
     GLuint handle_;
 };
+
+using texture_gl_ptr = std::shared_ptr<texture>;
 
 } // namespace gl
 } // namespace gfx

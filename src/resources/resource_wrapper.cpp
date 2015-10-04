@@ -14,7 +14,7 @@
  */
 
 #include <resources/resource_manager.h>
-#include <resources/resource.h>
+#include <resources/resource_wrapper.h>
 #include <resources/resource_provider.h>
 
 namespace aeon
@@ -22,8 +22,8 @@ namespace aeon
 namespace resources
 {
 
-resource::resource(resource_manager &parent, const std::string &path,\
-                   resource_provider_weak_ptr provider) :
+resource_wrapper::resource_wrapper(resource_manager &parent, const std::string &path,
+                                   resource_provider_weak_ptr provider) :
     parent_(parent),
     path_(path),
     provider_(provider),
@@ -35,16 +35,16 @@ resource::resource(resource_manager &parent, const std::string &path,\
     }
 }
 
-resource::~resource()
+resource_wrapper::~resource_wrapper()
 {
 }
 
-resource_type resource::get_type() const
+resource_type resource_wrapper::get_type() const
 {
     return parent_.get_codec_manager().get_resource_type_by_encoding(encoding_);
 }
 
-void resource::__read_raw(common::buffer_u8 &buffer)
+void resource_wrapper::__read_raw(common::buffer_u8 &buffer)
 {
     auto p = provider_.lock();
 

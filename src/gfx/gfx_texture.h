@@ -15,9 +15,9 @@
 
 #pragma once
 
-#include <string>
-#include <memory>
+#include <resources/image_resource_wrapper.h>
 #include <common/cached_object.h>
+#include <memory>
 
 namespace aeon
 {
@@ -27,9 +27,14 @@ namespace gfx
 class texture : public common::cached_object
 {
 public:
-    texture();
+    explicit texture(resources::image_resource_wrapper_ptr image);
     virtual ~texture();
 
+private:
+    /* Object that points to the image resource for this texture. This object does
+     * not actually contain any resource data.
+     */
+    resources::image_resource_wrapper_ptr image_;
 };
 
 using texture_ptr = std::shared_ptr<texture>;

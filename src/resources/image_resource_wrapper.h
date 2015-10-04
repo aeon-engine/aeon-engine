@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <resources/resource.h>
+#include <resources/resource_wrapper.h>
 #include <memory>
 #include <string>
 
@@ -27,22 +27,22 @@ namespace resources
 class image;
 using image_ptr = std::shared_ptr<image>;
 
-class image_resource : public resource
+class image_resource_wrapper : public resource_wrapper
 {
 friend class resource_interface;
 friend class resource_manager;
 public:
-    virtual ~image_resource();
+    virtual ~image_resource_wrapper();
 
     image_ptr open();
 
 protected:
-    image_resource(resource_manager &parent, const std::string &path,
+    image_resource_wrapper(resource_manager &parent, const std::string &path,
         resource_provider_weak_ptr provider);
 
 };
 
-using image_resource_ptr = std::shared_ptr<image_resource>;
+using image_resource_wrapper_ptr = std::shared_ptr<image_resource_wrapper>;
 
 } // namespace resources
 } // namespace aeon

@@ -28,20 +28,20 @@ texture_manager::~texture_manager()
 {
 }
 
-texture_ptr texture_manager::load_texture(int image)
+texture_ptr texture_manager::load_texture(resources::image_resource_wrapper_ptr image)
 {
-    /*texture_ptr tex = cache_.get_cached_object(image->get_path());
+    const std::string &path = image->get_path();
+    texture_ptr tex = cache_.get_cached_object(path);
 
     if (tex)
         return tex;
-        
+
     tex = __load_texture(image);
 
     if (tex)
-        cache_.add_cached_object(image->get_path(), tex);
+        cache_.add_cached_object(path, tex);
 
-    return tex;*/
-    return nullptr;
+    return tex;
 }
 
 } // namespace gfx

@@ -15,10 +15,10 @@
 
 #pragma once
 
-#include <resources/image_resource.h>
+#include <resources/image_resource_wrapper.h>
 #include <resources/resource_provider.h>
 #include <resources/exceptions.h>
-#include <resources/resource.h>
+#include <resources/resource_wrapper.h>
 #include <aeon/utility.h>
 #include <resources/codec_manager.h>
 
@@ -27,8 +27,8 @@ namespace aeon
 namespace resources
 {
 
-class resource;
-using resource_ptr = std::shared_ptr<resource>;
+class resource_wrapper;
+using resource_wrapper_ptr = std::shared_ptr<resource_wrapper>;
 
 class resource_manager
 {
@@ -40,11 +40,11 @@ public:
     void mount(resource_provider_ptr provider, const std::string &mountpoint = "/");
     void unmount(const std::string &mountpoint);
 
-    image_resource_ptr load_image(const std::string &path);
+    image_resource_wrapper_ptr load_image(const std::string &path);
 
     //material_ptr load_material(const std::string &path);
     //shader_ptr load_shader(const std::string &path);
-    //resource_ptr load(const std::string &path);
+    //resource_wrapper_ptr load(const std::string &path);
 
     codec_manager &get_codec_manager() { return codec_manager_; }
 

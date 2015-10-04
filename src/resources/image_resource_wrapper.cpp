@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <resources/image_resource.h>
+#include <resources/image_resource_wrapper.h>
 #include <resources/resource_manager.h>
 
 namespace aeon
@@ -21,19 +21,19 @@ namespace aeon
 namespace resources
 {
 
-image_resource::image_resource(resource_manager &parent, const std::string &path,
+image_resource_wrapper::image_resource_wrapper(resource_manager &parent, const std::string &path,
                                resource_provider_weak_ptr provider) :
-    resource(parent, path, provider)
+    resource_wrapper(parent, path, provider)
 {
     if (get_type() != resource_type::image)
         throw resource_type_exception();
 }
 
-image_resource::~image_resource()
+image_resource_wrapper::~image_resource_wrapper()
 {
 }
 
-image_ptr image_resource::open()
+image_ptr image_resource_wrapper::open()
 {
     image_codec_ptr codec = __get_parent().get_codec_manager().get_image_codec(get_encoding());
 
