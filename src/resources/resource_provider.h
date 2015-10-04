@@ -49,7 +49,7 @@ class resource_provider
 {
 public:
     resource_provider() {}
-    virtual ~resource_provider() {}
+    virtual ~resource_provider() = default;
 
     virtual bool exists(const std::string &path) = 0;
 

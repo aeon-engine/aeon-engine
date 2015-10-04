@@ -15,25 +15,31 @@
 
 #pragma once
 
-#include <resources/exceptions.h>
-#include <resources/resource_encoding.h>
-#include <memory>
+#include <resources/resource_wrapper.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class codec
+class resource
 {
 public:
-    codec() {}
-    virtual ~codec() = default;
+    resource(resource_wrapper &wrapper) :
+        wrapper_(wrapper)
+    {
+    }
 
-    virtual resource_encoding get_codec_type() const = 0;
+    virtual ~resource() = default;
+
+    resource_wrapper & get_resource_wrapper()
+    {
+        return wrapper_;
+    }
+
+private:
+    resource_wrapper &wrapper_;
 };
-
-using codec_ptr = std::shared_ptr<codec>;
 
 } // namespace resources
 } // namespace aeon

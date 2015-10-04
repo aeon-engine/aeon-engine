@@ -37,8 +37,7 @@ public:
     image_ptr open();
 
 protected:
-    image_resource_wrapper(resource_manager &parent, const std::string &path,
-        resource_provider_weak_ptr provider);
+    image_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
 
 };
 

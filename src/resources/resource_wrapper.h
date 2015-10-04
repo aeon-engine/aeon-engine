@@ -36,16 +36,31 @@ public:
     virtual ~resource_wrapper();
 
     resource_type get_type() const;
-    resource_encoding get_encoding() const { return encoding_; }
-    const std::string &get_path() const { return path_; }
+
+    resource_encoding get_encoding() const
+    {
+        return encoding_;
+    }
+
+    const std::string &get_path() const
+    {
+        return path_;
+    }
+
+    void read_raw(common::buffer_u8 &buffer);
 
 protected:
-    resource_wrapper(resource_manager &parent, const std::string &path,
-        resource_provider_weak_ptr provider);
+    resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
 
-    resource_manager &__get_parent() { return parent_; }
-    resource_provider_weak_ptr __get_provider() { return provider_; }
-    void __read_raw(common::buffer_u8 &buffer);
+    resource_manager &__get_parent()
+    {
+        return parent_;
+    }
+
+    resource_provider_weak_ptr __get_provider()
+    {
+        return provider_;
+    }
 
 private:
     resource_manager &parent_;

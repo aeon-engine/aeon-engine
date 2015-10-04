@@ -36,11 +36,7 @@ image_resource_wrapper::~image_resource_wrapper()
 image_ptr image_resource_wrapper::open()
 {
     image_codec_ptr codec = __get_parent().get_codec_manager().get_image_codec(get_encoding());
-
-    common::buffer_u8 buffer;
-    __read_raw(buffer);
-
-    return codec->decode(buffer);
+    return codec->decode(*this);
 }
 
 } // namespace resources

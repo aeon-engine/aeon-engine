@@ -19,6 +19,7 @@
 
 #include <aeon/streams.h>
 #include <resources/image_png_codec.h>
+#include <resources/image_resource_wrapper.h>
 #include <common/buffer.h>
 #include <png.h>
 
@@ -40,8 +41,7 @@ public:
         end_info_(nullptr)
     {
         // Create the read struct for PNG
-        png_ptr_ = png_create_read_struct(
-            PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
+        png_ptr_ = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
         if (!png_ptr_)
             throw codec_png_decode_exception();
@@ -85,8 +85,7 @@ private:
     png_infop end_info_;
 };
 
-static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr,
-                                png_size_t output_size)
+static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, png_size_t output_size)
 {
     aeon::streams::stream *stream = static_cast<aeon::streams::stream *>(png_get_io_ptr(png_ptr));
 
@@ -109,8 +108,11 @@ image_codec_png::~image_codec_png()
 
 }
 
-image_ptr image_codec_png::decode(common::buffer_u8 &input)
+image_ptr image_codec_png::decode(image_resource_wrapper &wrapper)
 {
+    common::buffer_u8 input;
+    wrapper.read_raw(input);
+
     aeon::streams::memory_stream stream(std::move(input), aeon::streams::access_mode::read);
 
     // Check our stream
@@ -174,8 +176,7 @@ image_ptr image_codec_png::decode(common::buffer_u8 &input)
     size_t rowbytes = png_get_rowbytes(png_structs.png_ptr(), png_structs.info_ptr());
 
     // Allocate the image_data as a big block
-    size_t bitmap_buff_size = rowbytes *
-        size_t(temp_height) * sizeof(png_byte);
+    size_t bitmap_buff_size = rowbytes * size_t(temp_height) * sizeof(png_byte);
 
     common::buffer_u8 bitmap_buffer(bitmap_buff_size);
 
@@ -190,8 +191,7 @@ image_ptr image_codec_png::decode(common::buffer_u8 &input)
     common::buffer_pu8 rowpointer_buffer(rowpointer_buff_size);
 
     // Cast to png_bytep
-    png_bytep * row_pointers =
-        static_cast<png_bytep *>(&(rowpointer_buffer)[0]);
+    png_bytep * row_pointers = static_cast<png_bytep *>(&(rowpointer_buffer)[0]);
 
     // Set the individual row_pointers to point at the correct offsets
     // of image_data
@@ -205,6 +205,7 @@ image_ptr image_codec_png::decode(common::buffer_u8 &input)
 
     // Create the image object
     return std::make_shared<image>(
+        wrapper,
         std::move(bitmap_buffer),
         temp_width,
         temp_height,

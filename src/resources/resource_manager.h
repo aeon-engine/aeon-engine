@@ -46,7 +46,10 @@ public:
     //shader_ptr load_shader(const std::string &path);
     //resource_wrapper_ptr load(const std::string &path);
 
-    codec_manager &get_codec_manager() { return codec_manager_; }
+    codec_manager &get_codec_manager()
+    {
+        return codec_manager_;
+    }
 
 private:
     resource_provider_ptr __find_best_match_provider(const std::string &path, std::string &provider_path);

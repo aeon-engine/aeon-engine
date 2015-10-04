@@ -44,7 +44,7 @@ resource_type resource_wrapper::get_type() const
     return parent_.get_codec_manager().get_resource_type_by_encoding(encoding_);
 }
 
-void resource_wrapper::__read_raw(common::buffer_u8 &buffer)
+void resource_wrapper::read_raw(common::buffer_u8 &buffer)
 {
     auto p = provider_.lock();
 

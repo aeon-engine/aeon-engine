@@ -29,8 +29,7 @@ public:
     image_codec_png();
     ~image_codec_png() override;
 
-
-    image_ptr decode(common::buffer_u8 &input) override;
+    image_ptr decode(image_resource_wrapper &wrapper) override;
     resource_encoding get_codec_type() const override;
 };
 
