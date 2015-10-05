@@ -23,7 +23,7 @@ namespace aeon
 namespace common
 {
 
-class exception : std::exception
+class exception : public std::exception
 {
 public:
     exception(const std::string &message = "") :
@@ -41,7 +41,7 @@ private:
 };
 
 #define DEFINE_EXCEPTION_OBJECT(name, base, message) \
-    class name : base \
+    class name : public base \
     { \
     public: \
         name() : \
