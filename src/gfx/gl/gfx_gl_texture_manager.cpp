@@ -33,19 +33,18 @@ texture_manager::~texture_manager()
 {
 }
 
-texture_ptr texture_manager::__load_texture(resources::image_resource_wrapper_ptr image)
+texture_ptr texture_manager::__load_texture(resources::image_ptr image)
 {
     texture_gl_ptr t = std::make_shared<texture>(image);
-    resources::image_ptr img = image->open();
 
     GLuint handle = 0;
     glCreateTextures(GL_TEXTURE_2D, 1, &handle);
     glBindTexture(GL_TEXTURE_2D, handle);
 
-    GLint pixelformat = __image_pixelformat_to_gl(img->get_pixelformat());
-    GLsizei width = img->get_width();
-    GLsizei height = img->get_height();
-    glTexImage2D(GL_TEXTURE_2D, 0, pixelformat, width, height, 0, pixelformat, GL_UNSIGNED_BYTE, img->get_data().data());
+    GLint pixelformat = __image_pixelformat_to_gl(image->get_pixelformat());
+    GLsizei width = image->get_width();
+    GLsizei height = image->get_height();
+    glTexImage2D(GL_TEXTURE_2D, 0, pixelformat, width, height, 0, pixelformat, GL_UNSIGNED_BYTE, image->get_data().data());
 
     t->handle_ = handle;
 

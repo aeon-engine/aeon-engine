@@ -16,6 +16,7 @@
 #pragma once
 
 #include <resources/wrappers/image_resource_wrapper.h>
+#include <resources/image.h>
 #include <common/cached_object.h>
 #include <memory>
 
@@ -27,14 +28,14 @@ namespace gfx
 class texture : public common::cached_object
 {
 public:
-    explicit texture(resources::image_resource_wrapper_ptr image);
+    explicit texture(resources::image_ptr image);
     virtual ~texture();
 
 private:
     /* Object that points to the image resource for this texture. This object does
      * not actually contain any resource data.
      */
-    resources::image_resource_wrapper_ptr image_;
+    resources::image_resource_wrapper_ptr image_wrapper_;
 };
 
 using texture_ptr = std::shared_ptr<texture>;

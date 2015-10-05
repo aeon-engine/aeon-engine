@@ -28,9 +28,9 @@ texture_manager::~texture_manager()
 {
 }
 
-texture_ptr texture_manager::load_texture(resources::image_resource_wrapper_ptr image)
+texture_ptr texture_manager::load_texture(resources::image_ptr image)
 {
-    const std::string &path = image->get_path();
+    const std::string &path = image->get_image_resource_wrapper()->get_path();
     texture_ptr tex = cache_.get_cached_object(path);
 
     if (tex)
