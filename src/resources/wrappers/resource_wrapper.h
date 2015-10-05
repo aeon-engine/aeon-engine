@@ -28,7 +28,7 @@ namespace resources
 {
 
 class resource_manager;
-class resource_wrapper : protected std::enable_shared_from_this<resource_wrapper>
+class resource_wrapper : public std::enable_shared_from_this<resource_wrapper>
 {
 friend class resource_interface;
 friend class resource_manager;
