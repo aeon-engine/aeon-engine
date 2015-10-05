@@ -108,10 +108,10 @@ image_codec_png::~image_codec_png()
 
 }
 
-image_ptr image_codec_png::decode(image_resource_wrapper &wrapper)
+image_ptr image_codec_png::decode(image_resource_wrapper_ptr wrapper)
 {
     common::buffer_u8 input;
-    wrapper.read_raw(input);
+    wrapper->read_raw(input);
 
     aeon::streams::memory_stream stream(std::move(input), aeon::streams::access_mode::read);
 

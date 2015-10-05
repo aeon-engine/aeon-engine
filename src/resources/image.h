@@ -35,8 +35,8 @@ public:
         rgba,
     };
 
-    image(image_resource_wrapper &wrapper);
-    image(image_resource_wrapper &wrapper, common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
+    image(resource_wrapper_ptr wrapper);
+    image(resource_wrapper_ptr wrapper, common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
         pixel_format pixelformat = pixel_format::rgba);
 
     ~image();
@@ -71,9 +71,9 @@ public:
 
     void clear_data();
 
-    image_resource_wrapper & get_image_resource_wrapper()
+    image_resource_wrapper_ptr get_image_resource_wrapper()
     {
-        return dynamic_cast<image_resource_wrapper &>(get_resource_wrapper());
+        return std::dynamic_pointer_cast<image_resource_wrapper>(get_resource_wrapper());
     }
 
 private:

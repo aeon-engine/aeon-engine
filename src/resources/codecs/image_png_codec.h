@@ -29,7 +29,7 @@ public:
     image_codec_png();
     ~image_codec_png() override;
 
-    image_ptr decode(image_resource_wrapper &wrapper) override;
+    image_ptr decode(image_resource_wrapper_ptr wrapper) override;
     resource_encoding get_codec_type() const override;
 };
 

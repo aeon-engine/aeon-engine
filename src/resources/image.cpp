@@ -20,7 +20,7 @@ namespace aeon
 namespace resources
 {
 
-image::image(image_resource_wrapper &wrapper) :
+image::image(resource_wrapper_ptr wrapper) :
     resource(wrapper),
     width_(0),
     height_(0),
@@ -28,7 +28,7 @@ image::image(image_resource_wrapper &wrapper) :
 {
 }
 
-image::image(image_resource_wrapper &wrapper, common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
+image::image(resource_wrapper_ptr wrapper, common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
              pixel_format pixelformat /*= pixel_format::rgba*/) :
     resource(wrapper),
     buffer_(std::move(buffer)),

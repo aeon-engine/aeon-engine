@@ -36,7 +36,7 @@ public:
     image_codec() {}
     virtual ~image_codec() = default;
 
-    virtual image_ptr decode(image_resource_wrapper &wrapper) = 0;
+    virtual image_ptr decode(image_resource_wrapper_ptr wrapper) = 0;
 };
 
 using image_codec_ptr = std::shared_ptr<image_codec>;

@@ -25,20 +25,20 @@ namespace resources
 class resource
 {
 public:
-    resource(resource_wrapper &wrapper) :
+    resource(resource_wrapper_ptr wrapper) :
         wrapper_(wrapper)
     {
     }
 
     virtual ~resource() = default;
 
-    resource_wrapper & get_resource_wrapper()
+    resource_wrapper_ptr get_resource_wrapper()
     {
         return wrapper_;
     }
 
 private:
-    resource_wrapper &wrapper_;
+    resource_wrapper_ptr wrapper_;
 };
 
 } // namespace resources
