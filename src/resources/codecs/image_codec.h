@@ -15,33 +15,31 @@
 
 #pragma once
 
-#include <resources/resource_provider.h>
-#include <resources/resource_encoding.h>
-#include <common/buffer.h>
 #include <resources/exceptions.h>
-#include <vector>
-#include <string>
+#include <common/buffer.h>
+#include <resources/resource_encoding.h>
+#include <resources/codecs/codec.h>
+#include <resources/image.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class resourcefile_provider : public resource_provider
+class image;
+class image_resource_wrapper;
+using image_ptr = std::shared_ptr<image>;
+
+class image_codec : public codec
 {
 public:
-    resourcefile_provider(const std::string &base_path);
+    image_codec() {}
+    virtual ~image_codec() = default;
 
-    virtual ~resourcefile_provider() override;
-
-private:
-    bool exists(const std::string &path) override;
-    std::vector<resource_node> list(const std::string &path) override;
-    void read(const std::string &path, common::buffer_u8 &buffer) override;
-    resource_encoding get_encoding(const std::string &path) const override;
-    
-    std::string base_path_;
+    virtual image_ptr decode(image_resource_wrapper &wrapper) = 0;
 };
+
+using image_codec_ptr = std::shared_ptr<image_codec>;
 
 } // namespace resources
 } // namespace aeon

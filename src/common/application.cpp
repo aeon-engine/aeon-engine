@@ -18,8 +18,8 @@
 #include <console/console.h>
 
 #include <resources/resource_manager.h>
-#include <resources/filesystem_provider.h>
-#include <resources/image_resource_wrapper.h>
+#include <resources/providers/filesystem_provider.h>
+#include <resources/wrappers/image_resource_wrapper.h>
 #include <resources/image.h>
 
 namespace aeon

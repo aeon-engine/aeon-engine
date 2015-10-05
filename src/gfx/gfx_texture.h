@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <resources/image_resource_wrapper.h>
+#include <resources/wrappers/image_resource_wrapper.h>
 #include <common/cached_object.h>
 #include <memory>
 

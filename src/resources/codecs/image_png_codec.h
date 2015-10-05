@@ -16,7 +16,7 @@
 #pragma once
 
 #include <resources/exceptions.h>
-#include <resources/image_codec.h>
+#include <resources/codecs/image_codec.h>
 
 namespace aeon
 {

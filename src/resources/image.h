@@ -17,7 +17,7 @@
 
 #include <resources/resource.h>
 #include <resources/exceptions.h>
-#include <resources/image_resource_wrapper.h>
+#include <resources/wrappers/image_resource_wrapper.h>
 #include <common/buffer.h>
 #include <memory>
 

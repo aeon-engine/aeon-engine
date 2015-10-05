@@ -13,31 +13,35 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <resources/image_resource_wrapper.h>
-#include <resources/resource_manager.h>
+#pragma once
+
+#include <resources/wrappers/resource_wrapper.h>
+#include <memory>
+#include <string>
 
 namespace aeon
 {
 namespace resources
 {
 
-image_resource_wrapper::image_resource_wrapper(resource_manager &parent, const std::string &path,
-                               resource_provider_weak_ptr provider) :
-    resource_wrapper(parent, path, provider)
-{
-    if (get_type() != resource_type::image)
-        throw resource_type_exception();
-}
+class image;
+using image_ptr = std::shared_ptr<image>;
 
-image_resource_wrapper::~image_resource_wrapper()
+class image_resource_wrapper : public resource_wrapper
 {
-}
+friend class resource_interface;
+friend class resource_manager;
+public:
+    virtual ~image_resource_wrapper();
 
-image_ptr image_resource_wrapper::open()
-{
-    image_codec_ptr codec = __get_parent().get_codec_manager().get_image_codec(get_encoding());
-    return codec->decode(*this);
-}
+    image_ptr open();
+
+protected:
+    image_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
+
+};
+
+using image_resource_wrapper_ptr = std::shared_ptr<image_resource_wrapper>;
 
 } // namespace resources
 } // namespace aeon

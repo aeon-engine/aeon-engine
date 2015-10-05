@@ -13,8 +13,8 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <resources/codec_manager.h>
-#include <resources/image_png_codec.h>
+#include <resources/codecs/codec_manager.h>
+#include <resources/codecs/image_png_codec.h>
 
 namespace aeon
 {

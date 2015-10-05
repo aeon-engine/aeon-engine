@@ -19,8 +19,8 @@
 #include <aeon/utility.h>
 #include <resources/resource_encoding.h>
 #include <resources/resource_type.h>
-#include <resources/codec.h>
-#include <resources/image_codec.h>
+#include <resources/codecs/codec.h>
+#include <resources/codecs/image_codec.h>
 
 namespace aeon
 {

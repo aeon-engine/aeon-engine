@@ -18,7 +18,7 @@
 #include <resources/exceptions.h>
 #include <resources/resource_type.h>
 #include <resources/resource_encoding.h>
-#include <resources/resource_provider.h>
+#include <resources/providers/resource_provider.h>
 #include <memory>
 #include <string>
 

@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <resources/resourcefile_provider.h>
+#include <resources/providers/resourcefile_provider.h>
 
 namespace aeon
 {

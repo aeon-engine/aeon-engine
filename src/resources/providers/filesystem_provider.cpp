@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <resources/filesystem_provider.h>
+#include <resources/providers/filesystem_provider.h>
 #include <boost/filesystem.hpp>
 #include <aeon/streams.h>
 

@@ -5,7 +5,9 @@ include(Common)
 add_source_path(AEON_ENGINE_SOURCES common)
 add_source_path(AEON_ENGINE_SOURCES console)
 add_source_path(AEON_ENGINE_SOURCES resources)
-add_source_path(AEON_ENGINE_SOURCES resources/codec)
+add_source_path(AEON_ENGINE_SOURCES resources/codecs)
+add_source_path(AEON_ENGINE_SOURCES resources/providers)
+add_source_path(AEON_ENGINE_SOURCES resources/wrappers)
 
 ################################################################################
 

@@ -14,8 +14,8 @@
  */
 
 #include <resources/resource_manager.h>
-#include <resources/resource_wrapper.h>
-#include <resources/resource_provider.h>
+#include <resources/wrappers/resource_wrapper.h>
+#include <resources/providers/resource_provider.h>
 
 namespace aeon
 {

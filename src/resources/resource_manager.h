@@ -15,12 +15,12 @@
 
 #pragma once
 
-#include <resources/image_resource_wrapper.h>
-#include <resources/resource_provider.h>
+#include <resources/wrappers/image_resource_wrapper.h>
+#include <resources/providers/resource_provider.h>
 #include <resources/exceptions.h>
-#include <resources/resource_wrapper.h>
+#include <resources/wrappers/resource_wrapper.h>
 #include <aeon/utility.h>
-#include <resources/codec_manager.h>
+#include <resources/codecs/codec_manager.h>
 
 namespace aeon
 {

@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <resources/resource_wrapper.h>
+#include <resources/wrappers/resource_wrapper.h>
 
 namespace aeon
 {

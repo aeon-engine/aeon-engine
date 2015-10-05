@@ -14,7 +14,7 @@
  */
 
 #include <resources/resource_manager.h>
-#include <resources/resource_wrapper.h>
+#include <resources/wrappers/resource_wrapper.h>
 #include <resources/resource_type.h>
 #include <memory>
 #include <string>

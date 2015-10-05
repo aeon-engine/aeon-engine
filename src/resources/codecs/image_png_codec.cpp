@@ -18,8 +18,8 @@
 #ifdef AEON_USE_PNG
 
 #include <aeon/streams.h>
-#include <resources/image_png_codec.h>
-#include <resources/image_resource_wrapper.h>
+#include <resources/codecs/image_png_codec.h>
+#include <resources/wrappers/image_resource_wrapper.h>
 #include <common/buffer.h>
 #include <png.h>
 
