@@ -33,6 +33,10 @@ platform_interface::platform_interface() :
 
 platform_interface::~platform_interface()
 {
+    if (initialized_)
+        glfwTerminate();
+
+    initialized_ = false;
 }
 
 void platform_interface::initialize()
@@ -81,8 +85,10 @@ platform_monitors platform_interface::get_monitors()
 
         bool primary = (glfw_primary_monitor == m);
 
-        platform_monitor_ptr monitor = std::make_unique<platform_monitor>(
-            m, physical_width, physical_height, x, y, primary);
+        const char *name = glfwGetMonitorName(m);
+
+        monitors.emplace_back(std::make_unique<platform_monitor>(
+            m, physical_width, physical_height, x, y, primary, name));
     }
 
     return monitors;

@@ -40,6 +40,8 @@ void application::main(int argc, char *argv[])
 
     platform::glfw::platform_interface i;
     i.initialize();
+    platform::platform_monitors m = i.get_monitors();
+    platform::video_modes vms = m[0]->get_video_modes();
 
     resources::resource_manager mgr;
     resources::resource_provider_ptr provider = std::make_shared<resources::filesystem_provider>(".");

@@ -66,12 +66,13 @@ using gamma_ramp = std::vector<gamma_ramp_data>;
 class platform_monitor
 {
 public:
-    platform_monitor(int width, int height, int x, int y, bool primary) :
+    platform_monitor(int width, int height, int x, int y, bool primary, const std::string &name) :
         physical_width_(width),
         physical_height_(height),
         x_(x),
         y_(y),
-        primary_(primary)
+        primary_(primary),
+        name_(name)
     {
     }
 

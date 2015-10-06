@@ -24,8 +24,9 @@ namespace platform
 namespace glfw
 {
 
-platform_monitor::platform_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary) :
-    platform::platform_monitor(width, height, x, y, primary),
+platform_monitor::platform_monitor(GLFWmonitor *monitor, int width, int height,
+                                   int x, int y, bool primary, const std::string &name) :
+    platform::platform_monitor(width, height, x, y, primary, name),
     monitor_(monitor)
 {
 }
