@@ -29,7 +29,8 @@ namespace glfw
 {
 
 platform_interface::platform_interface() :
-    initialized_(false)
+    initialized_(false),
+    running_(false)
 {
     // Note: On GLFW we can use the generic filesystem interface
     filesystem_interface_ = std::make_shared<generic::platform_filesystem_interface>();
@@ -59,10 +60,16 @@ void platform_interface::run()
         throw platform_interface_initialize_exception();
 
     // TODO: Main loop
-    while (1)
+    running_ = true;
+    while (running_)
     {
         glfwPollEvents();
     }
+}
+
+void platform_interface::stop()
+{
+    running_ = false;
 }
 
 platform_monitors platform_interface::get_monitors()

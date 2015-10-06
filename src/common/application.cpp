@@ -34,7 +34,7 @@ application::~application()
 {
 }
 
-void application::main(int argc, char *argv[])
+void application::main(int, char *[])
 {
     __setup_console();
 

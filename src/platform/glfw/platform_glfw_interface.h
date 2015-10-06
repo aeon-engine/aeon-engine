@@ -34,6 +34,7 @@ public:
     void initialize() override;
 
     void run() override;
+    void stop() override;
 
     platform_monitors get_monitors() override;
 
@@ -42,6 +43,7 @@ public:
 
 private:
     bool initialized_;
+    bool running_;
 };
 
 } // namespace glfw

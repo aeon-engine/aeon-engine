@@ -20,31 +20,30 @@ namespace aeon
 namespace resources
 {
 
-resourcefile_provider::resourcefile_provider(const std::string &base_path)
+resourcefile_provider::resourcefile_provider(const std::string &)
 {
-    throw resourcefile_provider_not_implemented_exception();
 }
 
 resourcefile_provider::~resourcefile_provider()
 {
 }
 
-bool resourcefile_provider::exists(const std::string &path)
+bool resourcefile_provider::exists(const std::string &)
 {
     throw resourcefile_provider_not_implemented_exception();
 }
 
-std::vector<resource_node> resourcefile_provider::list(const std::string &path)
+std::vector<resource_node> resourcefile_provider::list(const std::string &)
 {
     throw resourcefile_provider_not_implemented_exception();
 }
 
-void resourcefile_provider::read(const std::string &path, common::buffer_u8 &buffer)
+void resourcefile_provider::read(const std::string &, common::buffer_u8 &)
 {
     throw resourcefile_provider_not_implemented_exception();
 }
 
-resource_encoding resourcefile_provider::get_encoding(const std::string &path) const
+resource_encoding resourcefile_provider::get_encoding(const std::string &) const
 {
     throw resourcefile_provider_not_implemented_exception();
 }

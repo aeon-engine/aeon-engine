@@ -93,8 +93,6 @@ aeon::streams::stream::seek_direction
         case seek_direction::end:
             return aeon::streams::stream::seek_direction::end;
     }
-
-    return aeon::streams::stream::seek_direction::begin;
 }
 
 } // namespace generic

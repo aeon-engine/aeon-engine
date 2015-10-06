@@ -64,9 +64,9 @@ void platform_monitor::set_gamma_ramp(gamma_ramp ramp)
 
     for (unsigned int i = 0; i < r.size; ++i)
     {
-        r.red[i] = ramp[i].red;
-        r.green[i] = ramp[i].green;
-        r.blue[i] = ramp[i].blue;
+        r.red[i] = static_cast<unsigned short>(ramp[i].red);
+        r.green[i] = static_cast<unsigned short>(ramp[i].green);
+        r.blue[i] = static_cast<unsigned short>(ramp[i].blue);
     }
 
     glfwSetGammaRamp(monitor_, &r);

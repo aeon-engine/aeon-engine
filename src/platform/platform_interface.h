@@ -47,8 +47,14 @@ public:
 
     /*!
      * Enter the engine's main loop. You must first call initialize before calling run.
+     * This function will not return until stop() is called.
      */
     virtual void run() = 0;
+
+    /*!
+     * Stop the mainloop. Has no effect if run hasn't been called.
+     */
+    virtual void stop() = 0;
 
     /*!
      * Get a list of all monitors connected to this system.
