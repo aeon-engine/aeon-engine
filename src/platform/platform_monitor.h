@@ -135,7 +135,7 @@ private:
     std::string name_;
 };
 
-using platform_monitor_ptr = std::unique_ptr<platform_monitor>;
+using platform_monitor_ptr = std::shared_ptr<platform_monitor>;
 using platform_monitors = std::vector<platform_monitor_ptr>;
 
 } // namespace platform

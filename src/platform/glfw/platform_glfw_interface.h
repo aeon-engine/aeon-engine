@@ -37,6 +37,9 @@ public:
 
     platform_monitors get_monitors() override;
 
+    platform_window_ptr create_window(int width, int height, const std::string &name,
+        platform_monitor_ptr monitor = nullptr) override;
+
 private:
     bool initialized_;
 };

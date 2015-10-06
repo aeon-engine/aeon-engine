@@ -38,6 +38,11 @@ public:
     video_mode get_video_mode() override;
     video_modes get_video_modes() override;
 
+    GLFWmonitor *get_internal_handle() const
+    {
+        return monitor_;
+    }
+
 private:
     GLFWmonitor *monitor_;
 };

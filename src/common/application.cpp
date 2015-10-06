@@ -43,6 +43,8 @@ void application::main(int argc, char *argv[])
     platform::platform_monitors m = i.get_monitors();
     platform::video_modes vms = m[0]->get_video_modes();
 
+    platform::platform_window_ptr window = i.create_window(800, 600, "Test");
+
     resources::resource_manager mgr;
     resources::resource_provider_ptr provider = std::make_shared<resources::filesystem_provider>(".");
     mgr.mount(provider, "/");
@@ -51,6 +53,8 @@ void application::main(int argc, char *argv[])
     resources::image_ptr img = img_res->open();
 
     std::cout << img->get_width();
+
+    i.run();
 
     //aeon::utility::configfile config_file;
     //std::string config_file_path = "config.ini";

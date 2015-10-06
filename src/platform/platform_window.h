@@ -15,6 +15,7 @@
 
 #pragma once
 #include <string>
+#include <memory>
 
 namespace aeon
 {
@@ -24,19 +25,35 @@ namespace platform
 class platform_window
 {
 public:
-    virtual ~platform_window() = default;
-
-protected:
-    platform_window(int width, int height) :
+    platform_window(int width, int height, const std::string &title) :
         width_(width),
-        height_(height)
+        height_(height),
+        title_(title)
     {
     }
 
+    virtual ~platform_window() = default;
+
+    virtual void handle_events() = 0;
+
+    void get_size(int &width, int &height) const
+    {
+        width = width_;
+        height = height_;
+    }
+
+    const std::string &get_title() const
+    {
+        return title_;
+    }
+
+protected:
     int width_;
     int height_;
     std::string title_;
 };
+
+using platform_window_ptr = std::shared_ptr<platform_window>;
 
 } // namespace platform
 } // namespace aeon

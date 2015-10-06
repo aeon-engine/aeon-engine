@@ -17,6 +17,7 @@
 
 #include <platform/glfw/platform_glfw_interface.h>
 #include <platform/glfw/platform_glfw_monitor.h>
+#include <platform/glfw/platform_glfw_window.h>
 #include <platform/generic/platform_generic_filesystem_interface.h>
 #include <GLFW/glfw3.h>
 
@@ -60,6 +61,7 @@ void platform_interface::run()
     // TODO: Main loop
     while (1)
     {
+        glfwPollEvents();
     }
 }
 
@@ -90,11 +92,27 @@ platform_monitors platform_interface::get_monitors()
 
         const char *name = glfwGetMonitorName(m);
 
-        monitors.emplace_back(std::make_unique<platform_monitor>(
+        monitors.emplace_back(std::make_shared<platform_monitor>(
             m, physical_width, physical_height, x, y, primary, name));
     }
 
     return monitors;
+}
+
+platform_window_ptr platform_interface::create_window(int width, int height, const std::string& name,
+    platform_monitor_ptr monitor)
+{
+    GLFWmonitor *glfw_monitor = nullptr;
+
+    if (monitor)
+    {
+        std::shared_ptr<platform_monitor> m = std::dynamic_pointer_cast<platform_monitor>(monitor);
+        glfw_monitor = m->get_internal_handle();
+    }
+
+    std::shared_ptr<platform_window> window = std::make_shared<platform_window>(width, height, name, glfw_monitor);
+
+    return window;
 }
 
 } // namespace glfw

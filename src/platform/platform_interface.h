@@ -17,6 +17,7 @@
 
 #include <memory>
 #include <platform/platform_monitor.h>
+#include <platform/platform_window.h>
 #include <common/exception.h>
 
 namespace aeon
@@ -31,7 +32,6 @@ DEFINE_EXCEPTION_OBJECT(platform_interface_initialize_exception, platform_interf
     "Could not initialize platform.");
 
 class platform_filesystem_interface;
-class platform_window;
 
 class platform_interface
 {
@@ -56,6 +56,13 @@ public:
     virtual platform_monitors get_monitors() = 0;
 
     /*!
+     * Create a window. A window can be created on a specific monitor. When no monitor is
+     * given, the window appears on the main monitor.
+     */
+    virtual platform_window_ptr create_window(int width, int height, const std::string &name,
+        platform_monitor_ptr monitor = nullptr) = 0;
+
+    /*!
      * Get the subsystem for filesystem interaction for this platform.
      */
     std::shared_ptr<platform_filesystem_interface> get_filesystem_interface()
@@ -63,17 +70,8 @@ public:
         return filesystem_interface_;
     }
 
-    /*!
-     * Get the subsystem for window interaction for this platform.
-     */
-    std::shared_ptr<platform_window> get_window()
-    {
-        return window_;
-    }
-
 protected:
     std::shared_ptr<platform_filesystem_interface> filesystem_interface_;
-    std::shared_ptr<platform_window> window_;
 };
 
 } // namespace platform
