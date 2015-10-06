@@ -16,6 +16,7 @@
 #pragma once
 
 #include <platform/platform_file_interface.h>
+#include <platform/platform_filesystem_interface.h>
 #include <platform/platform_file_open_mode.h>
 #include <string>
 #include <vector>
@@ -24,37 +25,20 @@ namespace aeon
 {
 namespace platform
 {
+namespace generic
+{
 
-class platform_filesystem_interface
+class platform_filesystem_interface : public platform::platform_filesystem_interface
 {
 public:
-    enum class file_type
-    {
-        file,
-        directory
-    };
+    platform_filesystem_interface();
+    virtual ~platform_filesystem_interface();
 
-    class file_entry
-    {
-    public:
-        file_entry(const std::string &name_, file_type type_) :
-            name(name_),
-            type(type_)
-        {}
-
-        std::string name;
-        file_type type;
-    };
-
-    using files = std::vector<file_entry>;
-
-    platform_filesystem_interface() = default;
-    virtual ~platform_filesystem_interface() = default;
-
-    virtual platform_file_interface_ptr open_file(const std::string &path, int openmode) = 0;
-    virtual bool exists(const std::string &path) = 0;
-    virtual files list(const std::string &path) = 0;
+    platform_file_interface_ptr open_file(const std::string &path, int openmode) override;
+    bool exists(const std::string &path) override;
+    files list(const std::string &path) override;
 };
 
+} // namespace generic
 } // namespace platform
 } // namespace aeon

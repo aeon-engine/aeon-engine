@@ -20,6 +20,7 @@ endif ()
 ################################################################################
 
 add_source_path(AEON_ENGINE_SOURCES platform)
+add_source_path(AEON_ENGINE_SOURCES platform/generic)
 
 if (AEON_PLATFORM_GLFW)
     add_source_path(AEON_ENGINE_SOURCES platform/glfw)

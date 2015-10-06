@@ -15,17 +15,17 @@
 
 #pragma once
 
-#include <platform/platform_file_interface.h>
-#include <platform/platform_filesystem_interface.h>
+#include <platform/generic/platform_generic_file_interface.h>
 
 namespace aeon
 {
 namespace platform
 {
+namespace generic
+{
 
 platform_file_interface::platform_file_interface(const std::string &path, int openmode) :
-    openmode_(openmode),
-    path_(path)
+    platform::platform_file_interface(path, openmode)
 {
 }
 
@@ -33,5 +33,35 @@ platform_file_interface::~platform_file_interface()
 {
 }
 
+void platform_file_interface::read(common::buffer_u8& buffer)
+{
+}
+
+void platform_file_interface::read(common::buffer_u8& buffer, int size)
+{
+}
+
+void platform_file_interface::write(common::buffer_u8& buffer)
+{
+}
+
+void platform_file_interface::write(common::buffer_u8& buffer, int size)
+{
+}
+
+void platform_file_interface::seek_read(seek_direction direction, int offset)
+{
+}
+
+void platform_file_interface::seek_write(seek_direction direction, int offset)
+{
+}
+
+int platform_file_interface::get_size()
+{
+    return 0;
+}
+
+} // namespace generic
 } // namespace platform
 } // namespace aeon

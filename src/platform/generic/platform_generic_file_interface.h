@@ -16,6 +16,7 @@
 #pragma once
 
 #include <platform/platform_file_open_mode.h>
+#include <platform/platform_file_interface.h>
 #include <common/buffer.h>
 #include <memory>
 #include <string>
@@ -24,49 +25,32 @@ namespace aeon
 {
 namespace platform
 {
+namespace generic
+{
 
-class platform_file_interface
+class platform_file_interface : public platform::platform_file_interface
 {
 friend class platform_filesystem_interface;
 public:
-    enum class seek_direction
-    {
-        begin,
-        current,
-        end,
-    };
+    virtual ~platform_file_interface() override;
 
-    virtual ~platform_file_interface() = default;
+    void read(common::buffer_u8 &buffer) override;
+    void read(common::buffer_u8 &buffer, int size) override;
 
-    virtual void read(common::buffer_u8 &buffer) = 0;
-    virtual void read(common::buffer_u8 &buffer, int size) = 0;
+    void write(common::buffer_u8 &buffer) override;
+    void write(common::buffer_u8 &buffer, int size) override;
 
-    virtual void write(common::buffer_u8 &buffer) = 0;
-    virtual void write(common::buffer_u8 &buffer, int size) = 0;
+    void seek_read(seek_direction direction, int offset) override;
+    void seek_write(seek_direction direction, int offset) override;
 
-    virtual void seek_read(seek_direction direction, int offset) = 0;
-    virtual void seek_write(seek_direction direction, int offset) = 0;
-
-    virtual int get_size() = 0;
-
-    const std::string &get_path() const
-    {
-        return path_;
-    }
-
-protected:
-    platform_file_interface(const std::string &path, int openmode) :
-        openmode_(openmode),
-        path_(path)
-    {
-    }
+    int get_size() override;
 
 private:
-    int openmode_;
-    std::string path_;
+    platform_file_interface(const std::string &path, int openmode);
 };
 
 using platform_file_interface_ptr = std::shared_ptr<platform_file_interface>;
 
+} // namespace generic
 } // namespace platform
 } // namespace aeon
