@@ -18,6 +18,7 @@
 #include <platform/platform_file_open_mode.h>
 #include <platform/platform_file_interface.h>
 #include <common/buffer.h>
+#include <aeon/streams.h>
 #include <memory>
 #include <string>
 
@@ -28,6 +29,7 @@ namespace platform
 namespace generic
 {
 
+//TODO: Exception handling for whole class
 class platform_file_interface : public platform::platform_file_interface
 {
 friend class platform_filesystem_interface;
@@ -47,6 +49,11 @@ public:
 
 private:
     platform_file_interface(const std::string &path, int openmode);
+
+    aeon::streams::stream::seek_direction
+        __to_streams_seek_direction(seek_direction direction);
+
+    aeon::streams::file_stream_ptr stream_;
 };
 
 using platform_file_interface_ptr = std::shared_ptr<platform_file_interface>;

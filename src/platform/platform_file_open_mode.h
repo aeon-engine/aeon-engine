@@ -25,7 +25,8 @@ enum file_open_mode
     read = 0x01,
     write = 0x02,
     binary = 0x04,
-    read_write = read | write
+    read_write = read | write,
+    truncate = 0x08
 };
 
 } // namespace platform

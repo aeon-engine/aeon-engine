@@ -34,7 +34,7 @@ public:
     platform_filesystem_interface();
     virtual ~platform_filesystem_interface();
 
-    platform_file_interface_ptr open_file(const std::string &path, int openmode) override;
+    platform::platform_file_interface_ptr open_file(const std::string &path, int openmode) override;
     bool exists(const std::string &path) override;
     files list(const std::string &path) override;
 };
