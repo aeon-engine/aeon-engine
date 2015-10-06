@@ -15,8 +15,9 @@
 
 #pragma once
 
-#include <platform/glfw/platform_interface_glfw.h>
+#include <platform/glfw/platform_glfw_interface.h>
 #include <platform/glfw/platform_glfw_monitor.h>
+#include <platform/generic/platform_generic_filesystem_interface.h>
 #include <GLFW/glfw3.h>
 
 namespace aeon
@@ -29,6 +30,8 @@ namespace glfw
 platform_interface::platform_interface() :
     initialized_(false)
 {
+    // Note: On GLFW we can use the generic filesystem interface
+    filesystem_interface_ = std::make_shared<generic::platform_filesystem_interface>();
 }
 
 platform_interface::~platform_interface()

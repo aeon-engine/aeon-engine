@@ -17,7 +17,7 @@
 #include <common/application.h>
 #include <console/console.h>
 
-#include <platform/glfw/platform_interface_glfw.h>
+#include <platform/glfw/platform_glfw_interface.h>
 #include <resources/resource_manager.h>
 #include <resources/providers/filesystem_provider.h>
 #include <resources/wrappers/image_resource_wrapper.h>

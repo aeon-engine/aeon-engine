@@ -71,7 +71,7 @@ public:
         return window_;
     }
 
-private:
+protected:
     std::shared_ptr<platform_filesystem_interface> filesystem_interface_;
     std::shared_ptr<platform_window> window_;
 };
