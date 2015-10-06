@@ -15,10 +15,15 @@
 
 #pragma once
 
+#include <memory>
+
 namespace aeon
 {
 namespace platform
 {
+
+class platform_filesystem_interface;
+class platform_window;
 
 class platform_interface
 {
@@ -26,6 +31,19 @@ public:
     platform_interface();
     virtual ~platform_interface();
 
+    std::shared_ptr<platform_filesystem_interface> get_filesystem_interface()
+    {
+        return filesystem_interface_;
+    }
+
+    std::shared_ptr<platform_window> get_window()
+    {
+        return window_;
+    }
+
+private:
+    std::shared_ptr<platform_filesystem_interface> filesystem_interface_;
+    std::shared_ptr<platform_window> window_;
 };
 
 } // namespace platform

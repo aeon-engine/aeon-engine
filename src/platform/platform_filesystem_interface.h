@@ -19,6 +19,7 @@
 #include <platform/platform_file_open_mode.h>
 #include <common/exception.h>
 #include <string>
+#include <memory>
 #include <vector>
 
 namespace aeon
@@ -63,6 +64,8 @@ public:
     virtual bool exists(const std::string &path) = 0;
     virtual files list(const std::string &path) = 0;
 };
+
+using platform_filesystem_interface_ptr = std::shared_ptr<platform_filesystem_interface>;
 
 } // namespace platform
 } // namespace aeon

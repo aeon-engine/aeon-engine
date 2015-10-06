@@ -28,8 +28,8 @@ class texture_manager;
 class device
 {
 public:
-    device();
-    virtual ~device();
+    device() = default;
+    virtual ~device() = default;
 
     std::shared_ptr<texture_manager> get_texture_manager() { return texture_manager_; }
     std::shared_ptr<shader_manager> get_shader_manager() { return shader_manager_; }
