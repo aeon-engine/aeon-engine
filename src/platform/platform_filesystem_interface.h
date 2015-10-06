@@ -30,7 +30,6 @@ namespace platform
 DEFINE_EXCEPTION_OBJECT(platform_filesystem_interface_exception, aeon::common::exception,
     "Generic platform filesystem interface exception.");
 
-// resource_manager
 DEFINE_EXCEPTION_OBJECT(platform_filesystem_interface_list_exception, platform_filesystem_interface_exception,
     "Platform filesystem interface list exception. Given path is not a directory.");
 

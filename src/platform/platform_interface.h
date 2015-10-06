@@ -17,11 +17,18 @@
 
 #include <memory>
 #include <platform/platform_monitor.h>
+#include <common/exception.h>
 
 namespace aeon
 {
 namespace platform
 {
+
+DEFINE_EXCEPTION_OBJECT(platform_interface_exception, aeon::common::exception,
+    "Generic platform interface exception.");
+
+DEFINE_EXCEPTION_OBJECT(platform_interface_initialize_exception, platform_interface_exception,
+    "Could not initialize platform.");
 
 class platform_filesystem_interface;
 class platform_window;
@@ -29,8 +36,8 @@ class platform_window;
 class platform_interface
 {
 public:
-    platform_interface();
-    virtual ~platform_interface();
+    platform_interface() = default;
+    virtual ~platform_interface() = default;
 
     /*!
      * Initialize the engine. This will set up all platform related things like window,
