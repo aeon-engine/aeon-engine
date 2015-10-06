@@ -16,6 +16,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <memory>
 
 namespace aeon
 {
@@ -43,24 +44,24 @@ public:
     int refresh_rate;
 };
 
-class gamma_ramp
+using video_modes = std::vector<video_mode>;
+
+class gamma_ramp_data
 {
 public:
-    gamma_ramp(int r, int g, int b, int s) :
+    gamma_ramp_data(int r, int g, int b) :
         red(r),
         green(g),
-        blue(b),
-        size(s)
+        blue(b)
     {
     }
 
     int red;
     int green;
     int blue;
-    int size;
 };
 
-using video_modes = std::vector<video_mode>;
+using gamma_ramp = std::vector<gamma_ramp_data>;
 
 class platform_monitor
 {
@@ -133,7 +134,8 @@ private:
     std::string name_;
 };
 
-using platform_monitors = std::vector<platform_monitor>;
+using platform_monitor_ptr = std::unique_ptr<platform_monitor>;
+using platform_monitors = std::vector<platform_monitor_ptr>;
 
 } // namespace platform
 } // namespace aeon

@@ -16,6 +16,7 @@
 #pragma once
 
 #include <platform/glfw/platform_interface_glfw.h>
+#include <platform/glfw/platform_glfw_monitor.h>
 #include <GLFW/glfw3.h>
 
 namespace aeon
@@ -60,7 +61,31 @@ platform_monitors platform_interface::get_monitors()
     if (!initialized_)
         throw platform_interface_initialize_exception();
 
-    return platform_monitors();
+    int count;
+    GLFWmonitor** glfw_monitors = glfwGetMonitors(&count);
+    GLFWmonitor* glfw_primary_monitor = glfwGetPrimaryMonitor();
+
+    platform_monitors monitors;
+
+    for (int i = 0; i < count; ++i)
+    {
+        GLFWmonitor *m = glfw_monitors[i];
+
+        int physical_width;
+        int physical_height;
+        glfwGetMonitorPhysicalSize(m, &physical_width, &physical_height);
+
+        int x;
+        int y;
+        glfwGetMonitorPos(m, &x, &y);
+
+        bool primary = (glfw_primary_monitor == m);
+
+        platform_monitor_ptr monitor = std::make_unique<platform_monitor>(
+            m, physical_width, physical_height, x, y, primary);
+    }
+
+    return monitors;
 }
 
 } // namespace glfw
