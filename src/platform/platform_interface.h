@@ -16,6 +16,7 @@
 #pragma once
 
 #include <memory>
+#include <platform/platform_monitor.h>
 
 namespace aeon
 {
@@ -31,11 +32,33 @@ public:
     platform_interface();
     virtual ~platform_interface();
 
+    /*!
+     * Initialize the engine. This will set up all platform related things like window,
+     * contexts, etc. based on your platform.
+     */
+    virtual void initialize() = 0;
+
+    /*!
+     * Enter the engine's main loop. You must first call initialize before calling run.
+     */
+    virtual void run() = 0;
+
+    /*!
+     * Get a list of all monitors connected to this system.
+     */
+    virtual platform_monitors get_monitors() = 0;
+
+    /*!
+     * Get the subsystem for filesystem interaction for this platform.
+     */
     std::shared_ptr<platform_filesystem_interface> get_filesystem_interface()
     {
         return filesystem_interface_;
     }
 
+    /*!
+     * Get the subsystem for window interaction for this platform.
+     */
     std::shared_ptr<platform_window> get_window()
     {
         return window_;

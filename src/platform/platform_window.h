@@ -14,6 +14,7 @@
  */
 
 #pragma once
+#include <string>
 
 namespace aeon
 {
@@ -26,7 +27,15 @@ public:
     virtual ~platform_window() = default;
 
 protected:
-    platform_window() = default;
+    platform_window(int width, int height) :
+        width_(width),
+        height_(height)
+    {
+    }
+
+    int width_;
+    int height_;
+    std::string title_;
 };
 
 } // namespace platform
