@@ -13,8 +13,6 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
 #include <platform/generic/platform_generic_file_interface.h>
 
 namespace aeon

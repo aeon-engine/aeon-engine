@@ -13,8 +13,6 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
 #include <platform/glfw/platform_glfw_interface.h>
 #include <platform/glfw/platform_glfw_monitor.h>
 #include <platform/glfw/platform_glfw_window.h>
