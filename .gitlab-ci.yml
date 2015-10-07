@@ -1,4 +1,6 @@
-build:
+osx:
+  tags:
+    - osx
   script:
     - source scripts/build_osx.sh
     - source scripts/run_tests.sh
