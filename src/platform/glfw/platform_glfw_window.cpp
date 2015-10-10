@@ -26,7 +26,7 @@ platform_window::platform_window(int width, int height, const std::string& title
     platform::platform_window(width, height, title),
     window_(nullptr)
 {
-    window_ = glfwCreateWindow(width_, height_, title_.c_str(), monitor, nullptr);
+    window_ = glfwCreateWindow(width, height, title.c_str(), monitor, nullptr);
 }
 
 platform_window::~platform_window()
@@ -35,7 +35,7 @@ platform_window::~platform_window()
         glfwDestroyWindow(window_);
 }
 
-void platform_window::handle_events()
+void platform_window::swap_buffers()
 {
     glfwSwapBuffers(window_);
 }

@@ -17,6 +17,7 @@
 
 #include <memory>
 #include <platform/platform_interface.h>
+#include <platform/glfw/platform_glfw_window.h>
 
 namespace aeon
 {
@@ -28,6 +29,8 @@ namespace glfw
 class platform_interface : public platform::platform_interface
 {
 public:
+    using windows = std::vector<platform_window_ptr>;
+
     platform_interface();
     virtual ~platform_interface() override;
 
@@ -38,10 +41,12 @@ public:
 
     platform_monitors get_monitors() override;
 
-    platform_window_ptr create_window(int width, int height, const std::string &name,
+    platform::platform_window_ptr create_window(int width, int height, const std::string &name,
         platform_monitor_ptr monitor = nullptr) override;
 
 private:
+    windows windows_;
+
     bool initialized_;
     bool running_;
 };

@@ -16,6 +16,7 @@
 #pragma once
 #include <platform/platform_window.h>
 #include <GLFW/glfw3.h>
+#include <memory>
 
 namespace aeon
 {
@@ -26,15 +27,18 @@ namespace glfw
 
 class platform_window : public platform::platform_window
 {
+class platform_interface;
 public:
     platform_window(int width, int height, const std::string &title, GLFWmonitor *monitor);
     ~platform_window() override;
 
-    void handle_events() override;
+    void swap_buffers();
 
 private:
     GLFWwindow *window_;
 };
+
+using platform_window_ptr = std::shared_ptr<platform_window>;
 
 } // namespace glfw
 } // namespace platform

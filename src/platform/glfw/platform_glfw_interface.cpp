@@ -62,6 +62,11 @@ void platform_interface::run()
     while (running_)
     {
         glfwPollEvents();
+
+        for(platform_window_ptr window : windows_)
+        {
+            window->swap_buffers();
+        }
     }
 }
 
@@ -104,7 +109,7 @@ platform_monitors platform_interface::get_monitors()
     return monitors;
 }
 
-platform_window_ptr platform_interface::create_window(int width, int height, const std::string& name,
+platform::platform_window_ptr platform_interface::create_window(int width, int height, const std::string& name,
     platform_monitor_ptr monitor)
 {
     GLFWmonitor *glfw_monitor = nullptr;
@@ -115,7 +120,9 @@ platform_window_ptr platform_interface::create_window(int width, int height, con
         glfw_monitor = m->get_internal_handle();
     }
 
-    std::shared_ptr<platform_window> window = std::make_shared<platform_window>(width, height, name, glfw_monitor);
+    platform_window_ptr window = std::make_shared<glfw::platform_window>(width, height, name, glfw_monitor);
+
+    windows_.push_back(window);
 
     return window;
 }

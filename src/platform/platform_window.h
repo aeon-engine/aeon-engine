@@ -34,8 +34,6 @@ public:
 
     virtual ~platform_window() = default;
 
-    virtual void handle_events() = 0;
-
     void get_size(int &width, int &height) const
     {
         width = width_;
@@ -47,7 +45,7 @@ public:
         return title_;
     }
 
-protected:
+private:
     int width_;
     int height_;
     std::string title_;
