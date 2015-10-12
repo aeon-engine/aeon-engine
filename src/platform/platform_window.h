@@ -14,6 +14,7 @@
  */
 
 #pragma once
+#include <gfx/gfx_render_target.h>
 #include <string>
 #include <memory>
 
@@ -22,7 +23,7 @@ namespace aeon
 namespace platform
 {
 
-class platform_window
+class platform_window : public gfx::render_target
 {
 public:
     platform_window(int width, int height, const std::string &title) :

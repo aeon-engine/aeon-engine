@@ -63,9 +63,9 @@ void platform_interface::run()
     {
         glfwPollEvents();
 
-        for(platform_window_ptr window : windows_)
+        for(gfx::render_target_ptr render_target : render_targets_)
         {
-            window->swap_buffers();
+            render_target->swap_buffers();
         }
     }
 }
@@ -122,7 +122,7 @@ platform::platform_window_ptr platform_interface::create_window(int width, int h
 
     platform_window_ptr window = std::make_shared<glfw::platform_window>(width, height, name, glfw_monitor);
 
-    windows_.push_back(window);
+    render_targets_.push_back(window);
 
     return window;
 }

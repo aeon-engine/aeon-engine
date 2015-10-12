@@ -16,6 +16,7 @@
 #pragma once
 
 #include <memory>
+#include <gfx/gfx_render_target.h>
 #include <platform/platform_interface.h>
 #include <platform/glfw/platform_glfw_window.h>
 
@@ -29,7 +30,7 @@ namespace glfw
 class platform_interface : public platform::platform_interface
 {
 public:
-    using windows = std::vector<platform_window_ptr>;
+    using render_targets = std::vector<gfx::render_target_ptr>;
 
     platform_interface();
     virtual ~platform_interface() override;
@@ -45,7 +46,7 @@ public:
         platform_monitor_ptr monitor = nullptr) override;
 
 private:
-    windows windows_;
+    render_targets render_targets_;
 
     bool initialized_;
     bool running_;

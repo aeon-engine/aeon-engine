@@ -32,7 +32,7 @@ public:
     platform_window(int width, int height, const std::string &title, GLFWmonitor *monitor);
     ~platform_window() override;
 
-    void swap_buffers();
+    void swap_buffers() override;
 
 private:
     GLFWwindow *window_;
