@@ -45,7 +45,7 @@ void application::main(int, char *[])
 
     platform::platform_window_ptr window = i.create_window(800, 600, "Test");
 
-    resources::resource_manager mgr;
+    resources::resource_manager mgr(i);
     resources::resource_provider_ptr provider = std::make_shared<resources::filesystem_provider>(".");
     mgr.mount(provider, "/");
 
@@ -67,14 +67,13 @@ void application::__setup_console()
     aeon::console::set_loglevel(aeon::console::log_level::debug);
 
     //Create console streams
-    auto console_stdoutput = std::make_shared<aeon::streams::io_stream>
-        (aeon::streams::access_mode::write);
+    auto console_stdoutput = std::make_shared<aeon::streams::io_stream>(aeon::streams::access_mode::write);
 
     //console_stdoutput->set_color(aeon::streams::color::blue, aeon::streams::weight::bold);
 
     std::string console_log_file = "console.log";
-    auto console_fileoutput = std::make_shared<aeon::streams::file_stream>
-        (console_log_file, aeon::streams::access_mode::write);
+    auto console_fileoutput = std::make_shared<aeon::streams::file_stream>(console_log_file,
+        aeon::streams::access_mode::write);
 
     //Create listeners with these streams
     //auto console_std_listener =

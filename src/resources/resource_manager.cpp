@@ -24,7 +24,8 @@ namespace aeon
 namespace resources
 {
 
-resource_manager::resource_manager()
+resource_manager::resource_manager(platform::platform_interface &platform) :
+    platform_(platform)
 {
 }
 
@@ -39,11 +40,20 @@ void resource_manager::mount(resource_provider_ptr provider,
 
     if (result == mount_points_.end())
         throw resource_manager_duplicate_mount_exception();
+
+    provider->manager_ = this;
 }
 
 void resource_manager::unmount(const std::string &mountpoint)
 {
-    mount_points_.erase(mountpoint);
+    auto result = mount_points_.find(mountpoint);
+
+    if (result == mount_points_.end())
+        return;
+
+    result->second->manager_ = nullptr;
+
+    mount_points_.erase(result);
 }
 
 image_resource_wrapper_ptr resource_manager::load_image(const std::string &path)

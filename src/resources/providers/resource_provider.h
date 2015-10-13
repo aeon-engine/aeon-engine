@@ -45,10 +45,16 @@ public:
     resource_node_type type;
 };
 
+class resource_manager;
 class resource_provider
 {
+friend class resource_manager;
 public:
-    resource_provider() {}
+    resource_provider() :
+        manager_(nullptr)
+    {
+    }
+
     virtual ~resource_provider() = default;
 
     virtual bool exists(const std::string &path) = 0;
@@ -58,6 +64,15 @@ public:
     virtual void read(const std::string &path, common::buffer_u8 &buffer) = 0;
 
     virtual resource_encoding get_encoding(const std::string &path) const = 0;
+
+protected:
+    resource_manager *get_resource_manager()
+    {
+        return manager_;
+    }
+
+private:
+    resource_manager *manager_;
 };
 
 using resource_provider_ptr = std::shared_ptr<resource_provider>;

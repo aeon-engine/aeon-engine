@@ -15,7 +15,8 @@
 
 #include <resources/providers/filesystem_provider.h>
 #include <boost/filesystem.hpp>
-#include <aeon/streams.h>
+#include <resources/resource_manager.h>
+#include <platform/platform_filesystem_interface.h>
 
 namespace aeon
 {
@@ -48,47 +49,44 @@ std::vector<resource_node> filesystem_provider::list(const std::string &path)
 {
     boost::filesystem::path p = __get_real_path(base_path_, path);
 
+    platform::platform_interface &platform = get_resource_manager()->get_platform_interface();
+    platform::platform_filesystem_interface_ptr filesystem_interface = platform.get_filesystem_interface();
+
+    // TODO: add feature to platform_filesystem_interface
     if (!boost::filesystem::is_directory(p))
         throw filesystem_provider_list_exception();
 
-    boost::filesystem::directory_iterator iterator(p);
+    platform::platform_filesystem_interface::files files = filesystem_interface->list(p.string());
 
-    std::vector<resource_node> files;
-    for (auto f : iterator)
+    std::vector<resource_node> nodes;
+    for (auto f : files)
     {
         resource_node_type type = resource_node_type::file;
 
-        if (boost::filesystem::is_directory(f))
+        if (f.type == platform::platform_filesystem_interface::file_type::directory)
             type = resource_node_type::directory;
 
-        files.push_back(resource_node(f.path().filename().string(), type));
+        nodes.push_back(resource_node(f.name, type));
     }
 
-    return std::move(files);
+    return std::move(nodes);
 }
 
 void filesystem_provider::read(const std::string &path, common::buffer_u8 &buffer)
 {
     boost::filesystem::path p = __get_real_path(base_path_, path);
-    aeon::streams::file_stream file(p.string(), aeon::streams::access_mode::read,
-        aeon::streams::file_mode::binary);
 
-    if (!file.good())
+    platform::platform_interface &platform = get_resource_manager()->get_platform_interface();
+    platform::platform_filesystem_interface_ptr filesystem_interface = platform.get_filesystem_interface();
+
+    if (filesystem_interface->exists(p.string()))
         throw filesystem_provider_read_exception();
 
-    std::size_t size = file.size();
-
-    if (size == 0)
-        throw filesystem_provider_read_exception();
+    platform::platform_file_interface_ptr file = filesystem_interface->open_file(p.string(),
+        platform::file_open_mode::read | platform::file_open_mode::binary);
 
     common::buffer_u8 read_buffer;
-    read_buffer.resize(size);
-
-    size_t actual_size = file.read(read_buffer.data(), size);
-
-    if (size != actual_size)
-        throw filesystem_provider_read_exception();
-
+    file->read(read_buffer);
     buffer = std::move(read_buffer);
 }
 
