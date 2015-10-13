@@ -79,7 +79,7 @@ void filesystem_provider::read(const std::string &path, common::buffer_u8 &buffe
     platform::platform_interface &platform = get_resource_manager()->get_platform_interface();
     platform::platform_filesystem_interface_ptr filesystem_interface = platform.get_filesystem_interface();
 
-    if (filesystem_interface->exists(p.string()))
+    if (!filesystem_interface->exists(p.string()))
         throw filesystem_provider_read_exception();
 
     platform::platform_file_interface_ptr file = filesystem_interface->open_file(p.string(),
