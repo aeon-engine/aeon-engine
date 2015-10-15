@@ -28,7 +28,9 @@ public:
     render_target() = default;
     virtual ~render_target() = default;
 
-    virtual void swap_buffers() = 0;
+    virtual bool pre_frame() = 0;
+    virtual bool frame(double dt) = 0;
+    virtual bool post_frame() = 0;
 };
 
 using render_target_ptr = std::shared_ptr<render_target>;

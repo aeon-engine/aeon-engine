@@ -28,7 +28,8 @@ namespace glfw
 
 platform_interface::platform_interface() :
     initialized_(false),
-    running_(false)
+    running_(false),
+    previous_time_(0.0)
 {
     // Note: On GLFW we can use the generic filesystem interface
     filesystem_interface_ = std::make_shared<generic::platform_filesystem_interface>();
@@ -57,15 +58,28 @@ void platform_interface::run()
     if (!initialized_)
         throw platform_interface_initialize_exception();
 
-    // TODO: Main loop
+    previous_time_ = glfwGetTime();
+
     running_ = true;
     while (running_)
     {
         glfwPollEvents();
 
+        double current_time = glfwGetTime();
+        double deltaTime = current_time - previous_time_;
+
+        // TODO: is this ok? Or should we group by render_target? In
+        // other words, first call all pre_frame, etc.?
         for(gfx::render_target_ptr render_target : render_targets_)
         {
-            render_target->swap_buffers();
+            if(!render_target->pre_frame())
+                running_ = false;
+
+            if(!render_target->frame(deltaTime))
+                running_ = false;
+
+            if(!render_target->post_frame())
+                running_ = false;
         }
     }
 }

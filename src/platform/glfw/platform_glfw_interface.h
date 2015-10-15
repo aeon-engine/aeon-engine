@@ -50,6 +50,7 @@ private:
 
     bool initialized_;
     bool running_;
+    double previous_time_;
 };
 
 } // namespace glfw
