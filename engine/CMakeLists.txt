@@ -30,7 +30,7 @@ endif ()
 
 generate_source_groups("${AEON_ENGINE_SOURCES}")
 
-add_executable(aeon_engine ${AEON_ENGINE_SOURCES})
+add_library(aeon_engine STATIC ${AEON_ENGINE_SOURCES})
 
 target_include_directories(aeon_engine
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
@@ -57,10 +57,6 @@ target_link_libraries(aeon_engine
 if (APPLE)
     target_link_libraries(aeon_engine ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY})
 endif ()
-
-if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_DEPRECATE -D_WIN32_WINNT=0x0601")
-endif (MSVC)
 
 set_target_properties(
     aeon_engine PROPERTIES
