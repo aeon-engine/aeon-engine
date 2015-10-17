@@ -67,18 +67,19 @@ void platform_interface::run()
 
         double current_time = glfwGetTime();
         double deltaTime = current_time - previous_time_;
+        previous_time_ = current_time;
 
         // TODO: is this ok? Or should we group by render_target? In
         // other words, first call all pre_frame, etc.?
         for(gfx::render_target_ptr render_target : render_targets_)
         {
-            if(!render_target->pre_frame())
+            if(!render_target->handle_pre_frame())
                 running_ = false;
 
-            if(!render_target->frame(deltaTime))
+            if(!render_target->handle_frame(deltaTime))
                 running_ = false;
 
-            if(!render_target->post_frame())
+            if(!render_target->handle_post_frame())
                 running_ = false;
         }
     }
@@ -123,7 +124,7 @@ platform_monitors platform_interface::get_monitors()
     return monitors;
 }
 
-platform::platform_window_ptr platform_interface::create_window(int width, int height, const std::string& name,
+platform::platform_window_ptr platform_interface::create_window(int width, int height, const std::string &name,
     platform_monitor_ptr monitor)
 {
     GLFWmonitor *glfw_monitor = nullptr;

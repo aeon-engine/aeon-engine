@@ -15,7 +15,9 @@
 
 #pragma once
 
+#include <gfx/gfx_frame_listener.h>
 #include <memory>
+#include <vector>
 
 namespace aeon
 {
@@ -25,12 +27,24 @@ namespace gfx
 class render_target
 {
 public:
-    render_target() = default;
-    virtual ~render_target() = default;
+    render_target();
+    virtual ~render_target();
 
+    bool handle_pre_frame();
+    bool handle_frame(double dt);
+    bool handle_post_frame();
+
+    void attach_frame_listener(frame_listener *listener);
+    void detach_frame_listener(frame_listener *listener);
+    void detach_all_frame_listeners();
+
+protected:
     virtual bool pre_frame() = 0;
     virtual bool frame(double dt) = 0;
     virtual bool post_frame() = 0;
+
+private:
+    std::vector<frame_listener *> frame_listeners_;
 };
 
 using render_target_ptr = std::shared_ptr<render_target>;

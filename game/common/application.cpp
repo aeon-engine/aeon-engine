@@ -45,6 +45,8 @@ void application::main(int, char *[])
 
     platform::platform_window_ptr window = i.create_window(800, 600, "Test");
 
+    window->attach_frame_listener(this);
+
     resources::resource_manager mgr(i);
     resources::resource_provider_ptr provider = std::make_shared<resources::filesystem_provider>(".");
     mgr.mount(provider, "/");
@@ -59,6 +61,48 @@ void application::main(int, char *[])
     //aeon::utility::configfile config_file;
     //std::string config_file_path = "config.ini";
     //config_file.load(std::make_shared<aeon::streams::file_stream>(config_file_path));
+}
+
+bool application::pre_frame()
+{
+    return true;
+}
+
+bool application::frame(double dt)
+{
+    static float time = 0;
+
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+
+    float ratio = 800.0f / 600.0f;
+    glViewport(0, 0, 800, 600);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glRotatef((float)time * 50.0f, 0.f, 0.f, 1.f);
+
+    glBegin(GL_TRIANGLES);
+        glColor3f(1.f, 0.f, 0.f);
+        glVertex3f(-0.6f, -0.4f, 0.f);
+        glColor3f(0.f, 1.f, 0.f);
+        glVertex3f(0.6f, -0.4f, 0.f);
+        glColor3f(0.f, 0.f, 1.f);
+        glVertex3f(0.f, 0.6f, 0.f);
+    glEnd();
+
+    glFlush();
+
+    time += (float)dt;
+
+    return true;
+}
+
+bool application::post_frame()
+{
+    return true;
 }
 
 void application::__setup_console()
