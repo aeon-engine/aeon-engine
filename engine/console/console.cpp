@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <buildconfig.h>
+#include <build_config.h>
 #include <console/console.h>
 #include <console/consolelistener.h>
 #include <aeon/utility.h>

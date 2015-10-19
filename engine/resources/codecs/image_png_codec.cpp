@@ -13,10 +13,6 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <buildconfig.h>
-
-#ifdef AEON_USE_PNG
-
 #include <aeon/platform.h>
 #include <aeon/streams.h>
 #include <resources/codecs/image_png_codec.h>
@@ -223,5 +219,3 @@ resource_encoding image_codec_png::get_codec_type() const
 
 } // namespace resources
 } // namespace aeon
-
-#endif // AEON_USE_PNG

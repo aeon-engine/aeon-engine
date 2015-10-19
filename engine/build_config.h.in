@@ -1,0 +1,35 @@
+/*
+ * ROBIN DEGEN; CONFIDENTIAL
+ *
+ * 2012 - 2015 Robin Degen
+ * All Rights Reserved.
+ *
+ * NOTICE:  All information contained herein is, and remains the property of
+ * Robin Degen and its suppliers, if any. The intellectual and technical
+ * concepts contained herein are proprietary to Robin Degen and its suppliers
+ * and may be covered by U.S. and Foreign Patents, patents in process, and are
+ * protected by trade secret or copyright law. Dissemination of this
+ * information or reproduction of this material is strictly forbidden unless
+ * prior written permission is obtained from Robin Degen.
+ */
+
+#pragma once
+
+/*!
+ * NOTE: This is a generated file. Change the configuration through cmake.
+ */
+
+/*!
+ * Define if Aeon should log debug messages.
+ */
+#cmakedefine AEON_CONSOLE_OUTPUT_DEBUG_MSGS
+
+/*!
+ * The maximum length of a single console line
+ */
+#define AEON_CONSOLE_BUFFER_SIZE            @AEON_CONSOLE_BUFFER_SIZE@
+
+/*!
+ * The default minimum log level
+ */
+#define AEON_DEFAULT_CONSOLE_LOG_LEVEL      @AEON_DEFAULT_CONSOLE_LOG_LEVEL@
