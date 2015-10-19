@@ -69,8 +69,6 @@ void platform_interface::run()
         double deltaTime = current_time - previous_time_;
         previous_time_ = current_time;
 
-        // TODO: is this ok? Or should we group by render_target? In
-        // other words, first call all pre_frame, etc.?
         for(gfx::render_target_ptr render_target : render_targets_)
         {
             render_target->make_current();
