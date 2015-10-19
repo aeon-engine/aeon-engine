@@ -1,3 +1,6 @@
+# Common
+*.log
+
 # OSX
 .DS_Store
 xcode_build
