@@ -63,12 +63,7 @@ void application::main(int, char *[])
     //config_file.load(std::make_shared<aeon::streams::file_stream>(config_file_path));
 }
 
-bool application::pre_frame()
-{
-    return true;
-}
-
-bool application::frame(double dt)
+bool application::on_frame(double dt)
 {
     static float time = 0;
 
@@ -97,11 +92,6 @@ bool application::frame(double dt)
 
     time += (float)dt;
 
-    return true;
-}
-
-bool application::post_frame()
-{
     return true;
 }
 

@@ -73,14 +73,12 @@ void platform_interface::run()
         // other words, first call all pre_frame, etc.?
         for(gfx::render_target_ptr render_target : render_targets_)
         {
-            if(!render_target->handle_pre_frame())
-                running_ = false;
-
+            render_target->make_current();
             if(!render_target->handle_frame(deltaTime))
+            {
                 running_ = false;
-
-            if(!render_target->handle_post_frame())
-                running_ = false;
+                break;
+            }
         }
     }
 }

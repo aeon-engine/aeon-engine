@@ -32,11 +32,10 @@ public:
     platform_window(int width, int height, const std::string &title, GLFWmonitor *monitor);
     ~platform_window() override;
 
-    bool pre_frame() override;
-    bool frame(double dt) override;
-    bool post_frame() override;
-
 private:
+    void make_current() override;
+    bool on_frame(double dt) override;
+
     GLFWwindow *window_;
 };
 

@@ -28,9 +28,7 @@ public:
     frame_listener() = default;
     virtual ~frame_listener() = default;
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
+    virtual bool on_frame(double dt) = 0;
 };
 
 } // namespace gfx

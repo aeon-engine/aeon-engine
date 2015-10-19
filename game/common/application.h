@@ -29,9 +29,7 @@ public:
     void main(int argc, char *argv[]);
 
 private:
-    bool pre_frame() override;
-    bool frame(double dt) override;
-    bool post_frame() override;
+    bool on_frame(double dt) override;
 
     void __setup_console();
 };

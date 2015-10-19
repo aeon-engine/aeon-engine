@@ -29,44 +29,16 @@ render_target::~render_target()
 {
 }
 
-bool render_target::handle_pre_frame()
-{
-    if(!pre_frame())
-        return false;
-
-    for (auto frame_listener : frame_listeners_)
-    {
-        if(!frame_listener->pre_frame())
-            return false;
-    }
-
-    return true;
-}
-
 bool render_target::handle_frame(double dt)
 {
-    if(!frame(dt))
-        return false;
-
     for (auto frame_listener : frame_listeners_)
     {
-        if(!frame_listener->frame(dt))
+        if(!frame_listener->on_frame(dt))
             return false;
     }
 
-    return true;
-}
-
-bool render_target::handle_post_frame()
-{
-    if(!post_frame())
+    if (!on_frame(dt))
         return false;
-
-    for (auto frame_listener : frame_listeners_)
-    {
-        if(!frame_listener->post_frame())
-            return false;
-    }
 
     return true;
 }

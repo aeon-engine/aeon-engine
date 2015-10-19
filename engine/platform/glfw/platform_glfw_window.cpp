@@ -39,21 +39,18 @@ platform_window::~platform_window()
         glfwDestroyWindow(window_);
 }
 
-bool platform_window::pre_frame()
+void platform_window::make_current()
 {
     glfwMakeContextCurrent(window_);
-    return !glfwWindowShouldClose(window_);
 }
 
-bool platform_window::frame(double /*dt*/)
+bool platform_window::on_frame(double /*dt*/)
 {
-    return !glfwWindowShouldClose(window_);
-}
+    if (glfwWindowShouldClose(window_))
+        return false;
 
-bool platform_window::post_frame()
-{
     glfwSwapBuffers(window_);
-    return !glfwWindowShouldClose(window_);
+    return true;
 }
 
 } // namespace glfw

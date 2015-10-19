@@ -30,18 +30,16 @@ public:
     render_target();
     virtual ~render_target();
 
-    bool handle_pre_frame();
     bool handle_frame(double dt);
-    bool handle_post_frame();
 
     void attach_frame_listener(frame_listener *listener);
     void detach_frame_listener(frame_listener *listener);
     void detach_all_frame_listeners();
 
+    virtual void make_current() = 0;
+
 protected:
-    virtual bool pre_frame() = 0;
-    virtual bool frame(double dt) = 0;
-    virtual bool post_frame() = 0;
+    virtual bool on_frame(double dt) = 0;
 
 private:
     std::vector<frame_listener *> frame_listeners_;
