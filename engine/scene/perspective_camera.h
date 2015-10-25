@@ -15,23 +15,24 @@
 
 #pragma once
 
+#include <scene/camera.h>
 #include <memory>
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+class perspective_camera : public camera
 {
 public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
+    perspective_camera(float fov_y, float aspect_ratio, float near, float far);
+    perspective_camera(float fov, float width, float height, float near, float far);
+    virtual ~perspective_camera();
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
 };
 
-} // namespace gfx
+using perspective_camera_ptr = std::shared_ptr<perspective_camera>;
+
+} // namespace scene
 } // namespace aeon

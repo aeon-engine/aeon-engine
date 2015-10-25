@@ -13,25 +13,29 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <memory>
+#include <scene/orthographic_camera.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+orthographic_camera::orthographic_camera(float left, float right, float bottom, float top) :
+    camera()
 {
-public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
+    projection_matrix_ = glm::ortho(left, right, bottom, top);
+}
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
-};
+orthographic_camera::orthographic_camera(float left, float right, float bottom, float top, float near, float far) :
+    camera()
+{
+    projection_matrix_ = glm::ortho(left, right, bottom, top, near, far);
+}
 
-} // namespace gfx
+orthographic_camera::~orthographic_camera()
+{
+}
+
+} // namespace scene
 } // namespace aeon

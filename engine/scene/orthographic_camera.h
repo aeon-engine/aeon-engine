@@ -15,23 +15,24 @@
 
 #pragma once
 
+#include <scene/camera.h>
 #include <memory>
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+class orthographic_camera : public camera
 {
 public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
+    orthographic_camera(float left, float right, float bottom, float top);
+    orthographic_camera(float left, float right, float bottom, float top, float near, float far);
+    virtual ~orthographic_camera();
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
 };
 
-} // namespace gfx
+using orthographic_camera_ptr = std::shared_ptr<orthographic_camera>;
+
+} // namespace scene
 } // namespace aeon

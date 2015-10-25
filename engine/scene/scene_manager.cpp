@@ -13,25 +13,26 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <memory>
+#include <scene/scene_manager.h>
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+scene_manager::scene_manager() :
+    root_node_(scene_node_ptr(new scene_node()))
 {
-public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
+}
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
-};
+scene_manager::~scene_manager()
+{
+}
 
-} // namespace gfx
+scene_node_ptr scene_manager::create_child_scene_node()
+{
+    return root_node_->create_child_scene_node();
+}
+
+} // namespace scene
 } // namespace aeon

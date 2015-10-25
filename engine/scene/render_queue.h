@@ -15,23 +15,20 @@
 
 #pragma once
 
-#include <memory>
+#include <scene/scene_node.h>
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+class render_queue
 {
 public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
+    render_queue();
+    ~render_queue();
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
 };
 
-} // namespace gfx
+} // namespace scene
 } // namespace aeon

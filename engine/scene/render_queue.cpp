@@ -13,25 +13,20 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <memory>
+#include <scene/render_queue.h>
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+render_queue::render_queue()
 {
-public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
+}
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
-};
+render_queue::~render_queue()
+{
+}
 
-} // namespace gfx
+} // namespace scene
 } // namespace aeon

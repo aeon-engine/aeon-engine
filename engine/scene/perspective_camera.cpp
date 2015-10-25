@@ -13,25 +13,29 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <memory>
+#include <scene/perspective_camera.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+perspective_camera::perspective_camera(float fov_y, float aspect_ratio, float near, float far) :
+    camera()
 {
-public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
+    projection_matrix_ = glm::perspective(fov_y, aspect_ratio, near, far);
+}
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
-};
+perspective_camera::perspective_camera(float fov, float width, float height, float near, float far) :
+    camera()
+{
+    projection_matrix_ = glm::perspectiveFov(fov, width, height, near, far);
+}
 
-} // namespace gfx
+perspective_camera::~perspective_camera()
+{
+}
+
+} // namespace scene
 } // namespace aeon

@@ -15,23 +15,40 @@
 
 #pragma once
 
-#include <memory>
+#include <scene/scene_node.h>
+#include <scene/render_queue.h>
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+class scene_manager
 {
 public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
+    scene_manager();
+    virtual ~scene_manager();
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
+    /*!
+     * Create a new scene node attached to this scene node.
+     */
+    scene_node_ptr create_child_scene_node();
+
+    /*!
+     * Get the rood scene node. Do not attach this root to anything else! This will lead to unexpected behavior.
+     */
+    scene_node_ptr get_root_scene_node() const
+    {
+        return root_node_;
+    }
+
+protected:
+    /*!
+     * The root of the scene node tree.
+     */
+    scene_node_ptr root_node_;
+
 };
 
-} // namespace gfx
+} // namespace scene
 } // namespace aeon

@@ -19,19 +19,17 @@
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+class render_object
 {
 public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
-
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
+    render_object() = default;
+    virtual ~render_object() = default;
 };
 
-} // namespace gfx
+using render_object_ptr = std::shared_ptr<render_object>;
+
+} // namespace scene
 } // namespace aeon

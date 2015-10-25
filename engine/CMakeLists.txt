@@ -28,6 +28,12 @@ endif ()
 
 ################################################################################
 
+add_source_path(AEON_ENGINE_SOURCES scene)
+add_source_path(AEON_ENGINE_SOURCES scene/scene_managers/basic)
+add_source_path(AEON_ENGINE_SOURCES scene/scene_managers/octree)
+
+################################################################################
+
 generate_source_groups("${AEON_ENGINE_SOURCES}")
 
 add_library(aeon_engine STATIC ${AEON_ENGINE_SOURCES})

@@ -15,23 +15,27 @@
 
 #pragma once
 
+#include <scene/render_object.h>
+#include <glm/mat4x4.hpp>
 #include <memory>
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+class camera : public render_object
 {
 public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
+    camera();
+    virtual ~camera();
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
+protected:
+    glm::mat4 projection_matrix_;
+    glm::mat4 view_matrix_;
 };
 
-} // namespace gfx
+using camera_ptr = std::shared_ptr<camera>;
+
+} // namespace scene
 } // namespace aeon

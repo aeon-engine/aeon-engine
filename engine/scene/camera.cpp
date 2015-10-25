@@ -13,25 +13,23 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <memory>
+#include <scene/camera.h>
 
 namespace aeon
 {
-namespace gfx
+namespace scene
 {
 
-class frame_listener
+camera::camera() :
+    render_object(),
+    projection_matrix_(1.0f),
+    view_matrix_(1.0f)
 {
-public:
-    frame_listener() = default;
-    virtual ~frame_listener() = default;
+}
 
-    virtual bool pre_frame() { return true; }
-    virtual bool frame(double dt) { return true; }
-    virtual bool post_frame() { return true; }
-};
+camera::~camera()
+{
+}
 
-} // namespace gfx
+} // namespace scene
 } // namespace aeon
