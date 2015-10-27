@@ -15,8 +15,10 @@
 
 #pragma once
 
+#include <vector>
 #include <scene/scene_node.h>
-#include <scene/render_queue.h>
+#include <scene/scene_layer.h>
+#include <scene/viewport.h>
 
 namespace aeon
 {
@@ -30,24 +32,31 @@ public:
     virtual ~scene_manager();
 
     /*!
-     * Create a new scene node attached to this scene node.
+     * Create a new scene layer
      */
-    scene_node_ptr create_child_scene_node();
+    scene_layer_ptr create_scene_layer(int priority);
 
     /*!
-     * Get the rood scene node. Do not attach this root to anything else! This will lead to unexpected behavior.
+     * Remove a scene layer
      */
-    scene_node_ptr get_root_scene_node() const
-    {
-        return root_node_;
-    }
+    void remove_scene_layer(scene_layer_ptr layer);
+
+    /*!
+     * Remove all scene layers
+     */
+    void remove_all_scene_layers();
+
+    void attach_viewport(viewport_ptr vp);
+
+    void detach_viewport(viewport_ptr vp);
+
+    void remove_all_viewports();
 
 protected:
-    /*!
-     * The root of the scene node tree.
-     */
-    scene_node_ptr root_node_;
+    void __sort_layers_by_priority();
 
+    std::vector<scene_layer_ptr> layers_;
+    std::vector<viewport_ptr> viewports_;
 };
 
 } // namespace scene

@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <common/types/rectangle.h>
 #include <memory>
 
 namespace aeon
@@ -25,8 +26,17 @@ namespace scene
 class viewport
 {
 public:
-    viewport();
+    viewport(const common::types::rectangle<float> &rect, int zorder);
     virtual ~viewport();
+
+    void set_rectangle(const common::types::rectangle<float> &rect)
+    {
+        rectangle_ = rect;
+    }
+
+private:
+    common::types::rectangle<float> rectangle_;
+    int zorder_;
 };
 
 using viewport_ptr = std::shared_ptr<viewport>;

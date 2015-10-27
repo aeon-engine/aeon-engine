@@ -13,21 +13,31 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <scene/viewport.h>
+#include <scene/scene_layer.h>
 
 namespace aeon
 {
 namespace scene
 {
 
-viewport::viewport(const common::types::rectangle<float> &rect, int zorder) :
-    rectangle_(rect),
-    zorder_(zorder)
+scene_layer::scene_layer(int priority) :
+    priority_(priority),
+    root_node_(scene_node_ptr(new scene_node()))
 {
 }
 
-viewport::~viewport()
+scene_layer::~scene_layer()
 {
+}
+
+scene_node_ptr scene_layer::create_child_scene_node()
+{
+    return root_node_->create_child_scene_node();
+}
+
+void scene_layer::detach_child_scene_node(scene_node_ptr node)
+{
+    root_node_->detach_child(node);
 }
 
 } // namespace scene
