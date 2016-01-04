@@ -29,7 +29,7 @@ namespace resources
 
 class codec_manager
 {
-using codec_map = utility::linear_map<resource_encoding, codec_ptr>;
+    using codec_map = utility::linear_map<resource_encoding, codec_ptr>;
 
 public:
     codec_manager();

@@ -32,18 +32,18 @@ platform_filesystem_interface::~platform_filesystem_interface()
 {
 }
 
-platform::platform_file_interface_ptr platform_filesystem_interface::open_file(const std::string& path, int openmode)
+platform::platform_file_interface_ptr platform_filesystem_interface::open_file(const std::string &path, int openmode)
 {
     // Note: we can't use make_shared due to private constructor.
     return platform::platform_file_interface_ptr(new platform_file_interface(path, openmode));
 }
 
-bool platform_filesystem_interface::exists(const std::string& path)
+bool platform_filesystem_interface::exists(const std::string &path)
 {
     return boost::filesystem::exists(path);
 }
 
-platform_filesystem_interface::files platform_filesystem_interface::list(const std::string& path)
+platform_filesystem_interface::files platform_filesystem_interface::list(const std::string &path)
 {
     boost::filesystem::path p = path;
 

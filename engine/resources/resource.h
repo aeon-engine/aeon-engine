@@ -25,8 +25,8 @@ namespace resources
 class resource
 {
 public:
-    resource(resource_wrapper_ptr wrapper) :
-        wrapper_(wrapper)
+    resource(resource_wrapper_ptr wrapper)
+        : wrapper_(wrapper)
     {
     }
 

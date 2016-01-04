@@ -23,16 +23,15 @@ namespace aeon
 namespace resources
 {
 
-static boost::filesystem::path __get_real_path(boost::filesystem::path base,
-    const std::string &path)
+static boost::filesystem::path __get_real_path(boost::filesystem::path base, const std::string &path)
 {
     boost::filesystem::path p(path);
-    return base/p;
+    return base / p;
 }
 
-filesystem_provider::filesystem_provider(const std::string &base_path) :
-    resource_provider(),
-    base_path_(base_path)
+filesystem_provider::filesystem_provider(const std::string &base_path)
+    : resource_provider()
+    , base_path_(base_path)
 {
 }
 
@@ -82,8 +81,8 @@ void filesystem_provider::read(const std::string &path, common::buffer_u8 &buffe
     if (!filesystem_interface->exists(p.string()))
         throw filesystem_provider_read_exception();
 
-    platform::platform_file_interface_ptr file = filesystem_interface->open_file(p.string(),
-        platform::file_open_mode::read | platform::file_open_mode::binary);
+    platform::platform_file_interface_ptr file =
+        filesystem_interface->open_file(p.string(), platform::file_open_mode::read | platform::file_open_mode::binary);
 
     common::buffer_u8 read_buffer;
     file->read(read_buffer);

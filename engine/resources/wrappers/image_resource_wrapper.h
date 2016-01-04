@@ -29,8 +29,9 @@ using image_ptr = std::shared_ptr<image>;
 
 class image_resource_wrapper : public resource_wrapper
 {
-friend class resource_interface;
-friend class resource_manager;
+    friend class resource_interface;
+    friend class resource_manager;
+
 public:
     virtual ~image_resource_wrapper();
 
@@ -38,7 +39,6 @@ public:
 
 protected:
     image_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
-
 };
 
 using image_resource_wrapper_ptr = std::shared_ptr<image_resource_wrapper>;

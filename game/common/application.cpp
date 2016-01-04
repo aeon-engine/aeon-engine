@@ -58,9 +58,9 @@ void application::main(int, char *[])
 
     i.run();
 
-    //aeon::utility::configfile config_file;
-    //std::string config_file_path = "config.ini";
-    //config_file.load(std::make_shared<aeon::streams::file_stream>(config_file_path));
+    // aeon::utility::configfile config_file;
+    // std::string config_file_path = "config.ini";
+    // config_file.load(std::make_shared<aeon::streams::file_stream>(config_file_path));
 }
 
 bool application::on_frame(double dt)
@@ -80,12 +80,12 @@ bool application::on_frame(double dt)
     glRotatef((float)time * 50.0f, 0.f, 0.f, 1.f);
 
     glBegin(GL_TRIANGLES);
-        glColor3f(1.f, 0.f, 0.f);
-        glVertex3f(-0.6f, -0.4f, 0.f);
-        glColor3f(0.f, 1.f, 0.f);
-        glVertex3f(0.6f, -0.4f, 0.f);
-        glColor3f(0.f, 0.f, 1.f);
-        glVertex3f(0.f, 0.6f, 0.f);
+    glColor3f(1.f, 0.f, 0.f);
+    glVertex3f(-0.6f, -0.4f, 0.f);
+    glColor3f(0.f, 1.f, 0.f);
+    glVertex3f(0.6f, -0.4f, 0.f);
+    glColor3f(0.f, 0.f, 1.f);
+    glVertex3f(0.f, 0.6f, 0.f);
     glEnd();
 
     glFlush();
@@ -97,27 +97,27 @@ bool application::on_frame(double dt)
 
 void application::__setup_console()
 {
-    //Set up debug logging
+    // Set up debug logging
     aeon::console::set_loglevel(aeon::console::log_level::debug);
 
-    //Create console streams
+    // Create console streams
     auto console_stdoutput = std::make_shared<aeon::streams::io_stream>(aeon::streams::access_mode::write);
 
-    //console_stdoutput->set_color(aeon::streams::color::blue, aeon::streams::weight::bold);
+    // console_stdoutput->set_color(aeon::streams::color::blue, aeon::streams::weight::bold);
 
     std::string console_log_file = "console.log";
-    auto console_fileoutput = std::make_shared<aeon::streams::file_stream>(console_log_file,
-        aeon::streams::access_mode::write);
+    auto console_fileoutput =
+        std::make_shared<aeon::streams::file_stream>(console_log_file, aeon::streams::access_mode::write);
 
-    //Create listeners with these streams
-    //auto console_std_listener =
+    // Create listeners with these streams
+    // auto console_std_listener =
     //    std::make_shared<aeon::console_stream_listener>(console_stdoutput);
-    //auto console_file_listener =
+    // auto console_file_listener =
     //    std::make_shared<aeon::console_stream_listener>(console_fileoutput);
 
-    //Bind a default console
-    //aeon::console::add_console_listener(console_std_listener);
-    //aeon::console::add_console_listener(console_file_listener);
+    // Bind a default console
+    // aeon::console::add_console_listener(console_std_listener);
+    // aeon::console::add_console_listener(console_file_listener);
 }
 
 } // namespace aeon

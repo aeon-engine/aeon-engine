@@ -24,8 +24,8 @@ namespace aeon
 namespace resources
 {
 
-resource_manager::resource_manager(platform::platform_interface &platform) :
-    platform_(platform)
+resource_manager::resource_manager(platform::platform_interface &platform)
+    : platform_(platform)
 {
 }
 
@@ -33,8 +33,7 @@ resource_manager::~resource_manager()
 {
 }
 
-void resource_manager::mount(resource_provider_ptr provider,
-    const std::string &mountpoint /* = "/"*/)
+void resource_manager::mount(resource_provider_ptr provider, const std::string &mountpoint /* = "/"*/)
 {
     auto result = mount_points_.insert_ex(mountpoint, provider);
 

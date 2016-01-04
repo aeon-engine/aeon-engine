@@ -29,7 +29,6 @@ public:
     orthographic_camera(float left, float right, float bottom, float top);
     orthographic_camera(float left, float right, float bottom, float top, float near, float far);
     virtual ~orthographic_camera();
-
 };
 
 using orthographic_camera_ptr = std::shared_ptr<orthographic_camera>;

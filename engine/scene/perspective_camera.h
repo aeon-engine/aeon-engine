@@ -29,7 +29,6 @@ public:
     perspective_camera(float fov_y, float aspect_ratio, float near, float far);
     perspective_camera(float fov, float width, float height, float near, float far);
     virtual ~perspective_camera();
-
 };
 
 using perspective_camera_ptr = std::shared_ptr<perspective_camera>;

@@ -23,11 +23,11 @@ namespace resources
 {
 
 resource_wrapper::resource_wrapper(resource_manager &parent, const std::string &path,
-                                   resource_provider_weak_ptr provider) :
-    parent_(parent),
-    path_(path),
-    provider_(provider),
-    encoding_(resource_encoding::unknown)
+                                   resource_provider_weak_ptr provider)
+    : parent_(parent)
+    , path_(path)
+    , provider_(provider)
+    , encoding_(resource_encoding::unknown)
 {
     if (auto p = provider.lock())
     {

@@ -28,10 +28,10 @@ namespace platform
 {
 
 DEFINE_EXCEPTION_OBJECT(platform_filesystem_interface_exception, aeon::common::exception,
-    "Generic platform filesystem interface exception.");
+                        "Generic platform filesystem interface exception.");
 
 DEFINE_EXCEPTION_OBJECT(platform_filesystem_interface_list_exception, platform_filesystem_interface_exception,
-    "Platform filesystem interface list exception. Given path is not a directory.");
+                        "Platform filesystem interface list exception. Given path is not a directory.");
 
 class platform_filesystem_interface
 {
@@ -45,10 +45,11 @@ public:
     class file_entry
     {
     public:
-        file_entry(const std::string &name_, file_type type_) :
-            name(name_),
-            type(type_)
-        {}
+        file_entry(const std::string &name_, file_type type_)
+            : name(name_)
+            , type(type_)
+        {
+        }
 
         std::string name;
         file_type type;

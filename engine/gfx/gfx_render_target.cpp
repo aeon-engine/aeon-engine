@@ -33,7 +33,7 @@ bool render_target::handle_frame(double dt)
 {
     for (auto frame_listener : frame_listeners_)
     {
-        if(!frame_listener->on_frame(dt))
+        if (!frame_listener->on_frame(dt))
             return false;
     }
 
@@ -50,12 +50,10 @@ void render_target::attach_frame_listener(frame_listener *listener)
 
 void render_target::detach_frame_listener(frame_listener *listener)
 {
-    auto result = std::find_if(frame_listeners_.begin(), frame_listeners_.end(),
-        [listener](const frame_listener *val)
-        {
-            return listener == val;
-        }
-    );
+    auto result = std::find_if(frame_listeners_.begin(), frame_listeners_.end(), [listener](const frame_listener *val)
+                               {
+                                   return listener == val;
+                               });
 
     if (result != frame_listeners_.end())
         frame_listeners_.erase(result);

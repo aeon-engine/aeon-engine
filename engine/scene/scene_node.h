@@ -31,7 +31,8 @@ using scene_node_ptr = std::shared_ptr<scene_node>;
 
 class scene_node : public std::enable_shared_from_this<scene_node>
 {
-friend class scene_layer;
+    friend class scene_layer;
+
 public:
     /*!
      * Destructor

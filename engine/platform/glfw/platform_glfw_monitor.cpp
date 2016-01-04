@@ -22,10 +22,10 @@ namespace platform
 namespace glfw
 {
 
-platform_monitor::platform_monitor(GLFWmonitor *monitor, int width, int height,
-                                   int x, int y, bool primary, const std::string &name) :
-    platform::platform_monitor(width, height, x, y, primary, name),
-    monitor_(monitor)
+platform_monitor::platform_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary,
+                                   const std::string &name)
+    : platform::platform_monitor(width, height, x, y, primary, name)
+    , monitor_(monitor)
 {
 }
 
@@ -43,7 +43,7 @@ gamma_ramp platform_monitor::get_gamma_ramp()
 {
     const GLFWgammaramp *ramp = glfwGetGammaRamp(monitor_);
     gamma_ramp r;
-    
+
     for (unsigned int i = 0; i < ramp->size; ++i)
     {
         r.push_back(gamma_ramp_data(ramp->red[i], ramp->green[i], ramp->blue[i]));
@@ -69,23 +69,17 @@ void platform_monitor::set_gamma_ramp(gamma_ramp ramp)
 
     glfwSetGammaRamp(monitor_, &r);
 
-    delete [] r.red;
-    delete [] r.green;
-    delete [] r.blue;
+    delete[] r.red;
+    delete[] r.green;
+    delete[] r.blue;
 }
 
 video_mode platform_monitor::get_video_mode()
 {
     const GLFWvidmode *vidmode = glfwGetVideoMode(monitor_);
 
-    return video_mode(
-        vidmode->width,
-        vidmode->height,
-        vidmode->redBits,
-        vidmode->greenBits,
-        vidmode->blueBits,
-        vidmode->refreshRate
-    );
+    return video_mode(vidmode->width, vidmode->height, vidmode->redBits, vidmode->greenBits, vidmode->blueBits,
+                      vidmode->refreshRate);
 }
 
 video_modes platform_monitor::get_video_modes()
@@ -96,16 +90,8 @@ video_modes platform_monitor::get_video_modes()
     video_modes modes;
     for (int i = 0; i < count; ++i)
     {
-        modes.push_back(
-            video_mode(
-                vidmodes[i].width,
-                vidmodes[i].height,
-                vidmodes[i].redBits,
-                vidmodes[i].greenBits,
-                vidmodes[i].blueBits,
-                vidmodes[i].refreshRate
-            )
-        );
+        modes.push_back(video_mode(vidmodes[i].width, vidmodes[i].height, vidmodes[i].redBits, vidmodes[i].greenBits,
+                                   vidmodes[i].blueBits, vidmodes[i].refreshRate));
     }
 
     return modes;

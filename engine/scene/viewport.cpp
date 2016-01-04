@@ -20,9 +20,9 @@ namespace aeon
 namespace scene
 {
 
-viewport::viewport(const common::types::rectangle<float> &rect, int zorder) :
-    rectangle_(rect),
-    zorder_(zorder)
+viewport::viewport(const common::types::rectangle<float> &rect, int zorder)
+    : rectangle_(rect)
+    , zorder_(zorder)
 {
 }
 

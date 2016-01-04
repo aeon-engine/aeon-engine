@@ -27,7 +27,8 @@ namespace glfw
 
 class platform_window : public platform::platform_window
 {
-class platform_interface;
+    class platform_interface;
+
 public:
     platform_window(int width, int height, const std::string &title, GLFWmonitor *monitor);
     ~platform_window() override;

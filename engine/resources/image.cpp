@@ -20,31 +20,30 @@ namespace aeon
 namespace resources
 {
 
-image::image(resource_wrapper_ptr wrapper) :
-    resource(wrapper),
-    width_(0),
-    height_(0),
-    pixel_format_(pixel_format::rgba)
+image::image(resource_wrapper_ptr wrapper)
+    : resource(wrapper)
+    , width_(0)
+    , height_(0)
+    , pixel_format_(pixel_format::rgba)
 {
 }
 
 image::image(resource_wrapper_ptr wrapper, common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
-             pixel_format pixelformat /*= pixel_format::rgba*/) :
-    resource(wrapper),
-    buffer_(std::move(buffer)),
-    width_(width),
-    height_(height),
-    pixel_format_(pixelformat)
+             pixel_format pixelformat /*= pixel_format::rgba*/)
+    : resource(wrapper)
+    , buffer_(std::move(buffer))
+    , width_(width)
+    , height_(height)
+    , pixel_format_(pixelformat)
 {
 }
-
 
 image::~image()
 {
 }
 
-void image::set_data(common::buffer_u8 &&buffer, unsigned int width,
-                     unsigned int height, pixel_format pixelformat /*= pixel_format::rgba*/)
+void image::set_data(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
+                     pixel_format pixelformat /*= pixel_format::rgba*/)
 {
     if (buffer.empty())
         throw image_data_exception();

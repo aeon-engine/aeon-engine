@@ -29,7 +29,6 @@ class device : gfx::device
 public:
     device();
     ~device() override;
-
 };
 
 } // namespace gl

@@ -26,12 +26,12 @@ namespace common
 class exception : public std::exception
 {
 public:
-    exception(const std::string &message = "") :
-        message_(message)
+    exception(const std::string &message = "")
+        : message_(message)
     {
     }
 
-    const char* what() const noexcept override
+    const char *what() const noexcept override
     {
         return message_.c_str();
     }
@@ -40,16 +40,18 @@ private:
     const std::string message_;
 };
 
-#define DEFINE_EXCEPTION_OBJECT(name, base, message) \
-    class name : public base \
-    { \
-    public: \
-        name() : \
-            base(#message) \
-        {} \
-        name(const std::string &msg) : \
-            base(msg) \
-        {} \
+#define DEFINE_EXCEPTION_OBJECT(name, base, message)                                                                   \
+    class name : public base                                                                                           \
+    {                                                                                                                  \
+    public:                                                                                                            \
+        name()                                                                                                         \
+            : base(#message)                                                                                           \
+        {                                                                                                              \
+        }                                                                                                              \
+        name(const std::string &msg)                                                                                   \
+            : base(msg)                                                                                                \
+        {                                                                                                              \
+        }                                                                                                              \
     }
 
 } // namespace common

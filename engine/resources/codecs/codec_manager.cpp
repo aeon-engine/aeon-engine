@@ -52,11 +52,11 @@ resource_type codec_manager::get_resource_type_by_encoding(resource_encoding enc
 {
     switch (encoding)
     {
-        case resource_encoding::image_png:
-            return resource_type::image;
-        case resource_encoding::unknown:
-        default:
-            throw codec_manager_unknown_codec_exception();
+    case resource_encoding::image_png:
+        return resource_type::image;
+    case resource_encoding::unknown:
+    default:
+        throw codec_manager_unknown_codec_exception();
     }
 }
 
@@ -64,7 +64,6 @@ void codec_manager::__register_codecs()
 {
     codecs_[resource_encoding::image_png] = std::make_shared<image_codec_png>();
 }
-
 
 } // namespace resources
 } // namespace aeon

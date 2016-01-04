@@ -26,7 +26,8 @@ namespace common
 {
 
 DEFINE_EXCEPTION_OBJECT(object_cache_exception, exception, "object_cache_exception");
-DEFINE_EXCEPTION_OBJECT(object_cache_name_exception, object_cache_exception, "There is already an object cached with the same name.");
+DEFINE_EXCEPTION_OBJECT(object_cache_name_exception, object_cache_exception,
+                        "There is already an object cached with the same name.");
 
 template <typename T>
 class object_cache
@@ -38,12 +39,10 @@ public:
 
     object_cache()
     {
-        static_assert(
-            std::is_base_of<cached_object, T>::value,
-            "Object given to object_cache must be derived from aeon::common::cached_object."
-        );
+        static_assert(std::is_base_of<cached_object, T>::value,
+                      "Object given to object_cache must be derived from aeon::common::cached_object.");
     }
-    
+
     virtual ~object_cache()
     {
     }
@@ -68,12 +67,10 @@ public:
 
     void garbage_collect_cached_objects()
     {
-        objects_.erase_if(
-            [](const typename cached_objects::pair_type &obj)
-            {
-                return obj.second->expired();
-            }
-        );
+        objects_.erase_if([](const typename cached_objects::pair_type &obj)
+                          {
+                              return obj.second->expired();
+                          });
     }
 
 private:

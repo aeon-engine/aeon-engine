@@ -22,9 +22,9 @@ namespace platform
 namespace glfw
 {
 
-platform_window::platform_window(int width, int height, const std::string& title, GLFWmonitor *monitor) :
-    platform::platform_window(width, height, title),
-    window_(nullptr)
+platform_window::platform_window(int width, int height, const std::string &title, GLFWmonitor *monitor)
+    : platform::platform_window(width, height, title)
+    , window_(nullptr)
 {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);

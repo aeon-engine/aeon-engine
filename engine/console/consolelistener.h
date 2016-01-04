@@ -24,11 +24,14 @@ namespace console
 class listener
 {
 public:
-    listener() {}
-    virtual ~listener() {}
+    listener()
+    {
+    }
+    virtual ~listener()
+    {
+    }
 
-    virtual void on_log_message(double time_diff, console::log_level level, 
-                                const std::string &message) = 0;
+    virtual void on_log_message(double time_diff, console::log_level level, const std::string &message) = 0;
 };
 
 } // namespace console

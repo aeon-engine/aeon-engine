@@ -36,10 +36,11 @@ enum class resource_node_type
 class resource_node
 {
 public:
-    resource_node(const std::string &name_, resource_node_type type_) :
-        name(name_),
-        type(type_)
-    {}
+    resource_node(const std::string &name_, resource_node_type type_)
+        : name(name_)
+        , type(type_)
+    {
+    }
 
     std::string name;
     resource_node_type type;
@@ -48,10 +49,11 @@ public:
 class resource_manager;
 class resource_provider
 {
-friend class resource_manager;
+    friend class resource_manager;
+
 public:
-    resource_provider() :
-        manager_(nullptr)
+    resource_provider()
+        : manager_(nullptr)
     {
     }
 

@@ -37,11 +37,11 @@ public:
      * Constructor
      * The begin and end template types are default constructed
      */
-    rectangle() :
-        left(),
-        top(),
-        right(),
-        bottom()
+    rectangle()
+        : left()
+        , top()
+        , right()
+        , bottom()
     {
     }
 
@@ -52,11 +52,11 @@ public:
      * \param right Right offset of the rectangle
      * \param bottom Bottom offset of the rectangle
      */
-    rectangle(T left_, T top_, T right_, T bottom_) :
-        left(left_),
-        top(top_),
-        right(right_),
-        bottom(bottom_)
+    rectangle(T left_, T top_, T right_, T bottom_)
+        : left(left_)
+        , top(top_)
+        , right(right_)
+        , bottom(bottom_)
     {
     }
 
@@ -67,11 +67,11 @@ public:
      * \param other A rectangle class of another template type
      */
     template <typename U>
-    explicit rectangle(const rectangle<U>& other) :
-        left(static_cast<T>(other.left)),
-        top(static_cast<T>(other.top)),
-        right(static_cast<T>(other.right)),
-        bottom(static_cast<T>(other.bottom))
+    explicit rectangle(const rectangle<U> &other)
+        : left(static_cast<T>(other.left))
+        , top(static_cast<T>(other.top))
+        , right(static_cast<T>(other.right))
+        , bottom(static_cast<T>(other.bottom))
     {
     }
 
@@ -124,12 +124,8 @@ public:
      */
     static rectangle<T> move_to(const rectangle<T> &rect, const glm::vec2 &p)
     {
-        return rectangle<T>(
-            p.x,
-            p.y,
-            (rect.width<T>()) + static_cast<T>(p.x),
-            (rect.height<T>()) + static_cast<T>(p.y)
-        );
+        return rectangle<T>(p.x, p.y, (rect.width<T>()) + static_cast<T>(p.x),
+                            (rect.height<T>()) + static_cast<T>(p.y));
     }
 
     /*!
@@ -140,11 +136,8 @@ public:
      */
     static bool contains(const rectangle<T> &outer, const glm::vec2 &inner)
     {
-        return
-            outer.left <= static_cast<T>(inner.x) &&
-            static_cast<T>(inner.x) < outer.right &&
-            outer.top <= static_cast<T>(inner.y) &&
-            static_cast<T>(inner.y) < outer.bottom;
+        return outer.left <= static_cast<T>(inner.x) && static_cast<T>(inner.x) < outer.right &&
+               outer.top <= static_cast<T>(inner.y) && static_cast<T>(inner.y) < outer.bottom;
     }
 
     /*!
@@ -157,11 +150,8 @@ public:
      */
     static bool contains(const rectangle<T> &outer, const rectangle<T> &inner)
     {
-        return
-            outer.left <= inner.left &&
-            inner.right <= outer.right &&
-            outer.top <= inner.top &&
-            inner.bottom <= outer.bottom;
+        return outer.left <= inner.left && inner.right <= outer.right && outer.top <= inner.top &&
+               inner.bottom <= outer.bottom;
     }
 
     /*!
@@ -172,11 +162,7 @@ public:
      */
     static bool Overlaps(const rectangle<T> &r1, const rectangle<T> &r2)
     {
-        return
-            r1.left < r2.right &&
-            r2.left < r1.right &&
-            r1.top < r2.bottom &&
-            r2.top < r1.bottom;
+        return r1.left < r2.right && r2.left < r1.right && r1.top < r2.bottom && r2.top < r1.bottom;
     }
 
     /*!
@@ -196,13 +182,8 @@ public:
      */
     static rectangle<T> intersection(const rectangle<T> &r1, const rectangle<T> &r2)
     {
-        return
-            rectangle<T>(
-                std::max<T>(r1.left, r2.left),
-                std::max<T>(r1.top, r2.top),
-                std::min<T>(r1.right, r2.right),
-                std::min<T>(r1.bottom, r2.bottom)
-            );
+        return rectangle<T>(std::max<T>(r1.left, r2.left), std::max<T>(r1.top, r2.top), std::min<T>(r1.right, r2.right),
+                            std::min<T>(r1.bottom, r2.bottom));
     }
 
     T left;
@@ -217,11 +198,7 @@ public:
 template <typename T>
 inline bool operator==(const rectangle<T> &lhs, const rectangle<T> &rhs)
 {
-    return
-        lhs.left == rhs.left &&
-        lhs.top == rhs.top &&
-        lhs.right == rhs.right &&
-        lhs.bottom == rhs.bottom;
+    return lhs.left == rhs.left && lhs.top == rhs.top && lhs.right == rhs.right && lhs.bottom == rhs.bottom;
 }
 
 /*!
@@ -240,12 +217,8 @@ inline bool operator!=(const rectangle<T> &lhs, const rectangle<T> &rhs)
 template <typename T>
 inline std::ostream &operator<<(std::ostream &os, const rectangle<T> &rect)
 {
-    return os <<
-        "rectangle<" << typeid(T).name() << ">(" <<
-        rect.left << "," <<
-        rect.top << "," <<
-        rect.right << "," <<
-        rect.bottom << ")";
+    return os << "rectangle<" << typeid(T).name() << ">(" << rect.left << "," << rect.top << "," << rect.right << ","
+              << rect.bottom << ")";
 }
 
 } // namespace types

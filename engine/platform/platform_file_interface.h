@@ -27,7 +27,8 @@ namespace platform
 
 class platform_file_interface
 {
-friend class platform_filesystem_interface;
+    friend class platform_filesystem_interface;
+
 public:
     enum class seek_direction
     {
@@ -55,9 +56,9 @@ public:
     }
 
 protected:
-    platform_file_interface(const std::string &path, int openmode) :
-        openmode_(openmode),
-        path_(path)
+    platform_file_interface(const std::string &path, int openmode)
+        : openmode_(openmode)
+        , path_(path)
     {
     }
 

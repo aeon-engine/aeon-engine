@@ -65,13 +65,10 @@ void scene_manager::remove_all_viewports()
 
 void scene_manager::__sort_layers_by_priority()
 {
-    std::sort(
-        layers_.begin(), layers_.end(),
-        [](const scene_layer_ptr &a, const scene_layer_ptr &b)
-        {
-            return a->get_priority() < b->get_priority();
-        }
-    );
+    std::sort(layers_.begin(), layers_.end(), [](const scene_layer_ptr &a, const scene_layer_ptr &b)
+              {
+                  return a->get_priority() < b->get_priority();
+              });
 }
 
 } // namespace scene

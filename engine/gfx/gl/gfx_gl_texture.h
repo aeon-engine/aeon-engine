@@ -27,7 +27,8 @@ namespace gl
 
 class texture : public gfx::texture
 {
-friend class texture_manager;
+    friend class texture_manager;
+
 public:
     explicit texture(resources::image_ptr image);
     ~texture() override;

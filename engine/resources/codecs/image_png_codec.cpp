@@ -32,10 +32,10 @@ namespace resources
 class png_read_structs
 {
 public:
-    png_read_structs() :
-        png_ptr_(nullptr),
-        info_ptr_(nullptr),
-        end_info_(nullptr)
+    png_read_structs()
+        : png_ptr_(nullptr)
+        , info_ptr_(nullptr)
+        , end_info_(nullptr)
     {
         // Create the read struct for PNG
         png_ptr_ = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
@@ -72,9 +72,18 @@ public:
         end_info_ = nullptr;
     }
 
-    png_structp png_ptr() const { return png_ptr_; }
-    png_infop info_ptr() const { return info_ptr_; }
-    png_infop end_info() const { return end_info_; }
+    png_structp png_ptr() const
+    {
+        return png_ptr_;
+    }
+    png_infop info_ptr() const
+    {
+        return info_ptr_;
+    }
+    png_infop end_info() const
+    {
+        return end_info_;
+    }
 
 private:
     png_structp png_ptr_;
@@ -97,12 +106,10 @@ static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, png_s
 
 image_codec_png::image_codec_png()
 {
-
 }
 
 image_codec_png::~image_codec_png()
 {
-
 }
 
 image_ptr image_codec_png::decode(image_resource_wrapper_ptr wrapper)
@@ -152,21 +159,21 @@ image_ptr image_codec_png::decode(image_resource_wrapper_ptr wrapper)
     png_uint_32 temp_width, temp_height;
 
     // Get info about png
-    png_get_IHDR(png_structs.png_ptr(), png_structs.info_ptr(), &temp_width, &temp_height, &bit_depth,
-        &color_type, nullptr, nullptr, nullptr);
+    png_get_IHDR(png_structs.png_ptr(), png_structs.info_ptr(), &temp_width, &temp_height, &bit_depth, &color_type,
+                 nullptr, nullptr, nullptr);
 
     image::pixel_format pixel_format = image::pixel_format::rgba;
     // Check the pixel format
     switch (color_type)
     {
-        case PNG_COLOR_TYPE_RGB:
-            pixel_format = image::pixel_format::rgb;
-            break;
-        case PNG_COLOR_TYPE_RGB_ALPHA:
-            pixel_format = image::pixel_format::rgba;
-            break;
-        default:
-            throw codec_png_decode_exception();
+    case PNG_COLOR_TYPE_RGB:
+        pixel_format = image::pixel_format::rgb;
+        break;
+    case PNG_COLOR_TYPE_RGB_ALPHA:
+        pixel_format = image::pixel_format::rgba;
+        break;
+    default:
+        throw codec_png_decode_exception();
     }
 
     // Update the png info struct.
@@ -182,7 +189,7 @@ image_ptr image_codec_png::decode(image_resource_wrapper_ptr wrapper)
     // Cast to png_byte since this is what libpng likes as buffer.
     // Just passing the pointer should be fine. But this ensures 100%
     // compatibility.
-    png_byte * image_data = static_cast<png_byte *>(&(bitmap_buffer)[0]);
+    png_byte *image_data = static_cast<png_byte *>(&(bitmap_buffer)[0]);
 
     // Row_pointers is for pointing to image_data for reading the
     // png with libpng
@@ -190,7 +197,7 @@ image_ptr image_codec_png::decode(image_resource_wrapper_ptr wrapper)
     common::buffer_pu8 rowpointer_buffer(rowpointer_buff_size);
 
     // Cast to png_bytep
-    png_bytep * row_pointers = static_cast<png_bytep *>(&(rowpointer_buffer)[0]);
+    png_bytep *row_pointers = static_cast<png_bytep *>(&(rowpointer_buffer)[0]);
 
     // Set the individual row_pointers to point at the correct offsets
     // of image_data
@@ -203,13 +210,7 @@ image_ptr image_codec_png::decode(image_resource_wrapper_ptr wrapper)
     png_read_image(png_structs.png_ptr(), row_pointers);
 
     // Create the image object
-    return std::make_shared<image>(
-        wrapper,
-        std::move(bitmap_buffer),
-        temp_width,
-        temp_height,
-        pixel_format
-    );
+    return std::make_shared<image>(wrapper, std::move(bitmap_buffer), temp_width, temp_height, pixel_format);
 }
 
 resource_encoding image_codec_png::get_codec_type() const

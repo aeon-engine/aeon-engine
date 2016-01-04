@@ -25,11 +25,10 @@ namespace aeon
 namespace platform
 {
 
-DEFINE_EXCEPTION_OBJECT(platform_interface_exception, aeon::common::exception,
-    "Generic platform interface exception.");
+DEFINE_EXCEPTION_OBJECT(platform_interface_exception, aeon::common::exception, "Generic platform interface exception.");
 
 DEFINE_EXCEPTION_OBJECT(platform_interface_initialize_exception, platform_interface_exception,
-    "Could not initialize platform.");
+                        "Could not initialize platform.");
 
 class platform_filesystem_interface;
 
@@ -66,7 +65,7 @@ public:
      * given, the window appears on the main monitor.
      */
     virtual platform_window_ptr create_window(int width, int height, const std::string &name,
-        platform_monitor_ptr monitor = nullptr) = 0;
+                                              platform_monitor_ptr monitor = nullptr) = 0;
 
     /*!
      * Get the subsystem for filesystem interaction for this platform.

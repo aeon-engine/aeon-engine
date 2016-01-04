@@ -20,10 +20,10 @@ namespace aeon
 namespace scene
 {
 
-camera::camera() :
-    render_object(),
-    projection_matrix_(1.0f),
-    view_matrix_(1.0f)
+camera::camera()
+    : render_object()
+    , projection_matrix_(1.0f)
+    , view_matrix_(1.0f)
 {
 }
 

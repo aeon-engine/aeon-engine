@@ -27,7 +27,6 @@ class render_queue
 public:
     render_queue();
     ~render_queue();
-
 };
 
 } // namespace scene

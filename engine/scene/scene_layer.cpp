@@ -20,9 +20,9 @@ namespace aeon
 namespace scene
 {
 
-scene_layer::scene_layer(int priority) :
-    priority_(priority),
-    root_node_(scene_node_ptr(new scene_node()))
+scene_layer::scene_layer(int priority)
+    : priority_(priority)
+    , root_node_(scene_node_ptr(new scene_node()))
 {
 }
 

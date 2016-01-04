@@ -33,7 +33,8 @@ using resource_wrapper_ptr = std::shared_ptr<resource_wrapper>;
 
 class resource_manager
 {
-using mount_points = utility::linear_map<std::string, resource_provider_ptr>;
+    using mount_points = utility::linear_map<std::string, resource_provider_ptr>;
+
 public:
     resource_manager(platform::platform_interface &platform);
     ~resource_manager();
@@ -43,9 +44,9 @@ public:
 
     image_resource_wrapper_ptr load_image(const std::string &path);
 
-    //material_ptr load_material(const std::string &path);
-    //shader_ptr load_shader(const std::string &path);
-    //resource_wrapper_ptr load(const std::string &path);
+    // material_ptr load_material(const std::string &path);
+    // shader_ptr load_shader(const std::string &path);
+    // resource_wrapper_ptr load(const std::string &path);
 
     platform::platform_interface &get_platform_interface()
     {

@@ -25,7 +25,6 @@ class shader
 public:
     shader();
     virtual ~shader();
-
 };
 
 } // namespace gfx

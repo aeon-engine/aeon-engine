@@ -22,8 +22,8 @@ namespace aeon
 namespace scene
 {
 
-scene_node::scene_node() :
-    dirty_(true)
+scene_node::scene_node()
+    : dirty_(true)
 {
 }
 

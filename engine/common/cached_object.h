@@ -24,14 +24,15 @@ namespace common
 
 class cached_object
 {
-template <typename T>
-friend class object_cache;
+    template <typename T>
+    friend class object_cache;
+
 public:
-    cached_object() :
-        name_("Unnamed")
+    cached_object()
+        : name_("Unnamed")
     {
     }
-    
+
     virtual ~cached_object()
     {
     }
@@ -40,7 +41,7 @@ public:
     {
         return name_;
     }
-    
+
 private:
     std::string name_;
 };

@@ -26,10 +26,10 @@ namespace platform
 namespace glfw
 {
 
-platform_interface::platform_interface() :
-    initialized_(false),
-    running_(false),
-    previous_time_(0.0)
+platform_interface::platform_interface()
+    : initialized_(false)
+    , running_(false)
+    , previous_time_(0.0)
 {
     // Note: On GLFW we can use the generic filesystem interface
     filesystem_interface_ = std::make_shared<generic::platform_filesystem_interface>();
@@ -69,10 +69,10 @@ void platform_interface::run()
         double deltaTime = current_time - previous_time_;
         previous_time_ = current_time;
 
-        for(gfx::render_target_ptr render_target : render_targets_)
+        for (gfx::render_target_ptr render_target : render_targets_)
         {
             render_target->make_current();
-            if(!render_target->handle_frame(deltaTime))
+            if (!render_target->handle_frame(deltaTime))
             {
                 running_ = false;
                 break;
@@ -92,8 +92,8 @@ platform_monitors platform_interface::get_monitors()
         throw platform_interface_initialize_exception();
 
     int count;
-    GLFWmonitor** glfw_monitors = glfwGetMonitors(&count);
-    GLFWmonitor* glfw_primary_monitor = glfwGetPrimaryMonitor();
+    GLFWmonitor **glfw_monitors = glfwGetMonitors(&count);
+    GLFWmonitor *glfw_primary_monitor = glfwGetPrimaryMonitor();
 
     platform_monitors monitors;
 
@@ -113,15 +113,15 @@ platform_monitors platform_interface::get_monitors()
 
         const char *name = glfwGetMonitorName(m);
 
-        monitors.emplace_back(std::make_shared<platform_monitor>(
-            m, physical_width, physical_height, x, y, primary, name));
+        monitors.emplace_back(
+            std::make_shared<platform_monitor>(m, physical_width, physical_height, x, y, primary, name));
     }
 
     return monitors;
 }
 
 platform::platform_window_ptr platform_interface::create_window(int width, int height, const std::string &name,
-    platform_monitor_ptr monitor)
+                                                                platform_monitor_ptr monitor)
 {
     GLFWmonitor *glfw_monitor = nullptr;
 

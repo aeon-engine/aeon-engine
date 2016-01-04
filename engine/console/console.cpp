@@ -25,11 +25,11 @@ namespace aeon
 namespace console
 {
 
-static log_level                loglevel_ = AEON_DEFAULT_CONSOLE_LOG_LEVEL;
-static listeners                console_listeners_;
-static char                     console_output_buffer_[AEON_CONSOLE_BUFFER_SIZE];
-static aeon::utility::timer     diff_timer_;
-static std::mutex               console_mutex_;
+static log_level loglevel_ = AEON_DEFAULT_CONSOLE_LOG_LEVEL;
+static listeners console_listeners_;
+static char console_output_buffer_[AEON_CONSOLE_BUFFER_SIZE];
+static aeon::utility::timer diff_timer_;
+static std::mutex console_mutex_;
 
 static void log(log_level level, const char *format, va_list args)
 {
@@ -45,8 +45,7 @@ static void log(log_level level, const char *format, va_list args)
     // Notify all console listeners
     for (auto itr : console_listeners_)
     {
-        itr->on_log_message(diff_timer_.get_time_difference(), level, 
-            console_output_buffer_);
+        itr->on_log_message(diff_timer_.get_time_difference(), level, console_output_buffer_);
     }
 }
 

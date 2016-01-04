@@ -22,8 +22,8 @@ namespace resources
 {
 
 image_resource_wrapper::image_resource_wrapper(resource_manager &parent, const std::string &path,
-                               resource_provider_weak_ptr provider) :
-    resource_wrapper(parent, path, provider)
+                                               resource_provider_weak_ptr provider)
+    : resource_wrapper(parent, path, provider)
 {
     if (get_type() != resource_type::image)
         throw resource_type_exception();

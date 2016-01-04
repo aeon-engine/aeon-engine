@@ -34,7 +34,7 @@ public:
 
 private:
     texture_ptr __load_texture(resources::image_ptr image) override;
-    
+
     GLint __image_pixelformat_to_gl(resources::image::pixel_format format);
 };
 

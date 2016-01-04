@@ -29,10 +29,11 @@ namespace platform
 namespace generic
 {
 
-//TODO: Exception handling for whole class
+// TODO: Exception handling for whole class
 class platform_file_interface : public platform::platform_file_interface
 {
-friend class platform_filesystem_interface;
+    friend class platform_filesystem_interface;
+
 public:
     virtual ~platform_file_interface() override;
 
@@ -50,8 +51,7 @@ public:
 private:
     platform_file_interface(const std::string &path, int openmode);
 
-    aeon::streams::stream::seek_direction
-        __to_streams_seek_direction(seek_direction direction);
+    aeon::streams::stream::seek_direction __to_streams_seek_direction(seek_direction direction);
 
     aeon::streams::file_stream_ptr stream_;
 };

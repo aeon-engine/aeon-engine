@@ -37,12 +37,12 @@ public:
 
     image(resource_wrapper_ptr wrapper);
     image(resource_wrapper_ptr wrapper, common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
-        pixel_format pixelformat = pixel_format::rgba);
+          pixel_format pixelformat = pixel_format::rgba);
 
     ~image();
 
     void set_data(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
-        pixel_format pixelformat = pixel_format::rgba);
+                  pixel_format pixelformat = pixel_format::rgba);
 
     bool has_data() const
     {
