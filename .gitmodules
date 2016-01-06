@@ -22,3 +22,7 @@
 	path = dep/zlib
 	url = ../../libraries/zlib.git
 	branch = submodule
+[submodule "dep/png"]
+	path = dep/png
+	url = ../../libraries/png.git
+	branch = submodule
