@@ -48,7 +48,6 @@ find_package(Boost COMPONENTS
 
 find_package(OpenGL REQUIRED)
 find_package(GLEW)
-find_package(GLFW)
 find_package(GLM)
 find_package(ASSIMP)
 find_package(ZLIB)
@@ -87,7 +86,7 @@ if (AEON_PLATFORM_GLFW)
     endif()
     message ("Using GLFW as platform.")
 else ()
-    message (FATAL_ERROR "No platform selected.")
+    message (FATAL_ERROR "GLFW is currently not optional yet.")
 endif ()
 
 ################################################################################

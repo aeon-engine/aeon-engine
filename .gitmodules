@@ -1,6 +1,12 @@
 [submodule "dep/libaeon"]
 	path = dep/libaeon
-	url = ../libaeon.git
+	url = ../../aeon/libaeon.git
+    branch = master
 [submodule "dep/cmake"]
 	path = dep/cmake
-	url = ../cmake_scripts.git
+	url = ../../aeon/cmake_scripts.git
+    branch = master
+[submodule "dep/glfw"]
+	path = dep/glfw
+	url = ../../libraries/glfw.git
+	branch = submodule
