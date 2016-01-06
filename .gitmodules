@@ -18,3 +18,7 @@
 	path = dep/glm
 	url = ../../libraries/glm.git
 	branch = submodule
+[submodule "dep/zlib"]
+	path = dep/zlib
+	url = ../../libraries/zlib.git
+	branch = submodule

@@ -51,7 +51,6 @@ target_include_directories(aeon_engine
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
     PUBLIC ${Boost_INCLUDE_DIRS}
     PUBLIC ${ASSIMP_INCLUDE_DIRS}
-    PUBLIC ${ZLIB_INCLUDE_DIRS}
     PUBLIC ${PNG_INCLUDE_DIRS}
 )
 
@@ -60,11 +59,11 @@ target_link_libraries(aeon_engine
     glfw
     glew_s
     glm
+    zlibstatic
     ${Boost_LIBRARIES}
     ${ASSIMP_LIBRARIES}
     ${OPENGL_LIBRARIES}
     ${PNG_LIBRARIES}
-    ${ZLIB_LIBRARIES}
 )
 
 if (APPLE)

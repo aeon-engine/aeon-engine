@@ -48,7 +48,6 @@ find_package(Boost COMPONENTS
 
 find_package(OpenGL REQUIRED)
 find_package(ASSIMP)
-find_package(ZLIB)
 find_package(PNG)
 
 ################################################################################
@@ -105,7 +104,6 @@ if (MSVC)
     copy_files_to_runtime_path(
         FILES
             ${PNG_ROOT_DIR}/bin/libpng16d.dll
-            ${ZLIB_ROOT_DIR}/bin/zlibd.dll
             ${ASSIMP_ROOT_DIR}/bin/assimpd.dll
         CONFIGURATIONS Debug
     )
@@ -113,7 +111,6 @@ if (MSVC)
     copy_files_to_runtime_path(
         FILES
             ${PNG_ROOT_DIR}/bin/libpng16.dll
-            ${ZLIB_ROOT_DIR}/bin/zlib.dll
             ${ASSIMP_ROOT_DIR}/bin/assimp.dll
         CONFIGURATIONS Release
     )
