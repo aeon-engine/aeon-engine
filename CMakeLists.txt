@@ -47,7 +47,6 @@ find_package(Boost COMPONENTS
 )
 
 find_package(OpenGL REQUIRED)
-find_package(GLM)
 find_package(ASSIMP)
 find_package(ZLIB)
 find_package(PNG)
