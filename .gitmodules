@@ -10,3 +10,7 @@
 	path = dep/glfw
 	url = ../../libraries/glfw.git
 	branch = submodule
+[submodule "dep/glew"]
+	path = dep/glew
+	url = ../../libraries/glew.git
+	branch = submodule

@@ -50,7 +50,6 @@ target_include_directories(aeon_engine
     PRIVATE ${CMAKE_CURRENT_BINARY_DIR}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
     PUBLIC ${Boost_INCLUDE_DIRS}
-    PUBLIC ${GLEW_INCLUDE_DIRS}
     PUBLIC ${ASSIMP_INCLUDE_DIRS}
     PUBLIC ${GLM_INCLUDE_DIRS}
     PUBLIC ${ZLIB_INCLUDE_DIRS}
@@ -60,8 +59,8 @@ target_include_directories(aeon_engine
 target_link_libraries(aeon_engine
     aeon
     glfw
+    glew_s
     ${Boost_LIBRARIES}
-    ${GLEW_LIBRARIES}
     ${ASSIMP_LIBRARIES}
     ${OPENGL_LIBRARIES}
     ${PNG_LIBRARIES}

@@ -47,7 +47,6 @@ find_package(Boost COMPONENTS
 )
 
 find_package(OpenGL REQUIRED)
-find_package(GLEW)
 find_package(GLM)
 find_package(ASSIMP)
 find_package(ZLIB)
@@ -106,7 +105,6 @@ copy_folder_to_runtime_path(
 if (MSVC)
     copy_files_to_runtime_path(
         FILES
-            ${GLEW_ROOT_DIR}/bin/glew32d.dll
             ${PNG_ROOT_DIR}/bin/libpng16d.dll
             ${ZLIB_ROOT_DIR}/bin/zlibd.dll
             ${ASSIMP_ROOT_DIR}/bin/assimpd.dll
@@ -115,7 +113,6 @@ if (MSVC)
 
     copy_files_to_runtime_path(
         FILES
-            ${GLEW_ROOT_DIR}/bin/glew32.dll
             ${PNG_ROOT_DIR}/bin/libpng16.dll
             ${ZLIB_ROOT_DIR}/bin/zlib.dll
             ${ASSIMP_ROOT_DIR}/bin/assimp.dll
