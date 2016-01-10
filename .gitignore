@@ -1,5 +1,6 @@
 # Common
 *.log
+.clang-format
 
 # OSX
 .DS_Store

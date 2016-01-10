@@ -13,20 +13,18 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <resources/providers/filesystem_provider.h>
-#include <boost/filesystem.hpp>
-#include <resources/resource_manager.h>
 #include <platform/platform_filesystem_interface.h>
+#include <resources/providers/filesystem_provider.h>
+#include <resources/resource_manager.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-static boost::filesystem::path __get_real_path(boost::filesystem::path base, const std::string &path)
+static std::string __get_real_path(const std::string &base, const std::string &path)
 {
-    boost::filesystem::path p(path);
-    return base / p;
+    return base + "/" + path;
 }
 
 filesystem_provider::filesystem_provider(const std::string &base_path)
@@ -41,48 +39,28 @@ filesystem_provider::~filesystem_provider()
 
 bool filesystem_provider::exists(const std::string &path)
 {
-    return boost::filesystem::exists(__get_real_path(base_path_, path));
+    platform::platform_interface &platform = get_resource_manager()->get_platform_interface();
+    platform::platform_filesystem_interface_ptr filesystem_interface = platform.get_filesystem_interface();
+    return filesystem_interface->exists(__get_real_path(base_path_, path));
 }
 
 std::vector<resource_node> filesystem_provider::list(const std::string &path)
 {
-    boost::filesystem::path p = __get_real_path(base_path_, path);
-
-    platform::platform_interface &platform = get_resource_manager()->get_platform_interface();
-    platform::platform_filesystem_interface_ptr filesystem_interface = platform.get_filesystem_interface();
-
-    // TODO: add feature to platform_filesystem_interface
-    if (!boost::filesystem::is_directory(p))
-        throw filesystem_provider_list_exception();
-
-    platform::platform_filesystem_interface::files files = filesystem_interface->list(p.string());
-
-    std::vector<resource_node> nodes;
-    for (auto f : files)
-    {
-        resource_node_type type = resource_node_type::file;
-
-        if (f.type == platform::platform_filesystem_interface::file_type::directory)
-            type = resource_node_type::directory;
-
-        nodes.push_back(resource_node(f.name, type));
-    }
-
-    return std::move(nodes);
+    throw std::runtime_error("Not yet implemented.");
 }
 
 void filesystem_provider::read(const std::string &path, common::buffer_u8 &buffer)
 {
-    boost::filesystem::path p = __get_real_path(base_path_, path);
+    std::string p = __get_real_path(base_path_, path);
 
     platform::platform_interface &platform = get_resource_manager()->get_platform_interface();
     platform::platform_filesystem_interface_ptr filesystem_interface = platform.get_filesystem_interface();
 
-    if (!filesystem_interface->exists(p.string()))
+    if (!filesystem_interface->exists(p))
         throw filesystem_provider_read_exception();
 
     platform::platform_file_interface_ptr file =
-        filesystem_interface->open_file(p.string(), platform::file_open_mode::read | platform::file_open_mode::binary);
+        filesystem_interface->open_file(p, platform::file_open_mode::read | platform::file_open_mode::binary);
 
     common::buffer_u8 read_buffer;
     file->read(read_buffer);

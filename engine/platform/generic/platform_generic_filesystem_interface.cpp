@@ -13,9 +13,9 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <platform/generic/platform_generic_filesystem_interface.h>
+#include <aeon/filesystem.h>
 #include <platform/generic/platform_generic_file_interface.h>
-#include <boost/filesystem.hpp>
+#include <platform/generic/platform_generic_filesystem_interface.h>
 
 namespace aeon
 {
@@ -40,30 +40,12 @@ platform::platform_file_interface_ptr platform_filesystem_interface::open_file(c
 
 bool platform_filesystem_interface::exists(const std::string &path)
 {
-    return boost::filesystem::exists(path);
+    return filesystem::exists(path);
 }
 
 platform_filesystem_interface::files platform_filesystem_interface::list(const std::string &path)
 {
-    boost::filesystem::path p = path;
-
-    if (!boost::filesystem::is_directory(p))
-        throw platform_filesystem_interface_list_exception();
-
-    boost::filesystem::directory_iterator iterator(p);
-
-    platform_filesystem_interface::files files;
-    for (auto f : iterator)
-    {
-        file_type type = file_type::file;
-
-        if (boost::filesystem::is_directory(f))
-            type = file_type::directory;
-
-        files.push_back(file_entry(f.path().filename().string(), type));
-    }
-
-    return std::move(files);
+    throw std::runtime_error("Not yet implemented.");
 }
 
 } // namespace generic
