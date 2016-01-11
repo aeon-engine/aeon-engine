@@ -44,7 +44,7 @@ bool filesystem_provider::exists(const std::string &path)
     return filesystem_interface->exists(__get_real_path(base_path_, path));
 }
 
-std::vector<resource_node> filesystem_provider::list(const std::string &path)
+std::vector<resource_node> filesystem_provider::list(const std::string & /*path*/)
 {
     throw std::runtime_error("Not yet implemented.");
 }

@@ -43,7 +43,7 @@ bool platform_filesystem_interface::exists(const std::string &path)
     return filesystem::exists(path);
 }
 
-platform_filesystem_interface::files platform_filesystem_interface::list(const std::string &path)
+platform_filesystem_interface::files platform_filesystem_interface::list(const std::string & /*path*/)
 {
     throw std::runtime_error("Not yet implemented.");
 }
