@@ -13,9 +13,9 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <aeon/filesystem.h>
-#include <platform/generic/platform_generic_file_interface.h>
 #include <platform/generic/platform_generic_filesystem_interface.h>
+#include <platform/generic/platform_generic_file_interface.h>
+#include <aeon/filesystem.h>
 
 namespace aeon
 {
