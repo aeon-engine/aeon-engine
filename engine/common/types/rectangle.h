@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <typeinfo>
 #include <glm/vec2.hpp>
 #include <iostream>
 #include <cmath>
