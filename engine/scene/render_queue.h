@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <scene/scene_node.h>
+#include <scene/render_object.h>
 
 namespace aeon
 {
@@ -27,6 +27,11 @@ class render_queue
 public:
     render_queue();
     ~render_queue();
+
+    void add_render_object(render_object_ptr object, int group);
+    void clear_render_objects();
+
+    void sort();
 };
 
 } // namespace scene

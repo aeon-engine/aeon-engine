@@ -28,5 +28,17 @@ render_queue::~render_queue()
 {
 }
 
+void render_queue::add_render_object(render_object_ptr object, int group)
+{
+}
+
+void render_queue::clear_render_objects()
+{
+}
+
+void render_queue::sort()
+{
+}
+
 } // namespace scene
 } // namespace aeon

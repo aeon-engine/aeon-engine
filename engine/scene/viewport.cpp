@@ -20,14 +20,35 @@ namespace aeon
 namespace scene
 {
 
-viewport::viewport(const common::types::rectangle<float> &rect, int zorder)
-    : rectangle_(rect)
+viewport::viewport(camera_ptr camera, const common::types::rectangle<float> &rect, int zorder)
+    : camera_(camera)
+    , rectangle_(rect)
     , zorder_(zorder)
 {
 }
 
 viewport::~viewport()
 {
+}
+
+void viewport::set_rectangle(const common::types::rectangle<float> &rect)
+{
+    rectangle_ = rect;
+}
+
+int viewport::get_zorder() const
+{
+    return zorder_;
+}
+
+void viewport::set_camera(camera_ptr camera)
+{
+    camera_ = camera;
+}
+
+camera_ptr viewport::get_camera() const
+{
+    return camera_;
 }
 
 } // namespace scene

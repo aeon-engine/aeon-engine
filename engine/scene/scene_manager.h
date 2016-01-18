@@ -17,8 +17,8 @@
 
 #include <vector>
 #include <scene/scene_node.h>
-#include <scene/scene_layer.h>
 #include <scene/viewport.h>
+#include <scene/render_queue.h>
 
 namespace aeon
 {
@@ -31,20 +31,9 @@ public:
     scene_manager();
     virtual ~scene_manager();
 
-    /*!
-     * Create a new scene layer
-     */
-    scene_layer_ptr create_scene_layer(int priority);
+    scene_node_ptr create_child_scene_node();
 
-    /*!
-     * Remove a scene layer
-     */
-    void remove_scene_layer(scene_layer_ptr layer);
-
-    /*!
-     * Remove all scene layers
-     */
-    void remove_all_scene_layers();
+    void detach_child_scene_node(scene_node_ptr node);
 
     void attach_viewport(viewport_ptr vp);
 
@@ -52,10 +41,11 @@ public:
 
     void remove_all_viewports();
 
-protected:
-    void __sort_layers_by_priority();
+    virtual void prepare_render_queue() = 0;
 
-    std::vector<scene_layer_ptr> layers_;
+protected:
+    scene_node_ptr root_node_;
+    render_queue queue_;
     std::vector<viewport_ptr> viewports_;
 };
 

@@ -26,8 +26,8 @@ namespace scene
 class perspective_camera : public camera
 {
 public:
-    perspective_camera(float fov_y, float aspect_ratio, float near, float far);
-    perspective_camera(float fov, float width, float height, float near, float far);
+    explicit perspective_camera(float fov_y, float aspect_ratio, float near, float far);
+    explicit perspective_camera(float fov, float width, float height, float near, float far);
     virtual ~perspective_camera();
 };
 
