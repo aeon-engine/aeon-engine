@@ -38,7 +38,7 @@ texture_ptr texture_manager::__load_texture(resources::image_ptr image)
     texture_gl_ptr t = std::make_shared<texture>(image);
 
     GLuint handle = 0;
-    glCreateTextures(GL_TEXTURE_2D, 1, &handle);
+    glGenTextures(1, &handle);
     glBindTexture(GL_TEXTURE_2D, handle);
 
     GLint pixelformat = __image_pixelformat_to_gl(image->get_pixelformat());

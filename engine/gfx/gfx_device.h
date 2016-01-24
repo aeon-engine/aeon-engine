@@ -15,6 +15,8 @@
 
 #pragma once
 
+#include <gfx/gfx_texture_manager.h>
+#include <gfx/gfx_shader_manager.h>
 #include <memory>
 
 namespace aeon
@@ -22,27 +24,25 @@ namespace aeon
 namespace gfx
 {
 
-class shader_manager;
-class texture_manager;
-
 class device
 {
 public:
     device() = default;
     virtual ~device() = default;
 
-    std::shared_ptr<texture_manager> get_texture_manager()
+    texture_manager &get_texture_manager()
     {
-        return texture_manager_;
+        return *texture_manager_;
     }
-    std::shared_ptr<shader_manager> get_shader_manager()
+
+    shader_manager &get_shader_manager()
     {
-        return shader_manager_;
+        return *shader_manager_;
     }
 
 protected:
-    std::shared_ptr<texture_manager> texture_manager_;
-    std::shared_ptr<shader_manager> shader_manager_;
+    std::unique_ptr<texture_manager> texture_manager_;
+    std::unique_ptr<shader_manager> shader_manager_;
 };
 
 } // namespace gfx

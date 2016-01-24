@@ -22,6 +22,7 @@
 #include <resources/providers/filesystem_provider.h>
 #include <resources/wrappers/image_resource_wrapper.h>
 #include <resources/image.h>
+#include <gfx/gl/gfx_gl_device.h>
 
 namespace aeon
 {
@@ -53,6 +54,9 @@ void application::main(int, char *[])
 
     resources::image_resource_wrapper_ptr img_res = mgr.load_image("/resources/textures/test.png");
     resources::image_ptr img = img_res->open();
+
+    gfx::gl::device d;
+    gfx::texture_ptr t = d.get_texture_manager().load_texture(img);
 
     std::cout << img->get_width();
 

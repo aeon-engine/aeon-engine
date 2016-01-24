@@ -31,6 +31,7 @@ platform_window::platform_window(int width, int height, const std::string &title
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
 
     window_ = glfwCreateWindow(width, height, title.c_str(), monitor, nullptr);
+    make_current();
 }
 
 platform_window::~platform_window()

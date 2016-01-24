@@ -16,6 +16,7 @@
 #pragma once
 
 #include <gfx/gfx_device.h>
+#include <common/exception.h>
 
 namespace aeon
 {
@@ -24,7 +25,9 @@ namespace gfx
 namespace gl
 {
 
-class device : gfx::device
+DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL Device Exception");
+
+class device : public gfx::device
 {
 public:
     device();
