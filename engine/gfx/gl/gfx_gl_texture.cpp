@@ -32,6 +32,11 @@ texture::~texture()
 {
 }
 
+void texture::bind()
+{
+    glBindTexture(GL_TEXTURE_2D, handle_);
+}
+
 } // namespace gl
 } // namespace gfx
 } // namespace aeon

@@ -33,6 +33,8 @@ public:
     explicit texture(resources::image_ptr image);
     ~texture() override;
 
+    void bind() override;
+
 private:
     GLuint handle_;
 };

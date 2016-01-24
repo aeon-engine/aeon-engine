@@ -47,6 +47,9 @@ texture_ptr texture_manager::__load_texture(resources::image_ptr image)
     glTexImage2D(GL_TEXTURE_2D, 0, pixelformat, width, height, 0, pixelformat, GL_UNSIGNED_BYTE,
                  image->get_data().data());
 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
     t->handle_ = handle;
 
     return t;

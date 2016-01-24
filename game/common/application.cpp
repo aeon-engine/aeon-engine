@@ -35,6 +35,8 @@ application::~application()
 {
 }
 
+gfx::texture_ptr t;
+
 void application::main(int, char *[])
 {
     __setup_console();
@@ -56,7 +58,7 @@ void application::main(int, char *[])
     resources::image_ptr img = img_res->open();
 
     gfx::gl::device d;
-    gfx::texture_ptr t = d.get_texture_manager().load_texture(img);
+    t = d.get_texture_manager().load_texture(img);
 
     std::cout << img->get_width();
 
@@ -72,9 +74,12 @@ bool application::on_frame(double dt)
     static float time = 0;
 
     glClearColor(0.0, 0.0, 0.0, 1.0);
+    glEnable(GL_TEXTURE_2D);
+
+    t->bind();
 
     float ratio = 800.0f / 600.0f;
-    glViewport(0, 0, 800, 600);
+    //glViewport(0, 0, 800, 600);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -84,11 +89,14 @@ bool application::on_frame(double dt)
     glRotatef((float)time * 50.0f, 0.f, 0.f, 1.f);
 
     glBegin(GL_TRIANGLES);
-    glColor3f(1.f, 0.f, 0.f);
+    //glColor3f(1.f, 0.f, 0.f);
+    glTexCoord2f(0.0f, 0.0f);
     glVertex3f(-0.6f, -0.4f, 0.f);
-    glColor3f(0.f, 1.f, 0.f);
+    //glColor3f(0.f, 1.f, 0.f);
+    glTexCoord2f(1.0f, 0.0f);
     glVertex3f(0.6f, -0.4f, 0.f);
-    glColor3f(0.f, 0.f, 1.f);
+    //glColor3f(0.f, 0.f, 1.f);
+    glTexCoord2f(0.0f, 1.0f);
     glVertex3f(0.f, 0.6f, 0.f);
     glEnd();
 

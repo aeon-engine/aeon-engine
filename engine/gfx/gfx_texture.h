@@ -31,6 +31,8 @@ public:
     explicit texture(resources::image_ptr image);
     virtual ~texture();
 
+    virtual void bind() = 0;
+
 private:
     /* Object that points to the image resource for this texture. This object does
      * not actually contain any resource data.
