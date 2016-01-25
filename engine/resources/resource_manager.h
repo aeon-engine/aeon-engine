@@ -22,6 +22,7 @@
 #include <aeon/utility.h>
 #include <resources/codecs/codec_manager.h>
 #include <platform/platform_interface.h>
+#include <map>
 
 namespace aeon
 {
@@ -33,7 +34,7 @@ using resource_wrapper_ptr = std::shared_ptr<resource_wrapper>;
 
 class resource_manager
 {
-    using mount_points = utility::linear_map<std::string, resource_provider_ptr>;
+    using mount_points = std::map<std::string, resource_provider_ptr>;
 
 public:
     resource_manager(platform::platform_interface &platform);

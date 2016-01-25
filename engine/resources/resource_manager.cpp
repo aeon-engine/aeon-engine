@@ -35,10 +35,12 @@ resource_manager::~resource_manager()
 
 void resource_manager::mount(resource_provider_ptr provider, const std::string &mountpoint /* = "/"*/)
 {
-    auto result = mount_points_.insert_ex(mountpoint, provider);
+    auto result = mount_points_.find(mountpoint);
 
-    if (result == mount_points_.end())
+    if (result != mount_points_.end())
         throw resource_manager_duplicate_mount_exception();
+
+    mount_points_[mountpoint] = provider;
 
     provider->manager_ = this;
 }

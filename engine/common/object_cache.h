@@ -19,6 +19,7 @@
 #include <common/exception.h>
 #include <common/cached_object.h>
 #include <aeon/utility.h>
+#include <map>
 
 namespace aeon
 {
@@ -35,7 +36,7 @@ class object_cache
 public:
     using cached_object_ptr = std::shared_ptr<T>;
     using cached_object_weak_ptr = std::weak_ptr<T>;
-    using cached_objects = aeon::utility::linear_map<std::string, cached_object_weak_ptr>;
+    using cached_objects = std::map<std::string, cached_object_weak_ptr>;
 
     object_cache()
     {
@@ -61,8 +62,10 @@ public:
     {
         obj->name_ = name;
 
-        if (objects_.insert_ex(name, obj) == objects_.end())
+        if (objects_.find(name) != objects_.end())
             throw object_cache_name_exception();
+
+        objects_[name] = obj;
     }
 
     void garbage_collect_cached_objects()
