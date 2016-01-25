@@ -29,5 +29,10 @@ texture::~texture()
 {
 }
 
+glm::vec2 texture::get_size() const
+{
+    return size_;
+}
+
 } // namespace gfx
 } // namespace aeon

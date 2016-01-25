@@ -51,6 +51,7 @@ texture_ptr texture_manager::__load_texture(resources::image_ptr image)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     t->handle_ = handle;
+    t->size_ = glm::vec2(width, height);
 
     return t;
 }

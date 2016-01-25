@@ -18,6 +18,7 @@
 #include <resources/wrappers/image_resource_wrapper.h>
 #include <resources/image.h>
 #include <common/cached_object.h>
+#include <glm/vec2.hpp>
 #include <memory>
 
 namespace aeon
@@ -32,6 +33,11 @@ public:
     virtual ~texture();
 
     virtual void bind() = 0;
+
+    glm::vec2 get_size() const;
+
+protected:
+    glm::vec2 size_;
 
 private:
     /* Object that points to the image resource for this texture. This object does
