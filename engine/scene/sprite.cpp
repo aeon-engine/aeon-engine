@@ -22,21 +22,29 @@ namespace scene
 
 sprite::sprite(gfx::texture_ptr texture)
     : size_(texture->get_size())
+    , texture_(texture)
 {
 }
 
 sprite::sprite(gfx::texture_ptr texture, glm::vec2 size)
     : size_(size)
+    , texture_(texture)
 {
 }
 
 sprite::sprite(gfx::texture_ptr texture, float width, float height)
     : size_(width, height)
+    , texture_(texture)
 {
 }
 
 sprite::~sprite()
 {
+}
+
+void sprite::set_default_size()
+{
+    size_ = texture_->get_size();
 }
 
 void sprite::set_size(glm::vec2 size)
@@ -47,6 +55,16 @@ void sprite::set_size(glm::vec2 size)
 void sprite::set_size(float width, float height)
 {
     size_ = glm::vec2(width, height);
+}
+
+void sprite::set_texture(gfx::texture_ptr texture)
+{
+    texture_ = texture;
+}
+
+gfx::texture_ptr sprite::get_texture() const
+{
+    return texture_;
 }
 
 } // namespace scene

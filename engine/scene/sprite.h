@@ -34,11 +34,17 @@ public:
     explicit sprite(gfx::texture_ptr texture, float width, float height);
     virtual ~sprite();
 
+    void set_default_size();
+
     void set_size(glm::vec2 size);
     void set_size(float width, float height);
 
+    void set_texture(gfx::texture_ptr texture);
+    gfx::texture_ptr get_texture() const;
+
 private:
     glm::vec2 size_;
+    gfx::texture_ptr texture_;
 };
 
 using sprite_ptr = std::shared_ptr<sprite>;
