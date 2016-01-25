@@ -1,7 +1,7 @@
 /*
  * ROBIN DEGEN; CONFIDENTIAL
  *
- * 2012 - 2015 Robin Degen
+ * 2012 - 2016 Robin Degen
  * All Rights Reserved.
  *
  * NOTICE:  All information contained herein is, and remains the property of
