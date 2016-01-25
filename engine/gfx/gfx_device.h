@@ -27,8 +27,14 @@ namespace gfx
 class device
 {
 public:
-    device() = default;
+    device()
+        : initialized_(false)
+    {
+    }
+
     virtual ~device() = default;
+
+    virtual void initialize() = 0;
 
     texture_manager &get_texture_manager()
     {
@@ -41,6 +47,7 @@ public:
     }
 
 protected:
+    bool initialized_;
     std::unique_ptr<texture_manager> texture_manager_;
     std::unique_ptr<shader_manager> shader_manager_;
 };

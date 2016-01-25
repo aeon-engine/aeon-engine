@@ -19,6 +19,7 @@
 #include <scene/scene_node.h>
 #include <scene/viewport.h>
 #include <scene/render_queue.h>
+#include <gfx/gfx_device.h>
 
 namespace aeon
 {
@@ -28,7 +29,7 @@ namespace scene
 class scene_manager
 {
 public:
-    scene_manager();
+    explicit scene_manager(gfx::device &device);
     virtual ~scene_manager();
 
     scene_node_ptr create_child_scene_node();
@@ -47,6 +48,7 @@ protected:
     scene_node_ptr root_node_;
     render_queue queue_;
     std::vector<viewport_ptr> viewports_;
+    gfx::device &device_;
 };
 
 } // namespace scene

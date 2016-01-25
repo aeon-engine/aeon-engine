@@ -21,8 +21,9 @@ namespace aeon
 namespace scene
 {
 
-scene_manager::scene_manager()
+scene_manager::scene_manager(gfx::device &device)
     : root_node_(new scene_node())
+    , device_(device)
 {
 }
 

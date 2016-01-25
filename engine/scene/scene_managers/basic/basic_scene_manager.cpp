@@ -20,7 +20,8 @@ namespace aeon
 namespace scene
 {
 
-basic_scene_manager::basic_scene_manager()
+basic_scene_manager::basic_scene_manager(gfx::device &device)
+    : scene_manager(device)
 {
 }
 

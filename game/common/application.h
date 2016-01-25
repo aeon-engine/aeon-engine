@@ -16,6 +16,13 @@
 #pragma once
 
 #include <gfx/gfx_frame_listener.h>
+#include <platform/glfw/platform_glfw_interface.h>
+#include <resources/resource_manager.h>
+#include <resources/providers/filesystem_provider.h>
+#include <resources/wrappers/image_resource_wrapper.h>
+#include <resources/image.h>
+#include <gfx/gl/gfx_gl_device.h>
+#include <scene/scene_managers/basic/basic_scene_manager.h>
 
 namespace aeon
 {
@@ -32,6 +39,14 @@ private:
     bool on_frame(double dt) override;
 
     void __setup_console();
+
+    platform::glfw::platform_interface platform_;
+    platform::platform_window_ptr window_;
+    gfx::gl::device device_;
+    resources::resource_manager resource_manager_;
+    scene::basic_scene_manager scene_manager_;
+
+    gfx::texture_ptr texture_;
 };
 
 } // namespace aeon

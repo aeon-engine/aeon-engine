@@ -17,55 +17,36 @@
 #include <common/application.h>
 #include <console/console.h>
 
-#include <platform/glfw/platform_glfw_interface.h>
-#include <resources/resource_manager.h>
-#include <resources/providers/filesystem_provider.h>
-#include <resources/wrappers/image_resource_wrapper.h>
-#include <resources/image.h>
-#include <gfx/gl/gfx_gl_device.h>
-#include <scene/scene_managers/basic/basic_scene_manager.h>
-
 namespace aeon
 {
 
 application::application()
+    : resource_manager_(platform_)
+    , scene_manager_(device_)
 {
+    __setup_console();
+
+    platform_.initialize();
+    window_ = platform_.create_window(800, 600, "Test");
+    window_->attach_frame_listener(this);
+
+    device_.initialize();
+
+    resource_manager_.mount(std::make_shared<resources::filesystem_provider>("."), "/");
 }
 
 application::~application()
 {
 }
 
-gfx::texture_ptr t;
-
 void application::main(int, char *[])
 {
-    __setup_console();
-
-    platform::glfw::platform_interface i;
-    i.initialize();
-    platform::platform_monitors m = i.get_monitors();
-    platform::video_modes vms = m[0]->get_video_modes();
-
-    platform::platform_window_ptr window = i.create_window(800, 600, "Test");
-
-    window->attach_frame_listener(this);
-
-    resources::resource_manager mgr(i);
-    resources::resource_provider_ptr provider = std::make_shared<resources::filesystem_provider>(".");
-    mgr.mount(provider, "/");
-
-    resources::image_resource_wrapper_ptr img_res = mgr.load_image("/resources/textures/test.png");
+    resources::image_resource_wrapper_ptr img_res = resource_manager_.load_image("/resources/textures/test.png");
     resources::image_ptr img = img_res->open();
 
-    scene::basic_scene_manager sm;
+    texture_ = device_.get_texture_manager().load_texture(img);
 
-    gfx::gl::device d;
-    t = d.get_texture_manager().load_texture(img);
-
-    std::cout << img->get_width();
-
-    i.run();
+    platform_.run();
 
     // aeon::utility::configfile config_file;
     // std::string config_file_path = "config.ini";
@@ -79,7 +60,7 @@ bool application::on_frame(double dt)
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_TEXTURE_2D);
 
-    t->bind();
+    texture_->bind();
 
     float ratio = 800.0f / 600.0f;
     //glViewport(0, 0, 800, 600);

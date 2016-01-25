@@ -28,16 +28,25 @@ namespace gl
 
 device::device()
 {
+}
+
+device::~device()
+{
+}
+
+void device::initialize()
+{
+    if (initialized_)
+        throw gl_initialized_exception();
+
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK)
         throw gl_device_exception();
 
     texture_manager_ = std::make_unique<gl::texture_manager>();
     shader_manager_ = std::make_unique<gl::shader_manager>();
-}
 
-device::~device()
-{
+    initialized_ = true;
 }
 
 } // namespace gl

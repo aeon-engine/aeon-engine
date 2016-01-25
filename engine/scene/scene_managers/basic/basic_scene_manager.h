@@ -25,7 +25,7 @@ namespace scene
 class basic_scene_manager : public scene_manager
 {
 public:
-    basic_scene_manager();
+    explicit basic_scene_manager(gfx::device &device);
     virtual ~basic_scene_manager();
 
     void prepare_render_queue() override;
