@@ -31,5 +31,10 @@ camera::~camera()
 {
 }
 
+int camera::get_priority()
+{
+    return 0;
+}
+
 } // namespace scene
 } // namespace aeon

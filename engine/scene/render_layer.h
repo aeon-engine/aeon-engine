@@ -25,9 +25,10 @@ struct render_layer
     enum render_layer_enum
     {
         special = 0, // Special layer used for non renderable objects like camera's and sound.
-        skydome = 10,
+        overlay = 10,
         world_geometry = 50,
-        overlay = 100
+        sky = 100,
+        max = 255 // The highest render layer group.
     };
 };
 

@@ -14,6 +14,8 @@
  */
 
 #include <scene/render_queue.h>
+#include <algorithm>
+#include <cassert>
 
 namespace aeon
 {
@@ -30,6 +32,9 @@ render_queue::~render_queue()
 
 void render_queue::add_render_object(render_object_ptr object, int group)
 {
+    assert(group < render_layer::max);
+
+    objects_.push_back({group, object});
 }
 
 void render_queue::clear_render_objects()
@@ -38,6 +43,13 @@ void render_queue::clear_render_objects()
 
 void render_queue::sort()
 {
+    std::sort(objects_.begin(), objects_.end(), [](const render_object_group_pair &a, const render_object_group_pair &b)
+        {
+            int real_a_prio = (a.first << 24) + a.second->get_priority();
+            int real_b_prio = (b.first << 24) + b.second->get_priority();
+            return real_a_prio < real_b_prio;
+        }
+    );
 }
 
 } // namespace scene

@@ -73,5 +73,10 @@ gfx::texture_ptr sprite::get_texture() const
     return texture_;
 }
 
+int sprite::get_priority()
+{
+    return get_zorder();
+}
+
 } // namespace scene
 } // namespace aeon

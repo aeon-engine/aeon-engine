@@ -43,6 +43,8 @@ public:
     void set_texture(gfx::texture_ptr texture);
     gfx::texture_ptr get_texture() const;
 
+    int get_priority() override;
+
 private:
     glm::vec2 size_;
     gfx::texture_ptr texture_;

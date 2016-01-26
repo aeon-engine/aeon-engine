@@ -30,6 +30,8 @@ public:
     camera();
     virtual ~camera();
 
+    int get_priority() override;
+
 protected:
     glm::mat4 projection_matrix_;
     glm::mat4 view_matrix_;

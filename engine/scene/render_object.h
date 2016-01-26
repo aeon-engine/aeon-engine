@@ -38,6 +38,12 @@ public:
         return queue_group_;
     }
 
+    /*!
+     * Render objects are sorted by priority within a queue group.
+     * What determines the priority is based on the type of render object.
+     */
+    virtual int get_priority() = 0;
+
 private:
     int queue_group_;
 };

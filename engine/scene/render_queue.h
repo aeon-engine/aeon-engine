@@ -16,6 +16,8 @@
 #pragma once
 
 #include <scene/render_object.h>
+#include <vector>
+#include <utility>
 
 namespace aeon
 {
@@ -24,6 +26,9 @@ namespace scene
 
 class render_queue
 {
+using render_object_group_pair = std::pair<int, render_object_ptr>;
+using render_queue_vector = std::vector<render_object_group_pair>;
+
 public:
     render_queue();
     ~render_queue();
@@ -37,6 +42,9 @@ public:
     void clear_render_objects();
 
     void sort();
+
+private:
+    render_queue_vector objects_;
 };
 
 } // namespace scene
