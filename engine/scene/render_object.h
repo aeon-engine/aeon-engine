@@ -16,6 +16,7 @@
 #pragma once
 
 #include <memory>
+#include <scene/render_layer.h>
 
 namespace aeon
 {
@@ -25,8 +26,20 @@ namespace scene
 class render_object
 {
 public:
-    render_object() = default;
+    render_object(int queue_group)
+        : queue_group_(queue_group)
+    {
+    }
+
     virtual ~render_object() = default;
+
+    int get_queue_group() const
+    {
+        return queue_group_;
+    }
+
+private:
+    int queue_group_;
 };
 
 using render_object_ptr = std::shared_ptr<render_object>;

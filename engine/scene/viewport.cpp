@@ -21,9 +21,9 @@ namespace scene
 {
 
 viewport::viewport(camera_ptr camera, const common::types::rectangle<float> &rect, int zorder)
-    : camera_(camera)
+    : has_z_order(zorder)
+    , camera_(camera)
     , rectangle_(rect)
-    , zorder_(zorder)
 {
 }
 
@@ -34,11 +34,6 @@ viewport::~viewport()
 void viewport::set_rectangle(const common::types::rectangle<float> &rect)
 {
     rectangle_ = rect;
-}
-
-int viewport::get_zorder() const
-{
-    return zorder_;
 }
 
 void viewport::set_camera(camera_ptr camera)

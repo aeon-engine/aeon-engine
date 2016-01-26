@@ -21,7 +21,7 @@ namespace scene
 {
 
 camera::camera()
-    : render_object()
+    : render_object(render_layer::special)
     , projection_matrix_(1.0f)
     , view_matrix_(1.0f)
 {

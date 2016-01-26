@@ -28,6 +28,11 @@ public:
     render_queue();
     ~render_queue();
 
+    /*!
+     * Add a renderable object to the queue. The group can be any number.
+     * The groups are sorted in descending order, meaning higher numbers will get rendered first,
+     * due to front to back rendering. Default groups are defined in render_layer::render_layer_enum.
+     */
     void add_render_object(render_object_ptr object, int group);
     void clear_render_objects();
 

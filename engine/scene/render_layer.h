@@ -15,33 +15,21 @@
 
 #pragma once
 
-#include <common/types/rectangle.h>
-#include <common/has_z_order.h>
-#include <scene/camera.h>
-#include <memory>
-
 namespace aeon
 {
 namespace scene
 {
 
-class viewport : public common::has_z_order
+struct render_layer
 {
-public:
-    explicit viewport(camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
-    virtual ~viewport();
-
-    void set_rectangle(const common::types::rectangle<float> &rect);
-
-    void set_camera(camera_ptr camera);
-    camera_ptr get_camera() const;
-
-private:
-    camera_ptr camera_;
-    common::types::rectangle<float> rectangle_;
+    enum render_layer_enum
+    {
+        special = 0, // Special layer used for non renderable objects like camera's and sound.
+        skydome = 10,
+        world_geometry = 50,
+        overlay = 100
+    };
 };
-
-using viewport_ptr = std::shared_ptr<viewport>;
 
 } // namespace scene
 } // namespace aeon

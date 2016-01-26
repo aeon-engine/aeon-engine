@@ -15,33 +15,39 @@
 
 #pragma once
 
-#include <common/types/rectangle.h>
-#include <common/has_z_order.h>
-#include <scene/camera.h>
-#include <memory>
-
 namespace aeon
 {
-namespace scene
+namespace common
 {
 
-class viewport : public common::has_z_order
+class has_z_order
 {
 public:
-    explicit viewport(camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
-    virtual ~viewport();
+    has_z_order()
+        : zorder_(0)
+    {
+    }
 
-    void set_rectangle(const common::types::rectangle<float> &rect);
+    has_z_order(int zorder)
+        : zorder_(zorder)
+    {
+    }
 
-    void set_camera(camera_ptr camera);
-    camera_ptr get_camera() const;
+    virtual ~has_z_order() = default;
+
+    void set_zorder(int zorder)
+    {
+        zorder_ = zorder;
+    }
+    
+    int get_zorder() const
+    {
+        return zorder_;
+    }
 
 private:
-    camera_ptr camera_;
-    common::types::rectangle<float> rectangle_;
+    int zorder_;
 };
 
-using viewport_ptr = std::shared_ptr<viewport>;
-
-} // namespace scene
+} // namespace common
 } // namespace aeon

@@ -33,9 +33,7 @@ public:
     {
     }
 
-    virtual ~cached_object()
-    {
-    }
+    virtual ~cached_object() = default;
 
     const std::string &get_cached_name() const
     {

@@ -20,20 +20,26 @@ namespace aeon
 namespace scene
 {
 
-sprite::sprite(gfx::texture_ptr texture)
-    : size_(texture->get_size())
+sprite::sprite(gfx::texture_ptr texture, int zorder /* = 0*/)
+    : render_object(render_layer::overlay)
+    , has_z_order(zorder)
+    , size_(texture->get_size())
     , texture_(texture)
 {
 }
 
-sprite::sprite(gfx::texture_ptr texture, glm::vec2 size)
-    : size_(size)
+sprite::sprite(gfx::texture_ptr texture, glm::vec2 size, int zorder /* = 0*/)
+    : render_object(render_layer::overlay)
+    , has_z_order(zorder)
+    , size_(size)
     , texture_(texture)
 {
 }
 
-sprite::sprite(gfx::texture_ptr texture, float width, float height)
-    : size_(width, height)
+sprite::sprite(gfx::texture_ptr texture, float width, float height, int zorder /* = 0*/)
+    : render_object(render_layer::overlay)
+    , has_z_order(zorder)
+    , size_(width, height)
     , texture_(texture)
 {
 }

@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <common/types/rectangle.h>
+#include <common/has_z_order.h>
 #include <scene/render_object.h>
 #include <gfx/gfx_texture.h>
 #include <glm/vec2.hpp>
@@ -26,12 +26,13 @@ namespace aeon
 namespace scene
 {
 
-class sprite : public render_object
+class sprite : public render_object, public common::has_z_order
 {
 public:
-    explicit sprite(gfx::texture_ptr texture);
-    explicit sprite(gfx::texture_ptr texture, glm::vec2 size);
-    explicit sprite(gfx::texture_ptr texture, float width, float height);
+    explicit sprite(gfx::texture_ptr texture, int zorder = 0);
+    explicit sprite(gfx::texture_ptr texture, glm::vec2 size, int zorder = 0);
+    explicit sprite(gfx::texture_ptr texture, float width, float height, int zorder = 0);
+
     virtual ~sprite();
 
     void set_default_size();
