@@ -78,6 +78,7 @@ endif ()
 add_subdirectory(dep)
 add_subdirectory(engine)
 add_subdirectory(game)
+add_subdirectory(tests)
 
 ################################################################################
 
@@ -86,17 +87,3 @@ include(CopyToRuntimePath)
 copy_folder_to_runtime_path(
     PATH bin
 )
-
-if (MSVC)
-    copy_files_to_runtime_path(
-        FILES
-            ${ASSIMP_ROOT_DIR}/bin/assimpd.dll
-        CONFIGURATIONS Debug
-    )
-
-    copy_files_to_runtime_path(
-        FILES
-            ${ASSIMP_ROOT_DIR}/bin/assimp.dll
-        CONFIGURATIONS Release
-    )
-endif ()
