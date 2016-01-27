@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1.0)
 project(AeonEngine)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/;${CMAKE_SOURCE_DIR}/CMake")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
 set(CMAKE_PREFIX_PATH "$ENV{AEON_LIBRARIES_PATH};${CMAKE_PREFIX_PATH}")
 
 include(CompilerFlags)
