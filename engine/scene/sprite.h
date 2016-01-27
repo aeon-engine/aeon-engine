@@ -40,6 +40,8 @@ public:
     void set_size(glm::vec2 size);
     void set_size(float width, float height);
 
+    glm::vec2 get_size() const;
+
     void set_texture(gfx::texture_ptr texture);
     gfx::texture_ptr get_texture() const;
 

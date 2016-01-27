@@ -63,6 +63,11 @@ void sprite::set_size(float width, float height)
     size_ = glm::vec2(width, height);
 }
 
+glm::vec2 sprite::get_size() const
+{
+    return size_;
+}
+
 void sprite::set_texture(gfx::texture_ptr texture)
 {
     texture_ = texture;

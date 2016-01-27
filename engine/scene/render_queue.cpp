@@ -41,6 +41,16 @@ void render_queue::clear_render_objects()
 {
 }
 
+render_queue::render_queue_vector::const_iterator render_queue::begin() const
+{
+    return objects_.cbegin();
+}
+
+render_queue::render_queue_vector::const_iterator render_queue::end() const
+{
+    return objects_.cend();
+}
+
 void render_queue::sort()
 {
     std::sort(objects_.begin(), objects_.end(), [](const render_object_group_pair &a, const render_object_group_pair &b)

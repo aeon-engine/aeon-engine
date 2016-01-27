@@ -26,10 +26,10 @@ namespace scene
 
 class render_queue
 {
-using render_object_group_pair = std::pair<int, render_object_ptr>;
-using render_queue_vector = std::vector<render_object_group_pair>;
-
 public:
+    using render_object_group_pair = std::pair<int, render_object_ptr>;
+    using render_queue_vector = std::vector<render_object_group_pair>;
+
     render_queue();
     ~render_queue();
 
@@ -42,6 +42,9 @@ public:
     void clear_render_objects();
 
     void sort();
+
+    render_queue_vector::const_iterator begin() const;
+    render_queue_vector::const_iterator end() const;
 
 private:
     render_queue_vector objects_;
