@@ -3,7 +3,6 @@ osx:
     - osx
   script:
     - source scripts/build_osx.sh
-    - source scripts/run_tests.sh
 
 windows:
   tags:
@@ -16,4 +15,3 @@ linux:
     - linux
   script:
     - source scripts/build_linux.sh
-
