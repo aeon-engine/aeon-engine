@@ -17,7 +17,7 @@
 #include <aeon/platform.h>
 #include <common/types/rectangle.h>
 
-AEON_IGNORE_WARNING(4189)
+AEON_IGNORE_VS_WARNING(4189)
 
 using namespace aeon;
 

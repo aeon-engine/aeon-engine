@@ -18,7 +18,7 @@
 #include <scene/sprite.h>
 #include <aeon/platform.h>
 
-AEON_IGNORE_WARNING(4189)
+AEON_IGNORE_VS_WARNING(4189)
 
 using namespace aeon;
 

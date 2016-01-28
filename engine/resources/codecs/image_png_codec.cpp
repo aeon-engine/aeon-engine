@@ -139,10 +139,10 @@ image_ptr image_codec_png::decode(image_resource_wrapper_ptr wrapper)
     png_read_structs png_structs;
 
     // Bind errors from libpng
-    AEON_IGNORE_WARNING_PUSH(4611)
+    AEON_IGNORE_VS_WARNING_PUSH(4611)
     if (setjmp(png_jmpbuf(png_structs.png_ptr())))
         throw codec_png_decode_exception();
-    AEON_IGNORE_WARNING_POP()
+    AEON_IGNORE_VS_WARNING_POP()
 
     // Init png reading. We will be using a read function, as we can't read
     // from a file.
