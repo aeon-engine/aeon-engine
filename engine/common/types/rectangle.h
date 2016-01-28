@@ -161,7 +161,7 @@ public:
      * \param inner A rectangle
      * \return True of the given inner rectangle is intersecting the outer rectangle.
      */
-    static bool Overlaps(const rectangle<T> &r1, const rectangle<T> &r2)
+    static bool overlaps(const rectangle<T> &r1, const rectangle<T> &r2)
     {
         return r1.left < r2.right && r2.left < r1.right && r1.top < r2.bottom && r2.top < r1.bottom;
     }
@@ -185,6 +185,32 @@ public:
     {
         return rectangle<T>(std::max<T>(r1.left, r2.left), std::max<T>(r1.top, r2.top), std::min<T>(r1.right, r2.right),
                             std::min<T>(r1.bottom, r2.bottom));
+    }
+
+    /*!
+     * Get the union rectangle of 2 rectangles. See graphic below:
+     *
+     *   +======+-------------+
+     *   |  r1  |             |
+     *   |------+             |
+     *   |        result      |
+     *   |   +----------------+
+     *   |   |         r2     |
+     *   +---+================+
+     *
+     * \param r1 A rectangle
+     * \param r2 A rectangle
+     * \return A union of the 2 given rectangles.
+     */
+    static rectangle<T> rectangle_union(const rectangle<T> &r1, const rectangle<T> &r2)
+    {
+        return
+            rectangle<T>(
+                std::min(r1.left, r2.left),
+                std::min(r1.top, r2.top),
+                std::max(r1.right, r2.right),
+                std::max(r1.bottom, r2.bottom)
+            );
     }
 
     T left;
