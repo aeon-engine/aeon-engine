@@ -18,7 +18,7 @@ enable_testing()
 # Code coverage did not work on Xcode due to linker errors (missing libprofile_rt?)
 if (NOT CMAKE_GENERATOR STREQUAL Xcode)
     if (APPLE)
-        option(AEON_ENABLE_CLANG_COVERAGE "Compile with code coverage enabled for GCOV on OSX." ON)
+        option(AEON_ENABLE_CLANG_COVERAGE "Compile with code coverage enabled for GCOV on OSX." OFF)
 
         if (AEON_ENABLE_CLANG_COVERAGE)
             message("Compiling with code coverage enabled for GCOV on OSX.")
