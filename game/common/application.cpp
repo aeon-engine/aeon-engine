@@ -14,6 +14,7 @@
  */
 
 #include <aeon/utility.h>
+#include <aeon/streams.h>
 #include <common/application.h>
 #include <console/console.h>
 
