@@ -29,10 +29,6 @@ image_resource_wrapper::image_resource_wrapper(resource_manager &parent, const s
         throw resource_type_exception();
 }
 
-image_resource_wrapper::~image_resource_wrapper()
-{
-}
-
 image_ptr image_resource_wrapper::open()
 {
     image_codec_ptr codec = __get_parent().get_codec_manager().get_image_codec(get_encoding());

@@ -23,6 +23,7 @@ namespace resources
 enum class resource_encoding
 {
     unknown,
+    material,
     image_png
 };
 

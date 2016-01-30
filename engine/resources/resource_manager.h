@@ -16,6 +16,7 @@
 #pragma once
 
 #include <resources/wrappers/image_resource_wrapper.h>
+#include <resources/wrappers/material_resource_wrapper.h>
 #include <resources/providers/resource_provider.h>
 #include <resources/exceptions.h>
 #include <resources/wrappers/resource_wrapper.h>
@@ -44,8 +45,8 @@ public:
     void unmount(const std::string &mountpoint);
 
     image_resource_wrapper_ptr load_image(const std::string &path);
+    material_resource_wrapper_ptr load_material(const std::string &path);
 
-    // material_ptr load_material(const std::string &path);
     // shader_ptr load_shader(const std::string &path);
     // resource_wrapper_ptr load(const std::string &path);
 

@@ -13,35 +13,22 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <resources/wrappers/resource_wrapper.h>
-#include <memory>
-#include <string>
+#include <resources/material.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class image;
-using image_ptr = std::shared_ptr<image>;
-
-class image_resource_wrapper : public resource_wrapper
+material::material(resource_wrapper_ptr wrapper)
+    : resource(wrapper)
 {
-    friend class resource_interface;
-    friend class resource_manager;
+}
 
-public:
-    virtual ~image_resource_wrapper() = default;
-
-    image_ptr open();
-
-protected:
-    image_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
-};
-
-using image_resource_wrapper_ptr = std::shared_ptr<image_resource_wrapper>;
+void material::set_data(image_resource_wrapper_ptr image)
+{
+    texture_resource_ = image;
+}
 
 } // namespace resources
 } // namespace aeon

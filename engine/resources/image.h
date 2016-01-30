@@ -39,7 +39,7 @@ public:
     explicit image(resource_wrapper_ptr wrapper, common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
           pixel_format pixelformat = pixel_format::rgba);
 
-    ~image();
+    virtual ~image() = default;
 
     void set_data(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
                   pixel_format pixelformat = pixel_format::rgba);

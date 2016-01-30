@@ -38,10 +38,6 @@ image::image(resource_wrapper_ptr wrapper, common::buffer_u8 &&buffer, unsigned 
 {
 }
 
-image::~image()
-{
-}
-
 void image::set_data(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
                      pixel_format pixelformat /*= pixel_format::rgba*/)
 {

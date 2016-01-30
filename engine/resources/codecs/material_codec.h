@@ -16,38 +16,31 @@
 #pragma once
 
 #include <resources/exceptions.h>
-#include <aeon/utility.h>
+#include <common/buffer.h>
 #include <resources/resource_encoding.h>
-#include <resources/resource_type.h>
 #include <resources/codecs/codec.h>
-#include <resources/codecs/image_codec.h>
-#include <resources/codecs/material_codec.h>
-#include <map>
+#include <resources/material.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class codec_manager
+class material_resource_wrapper;
+class resource_manager;
+
+class material_codec : public codec
 {
-    using codec_map = std::map<resource_encoding, codec_ptr>;
-
 public:
-    codec_manager();
-    ~codec_manager() = default;
+    material_codec() = default;
+    virtual ~material_codec() = default;
 
-    codec_ptr get_codec(resource_encoding encoding);
-    image_codec_ptr get_image_codec(resource_encoding encoding);
-    material_codec_ptr get_material_codec();
+    resource_encoding get_codec_type() const override;
 
-    resource_type get_resource_type_by_encoding(resource_encoding encoding) const;
-
-private:
-    void __register_codecs();
-
-    codec_map codecs_;
+    material_ptr decode(resource_manager &parent, material_resource_wrapper_ptr wrapper);
 };
+
+using material_codec_ptr = std::shared_ptr<material_codec>;
 
 } // namespace resources
 } // namespace aeon

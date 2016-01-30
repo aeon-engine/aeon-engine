@@ -69,6 +69,17 @@ image_resource_wrapper_ptr resource_manager::load_image(const std::string &path)
     return image_resource_wrapper_ptr(new image_resource_wrapper(*this, real_path, best_match_provider));
 }
 
+material_resource_wrapper_ptr resource_manager::load_material(const std::string &path)
+{
+    std::string real_path;
+    resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
+
+    if (!best_match_provider)
+        return nullptr;
+
+    return material_resource_wrapper_ptr(new material_resource_wrapper(*this, real_path, best_match_provider));
+}
+
 resource_provider_ptr resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)
 {
     // TODO: This needs optimization. Too much looping and string manipulation going on.

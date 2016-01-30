@@ -26,10 +26,6 @@ codec_manager::codec_manager()
     __register_codecs();
 }
 
-codec_manager::~codec_manager()
-{
-}
-
 codec_ptr codec_manager::get_codec(resource_encoding encoding)
 {
     auto result = codecs_.find(encoding);
@@ -48,21 +44,29 @@ image_codec_ptr codec_manager::get_image_codec(resource_encoding encoding)
     return std::dynamic_pointer_cast<image_codec>(get_codec(encoding));
 }
 
+material_codec_ptr codec_manager::get_material_codec()
+{
+    return std::dynamic_pointer_cast<material_codec>(get_codec(resource_encoding::material));
+}
+
 resource_type codec_manager::get_resource_type_by_encoding(resource_encoding encoding) const
 {
     switch (encoding)
     {
-    case resource_encoding::image_png:
-        return resource_type::image;
-    case resource_encoding::unknown:
-    default:
-        throw codec_manager_unknown_codec_exception();
+        case resource_encoding::image_png:
+            return resource_type::image;
+        case resource_encoding::material:
+            return resource_type::material;
+        case resource_encoding::unknown:
+        default:
+            throw codec_manager_unknown_codec_exception();
     }
 }
 
 void codec_manager::__register_codecs()
 {
     codecs_[resource_encoding::image_png] = std::make_shared<image_codec_png>();
+    codecs_[resource_encoding::material] = std::make_shared<material_codec>();
 }
 
 } // namespace resources

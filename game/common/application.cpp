@@ -42,10 +42,15 @@ application::~application()
 
 void application::main(int, char *[])
 {
-    resources::image_resource_wrapper_ptr img_res = resource_manager_.load_image("/resources/textures/test.png");
+    resources::material_resource_wrapper_ptr mat_res =
+        resource_manager_.load_material("/resources/materials/testmaterial.mat");
+    resources::material_ptr mat = mat_res->open();
+    resources::image_resource_wrapper_ptr img_res = mat->get_texture_resource();
     resources::image_ptr img = img_res->open();
 
     texture_ = device_.get_texture_manager().load_texture(img);
+
+    img->clear_data();
 
     platform_.run();
 

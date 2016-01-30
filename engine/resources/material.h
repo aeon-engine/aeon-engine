@@ -15,39 +15,41 @@
 
 #pragma once
 
+#include <resources/resource.h>
 #include <resources/exceptions.h>
-#include <aeon/utility.h>
-#include <resources/resource_encoding.h>
-#include <resources/resource_type.h>
-#include <resources/codecs/codec.h>
-#include <resources/codecs/image_codec.h>
-#include <resources/codecs/material_codec.h>
-#include <map>
+#include <resources/wrappers/material_resource_wrapper.h>
+#include <resources/wrappers/image_resource_wrapper.h>
+#include <common/buffer.h>
+#include <memory>
 
 namespace aeon
 {
 namespace resources
 {
 
-class codec_manager
+class material : public resource
 {
-    using codec_map = std::map<resource_encoding, codec_ptr>;
-
 public:
-    codec_manager();
-    ~codec_manager() = default;
+    explicit material(resource_wrapper_ptr wrapper);
+    virtual ~material() = default;
 
-    codec_ptr get_codec(resource_encoding encoding);
-    image_codec_ptr get_image_codec(resource_encoding encoding);
-    material_codec_ptr get_material_codec();
+    void set_data(image_resource_wrapper_ptr image);
 
-    resource_type get_resource_type_by_encoding(resource_encoding encoding) const;
+    material_resource_wrapper_ptr get_material_resource_wrapper()
+    {
+        return std::dynamic_pointer_cast<material_resource_wrapper>(get_resource_wrapper());
+    }
+
+    image_resource_wrapper_ptr get_texture_resource()
+    {
+        return texture_resource_;
+    }
 
 private:
-    void __register_codecs();
-
-    codec_map codecs_;
+    image_resource_wrapper_ptr texture_resource_;
 };
+
+using material_ptr = std::shared_ptr<material>;
 
 } // namespace resources
 } // namespace aeon

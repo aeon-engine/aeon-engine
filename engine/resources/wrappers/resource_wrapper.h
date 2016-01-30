@@ -53,12 +53,12 @@ public:
 protected:
     resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
 
-    resource_manager &__get_parent()
+    resource_manager &__get_parent() const
     {
         return parent_;
     }
 
-    resource_provider_weak_ptr __get_provider()
+    resource_provider_weak_ptr __get_provider() const
     {
         return provider_;
     }

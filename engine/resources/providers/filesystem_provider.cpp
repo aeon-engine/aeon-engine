@@ -80,6 +80,10 @@ resource_encoding filesystem_provider::get_encoding(const std::string &path) con
     {
         return resource_encoding::image_png;
     }
+    else if (extension == "mat")
+    {
+        return resource_encoding::material;
+    }
 
     throw filesystem_provider_type_exception();
 }

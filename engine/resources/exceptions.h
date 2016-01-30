@@ -79,8 +79,12 @@ DEFINE_EXCEPTION_OBJECT(codec_exception, codec_manager_exception, "Generic Codec
 
 DEFINE_EXCEPTION_OBJECT(codec_decode_exception, codec_exception, "Error while decoding resource.");
 
+// material_codec
+DEFINE_EXCEPTION_OBJECT(material_codec_decode_exception, codec_decode_exception,
+    "Error while decoding material resource.");
+
 // image_codec
-DEFINE_EXCEPTION_OBJECT(image_codec_decode_exception, codec_decode_exception, "Error while decoding resource.");
+DEFINE_EXCEPTION_OBJECT(image_codec_decode_exception, codec_decode_exception, "Error while decoding image resource.");
 
 // image_codec_png
 DEFINE_EXCEPTION_OBJECT(codec_png_decode_exception, codec_decode_exception, "Error while decoding PNG image resource.");
