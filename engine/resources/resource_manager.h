@@ -37,7 +37,7 @@ class resource_manager
     using mount_points = std::map<std::string, resource_provider_ptr>;
 
 public:
-    resource_manager(platform::platform_interface &platform);
+    explicit resource_manager(platform::platform_interface &platform);
     ~resource_manager();
 
     void mount(resource_provider_ptr provider, const std::string &mountpoint = "/");

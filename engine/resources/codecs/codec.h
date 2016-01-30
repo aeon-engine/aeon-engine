@@ -27,9 +27,7 @@ namespace resources
 class codec
 {
 public:
-    codec()
-    {
-    }
+    codec() = default;
     virtual ~codec() = default;
 
     virtual resource_encoding get_codec_type() const = 0;

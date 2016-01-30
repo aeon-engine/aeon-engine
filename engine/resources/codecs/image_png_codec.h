@@ -26,8 +26,8 @@ namespace resources
 class image_codec_png : public image_codec
 {
 public:
-    image_codec_png();
-    ~image_codec_png() override;
+    image_codec_png() = default;
+    virtual ~image_codec_png() = default;
 
     image_ptr decode(image_resource_wrapper_ptr wrapper) override;
     resource_encoding get_codec_type() const override;

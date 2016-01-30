@@ -28,14 +28,11 @@ namespace resources
 
 class image;
 class image_resource_wrapper;
-using image_ptr = std::shared_ptr<image>;
 
 class image_codec : public codec
 {
 public:
-    image_codec()
-    {
-    }
+    image_codec() = default;
     virtual ~image_codec() = default;
 
     virtual image_ptr decode(image_resource_wrapper_ptr wrapper) = 0;
