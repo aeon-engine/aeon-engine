@@ -47,7 +47,7 @@ material_ptr material_codec::decode(resource_manager &parent, material_resource_
     material_ptr material = std::make_shared<class material>(wrapper);
     image_resource_wrapper_ptr texture_res = parent.load_image(material_file.get<std::string>("texture", ""));
 
-    material->set_data(texture_res);
+    material->set_texture_data(texture_res->open());
 
     return material;
 }

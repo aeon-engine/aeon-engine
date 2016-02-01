@@ -33,20 +33,15 @@ public:
     explicit material(resource_wrapper_ptr wrapper);
     virtual ~material() = default;
 
-    void set_data(image_resource_wrapper_ptr image);
+    void set_texture_data(image_ptr image);
 
-    material_resource_wrapper_ptr get_material_resource_wrapper()
+    image_ptr get_texture()
     {
-        return std::dynamic_pointer_cast<material_resource_wrapper>(get_resource_wrapper());
-    }
-
-    image_resource_wrapper_ptr get_texture_resource()
-    {
-        return texture_resource_;
+        return texture_;
     }
 
 private:
-    image_resource_wrapper_ptr texture_resource_;
+    image_ptr texture_;
 };
 
 using material_ptr = std::shared_ptr<material>;

@@ -25,9 +25,9 @@ material::material(resource_wrapper_ptr wrapper)
 {
 }
 
-void material::set_data(image_resource_wrapper_ptr image)
+void material::set_texture_data(image_ptr image)
 {
-    texture_resource_ = image;
+    texture_ = image;
 }
 
 } // namespace resources
