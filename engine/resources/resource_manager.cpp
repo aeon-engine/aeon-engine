@@ -65,8 +65,7 @@ image_resource_wrapper_ptr resource_manager::load_image(const std::string &path)
     if (!best_match_provider)
         return nullptr;
 
-    // Note: std::make_shared doesn't work due to private constructor
-    return image_resource_wrapper_ptr(new image_resource_wrapper(*this, real_path, best_match_provider));
+    return std::make_shared<image_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
 material_resource_wrapper_ptr resource_manager::load_material(const std::string &path)
@@ -77,7 +76,7 @@ material_resource_wrapper_ptr resource_manager::load_material(const std::string 
     if (!best_match_provider)
         return nullptr;
 
-    return material_resource_wrapper_ptr(new material_resource_wrapper(*this, real_path, best_match_provider));
+    return std::make_shared<material_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
 resource_provider_ptr resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)

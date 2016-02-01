@@ -29,16 +29,11 @@ using material_ptr = std::shared_ptr<material>;
 
 class material_resource_wrapper : public resource_wrapper
 {
-    friend class resource_interface;
-    friend class resource_manager;
-
 public:
+    explicit material_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
     virtual ~material_resource_wrapper() = default;
 
     material_ptr open();
-
-protected:
-    material_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
 };
 
 using material_resource_wrapper_ptr = std::shared_ptr<material_resource_wrapper>;

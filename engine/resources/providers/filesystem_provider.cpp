@@ -39,7 +39,7 @@ filesystem_provider::~filesystem_provider()
 
 bool filesystem_provider::exists(const std::string &path)
 {
-    platform::platform_interface &platform = get_resource_manager()->get_platform_interface();
+    platform::platform_interface &platform = __get_resource_manager()->get_platform_interface();
     platform::platform_filesystem_interface_ptr filesystem_interface = platform.get_filesystem_interface();
     return filesystem_interface->exists(__get_real_path(base_path_, path));
 }
@@ -53,7 +53,7 @@ void filesystem_provider::read(const std::string &path, common::buffer_u8 &buffe
 {
     std::string p = __get_real_path(base_path_, path);
 
-    platform::platform_interface &platform = get_resource_manager()->get_platform_interface();
+    platform::platform_interface &platform = __get_resource_manager()->get_platform_interface();
     platform::platform_filesystem_interface_ptr filesystem_interface = platform.get_filesystem_interface();
 
     if (!filesystem_interface->exists(p))

@@ -26,7 +26,7 @@ namespace platform
 class platform_window : public gfx::render_target
 {
 public:
-    platform_window(int width, int height, const std::string &title)
+    explicit platform_window(int width, int height, const std::string &title)
         : width_(width)
         , height_(height)
         , title_(title)

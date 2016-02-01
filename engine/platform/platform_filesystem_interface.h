@@ -45,7 +45,7 @@ public:
     class file_entry
     {
     public:
-        file_entry(const std::string &name_, file_type type_)
+        explicit file_entry(const std::string &name_, file_type type_)
             : name(name_)
             , type(type_)
         {

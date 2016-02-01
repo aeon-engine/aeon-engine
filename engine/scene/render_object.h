@@ -26,7 +26,7 @@ namespace scene
 class render_object
 {
 public:
-    render_object(int queue_group)
+    explicit render_object(int queue_group)
         : queue_group_(queue_group)
     {
     }

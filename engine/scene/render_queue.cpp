@@ -22,14 +22,6 @@ namespace aeon
 namespace scene
 {
 
-render_queue::render_queue()
-{
-}
-
-render_queue::~render_queue()
-{
-}
-
 void render_queue::add_render_object(render_object_ptr object, int group)
 {
     assert(group < render_layer::max);

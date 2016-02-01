@@ -32,9 +32,8 @@ namespace generic
 // TODO: Exception handling for whole class
 class platform_file_interface : public platform::platform_file_interface
 {
-    friend class platform_filesystem_interface;
-
 public:
+    explicit platform_file_interface(const std::string &path, int openmode);
     virtual ~platform_file_interface() override;
 
     void read(common::buffer_u8 &buffer) override;
@@ -49,11 +48,9 @@ public:
     int get_size() override;
 
 private:
-    platform_file_interface(const std::string &path, int openmode);
+    streams::stream::seek_direction __to_streams_seek_direction(seek_direction direction);
 
-    aeon::streams::stream::seek_direction __to_streams_seek_direction(seek_direction direction);
-
-    aeon::streams::file_stream_ptr stream_;
+    streams::file_stream_ptr stream_;
 };
 
 using platform_file_interface_ptr = std::shared_ptr<platform_file_interface>;

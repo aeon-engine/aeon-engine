@@ -35,7 +35,7 @@ platform_filesystem_interface::~platform_filesystem_interface()
 platform::platform_file_interface_ptr platform_filesystem_interface::open_file(const std::string &path, int openmode)
 {
     // Note: we can't use make_shared due to private constructor.
-    return platform::platform_file_interface_ptr(new platform_file_interface(path, openmode));
+    return std::make_shared<platform::generic::platform_file_interface>(path, openmode);
 }
 
 bool platform_filesystem_interface::exists(const std::string &path)

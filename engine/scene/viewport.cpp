@@ -27,10 +27,6 @@ viewport::viewport(camera_ptr camera, const common::types::rectangle<float> &rec
 {
 }
 
-viewport::~viewport()
-{
-}
-
 void viewport::set_rectangle(const common::types::rectangle<float> &rect)
 {
     rectangle_ = rect;

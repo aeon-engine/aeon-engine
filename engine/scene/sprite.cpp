@@ -44,10 +44,6 @@ sprite::sprite(gfx::texture_ptr texture, float width, float height, int zorder /
 {
 }
 
-sprite::~sprite()
-{
-}
-
 void sprite::set_default_size()
 {
     size_ = texture_->get_size();

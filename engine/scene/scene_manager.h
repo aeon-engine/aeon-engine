@@ -30,7 +30,7 @@ class scene_manager
 {
 public:
     explicit scene_manager(gfx::device &device);
-    virtual ~scene_manager();
+    virtual ~scene_manager() = default;
 
     scene_node_ptr create_child_scene_node();
 

@@ -27,10 +27,6 @@ scene_manager::scene_manager(gfx::device &device)
 {
 }
 
-scene_manager::~scene_manager()
-{
-}
-
 scene_node_ptr scene_manager::create_child_scene_node()
 {
     return root_node_->create_child_scene_node();

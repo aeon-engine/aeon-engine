@@ -28,7 +28,7 @@ class perspective_camera : public camera
 public:
     explicit perspective_camera(float fov_y, float aspect_ratio, float near, float far);
     explicit perspective_camera(float fov, float width, float height, float near, float far);
-    virtual ~perspective_camera();
+    virtual ~perspective_camera() = default;
 };
 
 using perspective_camera_ptr = std::shared_ptr<perspective_camera>;

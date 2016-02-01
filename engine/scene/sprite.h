@@ -33,7 +33,7 @@ public:
     explicit sprite(gfx::texture_ptr texture, glm::vec2 size, int zorder = 0);
     explicit sprite(gfx::texture_ptr texture, float width, float height, int zorder = 0);
 
-    virtual ~sprite();
+    virtual ~sprite() = default;
 
     void set_default_size();
 

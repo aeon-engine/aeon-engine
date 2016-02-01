@@ -33,9 +33,5 @@ orthographic_camera::orthographic_camera(float left, float right, float bottom, 
     projection_matrix_ = glm::ortho(left, right, bottom, top, near, far);
 }
 
-orthographic_camera::~orthographic_camera()
-{
-}
-
 } // namespace scene
 } // namespace aeon

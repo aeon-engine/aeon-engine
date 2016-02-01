@@ -33,9 +33,5 @@ perspective_camera::perspective_camera(float fov, float width, float height, flo
     projection_matrix_ = glm::perspectiveFov(fov, width, height, near, far);
 }
 
-perspective_camera::~perspective_camera()
-{
-}
-
 } // namespace scene
 } // namespace aeon

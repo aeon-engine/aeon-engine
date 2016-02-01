@@ -30,8 +30,7 @@ namespace resources
 class filesystem_provider : public resource_provider
 {
 public:
-    filesystem_provider(const std::string &base_path);
-
+    explicit filesystem_provider(const std::string &base_path);
     ~filesystem_provider() override;
 
 private:

@@ -37,7 +37,7 @@ public:
     /*!
      * Destructor
      */
-    virtual ~scene_node();
+    virtual ~scene_node() = default;
 
     /*!
      * Create a new scene node attached to this scene node.

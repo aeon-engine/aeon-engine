@@ -29,7 +29,7 @@ class viewport : public common::has_z_order
 {
 public:
     explicit viewport(camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
-    virtual ~viewport();
+    virtual ~viewport() = default;
 
     void set_rectangle(const common::types::rectangle<float> &rect);
 

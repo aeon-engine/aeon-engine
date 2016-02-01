@@ -28,7 +28,7 @@ class camera : public render_object
 {
 public:
     camera();
-    virtual ~camera();
+    virtual ~camera() = default;
 
     int get_priority() override;
 

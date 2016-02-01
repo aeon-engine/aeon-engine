@@ -30,8 +30,7 @@ namespace resources
 class resourcefile_provider : public resource_provider
 {
 public:
-    resourcefile_provider(const std::string &base_path);
-
+    explicit resourcefile_provider(const std::string &base_path);
     virtual ~resourcefile_provider() override;
 
 private:

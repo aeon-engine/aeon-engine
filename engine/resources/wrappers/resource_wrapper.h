@@ -30,9 +30,6 @@ namespace resources
 class resource_manager;
 class resource_wrapper : public std::enable_shared_from_this<resource_wrapper>
 {
-    friend class resource_interface;
-    friend class resource_manager;
-
 public:
     virtual ~resource_wrapper();
 
@@ -51,7 +48,7 @@ public:
     void read_raw(common::buffer_u8 &buffer);
 
 protected:
-    resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
+    explicit resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
 
     resource_manager &__get_parent() const
     {

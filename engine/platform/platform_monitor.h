@@ -26,7 +26,7 @@ namespace platform
 class video_mode
 {
 public:
-    video_mode(int w, int h, int r, int g, int b, int rr)
+    explicit video_mode(int w, int h, int r, int g, int b, int rr)
         : width(w)
         , height(h)
         , red_bits(r)
@@ -49,7 +49,7 @@ using video_modes = std::vector<video_mode>;
 class gamma_ramp_data
 {
 public:
-    gamma_ramp_data(int r, int g, int b)
+    explicit gamma_ramp_data(int r, int g, int b)
         : red(r)
         , green(g)
         , blue(b)
@@ -66,7 +66,7 @@ using gamma_ramp = std::vector<gamma_ramp_data>;
 class platform_monitor
 {
 public:
-    platform_monitor(int width, int height, int x, int y, bool primary, const std::string &name)
+    explicit platform_monitor(int width, int height, int x, int y, bool primary, const std::string &name)
         : physical_width_(width)
         , physical_height_(height)
         , x_(x)

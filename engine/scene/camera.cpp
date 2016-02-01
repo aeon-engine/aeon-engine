@@ -27,10 +27,6 @@ camera::camera()
 {
 }
 
-camera::~camera()
-{
-}
-
 int camera::get_priority()
 {
     return 0;

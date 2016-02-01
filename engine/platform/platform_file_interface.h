@@ -56,7 +56,7 @@ public:
     }
 
 protected:
-    platform_file_interface(const std::string &path, int openmode)
+    explicit platform_file_interface(const std::string &path, int openmode)
         : openmode_(openmode)
         , path_(path)
     {

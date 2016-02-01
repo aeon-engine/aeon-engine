@@ -30,8 +30,8 @@ public:
     using render_object_group_pair = std::pair<int, render_object_ptr>;
     using render_queue_vector = std::vector<render_object_group_pair>;
 
-    render_queue();
-    ~render_queue();
+    render_queue() = default;
+    ~render_queue() = default;
 
     /*!
      * Add a renderable object to the queue. The group can be any number.
