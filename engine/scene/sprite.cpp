@@ -20,33 +20,33 @@ namespace aeon
 namespace scene
 {
 
-sprite::sprite(gfx::texture_ptr texture, int zorder /* = 0*/)
+sprite::sprite(gfx::material_ptr material, int zorder /* = 0*/)
     : render_object(render_layer::overlay)
     , has_z_order(zorder)
-    , size_(texture->get_size())
-    , texture_(texture)
+    , size_(material->get_texture()->get_size())
+    , material_(material)
 {
 }
 
-sprite::sprite(gfx::texture_ptr texture, glm::vec2 size, int zorder /* = 0*/)
+sprite::sprite(gfx::material_ptr material, glm::vec2 size, int zorder /* = 0*/)
     : render_object(render_layer::overlay)
     , has_z_order(zorder)
     , size_(size)
-    , texture_(texture)
+    , material_(material)
 {
 }
 
-sprite::sprite(gfx::texture_ptr texture, float width, float height, int zorder /* = 0*/)
+sprite::sprite(gfx::material_ptr material, float width, float height, int zorder /* = 0*/)
     : render_object(render_layer::overlay)
     , has_z_order(zorder)
     , size_(width, height)
-    , texture_(texture)
+    , material_(material)
 {
 }
 
 void sprite::set_default_size()
 {
-    size_ = texture_->get_size();
+    size_ = material_->get_texture()->get_size();
 }
 
 void sprite::set_size(glm::vec2 size)
@@ -64,14 +64,14 @@ glm::vec2 sprite::get_size() const
     return size_;
 }
 
-void sprite::set_texture(gfx::texture_ptr texture)
+void sprite::set_material(gfx::material_ptr texture)
 {
-    texture_ = texture;
+    material_ = texture;
 }
 
-gfx::texture_ptr sprite::get_texture() const
+gfx::material_ptr sprite::get_material() const
 {
-    return texture_;
+    return material_;
 }
 
 int sprite::get_priority()

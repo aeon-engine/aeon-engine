@@ -30,6 +30,8 @@ public:
 
     virtual void bind() = 0;
 
+    texture_ptr get_texture();
+
 protected:
     texture_ptr texture_;
 };

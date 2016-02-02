@@ -28,5 +28,10 @@ material::~material()
 {
 }
 
+texture_ptr material::get_texture()
+{
+    return texture_;
+}
+
 } // namespace gfx
 } // namespace aeon

@@ -17,7 +17,7 @@
 
 #include <common/has_z_order.h>
 #include <scene/render_object.h>
-#include <gfx/gfx_texture.h>
+#include <gfx/gfx_material.h>
 #include <glm/vec2.hpp>
 #include <memory>
 
@@ -29,9 +29,9 @@ namespace scene
 class sprite : public render_object, public common::has_z_order
 {
 public:
-    explicit sprite(gfx::texture_ptr texture, int zorder = 0);
-    explicit sprite(gfx::texture_ptr texture, glm::vec2 size, int zorder = 0);
-    explicit sprite(gfx::texture_ptr texture, float width, float height, int zorder = 0);
+    explicit sprite(gfx::material_ptr texture, int zorder = 0);
+    explicit sprite(gfx::material_ptr texture, glm::vec2 size, int zorder = 0);
+    explicit sprite(gfx::material_ptr texture, float width, float height, int zorder = 0);
 
     virtual ~sprite() = default;
 
@@ -42,14 +42,14 @@ public:
 
     glm::vec2 get_size() const;
 
-    void set_texture(gfx::texture_ptr texture);
-    gfx::texture_ptr get_texture() const;
+    void set_material(gfx::material_ptr texture);
+    gfx::material_ptr get_material() const;
 
     int get_priority() override;
 
 private:
     glm::vec2 size_;
-    gfx::texture_ptr texture_;
+    gfx::material_ptr material_;
 };
 
 using sprite_ptr = std::shared_ptr<sprite>;
