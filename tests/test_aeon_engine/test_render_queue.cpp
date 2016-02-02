@@ -36,7 +36,7 @@ TEST(test_render_queue, test_render_queue_sort_by_group)
         int group_id = 100 - i;
 
         // We abuse width for checking the order later on.
-        scene::sprite_ptr s = std::make_shared<aeon::scene::sprite>(nullptr, glm::vec2(group_id, 10));
+        scene::sprite_ptr s = std::make_shared<aeon::scene::sprite>(nullptr, glm::vec2(group_id, 10), 0, nullptr);
         queue.add_render_object(glm::mat4(), s, group_id);
     }
 
@@ -77,7 +77,7 @@ TEST(test_render_queue, test_render_queue_sort_by_group_and_sprite_z_order)
             int zorder = 100 - j;
 
             // We abuse width and height for checking the order later on.
-            scene::sprite_ptr s = std::make_shared<aeon::scene::sprite>(nullptr, glm::vec2(group_id, zorder), zorder);
+            scene::sprite_ptr s = std::make_shared<aeon::scene::sprite>(nullptr, glm::vec2(group_id, zorder), zorder, nullptr);
             glm::mat4 position;
             
             queue.add_render_object(position, s, group_id);

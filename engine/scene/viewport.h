@@ -36,6 +36,8 @@ public:
     void set_camera(camera_ptr camera);
     camera_ptr get_camera() const;
 
+    void update();
+
 private:
     camera_ptr camera_;
     common::types::rectangle<float> rectangle_;

@@ -24,13 +24,16 @@ namespace aeon
 namespace scene
 {
 
+class viewport;
 class camera : public render_object
 {
 public:
-    camera();
+    explicit camera(scene_manager *scene_manager);
     virtual ~camera() = default;
 
     int get_priority() override;
+
+    void render_scene(viewport *vp);
 
 protected:
     glm::mat4 projection_matrix_;

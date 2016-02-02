@@ -42,5 +42,9 @@ camera_ptr viewport::get_camera() const
     return camera_;
 }
 
+void viewport::update()
+{
+}
+
 } // namespace scene
 } // namespace aeon

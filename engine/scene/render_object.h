@@ -23,11 +23,13 @@ namespace aeon
 namespace scene
 {
 
+class scene_manager;
 class render_object
 {
 public:
-    explicit render_object(int queue_group)
+    explicit render_object(int queue_group, scene_manager *scene_manager)
         : queue_group_(queue_group)
+        , scene_manager_(scene_manager)
     {
     }
 
@@ -53,6 +55,7 @@ public:
 
 private:
     int queue_group_;
+    scene_manager *scene_manager_;
 };
 
 using render_object_ptr = std::shared_ptr<render_object>;

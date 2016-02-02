@@ -20,8 +20,8 @@ namespace aeon
 namespace scene
 {
 
-camera::camera()
-    : render_object(render_layer::special)
+camera::camera(scene_manager *scene_manager)
+    : render_object(render_layer::special, scene_manager)
     , projection_matrix_(1.0f)
     , view_matrix_(1.0f)
 {
@@ -30,6 +30,10 @@ camera::camera()
 int camera::get_priority()
 {
     return 0;
+}
+
+void camera::render_scene(viewport* vp)
+{
 }
 
 } // namespace scene

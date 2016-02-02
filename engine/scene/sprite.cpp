@@ -22,24 +22,24 @@ namespace aeon
 namespace scene
 {
 
-sprite::sprite(gfx::material_ptr material, int zorder /* = 0*/)
-    : render_object(render_layer::overlay)
+sprite::sprite(gfx::material_ptr material, int zorder, scene_manager *scene_manager)
+    : render_object(render_layer::overlay, scene_manager)
     , has_z_order(zorder)
     , size_(material->get_texture()->get_size())
     , material_(material)
 {
 }
 
-sprite::sprite(gfx::material_ptr material, glm::vec2 size, int zorder /* = 0*/)
-    : render_object(render_layer::overlay)
+sprite::sprite(gfx::material_ptr material, glm::vec2 size, int zorder, scene_manager *scene_manager)
+    : render_object(render_layer::overlay, scene_manager)
     , has_z_order(zorder)
     , size_(size)
     , material_(material)
 {
 }
 
-sprite::sprite(gfx::material_ptr material, float width, float height, int zorder /* = 0*/)
-    : render_object(render_layer::overlay)
+sprite::sprite(gfx::material_ptr material, float width, float height, int zorder, scene_manager *scene_manager)
+    : render_object(render_layer::overlay, scene_manager)
     , has_z_order(zorder)
     , size_(width, height)
     , material_(material)
