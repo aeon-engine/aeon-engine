@@ -44,6 +44,13 @@ public:
      */
     virtual int get_priority() = 0;
 
+    /*!
+     * Called by the render queue when rendering. For some objects rendering
+     * doesn't make sense (like camera's). In that case, this function must be
+     * used to set up the matrices and/or buffers.
+     */
+    virtual void render() = 0;
+
 private:
     int queue_group_;
 };

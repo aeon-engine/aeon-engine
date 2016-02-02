@@ -48,6 +48,8 @@ public:
     int get_priority() override;
 
 private:
+    void render() override;
+
     glm::vec2 size_;
     gfx::material_ptr material_;
 };

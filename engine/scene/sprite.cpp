@@ -15,6 +15,8 @@
 
 #include <scene/sprite.h>
 
+#include <GL/glew.h>
+
 namespace aeon
 {
 namespace scene
@@ -77,6 +79,32 @@ gfx::material_ptr sprite::get_material() const
 int sprite::get_priority()
 {
     return get_zorder();
+}
+
+void sprite::render()
+{
+    // TODO: temporary test implementation.
+    material_->bind();
+
+    glm::vec2 size_2 = size_ * 0.5f;
+
+    glBegin(GL_QUADS);
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(-size_2.x, size_2.y, 0.0f);
+        glTexCoord2f(1.0f, 1.0f);
+        glVertex3f(size_2.x, size_2.y, 0.0f);
+        glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(size_2.x, -size_2.y, 0.0f);
+        glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-size_2.x, -size_2.y, 0.0f);
+
+        glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-0.6f, -0.4f, 0.f);
+        glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(0.6f, -0.4f, 0.f);
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(0.f, 0.6f, 0.f);
+    glEnd();
 }
 
 } // namespace scene
