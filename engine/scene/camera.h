@@ -35,6 +35,21 @@ public:
 
     void render_scene(viewport *vp);
 
+    glm::mat4 get_projection_matrix()
+    {
+        return projection_matrix_;
+    }
+
+    glm::mat4 get_view_matrix()
+    {
+        return view_matrix_;
+    }
+
+    glm::mat4 get_matrix()
+    {
+        return view_matrix_ * projection_matrix_;
+    }
+
 protected:
     glm::mat4 projection_matrix_;
     glm::mat4 view_matrix_;
