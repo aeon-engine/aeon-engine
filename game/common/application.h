@@ -46,7 +46,7 @@ private:
     resources::resource_manager resource_manager_;
     scene::basic_scene_manager scene_manager_;
 
-    gfx::texture_ptr texture_;
+    gfx::material_ptr material_;
 };
 
 } // namespace aeon

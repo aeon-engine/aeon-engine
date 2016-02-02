@@ -45,11 +45,8 @@ void application::main(int, char *[])
     resources::material_resource_wrapper_ptr mat_res =
         resource_manager_.load_material("/resources/materials/testmaterial.mat");
     resources::material_ptr mat = mat_res->open();
-    resources::image_ptr img = mat->get_texture();
 
-    texture_ = device_.get_texture_manager().load_texture(img);
-
-    img->clear_data();
+    material_ = device_.get_material_manager().load_material(mat);
 
     platform_.run();
 
@@ -65,7 +62,7 @@ bool application::on_frame(double dt)
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_TEXTURE_2D);
 
-    texture_->bind();
+    material_->bind();
 
     float ratio = 800.0f / 600.0f;
     //glViewport(0, 0, 800, 600);

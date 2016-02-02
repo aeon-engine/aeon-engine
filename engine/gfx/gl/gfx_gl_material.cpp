@@ -13,28 +13,20 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <gfx/gfx_texture.h>
+#include <gfx/gl/gfx_gl_material.h>
 
 namespace aeon
 {
 namespace gfx
 {
-
-class material : public common::cached_object
+namespace gl
 {
-public:
-    material();
-    virtual ~material();
 
-    virtual void bind() = 0;
+void material::bind()
+{
+    texture_->bind();
+}
 
-protected:
-    texture_ptr texture_;
-};
-
-using material_ptr = std::shared_ptr<material>;
-
+} // namespace gl
 } // namespace gfx
 } // namespace aeon

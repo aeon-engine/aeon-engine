@@ -29,6 +29,8 @@ class material : public gfx::material
 {
     friend class material_manager;
 
+    void bind() override;
+
 public:
     material() = default;
     ~material() = default;
