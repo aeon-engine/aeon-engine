@@ -35,7 +35,10 @@ public:
 
 private:
     void make_current() override;
-    bool on_frame(double dt) override;
+
+    bool __on_frame_start(double dt) override;
+
+    bool __on_frame_end(double dt) override;
 
     GLFWwindow *window_;
 };

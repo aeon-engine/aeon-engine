@@ -16,6 +16,8 @@
 #pragma once
 
 #include <gfx/gfx_frame_listener.h>
+#include <scene/viewport.h>
+#include <scene/camera.h>
 #include <memory>
 #include <vector>
 
@@ -59,6 +61,12 @@ public:
      */
     bool handle_frame(double dt);
 
+    scene::viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
+
+    void detach_viewport(scene::viewport_ptr vp);
+
+    void remove_all_viewports();
+
     /*!
      * Internal function to make this render target active. This is called by
      * the platform interface that this render target is attached to.
@@ -70,17 +78,13 @@ public:
     virtual void make_current() = 0;
 
 protected:
-    /*!
-     * This function must be implemented by the platform/gfx driver specific
-     * implementation, and should do everything required to render to this render
-     * target.
-     *
-     * This function is called from handle_frame.
-     */
-    virtual bool on_frame(double dt) = 0;
+    virtual bool __on_frame_start(double dt) = 0;
+
+    virtual bool __on_frame_end(double dt) = 0;
 
 private:
     std::vector<frame_listener *> frame_listeners_;
+    std::vector<scene::viewport_ptr> viewports_;
 };
 
 using render_target_ptr = std::shared_ptr<render_target>;

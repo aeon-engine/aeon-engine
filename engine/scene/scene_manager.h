@@ -40,12 +40,6 @@ public:
 
     void detach_child_scene_node(scene_node_ptr node);
 
-    void attach_viewport(viewport_ptr vp);
-
-    void detach_viewport(viewport_ptr vp);
-
-    void remove_all_viewports();
-
     template<typename T, class... U>
     std::shared_ptr<T> create_render_object(U&&... u)
     {
@@ -62,7 +56,6 @@ protected:
 
     scene_node_ptr root_node_;
     render_queue queue_;
-    std::vector<viewport_ptr> viewports_;
     gfx::device &device_;
 };
 

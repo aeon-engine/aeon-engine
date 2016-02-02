@@ -31,13 +31,23 @@ render_target::~render_target()
 
 bool render_target::handle_frame(double dt)
 {
+    if (!__on_frame_start(dt))
+        return false;
+
+    // Update all listeners
     for (auto frame_listener : frame_listeners_)
     {
         if (!frame_listener->on_frame(dt))
             return false;
     }
 
-    if (!on_frame(dt))
+    // Update all viewports
+    for (auto vp : viewports_)
+    {
+        vp->update();
+    }
+
+    if (!__on_frame_end(dt))
         return false;
 
     return true;
@@ -62,6 +72,24 @@ void render_target::detach_frame_listener(frame_listener *listener)
 void render_target::detach_all_frame_listeners()
 {
     frame_listeners_.clear();
+}
+
+scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect, int zorder)
+{
+    scene::viewport_ptr vp = std::make_shared<scene::viewport>(camera, rect, zorder);
+    viewports_.push_back(vp);
+
+    return vp;
+}
+
+void render_target::detach_viewport(scene::viewport_ptr vp)
+{
+    viewports_.erase(std::remove(viewports_.begin(), viewports_.end(), vp), viewports_.end());
+}
+
+void render_target::remove_all_viewports()
+{
+    viewports_.clear();
 }
 
 } // namespace gfx

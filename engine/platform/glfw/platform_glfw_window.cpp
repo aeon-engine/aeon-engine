@@ -31,7 +31,6 @@ platform_window::platform_window(int width, int height, const std::string &title
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
 
     window_ = glfwCreateWindow(width, height, title.c_str(), monitor, nullptr);
-    make_current();
 }
 
 platform_window::~platform_window()
@@ -45,11 +44,18 @@ void platform_window::make_current()
     glfwMakeContextCurrent(window_);
 }
 
-bool platform_window::on_frame(double /*dt*/)
+bool platform_window::__on_frame_start(double dt)
 {
+    make_current();
+
     if (glfwWindowShouldClose(window_))
         return false;
 
+    return true;
+}
+
+bool platform_window::__on_frame_end(double dt)
+{
     glfwSwapBuffers(window_);
     return true;
 }

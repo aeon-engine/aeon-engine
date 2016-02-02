@@ -37,21 +37,6 @@ void scene_manager::detach_child_scene_node(scene_node_ptr node)
     root_node_->detach_child(node);
 }
 
-void scene_manager::attach_viewport(viewport_ptr vp)
-{
-    viewports_.push_back(vp);
-}
-
-void scene_manager::detach_viewport(viewport_ptr vp)
-{
-    viewports_.erase(std::remove(viewports_.begin(), viewports_.end(), vp), viewports_.end());
-}
-
-void scene_manager::remove_all_viewports()
-{
-    viewports_.clear();
-}
-
 void scene_manager::__render_scene(camera* cam, viewport* vp)
 {
     __prepare_render_queue(cam);

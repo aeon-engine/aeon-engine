@@ -71,7 +71,6 @@ void platform_interface::run()
 
         for (gfx::render_target_ptr render_target : render_targets_)
         {
-            render_target->make_current();
             if (!render_target->handle_frame(deltaTime))
             {
                 running_ = false;
