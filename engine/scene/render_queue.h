@@ -18,17 +18,24 @@
 #include <scene/render_object.h>
 #include <vector>
 #include <utility>
+#include <glm/mat4x4.hpp>
 
 namespace aeon
 {
 namespace scene
 {
 
+struct render_queue_object
+{
+    glm::mat4 matrix;
+    render_object_ptr object;
+    int group;
+};
+
 class render_queue
 {
 public:
-    using render_object_group_pair = std::pair<int, render_object_ptr>;
-    using render_queue_vector = std::vector<render_object_group_pair>;
+    using render_queue_vector = std::vector<render_queue_object>;
 
     render_queue() = default;
     ~render_queue() = default;
@@ -38,7 +45,7 @@ public:
      * The groups are sorted in descending order, meaning higher numbers will get rendered first,
      * due to front to back rendering. Default groups are defined in render_layer::render_layer_enum.
      */
-    void add_render_object(render_object_ptr object, int group);
+    void add_render_object(const glm::mat4 &matrix, render_object_ptr object, int group);
     void clear_render_objects();
 
     void sort();

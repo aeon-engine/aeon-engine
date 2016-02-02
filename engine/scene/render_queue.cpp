@@ -22,11 +22,11 @@ namespace aeon
 namespace scene
 {
 
-void render_queue::add_render_object(render_object_ptr object, int group)
+void render_queue::add_render_object(const glm::mat4& matrix, render_object_ptr object, int group)
 {
     assert(group < render_layer::max);
 
-    objects_.push_back({group, object});
+    objects_.push_back(render_queue_object{matrix, object, group});
 }
 
 void render_queue::clear_render_objects()
@@ -45,10 +45,10 @@ render_queue::render_queue_vector::const_iterator render_queue::end() const
 
 void render_queue::sort()
 {
-    std::sort(objects_.begin(), objects_.end(), [](const render_object_group_pair &a, const render_object_group_pair &b)
+    std::sort(objects_.begin(), objects_.end(), [](const render_queue_object &a, const render_queue_object &b)
         {
-            int real_a_prio = (a.first << 24) + a.second->get_priority();
-            int real_b_prio = (b.first << 24) + b.second->get_priority();
+            int real_a_prio = (a.group << 24) + a.object->get_priority();
+            int real_b_prio = (b.group << 24) + b.object->get_priority();
             return real_a_prio < real_b_prio;
         }
     );

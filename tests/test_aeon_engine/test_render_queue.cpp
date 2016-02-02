@@ -37,15 +37,15 @@ TEST(test_render_queue, test_render_queue_sort_by_group)
 
         // We abuse width for checking the order later on.
         scene::sprite_ptr s = std::make_shared<aeon::scene::sprite>(nullptr, glm::vec2(group_id, 10));
-        queue.add_render_object(s, group_id);
+        queue.add_render_object(glm::mat4(), s, group_id);
     }
 
     int group_id = 100;
     for(auto obj : queue)
     {
-        ASSERT_EQ(group_id, obj.first);
+        ASSERT_EQ(group_id, obj.group);
 
-        auto sprite = std::dynamic_pointer_cast<scene::sprite>(obj.second);
+        auto sprite = std::dynamic_pointer_cast<scene::sprite>(obj.object);
         ASSERT_EQ(group_id, sprite->get_size().x);
 
         --group_id;
@@ -56,9 +56,9 @@ TEST(test_render_queue, test_render_queue_sort_by_group)
     group_id = 0;
     for (auto obj : queue)
     {
-        ASSERT_EQ(group_id, obj.first);
+        ASSERT_EQ(group_id, obj.group);
 
-        auto sprite = std::dynamic_pointer_cast<scene::sprite>(obj.second);
+        auto sprite = std::dynamic_pointer_cast<scene::sprite>(obj.object);
         ASSERT_EQ(group_id, sprite->get_size().x);
 
         ++group_id;
@@ -78,7 +78,9 @@ TEST(test_render_queue, test_render_queue_sort_by_group_and_sprite_z_order)
 
             // We abuse width and height for checking the order later on.
             scene::sprite_ptr s = std::make_shared<aeon::scene::sprite>(nullptr, glm::vec2(group_id, zorder), zorder);
-            queue.add_render_object(s, group_id);
+            glm::mat4 position;
+            
+            queue.add_render_object(position, s, group_id);
         }
     }
 
@@ -87,9 +89,9 @@ TEST(test_render_queue, test_render_queue_sort_by_group_and_sprite_z_order)
     for (auto obj : queue)
     {
         if (zorder == 100)
-            ASSERT_EQ(group_id, obj.first);
+            ASSERT_EQ(group_id, obj.group);
 
-        auto sprite = std::dynamic_pointer_cast<scene::sprite>(obj.second);
+        auto sprite = std::dynamic_pointer_cast<scene::sprite>(obj.object);
         ASSERT_EQ(group_id, sprite->get_size().x);
         ASSERT_EQ(zorder, sprite->get_size().y);
 
@@ -109,9 +111,9 @@ TEST(test_render_queue, test_render_queue_sort_by_group_and_sprite_z_order)
     for (auto obj : queue)
     {
         if (zorder == 0)
-            ASSERT_EQ(group_id, obj.first);
+            ASSERT_EQ(group_id, obj.group);
 
-        auto sprite = std::dynamic_pointer_cast<scene::sprite>(obj.second);
+        auto sprite = std::dynamic_pointer_cast<scene::sprite>(obj.object);
         ASSERT_EQ(group_id, sprite->get_size().x);
         ASSERT_EQ(zorder, sprite->get_size().y);
 
