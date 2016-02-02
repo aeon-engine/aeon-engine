@@ -14,6 +14,7 @@
  */
 
 #include <scene/camera.h>
+#include <scene/scene_manager.h>
 
 namespace aeon
 {
@@ -34,6 +35,7 @@ int camera::get_priority()
 
 void camera::render_scene(viewport* vp)
 {
+    scene_manager_->__render_scene(this, vp);
 }
 
 } // namespace scene

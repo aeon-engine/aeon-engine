@@ -28,7 +28,8 @@ public:
     explicit basic_scene_manager(gfx::device &device);
     virtual ~basic_scene_manager();
 
-    void prepare_render_queue() override;
+private:
+    void __prepare_render_queue(camera *cam) override;
 
 };
 

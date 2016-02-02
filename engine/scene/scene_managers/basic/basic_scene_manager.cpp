@@ -29,7 +29,7 @@ basic_scene_manager::~basic_scene_manager()
 {
 }
 
-void basic_scene_manager::prepare_render_queue()
+void basic_scene_manager::__prepare_render_queue(camera* cam)
 {
     queue_.clear_render_objects();
 }

@@ -52,5 +52,10 @@ void scene_manager::remove_all_viewports()
     viewports_.clear();
 }
 
+void scene_manager::__render_scene(camera* cam, viewport* vp)
+{
+    __prepare_render_queue(cam);
+}
+
 } // namespace scene
 } // namespace aeon

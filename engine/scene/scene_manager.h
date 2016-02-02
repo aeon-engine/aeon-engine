@@ -30,6 +30,8 @@ namespace scene
 
 class scene_manager
 {
+    friend class camera;
+
 public:
     explicit scene_manager(gfx::device &device);
     virtual ~scene_manager() = default;
@@ -44,8 +46,6 @@ public:
 
     void remove_all_viewports();
 
-    virtual void prepare_render_queue() = 0;
-
     template<typename T, class... U>
     std::shared_ptr<T> create_render_object(U&&... u)
     {
@@ -56,6 +56,10 @@ public:
     }
 
 protected:
+    virtual void __render_scene(camera *cam, viewport *vp);
+
+    virtual void __prepare_render_queue(camera *cam) = 0;
+
     scene_node_ptr root_node_;
     render_queue queue_;
     std::vector<viewport_ptr> viewports_;
