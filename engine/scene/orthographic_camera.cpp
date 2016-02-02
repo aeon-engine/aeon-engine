@@ -21,13 +21,13 @@ namespace aeon
 namespace scene
 {
 
-orthographic_camera::orthographic_camera(float left, float right, float bottom, float top, scene_manager *scene_manager)
+orthographic_camera::orthographic_camera(scene_manager *scene_manager, float left, float right, float bottom, float top)
     : camera(scene_manager)
 {
     projection_matrix_ = glm::ortho(left, right, bottom, top);
 }
 
-orthographic_camera::orthographic_camera(float left, float right, float bottom, float top, float near, float far, scene_manager *scene_manager)
+orthographic_camera::orthographic_camera(scene_manager *scene_manager, float left, float right, float bottom, float top, float near, float far)
     : camera(scene_manager)
 {
     projection_matrix_ = glm::ortho(left, right, bottom, top, near, far);

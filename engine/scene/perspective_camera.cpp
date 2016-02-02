@@ -21,13 +21,13 @@ namespace aeon
 namespace scene
 {
 
-perspective_camera::perspective_camera(float fov_y, float aspect_ratio, float near, float far, scene_manager *scene_manager)
+perspective_camera::perspective_camera(scene_manager *scene_manager, float fov_y, float aspect_ratio, float near, float far)
     : camera(scene_manager)
 {
     projection_matrix_ = glm::perspective(fov_y, aspect_ratio, near, far);
 }
 
-perspective_camera::perspective_camera(float fov, float width, float height, float near, float far, scene_manager *scene_manager)
+perspective_camera::perspective_camera(scene_manager *scene_manager, float fov, float width, float height, float near, float far)
     : camera(scene_manager)
 {
     projection_matrix_ = glm::perspectiveFov(fov, width, height, near, far);

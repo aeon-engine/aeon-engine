@@ -26,8 +26,8 @@ namespace scene
 class orthographic_camera : public camera
 {
 public:
-    explicit orthographic_camera(float left, float right, float bottom, float top, scene_manager *scene_manager);
-    explicit orthographic_camera(float left, float right, float bottom, float top, float near, float far, scene_manager *scene_manager);
+    explicit orthographic_camera(scene_manager *scene_manager, float left, float right, float bottom, float top);
+    explicit orthographic_camera(scene_manager *scene_manager, float left, float right, float bottom, float top, float near, float far);
     virtual ~orthographic_camera() = default;
 };
 

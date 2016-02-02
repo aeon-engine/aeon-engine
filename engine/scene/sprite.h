@@ -29,9 +29,9 @@ namespace scene
 class sprite : public render_object, public common::has_z_order
 {
 public:
-    explicit sprite(gfx::material_ptr texture, int zorder, scene_manager *scene_manager);
-    explicit sprite(gfx::material_ptr texture, glm::vec2 size, int zorder, scene_manager *scene_manager);
-    explicit sprite(gfx::material_ptr texture, float width, float height, int zorder, scene_manager *scene_manager);
+    explicit sprite(scene_manager *scene_manager, gfx::material_ptr texture, int zorder);
+    explicit sprite(scene_manager *scene_manager, gfx::material_ptr texture, glm::vec2 size, int zorder);
+    explicit sprite(scene_manager *scene_manager, gfx::material_ptr texture, float width, float height, int zorder);
 
     virtual ~sprite() = default;
 

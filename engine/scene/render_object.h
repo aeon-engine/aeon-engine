@@ -53,7 +53,7 @@ public:
      */
     virtual void render() = 0;
 
-private:
+protected:
     int queue_group_;
     scene_manager *scene_manager_;
 };

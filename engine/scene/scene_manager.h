@@ -15,11 +15,13 @@
 
 #pragma once
 
-#include <vector>
 #include <scene/scene_node.h>
 #include <scene/viewport.h>
 #include <scene/render_queue.h>
 #include <gfx/gfx_device.h>
+#include <vector>
+#include <type_traits>
+#include <utility>
 
 namespace aeon
 {
@@ -43,6 +45,15 @@ public:
     void remove_all_viewports();
 
     virtual void prepare_render_queue() = 0;
+
+    template<typename T, class... U>
+    std::shared_ptr<T> create_render_object(U&&... u)
+    {
+        static_assert(std::is_base_of<render_object, T>::value,
+            "T must be derived from render_object.");
+
+        return std::make_shared<T>(this, std::forward<U>(u)...);
+    }
 
 protected:
     scene_node_ptr root_node_;
