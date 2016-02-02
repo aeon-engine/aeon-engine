@@ -16,27 +16,27 @@
 #pragma once
 
 #include <common/object_cache.h>
-#include <resources/wrappers/image_resource_wrapper.h>
-#include <resources/image.h>
-#include <gfx/gfx_texture.h>
+#include <resources/wrappers/material_resource_wrapper.h>
+#include <resources/material.h>
+#include <gfx/gfx_material.h>
 
 namespace aeon
 {
 namespace gfx
 {
 
-class texture_manager
+class material_manager
 {
 public:
-    texture_manager() = default;
-    virtual ~texture_manager() = default;
+    material_manager() = default;
+    virtual ~material_manager() = default;
 
-    texture_ptr load_texture(resources::image_ptr image);
+    material_ptr load_material(resources::material_ptr material);
 
 private:
-    virtual texture_ptr __load_texture(resources::image_ptr image) = 0;
+    virtual material_ptr __load_material(resources::material_ptr material) = 0;
 
-    common::object_cache<gfx::texture> cache_;
+    common::object_cache<gfx::material> cache_;
 };
 
 } // namespace gfx

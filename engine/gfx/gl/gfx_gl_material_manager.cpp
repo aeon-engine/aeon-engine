@@ -13,31 +13,35 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <common/object_cache.h>
-#include <resources/wrappers/image_resource_wrapper.h>
-#include <resources/image.h>
-#include <gfx/gfx_texture.h>
+#include <gfx/gl/gfx_gl_material_manager.h>
+#include <gfx/gl/gfx_gl_material.h>
+#include <gfx/gl/gfx_gl_device.h>
+#include <resources/material.h>
+#include <GL/glew.h>
 
 namespace aeon
 {
 namespace gfx
 {
-
-class texture_manager
+namespace gl
 {
-public:
-    texture_manager() = default;
-    virtual ~texture_manager() = default;
 
-    texture_ptr load_texture(resources::image_ptr image);
+material_manager::material_manager(device& dev)
+    : device_(dev)
+{
+}
 
-private:
-    virtual texture_ptr __load_texture(resources::image_ptr image) = 0;
+material_ptr material_manager::__load_material(resources::material_ptr mat)
+{
+    texture_manager &texture_mgr = device_.get_texture_manager();
+    resources::image_ptr texture_image = mat->get_texture();
 
-    common::object_cache<gfx::texture> cache_;
-};
+    material_gl_ptr m = std::make_shared<material>();
+    m->texture_ = texture_mgr.load_texture(texture_image);
 
+    return m;
+}
+
+} // namespace gl
 } // namespace gfx
 } // namespace aeon

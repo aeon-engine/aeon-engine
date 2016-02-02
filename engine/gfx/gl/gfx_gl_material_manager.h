@@ -15,29 +15,30 @@
 
 #pragma once
 
-#include <common/object_cache.h>
-#include <resources/wrappers/image_resource_wrapper.h>
-#include <resources/image.h>
-#include <gfx/gfx_texture.h>
+#include <gfx/gfx_material_manager.h>
+#include <resources/material.h>
+#include <GL/glew.h>
 
 namespace aeon
 {
 namespace gfx
 {
+namespace gl
+{
 
-class texture_manager
+class device;
+class material_manager : public gfx::material_manager
 {
 public:
-    texture_manager() = default;
-    virtual ~texture_manager() = default;
-
-    texture_ptr load_texture(resources::image_ptr image);
+    explicit material_manager(device &dev);
+    ~material_manager() = default;
 
 private:
-    virtual texture_ptr __load_texture(resources::image_ptr image) = 0;
+    material_ptr __load_material(resources::material_ptr material) override;
 
-    common::object_cache<gfx::texture> cache_;
+    device &device_;
 };
 
+} // namespace gl
 } // namespace gfx
 } // namespace aeon

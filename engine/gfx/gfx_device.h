@@ -17,6 +17,7 @@
 
 #include <gfx/gfx_texture_manager.h>
 #include <gfx/gfx_shader_manager.h>
+#include <gfx/gfx_material_manager.h>
 #include <memory>
 
 namespace aeon
@@ -46,10 +47,16 @@ public:
         return *shader_manager_;
     }
 
+    material_manager &get_material_manager()
+    {
+        return *material_manager_;
+    }
+
 protected:
     bool initialized_;
     std::unique_ptr<texture_manager> texture_manager_;
     std::unique_ptr<shader_manager> shader_manager_;
+    std::unique_ptr<material_manager> material_manager_;
 };
 
 } // namespace gfx

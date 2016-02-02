@@ -40,6 +40,11 @@ public:
         return texture_;
     }
 
+    material_resource_wrapper_ptr get_material_resource_wrapper()
+    {
+        return std::dynamic_pointer_cast<material_resource_wrapper>(get_resource_wrapper());
+    }
+
 private:
     image_ptr texture_;
 };
