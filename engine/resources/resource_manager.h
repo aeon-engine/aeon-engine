@@ -46,9 +46,7 @@ public:
 
     image_resource_wrapper_ptr load_image(const std::string &path);
     material_resource_wrapper_ptr load_material(const std::string &path);
-
-    // shader_ptr load_shader(const std::string &path);
-    // resource_wrapper_ptr load(const std::string &path);
+    shader_resource_wrapper_ptr load_shader(const std::string &path);
 
     platform::platform_interface &get_platform_interface()
     {

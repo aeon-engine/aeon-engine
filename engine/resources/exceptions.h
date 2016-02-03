@@ -83,6 +83,10 @@ DEFINE_EXCEPTION_OBJECT(codec_decode_exception, codec_exception, "Error while de
 DEFINE_EXCEPTION_OBJECT(material_codec_decode_exception, codec_decode_exception,
     "Error while decoding material resource.");
 
+// shader_codec
+DEFINE_EXCEPTION_OBJECT(shader_codec_decode_exception, codec_decode_exception,
+    "Error while decoding shader resource.");
+
 // image_codec
 DEFINE_EXCEPTION_OBJECT(image_codec_decode_exception, codec_decode_exception, "Error while decoding image resource.");
 

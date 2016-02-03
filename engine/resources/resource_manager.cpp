@@ -79,6 +79,17 @@ material_resource_wrapper_ptr resource_manager::load_material(const std::string 
     return std::make_shared<material_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
+shader_resource_wrapper_ptr resource_manager::load_shader(const std::string &path)
+{
+    std::string real_path;
+    resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
+
+    if (!best_match_provider)
+        return nullptr;
+
+    return std::make_shared<shader_resource_wrapper>(*this, real_path, best_match_provider);
+}
+
 resource_provider_ptr resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)
 {
     // TODO: This needs optimization. Too much looping and string manipulation going on.
