@@ -88,7 +88,7 @@ void scene_node::recalculate_matrices()
     bool parent_dirty = is_root_ ? false : parent_->dirty_;
 
     if (dirty_ || parent_dirty)
-        total_matrix_ = matrix_ * parent_matrix_;
+        total_matrix_ = parent_matrix_ * matrix_;
 
     for (auto &node : children_)
     {
