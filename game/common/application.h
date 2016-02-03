@@ -48,9 +48,8 @@ private:
     scene::basic_scene_manager scene_manager_;
     scene::orthographic_camera_ptr camera_;
 
-    scene::scene_node_ptr node_;
-
-    gfx::material_ptr material_;
+    scene::scene_node_ptr ship2_pivot_node_;
+    scene::scene_node_ptr ship3_pivot_node_;
 };
 
 } // namespace aeon

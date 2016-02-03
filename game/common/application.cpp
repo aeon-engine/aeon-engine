@@ -51,25 +51,42 @@ application::~application()
 
 void application::main(int, char *[])
 {
-    resources::material_resource_wrapper_ptr mat_res =
-        resource_manager_.load_material("/resources/materials/testmaterial.mat");
-    resources::material_ptr mat = mat_res->open();
-    material_ = device_.get_material_manager().load_material(mat);
+    // Load resources
+    resources::material_resource_wrapper_ptr ship1_res =
+        resource_manager_.load_material("/resources/materials/ship1.mat");
+    resources::material_ptr ship1_material_data = ship1_res->open();
+    gfx::material_ptr ship1_material = device_.get_material_manager().load_material(ship1_material_data);
 
-    node_ = scene_manager_.get_root_scene_node();
-    scene::sprite_ptr sprite1 = scene_manager_.create_render_object<scene::sprite>(material_, 10);
+    resources::material_resource_wrapper_ptr ship2_res =
+        resource_manager_.load_material("/resources/materials/ship2.mat");
+    resources::material_ptr ship2_material_data = ship2_res->open();
+    gfx::material_ptr ship2_material = device_.get_material_manager().load_material(ship2_material_data);
 
-    sprite1->set_size(128, 128);
+    resources::material_resource_wrapper_ptr ship3_res =
+        resource_manager_.load_material("/resources/materials/ship3.mat");
+    resources::material_ptr ship3_material_data = ship3_res->open();
+    gfx::material_ptr ship3_material = device_.get_material_manager().load_material(ship3_material_data);
 
-    node_->attach_render_object(sprite1);
+    // Set up scene
+    scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
+    root_node->translate(400, 300);
 
-    node_->translate(200, 200);
+    scene::sprite_ptr ship1_sprite = scene_manager_.create_render_object<scene::sprite>(ship1_material, 0);
+    root_node->attach_render_object(ship1_sprite);
 
-    scene::scene_node_ptr node2 = node_->create_child_scene_node();
-    scene::sprite_ptr sprite2 = scene_manager_.create_render_object<scene::sprite>(material_, 5);
+    ship2_pivot_node_ = root_node->create_child_scene_node();
+    scene::scene_node_ptr ship2_node = ship2_pivot_node_->create_child_scene_node();
+    ship2_node->translate(200.0f, 0.0f);
 
-    node2->attach_render_object(sprite2);
-    node2->translate(200, 0);
+    scene::sprite_ptr ship2_sprite = scene_manager_.create_render_object<scene::sprite>(ship2_material, 1);
+    ship2_node->attach_render_object(ship2_sprite);
+
+    ship3_pivot_node_ = ship2_node->create_child_scene_node();
+    scene::scene_node_ptr ship3_node = ship3_pivot_node_->create_child_scene_node();
+    ship3_node->translate(100.0f, 0.0f);
+
+    scene::sprite_ptr ship3_sprite = scene_manager_.create_render_object<scene::sprite>(ship3_material, 1);
+    ship3_node->attach_render_object(ship3_sprite);
 
     platform_.run();
 
@@ -84,7 +101,8 @@ bool application::on_frame(double dt)
 
     time += (float)dt;
 
-    node_->rotate(static_cast<float>(dt));
+    ship2_pivot_node_->rotate(static_cast<float>(dt));
+    ship3_pivot_node_->rotate(static_cast<float>(dt) * -2.0f);
 
     return true;
 }
