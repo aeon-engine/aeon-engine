@@ -8,7 +8,7 @@ All Rights Reserved.
 
 ROBIN DEGEN; CONFIDENTIAL
 
-2012 - 2015 Robin Degen
+2012 - 2016 Robin Degen
 All Rights Reserved.
 
 NOTICE:  All information contained herein is, and remains the property of
@@ -21,30 +21,27 @@ prior written permission is obtained from Robin Degen.
 
 Libraries
 --------------
-Currently Aeon uses the following libraries and versions:
+Currently Aeon uses the following libraries:
 
-- libAeon (master)
-- Open Asset Import Library (3.1.1)
-- Boost (1.59)
-- Glew (Git snapshot glew-1.10.0-138-g9e3e40d)
-- GLFW (3.1.1)
-- GLM (0.9.7.0)
-- libpng (1.6.18)
-- zlib (1.2.8)
-- libCurl (Git snapshot curl-7_44_0-57-g4963948, needed by libAeon)
+- libAeon
+- Glew
+- GLFW
+- GLM
+- libpng
+- zlib
+- Google Test
 
-Precompiled libraries are in Gitlab. They can be cloned from here:
-
-- http://git.robindegen.nl/gitblit/r/binary/osx_clang.git (Apple Clang 6.4, OSX 10.10)
-- http://git.robindegen.nl/gitblit/r/binary/win64_vs2015.git (Visual Studio 2015, Windows 64 bit)
+All dependencies are added as git submodules. No external libraries should be required
+in order to build; other then standard compiler or OS provided libraries.
 
 Compiling
 --------------
 
-- Clone of the above mentioned precompiled library repositories.
-- Create an environment variable AEON_LIBRARIES_PATH that points to this repository
-  Be sure you use forward slashes; even on windows!
-- Run either bootstrap.sh (osx/linux) or bootstrap.cmd (windows).
+- Clone this repository recursively.
+- Run either bootstrap.sh (osx/linux) or bootstrap.cmd (windows)
+- Build from the created build folder (build or vs_build)
+- ???
+- Profit!
 
 Code style
 --------------
@@ -53,7 +50,7 @@ style as established in the existing code. When in doubt, ask Robin Degen.
 
 In short:
 
-- Prefer C++11 standards above boost or any other library
+- Prefer C++14 standards above boost or any other library
 - 4 spaces, no tabs.
 - No CamelCase. Variables and types must be named_like_this.
 - 120 character maximum line length.
@@ -69,7 +66,7 @@ below, the text below will always apply above everything else.
 	/*
 	 * ROBIN DEGEN; CONFIDENTIAL
 	 *
-	 * 2012 - 2015 Robin Degen
+	 * 2012 - 2016 Robin Degen
 	 * All Rights Reserved.
 	 *
 	 * NOTICE:  All information contained herein is, and remains the property of
