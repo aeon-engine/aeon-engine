@@ -51,6 +51,8 @@ public:
         return std::make_shared<T>(this, std::forward<U>(u)...);
     }
 
+    gfx::device &get_device() const;
+
 protected:
     virtual void __render_scene(camera *cam, viewport *vp);
 

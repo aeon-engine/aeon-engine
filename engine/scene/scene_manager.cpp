@@ -45,6 +45,11 @@ void scene_manager::detach_child_scene_node(scene_node_ptr node)
     root_node_->detach_child(node);
 }
 
+gfx::device& scene_manager::get_device() const
+{
+    return device_;
+}
+
 void scene_manager::__render_scene(camera *cam, viewport *vp)
 {
     device_.set_viewport(vp);
