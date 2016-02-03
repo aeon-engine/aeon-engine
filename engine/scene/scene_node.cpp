@@ -24,6 +24,7 @@ namespace scene
 
 scene_node::scene_node()
     : dirty_(true)
+    , is_root_(false)
 {
 }
 
@@ -79,10 +80,12 @@ void scene_node::detach_all_render_objects()
 
 void scene_node::recalculate_matrices()
 {
-    if (!parent_)
+    if (!is_root_ && !parent_)
         return;
 
-    if (dirty_ || parent_->dirty_)
+    bool parent_dirty = is_root_ ? false : parent_->dirty_;
+
+    if (dirty_ || parent_dirty)
         total_matrix_ = matrix_ * parent_matrix_;
 
     for (auto &node : children_)

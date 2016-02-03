@@ -231,6 +231,11 @@ private:
      * True if this node has changed in any way. This means things need to be recalculated.
      */
     bool dirty_;
+
+    /*!
+     * True if this is the root node
+     */
+    bool is_root_;
 };
 
 } // namespace scene

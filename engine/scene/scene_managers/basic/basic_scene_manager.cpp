@@ -33,6 +33,7 @@ void basic_scene_manager::__prepare_render_queue(camera* cam)
 {
     queue_.clear_render_objects();
 
+    root_node_->recalculate_matrices();
     __traverse_scene_node(root_node_);
 }
 
