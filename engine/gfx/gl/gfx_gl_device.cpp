@@ -48,6 +48,8 @@ void device::__initialize_impl()
     shader_manager_ = std::make_unique<gl::shader_manager>();
     material_manager_ = std::make_unique<gl::material_manager>(*this);
 
+    glEnable(GL_TEXTURE_2D);
+
     initialized_ = true;
 }
 

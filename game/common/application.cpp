@@ -83,9 +83,6 @@ bool application::on_frame(double dt)
 {
     static float time = 0;
 
-    glClearColor(0.0, 0.0, 0.0, 1.0);
-    glEnable(GL_TEXTURE_2D);
-
     time += (float)dt;
 
     node_->rotate(static_cast<float>(dt));
