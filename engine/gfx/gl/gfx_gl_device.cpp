@@ -49,6 +49,8 @@ void device::__initialize_impl()
     material_manager_ = std::make_unique<gl::material_manager>(*this);
 
     glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     initialized_ = true;
 }
