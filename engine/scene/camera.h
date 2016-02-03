@@ -47,7 +47,7 @@ public:
 
     glm::mat4 get_matrix()
     {
-        return view_matrix_ * projection_matrix_;
+        return projection_matrix_ * view_matrix_;
     }
 
 protected:
