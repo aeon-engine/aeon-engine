@@ -15,18 +15,34 @@
 
 #pragma once
 
+#include <resources/resource.h>
+#include <resources/exceptions.h>
+#include <resources/wrappers/shader_resource_wrapper.h>
+#include <common/buffer.h>
+#include <memory>
+
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+class shader : public resource
 {
-    unknown,
-    material,
-    shader,
-    image_png
+public:
+    explicit shader(resource_wrapper_ptr wrapper);
+    virtual ~shader();
+
+    shader_resource_wrapper_ptr get_material_resource_wrapper()
+    {
+        return std::dynamic_pointer_cast<shader_resource_wrapper>(get_resource_wrapper());
+    }
+
+private:
+    std::string vertex_source_;
+    std::string fragment_source_;
 };
+
+using shader_ptr = std::shared_ptr<shader>;
 
 } // namespace resources
 } // namespace aeon

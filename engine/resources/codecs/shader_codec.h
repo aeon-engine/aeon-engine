@@ -15,18 +15,32 @@
 
 #pragma once
 
+#include <resources/exceptions.h>
+#include <common/buffer.h>
+#include <resources/resource_encoding.h>
+#include <resources/codecs/codec.h>
+#include <resources/shader.h>
+
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+class material_resource_wrapper;
+class resource_manager;
+
+class shader_codec : public codec
 {
-    unknown,
-    material,
-    shader,
-    image_png
+public:
+    shader_codec() = default;
+    virtual ~shader_codec() = default;
+
+    resource_encoding get_codec_type() const override;
+
+    shader_ptr decode(resource_manager &parent, shader_resource_wrapper_ptr wrapper);
 };
+
+using shader_codec_ptr = std::shared_ptr<shader_codec>;
 
 } // namespace resources
 } // namespace aeon

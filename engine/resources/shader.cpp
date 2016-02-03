@@ -13,20 +13,21 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
+#include <resources/shader.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+shader::shader(resource_wrapper_ptr wrapper)
+    : resource(wrapper)
 {
-    unknown,
-    material,
-    shader,
-    image_png
-};
+}
+
+shader::~shader()
+{
+}
 
 } // namespace resources
 } // namespace aeon

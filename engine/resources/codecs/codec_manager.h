@@ -22,6 +22,7 @@
 #include <resources/codecs/codec.h>
 #include <resources/codecs/image_codec.h>
 #include <resources/codecs/material_codec.h>
+#include <resources/codecs/shader_codec.h>
 #include <map>
 
 namespace aeon
@@ -40,6 +41,7 @@ public:
     codec_ptr get_codec(resource_encoding encoding);
     image_codec_ptr get_image_codec(resource_encoding encoding);
     material_codec_ptr get_material_codec();
+    shader_codec_ptr get_shader_codec();
 
     resource_type get_resource_type_by_encoding(resource_encoding encoding) const;
 

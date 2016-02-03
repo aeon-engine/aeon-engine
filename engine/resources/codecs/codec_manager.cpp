@@ -49,14 +49,21 @@ material_codec_ptr codec_manager::get_material_codec()
     return std::dynamic_pointer_cast<material_codec>(get_codec(resource_encoding::material));
 }
 
+shader_codec_ptr codec_manager::get_shader_codec()
+{
+    return std::dynamic_pointer_cast<shader_codec>(get_codec(resource_encoding::shader));
+}
+
 resource_type codec_manager::get_resource_type_by_encoding(resource_encoding encoding) const
 {
     switch (encoding)
     {
-        case resource_encoding::image_png:
-            return resource_type::image;
         case resource_encoding::material:
             return resource_type::material;
+        case resource_encoding::shader:
+            return resource_type::shader;
+        case resource_encoding::image_png:
+            return resource_type::image;
         case resource_encoding::unknown:
         default:
             throw codec_manager_unknown_codec_exception();
@@ -65,8 +72,9 @@ resource_type codec_manager::get_resource_type_by_encoding(resource_encoding enc
 
 void codec_manager::__register_codecs()
 {
-    codecs_[resource_encoding::image_png] = std::make_shared<image_codec_png>();
     codecs_[resource_encoding::material] = std::make_shared<material_codec>();
+    codecs_[resource_encoding::shader] = std::make_shared<shader_codec>();
+    codecs_[resource_encoding::image_png] = std::make_shared<image_codec_png>();
 }
 
 } // namespace resources

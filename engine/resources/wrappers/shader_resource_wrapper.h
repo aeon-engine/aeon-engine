@@ -15,18 +15,28 @@
 
 #pragma once
 
+#include <resources/wrappers/resource_wrapper.h>
+#include <memory>
+#include <string>
+
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+class shader;
+using shader_ptr = std::shared_ptr<shader>;
+
+class shader_resource_wrapper : public resource_wrapper
 {
-    unknown,
-    material,
-    shader,
-    image_png
+public:
+    explicit shader_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
+    virtual ~shader_resource_wrapper() = default;
+
+    shader_ptr open();
 };
+
+using shader_resource_wrapper_ptr = std::shared_ptr<shader_resource_wrapper>;
 
 } // namespace resources
 } // namespace aeon

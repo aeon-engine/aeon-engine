@@ -13,20 +13,28 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
+#include <aeon/platform.h>
+#include <aeon/streams.h>
+#include <aeon/utility.h>
+#include <resources/resource_manager.h>
+#include <resources/codecs/shader_codec.h>
+#include <resources/wrappers/shader_resource_wrapper.h>
+#include <common/buffer.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+resource_encoding shader_codec::get_codec_type() const
 {
-    unknown,
-    material,
-    shader,
-    image_png
-};
+    return resource_encoding::material;
+}
+
+shader_ptr shader_codec::decode(resource_manager &parent, shader_resource_wrapper_ptr wrapper)
+{
+    return nullptr;
+}
 
 } // namespace resources
 } // namespace aeon
