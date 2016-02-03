@@ -55,7 +55,7 @@ void scene_manager::__render_scene(camera *cam, viewport *vp)
     // TODO: This is a temporary implementation
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_PROJECTION);
-    glLoadMatrixf(glm::value_ptr(cam->get_projection_matrix()));
+    glLoadMatrixf(glm::value_ptr(cam->get_matrix()));
     glMatrixMode(GL_MODELVIEW);
 
     for (auto render_object : queue_)
