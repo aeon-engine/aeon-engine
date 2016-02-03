@@ -66,6 +66,11 @@ void application::main(int, char *[])
 
     node_->translate(200, 200, 0);
 
+    scene::scene_node_ptr node2 = node_->create_child_scene_node();
+    scene::sprite_ptr sprite2 = scene_manager_.create_render_object<scene::sprite>(material_, 5);
+
+    node2->attach_render_object(sprite2);
+    node2->translate(200, 0, 0);
 
     platform_.run();
 
