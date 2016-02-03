@@ -48,6 +48,8 @@ private:
     scene::basic_scene_manager scene_manager_;
     scene::orthographic_camera_ptr camera_;
 
+    scene::scene_node_ptr node_;
+
     gfx::material_ptr material_;
 };
 

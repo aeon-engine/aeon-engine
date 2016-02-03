@@ -57,12 +57,15 @@ void application::main(int, char *[])
     resources::material_ptr mat = mat_res->open();
     material_ = device_.get_material_manager().load_material(mat);
 
-    scene::scene_node_ptr node = scene_manager_.get_root_scene_node();
+    node_ = scene_manager_.get_root_scene_node();
     scene::sprite_ptr sprite1 = scene_manager_.create_render_object<scene::sprite>(material_, 10);
 
-    node->attach_render_object(sprite1);
+    sprite1->set_size(128, 128);
 
-    node->translate(10, 10, 0);
+    node_->attach_render_object(sprite1);
+
+    node_->translate(200, 200, 0);
+
 
     platform_.run();
 
@@ -79,6 +82,8 @@ bool application::on_frame(double dt)
     glEnable(GL_TEXTURE_2D);
 
     time += (float)dt;
+
+    node_->rotate(dt, glm::vec3(0, 0, 1));
 
     return true;
 }
