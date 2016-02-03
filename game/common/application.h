@@ -39,8 +39,6 @@ public:
 private:
     bool on_frame(double dt) override;
 
-    void __setup_console();
-
     platform::glfw::platform_interface platform_;
     gfx::gl::device device_;
     platform::platform_window_ptr window_;

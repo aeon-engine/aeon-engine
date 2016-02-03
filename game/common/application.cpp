@@ -16,7 +16,6 @@
 #include <aeon/utility.h>
 #include <aeon/streams.h>
 #include <common/application.h>
-#include <console/console.h>
 #include <scene/sprite.h>
 
 namespace aeon
@@ -26,8 +25,6 @@ application::application()
     : resource_manager_(platform_, device_)
     , scene_manager_(device_)
 {
-    __setup_console();
-
     // Init the platform and window
     platform_.initialize();
     window_ = platform_.create_window(800, 600, "Test");
@@ -78,47 +75,15 @@ void application::main(int, char *[])
     ship3_node->attach_render_object(ship3_sprite);
 
     platform_.run();
-
-    // aeon::utility::configfile config_file;
-    // std::string config_file_path = "config.ini";
-    // config_file.load(std::make_shared<aeon::streams::file_stream>(config_file_path));
 }
 
 bool application::on_frame(double dt)
 {
-    static float time = 0;
-
-    time += (float)dt;
-
     ship2_pivot_node_->rotate(static_cast<float>(dt));
     ship3_pivot_node_->rotate(static_cast<float>(dt) * -2.0f);
 
     return true;
 }
 
-void application::__setup_console()
-{
-    // Set up debug logging
-    aeon::console::set_loglevel(aeon::console::log_level::debug);
-
-    // Create console streams
-    auto console_stdoutput = std::make_shared<aeon::streams::io_stream>(aeon::streams::access_mode::write);
-
-    // console_stdoutput->set_color(aeon::streams::color::blue, aeon::streams::weight::bold);
-
-    std::string console_log_file = "console.log";
-    auto console_fileoutput =
-        std::make_shared<aeon::streams::file_stream>(console_log_file, aeon::streams::access_mode::write);
-
-    // Create listeners with these streams
-    // auto console_std_listener =
-    //    std::make_shared<aeon::console_stream_listener>(console_stdoutput);
-    // auto console_file_listener =
-    //    std::make_shared<aeon::console_stream_listener>(console_fileoutput);
-
-    // Bind a default console
-    // aeon::console::add_console_listener(console_std_listener);
-    // aeon::console::add_console_listener(console_file_listener);
-}
 
 } // namespace aeon
