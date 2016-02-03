@@ -101,7 +101,7 @@ public:
      * Translate the internal matrix.
      * Sets the dirty flag.
      */
-    void translate(float x, float y, float z);
+    void translate(float x, float y, float z = 0);
 
     /*!
      * Translate the internal matrix.
@@ -133,6 +133,14 @@ public:
      * Sets the dirty flag.
      */
     void rotate(float angle, const glm::vec3 &vector);
+
+    /*!
+     * Rotate the internal matrix over the Z axis.
+     * This is the prefered method for rotating 2D objects such as sprites, as it only really makes sense for
+     * orthographic views.
+     * Sets the dirty flag.
+     */
+    void rotate(float angle);
 
     /*!
      * Multiply the internal matrix with another matrix.

@@ -111,7 +111,7 @@ void scene_node::set_matrix(const glm::mat4 &matrix)
     dirty_ = true;
 }
 
-void scene_node::translate(float x, float y, float z)
+void scene_node::translate(float x, float y, float z /* = 0 */)
 {
     matrix_ = glm::translate(matrix_, glm::vec3(x, y, z));
     dirty_ = true;
@@ -142,6 +142,12 @@ void scene_node::rotate(const glm::vec3 &vector)
 void scene_node::rotate(float angle, const glm::vec3 &vector)
 {
     matrix_ = glm::rotate(matrix_, angle, vector);
+    dirty_ = true;
+}
+
+void scene_node::rotate(float angle)
+{
+    matrix_ = glm::rotate(matrix_, angle, glm::vec3(0.0f, 0.0f, 1.0f));
     dirty_ = true;
 }
 

@@ -64,13 +64,13 @@ void application::main(int, char *[])
 
     node_->attach_render_object(sprite1);
 
-    node_->translate(200, 200, 0);
+    node_->translate(200, 200);
 
     scene::scene_node_ptr node2 = node_->create_child_scene_node();
     scene::sprite_ptr sprite2 = scene_manager_.create_render_object<scene::sprite>(material_, 5);
 
     node2->attach_render_object(sprite2);
-    node2->translate(200, 0, 0);
+    node2->translate(200, 0);
 
     platform_.run();
 
@@ -88,7 +88,7 @@ bool application::on_frame(double dt)
 
     time += (float)dt;
 
-    node_->rotate(dt, glm::vec3(0, 0, 1));
+    node_->rotate(dt);
 
     return true;
 }
