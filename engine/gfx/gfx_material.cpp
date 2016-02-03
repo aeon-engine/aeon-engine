@@ -28,7 +28,12 @@ material::~material()
 {
 }
 
-texture_ptr material::get_texture()
+shader_ptr material::get_shader() const
+{
+    return shader_;
+}
+
+texture_ptr material::get_texture() const
 {
     return texture_;
 }

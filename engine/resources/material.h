@@ -18,8 +18,8 @@
 #include <resources/resource.h>
 #include <resources/exceptions.h>
 #include <resources/wrappers/material_resource_wrapper.h>
-#include <resources/wrappers/image_resource_wrapper.h>
-#include <common/buffer.h>
+#include <resources/image.h>
+#include <resources/shader.h>
 #include <memory>
 
 namespace aeon
@@ -30,12 +30,15 @@ namespace resources
 class material : public resource
 {
 public:
-    explicit material(resource_wrapper_ptr wrapper);
+    explicit material(resource_wrapper_ptr wrapper, shader_ptr shader, image_ptr texture);
     virtual ~material() = default;
 
-    void set_texture_data(image_ptr image);
+    shader_ptr get_shader() const
+    {
+        return shader_;
+    }
 
-    image_ptr get_texture()
+    image_ptr get_texture() const
     {
         return texture_;
     }
@@ -46,6 +49,7 @@ public:
     }
 
 private:
+    shader_ptr shader_;
     image_ptr texture_;
 };
 

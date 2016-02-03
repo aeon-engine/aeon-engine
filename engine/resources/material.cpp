@@ -20,14 +20,11 @@ namespace aeon
 namespace resources
 {
 
-material::material(resource_wrapper_ptr wrapper)
+material::material(resource_wrapper_ptr wrapper, shader_ptr shader, image_ptr texture)
     : resource(wrapper)
+    , shader_(shader)
+    , texture_(texture)
 {
-}
-
-void material::set_texture_data(image_ptr image)
-{
-    texture_ = image;
 }
 
 } // namespace resources

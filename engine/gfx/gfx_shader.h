@@ -15,6 +15,8 @@
 
 #pragma once
 
+#include <memory>
+
 namespace aeon
 {
 namespace gfx
@@ -26,6 +28,8 @@ public:
     shader();
     virtual ~shader();
 };
+
+using shader_ptr = std::shared_ptr<shader>;
 
 } // namespace gfx
 } // namespace aeon

@@ -51,10 +51,6 @@ application::~application()
 
 void application::main(int, char *[])
 {
-    resources::shader_resource_wrapper_ptr shader_res =
-        resource_manager_.load_shader("/resources/shaders/fragment_lighting.prg");
-    resources::shader_ptr shader = shader_res->open();
-
     resources::material_resource_wrapper_ptr mat_res =
         resource_manager_.load_material("/resources/materials/testmaterial.mat");
     resources::material_ptr mat = mat_res->open();

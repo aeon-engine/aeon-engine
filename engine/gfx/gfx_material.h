@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <gfx/gfx_shader.h>
 #include <gfx/gfx_texture.h>
 
 namespace aeon
@@ -30,9 +31,11 @@ public:
 
     virtual void bind() = 0;
 
-    texture_ptr get_texture();
+    shader_ptr get_shader() const;
+    texture_ptr get_texture() const;
 
 protected:
+    shader_ptr shader_;
     texture_ptr texture_;
 };
 
