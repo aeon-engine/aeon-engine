@@ -38,5 +38,10 @@ void camera::render_scene(viewport* vp)
     scene_manager_->__render_scene(this, vp);
 }
 
+void camera::reset_view()
+{
+    view_matrix_ = glm::mat4(1.0f);
+}
+
 } // namespace scene
 } // namespace aeon

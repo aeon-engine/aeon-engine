@@ -50,6 +50,8 @@ public:
         return projection_matrix_ * view_matrix_;
     }
 
+    void reset_view();
+
 protected:
     // TODO: implement this sensibly for a camera
     void render() override {}
