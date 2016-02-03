@@ -18,6 +18,7 @@
 // Workaround for Visual Studio's polluted headers.
 #define NOMINMAX
 #include <algorithm>
+#include <cmath>
 
 namespace aeon
 {
@@ -45,7 +46,7 @@ color convert_to_rgb(const color_hsv& c)
     float h = c.h;
 
     h /= 60.0f; // sector 0 to 5
-    int i = static_cast<int>(floor(h));
+    int i = static_cast<int>(std::floor(h));
     float f = h - i;			// factorial part of h
     float p = c.v * (1 - c.s);
     float q = c.v * (1 - c.s * f);
