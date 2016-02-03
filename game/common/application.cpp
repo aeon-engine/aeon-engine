@@ -88,7 +88,7 @@ bool application::on_frame(double dt)
 
     time += (float)dt;
 
-    node_->rotate(dt);
+    node_->rotate(static_cast<float>(dt));
 
     return true;
 }

@@ -46,7 +46,7 @@ void platform_window::make_current()
     glfwMakeContextCurrent(window_);
 }
 
-bool platform_window::__on_frame_start(double dt)
+bool platform_window::__on_frame_start(double /*dt*/)
 {
     make_current();
 
@@ -56,7 +56,7 @@ bool platform_window::__on_frame_start(double dt)
     return true;
 }
 
-bool platform_window::__on_frame_end(double dt)
+bool platform_window::__on_frame_end(double /*dt*/)
 {
     glfwSwapBuffers(window_);
     return true;

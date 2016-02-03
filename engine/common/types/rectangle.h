@@ -125,8 +125,12 @@ public:
      */
     static rectangle<T> move_to(const rectangle<T> &rect, const glm::vec2 &p)
     {
-        return rectangle<T>(p.x, p.y, (rect.width<T>()) + static_cast<T>(p.x),
-                            (rect.height<T>()) + static_cast<T>(p.y));
+        return rectangle<T>(
+            static_cast<T>(p.x),
+            static_cast<T>(p.y),
+            (rect.width<T>()) + static_cast<T>(p.x),
+            (rect.height<T>()) + static_cast<T>(p.y)
+        );
     }
 
     /*!
