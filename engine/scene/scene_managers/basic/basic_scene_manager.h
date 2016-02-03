@@ -22,6 +22,12 @@ namespace aeon
 namespace scene
 {
 
+/*!
+ * The basic scene manager is the simplest implementation possible.
+ * Every renderable object in the scene will be added to the render
+ * queue to be sorted. This is ofcourse very inefficient for larger
+ * gameworlds but can be good enough for certain simple games.
+ */
 class basic_scene_manager : public scene_manager
 {
 public:
@@ -30,6 +36,8 @@ public:
 
 private:
     void __prepare_render_queue(camera *cam) override;
+
+    void __traverse_scene_node(scene_node_ptr node);
 
 };
 

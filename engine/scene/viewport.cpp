@@ -44,6 +44,7 @@ camera_ptr viewport::get_camera() const
 
 void viewport::update()
 {
+    camera_->render_scene(this);
 }
 
 } // namespace scene

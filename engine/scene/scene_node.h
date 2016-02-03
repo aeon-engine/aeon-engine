@@ -170,10 +170,25 @@ public:
     /*!
      * Returns true if this scene node was modified in any way since the last call to recalculate_matrices.
      */
-    const bool is_dirty() const
+    bool is_dirty() const
     {
         return dirty_;
     }
+
+    /*!
+     * Begin iterator for c++11 "foreach".
+     */
+    std::vector<scene_node_ptr>::const_iterator begin() const;
+
+    /*!
+     * End iterator for c++11 "foreach".
+     */
+    std::vector<scene_node_ptr>::const_iterator end() const;
+
+    /*!
+     * Get all attached objects to this node
+     */
+    std::vector<render_object_ptr> get_render_objects() const;
 
 private:
     /*!

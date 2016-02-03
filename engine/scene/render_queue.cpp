@@ -31,6 +31,7 @@ void render_queue::add_render_object(const glm::mat4& matrix, render_object_ptr 
 
 void render_queue::clear_render_objects()
 {
+    objects_.clear();
 }
 
 render_queue::render_queue_vector::const_iterator render_queue::begin() const

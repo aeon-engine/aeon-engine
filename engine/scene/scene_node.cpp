@@ -146,5 +146,20 @@ void scene_node::multiply(const glm::mat4 &matrix)
     dirty_ = true;
 }
 
+std::vector<scene_node_ptr>::const_iterator scene_node::begin() const
+{
+    return children_.cbegin();
+}
+
+std::vector<scene_node_ptr>::const_iterator scene_node::end() const
+{
+    return children_.cend();
+}
+
+std::vector<render_object_ptr> scene_node::get_render_objects() const
+{
+    return render_objects_;
+}
+
 } // namespace scene
 } // namespace aeon

@@ -17,6 +17,7 @@
 #include <aeon/streams.h>
 #include <common/application.h>
 #include <console/console.h>
+#include <scene/sprite.h>
 
 namespace aeon
 {
@@ -27,13 +28,21 @@ application::application()
 {
     __setup_console();
 
+    // Init the platform and window
     platform_.initialize();
     window_ = platform_.create_window(800, 600, "Test");
     window_->attach_frame_listener(this);
 
+    // Init opengl
     device_.initialize();
 
+    // Init resources
     resource_manager_.mount(std::make_shared<resources::filesystem_provider>("."), "/");
+
+    // Set up the scene
+    camera_ = std::make_shared<scene::orthographic_camera>(&scene_manager_, 0.0f, 800.0f, 600.0f, 0.0f);
+
+    window_->create_viewport(camera_, common::types::rectangle<float>(0.0f, 800.0f, 600.0f, 0.0f), 0);
 }
 
 application::~application()
@@ -42,11 +51,18 @@ application::~application()
 
 void application::main(int, char *[])
 {
+
     resources::material_resource_wrapper_ptr mat_res =
         resource_manager_.load_material("/resources/materials/testmaterial.mat");
     resources::material_ptr mat = mat_res->open();
-
     material_ = device_.get_material_manager().load_material(mat);
+
+    scene::scene_node_ptr node = scene_manager_.get_root_scene_node();
+    scene::sprite_ptr sprite1 = scene_manager_.create_render_object<scene::sprite>(material_, 10);
+
+    node->attach_render_object(sprite1);
+
+    node->translate(10, 10, 0);
 
     platform_.run();
 
@@ -61,32 +77,6 @@ bool application::on_frame(double dt)
 
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_TEXTURE_2D);
-
-    material_->bind();
-
-    float ratio = 800.0f / 600.0f;
-    //glViewport(0, 0, 800, 600);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glRotatef((float)time * 50.0f, 0.f, 0.f, 1.f);
-
-    glBegin(GL_TRIANGLES);
-    //glColor3f(1.f, 0.f, 0.f);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-0.6f, -0.4f, 0.f);
-    //glColor3f(0.f, 1.f, 0.f);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex3f(0.6f, -0.4f, 0.f);
-    //glColor3f(0.f, 0.f, 1.f);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(0.f, 0.6f, 0.f);
-    glEnd();
-
-    glFlush();
 
     time += (float)dt;
 

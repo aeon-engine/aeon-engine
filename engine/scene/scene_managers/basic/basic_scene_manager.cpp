@@ -32,6 +32,24 @@ basic_scene_manager::~basic_scene_manager()
 void basic_scene_manager::__prepare_render_queue(camera* cam)
 {
     queue_.clear_render_objects();
+
+    __traverse_scene_node(root_node_);
+}
+
+void basic_scene_manager::__traverse_scene_node(scene_node_ptr node)
+{
+    auto objects = node->get_render_objects();
+
+    // Add all renderables to the queue
+    for (auto o : objects)
+    {
+        queue_.add_render_object(node->get_total_matrix(), o, render_layer::world_geometry);
+    }
+
+    for (auto n : *node)
+    {
+        __traverse_scene_node(n);
+    }
 }
 
 } // namespace scene

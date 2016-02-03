@@ -23,6 +23,7 @@
 #include <resources/image.h>
 #include <gfx/gl/gfx_gl_device.h>
 #include <scene/scene_managers/basic/basic_scene_manager.h>
+#include <scene/orthographic_camera.h>
 
 namespace aeon
 {
@@ -45,6 +46,7 @@ private:
     gfx::gl::device device_;
     resources::resource_manager resource_manager_;
     scene::basic_scene_manager scene_manager_;
+    scene::orthographic_camera_ptr camera_;
 
     gfx::material_ptr material_;
 };

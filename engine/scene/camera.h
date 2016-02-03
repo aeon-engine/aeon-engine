@@ -51,6 +51,9 @@ public:
     }
 
 protected:
+    // TODO: implement this sensibly for a camera
+    void render() override {}
+
     glm::mat4 projection_matrix_;
     glm::mat4 view_matrix_;
 };

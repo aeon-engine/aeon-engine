@@ -15,6 +15,8 @@
 
 #include <algorithm>
 #include <scene/scene_manager.h>
+#include <GL/glew.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace aeon
 {
@@ -25,6 +27,11 @@ scene_manager::scene_manager(gfx::device &device)
     : root_node_(new scene_node())
     , device_(device)
 {
+}
+
+scene_node_ptr scene_manager::get_root_scene_node()
+{
+    return root_node_;
 }
 
 scene_node_ptr scene_manager::create_child_scene_node()
@@ -40,6 +47,21 @@ void scene_manager::detach_child_scene_node(scene_node_ptr node)
 void scene_manager::__render_scene(camera* cam, viewport* vp)
 {
     __prepare_render_queue(cam);
+
+    queue_.sort();
+
+    // Render the queue
+    // TODO: This is a temporary implementation
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadMatrixf(glm::value_ptr(cam->get_projection_matrix()));
+    glMatrixMode(GL_MODELVIEW);
+
+    for (auto render_object : queue_)
+    {
+        glLoadMatrixf(glm::value_ptr(render_object.matrix));
+        render_object.object->render();
+    }
 }
 
 } // namespace scene
