@@ -42,8 +42,9 @@ private:
     void __setup_console();
 
     platform::glfw::platform_interface platform_;
-    platform::platform_window_ptr window_;
     gfx::gl::device device_;
+    platform::platform_window_ptr window_;
+
     resources::resource_manager resource_manager_;
     scene::basic_scene_manager scene_manager_;
     scene::orthographic_camera_ptr camera_;

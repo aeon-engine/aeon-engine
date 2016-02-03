@@ -23,7 +23,7 @@ namespace aeon
 {
 
 application::application()
-    : resource_manager_(platform_)
+    : resource_manager_(platform_, device_)
     , scene_manager_(device_)
 {
     __setup_console();
@@ -52,20 +52,9 @@ application::~application()
 void application::main(int, char *[])
 {
     // Load resources
-    resources::material_resource_wrapper_ptr ship1_res =
-        resource_manager_.load_material("/resources/materials/ship1.mat");
-    resources::material_ptr ship1_material_data = ship1_res->open();
-    gfx::material_ptr ship1_material = device_.get_material_manager().load_material(ship1_material_data);
-
-    resources::material_resource_wrapper_ptr ship2_res =
-        resource_manager_.load_material("/resources/materials/ship2.mat");
-    resources::material_ptr ship2_material_data = ship2_res->open();
-    gfx::material_ptr ship2_material = device_.get_material_manager().load_material(ship2_material_data);
-
-    resources::material_resource_wrapper_ptr ship3_res =
-        resource_manager_.load_material("/resources/materials/ship3.mat");
-    resources::material_ptr ship3_material_data = ship3_res->open();
-    gfx::material_ptr ship3_material = device_.get_material_manager().load_material(ship3_material_data);
+    gfx::material_ptr ship1_material = resource_manager_.load_material("/resources/materials/ship1.mat");
+    gfx::material_ptr ship2_material = resource_manager_.load_material("/resources/materials/ship2.mat");
+    gfx::material_ptr ship3_material = resource_manager_.load_material("/resources/materials/ship3.mat");
 
     // Set up scene
     scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();

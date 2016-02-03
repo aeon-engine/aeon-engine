@@ -23,6 +23,10 @@
 #include <aeon/utility.h>
 #include <resources/codecs/codec_manager.h>
 #include <platform/platform_interface.h>
+#include <gfx/gfx_device.h>
+#include <gfx/gfx_shader.h>
+#include <gfx/gfx_texture.h>
+#include <gfx/gfx_material.h>
 #include <map>
 
 namespace aeon
@@ -38,15 +42,19 @@ class resource_manager
     using mount_points = std::map<std::string, resource_provider_ptr>;
 
 public:
-    explicit resource_manager(platform::platform_interface &platform);
+    explicit resource_manager(platform::platform_interface &platform, gfx::device &device);
     ~resource_manager();
 
     void mount(resource_provider_ptr provider, const std::string &mountpoint = "/");
     void unmount(const std::string &mountpoint);
 
-    image_resource_wrapper_ptr load_image(const std::string &path);
-    material_resource_wrapper_ptr load_material(const std::string &path);
-    shader_resource_wrapper_ptr load_shader(const std::string &path);
+    gfx::texture_ptr load_texture(const std::string &path);
+    gfx::shader_ptr load_shader(const std::string &path);
+    gfx::material_ptr load_material(const std::string &path);
+
+    image_resource_wrapper_ptr load_image_wrapper(const std::string &path);
+    material_resource_wrapper_ptr load_material_wrapper(const std::string &path);
+    shader_resource_wrapper_ptr load_shader_wrapper(const std::string &path);
 
     platform::platform_interface &get_platform_interface()
     {
@@ -62,6 +70,7 @@ private:
     resource_provider_ptr __find_best_match_provider(const std::string &path, std::string &provider_path);
 
     platform::platform_interface &platform_;
+    gfx::device &device_;
     mount_points mount_points_;
     codec_manager codec_manager_;
 };

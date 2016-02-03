@@ -24,8 +24,9 @@ namespace aeon
 namespace resources
 {
 
-resource_manager::resource_manager(platform::platform_interface &platform)
+resource_manager::resource_manager(platform::platform_interface &platform, gfx::device &device)
     : platform_(platform)
+    , device_(device)
 {
 }
 
@@ -57,7 +58,29 @@ void resource_manager::unmount(const std::string &mountpoint)
     mount_points_.erase(result);
 }
 
-image_resource_wrapper_ptr resource_manager::load_image(const std::string &path)
+gfx::texture_ptr resource_manager::load_texture(const std::string &path)
+{
+    image_resource_wrapper_ptr image_resource = load_image_wrapper(path);
+    image_ptr image_resource_data = image_resource->open();
+    return device_.get_texture_manager().load_texture(image_resource_data);
+}
+
+gfx::shader_ptr resource_manager::load_shader(const std::string &path)
+{
+    /*shader_resource_wrapper_ptr shader_resource = load_shader_wrapper(path);
+    shader_ptr shader_resource_data = shader_resource->open();
+    return device_.get_shader_manager().load_shader(shader_resource_data);*/
+    return nullptr;
+}
+
+gfx::material_ptr resource_manager::load_material(const std::string &path)
+{
+    material_resource_wrapper_ptr material_resource = load_material_wrapper(path);
+    material_ptr material_resource_data = material_resource->open();
+    return device_.get_material_manager().load_material(material_resource_data);
+}
+
+image_resource_wrapper_ptr resource_manager::load_image_wrapper(const std::string &path)
 {
     std::string real_path;
     resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
@@ -68,7 +91,7 @@ image_resource_wrapper_ptr resource_manager::load_image(const std::string &path)
     return std::make_shared<image_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-material_resource_wrapper_ptr resource_manager::load_material(const std::string &path)
+material_resource_wrapper_ptr resource_manager::load_material_wrapper(const std::string &path)
 {
     std::string real_path;
     resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
@@ -79,7 +102,7 @@ material_resource_wrapper_ptr resource_manager::load_material(const std::string 
     return std::make_shared<material_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-shader_resource_wrapper_ptr resource_manager::load_shader(const std::string &path)
+shader_resource_wrapper_ptr resource_manager::load_shader_wrapper(const std::string &path)
 {
     std::string real_path;
     resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
