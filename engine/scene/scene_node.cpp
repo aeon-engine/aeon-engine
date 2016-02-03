@@ -30,7 +30,9 @@ scene_node::scene_node()
 
 scene_node_ptr scene_node::create_child_scene_node()
 {
-    return scene_node_ptr(new scene_node());
+    scene_node_ptr node = scene_node_ptr(new scene_node());
+    attach_child(node);
+    return node;
 }
 
 void scene_node::attach_child(scene_node_ptr node)
