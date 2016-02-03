@@ -13,33 +13,24 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
 #include <gfx/gfx_device.h>
-#include <common/exception.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+
+device::device()
+    : initialized_(false)
 {
+}
 
-DEFINE_EXCEPTION_OBJECT(gl_initialized_exception, aeon::common::exception, "OpenGL Device already initialized.");
-DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL Device Exception");
-
-class device : public gfx::device
+void device::initialize()
 {
-public:
-    device();
-    ~device() override;
+    __initialize_impl();
 
-    void __initialize_impl() override;
+    set_clear_color(common::types::color(0.0f, 0.0f, 0.0f));
+}
 
-    void set_clear_color(const common::types::color &c) override;
-    void set_viewport(scene::viewport *vp) override;
-};
-
-} // namespace gl
 } // namespace gfx
 } // namespace aeon

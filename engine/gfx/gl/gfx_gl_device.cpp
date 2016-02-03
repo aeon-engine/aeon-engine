@@ -35,7 +35,7 @@ device::~device()
 {
 }
 
-void device::initialize()
+void device::__initialize_impl()
 {
     if (initialized_)
         throw gl_initialized_exception();
@@ -49,6 +49,23 @@ void device::initialize()
     material_manager_ = std::make_unique<gl::material_manager>(*this);
 
     initialized_ = true;
+}
+
+void device::set_clear_color(const common::types::color& c)
+{
+    glClearColor(c.r, c.g, c.b, c.a);
+}
+
+void device::set_viewport(scene::viewport *vp)
+{
+    common::types::rectangle<float> rect = vp->get_rectangle();
+
+    glViewport(
+        static_cast<int>(rect.left),
+        static_cast<int>(rect.top),
+        rect.width<int>(),
+        rect.height<int>()
+    );
 }
 
 } // namespace gl

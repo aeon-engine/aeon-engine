@@ -18,6 +18,8 @@
 #include <gfx/gfx_texture_manager.h>
 #include <gfx/gfx_shader_manager.h>
 #include <gfx/gfx_material_manager.h>
+#include <common/types/color.h>
+#include <scene/viewport.h>
 #include <memory>
 
 namespace aeon
@@ -28,14 +30,14 @@ namespace gfx
 class device
 {
 public:
-    device()
-        : initialized_(false)
-    {
-    }
+    device();
 
     virtual ~device() = default;
 
-    virtual void initialize() = 0;
+    void initialize();
+
+    virtual void set_clear_color(const common::types::color &c) = 0;
+    virtual void set_viewport(scene::viewport *vp) = 0;
 
     texture_manager &get_texture_manager()
     {
@@ -53,6 +55,8 @@ public:
     }
 
 protected:
+    virtual void __initialize_impl() = 0;
+
     bool initialized_;
     std::unique_ptr<texture_manager> texture_manager_;
     std::unique_ptr<shader_manager> shader_manager_;

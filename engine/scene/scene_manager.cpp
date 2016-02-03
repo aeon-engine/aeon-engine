@@ -47,6 +47,8 @@ void scene_manager::detach_child_scene_node(scene_node_ptr node)
 
 void scene_manager::__render_scene(camera *cam, viewport *vp)
 {
+    device_.set_viewport(vp);
+
     __prepare_render_queue(cam);
 
     queue_.sort();

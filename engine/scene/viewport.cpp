@@ -47,5 +47,10 @@ void viewport::update()
     camera_->render_scene(this);
 }
 
+common::types::rectangle<float> viewport::get_rectangle() const
+{
+    return rectangle_;
+}
+
 } // namespace scene
 } // namespace aeon

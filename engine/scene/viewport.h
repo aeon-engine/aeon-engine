@@ -38,6 +38,8 @@ public:
 
     void update();
 
+    common::types::rectangle<float> get_rectangle() const;
+
 private:
     camera_ptr camera_;
     common::types::rectangle<float> rectangle_;
