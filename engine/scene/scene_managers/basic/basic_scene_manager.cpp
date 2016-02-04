@@ -44,7 +44,7 @@ void basic_scene_manager::__traverse_scene_node(scene_node_ptr node)
     // Add all renderables to the queue
     for (auto o : objects)
     {
-        queue_.add_render_object(node->get_total_matrix(), o, render_layer::world_geometry);
+        queue_.add_render_object(node->get_total_matrix(), o, o->get_queue_group());
     }
 
     for (auto n : *node)
