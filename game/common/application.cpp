@@ -17,6 +17,7 @@
 #include <aeon/streams.h>
 #include <common/application.h>
 #include <scene/sprite.h>
+#include <scene/animated_sprite.h>
 
 namespace aeon
 {
@@ -52,6 +53,7 @@ void application::main(int, char *[])
     gfx::material_ptr ship1_material = resource_manager_.load_material("/resources/materials/ship1.mat");
     gfx::material_ptr ship2_material = resource_manager_.load_material("/resources/materials/ship2.mat");
     gfx::material_ptr ship3_material = resource_manager_.load_material("/resources/materials/ship3.mat");
+    gfx::material_ptr animation_material = resource_manager_.load_material("/resources/materials/animation_test.mat");
 
     // Set up scene
     scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
@@ -73,6 +75,13 @@ void application::main(int, char *[])
 
     scene::sprite_ptr ship3_sprite = scene_manager_.create_render_object<scene::sprite>(ship3_material, 1);
     ship3_node->attach_render_object(ship3_sprite);
+
+    scene::scene_node_ptr animated_node = root_node->create_child_scene_node();
+    animated_node->translate(-300, -200);
+
+    scene::animated_sprite_ptr animated_sprite = scene_manager_.create_render_object<scene::animated_sprite>(
+        animation_material, glm::vec2(32, 64), 12, scene::animation_repeat::continuous, scene::animation_style::normal, 0.3f, 10);
+    animated_node->attach_render_object(animated_sprite);
 
     platform_.run();
 }
