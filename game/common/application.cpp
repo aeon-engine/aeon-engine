@@ -81,10 +81,10 @@ void application::main(int, char *[])
     animated_node->translate(-300, -200);
 
     scene::sprite_animation_settings animation_settings(glm::vec2(32, 32));
-    animation_settings.generate_sequence(move_south, 0, 3, scene::animation_sequence_type::normal);
-    animation_settings.generate_sequence(move_west, 12, 3, scene::animation_sequence_type::normal);
-    animation_settings.generate_sequence(move_east, 24, 3, scene::animation_sequence_type::normal);
-    animation_settings.generate_sequence(move_north, 36, 3, scene::animation_sequence_type::normal);
+    animation_settings.generate_sequence(move_south, 0, 3, scene::animation_sequence_type::up_down);
+    animation_settings.generate_sequence(move_west, 12, 3, scene::animation_sequence_type::up_down);
+    animation_settings.generate_sequence(move_east, 24, 3, scene::animation_sequence_type::up_down);
+    animation_settings.generate_sequence(move_north, 36, 3, scene::animation_sequence_type::up_down);
 
     animation_settings.set_start_condition(scene::animation_start_condition::auto_start);
     animation_settings.set_speed(0.3f);
