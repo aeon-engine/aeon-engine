@@ -24,9 +24,18 @@
 #include <gfx/gl/gfx_gl_device.h>
 #include <scene/scene_managers/basic/basic_scene_manager.h>
 #include <scene/orthographic_camera.h>
+#include <scene/animated_sprite.h>
 
 namespace aeon
 {
+
+enum move_direction : int
+{
+    move_south = 0,
+    move_west  = 1,
+    move_east  = 2,
+    move_north = 3
+};
 
 class application : public gfx::frame_listener
 {
@@ -49,6 +58,11 @@ private:
 
     scene::scene_node_ptr ship2_pivot_node_;
     scene::scene_node_ptr ship3_pivot_node_;
+
+    scene::animated_sprite_ptr animated_sprite_;
+
+    float turn_timer_;
+    int direction_;
 };
 
 } // namespace aeon

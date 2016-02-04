@@ -17,7 +17,6 @@
 #include <aeon/streams.h>
 #include <common/application.h>
 #include <scene/sprite.h>
-#include <scene/animated_sprite.h>
 
 namespace aeon
 {
@@ -25,6 +24,8 @@ namespace aeon
 application::application()
     : resource_manager_(platform_, device_)
     , scene_manager_(device_)
+    , turn_timer_(0.0f)
+    , direction_(move_south)
 {
     // Init the platform and window
     platform_.initialize();
@@ -80,14 +81,18 @@ void application::main(int, char *[])
     animated_node->translate(-300, -200);
 
     scene::sprite_animation_settings animation_settings(glm::vec2(32, 32));
-    animation_settings.generate_sequence(0, 12, 3, scene::animation_sequence_type::normal);
+    animation_settings.generate_sequence(move_south, 0, 3, scene::animation_sequence_type::normal);
+    animation_settings.generate_sequence(move_west, 12, 3, scene::animation_sequence_type::normal);
+    animation_settings.generate_sequence(move_east, 24, 3, scene::animation_sequence_type::normal);
+    animation_settings.generate_sequence(move_north, 36, 3, scene::animation_sequence_type::normal);
+
     animation_settings.set_start_condition(scene::animation_start_condition::auto_start);
     animation_settings.set_speed(0.3f);
     animation_settings.set_repeat(scene::animation_repeat::continuous);
 
-    scene::animated_sprite_ptr animated_sprite = scene_manager_.create_render_object<scene::animated_sprite>(
+    animated_sprite_ = scene_manager_.create_render_object<scene::animated_sprite>(
         animation_material, 10, animation_settings);
-    animated_node->attach_render_object(animated_sprite);
+    animated_node->attach_render_object(animated_sprite_);
 
     platform_.run();
 }
@@ -96,6 +101,20 @@ bool application::on_frame(float dt)
 {
     ship2_pivot_node_->rotate(dt);
     ship3_pivot_node_->rotate(dt * -2.0f);
+
+    turn_timer_ += dt;
+    if (turn_timer_ > 5.0f)
+    {
+        direction_ = direction_ + 1;
+
+        // Hack hack hack...
+        if (direction_ > move_north)
+            direction_ = move_south;
+
+        animated_sprite_->set_animation_sequence(direction_);
+
+        turn_timer_ = 0.0f;
+    }
 
     return true;
 }
