@@ -38,14 +38,6 @@ sprite::sprite(scene_manager *scene_manager, gfx::material_ptr material, glm::ve
 {
 }
 
-sprite::sprite(scene_manager *scene_manager, gfx::material_ptr material, float width, float height, int zorder)
-    : render_object(render_layer::overlay, scene_manager)
-    , has_z_order(zorder)
-    , size_(width, height)
-    , material_(material)
-{
-}
-
 void sprite::set_default_size()
 {
     size_ = material_->get_texture()->get_size();
@@ -97,13 +89,6 @@ void sprite::render()
         glVertex3f(size_2.x, -size_2.y, 0.0f);
         glTexCoord2f(0.0f, 0.0f);
         glVertex3f(-size_2.x, -size_2.y, 0.0f);
-
-        glTexCoord2f(0.0f, 0.0f);
-        glVertex3f(-0.6f, -0.4f, 0.f);
-        glTexCoord2f(1.0f, 0.0f);
-        glVertex3f(0.6f, -0.4f, 0.f);
-        glTexCoord2f(0.0f, 1.0f);
-        glVertex3f(0.f, 0.6f, 0.f);
     glEnd();
 }
 

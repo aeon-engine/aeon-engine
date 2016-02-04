@@ -31,7 +31,6 @@ class sprite : public render_object, public common::has_z_order
 public:
     explicit sprite(scene_manager *scene_manager, gfx::material_ptr texture, int zorder);
     explicit sprite(scene_manager *scene_manager, gfx::material_ptr texture, glm::vec2 size, int zorder);
-    explicit sprite(scene_manager *scene_manager, gfx::material_ptr texture, float width, float height, int zorder);
 
     virtual ~sprite() = default;
 
@@ -48,7 +47,7 @@ public:
     int get_priority() override;
 
 private:
-    void render() override;
+    virtual void render() override;
 
     glm::vec2 size_;
     gfx::material_ptr material_;
