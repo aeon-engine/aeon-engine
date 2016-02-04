@@ -100,7 +100,7 @@ void sprite_animation_settings::__generate_up_down_sequence(int index, int frame
 {
     std::vector<int> seq;
     for (int i = 0; i < frame_count; ++i)
-        seq.push_back(i);
+        seq.push_back(i + frame_offset);
 
     for (int i = frame_count - 2; i != 0; --i)
         seq.push_back(i + frame_offset);
