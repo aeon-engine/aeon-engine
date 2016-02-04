@@ -14,45 +14,58 @@
  */
 
 #include <scene/animated_sprite.h>
+#include <scene/sprite_animation_settings.h>
 #include <GL/glew.h>
 
 namespace aeon
 {
 namespace scene
 {
-animated_sprite::animated_sprite(scene_manager* scene_manager, gfx::material_ptr texture, glm::vec2 frame_size, int frame_count,
-                                 animation_repeat repeat, animation_style style, float animation_speed, int zorder)
-    : sprite(scene_manager, texture, frame_size, zorder)
-    , frame_count_(frame_count)
-    , repeat_(repeat)
-    , style_(style)
-    , speed_(animation_speed)
+
+animated_sprite::animated_sprite(scene_manager* scene_manager, gfx::material_ptr texture,
+                                 int zorder, const sprite_animation_settings &settings)
+    : sprite(scene_manager, texture, settings.size_, zorder)
+    , settings_(settings)
     , frame_time_(0.0f)
-    , current_frame_(0)
+    , current_frame_index_(0)
     , sprites_per_row_(0)
+    , running_(false)
+    , sequence_(settings_.sequences_.at(settings_.default_sequence_))
 {
     glm::vec2 full_size = material_->get_texture()->get_size();
     sprites_per_row_ = static_cast<int>(full_size.x / size_.x);
+
+    if (settings_.start_condition_ == animation_start_condition::auto_start)
+        running_ = true;
+}
+
+void animated_sprite::run()
+{
+    running_ = true;
+}
+
+void animated_sprite::stop()
+{
+    running_ = false;
+}
+
+void animated_sprite::set_animation_sequence(int index)
+{
+    current_frame_index_ = 0;
+    sequence_ = settings_.sequences_.at(index);
 }
 
 void animated_sprite::render(float dt)
 {
-    frame_time_ += dt;
-
-    while (frame_time_ > speed_)
-    {
-        ++current_frame_;
-        frame_time_ -= speed_;
-    }
-
-    current_frame_ = current_frame_ % frame_count_;
-
-    // TODO: temporary test implementation.
-    material_->bind();
+    if (running_)
+        __set_next_frame(dt);
 
     common::types::rectangle<float> uv = __calculate_texture_offset();
 
     glm::vec2 size_2 = size_ * 0.5f;
+
+    // TODO: temporary test implementation.
+    material_->bind();
 
     glBegin(GL_QUADS);
     glTexCoord2f(uv.left, uv.bottom);
@@ -66,12 +79,33 @@ void animated_sprite::render(float dt)
     glEnd();
 }
 
+void animated_sprite::__set_next_frame(float dt)
+{
+    frame_time_ += dt;
+
+    while (frame_time_ > settings_.speed_)
+    {
+        ++current_frame_index_;
+        frame_time_ -= settings_.speed_;
+    }
+
+    if (current_frame_index_ >= sequence_.size())
+    {
+        if (settings_.repeat_ == animation_repeat::once)
+            running_ = false;
+
+        current_frame_index_ = 0;
+    }
+}
+
 common::types::rectangle<float> animated_sprite::__calculate_texture_offset()
 {
     glm::vec2 full_size = material_->get_texture()->get_size();
 
-    int column = current_frame_ % sprites_per_row_;
-    int row = current_frame_ / sprites_per_row_;
+    int current_frame = sequence_[current_frame_index_];
+
+    int column = current_frame % sprites_per_row_;
+    int row = current_frame / sprites_per_row_;
 
     int left_offset = column * static_cast<int>(size_.x);
     int top_offset = row * static_cast<int>(size_.y);

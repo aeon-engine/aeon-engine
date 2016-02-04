@@ -53,7 +53,7 @@ void application::main(int, char *[])
     gfx::material_ptr ship1_material = resource_manager_.load_material("/resources/materials/ship1.mat");
     gfx::material_ptr ship2_material = resource_manager_.load_material("/resources/materials/ship2.mat");
     gfx::material_ptr ship3_material = resource_manager_.load_material("/resources/materials/ship3.mat");
-    gfx::material_ptr animation_material = resource_manager_.load_material("/resources/materials/animation_test.mat");
+    gfx::material_ptr animation_material = resource_manager_.load_material("/resources/materials/2d_character.mat");
 
     // Set up scene
     scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
@@ -79,8 +79,14 @@ void application::main(int, char *[])
     scene::scene_node_ptr animated_node = root_node->create_child_scene_node();
     animated_node->translate(-300, -200);
 
+    scene::sprite_animation_settings animation_settings(glm::vec2(32, 32));
+    animation_settings.generate_sequence(0, 12, 3, scene::animation_sequence_type::normal);
+    animation_settings.set_start_condition(scene::animation_start_condition::auto_start);
+    animation_settings.set_speed(0.3f);
+    animation_settings.set_repeat(scene::animation_repeat::continuous);
+
     scene::animated_sprite_ptr animated_sprite = scene_manager_.create_render_object<scene::animated_sprite>(
-        animation_material, glm::vec2(32, 64), 12, scene::animation_repeat::continuous, scene::animation_style::normal, 0.3f, 10);
+        animation_material, 10, animation_settings);
     animated_node->attach_render_object(animated_sprite);
 
     platform_.run();

@@ -17,6 +17,7 @@
 
 #include <scene/sprite.h>
 #include <common/types/rectangle.h>
+#include <scene/sprite_animation_settings.h>
 #include <memory>
 
 namespace aeon
@@ -24,37 +25,33 @@ namespace aeon
 namespace scene
 {
 
-enum class animation_repeat
-{
-    once,
-    continuous
-};
-
-enum class animation_style
-{
-    normal
-};
-
 class animated_sprite : public sprite
 {
 public:
-    explicit animated_sprite(scene_manager* scene_manager, gfx::material_ptr texture, glm::vec2 frame_size, int frame_count,
-        animation_repeat repeat, animation_style style, float animation_speed, int zorder);
+    explicit animated_sprite(scene_manager* scene_manager, gfx::material_ptr texture,
+        int zorder, const sprite_animation_settings &settings);
 
     virtual ~animated_sprite() = default;
 
-private:
+    void run();
+    void stop();
+
+    void set_animation_sequence(int index);
+
+protected:
     void render(float dt) override;
 
+    void __set_next_frame(float dt);
     common::types::rectangle<float> __calculate_texture_offset();
 
-    int frame_count_;
-    animation_repeat repeat_;
-    animation_style style_;
-    float speed_;
+    sprite_animation_settings settings_;
+
     float frame_time_;
-    int current_frame_;
+    int current_frame_index_;
     int sprites_per_row_;
+    bool running_;
+
+    std::vector<int> sequence_;
 };
 
 using animated_sprite_ptr = std::shared_ptr<animated_sprite>;
