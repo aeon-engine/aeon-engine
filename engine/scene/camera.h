@@ -33,7 +33,7 @@ public:
 
     int get_priority() override;
 
-    void render_scene(viewport *vp);
+    void render_scene(viewport *vp, float dt);
 
     glm::mat4 get_projection_matrix()
     {
@@ -54,7 +54,7 @@ public:
 
 protected:
     // TODO: implement this sensibly for a camera
-    void render() override {}
+    void render(float) override {}
 
     glm::mat4 projection_matrix_;
     glm::mat4 view_matrix_;

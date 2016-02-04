@@ -33,9 +33,9 @@ int camera::get_priority()
     return 0;
 }
 
-void camera::render_scene(viewport* vp)
+void camera::render_scene(viewport* vp, float dt)
 {
-    scene_manager_->__render_scene(this, vp);
+    scene_manager_->__render_scene(this, vp, dt);
 }
 
 void camera::reset_view()

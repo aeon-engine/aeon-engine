@@ -59,7 +59,7 @@ public:
      * Internal function to handle the renderig of a frame. This is called by
      * the platform interface that this render target is attached to.
      */
-    bool handle_frame(double dt);
+    bool handle_frame(float dt);
 
     scene::viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
 
@@ -78,9 +78,9 @@ public:
     virtual void make_current() = 0;
 
 protected:
-    virtual bool __on_frame_start(double dt) = 0;
+    virtual bool __on_frame_start(float dt) = 0;
 
-    virtual bool __on_frame_end(double dt) = 0;
+    virtual bool __on_frame_end(float dt) = 0;
 
 private:
     std::vector<frame_listener *> frame_listeners_;

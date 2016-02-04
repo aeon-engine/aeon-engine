@@ -73,7 +73,7 @@ int sprite::get_priority()
     return get_zorder();
 }
 
-void sprite::render()
+void sprite::render(float /*dt*/)
 {
     // TODO: temporary test implementation.
     material_->bind();

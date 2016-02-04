@@ -54,7 +54,7 @@ public:
     gfx::device &get_device() const;
 
 protected:
-    virtual void __render_scene(camera *cam, viewport *vp);
+    virtual void __render_scene(camera *cam, viewport *vp, float dt);
 
     virtual void __prepare_render_queue(camera *cam) = 0;
 

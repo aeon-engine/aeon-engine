@@ -28,7 +28,7 @@ public:
     frame_listener() = default;
     virtual ~frame_listener() = default;
 
-    virtual bool on_frame(double dt) = 0;
+    virtual bool on_frame(float dt) = 0;
 };
 
 } // namespace gfx

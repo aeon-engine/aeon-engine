@@ -37,7 +37,7 @@ public:
     void main(int argc, char *argv[]);
 
 private:
-    bool on_frame(double dt) override;
+    bool on_frame(float dt) override;
 
     platform::glfw::platform_interface platform_;
     gfx::gl::device device_;

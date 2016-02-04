@@ -50,7 +50,7 @@ gfx::device& scene_manager::get_device() const
     return device_;
 }
 
-void scene_manager::__render_scene(camera *cam, viewport *vp)
+void scene_manager::__render_scene(camera *cam, viewport *vp, float dt)
 {
     device_.set_viewport(vp);
 
@@ -68,7 +68,7 @@ void scene_manager::__render_scene(camera *cam, viewport *vp)
     for (auto render_object : queue_)
     {
         glLoadMatrixf(glm::value_ptr(render_object.matrix));
-        render_object.object->render();
+        render_object.object->render(dt);
     }
 }
 

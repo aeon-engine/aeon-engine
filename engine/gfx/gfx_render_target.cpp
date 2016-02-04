@@ -29,7 +29,7 @@ render_target::~render_target()
 {
 }
 
-bool render_target::handle_frame(double dt)
+bool render_target::handle_frame(float dt)
 {
     if (!__on_frame_start(dt))
         return false;
@@ -44,7 +44,7 @@ bool render_target::handle_frame(double dt)
     // Update all viewports
     for (auto vp : viewports_)
     {
-        vp->update();
+        vp->update(dt);
     }
 
     if (!__on_frame_end(dt))

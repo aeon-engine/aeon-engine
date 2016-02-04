@@ -46,8 +46,8 @@ public:
 
     int get_priority() override;
 
-private:
-    virtual void render() override;
+protected:
+    virtual void render(float dt) override;
 
     glm::vec2 size_;
     gfx::material_ptr material_;

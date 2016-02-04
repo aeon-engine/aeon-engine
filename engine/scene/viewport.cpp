@@ -42,9 +42,9 @@ camera_ptr viewport::get_camera() const
     return camera_;
 }
 
-void viewport::update()
+void viewport::update(float dt)
 {
-    camera_->render_scene(this);
+    camera_->render_scene(this, dt);
 }
 
 common::types::rectangle<float> viewport::get_rectangle() const

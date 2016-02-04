@@ -51,7 +51,7 @@ public:
      * doesn't make sense (like camera's). In that case, this function must be
      * used to set up the matrices and/or buffers.
      */
-    virtual void render() = 0;
+    virtual void render(float dt) = 0;
 
 protected:
     int queue_group_;

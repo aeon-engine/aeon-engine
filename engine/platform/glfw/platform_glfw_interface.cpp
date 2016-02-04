@@ -58,15 +58,15 @@ void platform_interface::run()
     if (!initialized_)
         throw platform_interface_initialize_exception();
 
-    previous_time_ = glfwGetTime();
+    previous_time_ = static_cast<float>(glfwGetTime());
 
     running_ = true;
     while (running_)
     {
         glfwPollEvents();
 
-        double current_time = glfwGetTime();
-        double deltaTime = current_time - previous_time_;
+        float current_time = static_cast<float>(glfwGetTime());
+        float deltaTime = current_time - previous_time_;
         previous_time_ = current_time;
 
         for (gfx::render_target_ptr render_target : render_targets_)

@@ -77,10 +77,10 @@ void application::main(int, char *[])
     platform_.run();
 }
 
-bool application::on_frame(double dt)
+bool application::on_frame(float dt)
 {
-    ship2_pivot_node_->rotate(static_cast<float>(dt));
-    ship3_pivot_node_->rotate(static_cast<float>(dt) * -2.0f);
+    ship2_pivot_node_->rotate(dt);
+    ship3_pivot_node_->rotate(dt * -2.0f);
 
     return true;
 }
