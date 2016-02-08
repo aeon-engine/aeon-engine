@@ -27,11 +27,9 @@ template<typename scene_manager_t>
 class desktop_application : public base_application<platform::glfw::platform_interface, gfx::gl::device, scene_manager_t>
 {
 public:
-    desktop_application(int width, int height, const std::string &window_title)
-        : base_application(width, height, window_title)
+    explicit desktop_application(int width, int height, const std::string &window_title)
+        : base_application<platform::glfw::platform_interface, gfx::gl::device, scene_manager_t>(width, height, window_title)
     {
-        // Init resources
-        resource_manager_.mount(std::make_shared<resources::filesystem_provider>("."), "/");
     }
 
     virtual ~desktop_application() = default;

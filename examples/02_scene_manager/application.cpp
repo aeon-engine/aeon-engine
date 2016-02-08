@@ -22,6 +22,9 @@ const int WINDOW_HEIGHT = 600;
 application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT, "Test")
 {
+    // Init resources
+    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
+
     get_main_window()->attach_frame_listener(this);
 
     // Set up the scene

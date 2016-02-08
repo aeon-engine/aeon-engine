@@ -23,6 +23,9 @@ application::application()
     , turn_timer_(0.0f)
     , direction_(move_south)
 {
+    // Init resources
+    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
+
     get_main_window()->attach_frame_listener(this);
 
     // Set up the scene

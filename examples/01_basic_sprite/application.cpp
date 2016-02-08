@@ -22,6 +22,9 @@ const int WINDOW_HEIGHT = 600;
 application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT, "Test")
 {
+    // Init resources
+    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
+
     // Set up the scene
     camera_ = std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 

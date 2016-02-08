@@ -24,7 +24,7 @@ template<typename platform_interface_t, typename device_t, typename scene_manage
 class base_application
 {
 public:
-    base_application(int width, int height, const std::string &window_title)
+    explicit base_application(int width, int height, const std::string &window_title)
         : resource_manager_(platform_, device_)
         , scene_manager_(device_)
         , window_(nullptr)
@@ -47,6 +47,11 @@ public:
     scene_manager_t *get_scene_manager()
     {
         return &scene_manager_;
+    }
+
+    resources::resource_manager *get_resource_manager()
+    {
+        return &resource_manager_;
     }
 
 protected:
