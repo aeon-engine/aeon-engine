@@ -27,12 +27,11 @@ namespace glfw
 {
 
 platform_interface::platform_interface()
-    : initialized_(false)
+    : platform::platform_interface(std::make_unique<generic::platform_filesystem_interface>())
+    , initialized_(false)
     , running_(false)
     , previous_time_(0.0)
 {
-    // Note: On GLFW we can use the generic filesystem interface
-    filesystem_interface_ = std::make_shared<generic::platform_filesystem_interface>();
 }
 
 platform_interface::~platform_interface()

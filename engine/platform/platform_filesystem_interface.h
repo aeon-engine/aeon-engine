@@ -65,7 +65,7 @@ public:
     virtual files list(const std::string &path) = 0;
 };
 
-using platform_filesystem_interface_ptr = std::shared_ptr<platform_filesystem_interface>;
+using platform_filesystem_interface_ptr = std::unique_ptr<platform_filesystem_interface>;
 
 } // namespace platform
 } // namespace aeon

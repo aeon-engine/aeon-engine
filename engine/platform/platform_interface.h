@@ -15,10 +15,11 @@
 
 #pragma once
 
-#include <memory>
 #include <platform/platform_monitor.h>
 #include <platform/platform_window.h>
+#include <platform/platform_filesystem_interface.h>
 #include <common/exception.h>
+#include <memory>
 
 namespace aeon
 {
@@ -30,12 +31,14 @@ DEFINE_EXCEPTION_OBJECT(platform_interface_exception, aeon::common::exception, "
 DEFINE_EXCEPTION_OBJECT(platform_interface_initialize_exception, platform_interface_exception,
                         "Could not initialize platform.");
 
-class platform_filesystem_interface;
-
 class platform_interface
 {
 public:
-    platform_interface() = default;
+    platform_interface(platform_filesystem_interface_ptr filesystem_interface)
+        : filesystem_interface_(std::move(filesystem_interface))
+    {
+    }
+
     virtual ~platform_interface() = default;
 
     /*!
@@ -70,13 +73,13 @@ public:
     /*!
      * Get the subsystem for filesystem interaction for this platform.
      */
-    std::shared_ptr<platform_filesystem_interface> get_filesystem_interface()
+    platform_filesystem_interface *get_filesystem_interface()
     {
-        return filesystem_interface_;
+        return filesystem_interface_.get();
     }
 
 protected:
-    std::shared_ptr<platform_filesystem_interface> filesystem_interface_;
+    platform_filesystem_interface_ptr filesystem_interface_;
 };
 
 } // namespace platform
