@@ -82,6 +82,11 @@ scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, con
     return vp;
 }
 
+scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, const common::types::rectangle<int>& rect, int zorder)
+{
+    return create_viewport(camera, common::types::rectangle<float>(rect), zorder);
+}
+
 void render_target::detach_viewport(scene::viewport_ptr vp)
 {
     viewports_.erase(std::remove(viewports_.begin(), viewports_.end(), vp), viewports_.end());

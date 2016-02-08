@@ -22,6 +22,7 @@
 #include <vector>
 #include <type_traits>
 #include <utility>
+#include <memory>
 
 namespace aeon
 {
@@ -62,6 +63,8 @@ protected:
     render_queue queue_;
     gfx::device &device_;
 };
+
+using scene_manager_ptr = std::unique_ptr<scene_manager>;
 
 } // namespace scene
 } // namespace aeon

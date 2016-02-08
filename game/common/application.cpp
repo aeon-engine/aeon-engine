@@ -14,38 +14,26 @@
  */
 
 #include <aeon/utility.h>
-#include <aeon/streams.h>
 #include <common/application.h>
 #include <scene/sprite.h>
 
 namespace aeon
 {
 
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 600;
+
 application::application()
-    : resource_manager_(platform_, device_)
-    , scene_manager_(device_)
+    : desktop_application(WINDOW_WIDTH, WINDOW_HEIGHT, "Test")
     , turn_timer_(0.0f)
     , direction_(move_south)
 {
-    // Init the platform and window
-    platform_.initialize();
-    window_ = platform_.create_window(800, 600, "Test");
-    window_->attach_frame_listener(this);
-
-    // Init opengl
-    device_.initialize();
-
-    // Init resources
-    resource_manager_.mount(std::make_shared<resources::filesystem_provider>("."), "/");
+    get_main_window()->attach_frame_listener(this);
 
     // Set up the scene
-    camera_ = std::make_shared<scene::orthographic_camera>(&scene_manager_, 0.0f, 800.0f, 600.0f, 0.0f);
+    camera_ = std::make_shared<scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
-    window_->create_viewport(camera_, common::types::rectangle<float>(0.0f, 800.0f, 600.0f, 0.0f), 0);
-}
-
-application::~application()
-{
+    window_->create_viewport(camera_, common::types::rectangle<int>(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0), 0);
 }
 
 void application::main(int, char *[])
