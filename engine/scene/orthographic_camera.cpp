@@ -36,7 +36,8 @@ orthographic_camera::orthographic_camera(scene_manager *scene_manager, float lef
 orthographic_camera::orthographic_camera(scene_manager* scene_manager, int left, int right, int bottom, int top)
     : camera(scene_manager)
 {
-    projection_matrix_ = glm::ortho(left, right, bottom, top);
+    projection_matrix_ = glm::ortho(static_cast<float>(left), static_cast<float>(right),
+        static_cast<float>(bottom), static_cast<float>(top));
 }
 
 orthographic_camera::orthographic_camera(scene_manager* scene_manager, int left, int right, int bottom, int top, float near, float far)
