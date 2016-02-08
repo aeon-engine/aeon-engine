@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <aeon/utility.h>
 #include <gfx/gfx_frame_listener.h>
 #include <scene/viewport.h>
 #include <scene/camera.h>
@@ -26,34 +27,11 @@ namespace aeon
 namespace gfx
 {
 
-class render_target
+class render_target : public utility::listener_subject<frame_listener>
 {
 public:
     render_target();
     virtual ~render_target();
-
-    /*!
-     * Add a frame listener to this render target. The on_frame event will
-     * be called each frame that this render target is rendering.
-     *
-     * Render target does not take ownership of this pointer, so it's up to
-     * the caller to keep this pointer alive, and delete it appropriately.
-     */
-    void attach_frame_listener(frame_listener *listener);
-
-    /*!
-     * Detach a frame listener from this render target. This will not delete
-     * the frame listener, but merely detach it so events are no longer
-     * triggered.
-     */
-    void detach_frame_listener(frame_listener *listener);
-
-    /*!
-     * Detach all frame listeners from this render target. This will not delete
-     * the frame listeners, but merely detach them so events are no longer
-     * triggered.
-     */
-    void detach_all_frame_listeners();
 
     /*!
      * Internal function to handle the renderig of a frame. This is called by
@@ -85,7 +63,6 @@ protected:
     virtual bool __on_frame_end(float dt) = 0;
 
 private:
-    std::vector<frame_listener *> frame_listeners_;
     std::vector<scene::viewport_ptr> viewports_;
 };
 

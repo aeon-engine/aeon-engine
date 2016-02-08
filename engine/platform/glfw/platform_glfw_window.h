@@ -25,12 +25,12 @@ namespace platform
 namespace glfw
 {
 
+class platform_interface;
 class platform_window : public platform::platform_window
 {
-    class platform_interface;
-
 public:
-    platform_window(int width, int height, const std::string &title, GLFWmonitor *monitor);
+    explicit platform_window(platform_interface *interface, int width, int height,
+        const std::string &title, GLFWmonitor *monitor);
     ~platform_window() override;
 
 private:
@@ -40,7 +40,14 @@ private:
 
     bool __on_frame_end(float dt) override;
 
+    static void __static_keyboard_key_handler(GLFWwindow *window, int key, int scancode, int action, int mods);
+
+    static void __static_mouse_move_handler(GLFWwindow *window, double x, double y);
+    static void __static_mouse_button_handler(GLFWwindow *window, int button, int action, int mods);
+    static void __static_mouse_scroll_handler(GLFWwindow *window, double xoffset, double yoffset);
+
     GLFWwindow *window_;
+    platform_interface *interface_;
 };
 
 using platform_window_ptr = std::shared_ptr<platform_window>;

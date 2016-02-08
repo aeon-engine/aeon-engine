@@ -1,3 +1,5 @@
 add_subdirectory(01_basic_sprite)
 add_subdirectory(02_scene_manager)
 add_subdirectory(03_sprite_animation)
+add_subdirectory(04_input_handler)
+

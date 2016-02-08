@@ -54,6 +54,11 @@ public:
         return &resource_manager_;
     }
 
+    platform_interface_t *get_platform_interface()
+    {
+        return &platform_;
+    }
+
 protected:
     platform_interface_t platform_;
     device_t device_;

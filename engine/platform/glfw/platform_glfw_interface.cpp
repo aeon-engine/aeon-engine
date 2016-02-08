@@ -129,7 +129,7 @@ platform::platform_window_ptr platform_interface::create_window(int width, int h
         glfw_monitor = m->get_internal_handle();
     }
 
-    platform_window_ptr window = std::make_shared<glfw::platform_window>(width, height, name, glfw_monitor);
+    platform_window_ptr window = std::make_shared<glfw::platform_window>(this, width, height, name, glfw_monitor);
 
     render_targets_.push_back(window);
 
