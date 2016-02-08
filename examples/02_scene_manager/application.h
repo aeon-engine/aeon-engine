@@ -18,23 +18,10 @@
 #include <application/desktop_application.h>
 #include <gfx/gfx_frame_listener.h>
 #include <resources/wrappers/image_resource_wrapper.h>
-#include <resources/image.h>
 #include <scene/scene_managers/basic/basic_scene_manager.h>
 #include <scene/orthographic_camera.h>
-#include <scene/animated_sprite.h>
 
-namespace aeon
-{
-
-enum move_direction : int
-{
-    move_south = 0,
-    move_west  = 1,
-    move_east  = 2,
-    move_north = 3
-};
-
-class application : public gfx::frame_listener, public desktop_application<scene::basic_scene_manager>
+class application : public aeon::gfx::frame_listener, public aeon::desktop_application<aeon::scene::basic_scene_manager>
 {
 public:
     application();
@@ -45,15 +32,8 @@ public:
 private:
     bool on_frame(float dt) override;
 
-    scene::orthographic_camera_ptr camera_;
+    aeon::scene::orthographic_camera_ptr camera_;
 
-    scene::scene_node_ptr ship2_pivot_node_;
-    scene::scene_node_ptr ship3_pivot_node_;
-
-    scene::animated_sprite_ptr animated_sprite_;
-
-    float turn_timer_;
-    int direction_;
+    aeon::scene::scene_node_ptr ship2_pivot_node_;
+    aeon::scene::scene_node_ptr ship3_pivot_node_;
 };
-
-} // namespace aeon

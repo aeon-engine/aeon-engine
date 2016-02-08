@@ -13,11 +13,11 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <common/application.h>
+#include "application.h"
 
 int main(int argc, char *argv[])
 {
-    aeon::application app;
+    application app;
     app.main(argc, argv);
 
     return 0;

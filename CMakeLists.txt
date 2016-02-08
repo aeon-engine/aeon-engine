@@ -78,7 +78,7 @@ endif ()
 
 add_subdirectory(dep)
 add_subdirectory(engine)
-add_subdirectory(game)
+add_subdirectory(examples)
 add_subdirectory(tests)
 
 ################################################################################

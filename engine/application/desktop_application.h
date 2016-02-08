@@ -14,6 +14,7 @@
  */
 
 #pragma once
+
 #include <application/base_application.h>
 #include <resources/providers/filesystem_provider.h>
 #include <platform/glfw/platform_glfw_interface.h>
