@@ -22,6 +22,20 @@
 #include <scene/orthographic_camera.h>
 #include <platform/platform_input_listener.h>
 
+enum class ship_move_direction
+{
+    none,
+    forward,
+    reverse
+};
+
+enum class ship_rotate_direction
+{
+    none,
+    left,
+    right
+};
+
 class application : public aeon::desktop_application<aeon::scene::basic_scene_manager>,
                     public aeon::gfx::frame_listener,
                     public aeon::platform::platform_input_listener
@@ -42,5 +56,8 @@ private:
         aeon::platform::mouse_button_state button_state) override;
 
     aeon::scene::orthographic_camera_ptr camera_;
-    glm::vec2 movement_vector_;
+
+    ship_move_direction move_direction_;
+    ship_rotate_direction rotate_direction_;
+    float forward_speed_;
 };

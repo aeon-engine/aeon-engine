@@ -19,9 +19,17 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
+const float SHIP_ROTATION_SPEED = 3.0f;
+const float SHIP_ACCELERATION = 0.1f;
+const float SHIP_MAX_SPEED = 2.0f;
+const float SHIP_FRICTION = 0.05f;
+
 application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 4 - Input Handler (Use the arrow keys)")
+    , forward_speed_(0.0f)
+    , move_direction_(ship_move_direction::none)
+    , rotate_direction_(ship_rotate_direction::none)
 {
     // Init resources
     get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
@@ -61,8 +69,48 @@ void application::main(int, char *[])
 bool application::on_frame(float dt)
 {
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
-    root_node->rotate(movement_vector_.x * dt * 3.0f);
-    root_node->translate(0, movement_vector_.y * dt * 200.0f);
+
+    if (rotate_direction_ == ship_rotate_direction::left)
+    {
+        root_node->rotate(-SHIP_ROTATION_SPEED * dt);
+    }
+    else if (rotate_direction_ == ship_rotate_direction::right)
+    {
+        root_node->rotate(SHIP_ROTATION_SPEED * dt);
+    }
+
+    if (move_direction_ == ship_move_direction::forward)
+    {
+        forward_speed_ -= SHIP_ACCELERATION * dt;
+
+        if (forward_speed_ < -SHIP_MAX_SPEED)
+            forward_speed_ = -SHIP_MAX_SPEED;
+    } else if (move_direction_ == ship_move_direction::reverse) {
+        forward_speed_ += SHIP_ACCELERATION * dt;
+
+        if (forward_speed_ > SHIP_MAX_SPEED)
+            forward_speed_ = SHIP_MAX_SPEED;
+    }
+
+    // Slow down to 0.
+    if (move_direction_ == ship_move_direction::none)
+    {
+        if (forward_speed_ > 0.0f)
+        {
+            forward_speed_ -= SHIP_FRICTION * dt;
+
+            if (forward_speed_ <= 0.0f)
+                forward_speed_ = 0.0f;
+        }
+        else if (forward_speed_ < 0.0f) {
+            forward_speed_ += SHIP_FRICTION * dt;
+
+            if (forward_speed_ >= 0.0f)
+                forward_speed_ = 0.0f;
+        }
+    }
+
+    root_node->translate(0, forward_speed_);
 
     return true;
 }
@@ -82,31 +130,33 @@ void application::on_keyboard_event(aeon::platform::platform_window * /*window*/
     if (key == aeon::platform::keyboard_key::key_up)
     {
         if (key_state == aeon::platform::keyboard_key_state::pressed)
-            movement_vector_.y = -1.0f;
+            move_direction_ = ship_move_direction::forward;
         else
-            movement_vector_.y = 0.0f;
+            move_direction_ = ship_move_direction::none;
     }
-    else if (key == aeon::platform::keyboard_key::key_down)
+
+    if (key == aeon::platform::keyboard_key::key_down)
     {
         if (key_state == aeon::platform::keyboard_key_state::pressed)
-            movement_vector_.y = 1.0f;
+            move_direction_ = ship_move_direction::reverse;
         else
-            movement_vector_.y = 0.0f;
+            move_direction_ = ship_move_direction::none;
     }
 
     if (key == aeon::platform::keyboard_key::key_left)
     {
         if (key_state == aeon::platform::keyboard_key_state::pressed)
-            movement_vector_.x = -1.0f;
+            rotate_direction_ = ship_rotate_direction::left;
         else
-            movement_vector_.x = 0.0f;
+            rotate_direction_ = ship_rotate_direction::none;
     }
-    else if (key == aeon::platform::keyboard_key::key_right)
+
+    if (key == aeon::platform::keyboard_key::key_right)
     {
         if (key_state == aeon::platform::keyboard_key_state::pressed)
-            movement_vector_.x = 1.0f;
+            rotate_direction_ = ship_rotate_direction::right;
         else
-            movement_vector_.x = 0.0f;
+            rotate_direction_ = ship_rotate_direction::none;
     }
 }
 
