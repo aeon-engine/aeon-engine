@@ -15,8 +15,8 @@
 
 #pragma once
 
-#include <GL/glew.h>
 #include <gfx/gfx_texture.h>
+#include <GL/glew.h>
 
 namespace aeon
 {

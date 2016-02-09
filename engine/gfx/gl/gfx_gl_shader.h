@@ -17,6 +17,7 @@
 
 #include <GL/glew.h>
 #include <gfx/gfx_shader.h>
+#include <memory>
 
 namespace aeon
 {
@@ -25,8 +26,10 @@ namespace gfx
 namespace gl
 {
 
-class shader : gfx::shader
+class shader : public gfx::shader
 {
+    friend class shader_manager;
+
 public:
     shader();
     ~shader() override;
@@ -34,6 +37,8 @@ public:
 private:
     GLuint handle_;
 };
+
+using shader_gl_ptr = std::shared_ptr<shader>;
 
 } // namespace gl
 } // namespace gfx

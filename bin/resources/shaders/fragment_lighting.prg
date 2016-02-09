@@ -43,3 +43,4 @@ void main (void)
    // write Total Color:  
    gl_FragColor = texture2D(texture0, texture_coordinate) * (gl_FrontLightModelProduct.sceneColor + Iamb + Idiff + Ispec);   
 }
+

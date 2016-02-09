@@ -16,6 +16,8 @@
 #pragma once
 
 #include <gfx/gfx_shader_manager.h>
+#include <GL/glew.h>
+#include <common/exception.h>
 
 namespace aeon
 {
@@ -23,6 +25,11 @@ namespace gfx
 {
 namespace gl
 {
+
+DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_exception, aeon::common::exception, "OpenGL shader exception.");
+DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_compile_exception, gfx_opengl_shader_exception,
+    "OpenGL shader compilation exception.");
+
 
 class shader_manager : public gfx::shader_manager
 {
@@ -32,6 +39,9 @@ public:
 
 private:
     shader_ptr __load_shader(resources::shader_ptr shader) override;
+
+    GLuint __load_gl_shader(const std::string &source, GLenum type);
+    GLuint __link_gl_program(GLuint vertexshader, GLuint fragmentshader);
 };
 
 } // namespace gl

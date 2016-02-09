@@ -47,3 +47,4 @@ void main()
     // Calculating The Final Color
     gl_FragColor = texture2D(my_color_texture, texture_coordinate) + (AmbientColor + DiffuseColor * DiffuseTerm);
 }
+

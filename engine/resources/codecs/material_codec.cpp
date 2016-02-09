@@ -46,8 +46,7 @@ material_ptr material_codec::decode(resource_manager &parent, material_resource_
     shader_resource_wrapper_ptr shader_res = parent.load_shader_wrapper(material_file.get<std::string>("shader", ""));
     image_resource_wrapper_ptr texture_res = parent.load_image_wrapper(material_file.get<std::string>("texture", ""));
 
-    // For some reason I need to put class in front... I have no idea -Robin.
-    return std::make_shared<class material>(wrapper, shader_res->open(), texture_res->open());
+    return std::make_shared<resources::material>(wrapper, shader_res->open(), texture_res->open());
 }
 
 } // namespace resources
