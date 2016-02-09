@@ -14,6 +14,7 @@
  */
 
 #include <gfx/gfx_material_manager.h>
+#include <resources/wrappers/material_resource_wrapper.h>
 
 namespace aeon
 {

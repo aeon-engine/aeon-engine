@@ -31,7 +31,7 @@ class material_manager : public gfx::material_manager
 {
 public:
     explicit material_manager(device &dev);
-    ~material_manager() = default;
+    virtual ~material_manager() = default;
 
 private:
     material_ptr __load_material(resources::material_ptr material) override;

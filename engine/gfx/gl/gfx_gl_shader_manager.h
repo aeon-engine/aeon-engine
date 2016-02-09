@@ -27,8 +27,11 @@ namespace gl
 class shader_manager : public gfx::shader_manager
 {
 public:
-    shader_manager();
-    ~shader_manager() override;
+    shader_manager() = default;
+    virtual ~shader_manager() = default;
+
+private:
+    shader_ptr __load_shader(resources::shader_ptr shader) override;
 };
 
 } // namespace gl

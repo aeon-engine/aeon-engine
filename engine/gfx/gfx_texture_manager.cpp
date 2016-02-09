@@ -14,6 +14,7 @@
  */
 
 #include <gfx/gfx_texture_manager.h>
+#include <resources/wrappers/image_resource_wrapper.h>
 
 namespace aeon
 {

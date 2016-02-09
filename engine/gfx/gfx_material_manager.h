@@ -16,7 +16,6 @@
 #pragma once
 
 #include <common/object_cache.h>
-#include <resources/wrappers/material_resource_wrapper.h>
 #include <resources/material.h>
 #include <gfx/gfx_material.h>
 

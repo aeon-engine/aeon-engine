@@ -27,14 +27,6 @@ namespace gfx
 namespace gl
 {
 
-device::device()
-{
-}
-
-device::~device()
-{
-}
-
 void device::__initialize_impl()
 {
     if (initialized_)

@@ -22,12 +22,9 @@ namespace gfx
 namespace gl
 {
 
-shader_manager::shader_manager()
+shader_ptr shader_manager::__load_shader(resources::shader_ptr shader)
 {
-}
-
-shader_manager::~shader_manager()
-{
+    return nullptr;
 }
 
 } // namespace gl

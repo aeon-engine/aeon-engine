@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <common/cached_object.h>
 #include <memory>
 
 namespace aeon
@@ -22,7 +23,7 @@ namespace aeon
 namespace gfx
 {
 
-class shader
+class shader : public common::cached_object
 {
 public:
     shader();

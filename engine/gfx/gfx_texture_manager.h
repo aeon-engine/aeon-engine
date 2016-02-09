@@ -16,7 +16,6 @@
 #pragma once
 
 #include <common/object_cache.h>
-#include <resources/wrappers/image_resource_wrapper.h>
 #include <resources/image.h>
 #include <gfx/gfx_texture.h>
 

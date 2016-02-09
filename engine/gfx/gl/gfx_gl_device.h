@@ -31,8 +31,8 @@ DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL De
 class device : public gfx::device
 {
 public:
-    device();
-    ~device() override;
+    device() = default;
+    virtual ~device() = default;
 
     void __initialize_impl() override;
 

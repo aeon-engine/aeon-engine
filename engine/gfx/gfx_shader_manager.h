@@ -15,6 +15,10 @@
 
 #pragma once
 
+#include <common/object_cache.h>
+#include <resources/shader.h>
+#include <gfx/gfx_shader.h>
+
 namespace aeon
 {
 namespace gfx
@@ -23,8 +27,15 @@ namespace gfx
 class shader_manager
 {
 public:
-    shader_manager();
-    virtual ~shader_manager();
+    shader_manager() = default;
+    virtual ~shader_manager() = default;
+
+    shader_ptr load_shader(resources::shader_ptr shader);
+
+private:
+    virtual shader_ptr __load_shader(resources::shader_ptr shader) = 0;
+
+    common::object_cache<gfx::shader> cache_;
 };
 
 } // namespace gfx

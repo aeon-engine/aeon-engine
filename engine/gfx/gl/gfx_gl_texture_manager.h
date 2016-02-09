@@ -29,8 +29,8 @@ namespace gl
 class texture_manager : public gfx::texture_manager
 {
 public:
-    texture_manager();
-    ~texture_manager() override;
+    texture_manager() = default;
+    virtual ~texture_manager() = default;
 
 private:
     texture_ptr __load_texture(resources::image_ptr image) override;
