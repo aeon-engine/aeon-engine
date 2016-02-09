@@ -34,10 +34,15 @@ material_manager::material_manager(device& dev)
 material_ptr material_manager::__load_material(resources::material_ptr mat)
 {
     texture_manager &texture_mgr = device_.get_texture_manager();
-    resources::image_ptr texture_image = mat->get_texture();
+    shader_manager &shader_mgr = device_.get_shader_manager();
 
     material_gl_ptr m = std::make_shared<material>();
+
+    resources::image_ptr texture_image = mat->get_texture();
     m->texture_ = texture_mgr.load_texture(texture_image);
+
+    resources::shader_ptr shader_res = mat->get_shader();
+    m->shader_ = shader_mgr.load_shader(shader_res);
 
     return m;
 }

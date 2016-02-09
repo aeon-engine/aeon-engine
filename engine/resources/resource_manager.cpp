@@ -61,11 +61,11 @@ gfx::texture_ptr resource_manager::load_texture(const std::string &path)
     return device_.get_texture_manager().load_texture(image_resource_data);
 }
 
-gfx::shader_ptr resource_manager::load_shader(const std::string & /*path*/)
+gfx::shader_ptr resource_manager::load_shader(const std::string &path)
 {
-    /*shader_resource_wrapper_ptr shader_resource = load_shader_wrapper(path);
+    shader_resource_wrapper_ptr shader_resource = load_shader_wrapper(path);
     shader_ptr shader_resource_data = shader_resource->open();
-    return device_.get_shader_manager().load_shader(shader_resource_data);*/
+    return device_.get_shader_manager().load_shader(shader_resource_data);
     return nullptr;
 }
 
