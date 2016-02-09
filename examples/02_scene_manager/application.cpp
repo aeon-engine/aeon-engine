@@ -36,9 +36,9 @@ application::application()
 void application::main(int, char *[])
 {
     // Load resources
-    aeon::gfx::material_ptr ship1_material = resource_manager_.load_material("/resources/materials/ship1.mat");
-    aeon::gfx::material_ptr ship2_material = resource_manager_.load_material("/resources/materials/ship2.mat");
-    aeon::gfx::material_ptr ship3_material = resource_manager_.load_material("/resources/materials/ship3.mat");
+    aeon::gfx::material_ptr ship1_material = resource_manager_.load_material("/resources/materials/ship1.amf");
+    aeon::gfx::material_ptr ship2_material = resource_manager_.load_material("/resources/materials/ship2.amf");
+    aeon::gfx::material_ptr ship3_material = resource_manager_.load_material("/resources/materials/ship3.amf");
 
     // Set up scene
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();

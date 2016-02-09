@@ -38,7 +38,7 @@ application::application()
 void application::main(int, char *[])
 {
     // Load resources
-    aeon::gfx::material_ptr animation_material = resource_manager_.load_material("/resources/materials/2d_character.mat");
+    aeon::gfx::material_ptr animation_material = resource_manager_.load_material("/resources/materials/2d_character.amf");
 
     // Set up scene
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
