@@ -27,9 +27,9 @@ const float SHIP_FRICTION = 0.05f;
 application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 4 - Input Handler (Use the arrow keys)")
-    , forward_speed_(0.0f)
     , move_direction_(ship_move_direction::none)
     , rotate_direction_(ship_rotate_direction::none)
+    , forward_speed_(0.0f)
 {
     // Init resources
     get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
