@@ -72,7 +72,7 @@ bool platform_window::__on_frame_end(float /*dt*/)
     return true;
 }
 
-void platform_window::__static_keyboard_key_handler(GLFWwindow *window, int key, int scancode, int action, int mods)
+void platform_window::__static_keyboard_key_handler(GLFWwindow *window, int key, int /*scancode*/, int action, int mods)
 {
     platform_window *platform_window_ptr = static_cast<platform_window *>(glfwGetWindowUserPointer(window));
     platform_window_ptr->interface_->get_input_handler()->handle_keyboard_event(
@@ -87,7 +87,7 @@ void platform_window::__static_mouse_move_handler(GLFWwindow *window, double x, 
         platform_window_ptr, static_cast<float>(x), static_cast<float>(y));
 }
 
-void platform_window::__static_mouse_button_handler(GLFWwindow *window, int button, int action, int mods)
+void platform_window::__static_mouse_button_handler(GLFWwindow *window, int button, int action, int /*mods*/)
 {
     platform_window *platform_window_ptr = static_cast<platform_window *>(glfwGetWindowUserPointer(window));
     platform_window_ptr->interface_->get_input_handler()->handle_mouse_button_event(

@@ -68,8 +68,8 @@ bool application::on_frame(float dt)
 }
 
 
-void application::on_keyboard_event(aeon::platform::platform_window *window, aeon::platform::keyboard_key key,
-    aeon::platform::keyboard_key_state key_state, int modifier)
+void application::on_keyboard_event(aeon::platform::platform_window * /*window*/, aeon::platform::keyboard_key key,
+    aeon::platform::keyboard_key_state key_state, int /*modifier*/)
 {
     std::cout << "Key: " << static_cast<int>(key) << " " << static_cast<int>(key_state) << std::endl;
 
@@ -110,7 +110,7 @@ void application::on_keyboard_event(aeon::platform::platform_window *window, aeo
     }
 }
 
-void application::on_mouse_button_event(aeon::platform::platform_window *window, aeon::platform::mouse_button button,
+void application::on_mouse_button_event(aeon::platform::platform_window * /*window*/, aeon::platform::mouse_button button,
     aeon::platform::mouse_button_state button_state)
 {
     std::cout << "Button: " << static_cast<int>(button) << " " << static_cast<int>(button_state) << std::endl;
