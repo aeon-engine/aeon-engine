@@ -90,6 +90,8 @@ void scene_node::recalculate_matrices()
     if (dirty_ || parent_dirty)
         total_matrix_ = parent_matrix_ * matrix_;
 
+    dirty_ = true;
+
     for (auto &node : children_)
     {
         node->parent_matrix_ = total_matrix_;
