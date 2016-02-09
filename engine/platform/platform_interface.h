@@ -35,7 +35,7 @@ DEFINE_EXCEPTION_OBJECT(platform_interface_initialize_exception, platform_interf
 class platform_interface
 {
 public:
-    platform_interface(platform_filesystem_interface_ptr filesystem_interface)
+    explicit platform_interface(platform_filesystem_interface_ptr filesystem_interface)
         : filesystem_interface_(std::move(filesystem_interface))
     {
     }

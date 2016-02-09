@@ -32,7 +32,7 @@ class basic_scene_manager : public scene_manager
 {
 public:
     explicit basic_scene_manager(gfx::device &device);
-    virtual ~basic_scene_manager();
+    virtual ~basic_scene_manager() = default;
 
 private:
     void __prepare_render_queue(camera *cam) override;

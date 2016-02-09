@@ -42,7 +42,7 @@ platform_window::platform_window(platform_interface *interface, int width, int h
     glfwSetMouseButtonCallback(window_, &platform_window::__static_mouse_button_handler);
     glfwSetScrollCallback(window_, &platform_window::__static_mouse_scroll_handler);
 
-    make_current();
+    glfwMakeContextCurrent(window_);
 }
 
 platform_window::~platform_window()

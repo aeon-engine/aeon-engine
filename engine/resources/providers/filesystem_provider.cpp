@@ -33,10 +33,6 @@ filesystem_provider::filesystem_provider(const std::string &base_path)
 {
 }
 
-filesystem_provider::~filesystem_provider()
-{
-}
-
 bool filesystem_provider::exists(const std::string &path)
 {
     platform::platform_interface &platform = __get_resource_manager()->get_platform_interface();

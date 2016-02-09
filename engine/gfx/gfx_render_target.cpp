@@ -21,14 +21,6 @@ namespace aeon
 namespace gfx
 {
 
-render_target::render_target()
-{
-}
-
-render_target::~render_target()
-{
-}
-
 bool render_target::handle_frame(float dt)
 {
     if (!__on_frame_start(dt))

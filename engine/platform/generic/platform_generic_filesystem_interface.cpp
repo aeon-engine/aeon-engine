@@ -24,14 +24,6 @@ namespace platform
 namespace generic
 {
 
-platform_filesystem_interface::platform_filesystem_interface()
-{
-}
-
-platform_filesystem_interface::~platform_filesystem_interface()
-{
-}
-
 platform::platform_file_interface_ptr platform_filesystem_interface::open_file(const std::string &path, int openmode)
 {
     // Note: we can't use make_shared due to private constructor.

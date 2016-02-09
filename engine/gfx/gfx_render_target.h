@@ -30,8 +30,8 @@ namespace gfx
 class render_target : public utility::listener_subject<frame_listener>
 {
 public:
-    render_target();
-    virtual ~render_target();
+    render_target() = default;
+    virtual ~render_target() = default;
 
     /*!
      * Internal function to handle the renderig of a frame. This is called by

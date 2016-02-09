@@ -28,7 +28,7 @@ class platform_monitor : public platform::platform_monitor
 {
 public:
     platform_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary, const std::string &name);
-    ~platform_monitor() override;
+    virtual ~platform_monitor() = default;
 
     void set_gramma(float gamma) override;
 

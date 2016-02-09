@@ -30,10 +30,6 @@ resource_manager::resource_manager(platform::platform_interface &platform, gfx::
 {
 }
 
-resource_manager::~resource_manager()
-{
-}
-
 void resource_manager::mount(resource_provider_ptr provider, const std::string &mountpoint /* = "/"*/)
 {
     auto result = mount_points_.find(mountpoint);

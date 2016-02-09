@@ -30,7 +30,7 @@ class texture : public common::cached_object
 {
 public:
     explicit texture(resources::image_ptr image);
-    virtual ~texture();
+    virtual ~texture() = default;
 
     virtual void bind() = 0;
 

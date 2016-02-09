@@ -44,9 +44,7 @@ public:
                       "Object given to object_cache must be derived from aeon::common::cached_object.");
     }
 
-    virtual ~object_cache()
-    {
-    }
+    virtual ~object_cache() = default;
 
     cached_object_ptr get_cached_object(const std::string &name)
     {

@@ -31,8 +31,8 @@ namespace generic
 class platform_filesystem_interface : public platform::platform_filesystem_interface
 {
 public:
-    platform_filesystem_interface();
-    virtual ~platform_filesystem_interface();
+    platform_filesystem_interface() = default;
+    virtual ~platform_filesystem_interface() = default;
 
     platform::platform_file_interface_ptr open_file(const std::string &path, int openmode) override;
     bool exists(const std::string &path) override;

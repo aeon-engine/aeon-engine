@@ -31,7 +31,7 @@ class filesystem_provider : public resource_provider
 {
 public:
     explicit filesystem_provider(const std::string &base_path);
-    ~filesystem_provider() override;
+    virtual ~filesystem_provider() = default;
 
 private:
     bool exists(const std::string &path) override;

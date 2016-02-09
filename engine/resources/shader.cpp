@@ -28,9 +28,5 @@ shader::shader(resource_wrapper_ptr wrapper, const std::string &vertex_source,
 {
 }
 
-shader::~shader()
-{
-}
-
 } // namespace resources
 } // namespace aeon

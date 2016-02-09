@@ -28,7 +28,7 @@ public:
     {
     }
 
-    has_z_order(int zorder)
+    explicit has_z_order(int zorder)
         : zorder_(zorder)
     {
     }

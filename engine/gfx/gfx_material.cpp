@@ -20,14 +20,6 @@ namespace aeon
 namespace gfx
 {
 
-material::material()
-{
-}
-
-material::~material()
-{
-}
-
 shader_ptr material::get_shader() const
 {
     return shader_;

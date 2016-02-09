@@ -36,7 +36,7 @@ enum class resource_node_type
 class resource_node
 {
 public:
-    resource_node(const std::string &name_, resource_node_type type_)
+    explicit resource_node(const std::string &name_, resource_node_type type_)
         : name(name_)
         , type(type_)
     {

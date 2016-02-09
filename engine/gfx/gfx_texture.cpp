@@ -25,10 +25,6 @@ texture::texture(resources::image_ptr image)
 {
 }
 
-texture::~texture()
-{
-}
-
 glm::vec2 texture::get_size() const
 {
     return size_;

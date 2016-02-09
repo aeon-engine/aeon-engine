@@ -26,8 +26,8 @@ namespace gfx
 class material : public common::cached_object
 {
 public:
-    material();
-    virtual ~material();
+    material() = default;
+    virtual ~material() = default;
 
     virtual void bind() = 0;
 

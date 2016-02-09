@@ -29,11 +29,6 @@ platform_monitor::platform_monitor(GLFWmonitor *monitor, int width, int height, 
 {
 }
 
-platform_monitor::~platform_monitor()
-{
-    monitor_ = nullptr;
-}
-
 void platform_monitor::set_gramma(float gamma)
 {
     glfwSetGamma(monitor_, gamma);

@@ -20,11 +20,8 @@ namespace aeon
 namespace resources
 {
 
-resourcefile_provider::resourcefile_provider(const std::string &)
-{
-}
-
-resourcefile_provider::~resourcefile_provider()
+resourcefile_provider::resourcefile_provider(const std::string &base_path)
+    : base_path_(base_path)
 {
 }
 

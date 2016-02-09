@@ -31,7 +31,7 @@ class resourcefile_provider : public resource_provider
 {
 public:
     explicit resourcefile_provider(const std::string &base_path);
-    virtual ~resourcefile_provider() override;
+    virtual ~resourcefile_provider() = default;
 
 private:
     bool exists(const std::string &path) override;

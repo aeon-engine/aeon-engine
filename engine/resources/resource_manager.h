@@ -43,7 +43,7 @@ class resource_manager
 
 public:
     explicit resource_manager(platform::platform_interface &platform, gfx::device &device);
-    ~resource_manager();
+    ~resource_manager() = default;
 
     void mount(resource_provider_ptr provider, const std::string &mountpoint = "/");
     void unmount(const std::string &mountpoint);

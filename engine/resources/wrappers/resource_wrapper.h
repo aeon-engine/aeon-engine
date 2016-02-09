@@ -31,7 +31,7 @@ class resource_manager;
 class resource_wrapper : public std::enable_shared_from_this<resource_wrapper>
 {
 public:
-    virtual ~resource_wrapper();
+    virtual ~resource_wrapper() = default;
 
     resource_type get_type() const;
 

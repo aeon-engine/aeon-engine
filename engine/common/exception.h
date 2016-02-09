@@ -26,7 +26,7 @@ namespace common
 class exception : public std::exception
 {
 public:
-    exception(const std::string &message = "")
+    explicit exception(const std::string &message = "")
         : message_(message)
     {
     }
@@ -48,7 +48,8 @@ private:
             : base(#message)                                                                                           \
         {                                                                                                              \
         }                                                                                                              \
-        name(const std::string &msg)                                                                                   \
+                                                                                                                       \
+        explicit name(const std::string &msg)                                                                          \
             : base(msg)                                                                                                \
         {                                                                                                              \
         }                                                                                                              \

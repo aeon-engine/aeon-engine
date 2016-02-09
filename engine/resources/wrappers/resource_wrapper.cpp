@@ -35,10 +35,6 @@ resource_wrapper::resource_wrapper(resource_manager &parent, const std::string &
     }
 }
 
-resource_wrapper::~resource_wrapper()
-{
-}
-
 resource_type resource_wrapper::get_type() const
 {
     return parent_.get_codec_manager().get_resource_type_by_encoding(encoding_);
