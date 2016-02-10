@@ -36,7 +36,7 @@ material_ptr material_manager::__load_material(resources::material_ptr mat)
     texture_manager &texture_mgr = device_.get_texture_manager();
     shader_manager &shader_mgr = device_.get_shader_manager();
 
-    material_gl_ptr m = std::make_shared<material>();
+    material_gl_ptr m = std::make_shared<gl::material>();
 
     resources::image_ptr texture_image = mat->get_texture();
     m->texture_ = texture_mgr.load_texture(texture_image);
