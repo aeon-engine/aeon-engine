@@ -13,6 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
+#include <scene/scene_manager.h>
 #include <scene/sprite_batch.h>
 #include <scene/sprite.h>
 #include <algorithm>
@@ -22,9 +23,13 @@ namespace aeon
 namespace scene
 {
 
-sprite_batch::sprite_batch(scene_manager *scene_manager)
+sprite_batch::sprite_batch(scene_manager *scene_manager, std::uint16_t sprites_per_buffer /*= default_sprites_per_buffer*/)
     : scene_object(render_layer::overlay, scene_object_type::renderable, scene_manager)
+    , sprites_per_buffer_(sprites_per_buffer)
+    , sprite_vertex_data_(sprites_per_buffer * sizeof(sprite_vertex))
 {
+    __create_and_setup_vertex_buffer();
+    __create_and_setup_index_buffer();
 }
 
 void sprite_batch::__add_sprite(sprite* spr)
@@ -37,6 +42,37 @@ void sprite_batch::__remove_sprite(sprite* spr)
     sprites_.erase(std::remove(sprites_.begin(), sprites_.end(), spr), sprites_.end());
 }
 
+void sprite_batch::__create_and_setup_vertex_buffer()
+{
+    gfx::buffer_manager &buffer_manager = scene_manager_->get_device().get_buffer_manager();
+    vertex_buffer_ = buffer_manager.create_buffer(gfx::buffer_type::array);
+    vertex_buffer_->set_data(0, nullptr, gfx::buffer_usage::stream_usage);
+}
+
+void sprite_batch::__create_and_setup_index_buffer()
+{
+    gfx::buffer_manager &buffer_manager = scene_manager_->get_device().get_buffer_manager();
+    index_buffer_ = buffer_manager.create_buffer(gfx::buffer_type::element_array);
+
+    std::vector<uint16_t> index_buffer_data(sprites_per_buffer_ * indices_per_sprite);
+    uint16_t *index_buffer_data_ptr = index_buffer_data.data();
+
+    std::uint16_t offset = 0;
+    for (std::uint16_t i = 0; i < sprites_per_buffer_; ++i)
+    {
+        std::uint16_t index_offset = i * vertices_per_sprite;
+        index_buffer_data_ptr[offset++] = index_offset;
+        index_buffer_data_ptr[offset++] = index_offset + 1;
+        index_buffer_data_ptr[offset++] = index_offset + 2;
+        index_buffer_data_ptr[offset++] = index_offset + 2;
+        index_buffer_data_ptr[offset++] = index_offset + 1;
+        index_buffer_data_ptr[offset++] = index_offset + 3;
+    }
+
+    int buffer_size = static_cast<int>(index_buffer_data.size() * sizeof(uint16_t));
+    index_buffer_->set_data(buffer_size, index_buffer_data.data(), gfx::buffer_usage::static_usage);
+}
+
 void sprite_batch::__sort_by_zorder()
 {
     std::sort(sprites_.begin(), sprites_.end(), [](const sprite *a, const sprite *b)
@@ -46,9 +82,63 @@ void sprite_batch::__sort_by_zorder()
     );
 }
 
+void sprite_batch::__fill_and_upload_sprite_data_buffer()
+{
+    sprite_vertex *vertex_data_ptr = reinterpret_cast<sprite_vertex *>(sprite_vertex_data_.data());
+
+    int sprite_count = 0;
+    for (sprite *spr : sprites_)
+    {
+        int sprite_data_offset = sprite_count * vertices_per_sprite;
+
+        glm::mat4 sprite_matrix = spr->get_matrix();
+        glm::vec4 sprite_center_position = sprite_matrix * glm::vec4(0.0f);
+
+        glm::vec2 size_2 = spr->get_size() * 0.5f;
+
+        // Top left
+        vertex_data_ptr[sprite_data_offset] =
+        {
+            sprite_center_position.x - size_2.x, sprite_center_position.y - size_2.y,
+            0.0f, 0.0f,
+            1.0f, 1.0f, 1.0f, 1.0f
+        };
+
+        // Top right
+        vertex_data_ptr[sprite_data_offset + 1] =
+        {
+            sprite_center_position.x + size_2.x, sprite_center_position.y - size_2.y,
+            0.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f
+        };
+
+        // Bottom left
+        vertex_data_ptr[sprite_data_offset + 2] =
+        {
+            sprite_center_position.x - size_2.x, sprite_center_position.y + size_2.y,
+            1.0f, 0.0f,
+            1.0f, 1.0f, 1.0f, 1.0f
+        };
+
+        // Bottom right
+        vertex_data_ptr[sprite_data_offset + 3] =
+        {
+            sprite_center_position.x + size_2.x, sprite_center_position.y + size_2.y,
+            1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f
+        };
+
+        ++sprite_count;
+    }
+
+    int vertex_buffer_size = sprite_count * sizeof(sprite_vertex) * vertices_per_sprite;
+    vertex_buffer_->set_data(vertex_buffer_size, vertex_data_ptr, gfx::buffer_usage::stream_usage);
+}
+
 void sprite_batch::render(float /*dt*/)
 {
     __sort_by_zorder();
+    __fill_and_upload_sprite_data_buffer();
 }
 
 } // namespace scene

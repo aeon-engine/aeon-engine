@@ -26,13 +26,6 @@ namespace aeon
 namespace scene
 {
 
-struct sprite_vertex
-{
-    float x, y;
-    float u, v;
-    float r, g, b, a;
-};
-
 class sprite_batch;
 using sprite_batch_ptr = std::shared_ptr<sprite_batch>;
 
