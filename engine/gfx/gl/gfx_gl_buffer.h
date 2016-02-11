@@ -15,9 +15,10 @@
 
 #pragma once
 
-#include <gfx/gfx_shader_manager.h>
-#include <GL/glew.h>
+#include <gfx/gfx_buffer.h>
 #include <common/exception.h>
+#include <GL/glew.h>
+#include <memory>
 
 namespace aeon
 {
@@ -26,22 +27,26 @@ namespace gfx
 namespace gl
 {
 
-DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_exception, aeon::common::exception, "OpenGL shader exception.");
-DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_compile_exception, gfx_opengl_shader_exception,
-    "OpenGL shader compilation exception.");
+DEFINE_EXCEPTION_OBJECT(gfx_opengl_buffer_exception, aeon::common::exception, "GL Buffer error");
 
-class shader_manager : public gfx::shader_manager
+class buffer : public gfx::buffer
 {
 public:
-    shader_manager() = default;
-    virtual ~shader_manager() = default;
+    explicit buffer(buffer_type type);
+    virtual ~buffer();
+
+    void set_data(int size, const void *data, buffer_usage usage) override;
+
+    void bind() override;
 
 private:
-    shader_ptr __load_shader(resources::shader_ptr shader) override;
+    GLenum __buffer_type_as_gl_enum() const;
+    GLenum __buffer_usage_as_gl_enum(buffer_usage usage) const;
 
-    GLuint __load_gl_shader(const std::string &source, GLenum type);
-    GLuint __link_gl_program(GLuint vertexshader, GLuint fragmentshader);
+    GLuint handle_;
 };
+
+using buffer_ptr = std::shared_ptr<buffer>;
 
 } // namespace gl
 } // namespace gfx
