@@ -33,13 +33,14 @@ public:
     sprite_batch(scene_manager *scene_manager);
     virtual ~sprite_batch() = default;
 
-protected:
+private:
     void __add_sprite(sprite *spr);
     void __remove_sprite(sprite *spr);
 
+    void __sort_by_zorder();
+
     virtual void render(float dt) override;
 
-private:
     std::vector<sprite *> sprites_;
 };
 

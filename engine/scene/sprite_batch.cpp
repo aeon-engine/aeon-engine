@@ -14,6 +14,7 @@
  */
 
 #include <scene/sprite_batch.h>
+#include <scene/sprite.h>
 #include <algorithm>
 
 namespace aeon
@@ -36,8 +37,18 @@ void sprite_batch::__remove_sprite(sprite* spr)
     sprites_.erase(std::remove(sprites_.begin(), sprites_.end(), spr), sprites_.end());
 }
 
+void sprite_batch::__sort_by_zorder()
+{
+    std::sort(sprites_.begin(), sprites_.end(), [](const sprite *a, const sprite *b)
+        {
+            return a->get_zorder() < b->get_zorder();
+        }
+    );
+}
+
 void sprite_batch::render(float /*dt*/)
 {
+    __sort_by_zorder();
 }
 
 } // namespace scene
