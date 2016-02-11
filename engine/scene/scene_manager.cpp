@@ -67,7 +67,7 @@ void scene_manager::__render_scene(camera *cam, viewport *vp, float dt)
 
     for (auto render_object : queue_)
     {
-        glLoadMatrixf(glm::value_ptr(render_object.matrix));
+        //glLoadMatrixf(glm::value_ptr(render_object.matrix));
         render_object.object->render(dt);
     }
 }

@@ -91,32 +91,15 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
 {
     sprite_vertex *vertex_data_ptr = reinterpret_cast<sprite_vertex *>(sprite_vertex_data_.data());
 
-    int sprite_count = 0;
+    int sprite_data_offset = 0;
     for (sprite *spr : sprites_)
     {
-        int sprite_data_offset = sprite_count * vertices_per_sprite;
         glm::vec4 sprite_center_position = spr->get_matrix() * glm::vec4(0, 0, 0, 1);
 
         glm::vec2 size_2 = spr->get_size() * 0.5f;
 
-        // Top left
-        vertex_data_ptr[sprite_data_offset] =
-        {
-            sprite_center_position.x - size_2.x, sprite_center_position.y - size_2.y,
-            0.0f, 0.0f,
-            1.0f, 1.0f, 1.0f, 1.0f
-        };
-
-        // Top right
-        vertex_data_ptr[sprite_data_offset + 1] =
-        {
-            sprite_center_position.x + size_2.x, sprite_center_position.y - size_2.y,
-            1.0f, 0.0f,
-            1.0f, 1.0f, 1.0f, 1.0f
-        };
-
         // Bottom left
-        vertex_data_ptr[sprite_data_offset + 2] =
+        vertex_data_ptr[sprite_data_offset++] =
         {
             sprite_center_position.x - size_2.x, sprite_center_position.y + size_2.y,
             0.0f, 1.0f,
@@ -124,17 +107,31 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
         };
 
         // Bottom right
-        vertex_data_ptr[sprite_data_offset + 3] =
+        vertex_data_ptr[sprite_data_offset++] =
         {
             sprite_center_position.x + size_2.x, sprite_center_position.y + size_2.y,
             1.0f, 1.0f,
             1.0f, 1.0f, 1.0f, 1.0f
         };
 
-        ++sprite_count;
+        // Top left
+        vertex_data_ptr[sprite_data_offset++] =
+        {
+            sprite_center_position.x - size_2.x, sprite_center_position.y - size_2.y,
+            0.0f, 0.0f,
+            1.0f, 1.0f, 1.0f, 1.0f
+        };
+
+        // Top right
+        vertex_data_ptr[sprite_data_offset++] =
+        {
+            sprite_center_position.x + size_2.x, sprite_center_position.y - size_2.y,
+            1.0f, 0.0f,
+            1.0f, 1.0f, 1.0f, 1.0f
+        };
     }
 
-    int vertex_buffer_size = sprite_count * sizeof(sprite_vertex) * vertices_per_sprite;
+    int vertex_buffer_size = sprites_.size() * sizeof(sprite_vertex) * vertices_per_sprite;
     vertex_buffer_->set_data(vertex_buffer_size, vertex_data_ptr, gfx::buffer_usage::stream_usage);
 }
 
@@ -154,8 +151,10 @@ void sprite_batch::render(float /*dt*/)
     glTexCoordPointer(2, GL_FLOAT, sizeof(sprite_vertex), (const GLvoid *)(8));
     glColorPointer(4, GL_FLOAT, sizeof(sprite_vertex), (const GLvoid *)16);
 
-    //glDrawRangeElements(GL_TRIANGLES, 0, sprites_.size() * indices_per_sprite, sprites_.size(), GL_UNSIGNED_SHORT, nullptr);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawRangeElements(GL_TRIANGLES, 0, sprites_.size() * indices_per_sprite,
+        sprites_.size() * indices_per_sprite, GL_UNSIGNED_SHORT, nullptr);
+    //glDrawArrays(GL_TRIANGLES, 0, 6);
+    //glDrawElements(GL_TRIANGLES, sprites_.size() * indices_per_sprite, GL_UNSIGNED_SHORT, nullptr);
 }
 
 } // namespace scene
