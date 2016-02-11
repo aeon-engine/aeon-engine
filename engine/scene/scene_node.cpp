@@ -67,16 +67,21 @@ void scene_node::detach_all_children()
 
 void scene_node::attach_scene_object(scene_object_ptr object)
 {
+    object->__set_scene_node(this);
     scene_objects_.push_back(object);
 }
 
 void scene_node::detach_scene_object(scene_object_ptr object)
 {
+    object->__set_scene_node(nullptr);
     scene_objects_.erase(std::remove(scene_objects_.begin(), scene_objects_.end(), object), scene_objects_.end());
 }
 
 void scene_node::detach_all_scene_objects()
 {
+    for (auto &obj : scene_objects_)
+        obj->__set_scene_node(nullptr);
+
     scene_objects_.clear();
 }
 

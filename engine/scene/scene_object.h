@@ -17,6 +17,7 @@
 
 #include <memory>
 #include <scene/render_layer.h>
+#include <glm/mat4x4.hpp>
 
 namespace aeon
 {
@@ -29,14 +30,17 @@ enum class scene_object_type
     renderable, // This object needs to be rendered
 };
 
+class scene_node;
 class scene_manager;
 class scene_object
 {
+    friend class scene_node;
 public:
     explicit scene_object(int queue_group, scene_object_type type, scene_manager *scene_manager)
         : queue_group_(queue_group)
         , type_(type)
         , scene_manager_(scene_manager)
+        , scene_node_(nullptr)
     {
     }
 
@@ -59,10 +63,22 @@ public:
      */
     virtual void render(float /*dt*/) {}
 
+    /*!
+     * Get the calculated matrix from the scene node. If this object is not attached
+     * to any scene node, an identity matrix will be returned.
+     */
+    glm::mat4 get_matrix() const;
+
 protected:
+    void __set_scene_node(scene_node *node)
+    {
+        scene_node_ = node;
+    }
+
     int queue_group_;
     scene_object_type type_;
     scene_manager *scene_manager_;
+    scene_node *scene_node_;
 };
 
 using scene_object_ptr = std::shared_ptr<scene_object>;
