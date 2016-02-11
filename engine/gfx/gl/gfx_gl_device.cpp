@@ -16,6 +16,7 @@
 #include <gfx/gl/gfx_gl_texture_manager.h>
 #include <gfx/gl/gfx_gl_shader_manager.h>
 #include <gfx/gl/gfx_gl_material_manager.h>
+#include <gfx/gl/gfx_gl_buffer_manager.h>
 #include <gfx/gl/gfx_gl_device.h>
 #include <GL/glew.h>
 #include <memory>
@@ -39,6 +40,7 @@ void device::__initialize_impl()
     texture_manager_ = std::make_unique<gl::texture_manager>();
     shader_manager_ = std::make_unique<gl::shader_manager>();
     material_manager_ = std::make_unique<gl::material_manager>(*this);
+    buffer_manager_ = std::make_unique<gl::buffer_manager>();
 
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);

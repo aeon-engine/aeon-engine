@@ -18,6 +18,7 @@
 #include <gfx/gfx_texture_manager.h>
 #include <gfx/gfx_shader_manager.h>
 #include <gfx/gfx_material_manager.h>
+#include <gfx/gfx_buffer_manager.h>
 #include <common/types/color.h>
 #include <scene/viewport.h>
 #include <memory>
@@ -54,6 +55,11 @@ public:
         return *material_manager_;
     }
 
+    buffer_manager &get_buffer_manager()
+    {
+        return *buffer_manager_;
+    }
+
 protected:
     virtual void __initialize_impl() = 0;
 
@@ -61,6 +67,7 @@ protected:
     std::unique_ptr<texture_manager> texture_manager_;
     std::unique_ptr<shader_manager> shader_manager_;
     std::unique_ptr<material_manager> material_manager_;
+    std::unique_ptr<buffer_manager> buffer_manager_;
 };
 
 } // namespace gfx

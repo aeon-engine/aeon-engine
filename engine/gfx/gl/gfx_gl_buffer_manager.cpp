@@ -13,45 +13,21 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <memory>
+#include <gfx/gl/gfx_gl_buffer_manager.h>
+#include <gfx/gl/gfx_gl_buffer.h>
 
 namespace aeon
 {
 namespace gfx
 {
-
-enum class buffer_type
+namespace gl
 {
-    array,          // Vertex attributes
-    element_array   // Vertex array indices
-};
 
-enum class buffer_usage
+gfx::buffer_ptr buffer_manager::__load_buffer(buffer_type type)
 {
-    stream_usage,   // Modified once and used at most a few times
-    static_usage,   // Modified once and used many times
-    dynamic_usage   // Modified repeatedly and used many times
-};
+    return std::make_shared<gl::buffer>(type);
+}
 
-class buffer
-{
-public:
-    explicit buffer(buffer_type type);
-    virtual ~buffer() = default;
-
-    buffer_type get_type() const;
-
-    virtual void set_data(int size, const void *data, buffer_usage usage) = 0;
-
-    virtual void bind() = 0;
-
-protected:
-    buffer_type type_;
-};
-
-using buffer_ptr = std::shared_ptr<buffer>;
-
+} // namespace gl
 } // namespace gfx
 } // namespace aeon
