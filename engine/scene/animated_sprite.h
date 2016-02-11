@@ -28,7 +28,7 @@ namespace scene
 class animated_sprite : public sprite
 {
 public:
-    explicit animated_sprite(scene_manager* scene_manager, gfx::material_ptr texture,
+    explicit animated_sprite(scene_manager* scene_manager, sprite_batch_ptr batch, gfx::material_ptr texture,
         int zorder, const sprite_animation_settings &settings);
 
     virtual ~animated_sprite() = default;
@@ -39,8 +39,6 @@ public:
     void set_animation_sequence(int index);
 
 protected:
-    void render(float dt) override;
-
     void __set_next_frame(float dt);
     common::types::rectangle<float> __calculate_texture_offset();
 

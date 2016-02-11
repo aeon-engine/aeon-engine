@@ -44,7 +44,7 @@ public:
     void detach_child_scene_node(scene_node_ptr node);
 
     template<typename T, class... U>
-    std::shared_ptr<T> create_render_object(U&&... u)
+    std::shared_ptr<T> create_scene_object(U&&... u)
     {
         static_assert(std::is_base_of<scene_object, T>::value,
             "T must be derived from scene_object.");

@@ -33,13 +33,16 @@ struct sprite_vertex
     float r, g, b, a;
 };
 
+class sprite_batch;
+using sprite_batch_ptr = std::shared_ptr<sprite_batch>;
+
 class sprite : public scene_object, public common::has_z_order
 {
 public:
-    explicit sprite(scene_manager *scene_manager, gfx::material_ptr texture, int zorder);
-    explicit sprite(scene_manager *scene_manager, gfx::material_ptr texture, glm::vec2 size, int zorder);
+    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::material_ptr texture, int zorder);
+    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::material_ptr texture, glm::vec2 size, int zorder);
 
-    virtual ~sprite() = default;
+    virtual ~sprite();
 
     void set_default_size();
 
@@ -54,6 +57,7 @@ public:
 protected:
     glm::vec2 size_;
     gfx::material_ptr material_;
+    sprite_batch_ptr batch_;
 };
 
 using sprite_ptr = std::shared_ptr<sprite>;

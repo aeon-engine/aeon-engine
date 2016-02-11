@@ -14,6 +14,7 @@
  */
 
 #include "application.h"
+#include <scene/sprite_batch.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
@@ -44,6 +45,12 @@ void application::main(int, char *[])
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
     root_node->translate(400, 300);
 
+    // Create a sprite batch. All sprites must be batched in order to be rendered
+    aeon::scene::sprite_batch_ptr sprite_batch = scene_manager_.create_scene_object<aeon::scene::sprite_batch>();
+
+    // The sprite batch must be attached to the scene.
+    root_node->attach_scene_object(sprite_batch);
+
     // The parameter given to the animation settings constructor is the size of each frame inside of the sprite sheet
     // This frame size does not need to be a power of 2.
     aeon::scene::sprite_animation_settings animation_settings(glm::vec2(32, 32));
@@ -69,8 +76,8 @@ void application::main(int, char *[])
     // Set up the animation so that it keeps playing forever.
     animation_settings.set_repeat(aeon::scene::animation_repeat::continuous);
 
-    animated_sprite_ = scene_manager_.create_render_object<aeon::scene::animated_sprite>(
-        animation_material, 0, animation_settings);
+    animated_sprite_ = scene_manager_.create_scene_object<aeon::scene::animated_sprite>(
+        sprite_batch, animation_material, 0, animation_settings);
     root_node->attach_scene_object(animated_sprite_);
 
     platform_.run();

@@ -16,6 +16,7 @@
 #pragma once
 
 #include <scene/scene_object.h>
+#include <vector>
 #include <memory>
 
 namespace aeon
@@ -23,14 +24,23 @@ namespace aeon
 namespace scene
 {
 
+class sprite;
 class sprite_batch : public scene_object
 {
+    friend class sprite;
+
 public:
     sprite_batch(scene_manager *scene_manager);
     virtual ~sprite_batch() = default;
 
 protected:
+    void __add_sprite(sprite *spr);
+    void __remove_sprite(sprite *spr);
+
     virtual void render(float dt) override;
+
+private:
+    std::vector<sprite *> sprites_;
 };
 
 using sprite_batch_ptr = std::shared_ptr<sprite_batch>;

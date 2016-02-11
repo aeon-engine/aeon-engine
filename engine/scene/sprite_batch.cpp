@@ -14,6 +14,7 @@
  */
 
 #include <scene/sprite_batch.h>
+#include <algorithm>
 
 namespace aeon
 {
@@ -22,6 +23,20 @@ namespace scene
 
 sprite_batch::sprite_batch(scene_manager *scene_manager)
     : scene_object(render_layer::overlay, scene_object_type::renderable, scene_manager)
+{
+}
+
+void sprite_batch::__add_sprite(sprite* spr)
+{
+    sprites_.push_back(spr);
+}
+
+void sprite_batch::__remove_sprite(sprite* spr)
+{
+    sprites_.erase(std::remove(sprites_.begin(), sprites_.end(), spr), sprites_.end());
+}
+
+void sprite_batch::render(float /*dt*/)
 {
 }
 

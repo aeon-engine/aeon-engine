@@ -14,6 +14,7 @@
  */
 
 #include <scene/sprite.h>
+#include <scene/sprite_batch.h>
 
 #include <GL/glew.h>
 
@@ -22,20 +23,29 @@ namespace aeon
 namespace scene
 {
 
-sprite::sprite(scene_manager *scene_manager, gfx::material_ptr material, int zorder)
+sprite::sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::material_ptr material, int zorder)
     : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
     , has_z_order(zorder)
     , size_(material->get_texture()->get_size())
     , material_(material)
+    , batch_(batch)
 {
+    batch_->__add_sprite(this);
 }
 
-sprite::sprite(scene_manager *scene_manager, gfx::material_ptr material, glm::vec2 size, int zorder)
+sprite::sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::material_ptr material, glm::vec2 size, int zorder)
     : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
     , has_z_order(zorder)
     , size_(size)
     , material_(material)
+    , batch_(batch)
 {
+    batch_->__add_sprite(this);
+}
+
+sprite::~sprite()
+{
+    batch_->__remove_sprite(this);
 }
 
 void sprite::set_default_size()

@@ -22,9 +22,9 @@ namespace aeon
 namespace scene
 {
 
-animated_sprite::animated_sprite(scene_manager* scene_manager, gfx::material_ptr texture,
+animated_sprite::animated_sprite(scene_manager* scene_manager, sprite_batch_ptr batch, gfx::material_ptr texture,
                                  int zorder, const sprite_animation_settings &settings)
-    : sprite(scene_manager, texture, settings.size_, zorder)
+    : sprite(scene_manager, batch, texture, settings.size_, zorder)
     , settings_(settings)
     , frame_time_(0.0f)
     , current_frame_index_(0)
@@ -53,30 +53,6 @@ void animated_sprite::set_animation_sequence(int index)
 {
     current_frame_index_ = 0;
     sequence_ = settings_.sequences_.at(index);
-}
-
-void animated_sprite::render(float dt)
-{
-    if (running_)
-        __set_next_frame(dt);
-
-    common::types::rectangle<float> uv = __calculate_texture_offset();
-
-    glm::vec2 size_2 = size_ * 0.5f;
-
-    // TODO: temporary test implementation.
-    material_->bind();
-
-    glBegin(GL_QUADS);
-    glTexCoord2f(uv.left, uv.bottom);
-    glVertex3f(-size_2.x, size_2.y, 0.0f);
-    glTexCoord2f(uv.right, uv.bottom);
-    glVertex3f(size_2.x, size_2.y, 0.0f);
-    glTexCoord2f(uv.right, uv.top);
-    glVertex3f(size_2.x, -size_2.y, 0.0f);
-    glTexCoord2f(uv.left, uv.top);
-    glVertex3f(-size_2.x, -size_2.y, 0.0f);
-    glEnd();
 }
 
 void animated_sprite::__set_next_frame(float dt)

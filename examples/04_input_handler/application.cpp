@@ -15,6 +15,7 @@
 
 #include "application.h"
 #include <scene/sprite.h>
+#include <scene/sprite_batch.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
@@ -56,8 +57,14 @@ void application::main(int, char *[])
     // Put the ship in the center of the screen by translating the root node
     root_node->translate(400, 300);
 
+    // Create a sprite batch. All sprites must be batched in order to be rendered
+    aeon::scene::sprite_batch_ptr sprite_batch = scene_manager_.create_scene_object<aeon::scene::sprite_batch>();
+
+    // The sprite batch must be attached to the scene.
+    root_node->attach_scene_object(sprite_batch);
+
     // Create a sprite. The second parameter is the z-order; used to determine which sprite should be rendered on top
-    aeon::scene::sprite_ptr ship_sprite = scene_manager_.create_render_object<aeon::scene::sprite>(ship_material, 0);
+    aeon::scene::sprite_ptr ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(sprite_batch, ship_material, 0);
 
     // Attach the sprite to the scene
     root_node->attach_scene_object(ship_sprite);
