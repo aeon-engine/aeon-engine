@@ -34,6 +34,9 @@ sprite_batch::sprite_batch(scene_manager *scene_manager, std::uint16_t sprites_p
 
 void sprite_batch::__add_sprite(sprite* spr)
 {
+    if (sprites_.size() >= sprites_per_buffer_)
+        throw sprite_batch_full_exception();
+
     sprites_.push_back(spr);
 }
 

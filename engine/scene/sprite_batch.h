@@ -18,6 +18,7 @@
 #include <scene/scene_object.h>
 #include <gfx/gfx_buffer.h>
 #include <common/buffer.h>
+#include <common/exception.h>
 #include <vector>
 #include <memory>
 
@@ -25,6 +26,9 @@ namespace aeon
 {
 namespace scene
 {
+
+DEFINE_EXCEPTION_OBJECT(sprite_batch_exception, aeon::common::exception, "Sprite Batch exception.");
+DEFINE_EXCEPTION_OBJECT(sprite_batch_full_exception, sprite_batch_exception, "Sprite Batch full. Amount can not exceed maximum sprites per batch.");
 
 struct sprite_vertex
 {
@@ -60,8 +64,7 @@ private:
 
     /*!
      * Determines how many sprites are stored to the vertex buffer per render.
-     * if more sprites are added to the sprite batch, multiple render calls will
-     * be made.
+     * This is the maximum amount of sprites that can be added to this batch.
      */
     std::uint16_t sprites_per_buffer_;
 
