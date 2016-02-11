@@ -18,6 +18,8 @@
 #include <scene/sprite.h>
 #include <algorithm>
 
+#include <GL/glew.h>
+
 namespace aeon
 {
 namespace scene
@@ -93,9 +95,7 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
     for (sprite *spr : sprites_)
     {
         int sprite_data_offset = sprite_count * vertices_per_sprite;
-
-        glm::mat4 sprite_matrix = spr->get_matrix();
-        glm::vec4 sprite_center_position = sprite_matrix * glm::vec4(0.0f);
+        glm::vec4 sprite_center_position = spr->get_matrix() * glm::vec4(0, 0, 0, 1);
 
         glm::vec2 size_2 = spr->get_size() * 0.5f;
 
@@ -111,7 +111,7 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
         vertex_data_ptr[sprite_data_offset + 1] =
         {
             sprite_center_position.x + size_2.x, sprite_center_position.y - size_2.y,
-            0.0f, 1.0f,
+            1.0f, 0.0f,
             1.0f, 1.0f, 1.0f, 1.0f
         };
 
@@ -119,7 +119,7 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
         vertex_data_ptr[sprite_data_offset + 2] =
         {
             sprite_center_position.x - size_2.x, sprite_center_position.y + size_2.y,
-            1.0f, 0.0f,
+            0.0f, 1.0f,
             1.0f, 1.0f, 1.0f, 1.0f
         };
 
@@ -142,6 +142,20 @@ void sprite_batch::render(float /*dt*/)
 {
     __sort_by_zorder();
     __fill_and_upload_sprite_data_buffer();
+
+    vertex_buffer_->bind();
+    index_buffer_->bind();
+
+    // Temporary implementation
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    glVertexPointer(2, GL_FLOAT, sizeof(sprite_vertex), 0);
+    glTexCoordPointer(2, GL_FLOAT, sizeof(sprite_vertex), (const GLvoid *)(8));
+    glColorPointer(4, GL_FLOAT, sizeof(sprite_vertex), (const GLvoid *)16);
+
+    //glDrawRangeElements(GL_TRIANGLES, 0, sprites_.size() * indices_per_sprite, sprites_.size(), GL_UNSIGNED_SHORT, nullptr);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 } // namespace scene
