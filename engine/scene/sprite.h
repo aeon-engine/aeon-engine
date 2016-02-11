@@ -16,7 +16,7 @@
 #pragma once
 
 #include <common/has_z_order.h>
-#include <scene/render_object.h>
+#include <scene/scene_object.h>
 #include <gfx/gfx_material.h>
 #include <glm/vec2.hpp>
 #include <memory>
@@ -26,7 +26,14 @@ namespace aeon
 namespace scene
 {
 
-class sprite : public render_object, public common::has_z_order
+struct sprite_vertex
+{
+    float x, y;
+    float u, v;
+    float r, g, b, a;
+};
+
+class sprite : public scene_object, public common::has_z_order
 {
 public:
     explicit sprite(scene_manager *scene_manager, gfx::material_ptr texture, int zorder);
@@ -44,11 +51,7 @@ public:
     void set_material(gfx::material_ptr texture);
     gfx::material_ptr get_material() const;
 
-    int get_priority() override;
-
 protected:
-    virtual void render(float dt) override;
-
     glm::vec2 size_;
     gfx::material_ptr material_;
 };

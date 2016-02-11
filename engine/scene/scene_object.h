@@ -23,17 +23,29 @@ namespace aeon
 namespace scene
 {
 
+enum class scene_object_type
+{
+    spatial,    // This object is merely added for spatial information (camera's etc.)
+    renderable, // This object needs to be rendered
+};
+
 class scene_manager;
-class render_object
+class scene_object
 {
 public:
-    explicit render_object(int queue_group, scene_manager *scene_manager)
+    explicit scene_object(int queue_group, scene_object_type type, scene_manager *scene_manager)
         : queue_group_(queue_group)
+        , type_(type)
         , scene_manager_(scene_manager)
     {
     }
 
-    virtual ~render_object() = default;
+    virtual ~scene_object() = default;
+
+    scene_object_type get_type() const
+    {
+        return type_;
+    }
 
     int get_queue_group() const
     {
@@ -41,24 +53,19 @@ public:
     }
 
     /*!
-     * Render objects are sorted by priority within a queue group.
-     * What determines the priority is based on the type of render object.
-     */
-    virtual int get_priority() = 0;
-
-    /*!
      * Called by the render queue when rendering. For some objects rendering
      * doesn't make sense (like camera's). In that case, this function must be
      * used to set up the matrices and/or buffers.
      */
-    virtual void render(float dt) = 0;
+    virtual void render(float /*dt*/) {}
 
 protected:
     int queue_group_;
+    scene_object_type type_;
     scene_manager *scene_manager_;
 };
 
-using render_object_ptr = std::shared_ptr<render_object>;
+using scene_object_ptr = std::shared_ptr<scene_object>;
 
 } // namespace scene
 } // namespace aeon

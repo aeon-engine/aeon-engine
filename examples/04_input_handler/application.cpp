@@ -60,7 +60,7 @@ void application::main(int, char *[])
     aeon::scene::sprite_ptr ship_sprite = scene_manager_.create_render_object<aeon::scene::sprite>(ship_material, 0);
 
     // Attach the sprite to the scene
-    root_node->attach_render_object(ship_sprite);
+    root_node->attach_scene_object(ship_sprite);
 
     // Start the render loop
     platform_.run();

@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <scene/render_object.h>
+#include <scene/scene_object.h>
 #include <glm/mat4x4.hpp>
 #include <memory>
 
@@ -25,13 +25,11 @@ namespace scene
 {
 
 class viewport;
-class camera : public render_object
+class camera : public scene_object
 {
 public:
     explicit camera(scene_manager *scene_manager);
     virtual ~camera() = default;
-
-    int get_priority() override;
 
     void render_scene(viewport *vp, float dt);
 
@@ -53,9 +51,6 @@ public:
     void reset_view();
 
 protected:
-    // TODO: implement this sensibly for a camera
-    void render(float) override {}
-
     glm::mat4 projection_matrix_;
     glm::mat4 view_matrix_;
 };

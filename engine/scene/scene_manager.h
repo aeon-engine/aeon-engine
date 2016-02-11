@@ -46,8 +46,8 @@ public:
     template<typename T, class... U>
     std::shared_ptr<T> create_render_object(U&&... u)
     {
-        static_assert(std::is_base_of<render_object, T>::value,
-            "T must be derived from render_object.");
+        static_assert(std::is_base_of<scene_object, T>::value,
+            "T must be derived from scene_object.");
 
         return std::make_shared<T>(this, std::forward<U>(u)...);
     }

@@ -65,19 +65,19 @@ void scene_node::detach_all_children()
     dirty_ = true;
 }
 
-void scene_node::attach_render_object(render_object_ptr object)
+void scene_node::attach_scene_object(scene_object_ptr object)
 {
-    render_objects_.push_back(object);
+    scene_objects_.push_back(object);
 }
 
-void scene_node::detach_render_object(render_object_ptr object)
+void scene_node::detach_scene_object(scene_object_ptr object)
 {
-    render_objects_.erase(std::remove(render_objects_.begin(), render_objects_.end(), object), render_objects_.end());
+    scene_objects_.erase(std::remove(scene_objects_.begin(), scene_objects_.end(), object), scene_objects_.end());
 }
 
-void scene_node::detach_all_render_objects()
+void scene_node::detach_all_scene_objects()
 {
-    render_objects_.clear();
+    scene_objects_.clear();
 }
 
 void scene_node::recalculate_matrices()
@@ -169,9 +169,9 @@ std::vector<scene_node_ptr>::const_iterator scene_node::end() const
     return children_.cend();
 }
 
-std::vector<render_object_ptr> scene_node::get_render_objects() const
+std::vector<scene_object_ptr> scene_node::get_scene_objects() const
 {
-    return render_objects_;
+    return scene_objects_;
 }
 
 } // namespace scene

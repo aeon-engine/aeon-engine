@@ -71,7 +71,7 @@ void application::main(int, char *[])
 
     animated_sprite_ = scene_manager_.create_render_object<aeon::scene::animated_sprite>(
         animation_material, 0, animation_settings);
-    root_node->attach_render_object(animated_sprite_);
+    root_node->attach_scene_object(animated_sprite_);
 
     platform_.run();
 }

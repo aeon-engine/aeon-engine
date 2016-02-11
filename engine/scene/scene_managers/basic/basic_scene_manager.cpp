@@ -35,12 +35,13 @@ void basic_scene_manager::__prepare_render_queue(camera *)
 
 void basic_scene_manager::__traverse_scene_node(scene_node_ptr node)
 {
-    auto objects = node->get_render_objects();
+    auto objects = node->get_scene_objects();
 
     // Add all renderables to the queue
     for (auto o : objects)
     {
-        queue_.add_render_object(node->get_total_matrix(), o, o->get_queue_group());
+        if (o->get_type() == scene_object_type::renderable)
+            queue_.add_render_object(node->get_total_matrix(), o, o->get_queue_group());
     }
 
     for (auto n : *node)

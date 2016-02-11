@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <scene/render_object.h>
+#include <scene/scene_object.h>
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <vector>
@@ -66,17 +66,17 @@ public:
      * Attach an object to this scene node.
      * TODO: Can the same object be attached to multiple scene nodes? What are the implications of this?
      */
-    void attach_render_object(render_object_ptr object);
+    void attach_scene_object(scene_object_ptr object);
 
     /*!
      * Detach an object from this scene node.
      */
-    void detach_render_object(render_object_ptr object);
+    void detach_scene_object(scene_object_ptr object);
 
     /*!
      * Detach all objects from this scene node.
      */
-    void detach_all_render_objects();
+    void detach_all_scene_objects();
 
     /*!
      * Recalculate the total matrix of this scenenode if either this or the parent node is marked as dirty. If neither
@@ -196,7 +196,7 @@ public:
     /*!
      * Get all attached objects to this node
      */
-    std::vector<render_object_ptr> get_render_objects() const;
+    std::vector<scene_object_ptr> get_scene_objects() const;
 
 private:
     /*!
@@ -218,7 +218,7 @@ private:
     /*!
      * All attached render objects
      */
-    std::vector<render_object_ptr> render_objects_;
+    std::vector<scene_object_ptr> scene_objects_;
 
     /*!
      * The matrix for this node.

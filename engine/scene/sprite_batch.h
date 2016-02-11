@@ -13,30 +13,27 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <scene/camera.h>
-#include <scene/scene_manager.h>
+#pragma once
+
+#include <scene/scene_object.h>
+#include <memory>
 
 namespace aeon
 {
 namespace scene
 {
 
-camera::camera(scene_manager *scene_manager)
-    : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
-    , projection_matrix_(1.0f)
-    , view_matrix_(1.0f)
+class sprite_batch : public scene_object
 {
-}
+public:
+    sprite_batch(scene_manager *scene_manager);
+    virtual ~sprite_batch() = default;
 
-void camera::render_scene(viewport* vp, float dt)
-{
-    scene_manager_->__render_scene(this, vp, dt);
-}
+protected:
+    virtual void render(float dt) override;
+};
 
-void camera::reset_view()
-{
-    view_matrix_ = glm::mat4(1.0f);
-}
+using sprite_batch_ptr = std::shared_ptr<sprite_batch>;
 
 } // namespace scene
 } // namespace aeon

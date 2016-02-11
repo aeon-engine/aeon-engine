@@ -45,21 +45,21 @@ void application::main(int, char *[])
     root_node->translate(400, 300);
 
     aeon::scene::sprite_ptr ship1_sprite = scene_manager_.create_render_object<aeon::scene::sprite>(ship1_material, 0);
-    root_node->attach_render_object(ship1_sprite);
+    root_node->attach_scene_object(ship1_sprite);
 
     ship2_pivot_node_ = root_node->create_child_scene_node();
     aeon::scene::scene_node_ptr ship2_node = ship2_pivot_node_->create_child_scene_node();
     ship2_node->translate(200.0f, 0.0f);
 
     aeon::scene::sprite_ptr ship2_sprite = scene_manager_.create_render_object<aeon::scene::sprite>(ship2_material, 1);
-    ship2_node->attach_render_object(ship2_sprite);
+    ship2_node->attach_scene_object(ship2_sprite);
 
     ship3_pivot_node_ = ship2_node->create_child_scene_node();
     aeon::scene::scene_node_ptr ship3_node = ship3_pivot_node_->create_child_scene_node();
     ship3_node->translate(100.0f, 0.0f);
 
     aeon::scene::sprite_ptr ship3_sprite = scene_manager_.create_render_object<aeon::scene::sprite>(ship3_material, 1);
-    ship3_node->attach_render_object(ship3_sprite);
+    ship3_node->attach_scene_object(ship3_sprite);
 
     platform_.run();
 }

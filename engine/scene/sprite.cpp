@@ -23,7 +23,7 @@ namespace scene
 {
 
 sprite::sprite(scene_manager *scene_manager, gfx::material_ptr material, int zorder)
-    : render_object(render_layer::overlay, scene_manager)
+    : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
     , has_z_order(zorder)
     , size_(material->get_texture()->get_size())
     , material_(material)
@@ -31,7 +31,7 @@ sprite::sprite(scene_manager *scene_manager, gfx::material_ptr material, int zor
 }
 
 sprite::sprite(scene_manager *scene_manager, gfx::material_ptr material, glm::vec2 size, int zorder)
-    : render_object(render_layer::overlay, scene_manager)
+    : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
     , has_z_order(zorder)
     , size_(size)
     , material_(material)
@@ -66,30 +66,6 @@ void sprite::set_material(gfx::material_ptr texture)
 gfx::material_ptr sprite::get_material() const
 {
     return material_;
-}
-
-int sprite::get_priority()
-{
-    return get_zorder();
-}
-
-void sprite::render(float /*dt*/)
-{
-    // TODO: temporary test implementation.
-    material_->bind();
-
-    glm::vec2 size_2 = size_ * 0.5f;
-
-    glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 1.0f);
-        glVertex3f(-size_2.x, size_2.y, 0.0f);
-        glTexCoord2f(1.0f, 1.0f);
-        glVertex3f(size_2.x, size_2.y, 0.0f);
-        glTexCoord2f(1.0f, 0.0f);
-        glVertex3f(size_2.x, -size_2.y, 0.0f);
-        glTexCoord2f(0.0f, 0.0f);
-        glVertex3f(-size_2.x, -size_2.y, 0.0f);
-    glEnd();
 }
 
 } // namespace scene
