@@ -31,7 +31,7 @@ public:
     virtual ~buffer_manager() = default;
 
 private:
-    buffer_ptr __load_buffer(buffer_type type) override;
+    buffer_ptr __create_buffer(buffer_type type) override;
 };
 
 } // namespace gl

@@ -20,9 +20,9 @@ namespace aeon
 namespace gfx
 {
 
-buffer_ptr buffer_manager::load_buffer(buffer_type type)
+buffer_ptr buffer_manager::create_buffer(buffer_type type)
 {
-    return __load_buffer(type);
+    return __create_buffer(type);
 }
 
 } // namespace gfx
