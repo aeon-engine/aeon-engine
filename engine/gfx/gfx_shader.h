@@ -16,6 +16,7 @@
 #pragma once
 
 #include <common/cached_object.h>
+#include <glm/mat4x4.hpp>
 #include <memory>
 
 namespace aeon
@@ -28,6 +29,12 @@ class shader : public common::cached_object
 public:
     shader();
     virtual ~shader();
+
+    virtual void bind() = 0;
+
+    virtual void set_projection_matrix(const glm::mat4 &matrix) = 0;
+    virtual void set_model_matrix(const glm::mat4 &matrix) = 0;
+    virtual void set_view_matrix(const glm::mat4 &matrix) = 0;
 };
 
 using shader_ptr = std::shared_ptr<shader>;

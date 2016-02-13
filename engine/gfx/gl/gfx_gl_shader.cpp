@@ -14,6 +14,7 @@
  */
 
 #include <gfx/gl/gfx_gl_shader.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace aeon
 {
@@ -23,11 +24,35 @@ namespace gl
 {
 
 shader::shader()
+    : handle_(0)
+    , projection_matrix_handle_(0)
+    , model_matrix_handle_(0)
+    , view_matrix_handle_(0)
 {
 }
 
 shader::~shader()
 {
+}
+
+void shader::bind()
+{
+    glUseProgram(handle_);
+}
+
+void shader::set_projection_matrix(const glm::mat4 &matrix)
+{
+    glUniformMatrix4fv(projection_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void shader::set_model_matrix(const glm::mat4 &matrix)
+{
+    glUniformMatrix4fv(model_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void shader::set_view_matrix(const glm::mat4 &matrix)
+{
+    glUniformMatrix4fv(view_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 } // namespace gl

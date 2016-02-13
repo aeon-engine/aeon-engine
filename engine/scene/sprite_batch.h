@@ -35,6 +35,7 @@ struct sprite_vertex
     float x, y;
     float u, v;
     float r, g, b, a;
+    glm::mat4x4 matrix;
 };
 
 class sprite;
@@ -47,7 +48,7 @@ public:
     static const int vertices_per_sprite = 4;
     static const std::uint16_t indices_per_sprite = 6;
 
-    sprite_batch(scene_manager *scene_manager, std::uint16_t sprites_per_buffer = default_sprites_per_buffer);
+    explicit sprite_batch(scene_manager *scene_manager, gfx::material_ptr material, std::uint16_t sprites_per_buffer = default_sprites_per_buffer);
     virtual ~sprite_batch() = default;
 
 private:
@@ -60,7 +61,8 @@ private:
 
     void __fill_and_upload_sprite_data_buffer();
 
-    virtual void render(float dt) override;
+    virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
+        const glm::mat4x4 &model, float dt) override;
 
     /*!
      * Determines how many sprites are stored to the vertex buffer per render.
@@ -73,6 +75,8 @@ private:
 
     gfx::buffer_ptr vertex_buffer_;
     gfx::buffer_ptr index_buffer_;
+
+    gfx::material_ptr material_;
 };
 
 using sprite_batch_ptr = std::shared_ptr<sprite_batch>;

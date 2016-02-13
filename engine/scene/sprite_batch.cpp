@@ -17,21 +17,41 @@
 #include <scene/sprite_batch.h>
 #include <scene/sprite.h>
 #include <algorithm>
-
 #include <GL/glew.h>
 
 namespace aeon
 {
 namespace scene
 {
-
-sprite_batch::sprite_batch(scene_manager *scene_manager, std::uint16_t sprites_per_buffer /*= default_sprites_per_buffer*/)
+GLuint vao;
+sprite_batch::sprite_batch(scene_manager *scene_manager, gfx::material_ptr material,
+                           std::uint16_t sprites_per_buffer /*= default_sprites_per_buffer*/)
     : scene_object(render_layer::overlay, scene_object_type::renderable, scene_manager)
     , sprites_per_buffer_(sprites_per_buffer)
     , sprite_vertex_data_(sprites_per_buffer * sizeof(sprite_vertex))
+    , material_(material)
 {
     __create_and_setup_vertex_buffer();
     __create_and_setup_index_buffer();
+
+    glGenVertexArrays(1, &vao);
+
+    glBindVertexArray(vao);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), 0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)8);
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)16);
+
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)32);
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)48);
+    glEnableVertexAttribArray(5);
+    glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)64);
+    glEnableVertexAttribArray(6);
+    glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)80);
 }
 
 void sprite_batch::__add_sprite(sprite* spr)
@@ -94,40 +114,44 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
     int sprite_data_offset = 0;
     for (sprite *spr : sprites_)
     {
-        glm::vec4 sprite_center_position = spr->get_matrix() * glm::vec4(0, 0, 0, 1);
+        glm::mat4 sprite_matrix = spr->get_matrix();
 
         glm::vec2 size_2 = spr->get_size() * 0.5f;
 
         // Bottom left
         vertex_data_ptr[sprite_data_offset++] =
         {
-            sprite_center_position.x - size_2.x, sprite_center_position.y + size_2.y,
+            -size_2.x, size_2.y,
             0.0f, 1.0f,
-            1.0f, 1.0f, 1.0f, 1.0f
+            1.0f, 1.0f, 1.0f, 1.0f,
+            sprite_matrix
         };
 
         // Bottom right
         vertex_data_ptr[sprite_data_offset++] =
         {
-            sprite_center_position.x + size_2.x, sprite_center_position.y + size_2.y,
+            size_2.x, size_2.y,
             1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f, 1.0f
+            1.0f, 1.0f, 1.0f, 1.0f,
+            sprite_matrix
         };
 
         // Top left
         vertex_data_ptr[sprite_data_offset++] =
         {
-            sprite_center_position.x - size_2.x, sprite_center_position.y - size_2.y,
+            -size_2.x, -size_2.y,
             0.0f, 0.0f,
-            1.0f, 1.0f, 1.0f, 1.0f
+            1.0f, 1.0f, 1.0f, 1.0f,
+            sprite_matrix
         };
 
         // Top right
         vertex_data_ptr[sprite_data_offset++] =
         {
-            sprite_center_position.x + size_2.x, sprite_center_position.y - size_2.y,
+            size_2.x, -size_2.y,
             1.0f, 0.0f,
-            1.0f, 1.0f, 1.0f, 1.0f
+            1.0f, 1.0f, 1.0f, 1.0f,
+            sprite_matrix
         };
     }
 
@@ -135,26 +159,25 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
     vertex_buffer_->set_data(vertex_buffer_size, vertex_data_ptr, gfx::buffer_usage::stream_usage);
 }
 
-void sprite_batch::render(float /*dt*/)
+void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
+    const glm::mat4x4 &model, float /*dt*/)
 {
     __sort_by_zorder();
     __fill_and_upload_sprite_data_buffer();
 
+    material_->bind();
+
     vertex_buffer_->bind();
     index_buffer_->bind();
 
-    // Temporary implementation
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
-    glVertexPointer(2, GL_FLOAT, sizeof(sprite_vertex), 0);
-    glTexCoordPointer(2, GL_FLOAT, sizeof(sprite_vertex), (const GLvoid *)(8));
-    glColorPointer(4, GL_FLOAT, sizeof(sprite_vertex), (const GLvoid *)16);
+    material_->get_shader()->set_projection_matrix(projection);
+    material_->get_shader()->set_model_matrix(model);
+    material_->get_shader()->set_view_matrix(view);
+
+    glBindVertexArray(vao);
 
     glDrawRangeElements(GL_TRIANGLES, 0, sprites_.size() * indices_per_sprite,
         sprites_.size() * indices_per_sprite, GL_UNSIGNED_SHORT, nullptr);
-    //glDrawArrays(GL_TRIANGLES, 0, 6);
-    //glDrawElements(GL_TRIANGLES, sprites_.size() * indices_per_sprite, GL_UNSIGNED_SHORT, nullptr);
 }
 
 } // namespace scene

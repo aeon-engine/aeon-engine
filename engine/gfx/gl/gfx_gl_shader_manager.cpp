@@ -31,8 +31,14 @@ shader_ptr shader_manager::__load_shader(resources::shader_ptr shader)
 
     GLuint program = __link_gl_program(vertexshader, fragmentshader);
 
+    glBindFragDataLocation(program, 0, "output_color");
+
     shader_gl_ptr s = std::make_shared<gl::shader>();
+
     s->handle_ = program;
+    s->projection_matrix_handle_ = glGetUniformLocation(program, "projection_matrix");
+    s->model_matrix_handle_ = glGetUniformLocation(program, "model_matrix");
+    s->view_matrix_handle_ = glGetUniformLocation(program, "view_matrix");
 
     return s;
 }

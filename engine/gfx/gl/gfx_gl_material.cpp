@@ -24,6 +24,7 @@ namespace gl
 
 void material::bind()
 {
+    shader_->bind();
     texture_->bind();
 }
 

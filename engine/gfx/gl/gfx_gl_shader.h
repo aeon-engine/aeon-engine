@@ -34,8 +34,18 @@ public:
     shader();
     ~shader() override;
 
+    void bind() override;
+
+    void set_projection_matrix(const glm::mat4 &matrix) override;
+    void set_model_matrix(const glm::mat4 &matrix) override;
+    void set_view_matrix(const glm::mat4 &matrix) override;
+
 private:
     GLuint handle_;
+
+    GLint projection_matrix_handle_;
+    GLint model_matrix_handle_;
+    GLint view_matrix_handle_;
 };
 
 using shader_gl_ptr = std::shared_ptr<shader>;
