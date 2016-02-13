@@ -28,6 +28,7 @@ shader::shader()
     , projection_matrix_handle_(0)
     , model_matrix_handle_(0)
     , view_matrix_handle_(0)
+    , texture0_handle_(0)
 {
 }
 

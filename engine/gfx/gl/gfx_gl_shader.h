@@ -46,6 +46,7 @@ private:
     GLint projection_matrix_handle_;
     GLint model_matrix_handle_;
     GLint view_matrix_handle_;
+    GLint texture0_handle_;
 };
 
 using shader_gl_ptr = std::shared_ptr<shader>;

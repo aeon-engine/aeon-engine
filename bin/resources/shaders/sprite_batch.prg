@@ -34,10 +34,10 @@ void main()
 in vec2 texture_coordinate;
 out vec4 output_color;
 
-uniform sampler2D gSampler;
+uniform sampler2D texture0;
 
 void main()
 {
-	output_color = vec4(1.0, 0.0, 0.0, 1.0); //texture(gSampler, texture_coordinate);
+	output_color = texture(texture0, texture_coordinate);
 }
 

@@ -39,6 +39,7 @@ shader_ptr shader_manager::__load_shader(resources::shader_ptr shader)
     s->projection_matrix_handle_ = glGetUniformLocation(program, "projection_matrix");
     s->model_matrix_handle_ = glGetUniformLocation(program, "model_matrix");
     s->view_matrix_handle_ = glGetUniformLocation(program, "view_matrix");
+    s->texture0_handle_ = glGetUniformLocation(program, "texture0");
 
     return s;
 }

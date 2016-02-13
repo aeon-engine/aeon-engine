@@ -34,7 +34,9 @@ texture::~texture()
 
 void texture::bind()
 {
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, handle_);
+    glBindSampler(0, 1);
 }
 
 } // namespace gl
