@@ -15,9 +15,7 @@
 
 #pragma once
 
-#include <gfx/gfx_texture_manager.h>
-#include <gfx/gfx_shader_manager.h>
-#include <gfx/gfx_material_manager.h>
+#include <gfx/gfx_resource_manager.h>
 #include <gfx/gfx_buffer_manager.h>
 #include <common/types/color.h>
 #include <scene/viewport.h>

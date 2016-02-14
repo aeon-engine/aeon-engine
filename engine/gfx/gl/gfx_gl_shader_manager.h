@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <gfx/gfx_shader_manager.h>
+#include <gfx/gfx_resource_manager.h>
 #include <GL/glew.h>
 #include <common/exception.h>
 
@@ -37,7 +37,7 @@ public:
     virtual ~shader_manager() = default;
 
 private:
-    shader_ptr __load_shader(resources::shader_ptr shader) override;
+    shader_ptr __load(resources::shader_ptr shader) override;
 
     GLuint __load_gl_shader(const std::string &source, GLenum type);
     GLuint __link_gl_program(GLuint vertexshader, GLuint fragmentshader);

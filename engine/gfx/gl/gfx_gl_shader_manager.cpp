@@ -24,7 +24,7 @@ namespace gfx
 namespace gl
 {
 
-shader_ptr shader_manager::__load_shader(resources::shader_ptr shader)
+shader_ptr shader_manager::__load(resources::shader_ptr shader)
 {
     GLuint vertexshader = __load_gl_shader(shader->get_vertex_source(), GL_VERTEX_SHADER);
     GLuint fragmentshader = __load_gl_shader(shader->get_fragment_source(), GL_FRAGMENT_SHADER);

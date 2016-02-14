@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <gfx/gfx_material_manager.h>
+#include <gfx/gfx_resource_manager.h>
 #include <resources/material.h>
 #include <GL/glew.h>
 
@@ -34,7 +34,7 @@ public:
     virtual ~material_manager() = default;
 
 private:
-    material_ptr __load_material(resources::material_ptr material) override;
+    material_ptr __load(resources::material_ptr material) override;
 
     device &device_;
 };

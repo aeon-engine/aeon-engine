@@ -25,7 +25,7 @@ namespace gfx
 namespace gl
 {
 
-texture_ptr texture_manager::__load_texture(resources::image_ptr image)
+texture_ptr texture_manager::__load(resources::image_ptr image)
 {
     texture_gl_ptr t = std::make_shared<gl::texture>(image);
 

@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <gfx/gfx_texture_manager.h>
+#include <gfx/gfx_resource_manager.h>
 #include <resources/image.h>
 #include <GL/glew.h>
 
@@ -33,7 +33,7 @@ public:
     virtual ~texture_manager() = default;
 
 private:
-    texture_ptr __load_texture(resources::image_ptr image) override;
+    texture_ptr __load(resources::image_ptr image) override;
 
     GLint __image_pixelformat_to_gl(resources::image::pixel_format format);
 };
