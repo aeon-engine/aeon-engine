@@ -31,7 +31,7 @@ resource_encoding atlas_codec::get_codec_type() const
     return resource_encoding::atlas;
 }
 
-atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_ptr wrapper)
+atlas_ptr atlas_codec::decode(resource_manager &parent, gfx::device &device, atlas_resource_wrapper_ptr wrapper)
 {
     common::buffer_u8 input;
     wrapper->read_raw(input);
@@ -58,20 +58,23 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_p
         if (region_entry.first == "material")
             continue;
 
-        common::types::rectangle<float> region_rect =
-            __atlas_string_to_rectangle(region_entry.second, texture_width, texture_height);
+        atlas_data data = __atlas_string_to_data(region_entry.second);
+        common::types::rectangle<float> region_rect = __atlas_data_to_uv(data, texture_width, texture_height);
 
-        atlas_region region(region_rect.left, region_rect.top, region_rect.right, region_rect.bottom);
+        glm::vec2 size(data.width, data.height);
+
+        atlas_region region(region_rect.left, region_rect.top, region_rect.right, region_rect.bottom, size);
 
         names.insert({region_entry.first, regions.size()});
         regions.push_back(region);
     }
 
-    return std::make_shared<resources::atlas>(wrapper, material_res, regions, names);
+    gfx::material_ptr gfx_mat = device.get_material_manager().load(material_res);
+
+    return std::make_shared<resources::atlas>(wrapper, gfx_mat, regions, names);
 }
 
-common::types::rectangle<float> atlas_codec::__atlas_string_to_rectangle(const std::string &str,
-    unsigned int texture_width, unsigned int texture_height) const
+atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &str) const
 {
     std::vector<std::string> items = utility::string::split(str, ',');
 
@@ -99,10 +102,16 @@ common::types::rectangle<float> atlas_codec::__atlas_string_to_rectangle(const s
         throw atlas_codec_decode_exception();
     }
 
-    float left = static_cast<float>(x) / static_cast<float>(texture_width);
-    float right = static_cast<float>(x + width) / static_cast<float>(texture_width);
-    float top = static_cast<float>(y) / static_cast<float>(texture_height);
-    float bottom = static_cast<float>(y + height) / static_cast<float>(texture_height);
+    return { x, y, width, height };
+}
+
+common::types::rectangle<float> atlas_codec::__atlas_data_to_uv(const atlas_codec::atlas_data &data,
+    unsigned int texture_width, unsigned int texture_height) const
+{
+    float left = static_cast<float>(data.x) / static_cast<float>(texture_width);
+    float right = static_cast<float>(data.x + data.width) / static_cast<float>(texture_width);
+    float top = static_cast<float>(data.y) / static_cast<float>(texture_height);
+    float bottom = static_cast<float>(data.y + data.height) / static_cast<float>(texture_height);
 
     return { left, top, right, bottom };
 }

@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <resources/atlas.h>
 #include <scene/scene_object.h>
 #include <gfx/gfx_buffer.h>
 #include <common/buffer.h>
@@ -49,7 +50,7 @@ public:
     static const int vertices_per_sprite = 4;
     static const std::uint16_t indices_per_sprite = 6;
 
-    explicit sprite_batch(scene_manager *scene_manager, gfx::material_ptr material, std::uint16_t sprites_per_buffer = default_sprites_per_buffer);
+    explicit sprite_batch(scene_manager *scene_manager, resources::atlas_ptr atlas, std::uint16_t sprites_per_buffer = default_sprites_per_buffer);
     virtual ~sprite_batch() = default;
 
 private:
@@ -77,7 +78,7 @@ private:
     gfx::buffer_ptr vertex_buffer_;
     gfx::buffer_ptr index_buffer_;
 
-    gfx::material_ptr material_;
+    resources::atlas_ptr atlas_;
 };
 
 using sprite_batch_ptr = std::shared_ptr<sprite_batch>;

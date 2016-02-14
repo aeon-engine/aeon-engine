@@ -38,10 +38,17 @@ public:
 
     resource_encoding get_codec_type() const override;
 
-    atlas_ptr decode(resource_manager &parent, atlas_resource_wrapper_ptr wrapper);
+    atlas_ptr decode(resource_manager &parent, gfx::device &device, atlas_resource_wrapper_ptr wrapper);
 
 private:
-    common::types::rectangle<float> __atlas_string_to_rectangle(const std::string &str,
+    struct atlas_data
+    {
+        int x, y, width, height;
+    };
+
+    atlas_data __atlas_string_to_data(const std::string &str) const;
+
+    common::types::rectangle<float> __atlas_data_to_uv(const atlas_data &data,
         unsigned int texture_width, unsigned int texture_height) const;
 };
 

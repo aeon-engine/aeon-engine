@@ -78,7 +78,7 @@ gfx::material_ptr resource_manager::load_material(const std::string &path)
 atlas_ptr resource_manager::load_atlas(const std::string &path)
 {
     atlas_resource_wrapper_ptr atlas_resource = load_atlas_wrapper(path);
-    return atlas_resource->open();
+    return atlas_resource->open(device_);
 }
 
 image_resource_wrapper_ptr resource_manager::load_image_wrapper(const std::string &path)

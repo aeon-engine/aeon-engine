@@ -17,7 +17,7 @@
 
 #include <common/has_z_order.h>
 #include <scene/scene_object.h>
-#include <gfx/gfx_material.h>
+#include <resources/atlas.h>
 #include <glm/vec2.hpp>
 #include <memory>
 
@@ -32,8 +32,10 @@ using sprite_batch_ptr = std::shared_ptr<sprite_batch>;
 class sprite : public scene_object, public common::has_z_order
 {
 public:
-    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::material_ptr texture, int zorder);
-    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::material_ptr texture, glm::vec2 size, int zorder);
+    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch,
+        const resources::atlas_region &region, int zorder);
+    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch,
+        const resources::atlas_region &region, glm::vec2 size, int zorder);
 
     virtual ~sprite();
 
@@ -44,12 +46,12 @@ public:
 
     glm::vec2 get_size() const;
 
-    void set_material(gfx::material_ptr texture);
-    gfx::material_ptr get_material() const;
+    virtual resources::atlas_region get_atlas_region() const;
 
 protected:
     glm::vec2 size_;
-    gfx::material_ptr material_;
+
+    resources::atlas_region region_;
     sprite_batch_ptr batch_;
 };
 

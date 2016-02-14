@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <gfx/gfx_device.h>
 #include <resources/wrappers/resource_wrapper.h>
 #include <memory>
 #include <string>
@@ -30,10 +31,11 @@ using atlas_ptr = std::shared_ptr<atlas>;
 class atlas_resource_wrapper : public resource_wrapper
 {
 public:
-    explicit atlas_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
+    explicit atlas_resource_wrapper(resource_manager &parent, const std::string &path,
+        resource_provider_weak_ptr provider);
     virtual ~atlas_resource_wrapper() = default;
 
-    atlas_ptr open();
+    atlas_ptr open(gfx::device &device);
 };
 
 using atlas_resource_wrapper_ptr = std::shared_ptr<atlas_resource_wrapper>;

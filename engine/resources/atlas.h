@@ -17,7 +17,7 @@
 
 #include <resources/resource.h>
 #include <resources/exceptions.h>
-#include <resources/material.h>
+#include <gfx/gfx_material.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
 #include <common/buffer.h>
 #include <map>
@@ -33,11 +33,12 @@ namespace resources
 class atlas_region
 {
 public:
-    explicit atlas_region(float u1_, float v1_, float u2_, float v2_)
+    explicit atlas_region(float u1_, float v1_, float u2_, float v2_, glm::vec2 size_)
         : u1(u1_)
         , v1(v1_)
         , u2(u2_)
         , v2(v2_)
+        , size(size_)
     {
     }
 
@@ -45,6 +46,7 @@ public:
 
     float u1, v1;
     float u2, v2;
+    glm::vec2 size;
 };
 
 using atlas_regions = std::vector<atlas_region>;
@@ -53,13 +55,15 @@ using atlas_region_names = std::map<std::string, int>;
 class atlas : public resource
 {
 public:
-    explicit atlas(resource_wrapper_ptr wrapper, material_ptr material, const atlas_regions &regions,
+    explicit atlas(resource_wrapper_ptr wrapper, gfx::material_ptr material, const atlas_regions &regions,
         const atlas_region_names &names);
 
     virtual ~atlas() = default;
 
     atlas_region get_region_by_index(int index);
     atlas_region get_region_by_name(const std::string &name);
+
+    gfx::material_ptr get_material() const;
 
     atlas_resource_wrapper_ptr get_atlas_resource_wrapper()
     {
@@ -69,6 +73,7 @@ public:
 private:
     atlas_regions regions_;
     atlas_region_names names_;
+    gfx::material_ptr material_;
 };
 
 using atlas_ptr = std::shared_ptr<atlas>;

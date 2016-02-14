@@ -22,9 +22,10 @@ namespace aeon
 namespace scene
 {
 
-animated_sprite::animated_sprite(scene_manager* scene_manager, sprite_batch_ptr batch, gfx::material_ptr texture,
-                                 int zorder, const sprite_animation_settings &settings)
-    : sprite(scene_manager, batch, texture, settings.size_, zorder)
+animated_sprite::animated_sprite(scene_manager* scene_manager, sprite_batch_ptr batch,
+                                 const resources::atlas_region &region, int zorder,
+                                 const sprite_animation_settings &settings)
+    : sprite(scene_manager, batch, region, settings.size_, zorder)
     , settings_(settings)
     , frame_time_(0.0f)
     , current_frame_index_(0)
@@ -32,7 +33,7 @@ animated_sprite::animated_sprite(scene_manager* scene_manager, sprite_batch_ptr 
     , running_(false)
     , sequence_(settings_.sequences_.at(settings_.default_sequence_))
 {
-    glm::vec2 full_size = material_->get_texture()->get_size();
+    glm::vec2 full_size = region.size;
     sprites_per_row_ = static_cast<int>(full_size.x / size_.x);
 
     if (settings_.start_condition_ == animation_start_condition::auto_start)
@@ -76,8 +77,7 @@ void animated_sprite::__set_next_frame(float dt)
 
 common::types::rectangle<float> animated_sprite::__calculate_texture_offset()
 {
-    glm::vec2 full_size = material_->get_texture()->get_size();
-
+    glm::vec2 full_size = region_.size;
     int current_frame = sequence_[current_frame_index_];
 
     int column = current_frame % sprites_per_row_;

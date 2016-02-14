@@ -21,11 +21,12 @@ namespace aeon
 namespace resources
 {
 
-atlas::atlas(resource_wrapper_ptr wrapper, material_ptr material, const atlas_regions &regions,
+atlas::atlas(resource_wrapper_ptr wrapper, gfx::material_ptr material, const atlas_regions &regions,
              const atlas_region_names &names)
     : resource(wrapper)
     , regions_(regions)
     , names_(names)
+    , material_(material)
 {
 }
 
@@ -43,6 +44,11 @@ atlas_region atlas::get_region_by_name(const std::string &name)
         throw atlas_exception();
 
     return get_region_by_index(result->second);
+}
+
+gfx::material_ptr atlas::get_material() const
+{
+    return material_;
 }
 
 } // namespace resources

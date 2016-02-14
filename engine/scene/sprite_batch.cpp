@@ -24,12 +24,12 @@ namespace aeon
 namespace scene
 {
 GLuint vao;
-sprite_batch::sprite_batch(scene_manager *scene_manager, gfx::material_ptr material,
+sprite_batch::sprite_batch(scene_manager *scene_manager, resources::atlas_ptr atlas,
                            std::uint16_t sprites_per_buffer /*= default_sprites_per_buffer*/)
     : scene_object(render_layer::overlay, scene_object_type::renderable, scene_manager)
     , sprites_per_buffer_(sprites_per_buffer)
     , sprite_vertex_data_(sprites_per_buffer * sizeof(sprite_vertex))
-    , material_(material)
+    , atlas_(atlas)
 {
     __create_and_setup_vertex_buffer();
     __create_and_setup_index_buffer();
@@ -115,6 +115,7 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
     for (sprite *spr : sprites_)
     {
         glm::mat4 sprite_matrix = spr->get_matrix();
+        resources::atlas_region region = spr->get_atlas_region();
 
         glm::vec2 size_2 = spr->get_size() * 0.5f;
 
@@ -122,7 +123,7 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
         vertex_data_ptr[sprite_data_offset++] =
         {
             -size_2.x, size_2.y,
-            0.0f, 1.0f,
+            region.u1, region.v2,
             1.0f, 1.0f, 1.0f, 1.0f,
             sprite_matrix
         };
@@ -131,7 +132,7 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
         vertex_data_ptr[sprite_data_offset++] =
         {
             size_2.x, size_2.y,
-            1.0f, 1.0f,
+            region.u2, region.v2,
             1.0f, 1.0f, 1.0f, 1.0f,
             sprite_matrix
         };
@@ -140,7 +141,7 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
         vertex_data_ptr[sprite_data_offset++] =
         {
             -size_2.x, -size_2.y,
-            0.0f, 0.0f,
+            region.u1, region.v1,
             1.0f, 1.0f, 1.0f, 1.0f,
             sprite_matrix
         };
@@ -149,7 +150,7 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
         vertex_data_ptr[sprite_data_offset++] =
         {
             size_2.x, -size_2.y,
-            1.0f, 0.0f,
+            region.u2, region.v1,
             1.0f, 1.0f, 1.0f, 1.0f,
             sprite_matrix
         };
@@ -165,14 +166,15 @@ void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view
     __sort_by_zorder();
     __fill_and_upload_sprite_data_buffer();
 
-    material_->bind();
+    gfx::material_ptr material = atlas_->get_material();
+    material->bind();
 
     vertex_buffer_->bind();
     index_buffer_->bind();
 
-    material_->get_shader()->set_projection_matrix(projection);
-    material_->get_shader()->set_model_matrix(model);
-    material_->get_shader()->set_view_matrix(view);
+    material->get_shader()->set_projection_matrix(projection);
+    material->get_shader()->set_model_matrix(model);
+    material->get_shader()->set_view_matrix(view);
 
     glBindVertexArray(vao);
 

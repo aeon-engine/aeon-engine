@@ -23,21 +23,22 @@ namespace aeon
 namespace scene
 {
 
-sprite::sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::material_ptr material, int zorder)
+sprite::sprite(scene_manager *scene_manager, sprite_batch_ptr batch, const resources::atlas_region &region, int zorder)
     : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
     , has_z_order(zorder)
-    , size_(material->get_texture()->get_size())
-    , material_(material)
+    , size_(region.size)
+    , region_(region)
     , batch_(batch)
 {
     batch_->__add_sprite(this);
 }
 
-sprite::sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::material_ptr material, glm::vec2 size, int zorder)
+sprite::sprite(scene_manager *scene_manager, sprite_batch_ptr batch, const resources::atlas_region &region,
+               glm::vec2 size, int zorder)
     : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
     , has_z_order(zorder)
     , size_(size)
-    , material_(material)
+    , region_(region)
     , batch_(batch)
 {
     batch_->__add_sprite(this);
@@ -50,7 +51,7 @@ sprite::~sprite()
 
 void sprite::set_default_size()
 {
-    size_ = material_->get_texture()->get_size();
+    size_ = region_.size;
 }
 
 void sprite::set_size(glm::vec2 size)
@@ -68,14 +69,9 @@ glm::vec2 sprite::get_size() const
     return size_;
 }
 
-void sprite::set_material(gfx::material_ptr texture)
+resources::atlas_region sprite::get_atlas_region() const
 {
-    material_ = texture;
-}
-
-gfx::material_ptr sprite::get_material() const
-{
-    return material_;
+    return region_;
 }
 
 } // namespace scene
