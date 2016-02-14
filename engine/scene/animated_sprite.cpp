@@ -75,7 +75,7 @@ void animated_sprite::update(float dt)
 
     // TODO: This is highly inefficient. Figure out a better way to do this cleanly.
     if (frame_changed)
-        region_ = atlas_->get_region_by_index(current_frame_index_);
+        region_ = atlas_->get_region_by_index(sequence_.at(current_frame_index_));
 }
 
 } // namespace scene

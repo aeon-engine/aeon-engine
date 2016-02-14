@@ -72,7 +72,7 @@ void application::main(int, char *[])
     animation_settings.set_start_condition(aeon::scene::animation_start_condition::auto_start);
 
     // The time in seconds each frame is visible
-    animation_settings.set_speed(2.0f);
+    animation_settings.set_speed(0.3f);
 
     // Set up the animation so that it keeps playing forever.
     animation_settings.set_repeat(aeon::scene::animation_repeat::continuous);
