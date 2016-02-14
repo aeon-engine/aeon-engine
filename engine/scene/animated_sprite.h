@@ -28,8 +28,8 @@ namespace scene
 class animated_sprite : public sprite
 {
 public:
-    explicit animated_sprite(scene_manager* scene_manager, sprite_batch_ptr batch,
-        const resources::atlas_region &region, int zorder, const sprite_animation_settings &settings);
+    explicit animated_sprite(scene_manager* scene_manager, sprite_batch_ptr batch, resources::atlas_ptr atlas,
+        int zorder, const sprite_animation_settings &settings);
 
     virtual ~animated_sprite() = default;
 
@@ -39,14 +39,13 @@ public:
     void set_animation_sequence(int index);
 
 protected:
-    void __set_next_frame(float dt);
-    common::types::rectangle<float> __calculate_texture_offset();
+    void update(float dt) override;
 
+    resources::atlas_ptr atlas_;
     sprite_animation_settings settings_;
 
     float frame_time_;
     int current_frame_index_;
-    int sprites_per_row_;
     bool running_;
 
     std::vector<int> sequence_;

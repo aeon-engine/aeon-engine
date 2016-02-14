@@ -55,8 +55,17 @@ using atlas_region_names = std::map<std::string, int>;
 class atlas : public resource
 {
 public:
+    /*!
+     * Constructor used by the atlas codec to load an atlas
+     */
     explicit atlas(resource_wrapper_ptr wrapper, gfx::material_ptr material, const atlas_regions &regions,
         const atlas_region_names &names);
+
+    /*!
+     * Constructor for manual auto-generated atlasses. These can not be referenced by name, but only by index.
+     * Indexes are generated left to right, top to bottom based on the given sprite size.
+     */
+    explicit atlas(gfx::material_ptr material, glm::vec2 sprite_size);
 
     virtual ~atlas() = default;
 
@@ -71,6 +80,8 @@ public:
     }
 
 private:
+    void __calculate_atlas_regions(glm::vec2 sprite_size);
+
     atlas_regions regions_;
     atlas_region_names names_;
     gfx::material_ptr material_;

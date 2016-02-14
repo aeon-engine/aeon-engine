@@ -107,13 +107,15 @@ void sprite_batch::__sort_by_zorder()
     );
 }
 
-void sprite_batch::__fill_and_upload_sprite_data_buffer()
+void sprite_batch::__fill_and_upload_sprite_data_buffer(float dt)
 {
     sprite_vertex *vertex_data_ptr = reinterpret_cast<sprite_vertex *>(sprite_vertex_data_.data());
 
     int sprite_data_offset = 0;
     for (sprite *spr : sprites_)
     {
+        spr->update(dt);
+
         glm::mat4 sprite_matrix = spr->get_matrix();
         resources::atlas_region region = spr->get_atlas_region();
 
@@ -161,10 +163,10 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer()
 }
 
 void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
-    const glm::mat4x4 &model, float /*dt*/)
+    const glm::mat4x4 &model, float dt)
 {
     __sort_by_zorder();
-    __fill_and_upload_sprite_data_buffer();
+    __fill_and_upload_sprite_data_buffer(dt);
 
     gfx::material_ptr material = atlas_->get_material();
     material->bind();

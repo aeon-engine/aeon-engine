@@ -22,20 +22,16 @@ namespace aeon
 namespace scene
 {
 
-animated_sprite::animated_sprite(scene_manager* scene_manager, sprite_batch_ptr batch,
-                                 const resources::atlas_region &region, int zorder,
-                                 const sprite_animation_settings &settings)
-    : sprite(scene_manager, batch, region, settings.size_, zorder)
+animated_sprite::animated_sprite(scene_manager* scene_manager, sprite_batch_ptr batch, resources::atlas_ptr atlas,
+                                 int zorder, const sprite_animation_settings &settings)
+    : sprite(scene_manager, batch, atlas->get_region_by_index(0), settings.size_, zorder)
+    , atlas_(atlas)
     , settings_(settings)
     , frame_time_(0.0f)
     , current_frame_index_(0)
-    , sprites_per_row_(0)
     , running_(false)
     , sequence_(settings_.sequences_.at(settings_.default_sequence_))
 {
-    glm::vec2 full_size = region.size;
-    sprites_per_row_ = static_cast<int>(full_size.x / size_.x);
-
     if (settings_.start_condition_ == animation_start_condition::auto_start)
         running_ = true;
 }
@@ -56,13 +52,16 @@ void animated_sprite::set_animation_sequence(int index)
     sequence_ = settings_.sequences_.at(index);
 }
 
-void animated_sprite::__set_next_frame(float dt)
+void animated_sprite::update(float dt)
 {
     frame_time_ += dt;
+
+    bool frame_changed = false;
 
     while (frame_time_ > settings_.speed_)
     {
         ++current_frame_index_;
+        frame_changed = true;
         frame_time_ -= settings_.speed_;
     }
 
@@ -73,25 +72,10 @@ void animated_sprite::__set_next_frame(float dt)
 
         current_frame_index_ = 0;
     }
-}
 
-common::types::rectangle<float> animated_sprite::__calculate_texture_offset()
-{
-    glm::vec2 full_size = region_.size;
-    int current_frame = sequence_[current_frame_index_];
-
-    int column = current_frame % sprites_per_row_;
-    int row = current_frame / sprites_per_row_;
-
-    int left_offset = column * static_cast<int>(size_.x);
-    int top_offset = row * static_cast<int>(size_.y);
-
-    float left = static_cast<float>(left_offset) / static_cast<float>(full_size.x);
-    float right = static_cast<float>(left_offset + size_.x) / static_cast<float>(full_size.x);
-    float top = static_cast<float>(top_offset) / static_cast<float>(full_size.y);
-    float bottom = static_cast<float>(top_offset + size_.y) / static_cast<float>(full_size.y);
-
-    return { left, top, right, bottom };
+    // TODO: This is highly inefficient. Figure out a better way to do this cleanly.
+    if (frame_changed)
+        region_ = atlas_->get_region_by_index(current_frame_index_);
 }
 
 } // namespace scene

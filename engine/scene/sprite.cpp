@@ -69,6 +69,11 @@ glm::vec2 sprite::get_size() const
     return size_;
 }
 
+void sprite::set_atlas_region(const resources::atlas_region &region)
+{
+    region_ = region;
+}
+
 resources::atlas_region sprite::get_atlas_region() const
 {
     return region_;

@@ -61,7 +61,7 @@ private:
     void __create_and_setup_index_buffer();
     void __sort_by_zorder();
 
-    void __fill_and_upload_sprite_data_buffer();
+    void __fill_and_upload_sprite_data_buffer(float dt);
 
     virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
         const glm::mat4x4 &model, float dt) override;

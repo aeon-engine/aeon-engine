@@ -40,13 +40,14 @@ void application::main(int, char *[])
 {
     // Load resources
     aeon::gfx::material_ptr animation_material = resource_manager_.load_material("/resources/materials/2d_character.amf");
+    aeon::resources::atlas_ptr atlas = std::make_shared<aeon::resources::atlas>(animation_material, glm::vec2(32, 32));
 
     // Set up scene
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
     root_node->translate(400, 300);
 
     // Create a sprite batch. All sprites must be batched in order to be rendered
-    aeon::scene::sprite_batch_ptr sprite_batch = scene_manager_.create_scene_object<aeon::scene::sprite_batch>();
+    aeon::scene::sprite_batch_ptr sprite_batch = scene_manager_.create_scene_object<aeon::scene::sprite_batch>(atlas);
 
     // The sprite batch must be attached to the scene.
     root_node->attach_scene_object(sprite_batch);
@@ -71,13 +72,13 @@ void application::main(int, char *[])
     animation_settings.set_start_condition(aeon::scene::animation_start_condition::auto_start);
 
     // The time in seconds each frame is visible
-    animation_settings.set_speed(0.3f);
+    animation_settings.set_speed(2.0f);
 
     // Set up the animation so that it keeps playing forever.
     animation_settings.set_repeat(aeon::scene::animation_repeat::continuous);
 
     animated_sprite_ = scene_manager_.create_scene_object<aeon::scene::animated_sprite>(
-        sprite_batch, animation_material, 0, animation_settings);
+        sprite_batch, atlas, 0, animation_settings);
     root_node->attach_scene_object(animated_sprite_);
 
     platform_.run();
