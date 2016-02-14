@@ -37,7 +37,11 @@ application::application()
 void application::main(int, char *[])
 {
     // Load resources
-    aeon::resources::atlas_ptr atlas = resource_manager_.load_atlas("/resources/atlas/KannettCSheet1.ata");
+    aeon::gfx::material_ptr ships_material = resource_manager_.load_material("/resources/materials/ships.amf");
+
+    // A sprite batch requires an atlas, we can either load one from an atlas file, or just generate one if
+    // all the sprites have the same size and are properly aligned within the file.
+    aeon::resources::atlas_ptr atlas = std::make_shared<aeon::resources::atlas>(ships_material, glm::vec2(64, 64));
 
     // Set up scene
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
@@ -50,8 +54,9 @@ void application::main(int, char *[])
     // The sprite batch must be attached to the scene.
     root_node->attach_scene_object(sprite_batch);
 
-    aeon::resources::atlas_region ship1 = atlas->get_region_by_name("test1");
-    aeon::resources::atlas_region ship2 = atlas->get_region_by_name("test2");
+    aeon::resources::atlas_region ship1 = atlas->get_region_by_index(0);
+    aeon::resources::atlas_region ship2 = atlas->get_region_by_index(4);
+    aeon::resources::atlas_region ship3 = atlas->get_region_by_index(10);
 
     aeon::scene::sprite_ptr ship1_sprite =
         scene_manager_.create_scene_object<aeon::scene::sprite>(sprite_batch, ship1, 0);
@@ -70,7 +75,7 @@ void application::main(int, char *[])
     ship3_node->translate(100.0f, 0.0f);
 
     aeon::scene::sprite_ptr ship3_sprite =
-        scene_manager_.create_scene_object<aeon::scene::sprite>(sprite_batch, ship1, 1);
+        scene_manager_.create_scene_object<aeon::scene::sprite>(sprite_batch, ship3, 1);
     ship3_node->attach_scene_object(ship3_sprite);
 
     platform_.run();
