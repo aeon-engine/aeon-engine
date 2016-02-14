@@ -28,7 +28,8 @@ namespace scene
 {
 
 DEFINE_EXCEPTION_OBJECT(sprite_batch_exception, aeon::common::exception, "Sprite Batch exception.");
-DEFINE_EXCEPTION_OBJECT(sprite_batch_full_exception, sprite_batch_exception, "Sprite Batch full. Amount can not exceed maximum sprites per batch.");
+DEFINE_EXCEPTION_OBJECT(sprite_batch_full_exception, sprite_batch_exception,
+    "Sprite Batch full. Amount can not exceed maximum sprites per batch.");
 
 struct sprite_vertex
 {

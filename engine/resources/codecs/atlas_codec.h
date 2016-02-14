@@ -16,42 +16,36 @@
 #pragma once
 
 #include <resources/exceptions.h>
-#include <aeon/utility.h>
 #include <resources/resource_encoding.h>
-#include <resources/resource_type.h>
 #include <resources/codecs/codec.h>
-#include <resources/codecs/image_codec.h>
-#include <resources/codecs/material_codec.h>
-#include <resources/codecs/shader_codec.h>
-#include <resources/codecs/atlas_codec.h>
-#include <map>
+#include <resources/atlas.h>
+#include <common/types/rectangle.h>
+#include <string>
 
 namespace aeon
 {
 namespace resources
 {
 
-class codec_manager
+class atlas_resource_wrapper;
+class resource_manager;
+
+class atlas_codec : public codec
 {
-    using codec_map = std::map<resource_encoding, codec_ptr>;
-
 public:
-    codec_manager();
-    ~codec_manager() = default;
+    atlas_codec() = default;
+    virtual ~atlas_codec() = default;
 
-    codec_ptr get_codec(resource_encoding encoding);
-    image_codec_ptr get_image_codec(resource_encoding encoding);
-    material_codec_ptr get_material_codec();
-    shader_codec_ptr get_shader_codec();
-    atlas_codec_ptr get_atlas_codec();
+    resource_encoding get_codec_type() const override;
 
-    resource_type get_resource_type_by_encoding(resource_encoding encoding) const;
+    atlas_ptr decode(resource_manager &parent, atlas_resource_wrapper_ptr wrapper);
 
 private:
-    void __register_codecs();
-
-    codec_map codecs_;
+    common::types::rectangle<float> __atlas_string_to_rectangle(const std::string &str,
+        unsigned int texture_width, unsigned int texture_height) const;
 };
+
+using atlas_codec_ptr = std::shared_ptr<atlas_codec>;
 
 } // namespace resources
 } // namespace aeon

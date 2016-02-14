@@ -1,4 +1,4 @@
-shader=/resources/shaders/fragment_lighting.prg
+shader=/resources/shaders/sprite_batch.prg
 ambient=0.2 0.4 0.4 1.0
 diffuse=1.0 1.0 1.0
 specular=1.0 1.0 1.0 1.0

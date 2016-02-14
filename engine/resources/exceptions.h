@@ -83,6 +83,10 @@ DEFINE_EXCEPTION_OBJECT(codec_decode_exception, codec_exception, "Error while de
 DEFINE_EXCEPTION_OBJECT(material_codec_decode_exception, codec_decode_exception,
     "Error while decoding material resource.");
 
+// atlas_codec
+DEFINE_EXCEPTION_OBJECT(atlas_codec_decode_exception, codec_decode_exception,
+    "Error while decoding atlas resource.");
+
 // shader_codec
 DEFINE_EXCEPTION_OBJECT(shader_codec_decode_exception, codec_decode_exception,
     "Error while decoding shader resource.");
@@ -97,6 +101,9 @@ DEFINE_EXCEPTION_OBJECT(codec_png_decode_exception, codec_decode_exception, "Err
 DEFINE_EXCEPTION_OBJECT(image_exception, resource_exception, "Image resource exception.");
 
 DEFINE_EXCEPTION_OBJECT(image_data_exception, image_exception, "Image resource data exception.");
+
+// atlas
+DEFINE_EXCEPTION_OBJECT(atlas_exception, resource_exception, "Atlas resource exception.");
 
 } // namespace resources
 } // namespace aeon

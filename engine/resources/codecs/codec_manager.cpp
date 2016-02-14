@@ -54,6 +54,11 @@ shader_codec_ptr codec_manager::get_shader_codec()
     return std::dynamic_pointer_cast<shader_codec>(get_codec(resource_encoding::shader));
 }
 
+atlas_codec_ptr codec_manager::get_atlas_codec()
+{
+    return std::dynamic_pointer_cast<atlas_codec>(get_codec(resource_encoding::atlas));
+}
+
 resource_type codec_manager::get_resource_type_by_encoding(resource_encoding encoding) const
 {
     switch (encoding)
@@ -62,6 +67,8 @@ resource_type codec_manager::get_resource_type_by_encoding(resource_encoding enc
             return resource_type::material;
         case resource_encoding::shader:
             return resource_type::shader;
+        case resource_encoding::atlas:
+            return resource_type::atlas;
         case resource_encoding::image_png:
             return resource_type::image;
         case resource_encoding::unknown:
@@ -75,6 +82,7 @@ void codec_manager::__register_codecs()
     codecs_[resource_encoding::material] = std::make_shared<material_codec>();
     codecs_[resource_encoding::shader] = std::make_shared<shader_codec>();
     codecs_[resource_encoding::image_png] = std::make_shared<image_codec_png>();
+    codecs_[resource_encoding::atlas] = std::make_shared<atlas_codec>();
 }
 
 } // namespace resources

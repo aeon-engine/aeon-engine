@@ -13,25 +13,37 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
+#include <resources/atlas.h>
+#include <cassert>
 
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_type
+atlas::atlas(resource_wrapper_ptr wrapper, material_ptr material, const atlas_regions &regions,
+             const atlas_region_names &names)
+    : resource(wrapper)
+    , regions_(regions)
+    , names_(names)
 {
-    unknown,
-    raw,
-    config,
-    image,
-    shader,
-    material,
-    atlas,
-    mesh,
-    world
-};
+}
+
+atlas_region atlas::get_region_by_index(int index)
+{
+    assert(regions_.size() >= index);
+    return regions_.at(index);
+}
+
+atlas_region atlas::get_region_by_name(const std::string &name)
+{
+    auto result = names_.find(name);
+
+    if (result == names_.end())
+        throw atlas_exception();
+
+    return get_region_by_index(result->second);
+}
 
 } // namespace resources
 } // namespace aeon

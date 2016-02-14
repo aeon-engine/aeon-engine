@@ -44,6 +44,8 @@ void application::main(int, char *[])
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
     root_node->translate(400, 300);
 
+    aeon::resources::atlas_ptr atlas = resource_manager_.load_atlas("/resources/atlas/KannettCSheet1.ata");
+
     // Create a sprite batch. All sprites must be batched in order to be rendered
     aeon::scene::sprite_batch_ptr sprite_batch =
         scene_manager_.create_scene_object<aeon::scene::sprite_batch>(sprite_batch_material);

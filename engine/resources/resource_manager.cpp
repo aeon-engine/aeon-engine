@@ -75,6 +75,12 @@ gfx::material_ptr resource_manager::load_material(const std::string &path)
     return device_.get_material_manager().load(material_resource_data);
 }
 
+atlas_ptr resource_manager::load_atlas(const std::string &path)
+{
+    atlas_resource_wrapper_ptr atlas_resource = load_atlas_wrapper(path);
+    return atlas_resource->open();
+}
+
 image_resource_wrapper_ptr resource_manager::load_image_wrapper(const std::string &path)
 {
     std::string real_path;
@@ -106,6 +112,17 @@ shader_resource_wrapper_ptr resource_manager::load_shader_wrapper(const std::str
         return nullptr;
 
     return std::make_shared<shader_resource_wrapper>(*this, real_path, best_match_provider);
+}
+
+atlas_resource_wrapper_ptr resource_manager::load_atlas_wrapper(const std::string &path)
+{
+    std::string real_path;
+    resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
+
+    if (!best_match_provider)
+        return nullptr;
+
+    return std::make_shared<atlas_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
 resource_provider_ptr resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)

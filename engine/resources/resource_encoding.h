@@ -25,6 +25,7 @@ enum class resource_encoding
     unknown,
     material,
     shader,
+    atlas,
     image_png
 };
 

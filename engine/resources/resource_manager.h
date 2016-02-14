@@ -27,6 +27,8 @@
 #include <gfx/gfx_shader.h>
 #include <gfx/gfx_texture.h>
 #include <gfx/gfx_material.h>
+#include <resources/wrappers/atlas_resource_wrapper.h>
+#include <resources/atlas.h>
 #include <map>
 
 namespace aeon
@@ -51,10 +53,12 @@ public:
     gfx::texture_ptr load_texture(const std::string &path);
     gfx::shader_ptr load_shader(const std::string &path);
     gfx::material_ptr load_material(const std::string &path);
+    atlas_ptr load_atlas(const std::string &path);
 
     image_resource_wrapper_ptr load_image_wrapper(const std::string &path);
     material_resource_wrapper_ptr load_material_wrapper(const std::string &path);
     shader_resource_wrapper_ptr load_shader_wrapper(const std::string &path);
+    atlas_resource_wrapper_ptr load_atlas_wrapper(const std::string &path);
 
     platform::platform_interface &get_platform_interface()
     {
