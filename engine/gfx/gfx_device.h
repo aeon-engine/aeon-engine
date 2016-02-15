@@ -26,6 +26,12 @@ namespace aeon
 namespace gfx
 {
 
+struct buffer_clear_flag
+{
+    static const int color_buffer = 0x01;
+    static const int depth_buffer = 0x02;
+};
+
 class device
 {
 public:
@@ -37,6 +43,7 @@ public:
 
     virtual void set_clear_color(const common::types::color &c) = 0;
     virtual void set_viewport(scene::viewport *vp) = 0;
+    virtual void clear_buffer(int buffer_flag) = 0;
 
     texture_manager &get_texture_manager()
     {

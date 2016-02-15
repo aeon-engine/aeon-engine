@@ -58,16 +58,10 @@ void scene_manager::__render_scene(camera *cam, viewport *vp, float dt)
 
     queue_.sort();
 
-    // Render the queue
-    // TODO: This is a temporary implementation
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // glMatrixMode(GL_PROJECTION);
-    // glLoadMatrixf(glm::value_ptr(cam->get_matrix()));
-    // glMatrixMode(GL_MODELVIEW);
+    device_.clear_buffer(gfx::buffer_clear_flag::color_buffer | gfx::buffer_clear_flag::depth_buffer);
 
     for (auto render_object : queue_)
     {
-        // glLoadMatrixf(glm::value_ptr(render_object.matrix));
         render_object.object->render(cam->get_projection_matrix(), cam->get_view_matrix(), render_object.matrix, dt);
     }
 }

@@ -61,6 +61,19 @@ void device::set_viewport(scene::viewport *vp)
     glViewport(static_cast<int>(rect.left), static_cast<int>(rect.top), rect.width<int>(), rect.height<int>());
 }
 
+void device::clear_buffer(int buffer_flag)
+{
+    GLenum buffers = 0;
+
+    if ((buffer_flag & gfx::buffer_clear_flag::color_buffer) != 0)
+        buffers |= GL_COLOR_BUFFER_BIT;
+
+    if ((buffer_flag & gfx::buffer_clear_flag::depth_buffer) != 0)
+        buffers |= GL_DEPTH_BUFFER_BIT;
+
+    glClear(buffers);
+}
+
 } // namespace gl
 } // namespace gfx
 } // namespace aeon

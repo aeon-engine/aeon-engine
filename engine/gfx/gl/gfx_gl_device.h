@@ -38,6 +38,8 @@ public:
 
     void set_clear_color(const common::types::color &c) override;
     void set_viewport(scene::viewport *vp) override;
+
+    void clear_buffer(int buffer_flag) override;
 };
 
 } // namespace gl
