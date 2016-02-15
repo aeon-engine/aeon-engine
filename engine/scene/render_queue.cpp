@@ -22,7 +22,7 @@ namespace aeon
 namespace scene
 {
 
-void render_queue::add_render_object(const glm::mat4& matrix, scene_object_ptr object, int group)
+void render_queue::add_render_object(const glm::mat4 &matrix, scene_object_ptr object, int group)
 {
     assert(group < render_layer::max);
 
@@ -47,10 +47,9 @@ render_queue::render_queue_vector::const_iterator render_queue::end() const
 void render_queue::sort()
 {
     std::sort(objects_.begin(), objects_.end(), [](const render_queue_object &a, const render_queue_object &b)
-        {
-            return a.group < b.group;
-        }
-    );
+              {
+                  return a.group < b.group;
+              });
 }
 
 } // namespace scene

@@ -59,7 +59,7 @@ public:
      * Constructor used by the atlas codec to load an atlas
      */
     explicit atlas(resource_wrapper_ptr wrapper, gfx::material_ptr material, const atlas_regions &regions,
-        const atlas_region_names &names);
+                   const atlas_region_names &names);
 
     /*!
      * Constructor for manual auto-generated atlasses. These can not be referenced by name, but only by index.

@@ -40,21 +40,21 @@ sprite_batch::sprite_batch(scene_manager *scene_manager, resources::atlas_ptr at
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), 0);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)8);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void *)8);
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)16);
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void *)16);
 
     glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)32);
+    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void *)32);
     glEnableVertexAttribArray(4);
-    glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)48);
+    glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void *)48);
     glEnableVertexAttribArray(5);
-    glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)64);
+    glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void *)64);
     glEnableVertexAttribArray(6);
-    glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void*)80);
+    glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (void *)80);
 }
 
-void sprite_batch::__add_sprite(sprite* spr)
+void sprite_batch::__add_sprite(sprite *spr)
 {
     if (sprites_.size() >= sprites_per_buffer_)
         throw sprite_batch_full_exception();
@@ -62,7 +62,7 @@ void sprite_batch::__add_sprite(sprite* spr)
     sprites_.push_back(spr);
 }
 
-void sprite_batch::__remove_sprite(sprite* spr)
+void sprite_batch::__remove_sprite(sprite *spr)
 {
     sprites_.erase(std::remove(sprites_.begin(), sprites_.end(), spr), sprites_.end());
 }
@@ -101,10 +101,9 @@ void sprite_batch::__create_and_setup_index_buffer()
 void sprite_batch::__sort_by_zorder()
 {
     std::sort(sprites_.begin(), sprites_.end(), [](const sprite *a, const sprite *b)
-        {
-            return a->get_zorder() < b->get_zorder();
-        }
-    );
+              {
+                  return a->get_zorder() < b->get_zorder();
+              });
 }
 
 void sprite_batch::__fill_and_upload_sprite_data_buffer(float dt)
@@ -122,48 +121,27 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer(float dt)
         glm::vec2 size_2 = spr->get_size() * 0.5f;
 
         // Bottom left
-        vertex_data_ptr[sprite_data_offset++] =
-        {
-            -size_2.x, size_2.y,
-            region.u1, region.v2,
-            1.0f, 1.0f, 1.0f, 1.0f,
-            sprite_matrix
-        };
+        vertex_data_ptr[sprite_data_offset++] = {-size_2.x, size_2.y, region.u1, region.v2,    1.0f,
+                                                 1.0f,      1.0f,     1.0f,      sprite_matrix};
 
         // Bottom right
-        vertex_data_ptr[sprite_data_offset++] =
-        {
-            size_2.x, size_2.y,
-            region.u2, region.v2,
-            1.0f, 1.0f, 1.0f, 1.0f,
-            sprite_matrix
-        };
+        vertex_data_ptr[sprite_data_offset++] = {size_2.x, size_2.y, region.u2, region.v2,    1.0f,
+                                                 1.0f,     1.0f,     1.0f,      sprite_matrix};
 
         // Top left
-        vertex_data_ptr[sprite_data_offset++] =
-        {
-            -size_2.x, -size_2.y,
-            region.u1, region.v1,
-            1.0f, 1.0f, 1.0f, 1.0f,
-            sprite_matrix
-        };
+        vertex_data_ptr[sprite_data_offset++] = {-size_2.x, -size_2.y, region.u1, region.v1,    1.0f,
+                                                 1.0f,      1.0f,      1.0f,      sprite_matrix};
 
         // Top right
-        vertex_data_ptr[sprite_data_offset++] =
-        {
-            size_2.x, -size_2.y,
-            region.u2, region.v1,
-            1.0f, 1.0f, 1.0f, 1.0f,
-            sprite_matrix
-        };
+        vertex_data_ptr[sprite_data_offset++] = {size_2.x, -size_2.y, region.u2, region.v1,    1.0f,
+                                                 1.0f,     1.0f,      1.0f,      sprite_matrix};
     }
 
     int vertex_buffer_size = static_cast<int>(sprites_.size()) * sizeof(sprite_vertex) * vertices_per_sprite;
     vertex_buffer_->set_data(vertex_buffer_size, vertex_data_ptr, gfx::buffer_usage::stream_usage);
 }
 
-void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
-    const glm::mat4x4 &model, float dt)
+void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt)
 {
     __sort_by_zorder();
     __fill_and_upload_sprite_data_buffer(dt);
@@ -181,7 +159,7 @@ void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view
     glBindVertexArray(vao);
 
     glDrawRangeElements(GL_TRIANGLES, 0, sprites_.size() * indices_per_sprite,
-        static_cast<int>(sprites_.size()) * indices_per_sprite, GL_UNSIGNED_SHORT, nullptr);
+                        static_cast<int>(sprites_.size()) * indices_per_sprite, GL_UNSIGNED_SHORT, nullptr);
 }
 
 } // namespace scene

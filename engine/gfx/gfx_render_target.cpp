@@ -45,7 +45,8 @@ bool render_target::handle_frame(float dt)
     return true;
 }
 
-scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect, int zorder)
+scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera,
+                                                   const common::types::rectangle<float> &rect, int zorder)
 {
     scene::viewport_ptr vp = std::make_shared<scene::viewport>(camera, rect, zorder);
     viewports_.push_back(vp);
@@ -53,7 +54,8 @@ scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, con
     return vp;
 }
 
-scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, const common::types::rectangle<int>& rect, int zorder)
+scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, const common::types::rectangle<int> &rect,
+                                                   int zorder)
 {
     return create_viewport(camera, common::types::rectangle<float>(rect), zorder);
 }

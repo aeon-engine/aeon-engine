@@ -29,8 +29,7 @@ namespace resources
 class shader : public resource
 {
 public:
-    explicit shader(resource_wrapper_ptr wrapper, const std::string &vertex_source,
-                    const std::string &fragment_source);
+    explicit shader(resource_wrapper_ptr wrapper, const std::string &vertex_source, const std::string &fragment_source);
     virtual ~shader() = default;
 
     shader_resource_wrapper_ptr get_material_resource_wrapper()

@@ -29,27 +29,31 @@ sprite_animation_settings::sprite_animation_settings(glm::vec2 frame_size)
 {
 }
 
-void sprite_animation_settings::generate_sequence(int index, int frame_offset,
-    int frame_count, animation_sequence_type type)
+void sprite_animation_settings::generate_sequence(int index, int frame_offset, int frame_count,
+                                                  animation_sequence_type type)
 {
     switch (type)
     {
         case animation_sequence_type::normal:
         {
             __generate_normal_sequence(index, frame_offset, frame_count);
-        } break;
+        }
+        break;
         case animation_sequence_type::reverse:
         {
             __generate_reverse_sequence(index, frame_offset, frame_count);
-        } break;
+        }
+        break;
         case animation_sequence_type::up_down:
         {
             __generate_up_down_sequence(index, frame_offset, frame_count);
-        } break;
+        }
+        break;
         default:
         {
-            sequences_[index] = { 0 };
-        } break;
+            sequences_[index] = {0};
+        }
+        break;
     }
 }
 

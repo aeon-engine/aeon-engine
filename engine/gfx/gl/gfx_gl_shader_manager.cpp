@@ -72,8 +72,7 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
             glGetShaderInfoLog(shader, info_len, NULL, info_log.data());
 
             // TODO: console logging
-            std::cerr << "Error compiling shader: " << std::endl
-                << info_log.data() << std::endl;
+            std::cerr << "Error compiling shader: " << std::endl << info_log.data() << std::endl;
         }
 
         glDeleteShader(shader);
@@ -110,8 +109,7 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
             glGetProgramInfoLog(program, info_len, NULL, info_log.data());
 
             // TODO: console logging
-            std::cerr << "Error linking shader program: " << std::endl
-                << info_log.data() << std::endl;
+            std::cerr << "Error linking shader program: " << std::endl << info_log.data() << std::endl;
         }
 
         glDeleteProgram(program);

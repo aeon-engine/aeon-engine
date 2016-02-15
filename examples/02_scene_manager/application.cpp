@@ -21,7 +21,8 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT, "Example 2 - Scene Manager")
+    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
+                                                                  "Example 2 - Scene Manager")
 {
     // Init resources
     get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
@@ -29,7 +30,8 @@ application::application()
     get_main_window()->attach_listener(this);
 
     // Set up the scene
-    camera_ = std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    camera_ =
+        std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
     window_->create_viewport(camera_, aeon::common::types::rectangle<int>(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0), 0);
 }
@@ -48,8 +50,7 @@ void application::main(int, char *[])
     root_node->translate(400, 300);
 
     // Create a sprite batch. All sprites must be batched in order to be rendered
-    aeon::scene::sprite_batch_ptr sprite_batch =
-        scene_manager_.create_scene_object<aeon::scene::sprite_batch>(atlas);
+    aeon::scene::sprite_batch_ptr sprite_batch = scene_manager_.create_scene_object<aeon::scene::sprite_batch>(atlas);
 
     // The sprite batch must be attached to the scene.
     root_node->attach_scene_object(sprite_batch);

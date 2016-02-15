@@ -82,13 +82,13 @@ aeon::streams::stream::seek_direction platform_file_interface::__to_streams_seek
 {
     switch (direction)
     {
-    default:
-    case seek_direction::begin:
-        return aeon::streams::stream::seek_direction::begin;
-    case seek_direction::current:
-        return aeon::streams::stream::seek_direction::current;
-    case seek_direction::end:
-        return aeon::streams::stream::seek_direction::end;
+        default:
+        case seek_direction::begin:
+            return aeon::streams::stream::seek_direction::begin;
+        case seek_direction::current:
+            return aeon::streams::stream::seek_direction::current;
+        case seek_direction::end:
+            return aeon::streams::stream::seek_direction::end;
     }
 }
 

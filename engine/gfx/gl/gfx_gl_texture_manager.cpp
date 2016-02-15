@@ -52,13 +52,13 @@ GLint texture_manager::__image_pixelformat_to_gl(resources::image::pixel_format 
 {
     switch (format)
     {
-    case resources::image::pixel_format::rgb:
-        return GL_RGB;
-    case resources::image::pixel_format::rgba:
-        return GL_RGBA;
-    default:
-        // TODO: Error condition?
-        return GL_RGBA;
+        case resources::image::pixel_format::rgb:
+            return GL_RGB;
+        case resources::image::pixel_format::rgba:
+            return GL_RGBA;
+        default:
+            // TODO: Error condition?
+            return GL_RGBA;
     }
 }
 

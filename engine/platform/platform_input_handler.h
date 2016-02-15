@@ -34,7 +34,7 @@ public:
     virtual ~platform_input_handler() = default;
 
     void handle_keyboard_event(platform_window *window, keyboard_key key, keyboard_key_state key_state, int modifier);
-    
+
     void handle_mouse_move_event(platform_window *window, float x, float y);
     void handle_mouse_button_event(platform_window *window, mouse_button button, mouse_button_state button_state);
     void handle_mouse_scroll_event(platform_window *window, float x, float y);

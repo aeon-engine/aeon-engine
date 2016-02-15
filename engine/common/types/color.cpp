@@ -27,7 +27,7 @@ namespace common
 namespace types
 {
 
-color convert_to_rgb(const color_yuv& c)
+color convert_to_rgb(const color_yuv &c)
 {
     float r = c.y + (1.140f * c.v);
     float g = c.y - (0.395f * c.u) - (0.581f * c.v);
@@ -37,7 +37,7 @@ color convert_to_rgb(const color_yuv& c)
 }
 
 // Taken and modified from https://www.cs.rit.edu/~ncs/color/t_convert.html
-color convert_to_rgb(const color_hsv& c)
+color convert_to_rgb(const color_hsv &c)
 {
     // achromatic (grey)
     if (c.s == 0)
@@ -47,7 +47,7 @@ color convert_to_rgb(const color_hsv& c)
 
     h /= 60.0f; // sector 0 to 5
     int i = static_cast<int>(std::floor(h));
-    float f = h - i;			// factorial part of h
+    float f = h - i; // factorial part of h
     float p = c.v * (1 - c.s);
     float q = c.v * (1 - c.s * f);
     float t = c.v * (1 - c.s * (1 - f));
@@ -70,7 +70,7 @@ color convert_to_rgb(const color_hsv& c)
     }
 }
 
-color_yuv convert_to_yuv(const color& c)
+color_yuv convert_to_yuv(const color &c)
 {
     float y = (0.299f * c.r) + (0.587f * c.g) + (0.114f * c.b);
     float u = 0.492f * (c.b - y);
@@ -80,7 +80,7 @@ color_yuv convert_to_yuv(const color& c)
 }
 
 // Taken and modified from https://www.cs.rit.edu/~ncs/color/t_convert.html
-color_hsv convert_to_hsv(const color& c)
+color_hsv convert_to_hsv(const color &c)
 {
     float min = std::min<float>(std::min<float>(c.r, c.g), c.b);
     float max = std::max<float>(std::max<float>(c.r, c.g), c.b);

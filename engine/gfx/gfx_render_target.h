@@ -39,9 +39,11 @@ public:
      */
     bool handle_frame(float dt);
 
-    scene::viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
+    scene::viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect,
+                                        int zorder);
 
-    scene::viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<int> &rect, int zorder);
+    scene::viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<int> &rect,
+                                        int zorder);
 
     void detach_viewport(scene::viewport_ptr vp);
 

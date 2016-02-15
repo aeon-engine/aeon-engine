@@ -20,7 +20,7 @@
 namespace aeon
 {
 
-template<typename platform_interface_t, typename device_t, typename scene_manager_t>
+template <typename platform_interface_t, typename device_t, typename scene_manager_t>
 class base_application
 {
 public:

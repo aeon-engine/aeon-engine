@@ -32,7 +32,7 @@ class atlas_resource_wrapper : public resource_wrapper
 {
 public:
     explicit atlas_resource_wrapper(resource_manager &parent, const std::string &path,
-        resource_provider_weak_ptr provider);
+                                    resource_provider_weak_ptr provider);
     virtual ~atlas_resource_wrapper() = default;
 
     atlas_ptr open(gfx::device &device);

@@ -28,7 +28,7 @@ namespace gl
 
 DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_exception, aeon::common::exception, "OpenGL shader exception.");
 DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_compile_exception, gfx_opengl_shader_exception,
-    "OpenGL shader compilation exception.");
+                        "OpenGL shader compilation exception.");
 
 class shader_manager : public gfx::shader_manager
 {

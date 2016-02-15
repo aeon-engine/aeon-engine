@@ -48,8 +48,8 @@ private:
 
     atlas_data __atlas_string_to_data(const std::string &str) const;
 
-    common::types::rectangle<float> __atlas_data_to_uv(const atlas_data &data,
-        unsigned int texture_width, unsigned int texture_height) const;
+    common::types::rectangle<float> __atlas_data_to_uv(const atlas_data &data, unsigned int texture_width,
+                                                       unsigned int texture_height) const;
 };
 
 using atlas_codec_ptr = std::shared_ptr<atlas_codec>;

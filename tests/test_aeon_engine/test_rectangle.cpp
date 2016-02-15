@@ -152,8 +152,7 @@ TEST(test_rectangle, test_rectangle_int_move)
     const int Width = 30;
     const int Height = 40;
     common::types::rectangle<int> test(0, 0, Width, Height);
-    common::types::rectangle<int> test2 =
-        common::types::rectangle<int>::move_to(test, glm::vec2(X, Y));
+    common::types::rectangle<int> test2 = common::types::rectangle<int>::move_to(test, glm::vec2(X, Y));
 
     EXPECT_EQ(test2.left, X);
     EXPECT_EQ(test2.top, Y);
@@ -168,8 +167,7 @@ TEST(test_rectangle, test_rectangle_int_move_inverted)
     const int Width = -30;
     const int Height = -40;
     common::types::rectangle<int> test(0, 0, Width, Height);
-    common::types::rectangle<int> test2 =
-        common::types::rectangle<int>::move_to(test, glm::vec2(X, Y));
+    common::types::rectangle<int> test2 = common::types::rectangle<int>::move_to(test, glm::vec2(X, Y));
 
     EXPECT_EQ(test2.left, X);
     EXPECT_EQ(test2.top, Y);
@@ -193,8 +191,7 @@ TEST(test_rectangle, test_rectangle_intersection)
     common::types::rectangle<int> test(0, 0, 300, 400);
     common::types::rectangle<int> test2(10, 20, 400, 500);
 
-    common::types::rectangle<int> intersection =
-        common::types::rectangle<int>::intersection(test, test2);
+    common::types::rectangle<int> intersection = common::types::rectangle<int>::intersection(test, test2);
 
     EXPECT_EQ(intersection.left, 10);
     EXPECT_EQ(intersection.top, 20);
@@ -207,8 +204,7 @@ TEST(test_rectangle, test_rectangle_union)
     common::types::rectangle<int> test(0, 15, 300, 400);
     common::types::rectangle<int> test2(10, 20, 400, 500);
 
-    common::types::rectangle<int> rect_union =
-        common::types::rectangle<int>::rectangle_union(test, test2);
+    common::types::rectangle<int> rect_union = common::types::rectangle<int>::rectangle_union(test, test2);
 
     EXPECT_EQ(0, rect_union.left);
     EXPECT_EQ(15, rect_union.top);

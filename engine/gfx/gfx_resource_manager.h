@@ -33,7 +33,7 @@ namespace aeon
 namespace gfx
 {
 
-template<typename gfx_type, typename resource_type>
+template <typename gfx_type, typename resource_type>
 class resource_manager
 {
 public:

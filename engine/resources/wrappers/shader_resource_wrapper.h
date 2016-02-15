@@ -30,7 +30,8 @@ using shader_ptr = std::shared_ptr<shader>;
 class shader_resource_wrapper : public resource_wrapper
 {
 public:
-    explicit shader_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
+    explicit shader_resource_wrapper(resource_manager &parent, const std::string &path,
+                                     resource_provider_weak_ptr provider);
     virtual ~shader_resource_wrapper() = default;
 
     shader_ptr open();

@@ -39,7 +39,7 @@ public:
     {
         zorder_ = zorder;
     }
-    
+
     int get_zorder() const
     {
         return zorder_;

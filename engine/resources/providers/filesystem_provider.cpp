@@ -72,10 +72,14 @@ resource_encoding filesystem_provider::get_encoding(const std::string &path) con
 
     std::string extension = path.substr(offset + 1);
 
-    if (extension == "amf") return resource_encoding::material;
-    if (extension == "prg") return resource_encoding::shader;
-    if (extension == "ata") return resource_encoding::atlas;
-    if (extension == "png") return resource_encoding::image_png;
+    if (extension == "amf")
+        return resource_encoding::material;
+    if (extension == "prg")
+        return resource_encoding::shader;
+    if (extension == "ata")
+        return resource_encoding::atlas;
+    if (extension == "png")
+        return resource_encoding::image_png;
 
     throw filesystem_provider_type_exception();
 }

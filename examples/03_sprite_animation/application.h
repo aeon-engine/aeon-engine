@@ -25,8 +25,8 @@
 enum move_direction : int
 {
     move_south = 0,
-    move_west  = 1,
-    move_east  = 2,
+    move_west = 1,
+    move_east = 2,
     move_north = 3
 };
 

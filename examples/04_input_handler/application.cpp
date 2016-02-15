@@ -39,7 +39,8 @@ application::application()
     get_main_window()->attach_listener(this);
 
     // Set up the scene
-    camera_ = std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    camera_ =
+        std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
     window_->create_viewport(camera_, aeon::common::types::rectangle<int>(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0), 0);
 
@@ -101,7 +102,9 @@ bool application::on_frame(float dt)
 
         if (forward_speed_ < -SHIP_MAX_SPEED)
             forward_speed_ = -SHIP_MAX_SPEED;
-    } else if (move_direction_ == ship_move_direction::reverse) {
+    }
+    else if (move_direction_ == ship_move_direction::reverse)
+    {
         forward_speed_ += SHIP_ACCELERATION * dt;
 
         if (forward_speed_ > SHIP_MAX_SPEED)
@@ -118,7 +121,8 @@ bool application::on_frame(float dt)
             if (forward_speed_ <= 0.0f)
                 forward_speed_ = 0.0f;
         }
-        else if (forward_speed_ < 0.0f) {
+        else if (forward_speed_ < 0.0f)
+        {
             forward_speed_ += SHIP_FRICTION * dt;
 
             if (forward_speed_ >= 0.0f)
@@ -131,14 +135,12 @@ bool application::on_frame(float dt)
     return true;
 }
 
-
 void application::on_keyboard_event(aeon::platform::platform_window * /*window*/, aeon::platform::keyboard_key key,
-    aeon::platform::keyboard_key_state key_state, int /*modifier*/)
+                                    aeon::platform::keyboard_key_state key_state, int /*modifier*/)
 {
     std::cout << "Key: " << static_cast<int>(key) << " " << static_cast<int>(key_state) << std::endl;
 
-    if (key == aeon::platform::keyboard_key::key_escape &&
-        key_state == aeon::platform::keyboard_key_state::pressed)
+    if (key == aeon::platform::keyboard_key::key_escape && key_state == aeon::platform::keyboard_key_state::pressed)
     {
         platform_.stop();
     }
@@ -176,8 +178,9 @@ void application::on_keyboard_event(aeon::platform::platform_window * /*window*/
     }
 }
 
-void application::on_mouse_button_event(aeon::platform::platform_window * /*window*/, aeon::platform::mouse_button button,
-    aeon::platform::mouse_button_state button_state)
+void application::on_mouse_button_event(aeon::platform::platform_window * /*window*/,
+                                        aeon::platform::mouse_button button,
+                                        aeon::platform::mouse_button_state button_state)
 {
     std::cout << "Button: " << static_cast<int>(button) << " " << static_cast<int>(button_state) << std::endl;
 }

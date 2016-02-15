@@ -32,10 +32,10 @@ using sprite_batch_ptr = std::shared_ptr<sprite_batch>;
 class sprite : public scene_object, public common::has_z_order
 {
 public:
-    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch,
-        const resources::atlas_region &region, int zorder);
-    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch,
-        const resources::atlas_region &region, glm::vec2 size, int zorder);
+    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch, const resources::atlas_region &region,
+                    int zorder);
+    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch, const resources::atlas_region &region,
+                    glm::vec2 size, int zorder);
 
     virtual ~sprite();
 
@@ -49,7 +49,9 @@ public:
     void set_atlas_region(const resources::atlas_region &region);
     resources::atlas_region get_atlas_region() const;
 
-    virtual void update(float /*dt*/) {}
+    virtual void update(float /*dt*/)
+    {
+    }
 
 protected:
     glm::vec2 size_;

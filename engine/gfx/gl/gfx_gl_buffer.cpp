@@ -52,8 +52,10 @@ GLenum buffer::__buffer_type_as_gl_enum() const
 {
     switch (type_)
     {
-        case buffer_type::array: return GL_ARRAY_BUFFER;
-        case buffer_type::element_array: return GL_ELEMENT_ARRAY_BUFFER;
+        case buffer_type::array:
+            return GL_ARRAY_BUFFER;
+        case buffer_type::element_array:
+            return GL_ELEMENT_ARRAY_BUFFER;
         default:
             throw gfx_opengl_buffer_exception();
     }
@@ -63,9 +65,12 @@ GLenum buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const
 {
     switch (usage)
     {
-        case buffer_usage::stream_usage: return GL_STREAM_DRAW;
-        case buffer_usage::static_usage: return GL_STATIC_DRAW;
-        case buffer_usage::dynamic_usage: return GL_DYNAMIC_DRAW;
+        case buffer_usage::stream_usage:
+            return GL_STREAM_DRAW;
+        case buffer_usage::static_usage:
+            return GL_STATIC_DRAW;
+        case buffer_usage::dynamic_usage:
+            return GL_DYNAMIC_DRAW;
         default:
             throw gfx_opengl_buffer_exception();
     }

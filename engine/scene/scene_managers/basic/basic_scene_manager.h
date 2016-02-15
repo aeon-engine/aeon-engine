@@ -38,7 +38,6 @@ private:
     void __prepare_render_queue(camera *cam) override;
 
     void __traverse_scene_node(scene_node_ptr node);
-
 };
 
 } // namespace scene

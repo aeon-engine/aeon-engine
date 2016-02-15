@@ -26,7 +26,7 @@ namespace gfx
 namespace gl
 {
 
-material_manager::material_manager(device& dev)
+material_manager::material_manager(device &dev)
     : device_(dev)
 {
 }

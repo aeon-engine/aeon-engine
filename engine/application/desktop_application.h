@@ -23,17 +23,18 @@
 namespace aeon
 {
 
-template<typename scene_manager_t>
-class desktop_application : public base_application<platform::glfw::platform_interface, gfx::gl::device, scene_manager_t>
+template <typename scene_manager_t>
+class desktop_application
+    : public base_application<platform::glfw::platform_interface, gfx::gl::device, scene_manager_t>
 {
 public:
     explicit desktop_application(int width, int height, const std::string &window_title)
-        : base_application<platform::glfw::platform_interface, gfx::gl::device, scene_manager_t>(width, height, window_title)
+        : base_application<platform::glfw::platform_interface, gfx::gl::device, scene_manager_t>(width, height,
+                                                                                                 window_title)
     {
     }
 
     virtual ~desktop_application() = default;
-
 };
 
 } // namespace aeon

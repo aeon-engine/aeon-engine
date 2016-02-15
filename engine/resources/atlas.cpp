@@ -81,8 +81,6 @@ void atlas::__calculate_atlas_regions(glm::vec2 sprite_size)
             regions_.push_back(region);
         }
     }
-
-
 }
 
 } // namespace resources

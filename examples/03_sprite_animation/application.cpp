@@ -20,7 +20,8 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT, "Example 3 - Sprite Animation")
+    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
+                                                                  "Example 3 - Sprite Animation")
     , turn_timer_(0.0f)
     , direction_(move_south)
 {
@@ -31,7 +32,8 @@ application::application()
     get_main_window()->attach_listener(this);
 
     // Set up the scene
-    camera_ = std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    camera_ =
+        std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
     window_->create_viewport(camera_, aeon::common::types::rectangle<int>(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0), 0);
 }
@@ -39,7 +41,8 @@ application::application()
 void application::main(int, char *[])
 {
     // Load resources
-    aeon::gfx::material_ptr animation_material = resource_manager_.load_material("/resources/materials/2d_character.amf");
+    aeon::gfx::material_ptr animation_material =
+        resource_manager_.load_material("/resources/materials/2d_character.amf");
     aeon::resources::atlas_ptr atlas = std::make_shared<aeon::resources::atlas>(animation_material, glm::vec2(32, 32));
 
     // Set up scene
@@ -59,8 +62,10 @@ void application::main(int, char *[])
     // Sequences can be generated so that different animations can be played easily. The first parameter is a handle
     // that can be any number as long as it's unique to that animation. In this example we used an enum to give each
     // animation a name.
-    // The 2nd parameter is the offset of the frame within the sprite sheet. Offsets are counted left to right, top to bottom.
-    // The 3rd parameter is how many frames should be animated. Again, these frames are counted left to right, top to bottom.
+    // The 2nd parameter is the offset of the frame within the sprite sheet. Offsets are counted left to right, top to
+    // bottom.
+    // The 3rd parameter is how many frames should be animated. Again, these frames are counted left to right, top to
+    // bottom.
     // The final parameter determines how the sequence of frames should be played, for example normally (1234),
     // reversed (4321), or back and forth (123432).
     animation_settings.generate_sequence(move_south, 0, 3, aeon::scene::animation_sequence_type::up_down);
@@ -77,8 +82,8 @@ void application::main(int, char *[])
     // Set up the animation so that it keeps playing forever.
     animation_settings.set_repeat(aeon::scene::animation_repeat::continuous);
 
-    animated_sprite_ = scene_manager_.create_scene_object<aeon::scene::animated_sprite>(
-        sprite_batch, atlas, 0, animation_settings);
+    animated_sprite_ =
+        scene_manager_.create_scene_object<aeon::scene::animated_sprite>(sprite_batch, atlas, 0, animation_settings);
     root_node->attach_scene_object(animated_sprite_);
 
     platform_.run();

@@ -30,7 +30,8 @@ using material_ptr = std::shared_ptr<material>;
 class material_resource_wrapper : public resource_wrapper
 {
 public:
-    explicit material_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
+    explicit material_resource_wrapper(resource_manager &parent, const std::string &path,
+                                       resource_provider_weak_ptr provider);
     virtual ~material_resource_wrapper() = default;
 
     material_ptr open();

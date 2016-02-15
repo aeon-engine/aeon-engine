@@ -125,12 +125,8 @@ public:
      */
     static rectangle<T> move_to(const rectangle<T> &rect, const glm::vec2 &p)
     {
-        return rectangle<T>(
-            static_cast<T>(p.x),
-            static_cast<T>(p.y),
-            (rect.width<T>()) + static_cast<T>(p.x),
-            (rect.height<T>()) + static_cast<T>(p.y)
-        );
+        return rectangle<T>(static_cast<T>(p.x), static_cast<T>(p.y), (rect.width<T>()) + static_cast<T>(p.x),
+                            (rect.height<T>()) + static_cast<T>(p.y));
     }
 
     /*!
@@ -208,13 +204,8 @@ public:
      */
     static rectangle<T> rectangle_union(const rectangle<T> &r1, const rectangle<T> &r2)
     {
-        return
-            rectangle<T>(
-                std::min(r1.left, r2.left),
-                std::min(r1.top, r2.top),
-                std::max(r1.right, r2.right),
-                std::max(r1.bottom, r2.bottom)
-            );
+        return rectangle<T>(std::min(r1.left, r2.left), std::min(r1.top, r2.top), std::max(r1.right, r2.right),
+                            std::max(r1.bottom, r2.bottom));
     }
 
     T left;

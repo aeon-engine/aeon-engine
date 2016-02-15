@@ -48,6 +48,7 @@ enum class animation_sequence_type
 class sprite_animation_settings
 {
     friend class animated_sprite;
+
 public:
     sprite_animation_settings(glm::vec2 frame_size);
     ~sprite_animation_settings() = default;

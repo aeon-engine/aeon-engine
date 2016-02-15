@@ -50,10 +50,10 @@ private:
     bool on_frame(float dt) override;
 
     void on_keyboard_event(aeon::platform::platform_window *window, aeon::platform::keyboard_key key,
-        aeon::platform::keyboard_key_state key_state, int modifier) override;
+                           aeon::platform::keyboard_key_state key_state, int modifier) override;
 
     void on_mouse_button_event(aeon::platform::platform_window *window, aeon::platform::mouse_button button,
-        aeon::platform::mouse_button_state button_state) override;
+                               aeon::platform::mouse_button_state button_state) override;
 
     aeon::scene::orthographic_camera_ptr camera_;
 

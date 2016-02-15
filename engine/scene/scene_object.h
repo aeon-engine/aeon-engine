@@ -35,6 +35,7 @@ class scene_manager;
 class scene_object
 {
     friend class scene_node;
+
 public:
     explicit scene_object(int queue_group, scene_object_type type, scene_manager *scene_manager)
         : queue_group_(queue_group)
@@ -61,8 +62,10 @@ public:
      * doesn't make sense (like camera's). In that case, this function must be
      * used to set up the matrices and/or buffers.
      */
-    virtual void render(const glm::mat4x4 & /*projection*/, const glm::mat4x4 & /*view*/,
-        const glm::mat4x4 & /*model*/, float /*dt*/) {}
+    virtual void render(const glm::mat4x4 & /*projection*/, const glm::mat4x4 & /*view*/, const glm::mat4x4 & /*model*/,
+                        float /*dt*/)
+    {
+    }
 
     /*!
      * Get the calculated matrix from the scene node. If this object is not attached

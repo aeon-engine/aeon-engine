@@ -102,18 +102,19 @@ atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &s
         throw atlas_codec_decode_exception();
     }
 
-    return { x, y, width, height };
+    return {x, y, width, height};
 }
 
 common::types::rectangle<float> atlas_codec::__atlas_data_to_uv(const atlas_codec::atlas_data &data,
-    unsigned int texture_width, unsigned int texture_height) const
+                                                                unsigned int texture_width,
+                                                                unsigned int texture_height) const
 {
     float left = static_cast<float>(data.x) / static_cast<float>(texture_width);
     float right = static_cast<float>(data.x + data.width) / static_cast<float>(texture_width);
     float top = static_cast<float>(data.y) / static_cast<float>(texture_height);
     float bottom = static_cast<float>(data.y + data.height) / static_cast<float>(texture_height);
 
-    return { left, top, right, bottom };
+    return {left, top, right, bottom};
 }
 
 } // namespace resources

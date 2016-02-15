@@ -24,15 +24,15 @@ namespace gfx
 
 enum class buffer_type
 {
-    array,          // Vertex attributes
-    element_array   // Vertex array indices
+    array,        // Vertex attributes
+    element_array // Vertex array indices
 };
 
 enum class buffer_usage
 {
-    stream_usage,   // Modified once and used at most a few times
-    static_usage,   // Modified once and used many times
-    dynamic_usage   // Modified repeatedly and used many times
+    stream_usage, // Modified once and used at most a few times
+    static_usage, // Modified once and used many times
+    dynamic_usage // Modified repeatedly and used many times
 };
 
 class buffer

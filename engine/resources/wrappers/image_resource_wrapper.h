@@ -30,7 +30,8 @@ using image_ptr = std::shared_ptr<image>;
 class image_resource_wrapper : public resource_wrapper
 {
 public:
-    explicit image_resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
+    explicit image_resource_wrapper(resource_manager &parent, const std::string &path,
+                                    resource_provider_weak_ptr provider);
     virtual ~image_resource_wrapper() = default;
 
     image_ptr open();

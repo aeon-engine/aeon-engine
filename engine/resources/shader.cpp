@@ -20,8 +20,7 @@ namespace aeon
 namespace resources
 {
 
-shader::shader(resource_wrapper_ptr wrapper, const std::string &vertex_source,
-               const std::string &fragment_source)
+shader::shader(resource_wrapper_ptr wrapper, const std::string &vertex_source, const std::string &fragment_source)
     : resource(wrapper)
     , vertex_source_(vertex_source)
     , fragment_source_(fragment_source)

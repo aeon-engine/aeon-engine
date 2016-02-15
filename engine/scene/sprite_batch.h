@@ -30,7 +30,7 @@ namespace scene
 
 DEFINE_EXCEPTION_OBJECT(sprite_batch_exception, aeon::common::exception, "Sprite Batch exception.");
 DEFINE_EXCEPTION_OBJECT(sprite_batch_full_exception, sprite_batch_exception,
-    "Sprite Batch full. Amount can not exceed maximum sprites per batch.");
+                        "Sprite Batch full. Amount can not exceed maximum sprites per batch.");
 
 struct sprite_vertex
 {
@@ -50,7 +50,8 @@ public:
     static const int vertices_per_sprite = 4;
     static const std::uint16_t indices_per_sprite = 6;
 
-    explicit sprite_batch(scene_manager *scene_manager, resources::atlas_ptr atlas, std::uint16_t sprites_per_buffer = default_sprites_per_buffer);
+    explicit sprite_batch(scene_manager *scene_manager, resources::atlas_ptr atlas,
+                          std::uint16_t sprites_per_buffer = default_sprites_per_buffer);
     virtual ~sprite_batch() = default;
 
 private:
@@ -63,8 +64,8 @@ private:
 
     void __fill_and_upload_sprite_data_buffer(float dt);
 
-    virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
-        const glm::mat4x4 &model, float dt) override;
+    virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model,
+                        float dt) override;
 
     /*!
      * Determines how many sprites are stored to the vertex buffer per render.

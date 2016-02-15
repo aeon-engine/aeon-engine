@@ -158,14 +158,14 @@ image_ptr image_codec_png::decode(image_resource_wrapper_ptr wrapper)
     // Check the pixel format
     switch (color_type)
     {
-    case PNG_COLOR_TYPE_RGB:
-        pixel_format = image::pixel_format::rgb;
-        break;
-    case PNG_COLOR_TYPE_RGB_ALPHA:
-        pixel_format = image::pixel_format::rgba;
-        break;
-    default:
-        throw codec_png_decode_exception();
+        case PNG_COLOR_TYPE_RGB:
+            pixel_format = image::pixel_format::rgb;
+            break;
+        case PNG_COLOR_TYPE_RGB_ALPHA:
+            pixel_format = image::pixel_format::rgba;
+            break;
+        default:
+            throw codec_png_decode_exception();
     }
 
     // Update the png info struct.

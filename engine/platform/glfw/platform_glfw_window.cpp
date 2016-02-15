@@ -23,8 +23,8 @@ namespace platform
 namespace glfw
 {
 
-platform_window::platform_window(platform_interface *interface, int width, int height,
-                                 const std::string &title, GLFWmonitor *monitor)
+platform_window::platform_window(platform_interface *interface, int width, int height, const std::string &title,
+                                 GLFWmonitor *monitor)
     : platform::platform_window(width, height, title)
     , window_(nullptr)
     , interface_(interface)
