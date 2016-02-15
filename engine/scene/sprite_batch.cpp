@@ -158,7 +158,7 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer(float dt)
         };
     }
 
-    int vertex_buffer_size = sprites_.size() * sizeof(sprite_vertex) * vertices_per_sprite;
+    int vertex_buffer_size = static_cast<int>(sprites_.size()) * sizeof(sprite_vertex) * vertices_per_sprite;
     vertex_buffer_->set_data(vertex_buffer_size, vertex_data_ptr, gfx::buffer_usage::stream_usage);
 }
 
@@ -181,7 +181,7 @@ void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view
     glBindVertexArray(vao);
 
     glDrawRangeElements(GL_TRIANGLES, 0, sprites_.size() * indices_per_sprite,
-        sprites_.size() * indices_per_sprite, GL_UNSIGNED_SHORT, nullptr);
+        static_cast<int>(sprites_.size()) * indices_per_sprite, GL_UNSIGNED_SHORT, nullptr);
 }
 
 } // namespace scene

@@ -49,7 +49,7 @@ public:
     void set_atlas_region(const resources::atlas_region &region);
     resources::atlas_region get_atlas_region() const;
 
-    virtual void update(float dt) {}
+    virtual void update(float /*dt*/) {}
 
 protected:
     glm::vec2 size_;
