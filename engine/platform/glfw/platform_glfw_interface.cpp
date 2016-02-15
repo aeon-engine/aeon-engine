@@ -57,20 +57,21 @@ void platform_interface::run()
     if (!initialized_)
         throw platform_interface_initialize_exception();
 
-    previous_time_ = static_cast<float>(glfwGetTime());
+    previous_time_ = glfwGetTime();
 
     running_ = true;
+
     while (running_)
     {
-        glfwPollEvents();
-
-        float current_time = static_cast<float>(glfwGetTime());
-        float deltaTime = current_time - previous_time_;
+        double current_time = glfwGetTime();
+        double delta_time = current_time - previous_time_;
         previous_time_ = current_time;
+
+        glfwPollEvents();
 
         for (gfx::render_target_ptr render_target : render_targets_)
         {
-            if (!render_target->handle_frame(deltaTime))
+            if (!render_target->handle_frame(static_cast<float>(delta_time)))
             {
                 running_ = false;
                 break;
