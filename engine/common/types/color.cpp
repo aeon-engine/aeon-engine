@@ -15,8 +15,6 @@
 
 #include <common/types/color.h>
 
-// Workaround for Visual Studio's polluted headers.
-#define NOMINMAX
 #include <algorithm>
 #include <cmath>
 
