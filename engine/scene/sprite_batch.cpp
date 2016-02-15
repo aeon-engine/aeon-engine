@@ -158,8 +158,8 @@ void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view
 
     glBindVertexArray(vao);
 
-    glDrawRangeElements(GL_TRIANGLES, 0, sprites_.size() * indices_per_sprite,
-                        static_cast<int>(sprites_.size()) * indices_per_sprite, GL_UNSIGNED_SHORT, nullptr);
+    GLuint element_size = static_cast<GLuint>(sprites_.size() * indices_per_sprite);
+    glDrawRangeElements(GL_TRIANGLES, 0, element_size, element_size, GL_UNSIGNED_SHORT, nullptr);
 }
 
 } // namespace scene
