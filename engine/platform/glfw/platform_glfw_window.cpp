@@ -44,6 +44,8 @@ platform_window::platform_window(platform_interface *interface, int width, int h
     glfwSetScrollCallback(window_, &platform_window::__static_mouse_scroll_handler);
 
     glfwMakeContextCurrent(window_);
+
+    glfwSwapInterval(1);
 }
 
 platform_window::~platform_window()
