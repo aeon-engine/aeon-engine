@@ -74,6 +74,7 @@ bool platform_window::__on_frame_start(float /*dt*/)
 
 bool platform_window::__on_frame_end(float /*dt*/)
 {
+    glFinish();
     glfwSwapBuffers(window_);
     return true;
 }
