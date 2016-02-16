@@ -29,7 +29,7 @@ public:
     image_codec_png() = default;
     virtual ~image_codec_png() = default;
 
-    image_ptr decode(image_resource_wrapper_ptr wrapper) override;
+    image_ptr decode(resource_manager &parent, image_resource_wrapper_ptr wrapper) override;
     resource_encoding get_codec_type() const override;
 };
 

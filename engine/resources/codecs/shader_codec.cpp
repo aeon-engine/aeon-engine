@@ -31,7 +31,7 @@ resource_encoding shader_codec::get_codec_type() const
     return resource_encoding::material;
 }
 
-shader_ptr shader_codec::decode(shader_resource_wrapper_ptr wrapper)
+shader_ptr shader_codec::decode(resource_manager & /*parent*/, shader_resource_wrapper_ptr wrapper)
 {
     common::buffer_u8 input;
     wrapper->read_raw(input);

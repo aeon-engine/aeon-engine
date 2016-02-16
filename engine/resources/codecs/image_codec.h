@@ -28,6 +28,7 @@ namespace resources
 
 class image;
 class image_resource_wrapper;
+class resource_manager;
 
 class image_codec : public codec
 {
@@ -35,7 +36,7 @@ public:
     image_codec() = default;
     virtual ~image_codec() = default;
 
-    virtual image_ptr decode(image_resource_wrapper_ptr wrapper) = 0;
+    virtual image_ptr decode(resource_manager &parent, image_resource_wrapper_ptr wrapper) = 0;
 };
 
 using image_codec_ptr = std::unique_ptr<image_codec>;

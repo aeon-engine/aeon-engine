@@ -28,6 +28,7 @@ namespace resources
 {
 
 class resource_manager;
+
 class resource_wrapper : public std::enable_shared_from_this<resource_wrapper>
 {
 public:

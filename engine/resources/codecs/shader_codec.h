@@ -37,7 +37,7 @@ public:
 
     resource_encoding get_codec_type() const override;
 
-    shader_ptr decode(shader_resource_wrapper_ptr wrapper);
+    shader_ptr decode(resource_manager &parent, shader_resource_wrapper_ptr wrapper);
 
 private:
     enum class shader_decode_state

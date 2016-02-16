@@ -104,7 +104,7 @@ static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, png_s
         throw codec_png_decode_exception();
 }
 
-image_ptr image_codec_png::decode(image_resource_wrapper_ptr wrapper)
+image_ptr image_codec_png::decode(resource_manager & /*parent*/, image_resource_wrapper_ptr wrapper)
 {
     common::buffer_u8 input;
     wrapper->read_raw(input);
