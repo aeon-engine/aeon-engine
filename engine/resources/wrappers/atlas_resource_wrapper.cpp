@@ -32,8 +32,8 @@ atlas_resource_wrapper::atlas_resource_wrapper(resource_manager &parent, const s
 
 atlas_ptr atlas_resource_wrapper::open(gfx::device &device)
 {
-    atlas_codec_ptr codec = __get_parent().get_codec_manager().get_atlas_codec();
-    return codec->decode(__get_parent(), device, std::dynamic_pointer_cast<atlas_resource_wrapper>(shared_from_this()));
+    atlas_codec &codec = __get_parent().get_codec_manager().get_atlas_codec();
+    return codec.decode(__get_parent(), device, std::dynamic_pointer_cast<atlas_resource_wrapper>(shared_from_this()));
 }
 
 } // namespace resources

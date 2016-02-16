@@ -38,7 +38,7 @@ public:
     virtual image_ptr decode(image_resource_wrapper_ptr wrapper) = 0;
 };
 
-using image_codec_ptr = std::shared_ptr<image_codec>;
+using image_codec_ptr = std::unique_ptr<image_codec>;
 
 } // namespace resources
 } // namespace aeon

@@ -52,7 +52,7 @@ private:
                                                        unsigned int texture_height) const;
 };
 
-using atlas_codec_ptr = std::shared_ptr<atlas_codec>;
+using atlas_codec_ptr = std::unique_ptr<atlas_codec>;
 
 } // namespace resources
 } // namespace aeon

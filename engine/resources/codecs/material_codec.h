@@ -40,7 +40,7 @@ public:
     material_ptr decode(resource_manager &parent, material_resource_wrapper_ptr wrapper);
 };
 
-using material_codec_ptr = std::shared_ptr<material_codec>;
+using material_codec_ptr = std::unique_ptr<material_codec>;
 
 } // namespace resources
 } // namespace aeon

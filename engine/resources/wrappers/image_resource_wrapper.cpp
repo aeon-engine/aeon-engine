@@ -31,8 +31,8 @@ image_resource_wrapper::image_resource_wrapper(resource_manager &parent, const s
 
 image_ptr image_resource_wrapper::open()
 {
-    image_codec_ptr codec = __get_parent().get_codec_manager().get_image_codec(get_encoding());
-    return codec->decode(std::dynamic_pointer_cast<image_resource_wrapper>(shared_from_this()));
+    image_codec &codec = __get_parent().get_codec_manager().get_image_codec(get_encoding());
+    return codec.decode(std::dynamic_pointer_cast<image_resource_wrapper>(shared_from_this()));
 }
 
 } // namespace resources

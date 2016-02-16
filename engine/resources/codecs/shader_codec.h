@@ -48,7 +48,7 @@ private:
     };
 };
 
-using shader_codec_ptr = std::shared_ptr<shader_codec>;
+using shader_codec_ptr = std::unique_ptr<shader_codec>;
 
 } // namespace resources
 } // namespace aeon

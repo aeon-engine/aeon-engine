@@ -26,37 +26,37 @@ codec_manager::codec_manager()
     __register_codecs();
 }
 
-codec_ptr codec_manager::get_codec(resource_encoding encoding)
+codec &codec_manager::get_codec(resource_encoding encoding)
 {
     auto result = codecs_.find(encoding);
 
     if (result == codecs_.end())
         throw codec_manager_unknown_codec_exception();
 
-    return result->second;
+    return *(result->second);
 }
 
-image_codec_ptr codec_manager::get_image_codec(resource_encoding encoding)
+image_codec &codec_manager::get_image_codec(resource_encoding encoding)
 {
     if (get_resource_type_by_encoding(encoding) != resource_type::image)
         throw codec_manager_codec_mismatch_exception();
 
-    return std::dynamic_pointer_cast<image_codec>(get_codec(encoding));
+    return dynamic_cast<image_codec &>(get_codec(encoding));
 }
 
-material_codec_ptr codec_manager::get_material_codec()
+material_codec &codec_manager::get_material_codec()
 {
-    return std::dynamic_pointer_cast<material_codec>(get_codec(resource_encoding::material));
+    return dynamic_cast<material_codec &>(get_codec(resource_encoding::material));
 }
 
-shader_codec_ptr codec_manager::get_shader_codec()
+shader_codec &codec_manager::get_shader_codec()
 {
-    return std::dynamic_pointer_cast<shader_codec>(get_codec(resource_encoding::shader));
+    return dynamic_cast<shader_codec &>(get_codec(resource_encoding::shader));
 }
 
-atlas_codec_ptr codec_manager::get_atlas_codec()
+atlas_codec &codec_manager::get_atlas_codec()
 {
-    return std::dynamic_pointer_cast<atlas_codec>(get_codec(resource_encoding::atlas));
+    return dynamic_cast<atlas_codec &>(get_codec(resource_encoding::atlas));
 }
 
 resource_type codec_manager::get_resource_type_by_encoding(resource_encoding encoding) const
@@ -79,10 +79,10 @@ resource_type codec_manager::get_resource_type_by_encoding(resource_encoding enc
 
 void codec_manager::__register_codecs()
 {
-    codecs_[resource_encoding::material] = std::make_shared<material_codec>();
-    codecs_[resource_encoding::shader] = std::make_shared<shader_codec>();
-    codecs_[resource_encoding::image_png] = std::make_shared<image_codec_png>();
-    codecs_[resource_encoding::atlas] = std::make_shared<atlas_codec>();
+    codecs_[resource_encoding::material] = std::make_unique<material_codec>();
+    codecs_[resource_encoding::shader] = std::make_unique<shader_codec>();
+    codecs_[resource_encoding::image_png] = std::make_unique<image_codec_png>();
+    codecs_[resource_encoding::atlas] = std::make_unique<atlas_codec>();
 }
 
 } // namespace resources
