@@ -53,7 +53,7 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
         throw gfx_opengl_shader_exception();
 
     const char *shader_src = source.c_str();
-    glShaderSource(shader, 1, &shader_src, NULL);
+    glShaderSource(shader, 1, &shader_src, nullptr);
 
     glCompileShader(shader);
 
@@ -69,7 +69,7 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
         if (info_len > 1)
         {
             std::vector<char> info_log(info_len);
-            glGetShaderInfoLog(shader, info_len, NULL, info_log.data());
+            glGetShaderInfoLog(shader, info_len, nullptr, info_log.data());
 
             // TODO: console logging
             std::cerr << "Error compiling shader: " << std::endl << info_log.data() << std::endl;
@@ -106,7 +106,7 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
         if (info_len > 1)
         {
             std::vector<char> info_log(info_len);
-            glGetProgramInfoLog(program, info_len, NULL, info_log.data());
+            glGetProgramInfoLog(program, info_len, nullptr, info_log.data());
 
             // TODO: console logging
             std::cerr << "Error linking shader program: " << std::endl << info_log.data() << std::endl;
