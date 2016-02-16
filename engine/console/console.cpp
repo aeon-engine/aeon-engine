@@ -25,6 +25,8 @@ namespace aeon
 namespace console
 {
 
+using listeners = std::set<listener *>;
+
 static log_level loglevel_ = AEON_DEFAULT_CONSOLE_LOG_LEVEL;
 static listeners console_listeners_;
 static char console_output_buffer_[AEON_CONSOLE_BUFFER_SIZE];
@@ -97,13 +99,13 @@ log_level get_loglevel()
     return level;
 }
 
-void add_console_listener(listener_ptr listener)
+void add_console_listener(listener *listener)
 {
     std::lock_guard<std::mutex> lock(console_mutex_);
     console_listeners_.insert(listener);
 }
 
-void remove_console_listener(listener_ptr listener)
+void remove_console_listener(listener *listener)
 {
     std::lock_guard<std::mutex> lock(console_mutex_);
     console_listeners_.erase(listener);
