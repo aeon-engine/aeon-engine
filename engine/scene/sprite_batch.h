@@ -17,9 +17,8 @@
 
 #include <resources/atlas.h>
 #include <scene/scene_object.h>
-#include <gfx/gfx_buffer.h>
+#include <gfx/gfx_sprite_batch.h>
 #include <common/buffer.h>
-#include <common/exception.h>
 #include <vector>
 #include <memory>
 
@@ -28,58 +27,30 @@ namespace aeon
 namespace scene
 {
 
-DEFINE_EXCEPTION_OBJECT(sprite_batch_exception, aeon::common::exception, "Sprite Batch exception.");
-DEFINE_EXCEPTION_OBJECT(sprite_batch_full_exception, sprite_batch_exception,
-                        "Sprite Batch full. Amount can not exceed maximum sprites per batch.");
-
-struct sprite_vertex
-{
-    float x, y;
-    float u, v;
-    float r, g, b, a;
-    glm::mat4x4 matrix;
-};
-
 class sprite;
 class sprite_batch : public scene_object
 {
     friend class sprite;
 
 public:
-    static const std::uint16_t default_sprites_per_buffer = 512;
-    static const int vertices_per_sprite = 4;
-    static const std::uint16_t indices_per_sprite = 6;
-
     explicit sprite_batch(scene_manager *scene_manager, resources::atlas_ptr atlas,
-                          std::uint16_t sprites_per_buffer = default_sprites_per_buffer);
+                          std::uint16_t sprites_per_buffer = gfx::sprite_batch::default_sprites_per_buffer);
     virtual ~sprite_batch() = default;
 
 private:
     void __add_sprite(sprite *spr);
     void __remove_sprite(sprite *spr);
 
-    void __create_and_setup_vertex_buffer();
-    void __create_and_setup_index_buffer();
     void __sort_by_zorder();
 
     void __fill_and_upload_sprite_data_buffer(float dt);
 
-    virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model,
-                        float dt) override;
-
-    /*!
-     * Determines how many sprites are stored to the vertex buffer per render.
-     * This is the maximum amount of sprites that can be added to this batch.
-     */
-    std::uint16_t sprites_per_buffer_;
+    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt) override;
 
     std::vector<sprite *> sprites_;
     common::buffer_u8 sprite_vertex_data_;
 
-    gfx::buffer_ptr vertex_buffer_;
-    gfx::buffer_ptr index_buffer_;
-
-    resources::atlas_ptr atlas_;
+    gfx::sprite_batch_ptr sprite_batch_;
 };
 
 using sprite_batch_ptr = std::shared_ptr<sprite_batch>;

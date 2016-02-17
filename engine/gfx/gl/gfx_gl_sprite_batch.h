@@ -15,8 +15,9 @@
 
 #pragma once
 
-#include <gfx/gfx_device.h>
-#include <common/exception.h>
+#include <gfx/gfx_sprite_batch.h>
+#include <gfx/gl/gfx_gl_buffer.h>
+#include <gfx/gl/gfx_gl_vertex_array_object.h>
 
 namespace aeon
 {
@@ -25,23 +26,25 @@ namespace gfx
 namespace gl
 {
 
-DEFINE_EXCEPTION_OBJECT(gl_initialized_exception, aeon::common::exception, "OpenGL Device already initialized.");
-DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL Device Exception");
-
-class device : public gfx::device
+class device;
+class sprite_batch : public gfx::sprite_batch
 {
 public:
-    device() = default;
-    virtual ~device() = default;
+    explicit sprite_batch(device *device, material_ptr material, std::uint16_t sprites_per_buffer);
+    virtual ~sprite_batch() = default;
 
-    void __initialize_impl() override;
+    void upload_sprite_buffer(const sprite_vertex *sprite_vertex_data, int count) override;
 
-    void set_clear_color(const common::types::color &c) override;
-    void set_viewport(scene::viewport *vp) override;
+    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) override;
 
-    void clear_buffer(int buffer_flag) override;
+private:
+    void __setup_index_buffer() const;
+    void __create_and_setup_vao();
 
-    sprite_batch_ptr create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer) override;
+    gfx::buffer_ptr vertex_buffer_;
+    gfx::buffer_ptr index_buffer_;
+    vertex_array_object_ptr vao_;
+    int sprite_count_;
 };
 
 } // namespace gl

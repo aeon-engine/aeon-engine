@@ -18,6 +18,7 @@
 #include <gfx/gl/gfx_gl_material_manager.h>
 #include <gfx/gl/gfx_gl_buffer_manager.h>
 #include <gfx/gl/gfx_gl_device.h>
+#include <gfx/gl/gfx_gl_sprite_batch.h>
 #include <GL/glew.h>
 #include <memory>
 
@@ -72,6 +73,11 @@ void device::clear_buffer(int buffer_flag)
         buffers |= GL_DEPTH_BUFFER_BIT;
 
     glClear(buffers);
+}
+
+sprite_batch_ptr device::create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer)
+{
+    return std::make_unique<sprite_batch>(this, material, sprites_per_buffer);
 }
 
 } // namespace gl
