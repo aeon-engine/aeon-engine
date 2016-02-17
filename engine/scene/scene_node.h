@@ -170,7 +170,7 @@ public:
     /*!
      * Get the parent this scene node is attached to. Equals nullptr if this node isn't attached to anything.
      */
-    scene_node_ptr get_parent()
+    scene_node_ptr get_parent() const
     {
         return parent_;
     }

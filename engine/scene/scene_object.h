@@ -71,7 +71,7 @@ public:
      * Get the calculated matrix from the scene node. If this object is not attached
      * to any scene node, an identity matrix will be returned.
      */
-    glm::mat4 get_matrix() const;
+    glm::mat4 get_scene_matrix() const;
 
 protected:
     void __set_scene_node(scene_node *node)

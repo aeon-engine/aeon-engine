@@ -33,17 +33,17 @@ public:
 
     void render_scene(viewport *vp, float dt);
 
-    glm::mat4 get_projection_matrix()
+    glm::mat4 get_projection_matrix() const
     {
         return projection_matrix_;
     }
 
-    glm::mat4 get_view_matrix()
+    glm::mat4 get_view_matrix() const
     {
         return view_matrix_;
     }
 
-    glm::mat4 get_matrix()
+    glm::mat4 get_camera_matrix() const
     {
         return projection_matrix_ * view_matrix_;
     }

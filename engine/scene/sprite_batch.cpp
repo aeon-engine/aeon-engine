@@ -59,7 +59,7 @@ void sprite_batch::__fill_and_upload_sprite_data_buffer(float dt)
     {
         spr->update(dt);
 
-        glm::mat4 sprite_matrix = spr->get_matrix();
+        glm::mat4 sprite_matrix = spr->get_scene_matrix();
         resources::atlas_region region = spr->get_atlas_region();
 
         glm::vec2 size_2 = spr->get_size() * 0.5f;
