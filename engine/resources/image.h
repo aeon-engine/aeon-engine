@@ -19,6 +19,7 @@
 #include <resources/exceptions.h>
 #include <resources/wrappers/image_resource_wrapper.h>
 #include <common/buffer.h>
+#include <common/logger.h>
 #include <memory>
 
 namespace aeon
@@ -39,7 +40,7 @@ public:
     explicit image(resource_wrapper_ptr wrapper, common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
                    pixel_format pixelformat = pixel_format::rgba);
 
-    virtual ~image() = default;
+    virtual ~image();
 
     void set_data(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
                   pixel_format pixelformat = pixel_format::rgba);
@@ -77,6 +78,7 @@ public:
     }
 
 private:
+    aeon::logger::logger logger_;
     common::buffer_u8 buffer_;
     unsigned int width_;
     unsigned int height_;

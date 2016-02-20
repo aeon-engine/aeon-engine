@@ -20,6 +20,7 @@
 #include <resources/wrappers/material_resource_wrapper.h>
 #include <resources/image.h>
 #include <resources/shader.h>
+#include <common/logger.h>
 #include <memory>
 
 namespace aeon
@@ -31,7 +32,7 @@ class material : public resource
 {
 public:
     explicit material(resource_wrapper_ptr wrapper, shader_ptr shader, image_ptr texture);
-    virtual ~material() = default;
+    virtual ~material();
 
     shader_ptr get_shader() const
     {
@@ -49,6 +50,7 @@ public:
     }
 
 private:
+    aeon::logger::logger logger_;
     shader_ptr shader_;
     image_ptr texture_;
 };

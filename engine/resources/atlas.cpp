@@ -24,31 +24,48 @@ namespace resources
 atlas::atlas(resource_wrapper_ptr wrapper, gfx::material_ptr material, const atlas_regions &regions,
              const atlas_region_names &names)
     : resource(wrapper)
+    , logger_(common::logger::get_singleton(), "Resources::Atlas")
     , regions_(regions)
     , names_(names)
     , material_(material)
 {
+    AEON_LOG_DEBUG(logger_) << "Created atlas resource based on regions." << std::endl;
 }
 
 atlas::atlas(gfx::material_ptr material, glm::vec2 sprite_size)
     : resource(nullptr)
+    , logger_(common::logger::get_singleton(), "Resources::Atlas")
     , material_(material)
 {
+    AEON_LOG_DEBUG(logger_) << "Created atlas resource based on sprite size ("
+        << sprite_size.x << "," << sprite_size.y << ")." << std::endl;
     __calculate_atlas_regions(sprite_size);
+}
+
+atlas::~atlas()
+{
+    AEON_LOG_DEBUG(logger_) << "Deleted atlas resource." << std::endl;
 }
 
 atlas_region atlas::get_region_by_index(int index)
 {
+    AEON_LOG_TRACE(logger_) << "Getting region index " << index << "." << std::endl;
+
     assert(regions_.size() >= index);
     return regions_.at(index);
 }
 
 atlas_region atlas::get_region_by_name(const std::string &name)
 {
+    AEON_LOG_TRACE(logger_) << "Getting region " << name << "." << std::endl;
+
     auto result = names_.find(name);
 
     if (result == names_.end())
+    {
+        AEON_LOG_ERROR(logger_) << "Region " << name << " was not found." << std::endl;
         throw atlas_exception();
+    }
 
     return get_region_by_index(result->second);
 }
@@ -60,6 +77,8 @@ gfx::material_ptr atlas::get_material() const
 
 void atlas::__calculate_atlas_regions(glm::vec2 sprite_size)
 {
+    AEON_LOG_TRACE(logger_) << "Calculating atlas UV map regions." << std::endl;
+
     glm::vec2 full_size = material_->get_texture()->get_size();
 
     int sprites_per_row = static_cast<int>(full_size.x / sprite_size.x);

@@ -15,36 +15,25 @@
 
 #pragma once
 
-#include <memory>
-#include <set>
+#include <aeon/logger.h>
+#include <aeon/utility.h>
+#include <aeon/streams.h>
 
 namespace aeon
 {
-
-namespace console
+namespace common
 {
 
-class listener;
-
-enum class log_level : int
+class logger : public aeon::logger::simple_sink_backend, public utility::singleton<logger>
 {
-    error = 1,
-    warning = 2,
-    info = 3,
-    debug = 99
+public:
+    logger();
+    virtual ~logger();
+
+private:
+    streams::io_stream io_stream_;
+    aeon::logger::io_stream_sink stream_sink_;
 };
 
-void error(const char *format, ...);
-void warning(const char *format, ...);
-void info(const char *format, ...);
-void debug(const char *format, ...);
-
-void set_loglevel(log_level level);
-log_level get_loglevel();
-
-void add_console_listener(listener *listener);
-void remove_console_listener(listener *listener);
-void remove_all_console_listeners();
-
-} // namespace console
+} // namespace common
 } // namespace aeon

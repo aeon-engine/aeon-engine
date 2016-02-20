@@ -20,6 +20,7 @@
 #include <gfx/gfx_material.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
 #include <common/buffer.h>
+#include <common/logger.h>
 #include <map>
 #include <vector>
 #include <string>
@@ -67,7 +68,7 @@ public:
      */
     explicit atlas(gfx::material_ptr material, glm::vec2 sprite_size);
 
-    virtual ~atlas() = default;
+    virtual ~atlas();
 
     atlas_region get_region_by_index(int index);
     atlas_region get_region_by_name(const std::string &name);
@@ -81,6 +82,8 @@ public:
 
 private:
     void __calculate_atlas_regions(glm::vec2 sprite_size);
+
+    aeon::logger::logger logger_;
 
     atlas_regions regions_;
     atlas_region_names names_;

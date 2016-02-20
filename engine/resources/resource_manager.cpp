@@ -26,16 +26,28 @@ namespace resources
 
 resource_manager::resource_manager(platform::platform_interface &platform, gfx::device &device)
     : platform_(platform)
+    , logger_(common::logger::get_singleton(), "Resources::ResourceManager")
     , device_(device)
 {
+    AEON_LOG_DEBUG(logger_) << "Created resource manager." << std::endl;
+}
+
+resource_manager::~resource_manager()
+{
+    AEON_LOG_DEBUG(logger_) << "Deleted resource manager." << std::endl;
 }
 
 void resource_manager::mount(resource_provider_ptr provider, const std::string &mountpoint /* = "/"*/)
 {
+    AEON_LOG_DEBUG(logger_) << "Mounting resource provider on '" << mountpoint << "'." << std::endl;
+
     auto result = mount_points_.find(mountpoint);
 
     if (result != mount_points_.end())
+    {
+        AEON_LOG_ERROR(logger_) << "Duplicate mount point." << std::endl;
         throw resource_manager_duplicate_mount_exception();
+    }
 
     mount_points_[mountpoint] = provider;
 
@@ -44,10 +56,15 @@ void resource_manager::mount(resource_provider_ptr provider, const std::string &
 
 void resource_manager::unmount(const std::string &mountpoint)
 {
+    AEON_LOG_DEBUG(logger_) << "Unmounting resource provider on '" << mountpoint << "'." << std::endl;
+
     auto result = mount_points_.find(mountpoint);
 
     if (result == mount_points_.end())
+    {
+        AEON_LOG_DEBUG(logger_) << "No resource provider was mounted on '" << mountpoint << "'." << std::endl;
         return;
+    }
 
     result->second->manager_ = nullptr;
 
@@ -56,6 +73,8 @@ void resource_manager::unmount(const std::string &mountpoint)
 
 gfx::texture_ptr resource_manager::load_texture(const std::string &path)
 {
+    AEON_LOG_DEBUG(logger_) << "Loading texture '" << path << "'." << std::endl;
+
     image_resource_wrapper_ptr image_resource = load_image_wrapper(path);
     image_ptr image_resource_data = image_resource->open();
     return device_.get_texture_manager().load(image_resource_data);
@@ -63,6 +82,8 @@ gfx::texture_ptr resource_manager::load_texture(const std::string &path)
 
 gfx::shader_ptr resource_manager::load_shader(const std::string &path)
 {
+    AEON_LOG_DEBUG(logger_) << "Loading shader '" << path << "'." << std::endl;
+
     shader_resource_wrapper_ptr shader_resource = load_shader_wrapper(path);
     shader_ptr shader_resource_data = shader_resource->open();
     return device_.get_shader_manager().load(shader_resource_data);
@@ -70,6 +91,8 @@ gfx::shader_ptr resource_manager::load_shader(const std::string &path)
 
 gfx::material_ptr resource_manager::load_material(const std::string &path)
 {
+    AEON_LOG_DEBUG(logger_) << "Loading material '" << path << "'." << std::endl;
+
     material_resource_wrapper_ptr material_resource = load_material_wrapper(path);
     material_ptr material_resource_data = material_resource->open();
     return device_.get_material_manager().load(material_resource_data);
@@ -77,12 +100,16 @@ gfx::material_ptr resource_manager::load_material(const std::string &path)
 
 atlas_ptr resource_manager::load_atlas(const std::string &path)
 {
+    AEON_LOG_DEBUG(logger_) << "Loading atlas '" << path << "'." << std::endl;
+
     atlas_resource_wrapper_ptr atlas_resource = load_atlas_wrapper(path);
     return atlas_resource->open(device_);
 }
 
 image_resource_wrapper_ptr resource_manager::load_image_wrapper(const std::string &path)
 {
+    AEON_LOG_DEBUG(logger_) << "Loading image resource wrapper '" << path << "'." << std::endl;
+
     std::string real_path;
     resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
 
@@ -94,6 +121,8 @@ image_resource_wrapper_ptr resource_manager::load_image_wrapper(const std::strin
 
 material_resource_wrapper_ptr resource_manager::load_material_wrapper(const std::string &path)
 {
+    AEON_LOG_DEBUG(logger_) << "Loading material resource wrapper '" << path << "'." << std::endl;
+
     std::string real_path;
     resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
 
@@ -105,6 +134,8 @@ material_resource_wrapper_ptr resource_manager::load_material_wrapper(const std:
 
 shader_resource_wrapper_ptr resource_manager::load_shader_wrapper(const std::string &path)
 {
+    AEON_LOG_DEBUG(logger_) << "Loading shader resource wrapper '" << path << "'." << std::endl;
+
     std::string real_path;
     resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
 
@@ -116,6 +147,8 @@ shader_resource_wrapper_ptr resource_manager::load_shader_wrapper(const std::str
 
 atlas_resource_wrapper_ptr resource_manager::load_atlas_wrapper(const std::string &path)
 {
+    AEON_LOG_DEBUG(logger_) << "Loading atlas resource wrapper '" << path << "'." << std::endl;
+
     std::string real_path;
     resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
 
@@ -128,6 +161,9 @@ atlas_resource_wrapper_ptr resource_manager::load_atlas_wrapper(const std::strin
 resource_provider_ptr resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)
 {
     // TODO: This needs optimization. Too much looping and string manipulation going on.
+
+    AEON_LOG_TRACE(logger_) << "Attempting to best match mountpoint resource provider for '"
+        << path << "'." << std::endl;
 
     std::size_t best_match_length = 0;
     resource_provider_ptr best_match_provider = nullptr;
@@ -150,9 +186,14 @@ resource_provider_ptr resource_manager::__find_best_match_provider(const std::st
     }
 
     if (!best_match_provider)
+    {
+        AEON_LOG_WARNING(logger_) << "Could not find mountpoint for '" << path << "'." << std::endl;
         return nullptr;
+    }
 
     provider_path = path.substr(best_match_length);
+
+    AEON_LOG_TRACE(logger_) << "Found best match mountpoint at '" << provider_path << "'." << std::endl;
 
     return best_match_provider;
 }

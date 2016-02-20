@@ -13,26 +13,26 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
+#include <common/logger.h>
+
+aeon_utility_initialize_singleton(aeon::common::logger);
 
 namespace aeon
 {
-
-namespace console
+namespace common
 {
 
-class listener
+logger::logger()
+    : aeon::logger::simple_sink_backend(aeon::logger::log_level::trace)
+    , stream_sink_(io_stream_)
 {
-public:
-    listener()
-    {
-    }
-    virtual ~listener()
-    {
-    }
+    add_sink(&stream_sink_);
+}
 
-    virtual void on_log_message(double time_diff, console::log_level level, const std::string &message) = 0;
-};
+logger::~logger()
+{
+    remove_all_sinks();
+}
 
-} // namespace console
+} // namespace common
 } // namespace aeon

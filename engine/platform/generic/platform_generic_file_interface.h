@@ -19,6 +19,7 @@
 #include <platform/platform_file_interface.h>
 #include <common/buffer.h>
 #include <aeon/streams.h>
+#include <common/logger.h>
 #include <memory>
 #include <string>
 
@@ -49,6 +50,8 @@ public:
 
 private:
     streams::stream::seek_direction __to_streams_seek_direction(seek_direction direction);
+
+    aeon::logger::logger logger_;
 
     streams::file_stream_ptr stream_;
 };

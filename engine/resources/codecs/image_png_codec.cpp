@@ -21,7 +21,6 @@
 #include <png.h>
 
 #define PNG_HEADER_SIGNATURE_SIZE 8
-#include <console/console.h>
 
 namespace aeon
 {

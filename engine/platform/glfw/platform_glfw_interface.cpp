@@ -28,6 +28,7 @@ namespace glfw
 
 platform_interface::platform_interface()
     : platform::platform_interface(std::make_unique<generic::platform_filesystem_interface>())
+    , logger_(common::logger::get_singleton(), "Platform::GLFW")
     , initialized_(false)
     , running_(false)
     , previous_time_(0.0)
@@ -44,10 +45,17 @@ platform_interface::~platform_interface()
 
 void platform_interface::initialize()
 {
+    AEON_LOG_MESSAGE(logger_) << "Initializing GLFW." << std::endl;
+
     int result = glfwInit();
 
     if (result == GL_FALSE)
+    {
+        AEON_LOG_FATAL(logger_) << "Could not initialize GLFW." << std::endl;
         throw platform_interface_initialize_exception();
+    }
+
+    AEON_LOG_DEBUG(logger_) << "Successfully initialized GLFW." << std::endl;
 
     initialized_ = true;
 }
@@ -55,7 +63,12 @@ void platform_interface::initialize()
 void platform_interface::run()
 {
     if (!initialized_)
+    {
+        AEON_LOG_FATAL(logger_) << "Error starting message loop. Platform not initialized." << std::endl;
         throw platform_interface_initialize_exception();
+    }
+
+    AEON_LOG_DEBUG(logger_) << "Starting message loop." << std::endl;
 
     previous_time_ = glfwGetTime();
 
@@ -78,17 +91,23 @@ void platform_interface::run()
             }
         }
     }
+
+    AEON_LOG_DEBUG(logger_) << "Message loop stopped." << std::endl;
 }
 
 void platform_interface::stop()
 {
+    AEON_LOG_DEBUG(logger_) << "Stopping GLFW message loop." << std::endl;
     running_ = false;
 }
 
 platform_monitors platform_interface::get_monitors()
 {
     if (!initialized_)
+    {
+        AEON_LOG_FATAL(logger_) << "Error getting monitors. Platform not initialized." << std::endl;
         throw platform_interface_initialize_exception();
+    }
 
     int count;
     GLFWmonitor **glfw_monitors = glfwGetMonitors(&count);
@@ -122,6 +141,14 @@ platform_monitors platform_interface::get_monitors()
 platform::platform_window_ptr platform_interface::create_window(int width, int height, const std::string &name,
                                                                 platform_monitor_ptr monitor)
 {
+    if (!initialized_)
+    {
+        AEON_LOG_FATAL(logger_) << "Error creating window. Platform not initialized." << std::endl;
+        throw platform_interface_initialize_exception();
+    }
+
+    AEON_LOG_DEBUG(logger_) << "Creating window: " << width << "x" << height << " '" << name << "'." << std::endl;
+
     GLFWmonitor *glfw_monitor = nullptr;
 
     if (monitor)

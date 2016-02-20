@@ -22,9 +22,16 @@ namespace resources
 
 shader::shader(resource_wrapper_ptr wrapper, const std::string &vertex_source, const std::string &fragment_source)
     : resource(wrapper)
+    , logger_(common::logger::get_singleton(), "Resources::Shader")
     , vertex_source_(vertex_source)
     , fragment_source_(fragment_source)
 {
+    AEON_LOG_DEBUG(logger_) << "Created shader resource." << std::endl;
+}
+
+shader::~shader()
+{
+    AEON_LOG_DEBUG(logger_) << "Deleted shader resource." << std::endl;
 }
 
 } // namespace resources

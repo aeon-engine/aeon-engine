@@ -29,6 +29,7 @@
 #include <gfx/gfx_material.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
 #include <resources/atlas.h>
+#include <common/logger.h>
 #include <map>
 
 namespace aeon
@@ -45,7 +46,7 @@ class resource_manager
 
 public:
     explicit resource_manager(platform::platform_interface &platform, gfx::device &device);
-    ~resource_manager() = default;
+    ~resource_manager();
 
     void mount(resource_provider_ptr provider, const std::string &mountpoint = "/");
     void unmount(const std::string &mountpoint);
@@ -73,6 +74,7 @@ public:
 private:
     resource_provider_ptr __find_best_match_provider(const std::string &path, std::string &provider_path);
 
+    aeon::logger::logger logger_;
     platform::platform_interface &platform_;
     gfx::device &device_;
     mount_points mount_points_;

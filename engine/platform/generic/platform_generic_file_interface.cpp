@@ -24,6 +24,7 @@ namespace generic
 
 platform_file_interface::platform_file_interface(const std::string &path, int openmode)
     : platform::platform_file_interface(path, openmode)
+    , logger_(common::logger::get_singleton(), "Platform::Generic::Filesystem")
     , stream_(nullptr)
 {
     int access_mode = 0;
@@ -34,11 +35,14 @@ platform_file_interface::platform_file_interface(const std::string &path, int op
     aeon::streams::file_mode file_mode =
         (openmode & file_open_mode::binary) ? aeon::streams::file_mode::binary : aeon::streams::file_mode::text;
 
+    AEON_LOG_DEBUG(logger_) << "Opening file " << path << " with file stream." << std::endl;
+
     stream_ = std::make_shared<aeon::streams::file_stream>(path, access_mode, file_mode);
 }
 
 platform_file_interface::~platform_file_interface()
 {
+    AEON_LOG_DEBUG(logger_) << "Closing file " << stream_->get_filename() << "." << std::endl;
 }
 
 void platform_file_interface::read(common::buffer_u8 &buffer)
@@ -48,6 +52,9 @@ void platform_file_interface::read(common::buffer_u8 &buffer)
 
 void platform_file_interface::read(common::buffer_u8 &buffer, int size)
 {
+    AEON_LOG_TRACE(logger_) << "Reading " << size << " bytes from "
+        << stream_->get_filename() << "." << std::endl;
+
     buffer.resize(size);
     std::size_t read_size = stream_->read(buffer.data(), size);
     buffer.resize(read_size);
@@ -55,11 +62,17 @@ void platform_file_interface::read(common::buffer_u8 &buffer, int size)
 
 void platform_file_interface::write(common::buffer_u8 &buffer)
 {
+    AEON_LOG_TRACE(logger_) << "Writing " << stream_->size() << " bytes to "
+        << stream_->get_filename() << "." << std::endl;
+
     stream_->write(buffer.data(), buffer.size());
 }
 
 void platform_file_interface::write(common::buffer_u8 &buffer, int size)
 {
+    AEON_LOG_TRACE(logger_) << "Writing " << size << " bytes to "
+        << stream_->get_filename() << "." << std::endl;
+
     stream_->write(buffer.data(), size);
 }
 

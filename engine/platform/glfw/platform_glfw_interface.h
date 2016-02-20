@@ -16,6 +16,7 @@
 #pragma once
 
 #include <memory>
+#include <common/logger.h>
 #include <gfx/gfx_render_target.h>
 #include <platform/platform_interface.h>
 #include <platform/glfw/platform_glfw_window.h>
@@ -46,6 +47,8 @@ public:
                                                 platform_monitor_ptr monitor = nullptr) override;
 
 private:
+    aeon::logger::logger logger_;
+
     render_targets render_targets_;
 
     bool initialized_;

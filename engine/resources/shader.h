@@ -19,6 +19,7 @@
 #include <resources/exceptions.h>
 #include <resources/wrappers/shader_resource_wrapper.h>
 #include <common/buffer.h>
+#include <common/logger.h>
 #include <memory>
 
 namespace aeon
@@ -30,7 +31,7 @@ class shader : public resource
 {
 public:
     explicit shader(resource_wrapper_ptr wrapper, const std::string &vertex_source, const std::string &fragment_source);
-    virtual ~shader() = default;
+    virtual ~shader();
 
     shader_resource_wrapper_ptr get_material_resource_wrapper()
     {
@@ -48,6 +49,7 @@ public:
     }
 
 private:
+    aeon::logger::logger logger_;
     std::string vertex_source_;
     std::string fragment_source_;
 };

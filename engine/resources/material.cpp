@@ -22,9 +22,16 @@ namespace resources
 
 material::material(resource_wrapper_ptr wrapper, shader_ptr shader, image_ptr texture)
     : resource(wrapper)
+    , logger_(common::logger::get_singleton(), "Resources::Material")
     , shader_(shader)
     , texture_(texture)
 {
+    AEON_LOG_DEBUG(logger_) << "Created material resource." << std::endl;
+}
+
+material::~material()
+{
+    AEON_LOG_DEBUG(logger_) << "Deleted material resource." << std::endl;
 }
 
 } // namespace resources

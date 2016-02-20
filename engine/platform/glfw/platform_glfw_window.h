@@ -15,6 +15,7 @@
 
 #pragma once
 #include <platform/platform_window.h>
+#include <common/logger.h>
 #include <GLFW/glfw3.h>
 #include <memory>
 
@@ -45,6 +46,8 @@ private:
     static void __static_mouse_move_handler(GLFWwindow *window, double x, double y);
     static void __static_mouse_button_handler(GLFWwindow *window, int button, int action, int mods);
     static void __static_mouse_scroll_handler(GLFWwindow *window, double xoffset, double yoffset);
+
+    aeon::logger::logger logger_;
 
     GLFWwindow *window_;
     platform_interface *interface_;

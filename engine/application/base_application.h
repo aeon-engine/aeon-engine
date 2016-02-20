@@ -16,6 +16,7 @@
 #pragma once
 #include <resources/resource_manager.h>
 #include <platform/platform_window.h>
+#include <common/logger.h>
 
 namespace aeon
 {
@@ -25,10 +26,14 @@ class base_application
 {
 public:
     explicit base_application(int width, int height, const std::string &window_title)
-        : resource_manager_(platform_, device_)
+        : logger_backend_()
+        , logger_(common::logger::get_singleton(), "Application")
+        , resource_manager_(platform_, device_)
         , scene_manager_(device_)
         , window_(nullptr)
     {
+        AEON_LOG_MESSAGE(logger_) << "Initializing Aeon Engine" << std::endl;
+
         // Init the platform and window
         platform_.initialize();
         window_ = platform_.create_window(width, height, window_title);
@@ -60,6 +65,9 @@ public:
     }
 
 protected:
+    common::logger logger_backend_;
+    aeon::logger::logger logger_;
+
     platform_interface_t platform_;
     device_t device_;
 

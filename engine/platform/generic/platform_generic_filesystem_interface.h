@@ -18,6 +18,7 @@
 #include <platform/platform_file_interface.h>
 #include <platform/platform_filesystem_interface.h>
 #include <platform/platform_file_open_mode.h>
+#include <common/logger.h>
 #include <string>
 #include <vector>
 
@@ -31,12 +32,15 @@ namespace generic
 class platform_filesystem_interface : public platform::platform_filesystem_interface
 {
 public:
-    platform_filesystem_interface() = default;
+    platform_filesystem_interface();
     virtual ~platform_filesystem_interface() = default;
 
     platform::platform_file_interface_ptr open_file(const std::string &path, int openmode) override;
     bool exists(const std::string &path) override;
     files list(const std::string &path) override;
+
+private:
+    aeon::logger::logger logger_;
 };
 
 } // namespace generic
