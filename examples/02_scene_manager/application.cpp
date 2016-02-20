@@ -33,7 +33,7 @@ application::application()
     camera_ =
         std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
-    window_->create_viewport(camera_, aeon::common::types::rectangle<int>(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), 0);
+    window_->create_viewport(camera_, aeon::common::types::rectangle<int>(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0), 0);
 }
 
 void application::main(int, char *[])
