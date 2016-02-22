@@ -172,7 +172,7 @@ public:
      * If this node is flagged is dirty (see: is_dirty()), this value may be incorrect. Use recalculate_matrices() if
      * you want to be sure of a correct value;
      */
-    const glm::vec4 &get_center_point() const
+    glm::vec4 get_center_point() const
     {
         return total_matrix_ * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
     }
