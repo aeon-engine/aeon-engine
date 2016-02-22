@@ -27,7 +27,7 @@ image::image(resource_wrapper_ptr wrapper)
     , height_(0)
     , pixel_format_(pixel_format::rgba)
 {
-    AEON_LOG_DEBUG(logger_) << "Created empty image resource." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Created empty image resource." << std::endl;
 }
 
 image::image(resource_wrapper_ptr wrapper, common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
@@ -39,13 +39,13 @@ image::image(resource_wrapper_ptr wrapper, common::buffer_u8 &&buffer, unsigned 
     , height_(height)
     , pixel_format_(pixelformat)
 {
-    AEON_LOG_DEBUG(logger_) << "Created image resource. ("
+    AEON_LOG_TRACE(logger_) << "Created image resource. ("
         << width << "x" << height << ", " << buffer_.size() << " bytes.)" << std::endl;
 }
 
 image::~image()
 {
-    AEON_LOG_DEBUG(logger_) << "Deleted image resource." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Deleted image resource." << std::endl;
 }
 
 void image::set_data(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,

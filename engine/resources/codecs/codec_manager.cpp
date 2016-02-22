@@ -22,6 +22,7 @@ namespace resources
 {
 
 codec_manager::codec_manager()
+    : logger_(common::logger::get_singleton(), "Resources::CodecManager")
 {
     __register_codecs();
 }
@@ -83,6 +84,8 @@ void codec_manager::__register_codecs()
     codecs_[resource_encoding::shader] = std::make_unique<shader_codec>();
     codecs_[resource_encoding::image_png] = std::make_unique<image_codec_png>();
     codecs_[resource_encoding::atlas] = std::make_unique<atlas_codec>();
+
+    AEON_LOG_DEBUG(logger_) << "Registered " << codecs_.size() << " codecs." << std::endl;
 }
 
 } // namespace resources

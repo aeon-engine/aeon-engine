@@ -29,7 +29,7 @@ atlas::atlas(resource_wrapper_ptr wrapper, gfx::material_ptr material, const atl
     , names_(names)
     , material_(material)
 {
-    AEON_LOG_DEBUG(logger_) << "Created atlas resource based on regions." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Created atlas resource based on regions." << std::endl;
 }
 
 atlas::atlas(gfx::material_ptr material, glm::vec2 sprite_size)
@@ -37,14 +37,14 @@ atlas::atlas(gfx::material_ptr material, glm::vec2 sprite_size)
     , logger_(common::logger::get_singleton(), "Resources::Atlas")
     , material_(material)
 {
-    AEON_LOG_DEBUG(logger_) << "Created atlas resource based on sprite size ("
+    AEON_LOG_TRACE(logger_) << "Created atlas resource based on sprite size ("
         << sprite_size.x << "," << sprite_size.y << ")." << std::endl;
     __calculate_atlas_regions(sprite_size);
 }
 
 atlas::~atlas()
 {
-    AEON_LOG_DEBUG(logger_) << "Deleted atlas resource." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Deleted atlas resource." << std::endl;
 }
 
 atlas_region atlas::get_region_by_index(int index)

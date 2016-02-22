@@ -20,6 +20,7 @@
 #include <resources/codecs/codec.h>
 #include <resources/atlas.h>
 #include <common/types/rectangle.h>
+#include <common/logger.h>
 #include <string>
 
 namespace aeon
@@ -33,7 +34,7 @@ class resource_manager;
 class atlas_codec : public codec
 {
 public:
-    atlas_codec() = default;
+    atlas_codec();
     virtual ~atlas_codec() = default;
 
     resource_encoding get_codec_type() const override;
@@ -50,6 +51,8 @@ private:
 
     common::types::rectangle<float> __atlas_data_to_uv(const atlas_data &data, unsigned int texture_width,
                                                        unsigned int texture_height) const;
+
+    aeon::logger::logger logger_;
 };
 
 using atlas_codec_ptr = std::unique_ptr<atlas_codec>;

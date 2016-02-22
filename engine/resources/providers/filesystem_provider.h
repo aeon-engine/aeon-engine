@@ -19,6 +19,7 @@
 #include <resources/resource_encoding.h>
 #include <common/buffer.h>
 #include <resources/exceptions.h>
+#include <common/logger.h>
 #include <vector>
 #include <string>
 
@@ -31,13 +32,15 @@ class filesystem_provider : public resource_provider
 {
 public:
     explicit filesystem_provider(const std::string &base_path);
-    virtual ~filesystem_provider() = default;
+    virtual ~filesystem_provider();
 
 private:
     bool exists(const std::string &path) override;
     std::vector<resource_node> list(const std::string &path) override;
     void read(const std::string &path, common::buffer_u8 &buffer) override;
     resource_encoding get_encoding(const std::string &path) const override;
+
+    aeon::logger::logger logger_;
 
     std::string base_path_;
 };

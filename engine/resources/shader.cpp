@@ -26,12 +26,12 @@ shader::shader(resource_wrapper_ptr wrapper, const std::string &vertex_source, c
     , vertex_source_(vertex_source)
     , fragment_source_(fragment_source)
 {
-    AEON_LOG_DEBUG(logger_) << "Created shader resource." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Created shader resource." << std::endl;
 }
 
 shader::~shader()
 {
-    AEON_LOG_DEBUG(logger_) << "Deleted shader resource." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Deleted shader resource." << std::endl;
 }
 
 } // namespace resources

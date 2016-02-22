@@ -26,6 +26,11 @@ namespace aeon
 namespace resources
 {
 
+atlas_codec::atlas_codec()
+    : logger_(common::logger::get_singleton(), "Resources::AtlasCodec")
+{
+}
+
 resource_encoding atlas_codec::get_codec_type() const
 {
     return resource_encoding::atlas;
@@ -33,6 +38,8 @@ resource_encoding atlas_codec::get_codec_type() const
 
 atlas_ptr atlas_codec::decode(resource_manager &parent, gfx::device &device, atlas_resource_wrapper_ptr wrapper)
 {
+    AEON_LOG_DEBUG(logger_) << "Decoding atlas resource." << std::endl;
+
     common::buffer_u8 input;
     wrapper->read_raw(input);
 
@@ -41,7 +48,10 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, gfx::device &device, atl
     atlas_file.load(stream);
 
     if (!atlas_file.has_entry("material"))
+    {
+        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Could not find material entry." << std::endl;
         throw atlas_codec_decode_exception();
+    }
 
     material_resource_wrapper_ptr material_res_wrapper =
         parent.load_material_wrapper(atlas_file.get<std::string>("material", ""));
@@ -68,6 +78,8 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, gfx::device &device, atl
         names.insert({region_entry.first, static_cast<int>(regions.size())});
         regions.push_back(region);
     }
+
+    AEON_LOG_DEBUG(logger_) << "Found " << regions.size() << " regions in atlas resource." << std::endl;
 
     gfx::material_ptr gfx_mat = device.get_material_manager().load(material_res);
 

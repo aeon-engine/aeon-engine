@@ -24,6 +24,7 @@
 #include <resources/codecs/material_codec.h>
 #include <resources/codecs/shader_codec.h>
 #include <resources/codecs/atlas_codec.h>
+#include <common/logger.h>
 #include <map>
 
 namespace aeon
@@ -50,6 +51,7 @@ public:
 private:
     void __register_codecs();
 
+    aeon::logger::logger logger_;
     codec_map codecs_;
 };
 

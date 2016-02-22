@@ -17,6 +17,7 @@
 
 #include <resources/exceptions.h>
 #include <resources/codecs/image_codec.h>
+#include <common/logger.h>
 
 namespace aeon
 {
@@ -26,11 +27,14 @@ namespace resources
 class image_codec_png : public image_codec
 {
 public:
-    image_codec_png() = default;
+    image_codec_png();
     virtual ~image_codec_png() = default;
 
     image_ptr decode(resource_manager &parent, image_resource_wrapper_ptr wrapper) override;
     resource_encoding get_codec_type() const override;
+
+private:
+    aeon::logger::logger logger_;
 };
 
 } // namespace resources

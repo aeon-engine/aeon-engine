@@ -26,6 +26,11 @@ namespace aeon
 namespace resources
 {
 
+material_codec::material_codec()
+    : logger_(common::logger::get_singleton(), "Resources::MaterialCodec")
+{
+}
+
 resource_encoding material_codec::get_codec_type() const
 {
     return resource_encoding::material;
@@ -33,6 +38,8 @@ resource_encoding material_codec::get_codec_type() const
 
 material_ptr material_codec::decode(resource_manager &parent, material_resource_wrapper_ptr wrapper)
 {
+    AEON_LOG_DEBUG(logger_) << "Decoding material resource." << std::endl;
+
     common::buffer_u8 input;
     wrapper->read_raw(input);
 
@@ -41,7 +48,10 @@ material_ptr material_codec::decode(resource_manager &parent, material_resource_
     material_file.load(stream);
 
     if (!material_file.has_entry("texture"))
+    {
+        AEON_LOG_ERROR(logger_) << "Could not decode material. Could not find texture entry." << std::endl;
         throw material_codec_decode_exception();
+    }
 
     shader_resource_wrapper_ptr shader_res = parent.load_shader_wrapper(material_file.get<std::string>("shader", ""));
     image_resource_wrapper_ptr texture_res = parent.load_image_wrapper(material_file.get<std::string>("texture", ""));

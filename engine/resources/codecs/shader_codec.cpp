@@ -26,6 +26,11 @@ namespace aeon
 namespace resources
 {
 
+shader_codec::shader_codec()
+    : logger_(common::logger::get_singleton(), "Resources::ShaderCodec")
+{
+}
+
 resource_encoding shader_codec::get_codec_type() const
 {
     return resource_encoding::material;
@@ -33,6 +38,10 @@ resource_encoding shader_codec::get_codec_type() const
 
 shader_ptr shader_codec::decode(resource_manager & /*parent*/, shader_resource_wrapper_ptr wrapper)
 {
+    // TODO: Add error handling for missing segments in the resource file
+
+    AEON_LOG_DEBUG(logger_) << "Decoding shader resource." << std::endl;
+
     common::buffer_u8 input;
     wrapper->read_raw(input);
 

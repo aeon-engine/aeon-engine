@@ -20,6 +20,7 @@
 #include <resources/resource_encoding.h>
 #include <resources/codecs/codec.h>
 #include <resources/shader.h>
+#include <common/logger.h>
 
 namespace aeon
 {
@@ -32,7 +33,7 @@ class resource_manager;
 class shader_codec : public codec
 {
 public:
-    shader_codec() = default;
+    shader_codec();
     virtual ~shader_codec() = default;
 
     resource_encoding get_codec_type() const override;
@@ -46,6 +47,8 @@ private:
         parsing_vertex,
         parsing_fragment
     };
+
+    aeon::logger::logger logger_;
 };
 
 using shader_codec_ptr = std::unique_ptr<shader_codec>;

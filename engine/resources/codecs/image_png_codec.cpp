@@ -31,8 +31,9 @@ namespace resources
 class png_read_structs
 {
 public:
-    png_read_structs()
-        : png_ptr_(nullptr)
+    png_read_structs(aeon::logger::logger &logger)
+        : logger_(logger)
+        , png_ptr_(nullptr)
         , info_ptr_(nullptr)
         , end_info_(nullptr)
     {
@@ -40,19 +41,28 @@ public:
         png_ptr_ = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
         if (!png_ptr_)
+        {
+            AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Could not create read struct." << std::endl;
             throw codec_png_decode_exception();
+        }
 
         // Create png info struct
         info_ptr_ = png_create_info_struct(png_ptr_);
 
         if (!info_ptr_)
+        {
+            AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Could not create info struct." << std::endl;
             throw codec_png_decode_exception();
+        }
 
         // Create png end info struct
         end_info_ = png_create_info_struct(png_ptr_);
 
         if (!end_info_)
+        {
+            AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Could not create end info struct." << std::endl;
             throw codec_png_decode_exception();
+        }
     }
 
     ~png_read_structs()
@@ -85,6 +95,7 @@ public:
     }
 
 private:
+    aeon::logger::logger &logger_;
     png_structp png_ptr_;
     png_infop info_ptr_;
     png_infop end_info_;
@@ -92,19 +103,36 @@ private:
 
 static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, png_size_t output_size)
 {
+    // TODO: Find a better way to do this
+    aeon::logger::logger logger(common::logger::get_singleton(), "Resources::PNGCodec");
+
     aeon::streams::stream *stream = static_cast<aeon::streams::stream *>(png_get_io_ptr(png_ptr));
 
     // Do we have a stream?
     if (!stream)
+    {
+        AEON_LOG_ERROR(logger) << "Could not decode PNG image. Invalid stream in read callback." << std::endl;
         throw codec_png_decode_exception();
+    }
 
     // Read the data
     if (stream->read(output_ptr, static_cast<size_t>(output_size)) != output_size)
+    {
+        AEON_LOG_ERROR(logger) << "Could not decode PNG image. Could not read the requested data from stream."
+            << std::endl;
         throw codec_png_decode_exception();
+    }
+}
+
+image_codec_png::image_codec_png()
+    : logger_(common::logger::get_singleton(), "Resources::PNGCodec")
+{
 }
 
 image_ptr image_codec_png::decode(resource_manager & /*parent*/, image_resource_wrapper_ptr wrapper)
 {
+    AEON_LOG_DEBUG(logger_) << "Decoding PNG image resource." << std::endl;
+
     common::buffer_u8 input;
     wrapper->read_raw(input);
 
@@ -112,12 +140,18 @@ image_ptr image_codec_png::decode(resource_manager & /*parent*/, image_resource_
 
     // Check our stream
     if (!stream.good())
+    {
+        AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Bad stream." << std::endl;
         throw codec_png_decode_exception();
+    }
 
     size_t size = stream.size();
 
     if (size == 0)
+    {
+        AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Empty stream." << std::endl;
         throw codec_png_decode_exception();
+    }
 
     // Read the header
     png_byte png_header[PNG_HEADER_SIGNATURE_SIZE];
@@ -125,14 +159,20 @@ image_ptr image_codec_png::decode(resource_manager & /*parent*/, image_resource_
 
     // Check the header
     if (png_sig_cmp(png_header, 0, PNG_HEADER_SIGNATURE_SIZE))
+    {
+        AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Invalid signature." << std::endl;
         throw codec_png_decode_exception();
+    }
 
-    png_read_structs png_structs;
+    png_read_structs png_structs(logger_);
 
     // Bind errors from libpng
     AEON_IGNORE_VS_WARNING_PUSH(4611)
     if (setjmp(png_jmpbuf(png_structs.png_ptr())))
+    {
+        AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Error reported by libpng while decoding." << std::endl;
         throw codec_png_decode_exception();
+    }
     AEON_IGNORE_VS_WARNING_POP()
 
     // Init png reading. We will be using a read function, as we can't read
@@ -164,6 +204,7 @@ image_ptr image_codec_png::decode(resource_manager & /*parent*/, image_resource_
             pixel_format = image::pixel_format::rgba;
             break;
         default:
+            AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Invalid or unsupported pixel format." << std::endl;
             throw codec_png_decode_exception();
     }
 

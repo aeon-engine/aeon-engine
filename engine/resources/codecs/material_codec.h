@@ -20,6 +20,7 @@
 #include <resources/resource_encoding.h>
 #include <resources/codecs/codec.h>
 #include <resources/material.h>
+#include <common/logger.h>
 
 namespace aeon
 {
@@ -32,12 +33,15 @@ class resource_manager;
 class material_codec : public codec
 {
 public:
-    material_codec() = default;
+    material_codec();
     virtual ~material_codec() = default;
 
     resource_encoding get_codec_type() const override;
 
     material_ptr decode(resource_manager &parent, material_resource_wrapper_ptr wrapper);
+
+private:
+    aeon::logger::logger logger_;
 };
 
 using material_codec_ptr = std::unique_ptr<material_codec>;

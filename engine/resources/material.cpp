@@ -26,12 +26,12 @@ material::material(resource_wrapper_ptr wrapper, shader_ptr shader, image_ptr te
     , shader_(shader)
     , texture_(texture)
 {
-    AEON_LOG_DEBUG(logger_) << "Created material resource." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Created material resource." << std::endl;
 }
 
 material::~material()
 {
-    AEON_LOG_DEBUG(logger_) << "Deleted material resource." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Deleted material resource." << std::endl;
 }
 
 } // namespace resources

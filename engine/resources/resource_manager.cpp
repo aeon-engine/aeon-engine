@@ -29,12 +29,12 @@ resource_manager::resource_manager(platform::platform_interface &platform, gfx::
     , logger_(common::logger::get_singleton(), "Resources::ResourceManager")
     , device_(device)
 {
-    AEON_LOG_DEBUG(logger_) << "Created resource manager." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Created resource manager." << std::endl;
 }
 
 resource_manager::~resource_manager()
 {
-    AEON_LOG_DEBUG(logger_) << "Deleted resource manager." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Deleted resource manager." << std::endl;
 }
 
 void resource_manager::mount(resource_provider_ptr provider, const std::string &mountpoint /* = "/"*/)

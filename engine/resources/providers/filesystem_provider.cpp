@@ -29,8 +29,15 @@ static std::string __get_real_path(const std::string &base, const std::string &p
 
 filesystem_provider::filesystem_provider(const std::string &base_path)
     : resource_provider()
+    , logger_(common::logger::get_singleton(), "Resources::FilesystemProvider")
     , base_path_(base_path)
 {
+    AEON_LOG_TRACE(logger_) << "Created Filesystem Provider for base path: '" << base_path << "'." << std::endl;
+}
+
+filesystem_provider::~filesystem_provider()
+{
+    AEON_LOG_TRACE(logger_) << "Deleted Filesystem Provider for base path: '" << base_path_ << "'." << std::endl;
 }
 
 bool filesystem_provider::exists(const std::string &path)
@@ -42,18 +49,24 @@ bool filesystem_provider::exists(const std::string &path)
 
 std::vector<resource_node> filesystem_provider::list(const std::string & /*path*/)
 {
+    AEON_LOG_ERROR(logger_) << "List method is not implemented yet." << std::endl;
     throw std::runtime_error("Not yet implemented.");
 }
 
 void filesystem_provider::read(const std::string &path, common::buffer_u8 &buffer)
 {
+    AEON_LOG_TRACE(logger_) << "Read file at '" << path << "'." << std::endl;
+
     std::string p = __get_real_path(base_path_, path);
 
     platform::platform_interface &platform = __get_resource_manager()->get_platform_interface();
     platform::platform_filesystem_interface *filesystem_interface = platform.get_filesystem_interface();
 
     if (!filesystem_interface->exists(p))
+    {
+        AEON_LOG_ERROR(logger_) << "Could not read file at '" << path << "'. File does not exist." << std::endl;
         throw filesystem_provider_read_exception();
+    }
 
     platform::platform_file_interface_ptr file =
         filesystem_interface->open_file(p, platform::file_open_mode::read | platform::file_open_mode::binary);
