@@ -30,6 +30,7 @@ texture::texture(resources::image_ptr image)
 
 texture::~texture()
 {
+    glDeleteTextures(1, &handle_);
 }
 
 void texture::bind()

@@ -34,6 +34,7 @@ shader::shader()
 
 shader::~shader()
 {
+    glDeleteProgram(handle_);
 }
 
 void shader::bind()
