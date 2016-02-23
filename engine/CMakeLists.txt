@@ -1,4 +1,5 @@
 include(Utility)
+include(Buildinfo)
 
 ################################################################################
 
@@ -42,12 +43,16 @@ configure_file(build_config.h.in build_config.h @ONLY)
 
 ################################################################################
 
+generate_build_info_header(${CMAKE_CURRENT_BINARY_DIR}/buildinfo.h)
+
+################################################################################
+
 generate_source_groups("${AEON_ENGINE_SOURCES}")
 
 add_library(aeon_engine STATIC ${AEON_ENGINE_SOURCES})
 
 target_include_directories(aeon_engine
-    PRIVATE ${CMAKE_CURRENT_BINARY_DIR}
+    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
     PUBLIC ${ASSIMP_INCLUDE_DIRS}
 )

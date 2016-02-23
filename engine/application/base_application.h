@@ -17,6 +17,7 @@
 #include <resources/resource_manager.h>
 #include <platform/platform_window.h>
 #include <common/logger.h>
+#include <buildinfo.h>
 
 namespace aeon
 {
@@ -32,7 +33,8 @@ public:
         , scene_manager_(device_)
         , window_(nullptr)
     {
-        AEON_LOG_MESSAGE(logger_) << "Initializing Aeon Engine" << std::endl;
+        AEON_LOG_MESSAGE(logger_) << "Initializing Aeon Engine (" << buildinfo::full_version << ", "
+                                  << buildinfo::build_date << ")." << std::endl;
 
         // Init the platform and window
         platform_.initialize();
