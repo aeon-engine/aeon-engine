@@ -23,9 +23,13 @@ namespace gl
 {
 
 vertex_array_object::vertex_array_object(const vertex_attributes &attributes)
-    : handle_(0)
+    : logger_(common::logger::get_singleton(), "Gfx::GL::VertexArrayObject")
+    , handle_(0)
 {
     glGenVertexArrays(1, &handle_);
+
+    AEON_LOG_TRACE(logger_) << "Created Vertex Array Object (GL handle: " << handle_ << ")." << std::endl;
+
     glBindVertexArray(handle_);
 
     int attrib_index = 0;
@@ -40,6 +44,7 @@ vertex_array_object::vertex_array_object(const vertex_attributes &attributes)
 
 vertex_array_object::~vertex_array_object()
 {
+    AEON_LOG_TRACE(logger_) << "Deleting Vertex Array Object (GL handle: " << handle_ << ")." << std::endl;
     glDeleteVertexArrays(1, &handle_);
 }
 

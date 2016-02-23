@@ -16,6 +16,7 @@
 #pragma once
 
 #include <gfx/gfx_texture.h>
+#include <common/logger.h>
 #include <GL/glew.h>
 
 namespace aeon
@@ -36,6 +37,7 @@ public:
     void bind() override;
 
 private:
+    aeon::logger::logger logger_;
     GLuint handle_;
 };
 

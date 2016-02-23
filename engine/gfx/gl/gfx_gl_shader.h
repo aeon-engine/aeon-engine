@@ -17,6 +17,7 @@
 
 #include <GL/glew.h>
 #include <gfx/gfx_shader.h>
+#include <common/logger.h>
 #include <memory>
 
 namespace aeon
@@ -41,6 +42,8 @@ public:
     void set_view_matrix(const glm::mat4 &matrix) override;
 
 private:
+    aeon::logger::logger logger_;
+
     GLuint handle_;
 
     GLint projection_matrix_handle_;

@@ -24,6 +24,11 @@ namespace gfx
 namespace gl
 {
 
+shader_manager::shader_manager()
+    : logger_(common::logger::get_singleton(), "Gfx::GL::ShaderManager")
+{
+}
+
 shader_ptr shader_manager::__load(resources::shader_ptr shader)
 {
     GLuint vertexshader = __load_gl_shader(shader->get_vertex_source(), GL_VERTEX_SHADER);
@@ -41,6 +46,12 @@ shader_ptr shader_manager::__load(resources::shader_ptr shader)
     s->view_matrix_handle_ = glGetUniformLocation(program, "view_matrix");
     s->texture0_handle_ = glGetUniformLocation(program, "texture0");
 
+    AEON_LOG_TRACE(logger_) << "Uniform locations\n" <<
+        "Projection Matrix: " << s->projection_matrix_handle_ << "\n" <<
+        "Model Matrix: " << s->model_matrix_handle_ << "\n" <<
+        "View Matrix: " << s->view_matrix_handle_ << "\n" <<
+        "Texture0: " << s->texture0_handle_ << std::endl;
+
     return s;
 }
 
@@ -50,7 +61,13 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
     GLuint shader = glCreateShader(type);
 
     if (shader == 0)
+    {
+        AEON_LOG_ERROR(logger_) << "Create shader failed." << std::endl;
         throw gfx_opengl_shader_exception();
+    }
+
+    AEON_LOG_TRACE(logger_) << "Created " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment")
+        << " shader (GL handle: " << shader << ")." << std::endl;
 
     const char *shader_src = source.c_str();
     glShaderSource(shader, 1, &shader_src, nullptr);
@@ -71,8 +88,11 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
             std::vector<char> info_log(info_len);
             glGetShaderInfoLog(shader, info_len, nullptr, info_log.data());
 
-            // TODO: console logging
-            std::cerr << "Error compiling shader: " << std::endl << info_log.data() << std::endl;
+            AEON_LOG_ERROR(logger_) << "Error compiling shader: " << info_log.data() << std::endl;
+        }
+        else
+        {
+            AEON_LOG_ERROR(logger_) << "Unknown error compiling shader." << std::endl;
         }
 
         glDeleteShader(shader);
@@ -87,7 +107,12 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
     GLuint program = glCreateProgram();
 
     if (program == 0)
+    {
+        AEON_LOG_ERROR(logger_) << "Create program failed." << std::endl;
         throw gfx_opengl_shader_exception();
+    }
+
+    AEON_LOG_TRACE(logger_) << "Created program (GL handle: " << program << ")." << std::endl;
 
     glAttachShader(program, vertexshader);
     glAttachShader(program, fragmentshader);
@@ -108,8 +133,11 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
             std::vector<char> info_log(info_len);
             glGetProgramInfoLog(program, info_len, nullptr, info_log.data());
 
-            // TODO: console logging
-            std::cerr << "Error linking shader program: " << std::endl << info_log.data() << std::endl;
+            AEON_LOG_ERROR(logger_) << "Error linking shader program: " << info_log.data() << std::endl;
+        }
+        else
+        {
+            AEON_LOG_ERROR(logger_) << "Unknown error linking shader program." << std::endl;
         }
 
         glDeleteProgram(program);

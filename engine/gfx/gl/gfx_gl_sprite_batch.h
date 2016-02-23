@@ -18,6 +18,7 @@
 #include <gfx/gfx_sprite_batch.h>
 #include <gfx/gl/gfx_gl_buffer.h>
 #include <gfx/gl/gfx_gl_vertex_array_object.h>
+#include <common/logger.h>
 
 namespace aeon
 {
@@ -40,6 +41,8 @@ public:
 private:
     void __setup_index_buffer() const;
     void __create_and_setup_vao();
+
+    aeon::logger::logger logger_;
 
     gfx::buffer_ptr vertex_buffer_;
     gfx::buffer_ptr index_buffer_;

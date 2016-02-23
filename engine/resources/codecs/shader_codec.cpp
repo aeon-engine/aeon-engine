@@ -74,6 +74,9 @@ shader_ptr shader_codec::decode(resource_manager & /*parent*/, shader_resource_w
                 continue;
             }
 
+            AEON_LOG_ERROR(logger_) << "Could not decode shader resource. Unexpected token '['."
+                                       "Must be either '[vertex]' or '[fragment]'."
+                                    << std::endl;
             throw shader_codec_decode_exception();
         }
 

@@ -29,14 +29,27 @@ namespace gfx
 namespace gl
 {
 
+device::device()
+    : logger_(common::logger::get_singleton(), "Gfx::GL::Device")
+{
+}
+
 void device::__initialize_impl()
 {
+    AEON_LOG_MESSAGE(logger_) << "Initializing device." << std::endl;
+
     if (initialized_)
+    {
+        AEON_LOG_FATAL(logger_) << "Initialize called while already initialized." << std::endl;
         throw gl_initialized_exception();
+    }
 
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK)
+    {
+        AEON_LOG_FATAL(logger_) << "GLEW initialization failed. Did you create a render window first?" << std::endl;
         throw gl_device_exception();
+    }
 
     texture_manager_ = std::make_unique<gl::texture_manager>();
     shader_manager_ = std::make_unique<gl::shader_manager>();

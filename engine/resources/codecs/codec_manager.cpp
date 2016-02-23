@@ -40,7 +40,10 @@ codec &codec_manager::get_codec(resource_encoding encoding)
 image_codec &codec_manager::get_image_codec(resource_encoding encoding)
 {
     if (get_resource_type_by_encoding(encoding) != resource_type::image)
+    {
+        AEON_LOG_ERROR(logger_) << "Can not decode resource as image." << std::endl;
         throw codec_manager_codec_mismatch_exception();
+    }
 
     return dynamic_cast<image_codec &>(get_codec(encoding));
 }
@@ -74,7 +77,10 @@ resource_type codec_manager::get_resource_type_by_encoding(resource_encoding enc
             return resource_type::image;
         case resource_encoding::unknown:
         default:
+        {
+            AEON_LOG_ERROR(logger_) << "Unknown encoding." << std::endl;
             throw codec_manager_unknown_codec_exception();
+        }
     }
 }
 

@@ -24,7 +24,8 @@ namespace gl
 {
 
 shader::shader()
-    : handle_(0)
+    : logger_(common::logger::get_singleton(), "Gfx::GL::Shader")
+    , handle_(0)
     , projection_matrix_handle_(0)
     , model_matrix_handle_(0)
     , view_matrix_handle_(0)
@@ -34,6 +35,7 @@ shader::shader()
 
 shader::~shader()
 {
+    AEON_LOG_TRACE(logger_) << "Deleting Program (GL handle: " << handle_ << ")." << std::endl;
     glDeleteProgram(handle_);
 }
 

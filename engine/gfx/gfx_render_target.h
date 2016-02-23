@@ -19,6 +19,7 @@
 #include <gfx/gfx_frame_listener.h>
 #include <scene/viewport.h>
 #include <scene/camera.h>
+#include <common/logger.h>
 #include <memory>
 #include <vector>
 
@@ -30,7 +31,7 @@ namespace gfx
 class render_target : public utility::listener_subject<frame_listener>
 {
 public:
-    render_target() = default;
+    render_target();
     virtual ~render_target() = default;
 
     /*!
@@ -65,6 +66,7 @@ protected:
     virtual bool __on_frame_end(float dt) = 0;
 
 private:
+    aeon::logger::logger logger_;
     std::vector<scene::viewport_ptr> viewports_;
 };
 

@@ -81,7 +81,10 @@ resource_encoding filesystem_provider::get_encoding(const std::string &path) con
     std::string::size_type offset = path.find_last_of('.');
 
     if (offset == std::string::npos)
+    {
+        AEON_LOG_ERROR(logger_) << "Could not determine resource encoding from file extension." << std::endl;
         throw filesystem_provider_type_exception();
+    }
 
     std::string extension = path.substr(offset + 1);
 
@@ -94,6 +97,7 @@ resource_encoding filesystem_provider::get_encoding(const std::string &path) con
     if (extension == "png")
         return resource_encoding::image_png;
 
+    AEON_LOG_ERROR(logger_) << "Unknown or unsupported file extension: '" << extension << "'." << std::endl;
     throw filesystem_provider_type_exception();
 }
 

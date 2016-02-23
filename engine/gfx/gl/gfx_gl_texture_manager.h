@@ -17,6 +17,7 @@
 
 #include <gfx/gfx_resource_manager.h>
 #include <resources/image.h>
+#include <common/logger.h>
 #include <GL/glew.h>
 
 namespace aeon
@@ -29,13 +30,15 @@ namespace gl
 class texture_manager : public gfx::texture_manager
 {
 public:
-    texture_manager() = default;
+    texture_manager();
     virtual ~texture_manager() = default;
 
 private:
     texture_ptr __load(resources::image_ptr image) override;
 
     GLint __image_pixelformat_to_gl(resources::image::pixel_format format);
+
+    aeon::logger::logger logger_;
 };
 
 } // namespace gl

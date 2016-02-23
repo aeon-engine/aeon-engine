@@ -21,6 +21,11 @@ namespace aeon
 namespace gfx
 {
 
+render_target::render_target()
+    : logger_(common::logger::get_singleton(), "Gfx::RenderTarget")
+{
+}
+
 bool render_target::handle_frame(float dt)
 {
     if (!__on_frame_start(dt))
@@ -48,6 +53,8 @@ bool render_target::handle_frame(float dt)
 scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera,
                                                    const common::types::rectangle<float> &rect, int zorder)
 {
+    AEON_LOG_DEBUG(logger_) << "Creating viewport (" << rect << ")." << std::endl;
+
     scene::viewport_ptr vp = std::make_shared<scene::viewport>(camera, rect, zorder);
     viewports_.push_back(vp);
 
@@ -62,11 +69,13 @@ scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, con
 
 void render_target::detach_viewport(scene::viewport_ptr vp)
 {
+    AEON_LOG_DEBUG(logger_) << "Detaching viewport." << std::endl;
     viewports_.erase(std::remove(viewports_.begin(), viewports_.end(), vp), viewports_.end());
 }
 
 void render_target::remove_all_viewports()
 {
+    AEON_LOG_DEBUG(logger_) << "Detaching all viewports." << std::endl;
     viewports_.clear();
 }
 

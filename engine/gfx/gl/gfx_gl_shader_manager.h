@@ -17,6 +17,7 @@
 
 #include <gfx/gfx_resource_manager.h>
 #include <GL/glew.h>
+#include <common/logger.h>
 #include <common/exception.h>
 
 namespace aeon
@@ -33,7 +34,7 @@ DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_compile_exception, gfx_opengl_shader_e
 class shader_manager : public gfx::shader_manager
 {
 public:
-    shader_manager() = default;
+    shader_manager();
     virtual ~shader_manager() = default;
 
 private:
@@ -41,6 +42,8 @@ private:
 
     GLuint __load_gl_shader(const std::string &source, GLenum type);
     GLuint __link_gl_program(GLuint vertexshader, GLuint fragmentshader);
+
+    aeon::logger::logger logger_;
 };
 
 } // namespace gl

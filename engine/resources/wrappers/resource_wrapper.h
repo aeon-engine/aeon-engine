@@ -19,6 +19,7 @@
 #include <resources/resource_type.h>
 #include <resources/resource_encoding.h>
 #include <resources/providers/resource_provider.h>
+#include <common/logger.h>
 #include <memory>
 #include <string>
 
@@ -62,6 +63,7 @@ protected:
     }
 
 private:
+    aeon::logger::logger logger_;
     resource_manager &parent_;
     std::string path_;
     resource_provider_weak_ptr provider_;

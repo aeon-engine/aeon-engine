@@ -24,13 +24,17 @@ namespace gl
 
 buffer::buffer(buffer_type type)
     : gfx::buffer(type)
+    , logger_(common::logger::get_singleton(), "Gfx::GL::Buffer")
     , handle_(0)
 {
     glGenBuffers(1, &handle_);
+
+    AEON_LOG_TRACE(logger_) << "Created buffer (GL handle: " << handle_ << ")." << std::endl;
 }
 
 buffer::~buffer()
 {
+    AEON_LOG_TRACE(logger_) << "Deleting buffer (GL handle: " << handle_ << ")." << std::endl;
     glDeleteBuffers(1, &handle_);
 }
 
@@ -57,7 +61,10 @@ GLenum buffer::__buffer_type_as_gl_enum() const
         case buffer_type::element_array:
             return GL_ELEMENT_ARRAY_BUFFER;
         default:
+        {
+            AEON_LOG_ERROR(logger_) << "Unknown or unsupported buffer type." << std::endl;
             throw gfx_opengl_buffer_exception();
+        }
     }
 }
 
@@ -72,7 +79,10 @@ GLenum buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const
         case buffer_usage::dynamic_usage:
             return GL_DYNAMIC_DRAW;
         default:
+        {
+            AEON_LOG_ERROR(logger_) << "Unknown or unsupported buffer usage." << std::endl;
             throw gfx_opengl_buffer_exception();
+        }
     }
 }
 

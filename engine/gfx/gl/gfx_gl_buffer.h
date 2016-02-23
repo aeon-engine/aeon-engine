@@ -17,6 +17,7 @@
 
 #include <gfx/gfx_buffer.h>
 #include <common/exception.h>
+#include <common/logger.h>
 #include <GL/glew.h>
 #include <memory>
 
@@ -42,6 +43,8 @@ public:
 private:
     GLenum __buffer_type_as_gl_enum() const;
     GLenum __buffer_usage_as_gl_enum(buffer_usage usage) const;
+
+    mutable aeon::logger::logger logger_;
 
     GLuint handle_;
 };

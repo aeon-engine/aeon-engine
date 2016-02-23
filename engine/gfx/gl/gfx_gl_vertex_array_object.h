@@ -16,6 +16,7 @@
 #pragma once
 
 #include <gfx/gfx_texture.h>
+#include <common/logger.h>
 #include <GL/glew.h>
 #include <vector>
 
@@ -51,6 +52,7 @@ public:
     void bind() const;
 
 private:
+    aeon::logger::logger logger_;
     GLuint handle_;
 };
 

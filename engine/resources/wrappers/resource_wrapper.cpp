@@ -24,7 +24,8 @@ namespace resources
 
 resource_wrapper::resource_wrapper(resource_manager &parent, const std::string &path,
                                    resource_provider_weak_ptr provider)
-    : parent_(parent)
+    : logger_(common::logger::get_singleton(), "Resources::ResourceWrapper")
+    , parent_(parent)
     , path_(path)
     , provider_(provider)
     , encoding_(resource_encoding::unknown)
@@ -45,7 +46,10 @@ void resource_wrapper::read_raw(common::buffer_u8 &buffer)
     auto p = provider_.lock();
 
     if (!p)
+    {
+        AEON_LOG_FATAL(logger_) << "Failed to read resource at " << path_ << ". Provider not available." << std::endl;
         throw resource_closed_exception();
+    }
 
     p->read(path_, buffer);
 }

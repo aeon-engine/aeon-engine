@@ -91,7 +91,10 @@ atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &s
     std::vector<std::string> items = utility::string::split(str, ',');
 
     if (items.size() != 4)
+    {
+        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Expected 4 tokens, got " << items.size() << "." << std::endl;
         throw atlas_codec_decode_exception();
+    }
 
     int x = 0;
     int y = 0;
@@ -107,10 +110,12 @@ atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &s
     }
     catch (const std::invalid_argument &)
     {
+        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Not a number." << std::endl;
         throw atlas_codec_decode_exception();
     }
     catch (const std::out_of_range &)
     {
+        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Number out of range." << std::endl;
         throw atlas_codec_decode_exception();
     }
 

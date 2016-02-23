@@ -24,12 +24,14 @@ namespace gl
 
 texture::texture(resources::image_ptr image)
     : gfx::texture(image)
+    , logger_(common::logger::get_singleton(), "Gfx::GL::Texture")
     , handle_(0)
 {
 }
 
 texture::~texture()
 {
+    AEON_LOG_TRACE(logger_) << "Deleting Texture (GL handle: " << handle_ << ")." << std::endl;
     glDeleteTextures(1, &handle_);
 }
 

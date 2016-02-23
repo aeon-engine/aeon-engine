@@ -26,6 +26,7 @@ namespace gl
 
 sprite_batch::sprite_batch(device *device, material_ptr material, std::uint16_t sprites_per_buffer)
     : gfx::sprite_batch(material, sprites_per_buffer)
+    , logger_(common::logger::get_singleton(), "Gfx::GL::SpriteBatch")
     , sprite_count_(0)
 {
     vertex_buffer_ = device->get_buffer_manager().create_buffer(buffer_type::array);
@@ -40,7 +41,11 @@ sprite_batch::sprite_batch(device *device, material_ptr material, std::uint16_t 
 void sprite_batch::upload_sprite_buffer(const sprite_vertex *sprite_vertex_data, int count)
 {
     if (count > sprites_per_buffer_)
+    {
+        AEON_LOG_ERROR(logger_) << "Sprite count exceeds buffersize (Given: " << count
+                                << ", Max: " << sprites_per_buffer_ << ")." << std::endl;
         throw gfx_sprite_batch_full_exception();
+    }
 
     int vertex_buffer_size = count * sizeof(gfx::sprite_vertex) * vertices_per_sprite;
     vertex_buffer_->set_data(vertex_buffer_size, sprite_vertex_data, gfx::buffer_usage::stream_usage);

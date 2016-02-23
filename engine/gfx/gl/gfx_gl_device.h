@@ -17,6 +17,7 @@
 
 #include <gfx/gfx_device.h>
 #include <common/exception.h>
+#include <common/logger.h>
 
 namespace aeon
 {
@@ -31,7 +32,7 @@ DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL De
 class device : public gfx::device
 {
 public:
-    device() = default;
+    device();
     virtual ~device() = default;
 
     void __initialize_impl() override;
@@ -42,6 +43,9 @@ public:
     void clear_buffer(int buffer_flag) override;
 
     sprite_batch_ptr create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer) override;
+
+private:
+    aeon::logger::logger logger_;
 };
 
 } // namespace gl

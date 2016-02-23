@@ -51,7 +51,7 @@ public:
 private:
     void __register_codecs();
 
-    aeon::logger::logger logger_;
+    mutable aeon::logger::logger logger_;
     codec_map codecs_;
 };
 
