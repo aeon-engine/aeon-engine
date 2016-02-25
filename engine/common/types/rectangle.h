@@ -39,25 +39,21 @@ public:
      * The begin and end template types are default constructed
      */
     rectangle()
-        : left()
-        , top()
-        , right()
-        , bottom()
+        : x()
+        , y()
+        , width()
+        , height()
     {
     }
 
     /*!
      * Constructor
-     * \param left Left offset of the rectangle
-     * \param top Top offset of the rectangle
-     * \param right Right offset of the rectangle
-     * \param bottom Bottom offset of the rectangle
      */
-    rectangle(T left_, T top_, T right_, T bottom_)
-        : left(left_)
-        , top(top_)
-        , right(right_)
-        , bottom(bottom_)
+    rectangle(T x_, T y_, T width_, T height_)
+        : x(x_)
+        , y(y_)
+        , width(width_)
+        , height(height_)
     {
     }
 
@@ -69,10 +65,10 @@ public:
      */
     template <typename U>
     explicit rectangle(const rectangle<U> &other)
-        : left(static_cast<T>(other.left))
-        , top(static_cast<T>(other.top))
-        , right(static_cast<T>(other.right))
-        , bottom(static_cast<T>(other.bottom))
+        : x(static_cast<T>(other.x))
+        , y(static_cast<T>(other.y))
+        , width(static_cast<T>(other.width))
+        , height(static_cast<T>(other.height))
     {
     }
 
@@ -83,27 +79,7 @@ public:
      */
     bool is_empty() const
     {
-        return right == left || bottom == top;
-    }
-
-    /*!
-     * Get the width of this rectangle. The width may be negative.
-     * \return The width of this rectangle (right - left)
-     */
-    template <typename U>
-    U width() const
-    {
-        return static_cast<U>(right - left);
-    }
-
-    /*!
-     * Get the height of this rectangle. The height may be negative.
-     * \return The height of this rectangle (bottom - top)
-     */
-    template <typename U>
-    U height() const
-    {
-        return static_cast<U>(bottom - top);
+        return width == T() || height == T();
     }
 
     /*!
@@ -114,104 +90,13 @@ public:
     template <typename U>
     glm::vec2 size()
     {
-        return glm::vec2(width<float>(), height<float>());
+        return glm::vec2(width, height);
     }
 
-    /*!
-     * Set a rectangle's position through a Vector2.
-     * \param rect A rectangle
-     * \param p A Vector2 containing a position.
-     * \return A new rectangle positioned on the given position.
-     */
-    static rectangle<T> move_to(const rectangle<T> &rect, const glm::vec2 &p)
-    {
-        return rectangle<T>(static_cast<T>(p.x), static_cast<T>(p.y), (rect.width<T>()) + static_cast<T>(p.x),
-                            (rect.height<T>()) + static_cast<T>(p.y));
-    }
-
-    /*!
-     * Check if Vector2 point is within a rectangle
-     * \param outer A rectangle
-     * \param inner A Vector2 containing a position.
-     * \return True of the given Vector2 value is within the rectangle.
-     */
-    static bool contains(const rectangle<T> &outer, const glm::vec2 &inner)
-    {
-        return outer.left <= static_cast<T>(inner.x) && static_cast<T>(inner.x) < outer.right &&
-               outer.top <= static_cast<T>(inner.y) && static_cast<T>(inner.y) < outer.bottom;
-    }
-
-    /*!
-     * Check if a rectangle is within another rectangle. The entire inner rectangle
-     * must be contained within the outer for this function to return true. Use the
-     * Overlaps function if you only require intersection detection.
-     * \param outer A rectangle
-     * \param inner A rectangle
-     * \return True of the given inner rectangle is fully contained within the outer rectangle.
-     */
-    static bool contains(const rectangle<T> &outer, const rectangle<T> &inner)
-    {
-        return outer.left <= inner.left && inner.right <= outer.right && outer.top <= inner.top &&
-               inner.bottom <= outer.bottom;
-    }
-
-    /*!
-     * Check if a rectangle intersects another rectangle.
-     * \param outer A rectangle
-     * \param inner A rectangle
-     * \return True of the given inner rectangle is intersecting the outer rectangle.
-     */
-    static bool overlaps(const rectangle<T> &r1, const rectangle<T> &r2)
-    {
-        return r1.left < r2.right && r2.left < r1.right && r1.top < r2.bottom && r2.top < r1.bottom;
-    }
-
-    /*!
-     * Get the intersection rectangle of 2 overlapping rectangles. See graphic below:
-     *
-     *   +===============+
-     *   |      r1       |
-     *   |      +========|====+
-     *   |      | result |    |
-     *   +======|========+    |
-     *          |     r2      |
-     *          +=============+
-     *
-     * \param r1 A rectangle
-     * \param r2 A rectangle
-     * \return An intersection of the 2 given rectangles.
-     */
-    static rectangle<T> intersection(const rectangle<T> &r1, const rectangle<T> &r2)
-    {
-        return rectangle<T>(std::max<T>(r1.left, r2.left), std::max<T>(r1.top, r2.top), std::min<T>(r1.right, r2.right),
-                            std::min<T>(r1.bottom, r2.bottom));
-    }
-
-    /*!
-     * Get the union rectangle of 2 rectangles. See graphic below:
-     *
-     *   +======+-------------+
-     *   |  r1  |             |
-     *   |------+             |
-     *   |        result      |
-     *   |   +----------------+
-     *   |   |         r2     |
-     *   +---+================+
-     *
-     * \param r1 A rectangle
-     * \param r2 A rectangle
-     * \return A union of the 2 given rectangles.
-     */
-    static rectangle<T> rectangle_union(const rectangle<T> &r1, const rectangle<T> &r2)
-    {
-        return rectangle<T>(std::min(r1.left, r2.left), std::min(r1.top, r2.top), std::max(r1.right, r2.right),
-                            std::max(r1.bottom, r2.bottom));
-    }
-
-    T left;
-    T top;
-    T right;
-    T bottom;
+    T x;
+    T y;
+    T width;
+    T height;
 };
 
 /*!
@@ -220,7 +105,7 @@ public:
 template <typename T>
 inline bool operator==(const rectangle<T> &lhs, const rectangle<T> &rhs)
 {
-    return lhs.left == rhs.left && lhs.top == rhs.top && lhs.right == rhs.right && lhs.bottom == rhs.bottom;
+    return lhs.x == rhs.x && lhs.y == rhs.y && lhs.width == rhs.width && lhs.height == rhs.height;
 }
 
 /*!
@@ -239,8 +124,8 @@ inline bool operator!=(const rectangle<T> &lhs, const rectangle<T> &rhs)
 template <typename T>
 inline std::ostream &operator<<(std::ostream &os, const rectangle<T> &rect)
 {
-    return os << "rectangle<" << typeid(T).name() << ">(" << rect.left << "," << rect.top << "," << rect.right << ","
-              << rect.bottom << ")";
+    return os << "rectangle<" << typeid(T).name() << ">(" << rect.x << "," << rect.y << "," << rect.width << ","
+              << rect.height << ")";
 }
 
 } // namespace types

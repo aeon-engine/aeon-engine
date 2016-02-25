@@ -82,6 +82,9 @@ void platform_interface::run()
 
         glfwPollEvents();
 
+        // Todo: This does not belong here. However the platform interface does not know about the gfx device.
+        glClear(GL_COLOR_BUFFER_BIT);
+
         for (gfx::render_target_ptr render_target : render_targets_)
         {
             if (!render_target->handle_frame(static_cast<float>(delta_time)))

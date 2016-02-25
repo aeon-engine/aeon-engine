@@ -25,60 +25,60 @@ TEST(test_rectangle, test_rectangle_default_createint)
 {
     common::types::rectangle<int> test;
 
-    EXPECT_EQ(test.left, 0);
-    EXPECT_EQ(test.top, 0);
-    EXPECT_EQ(test.right, 0);
-    EXPECT_EQ(test.bottom, 0);
+    EXPECT_EQ(test.x, 0);
+    EXPECT_EQ(test.y, 0);
+    EXPECT_EQ(test.width, 0);
+    EXPECT_EQ(test.height, 0);
 }
 
 TEST(test_rectangle, test_rectangle_default_create_float)
 {
     common::types::rectangle<float> test;
 
-    EXPECT_EQ(test.left, 0);
-    EXPECT_EQ(test.top, 0);
-    EXPECT_EQ(test.right, 0);
-    EXPECT_EQ(test.bottom, 0);
+    EXPECT_EQ(test.x, 0);
+    EXPECT_EQ(test.y, 0);
+    EXPECT_EQ(test.width, 0);
+    EXPECT_EQ(test.height, 0);
 }
 
 TEST(test_rectangle, test_rectangle_default_create_double)
 {
     common::types::rectangle<double> test;
 
-    EXPECT_EQ(test.left, 0);
-    EXPECT_EQ(test.top, 0);
-    EXPECT_EQ(test.right, 0);
-    EXPECT_EQ(test.bottom, 0);
+    EXPECT_EQ(test.x, 0);
+    EXPECT_EQ(test.y, 0);
+    EXPECT_EQ(test.width, 0);
+    EXPECT_EQ(test.height, 0);
 }
 
 TEST(test_rectangle, test_rectangle_create_int)
 {
     common::types::rectangle<int> test(1, 2, 3, 4);
 
-    EXPECT_EQ(test.left, 1);
-    EXPECT_EQ(test.top, 2);
-    EXPECT_EQ(test.right, 3);
-    EXPECT_EQ(test.bottom, 4);
+    EXPECT_EQ(test.x, 1);
+    EXPECT_EQ(test.y, 2);
+    EXPECT_EQ(test.width, 3);
+    EXPECT_EQ(test.height, 4);
 }
 
 TEST(test_rectangle, test_rectangle_create_float)
 {
     common::types::rectangle<float> test(1.1f, 2.2f, 3.3f, 4.4f);
 
-    EXPECT_EQ(test.left, 1.1f);
-    EXPECT_EQ(test.top, 2.2f);
-    EXPECT_EQ(test.right, 3.3f);
-    EXPECT_EQ(test.bottom, 4.4f);
+    EXPECT_EQ(test.x, 1.1f);
+    EXPECT_EQ(test.y, 2.2f);
+    EXPECT_EQ(test.width, 3.3f);
+    EXPECT_EQ(test.height, 4.4f);
 }
 
 TEST(test_rectangle, test_rectangle_create_double)
 {
     common::types::rectangle<double> test(1.1, 2.2, 3.3, 4.4);
 
-    EXPECT_EQ(test.left, 1.1);
-    EXPECT_EQ(test.top, 2.2);
-    EXPECT_EQ(test.right, 3.3);
-    EXPECT_EQ(test.bottom, 4.4);
+    EXPECT_EQ(test.x, 1.1);
+    EXPECT_EQ(test.y, 2.2);
+    EXPECT_EQ(test.width, 3.3);
+    EXPECT_EQ(test.height, 4.4);
 }
 
 TEST(test_rectangle, test_rectangle_is_empty_int)
@@ -145,223 +145,15 @@ TEST(test_rectangle, test_rectangle_int_size_float)
     EXPECT_FLOAT_EQ(40.0f, RectSize.y);
 }
 
-TEST(test_rectangle, test_rectangle_int_move)
-{
-    const int X = 10;
-    const int Y = 20;
-    const int Width = 30;
-    const int Height = 40;
-    common::types::rectangle<int> test(0, 0, Width, Height);
-    common::types::rectangle<int> test2 = common::types::rectangle<int>::move_to(test, glm::vec2(X, Y));
-
-    EXPECT_EQ(test2.left, X);
-    EXPECT_EQ(test2.top, Y);
-    EXPECT_EQ(test2.right, Width + X);
-    EXPECT_EQ(test2.bottom, Height + Y);
-}
-
-TEST(test_rectangle, test_rectangle_int_move_inverted)
-{
-    const int X = 10;
-    const int Y = 20;
-    const int Width = -30;
-    const int Height = -40;
-    common::types::rectangle<int> test(0, 0, Width, Height);
-    common::types::rectangle<int> test2 = common::types::rectangle<int>::move_to(test, glm::vec2(X, Y));
-
-    EXPECT_EQ(test2.left, X);
-    EXPECT_EQ(test2.top, Y);
-    EXPECT_EQ(test2.right, Width + X);
-    EXPECT_EQ(test2.bottom, Height + Y);
-}
-
 TEST(test_rectangle, test_rectangle_copy_constructor)
 {
     common::types::rectangle<float> test(10.0f, 20.0f, 30.0f, 40.0f);
     common::types::rectangle<int> test2(test);
 
-    EXPECT_EQ(test2.left, 10);
-    EXPECT_EQ(test2.top, 20);
-    EXPECT_EQ(test2.right, 30);
-    EXPECT_EQ(test2.bottom, 40);
-}
-
-TEST(test_rectangle, test_rectangle_intersection)
-{
-    common::types::rectangle<int> test(0, 0, 300, 400);
-    common::types::rectangle<int> test2(10, 20, 400, 500);
-
-    common::types::rectangle<int> intersection = common::types::rectangle<int>::intersection(test, test2);
-
-    EXPECT_EQ(intersection.left, 10);
-    EXPECT_EQ(intersection.top, 20);
-    EXPECT_EQ(intersection.right, 300);
-    EXPECT_EQ(intersection.bottom, 400);
-}
-
-TEST(test_rectangle, test_rectangle_union)
-{
-    common::types::rectangle<int> test(0, 15, 300, 400);
-    common::types::rectangle<int> test2(10, 20, 400, 500);
-
-    common::types::rectangle<int> rect_union = common::types::rectangle<int>::rectangle_union(test, test2);
-
-    EXPECT_EQ(0, rect_union.left);
-    EXPECT_EQ(15, rect_union.top);
-    EXPECT_EQ(400, rect_union.right);
-    EXPECT_EQ(500, rect_union.bottom);
-}
-
-TEST(test_rectangle, test_rectangle_contains_rect)
-{
-    common::types::rectangle<int> test(100, 200, 300, 400);
-    common::types::rectangle<int> test2(110, 210, 150, 250);
-
-    EXPECT_TRUE(common::types::rectangle<int>::contains(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_contains_rect2)
-{
-    common::types::rectangle<int> test(100, 200, 300, 400);
-    common::types::rectangle<int> test2(90, 210, 150, 250);
-
-    EXPECT_FALSE(common::types::rectangle<int>::contains(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_contains_rect3)
-{
-    common::types::rectangle<int> test(100, 200, 300, 400);
-    common::types::rectangle<int> test2(110, 190, 150, 250);
-
-    EXPECT_FALSE(common::types::rectangle<int>::contains(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_contains_rect4)
-{
-    common::types::rectangle<int> test(100, 200, 300, 400);
-    common::types::rectangle<int> test2(110, 210, 310, 250);
-
-    EXPECT_FALSE(common::types::rectangle<int>::contains(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_contains_rect5)
-{
-    common::types::rectangle<int> test(100, 200, 300, 400);
-    common::types::rectangle<int> test2(110, 210, 150, 410);
-
-    EXPECT_FALSE(common::types::rectangle<int>::contains(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_contains_vector)
-{
-    common::types::rectangle<int> test(100, 200, 300, 400);
-    glm::vec2 test2(110, 210);
-
-    EXPECT_TRUE(common::types::rectangle<int>::contains(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_contains_vector2)
-{
-    common::types::rectangle<int> test(100, 200, 300, 400);
-    glm::vec2 test2(0, 210);
-
-    EXPECT_FALSE(common::types::rectangle<int>::contains(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_contains_vector3)
-{
-    common::types::rectangle<int> test(100, 200, 300, 400);
-    glm::vec2 test2(310, 210);
-
-    EXPECT_FALSE(common::types::rectangle<int>::contains(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_contains_vector4)
-{
-    common::types::rectangle<int> test(100, 200, 300, 400);
-    glm::vec2 test2(110, 0);
-
-    EXPECT_FALSE(common::types::rectangle<int>::contains(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_contains_vector5)
-{
-    common::types::rectangle<int> test(100, 200, 300, 400);
-    glm::vec2 test2(110, 410);
-
-    EXPECT_FALSE(common::types::rectangle<int>::contains(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_overlaps)
-{
-    common::types::rectangle<int> test(10, 20, 300, 400);
-    common::types::rectangle<int> test2(100, 200, 400, 500);
-
-    EXPECT_TRUE(common::types::rectangle<int>::overlaps(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_overlaps2)
-{
-    common::types::rectangle<int> test(10, 20, 300, 400);
-    common::types::rectangle<int> test2(0, 200, 400, 500);
-
-    EXPECT_TRUE(common::types::rectangle<int>::overlaps(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_overlaps3)
-{
-    common::types::rectangle<int> test(10, 20, 300, 400);
-    common::types::rectangle<int> test2(100, 0, 400, 500);
-
-    EXPECT_TRUE(common::types::rectangle<int>::overlaps(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_overlaps4)
-{
-    common::types::rectangle<int> test(10, 20, 300, 400);
-    common::types::rectangle<int> test2(100, 200, 200, 500);
-
-    EXPECT_TRUE(common::types::rectangle<int>::overlaps(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_overlaps5)
-{
-    common::types::rectangle<int> test(10, 20, 300, 400);
-    common::types::rectangle<int> test2(100, 200, 400, 300);
-
-    EXPECT_TRUE(common::types::rectangle<int>::overlaps(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_overlaps6)
-{
-    common::types::rectangle<int> test(10, 20, 30, 40);
-    common::types::rectangle<int> test2(100, 200, 400, 300);
-
-    EXPECT_FALSE(common::types::rectangle<int>::overlaps(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_overlaps7)
-{
-    common::types::rectangle<int> test(100, 200, 400, 300);
-    common::types::rectangle<int> test2(10, 20, 30, 40);
-
-    EXPECT_FALSE(common::types::rectangle<int>::overlaps(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_overlaps8)
-{
-    common::types::rectangle<int> test(100, 300, 300, 400);
-    common::types::rectangle<int> test2(100, 500, 300, 400);
-
-    EXPECT_FALSE(common::types::rectangle<int>::overlaps(test, test2));
-}
-
-TEST(test_rectangle, test_rectangle_overlaps9)
-{
-    common::types::rectangle<int> test(100, 500, 300, 400);
-    common::types::rectangle<int> test2(100, 200, 300, 400);
-
-    EXPECT_FALSE(common::types::rectangle<int>::overlaps(test, test2));
+    EXPECT_EQ(test2.x, 10);
+    EXPECT_EQ(test2.y, 20);
+    EXPECT_EQ(test2.width, 30);
+    EXPECT_EQ(test2.height, 40);
 }
 
 TEST(test_rectangle, test_rectangle_int_equals)

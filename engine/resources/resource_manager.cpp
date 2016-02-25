@@ -25,8 +25,8 @@ namespace resources
 {
 
 resource_manager::resource_manager(platform::platform_interface &platform, gfx::device &device)
-    : platform_(platform)
-    , logger_(common::logger::get_singleton(), "Resources::ResourceManager")
+    : logger_(common::logger::get_singleton(), "Resources::ResourceManager")
+    , platform_(platform)
     , device_(device)
 {
     AEON_LOG_TRACE(logger_) << "Created resource manager." << std::endl;

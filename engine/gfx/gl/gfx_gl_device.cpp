@@ -70,9 +70,8 @@ void device::set_clear_color(const common::types::color &c)
 
 void device::set_viewport(scene::viewport *vp)
 {
-    common::types::rectangle<float> rect = vp->get_rectangle();
-
-    glViewport(static_cast<int>(rect.left), static_cast<int>(rect.top), rect.width<int>(), rect.height<int>());
+    common::types::rectangle<int> rect = common::types::rectangle<int>(vp->get_rectangle());
+    glViewport(rect.x, rect.y, rect.width, rect.height);
 }
 
 void device::clear_buffer(int buffer_flag)

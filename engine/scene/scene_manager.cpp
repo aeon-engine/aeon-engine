@@ -58,7 +58,7 @@ void scene_manager::__render_scene(camera *cam, viewport *vp, float dt)
 
     queue_.sort();
 
-    device_.clear_buffer(gfx::buffer_clear_flag::color_buffer | gfx::buffer_clear_flag::depth_buffer);
+    device_.clear_buffer(gfx::buffer_clear_flag::depth_buffer);
 
     for (auto render_object : queue_)
     {

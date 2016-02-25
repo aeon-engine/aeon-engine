@@ -40,6 +40,8 @@ public:
      */
     bool handle_frame(float dt);
 
+    scene::viewport_ptr create_viewport(scene::camera_ptr camera, int zorder);
+
     scene::viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect,
                                         int zorder);
 
@@ -59,6 +61,11 @@ public:
      * should be executed on this render target.
      */
     virtual void make_current() = 0;
+
+    /*!
+     * Get the size of the render framebuffer.
+     */
+    virtual glm::vec2 get_framebuffer_size() = 0;
 
 protected:
     virtual bool __on_frame_start(float dt) = 0;

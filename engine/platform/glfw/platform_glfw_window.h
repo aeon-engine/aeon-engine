@@ -34,9 +34,11 @@ public:
                              GLFWmonitor *monitor);
     ~platform_window() override;
 
-private:
     void make_current() override;
 
+    glm::vec2 get_framebuffer_size() override;
+
+private:
     bool __on_frame_start(float dt) override;
 
     bool __on_frame_end(float dt) override;

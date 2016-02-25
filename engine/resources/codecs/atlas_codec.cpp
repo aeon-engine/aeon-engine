@@ -73,7 +73,7 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, gfx::device &device, atl
 
         glm::vec2 size(data.width, data.height);
 
-        atlas_region region(region_rect.left, region_rect.top, region_rect.right, region_rect.bottom, size);
+        atlas_region region(region_rect.x, region_rect.y, region_rect.width, region_rect.height, size);
 
         names.insert({region_entry.first, static_cast<int>(regions.size())});
         regions.push_back(region);

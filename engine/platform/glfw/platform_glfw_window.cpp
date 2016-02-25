@@ -80,6 +80,13 @@ void platform_window::make_current()
     glfwMakeContextCurrent(window_);
 }
 
+glm::vec2 platform_window::get_framebuffer_size()
+{
+    int width, height;
+    glfwGetFramebufferSize(window_, &width, &height);
+    return glm::vec2(width, height);
+}
+
 bool platform_window::__on_frame_start(float /*dt*/)
 {
     make_current();
