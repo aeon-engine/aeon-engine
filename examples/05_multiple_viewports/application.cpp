@@ -22,7 +22,7 @@ const int WINDOW_HEIGHT = 600;
 
 application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                                  "Example 1 - Basic Sprite")
+                                                                  "Example 5 - Multiple Viewports")
 {
     // Init resources
     get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
