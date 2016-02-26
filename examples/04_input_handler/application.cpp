@@ -21,9 +21,9 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 const float SHIP_ROTATION_SPEED = 3.0f;
-const float SHIP_ACCELERATION = 0.1f;
+const float SHIP_ACCELERATION = 3.0f;
 const float SHIP_MAX_SPEED = 2.0f;
-const float SHIP_FRICTION = 0.05f;
+const float SHIP_FRICTION = 2.0f;
 
 application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
