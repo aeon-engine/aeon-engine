@@ -194,6 +194,11 @@ public:
     }
 
     /*!
+     * Recursively detach and cleanup all scene nodes and their children from this node.
+     */
+    void cleanup_children();
+
+    /*!
      * Begin iterator for c++11 "foreach".
      */
     std::vector<scene_node_ptr>::const_iterator begin() const;

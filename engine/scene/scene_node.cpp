@@ -179,5 +179,16 @@ std::vector<scene_object_ptr> scene_node::get_scene_objects() const
     return scene_objects_;
 }
 
+void scene_node::cleanup_children()
+{
+    for (auto &node : children_)
+    {
+        node->cleanup_children();
+    }
+
+    detach_all_scene_objects();
+    detach_all_children();
+}
+
 } // namespace scene
 } // namespace aeon

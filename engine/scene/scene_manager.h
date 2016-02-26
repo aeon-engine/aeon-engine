@@ -35,13 +35,18 @@ class scene_manager
 
 public:
     explicit scene_manager(gfx::device &device);
-    virtual ~scene_manager() = default;
+    virtual ~scene_manager();
 
     scene_node_ptr get_root_scene_node() const;
 
     scene_node_ptr create_child_scene_node() const;
 
     void detach_child_scene_node(scene_node_ptr node) const;
+
+    /*!
+     * Recursively detach and cleanup all scene nodes and their children from the entire scene.
+     */
+    void cleanup_scene();
 
     template <typename T, class... U>
     std::shared_ptr<T> create_scene_object(U &&... u)
