@@ -138,7 +138,8 @@ bool application::on_frame(float dt)
 void application::on_keyboard_event(aeon::platform::platform_window * /*window*/, aeon::platform::keyboard_key key,
                                     aeon::platform::keyboard_key_state key_state, int /*modifier*/)
 {
-    std::cout << "Key: " << static_cast<int>(key) << " " << static_cast<int>(key_state) << std::endl;
+    AEON_LOG_MESSAGE(get_logger()) << "Key: " << static_cast<int>(key) << " "
+        << static_cast<int>(key_state) << std::endl;
 
     if (key == aeon::platform::keyboard_key::key_escape && key_state == aeon::platform::keyboard_key_state::pressed)
     {

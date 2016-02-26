@@ -66,6 +66,11 @@ public:
         return &platform_;
     }
 
+    aeon::logger::logger &get_logger()
+    {
+        return logger_;
+    }
+
 protected:
     common::logger logger_backend_;
     aeon::logger::logger logger_;
