@@ -1,6 +1,12 @@
 Aeon Game Engine
 ==============
 
+Changelog
+--------------
+The changelog can be found [here](CHANGELOG.md). This changelog describes high
+level changes made to the engine between release versions. For more detailed
+information please refer to the GIT commit log.
+
 Copyright notice
 --------------
 All code in this repository is confidential.
