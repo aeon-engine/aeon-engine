@@ -13,14 +13,14 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
 #include <common/check_gl_error.h>
 #include <common/logger.h>
 
 #ifdef AEON_GFX_GL
 #include <GL/glew.h>
-#elif AEON_GFX_GLES2
+#endif
+
+#ifdef AEON_GFX_GLES2
 #include <GLES2/gl2.h>
 #endif
 
