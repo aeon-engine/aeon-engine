@@ -13,22 +13,32 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gfx_material.h>
+#pragma once
+#include <platform/platform_monitor.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
+{
+namespace rpi
 {
 
-shader_ptr material::get_shader() const
+class platform_monitor : public platform::platform_monitor
 {
-    return shader_;
-}
+public:
+    platform_monitor(int width, int height, int x, int y, bool primary, const std::string &name);
+    virtual ~platform_monitor() = default;
 
-texture_ptr material::get_texture() const
-{
-    return texture_;
-}
+    void set_gramma(float gamma) override;
 
-} // namespace gfx
+    gamma_ramp get_gamma_ramp() override;
+    void set_gamma_ramp(gamma_ramp ramp) override;
+
+    video_mode get_video_mode() override;
+    video_modes get_video_modes() override;
+
+};
+
+} // namespace rpi
+} // namespace platform
 } // namespace aeon

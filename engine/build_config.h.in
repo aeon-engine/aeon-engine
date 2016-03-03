@@ -20,6 +20,26 @@
  */
 
 /*!
+ * Define if OpenGL should be used as GFX backend.
+ */
+#cmakedefine AEON_GFX_GL
+
+/*!
+ * Define if OpenGL ES 2.0 should be used as GFX backend.
+ */
+#cmakedefine AEON_GFX_GLES2
+
+/*!
+ * Define if GLFW should be used as platform.
+ */
+#cmakedefine AEON_PLATFORM_GLFW
+
+/*!
+ * Define if Raspberry Pi should be used as platform.
+ */
+#cmakedefine AEON_PLATFORM_RPI
+
+/*!
  * Define if Aeon should log debug messages.
  */
 #cmakedefine AEON_CONSOLE_OUTPUT_DEBUG_MSGS

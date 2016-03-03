@@ -16,8 +16,6 @@
 #include <scene/sprite.h>
 #include <scene/sprite_batch.h>
 
-#include <GL/glew.h>
-
 namespace aeon
 {
 namespace scene

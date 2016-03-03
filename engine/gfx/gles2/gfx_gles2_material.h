@@ -15,45 +15,38 @@
 
 #pragma once
 
-#include <GL/glew.h>
-#include <gfx/gfx_shader.h>
-#include <common/logger.h>
-#include <memory>
+#include <GLES2/gl2.h>
+#include <gfx/gfx_material.h>
+#include <gfx/gles2/gfx_gles2_shader.h>
+#include <gfx/gles2/gfx_gles2_texture.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+namespace gles2
 {
 
-class shader : public gfx::shader
+class material : public gfx::material
 {
-    friend class shader_manager;
+    friend class material_manager;
+
+    void bind() override;
 
 public:
-    shader();
-    ~shader() override;
+    material() = default;
+    ~material() = default;
 
-    void bind();
+    gfx::shader *get_shader() const override;
+    gfx::texture *get_texture() const override;
 
-    void set_projection_matrix(const glm::mat4 &matrix) override;
-    void set_model_matrix(const glm::mat4 &matrix) override;
-    void set_view_matrix(const glm::mat4 &matrix) override;
-
-private:
-    aeon::logger::logger logger_;
-
-    GLuint handle_;
-
-    GLint projection_matrix_handle_;
-    GLint model_matrix_handle_;
-    GLint view_matrix_handle_;
-    GLint texture0_handle_;
+protected:
+    gles2::shader_gles2_ptr shader_;
+    gles2::texture_gles2_ptr texture_;
 };
 
-using shader_gl_ptr = std::shared_ptr<gl::shader>;
+using material_gl_ptr = std::shared_ptr<material>;
 
-} // namespace gl
+} // namespace gles2
 } // namespace gfx
 } // namespace aeon

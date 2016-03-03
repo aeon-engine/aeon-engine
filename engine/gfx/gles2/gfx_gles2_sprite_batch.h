@@ -15,45 +15,39 @@
 
 #pragma once
 
-#include <GL/glew.h>
-#include <gfx/gfx_shader.h>
+#include <gfx/gfx_sprite_batch.h>
+#include <gfx/gles2/gfx_gles2_buffer.h>
 #include <common/logger.h>
-#include <memory>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+namespace gles2
 {
 
-class shader : public gfx::shader
+class device;
+class sprite_batch : public gfx::sprite_batch
 {
-    friend class shader_manager;
-
 public:
-    shader();
-    ~shader() override;
+    explicit sprite_batch(device *device, material_ptr material, std::uint16_t sprites_per_buffer);
+    virtual ~sprite_batch() = default;
 
-    void bind();
+    void upload_sprite_buffer(const sprite_vertex *sprite_vertex_data, int count) override;
 
-    void set_projection_matrix(const glm::mat4 &matrix) override;
-    void set_model_matrix(const glm::mat4 &matrix) override;
-    void set_view_matrix(const glm::mat4 &matrix) override;
+    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) override;
 
 private:
+    void __setup_index_buffer() const;
+    void __create_and_setup_vao();
+
     aeon::logger::logger logger_;
 
-    GLuint handle_;
-
-    GLint projection_matrix_handle_;
-    GLint model_matrix_handle_;
-    GLint view_matrix_handle_;
-    GLint texture0_handle_;
+    gfx::buffer_ptr vertex_buffer_;
+    gfx::buffer_ptr index_buffer_;
+    int sprite_count_;
 };
 
-using shader_gl_ptr = std::shared_ptr<gl::shader>;
-
-} // namespace gl
+} // namespace gles2
 } // namespace gfx
 } // namespace aeon

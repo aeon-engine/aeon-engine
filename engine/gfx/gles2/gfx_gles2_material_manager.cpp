@@ -13,17 +13,17 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gl/gfx_gl_material_manager.h>
-#include <gfx/gl/gfx_gl_material.h>
-#include <gfx/gl/gfx_gl_device.h>
+#include <gfx/gles2/gfx_gles2_material_manager.h>
+#include <gfx/gles2/gfx_gles2_material.h>
+#include <gfx/gles2/gfx_gles2_device.h>
 #include <resources/material.h>
-#include <GL/glew.h>
+#include <GLES2/gl2.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+namespace gles2
 {
 
 material_manager::material_manager(device &dev)
@@ -36,17 +36,17 @@ material_ptr material_manager::__load(resources::material_ptr mat)
     gfx::texture_manager &texture_mgr = device_.get_texture_manager();
     gfx::shader_manager &shader_mgr = device_.get_shader_manager();
 
-    material_gl_ptr m = std::make_shared<gl::material>();
+    material_gl_ptr m = std::make_shared<gles2::material>();
 
     resources::image_ptr texture_image = mat->get_texture();
-    m->texture_ = std::dynamic_pointer_cast<gl::texture>(texture_mgr.load(texture_image));
+    m->texture_ = std::dynamic_pointer_cast<gles2::texture>(texture_mgr.load(texture_image));
 
     resources::shader_ptr shader_res = mat->get_shader();
-    m->shader_ = std::dynamic_pointer_cast<gl::shader>(shader_mgr.load(shader_res));
+    m->shader_ = std::dynamic_pointer_cast<gles2::shader>(shader_mgr.load(shader_res));
 
     return m;
 }
 
-} // namespace gl
+} // namespace gles2
 } // namespace gfx
 } // namespace aeon

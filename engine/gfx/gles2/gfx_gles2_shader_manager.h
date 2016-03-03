@@ -15,45 +15,37 @@
 
 #pragma once
 
-#include <GL/glew.h>
-#include <gfx/gfx_shader.h>
+#include <gfx/gfx_resource_manager.h>
+#include <GLES2/gl2.h>
 #include <common/logger.h>
-#include <memory>
+#include <common/exception.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+namespace gles2
 {
 
-class shader : public gfx::shader
-{
-    friend class shader_manager;
+DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_exception, aeon::common::exception, "OpenGL shader exception.");
+DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_compile_exception, gfx_opengl_shader_exception,
+                        "OpenGL shader compilation exception.");
 
+class shader_manager : public gfx::shader_manager
+{
 public:
-    shader();
-    ~shader() override;
-
-    void bind();
-
-    void set_projection_matrix(const glm::mat4 &matrix) override;
-    void set_model_matrix(const glm::mat4 &matrix) override;
-    void set_view_matrix(const glm::mat4 &matrix) override;
+    shader_manager();
+    virtual ~shader_manager() = default;
 
 private:
+    shader_ptr __load(resources::shader_ptr shader) override;
+
+    GLuint __load_gl_shader(const std::string &source, GLenum type);
+    GLuint __link_gl_program(GLuint vertexshader, GLuint fragmentshader);
+
     aeon::logger::logger logger_;
-
-    GLuint handle_;
-
-    GLint projection_matrix_handle_;
-    GLint model_matrix_handle_;
-    GLint view_matrix_handle_;
-    GLint texture0_handle_;
 };
 
-using shader_gl_ptr = std::shared_ptr<gl::shader>;
-
-} // namespace gl
+} // namespace gles2
 } // namespace gfx
 } // namespace aeon

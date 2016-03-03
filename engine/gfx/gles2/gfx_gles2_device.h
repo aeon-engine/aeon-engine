@@ -15,34 +15,39 @@
 
 #pragma once
 
-#include <gfx/gfx_texture.h>
+#include <gfx/gfx_device.h>
+#include <common/exception.h>
 #include <common/logger.h>
-#include <GL/glew.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+namespace gles2
 {
 
-class texture : public gfx::texture
-{
-    friend class texture_manager;
+DEFINE_EXCEPTION_OBJECT(gl_initialized_exception, aeon::common::exception, "OpenGL Device already initialized.");
+DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL Device Exception");
 
+class device : public gfx::device
+{
 public:
-    explicit texture(resources::image_ptr image);
-    ~texture() override;
+    device();
+    virtual ~device() = default;
 
-    void bind();
+    void __initialize_impl() override;
+
+    void set_clear_color(const common::types::color &c) override;
+    void set_viewport(scene::viewport *vp) override;
+
+    void clear_buffer(int buffer_flag) override;
+
+    sprite_batch_ptr create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer) override;
 
 private:
     aeon::logger::logger logger_;
-    GLuint handle_;
 };
 
-using texture_gl_ptr = std::shared_ptr<gl::texture>;
-
-} // namespace gl
+} // namespace gles2
 } // namespace gfx
 } // namespace aeon

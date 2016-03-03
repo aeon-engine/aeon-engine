@@ -1,7 +1,7 @@
 /*
  * ROBIN DEGEN; CONFIDENTIAL
  *
- * 2012 - 2015 Robin Degen
+ * 2012 - 2016 Robin Degen
  * All Rights Reserved.
  *
  * NOTICE:  All information contained herein is, and remains the property of
@@ -12,3 +12,38 @@
  * information or reproduction of this material is strictly forbidden unless
  * prior written permission is obtained from Robin Degen.
  */
+
+#pragma once
+
+#include <gfx/gfx_texture.h>
+#include <common/logger.h>
+#include <GLES2/gl2.h>
+
+namespace aeon
+{
+namespace gfx
+{
+namespace gles2
+{
+
+class shader;
+class texture : public gfx::texture
+{
+    friend class texture_manager;
+
+public:
+    explicit texture(resources::image_ptr image);
+    ~texture() override;
+
+    void bind(shader &s);
+
+private:
+    aeon::logger::logger logger_;
+    GLuint handle_;
+};
+
+using texture_gles2_ptr = std::shared_ptr<gles2::texture>;
+
+} // namespace gles2
+} // namespace gfx
+} // namespace aeon

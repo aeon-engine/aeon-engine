@@ -17,7 +17,6 @@
 
 #include <gfx/gfx_resource_manager.h>
 #include <resources/material.h>
-#include <GL/glew.h>
 
 namespace aeon
 {

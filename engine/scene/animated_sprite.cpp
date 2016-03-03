@@ -15,7 +15,6 @@
 
 #include <scene/animated_sprite.h>
 #include <scene/sprite_animation_settings.h>
-#include <GL/glew.h>
 
 namespace aeon
 {

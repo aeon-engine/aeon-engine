@@ -15,45 +15,42 @@
 
 #pragma once
 
-#include <GL/glew.h>
-#include <gfx/gfx_shader.h>
+#include <gfx/gfx_buffer.h>
+#include <common/exception.h>
 #include <common/logger.h>
+#include <GLES2/gl2.h>
 #include <memory>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+namespace gles2
 {
 
-class shader : public gfx::shader
-{
-    friend class shader_manager;
+DEFINE_EXCEPTION_OBJECT(gfx_opengl_buffer_exception, aeon::common::exception, "GL Buffer error");
 
+class buffer : public gfx::buffer
+{
 public:
-    shader();
-    ~shader() override;
+    explicit buffer(buffer_type type);
+    virtual ~buffer();
 
-    void bind();
+    void set_data(int size, const void *data, buffer_usage usage) override;
 
-    void set_projection_matrix(const glm::mat4 &matrix) override;
-    void set_model_matrix(const glm::mat4 &matrix) override;
-    void set_view_matrix(const glm::mat4 &matrix) override;
+    void bind() override;
 
 private:
-    aeon::logger::logger logger_;
+    GLenum __buffer_type_as_gl_enum() const;
+    GLenum __buffer_usage_as_gl_enum(buffer_usage usage) const;
+
+    mutable aeon::logger::logger logger_;
 
     GLuint handle_;
-
-    GLint projection_matrix_handle_;
-    GLint model_matrix_handle_;
-    GLint view_matrix_handle_;
-    GLint texture0_handle_;
 };
 
-using shader_gl_ptr = std::shared_ptr<gl::shader>;
+using buffer_ptr = std::shared_ptr<buffer>;
 
-} // namespace gl
+} // namespace gles2
 } // namespace gfx
 } // namespace aeon

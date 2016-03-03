@@ -13,31 +13,36 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gl/gfx_gl_material.h>
+#include <gfx/gles2/gfx_gles2_texture.h>
+#include <gfx/gles2/gfx_gles2_shader.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+namespace gles2
 {
 
-void material::bind()
+texture::texture(resources::image_ptr image)
+    : gfx::texture(image)
+    , logger_(common::logger::get_singleton(), "Gfx::GL::Texture")
+    , handle_(0)
 {
-    shader_->bind();
-    texture_->bind();
 }
 
-gfx::shader *material::get_shader() const
+texture::~texture()
 {
-    return shader_.get();
+    AEON_LOG_TRACE(logger_) << "Deleting Texture (GL handle: " << handle_ << ")." << std::endl;
+    glDeleteTextures(1, &handle_);
 }
 
-gfx::texture *material::get_texture() const
+void texture::bind(shader &s)
 {
-    return texture_.get();
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, handle_);
+    glUniform1i(s.get_texture0_handle(), 0);
 }
 
-} // namespace gl
+} // namespace gles2
 } // namespace gfx
 } // namespace aeon

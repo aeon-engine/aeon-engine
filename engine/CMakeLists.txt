@@ -19,6 +19,10 @@ if (AEON_GFX_GL)
     add_source_path(AEON_ENGINE_SOURCES gfx/gl)
 endif ()
 
+if (AEON_GFX_GLES2)
+    add_source_path(AEON_ENGINE_SOURCES gfx/gles2)
+endif ()
+
 ################################################################################
 
 add_source_path(AEON_ENGINE_SOURCES platform)
@@ -26,6 +30,10 @@ add_source_path(AEON_ENGINE_SOURCES platform/generic)
 
 if (AEON_PLATFORM_GLFW)
     add_source_path(AEON_ENGINE_SOURCES platform/glfw)
+endif ()
+
+if (AEON_PLATFORM_RPI)
+    add_source_path(AEON_ENGINE_SOURCES platform/rpi)
 endif ()
 
 ################################################################################
@@ -59,8 +67,6 @@ target_include_directories(aeon_engine
 
 target_link_libraries(aeon_engine
     aeon
-    glfw
-    glew_s
     glm
     png_static
     ${ASSIMP_LIBRARIES}
@@ -69,6 +75,18 @@ target_link_libraries(aeon_engine
 
 if (APPLE)
     target_link_libraries(aeon_engine ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY})
+endif ()
+
+if (AEON_GFX_GL)
+    target_link_libraries(aeon_engine glew_s)
+endif ()
+
+if (AEON_PLATFORM_GLFW)
+    target_link_libraries(aeon_engine glfw)
+endif ()
+
+if (AEON_PLATFORM_RPI)
+    target_link_libraries(aeon_engine RaspberryPiSdk)
 endif ()
 
 set_target_properties(

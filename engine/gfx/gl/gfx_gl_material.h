@@ -17,6 +17,8 @@
 
 #include <GL/glew.h>
 #include <gfx/gfx_material.h>
+#include <gfx/gl/gfx_gl_shader.h>
+#include <gfx/gl/gfx_gl_texture.h>
 
 namespace aeon
 {
@@ -34,6 +36,13 @@ class material : public gfx::material
 public:
     material() = default;
     ~material() = default;
+
+    gfx::shader *get_shader() const override;
+    gfx::texture *get_texture() const override;
+
+protected:
+    gl::shader_gl_ptr shader_;
+    gl::texture_gl_ptr texture_;
 };
 
 using material_gl_ptr = std::shared_ptr<material>;

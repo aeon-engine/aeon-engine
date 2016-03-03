@@ -30,8 +30,6 @@ public:
     shader();
     virtual ~shader();
 
-    virtual void bind() = 0;
-
     virtual void set_projection_matrix(const glm::mat4 &matrix) = 0;
     virtual void set_model_matrix(const glm::mat4 &matrix) = 0;
     virtual void set_view_matrix(const glm::mat4 &matrix) = 0;

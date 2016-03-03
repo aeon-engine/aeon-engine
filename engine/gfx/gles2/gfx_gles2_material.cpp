@@ -13,19 +13,19 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gl/gfx_gl_material.h>
+#include <gfx/gles2/gfx_gles2_material.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+namespace gles2
 {
 
 void material::bind()
 {
     shader_->bind();
-    texture_->bind();
+    texture_->bind(*shader_);
 }
 
 gfx::shader *material::get_shader() const
@@ -38,6 +38,6 @@ gfx::texture *material::get_texture() const
     return texture_.get();
 }
 
-} // namespace gl
+} // namespace gles2
 } // namespace gfx
 } // namespace aeon

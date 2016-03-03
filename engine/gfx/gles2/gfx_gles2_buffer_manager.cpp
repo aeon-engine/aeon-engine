@@ -13,31 +13,21 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gl/gfx_gl_material.h>
+#include <gfx/gles2/gfx_gles2_buffer_manager.h>
+#include <gfx/gles2/gfx_gles2_buffer.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+namespace gles2
 {
 
-void material::bind()
+gfx::buffer_ptr buffer_manager::__create_buffer(buffer_type type)
 {
-    shader_->bind();
-    texture_->bind();
+    return std::make_shared<gles2::buffer>(type);
 }
 
-gfx::shader *material::get_shader() const
-{
-    return shader_.get();
-}
-
-gfx::texture *material::get_texture() const
-{
-    return texture_.get();
-}
-
-} // namespace gl
+} // namespace gles2
 } // namespace gfx
 } // namespace aeon

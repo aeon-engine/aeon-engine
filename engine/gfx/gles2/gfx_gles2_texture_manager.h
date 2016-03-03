@@ -15,45 +15,32 @@
 
 #pragma once
 
-#include <GL/glew.h>
-#include <gfx/gfx_shader.h>
+#include <gfx/gfx_resource_manager.h>
+#include <resources/image.h>
 #include <common/logger.h>
-#include <memory>
+#include <GLES2/gl2.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+namespace gles2
 {
 
-class shader : public gfx::shader
+class texture_manager : public gfx::texture_manager
 {
-    friend class shader_manager;
-
 public:
-    shader();
-    ~shader() override;
-
-    void bind();
-
-    void set_projection_matrix(const glm::mat4 &matrix) override;
-    void set_model_matrix(const glm::mat4 &matrix) override;
-    void set_view_matrix(const glm::mat4 &matrix) override;
+    texture_manager();
+    virtual ~texture_manager() = default;
 
 private:
+    texture_ptr __load(resources::image_ptr image) override;
+
+    GLint __image_pixelformat_to_gl(resources::image::pixel_format format);
+
     aeon::logger::logger logger_;
-
-    GLuint handle_;
-
-    GLint projection_matrix_handle_;
-    GLint model_matrix_handle_;
-    GLint view_matrix_handle_;
-    GLint texture0_handle_;
 };
 
-using shader_gl_ptr = std::shared_ptr<gl::shader>;
-
-} // namespace gl
+} // namespace gles2
 } // namespace gfx
 } // namespace aeon

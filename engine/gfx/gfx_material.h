@@ -15,14 +15,16 @@
 
 #pragma once
 
-#include <gfx/gfx_shader.h>
-#include <gfx/gfx_texture.h>
+#include <common/cached_object.h>
+#include <memory>
 
 namespace aeon
 {
 namespace gfx
 {
 
+class shader;
+class texture;
 class material : public common::cached_object
 {
 public:
@@ -31,12 +33,8 @@ public:
 
     virtual void bind() = 0;
 
-    shader_ptr get_shader() const;
-    texture_ptr get_texture() const;
-
-protected:
-    shader_ptr shader_;
-    texture_ptr texture_;
+    virtual shader *get_shader() const = 0;
+    virtual texture *get_texture() const = 0;
 };
 
 using material_ptr = std::shared_ptr<material>;

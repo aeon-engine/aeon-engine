@@ -32,8 +32,6 @@ public:
     explicit texture(resources::image_ptr image);
     virtual ~texture() = default;
 
-    virtual void bind() = 0;
-
     glm::vec2 get_size() const;
 
 protected:
