@@ -52,6 +52,20 @@ void device::__initialize_impl()
         throw gl_device_exception();
     }
 
+    // Squash all OpenGL errors from glewInit before continuing.
+    int count = 0;
+    while(glGetError() != GL_NO_ERROR)
+    {
+        if(count++ > 100)
+        {
+            AEON_LOG_FATAL(logger_) << "GLEW initialization reported too many OpenGL errors (> 100)." << std::endl;
+            break;
+        }
+    }
+
+    if (count > 0)
+        AEON_LOG_WARNING(logger_) << "glewInit reported " << count << " OpenGL error(s)." << std::endl;
+
     texture_manager_ = std::make_unique<gl::texture_manager>();
     shader_manager_ = std::make_unique<gl::shader_manager>();
     material_manager_ = std::make_unique<gl::material_manager>(*this);
