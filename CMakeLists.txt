@@ -50,14 +50,69 @@ endif ()
 ################################################################################
 # GFX options
 ################################################################################
-option(AEON_GFX_GL "Use OpenGL as graphics renderer." ON)
-option(AEON_GFX_GLES2 "Use OpenGL ES 2 as graphics renderer." OFF)
+set(AEON_GFX_RENDERER_NAME_OPENGL3_3 "OpenGL3.3")
+set(AEON_GFX_RENDERER_NAME_GLES2 "GLES2")
+
+set(AEON_GFX_GL OFF)
+set(AEON_GFX_GLES2 OFF)
+
+set(AEON_GFX_RENDERER ${AEON_GFX_RENDERER_NAME_OPENGL3_3} CACHE STRING "GFX Render backend")
+set_property(CACHE AEON_GFX_RENDERER PROPERTY STRINGS ${AEON_GFX_RENDERER_NAME_OPENGL3_3} ${AEON_GFX_RENDERER_NAME_GLES2})
+
+if (AEON_GFX_RENDERER STREQUAL AEON_GFX_RENDERER_NAME_OPENGL3_3)
+    message(STATUS "Using OpenGL as graphics renderer.")
+
+    find_package(OpenGL REQUIRED)
+
+    set(AEON_GFX_GL ON)
+elseif (AEON_GFX_RENDERER STREQUAL AEON_GFX_RENDERER_NAME_GLES2)
+    message (STATUS "Using OpenGL ES 2.0 as graphics renderer.")
+
+    set(AEON_GFX_GLES2 ON)
+else ()
+    message (FATAL_ERROR "No valid graphics renderer selected.")
+endif ()
 
 ################################################################################
 # Platform options
 ################################################################################
-option(AEON_PLATFORM_GLFW "Use GLFW as platform (creates the window and context)" ON)
-option(AEON_PLATFORM_RPI "Use Raspberry Pi as platform (creates the window and context)" OFF)
+set(AEON_PLATFORM_NAME_GLFW "GLFW")
+set(AEON_PLATFORM_NAME_RPI "RaspberryPi")
+
+set(AEON_PLATFORM_GLFW OFF)
+set(AEON_PLATFORM_RPI OFF)
+
+set(AEON_PLATFORM ${AEON_PLATFORM_NAME_GLFW} CACHE STRING "Platform backend")
+set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW} ${AEON_PLATFORM_NAME_RPI})
+
+if (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_GLFW)
+    message (STATUS "Using GLFW as platform.")
+    set(AEON_PLATFORM_GLFW ON)
+elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_RPI)
+    if (NOT AEON_GFX_GLES2)
+        message (FATAL_ERROR "Raspberry Pi requires OpenGL ES 2.0; Please set AEON_GFX_RENDERER to GLES2")
+    endif()
+
+    message (STATUS "Using Raspberry Pi as platform.")
+
+    find_package(RaspberryPiSDK COMPONENTS
+        EGL
+        GLESv2
+        vcos
+        vchiq_arm
+        bcm_host
+    )
+
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+
+    set(AEON_PLATFORM_RPI ON)
+else ()
+    message (FATAL_ERROR "No valid platform was selected.")
+endif ()
 
 ################################################################################
 # Debugging options
@@ -66,95 +121,6 @@ option(AEON_PLATFORM_RPI "Use Raspberry Pi as platform (creates the window and c
 # Check and log all OpenGL 3 and GLES 2 errors. Warning: This is very slow,
 # only use for debugging purposes.
 option(AEON_ENABLE_GL_ERROR_CHECKS "Check and log all OpenGL 3 and GLES 2 errors." ON)
-
-if (AEON_ENABLE_GL_ERROR_CHECKS)
-    message (STATUS "Enabled OpenGL error checking.")
-endif ()
-
-################################################################################
-
-if (AEON_GFX_GL)
-    find_package(OpenGL REQUIRED)
-endif ()
-
-if (AEON_PLATFORM_RPI)
-    find_package(RaspberryPiSDK COMPONENTS
-        EGL
-        GLESv2
-        vcos
-        vchiq_arm
-        bcm_host
-    )
-endif ()
-
-################################################################################
-
-set(AEON_HAS_GFX_SELECTED OFF)
-
-# OpenGL GFX handler.
-if (AEON_GFX_GL)
-    if (AEON_GFX_GLES2)
-        message (FATAL_ERROR "AEON_GFX_GLES2 conflicts with AEON_GFX_GL renderer.")
-    endif ()
-
-    message ("Using OpenGL as graphics renderer.")
-    set(AEON_HAS_GFX_SELECTED ON)
-endif ()
-
-# GLES2 GFX handler.
-if (AEON_GFX_GLES2)
-    if (AEON_GFX_GL)
-        message (FATAL_ERROR "AEON_GFX_GL conflicts with AEON_GFX_GLES2 renderer.")
-    endif ()
-
-    message ("Using OpenGL ES 2.0 as graphics renderer.")
-    set(AEON_HAS_GFX_SELECTED ON)
-endif ()
-
-# Check if any GFX handler was selected.
-if (NOT AEON_HAS_GFX_SELECTED)
-    message (FATAL_ERROR "No graphics renderer selected.")
-endif ()
-
-################################################################################
-
-set(AEON_HAS_PLATFORM_SELECTED OFF)
-
-# GLFW Platform
-if (AEON_PLATFORM_GLFW)
-    if (NOT AEON_GFX_GL)
-        message (FATAL_ERROR "GLFW requires OpenGL; Please set AEON_GFX_GL.")
-    endif()
-    if (AEON_PLATFORM_RPI)
-        message (FATAL_ERROR "AEON_PLATFORM_RPI conflicts with AEON_PLATFORM_GLFW platform.")
-    endif()
-    
-    message ("Using GLFW as platform.")
-    set(AEON_HAS_PLATFORM_SELECTED ON)
-endif ()
-
-# RPI Platform
-if (AEON_PLATFORM_RPI)
-    if (NOT AEON_GFX_GLES2)
-        message (FATAL_ERROR "Raspberry Pi requires OpenGL ES 2.0; Please set AEON_GFX_GLES2.")
-    endif()
-    if (AEON_PLATFORM_GLFW)
-        message (FATAL_ERROR "AEON_PLATFORM_GLFW conflicts with AEON_PLATFORM_RPI platform.")
-    endif()
-    
-    message ("Using Raspberry Pi as platform. Linking staticly with libgcc and libstdc++.")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-
-    set(AEON_HAS_PLATFORM_SELECTED ON)
-endif ()
-
-if (NOT AEON_HAS_PLATFORM_SELECTED)
-    message (FATAL_ERROR "No platform was selected.")
-endif ()
 
 ################################################################################
 
