@@ -57,9 +57,6 @@ void device::__initialize_impl()
     material_manager_ = std::make_unique<gl::material_manager>(*this);
     buffer_manager_ = std::make_unique<gl::buffer_manager>();
 
-    glEnable(GL_TEXTURE_2D);
-    AEON_CHECK_GL_ERROR();
-
     glEnable(GL_BLEND);
     AEON_CHECK_GL_ERROR();
 
