@@ -32,36 +32,45 @@ namespace common
 #ifdef AEON_ENABLE_GL_ERROR_CHECKS
 void check_gl_error(const char *file, int line)
 {
-    GLenum result = glGetError();
-
-    if (result == GL_NO_ERROR)
-        return;
-
-    std::string error_message;
-    switch (result)
-    {
-        case GL_INVALID_ENUM:
-            error_message = "Invalid enum.";
-            break;
-        case GL_INVALID_VALUE:
-            error_message = "Invalid value.";
-            break;
-        case GL_INVALID_OPERATION:
-            error_message = "Invalid operation.";
-            break;
-        case GL_INVALID_FRAMEBUFFER_OPERATION:
-            error_message = "Invalid framebuffer operation.";
-            break;
-        case GL_OUT_OF_MEMORY:
-            error_message = "Out of memory";
-            break;
-        default:
-            error_message = "Unknown error.";
-    }
-
+    int count = 0;
     aeon::logger::logger logger(common::logger::get_singleton(), "Gfx::Debug");
-    AEON_LOG_ERROR(logger) << "OpenGL error detected in " << file << ":" << line
-        << ". Description: " << error_message << "." << std::endl;
+
+    GLenum result = glGetError();
+    while (result != GL_NO_ERROR)
+    {
+        if (++count >= 100)
+        {
+            AEON_LOG_FATAL(logger) << "Too many OpenGL errors detected (> 100)" << std::endl;
+            break;
+        }
+
+        std::string error_message;
+        switch (result)
+        {
+            case GL_INVALID_ENUM:
+                error_message = "Invalid enum.";
+                break;
+            case GL_INVALID_VALUE:
+                error_message = "Invalid value.";
+                break;
+            case GL_INVALID_OPERATION:
+                error_message = "Invalid operation.";
+                break;
+            case GL_INVALID_FRAMEBUFFER_OPERATION:
+                error_message = "Invalid framebuffer operation.";
+                break;
+            case GL_OUT_OF_MEMORY:
+                error_message = "Out of memory";
+                break;
+            default:
+                error_message = "Unknown error.";
+        }
+
+        AEON_LOG_ERROR(logger) << "OpenGL error detected in " << file << ":" << line
+            << ". Description: " << error_message << "." << std::endl;
+
+        result = glGetError();
+    }
 }
 #endif
 
