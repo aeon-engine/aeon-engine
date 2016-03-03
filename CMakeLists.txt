@@ -67,6 +67,10 @@ option(AEON_PLATFORM_RPI "Use Raspberry Pi as platform (creates the window and c
 # only use for debugging purposes.
 option(AEON_ENABLE_GL_ERROR_CHECKS "Check and log all OpenGL 3 and GLES 2 errors." ON)
 
+if (AEON_ENABLE_GL_ERROR_CHECKS)
+    message (STATUS "Enabled OpenGL error checking.")
+endif ()
+
 ################################################################################
 
 if (AEON_GFX_GL)
