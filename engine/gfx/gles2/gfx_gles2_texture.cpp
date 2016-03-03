@@ -15,6 +15,7 @@
 
 #include <gfx/gles2/gfx_gles2_texture.h>
 #include <gfx/gles2/gfx_gles2_shader.h>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -34,13 +35,19 @@ texture::~texture()
 {
     AEON_LOG_TRACE(logger_) << "Deleting Texture (GL handle: " << handle_ << ")." << std::endl;
     glDeleteTextures(1, &handle_);
+    AEON_CHECK_GL_ERROR();
 }
 
-void texture::bind(shader &s)
+void texture::bind(shader &s) const
 {
     glActiveTexture(GL_TEXTURE0);
+    AEON_CHECK_GL_ERROR();
+
     glBindTexture(GL_TEXTURE_2D, handle_);
+    AEON_CHECK_GL_ERROR();
+
     glUniform1i(s.get_texture0_handle(), 0);
+    AEON_CHECK_GL_ERROR();
 }
 
 } // namespace gles2

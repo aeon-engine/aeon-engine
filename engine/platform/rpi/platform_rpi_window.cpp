@@ -19,6 +19,7 @@
 #include <GLES2/gl2.h>
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
+#include <common/check_gl_error.h>
 
 // esCreateWindow flag - RGB color buffer
 #define ES_WINDOW_RGB           0
@@ -73,6 +74,8 @@ bool platform_window::__on_frame_start(float /*dt*/)
 bool platform_window::__on_frame_end(float /*dt*/)
 {
     glFinish();
+    AEON_CHECK_GL_ERROR();
+
     eglSwapBuffers(display_, surface_);
     return true;
 }

@@ -19,6 +19,7 @@
 #include <platform/generic/platform_generic_filesystem_interface.h>
 #include <GLES2/gl2.h>
 #include <bcm_host.h>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -71,6 +72,7 @@ void platform_interface::run()
 
         // Todo: This does not belong here. However the platform interface does not know about the gfx device.
         glClear(GL_COLOR_BUFFER_BIT);
+        AEON_CHECK_GL_ERROR();
 
         for (gfx::render_target_ptr render_target : render_targets_)
         {

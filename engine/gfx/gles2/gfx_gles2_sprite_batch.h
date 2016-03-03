@@ -39,7 +39,6 @@ public:
 
 private:
     void __setup_index_buffer() const;
-    void __create_and_setup_vao();
 
     aeon::logger::logger logger_;
 

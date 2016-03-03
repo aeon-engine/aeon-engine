@@ -35,7 +35,7 @@ public:
     explicit texture(resources::image_ptr image);
     ~texture() override;
 
-    void bind(shader &s);
+    void bind(shader &s) const;
 
 private:
     aeon::logger::logger logger_;

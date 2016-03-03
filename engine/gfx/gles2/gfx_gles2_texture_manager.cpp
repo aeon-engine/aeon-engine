@@ -16,6 +16,7 @@
 #include <gfx/gles2/gfx_gles2_texture_manager.h>
 #include <gfx/gles2/gfx_gles2_texture.h>
 #include <resources/image.h>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -35,19 +36,25 @@ texture_ptr texture_manager::__load(resources::image_ptr image)
 
     GLuint handle = 0;
     glGenTextures(1, &handle);
+    AEON_CHECK_GL_ERROR();
 
     AEON_LOG_TRACE(logger_) << "Created Texture (GL handle: " << handle << ")." << std::endl;
 
     glBindTexture(GL_TEXTURE_2D, handle);
+    AEON_CHECK_GL_ERROR();
 
     GLint pixelformat = __image_pixelformat_to_gl(image->get_pixelformat());
     GLsizei width = image->get_width();
     GLsizei height = image->get_height();
     glTexImage2D(GL_TEXTURE_2D, 0, pixelformat, width, height, 0, pixelformat, GL_UNSIGNED_BYTE,
                  image->get_data().data());
+    AEON_CHECK_GL_ERROR();
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    AEON_CHECK_GL_ERROR();
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    AEON_CHECK_GL_ERROR();
 
     t->handle_ = handle;
     t->size_ = glm::vec2(width, height);

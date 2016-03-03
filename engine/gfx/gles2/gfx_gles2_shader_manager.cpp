@@ -16,6 +16,7 @@
 #include <gfx/gles2/gfx_gles2_shader_manager.h>
 #include <gfx/gles2/gfx_gles2_shader.h>
 #include <iostream>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -40,9 +41,16 @@ shader_ptr shader_manager::__load(resources::shader_ptr shader)
 
     s->handle_ = program;
     s->projection_matrix_handle_ = glGetUniformLocation(program, "projection_matrix");
+    AEON_CHECK_GL_ERROR();
+
     s->model_matrix_handle_ = glGetUniformLocation(program, "model_matrix");
+    AEON_CHECK_GL_ERROR();
+
     s->view_matrix_handle_ = glGetUniformLocation(program, "view_matrix");
+    AEON_CHECK_GL_ERROR();
+
     s->texture0_handle_ = glGetUniformLocation(program, "texture0");
+    AEON_CHECK_GL_ERROR();
 
     AEON_LOG_TRACE(logger_) << "Uniform locations\n" <<
         "Projection Matrix: " << s->projection_matrix_handle_ << "\n" <<
@@ -69,12 +77,15 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
 
     const char *shader_src = source.c_str();
     glShaderSource(shader, 1, &shader_src, nullptr);
+    AEON_CHECK_GL_ERROR();
 
     glCompileShader(shader);
+    AEON_CHECK_GL_ERROR();
 
     // Check the compile status
     GLint status;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+    AEON_CHECK_GL_ERROR();
 
     if (!status)
     {
@@ -85,6 +96,7 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
         {
             std::vector<char> info_log(info_len);
             glGetShaderInfoLog(shader, info_len, nullptr, info_log.data());
+            AEON_CHECK_GL_ERROR();
 
             AEON_LOG_ERROR(logger_) << "Error compiling shader: " << info_log.data() << std::endl;
         }
@@ -94,6 +106,7 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
         }
 
         glDeleteShader(shader);
+        AEON_CHECK_GL_ERROR();
         throw gfx_opengl_shader_compile_exception();
     }
 
@@ -103,6 +116,7 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
 GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentshader)
 {
     GLuint program = glCreateProgram();
+    AEON_CHECK_GL_ERROR();
 
     if (program == 0)
     {
@@ -113,31 +127,44 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
     AEON_LOG_TRACE(logger_) << "Created program (GL handle: " << program << ")." << std::endl;
 
     glAttachShader(program, vertexshader);
+    AEON_CHECK_GL_ERROR();
     glAttachShader(program, fragmentshader);
+    AEON_CHECK_GL_ERROR();
 
     glBindAttribLocation(program, 0, "in_position");
+    AEON_CHECK_GL_ERROR();
     glBindAttribLocation(program, 1, "in_texture_coord");
+    AEON_CHECK_GL_ERROR();
     glBindAttribLocation(program, 2, "in_color");
+    AEON_CHECK_GL_ERROR();
     glBindAttribLocation(program, 3, "in_sprite_model_mat_col0");
+    AEON_CHECK_GL_ERROR();
     glBindAttribLocation(program, 4, "in_sprite_model_mat_col1");
+    AEON_CHECK_GL_ERROR();
     glBindAttribLocation(program, 5, "in_sprite_model_mat_col2");
+    AEON_CHECK_GL_ERROR();
     glBindAttribLocation(program, 6, "in_sprite_model_mat_col3");
+    AEON_CHECK_GL_ERROR();
 
     glLinkProgram(program);
+    AEON_CHECK_GL_ERROR();
 
     // Check the link status
     GLint status;
     glGetProgramiv(program, GL_LINK_STATUS, &status);
+    AEON_CHECK_GL_ERROR();
 
     if (!status)
     {
         GLint info_len = 0;
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_len);
+        AEON_CHECK_GL_ERROR();
 
         if (info_len > 1)
         {
             std::vector<char> info_log(info_len);
             glGetProgramInfoLog(program, info_len, nullptr, info_log.data());
+            AEON_CHECK_GL_ERROR();
 
             AEON_LOG_ERROR(logger_) << "Error linking shader program: " << info_log.data() << std::endl;
         }
@@ -147,6 +174,7 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
         }
 
         glDeleteProgram(program);
+        AEON_CHECK_GL_ERROR();
         throw gfx_opengl_shader_compile_exception();
     }
 

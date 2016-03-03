@@ -16,6 +16,7 @@
 #include <gfx/gles2/gfx_gles2_sprite_batch.h>
 #include <gfx/gles2/gfx_gles2_device.h>
 #include <resources/atlas.h>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -35,7 +36,6 @@ sprite_batch::sprite_batch(device *device, material_ptr material, std::uint16_t 
     vertex_buffer_->set_data(0, nullptr, gfx::buffer_usage::stream_usage);
 
     __setup_index_buffer();
-    __create_and_setup_vao();
 }
 
 void sprite_batch::upload_sprite_buffer(const sprite_vertex *sprite_vertex_data, int count)
@@ -68,25 +68,39 @@ void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view
     material_->get_shader()->set_view_matrix(view);
 
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (GLvoid *) 0);
+    AEON_CHECK_GL_ERROR();
 	glEnableVertexAttribArray(0);
+    AEON_CHECK_GL_ERROR();
 
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (GLvoid *) 8);
+    AEON_CHECK_GL_ERROR();
 	glEnableVertexAttribArray(1);
+    AEON_CHECK_GL_ERROR();
 
     glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (GLvoid *) 16);
+    AEON_CHECK_GL_ERROR();
 	glEnableVertexAttribArray(2);
+    AEON_CHECK_GL_ERROR();
 
     glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (GLvoid *) 32);
+    AEON_CHECK_GL_ERROR();
 	glEnableVertexAttribArray(3);
+    AEON_CHECK_GL_ERROR();
 
     glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (GLvoid *) 48);
+    AEON_CHECK_GL_ERROR();
 	glEnableVertexAttribArray(4);
+    AEON_CHECK_GL_ERROR();
 
     glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (GLvoid *) 64);
+    AEON_CHECK_GL_ERROR();
 	glEnableVertexAttribArray(5);
+    AEON_CHECK_GL_ERROR();
 
     glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(sprite_vertex), (GLvoid *) 80);
+    AEON_CHECK_GL_ERROR();
 	glEnableVertexAttribArray(6);
+    AEON_CHECK_GL_ERROR();
 
     GLuint element_size = static_cast<GLuint>(sprite_count_ * indices_per_sprite);
     glDrawElements(GL_TRIANGLES, element_size, GL_UNSIGNED_SHORT, nullptr);
@@ -111,18 +125,6 @@ void sprite_batch::__setup_index_buffer() const
 
     int buffer_size = static_cast<int>(index_buffer_data.size() * sizeof(uint16_t));
     index_buffer_->set_data(buffer_size, index_buffer_data.data(), gfx::buffer_usage::static_usage);
-}
-
-void sprite_batch::__create_and_setup_vao()
-{
-    /*vertex_attributes attributes = {
-        vertex_attribute{2, sizeof(sprite_vertex), 0},  vertex_attribute{2, sizeof(sprite_vertex), 8},
-        vertex_attribute{4, sizeof(sprite_vertex), 16}, vertex_attribute{4, sizeof(sprite_vertex), 32},
-        vertex_attribute{4, sizeof(sprite_vertex), 48}, vertex_attribute{4, sizeof(sprite_vertex), 64},
-        vertex_attribute{4, sizeof(sprite_vertex), 80},
-    };
-
-    vao_ = std::make_unique<vertex_array_object>(attributes);*/
 }
 
 } // namespace gles2
