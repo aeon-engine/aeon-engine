@@ -85,12 +85,6 @@ if (AEON_PLATFORM_RPI)
         vchiq_arm
         bcm_host
     )
-
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-libgcc -static-libstdc++")
 endif ()
 
 ################################################################################
@@ -148,7 +142,13 @@ if (AEON_PLATFORM_RPI)
         message (FATAL_ERROR "AEON_PLATFORM_GLFW conflicts with AEON_PLATFORM_RPI platform.")
     endif()
     
-    message ("Using Raspberry Pi as platform.")
+    message ("Using Raspberry Pi as platform. Linking staticly with libgcc and libstdc++.")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+
     set(AEON_HAS_PLATFORM_SELECTED ON)
 endif ()
 
