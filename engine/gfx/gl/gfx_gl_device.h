@@ -45,7 +45,12 @@ public:
     sprite_batch_ptr create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer) override;
 
 private:
-    aeon::logger::logger logger_;
+    void __initialize_glew() const;
+    void __report_and_squash_glew_errors() const;
+    void __create_managers();
+    void __setup_opengl() const;
+
+    mutable aeon::logger::logger logger_;
 };
 
 } // namespace gl

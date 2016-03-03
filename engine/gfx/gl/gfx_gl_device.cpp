@@ -45,37 +45,9 @@ void device::__initialize_impl()
         throw gl_initialized_exception();
     }
 
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK)
-    {
-        AEON_LOG_FATAL(logger_) << "GLEW initialization failed. Did you create a render window first?" << std::endl;
-        throw gl_device_exception();
-    }
-
-    // Squash all OpenGL errors from glewInit before continuing.
-    int count = 0;
-    while(glGetError() != GL_NO_ERROR)
-    {
-        if(count++ > 100)
-        {
-            AEON_LOG_FATAL(logger_) << "GLEW initialization reported too many OpenGL errors (> 100)." << std::endl;
-            break;
-        }
-    }
-
-    if (count > 0)
-        AEON_LOG_WARNING(logger_) << "glewInit reported " << count << " OpenGL error(s)." << std::endl;
-
-    texture_manager_ = std::make_unique<gl::texture_manager>();
-    shader_manager_ = std::make_unique<gl::shader_manager>();
-    material_manager_ = std::make_unique<gl::material_manager>(*this);
-    buffer_manager_ = std::make_unique<gl::buffer_manager>();
-
-    glEnable(GL_BLEND);
-    AEON_CHECK_GL_ERROR();
-
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    AEON_CHECK_GL_ERROR();
+    __initialize_glew();
+    __create_managers();
+    __setup_opengl();
 
     initialized_ = true;
 }
@@ -110,6 +82,52 @@ void device::clear_buffer(int buffer_flag)
 sprite_batch_ptr device::create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer)
 {
     return std::make_unique<sprite_batch>(this, material, sprites_per_buffer);
+}
+
+void device::__initialize_glew() const
+{
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK)
+    {
+        AEON_LOG_FATAL(logger_) << "GLEW initialization failed. Did you create a render window first?" << std::endl;
+        throw gl_device_exception();
+    }
+
+    // Squash all OpenGL errors from glewInit before continuing.
+    __report_and_squash_glew_errors();
+}
+
+void device::__report_and_squash_glew_errors() const
+{
+    int count = 0;
+    while (glGetError() != GL_NO_ERROR)
+    {
+        if (count++ > 100)
+        {
+            AEON_LOG_FATAL(logger_) << "GLEW initialization reported too many OpenGL errors (> 100)." << std::endl;
+            break;
+        }
+    }
+
+    if (count > 0)
+        AEON_LOG_WARNING(logger_) << "glewInit reported " << count << " OpenGL error(s)." << std::endl;
+}
+
+void device::__create_managers()
+{
+    texture_manager_ = std::make_unique<gl::texture_manager>();
+    shader_manager_ = std::make_unique<gl::shader_manager>();
+    material_manager_ = std::make_unique<gl::material_manager>(*this);
+    buffer_manager_ = std::make_unique<gl::buffer_manager>();
+}
+
+void device::__setup_opengl() const
+{
+    glEnable(GL_BLEND);
+    AEON_CHECK_GL_ERROR();
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    AEON_CHECK_GL_ERROR();
 }
 
 } // namespace gl
