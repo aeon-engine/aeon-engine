@@ -14,6 +14,7 @@
  */
 
 #include <gfx/gl/gfx_gl_buffer.h>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -28,6 +29,7 @@ buffer::buffer(buffer_type type)
     , handle_(0)
 {
     glGenBuffers(1, &handle_);
+    AEON_CHECK_GL_ERROR();
 
     AEON_LOG_TRACE(logger_) << "Created buffer (GL handle: " << handle_ << ")." << std::endl;
 }
@@ -36,6 +38,7 @@ buffer::~buffer()
 {
     AEON_LOG_TRACE(logger_) << "Deleting buffer (GL handle: " << handle_ << ")." << std::endl;
     glDeleteBuffers(1, &handle_);
+    AEON_CHECK_GL_ERROR();
 }
 
 void buffer::set_data(int size, const void *data, buffer_usage usage)
@@ -44,12 +47,16 @@ void buffer::set_data(int size, const void *data, buffer_usage usage)
     GLenum gl_usage = __buffer_usage_as_gl_enum(usage);
 
     glBindBuffer(gl_type, handle_);
+    AEON_CHECK_GL_ERROR();
+
     glBufferData(gl_type, size, data, gl_usage);
+    AEON_CHECK_GL_ERROR();
 }
 
 void buffer::bind()
 {
     glBindBuffer(__buffer_type_as_gl_enum(), handle_);
+    AEON_CHECK_GL_ERROR();
 }
 
 GLenum buffer::__buffer_type_as_gl_enum() const

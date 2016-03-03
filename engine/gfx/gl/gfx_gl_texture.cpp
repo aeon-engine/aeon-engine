@@ -14,6 +14,7 @@
  */
 
 #include <gfx/gl/gfx_gl_texture.h>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -33,13 +34,16 @@ texture::~texture()
 {
     AEON_LOG_TRACE(logger_) << "Deleting Texture (GL handle: " << handle_ << ")." << std::endl;
     glDeleteTextures(1, &handle_);
+    AEON_CHECK_GL_ERROR();
 }
 
-void texture::bind()
+void texture::bind() const
 {
     glActiveTexture(GL_TEXTURE0);
+    AEON_CHECK_GL_ERROR();
+
     glBindTexture(GL_TEXTURE_2D, handle_);
-    glBindSampler(0, 1);
+    AEON_CHECK_GL_ERROR();
 }
 
 } // namespace gl

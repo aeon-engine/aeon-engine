@@ -21,6 +21,7 @@
 #include <gfx/gl/gfx_gl_sprite_batch.h>
 #include <GL/glew.h>
 #include <memory>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -57,8 +58,13 @@ void device::__initialize_impl()
     buffer_manager_ = std::make_unique<gl::buffer_manager>();
 
     glEnable(GL_TEXTURE_2D);
+    AEON_CHECK_GL_ERROR();
+
     glEnable(GL_BLEND);
+    AEON_CHECK_GL_ERROR();
+
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    AEON_CHECK_GL_ERROR();
 
     initialized_ = true;
 }
@@ -66,12 +72,14 @@ void device::__initialize_impl()
 void device::set_clear_color(const common::types::color &c)
 {
     glClearColor(c.r, c.g, c.b, c.a);
+    AEON_CHECK_GL_ERROR();
 }
 
 void device::set_viewport(scene::viewport *vp)
 {
     common::types::rectangle<int> rect = common::types::rectangle<int>(vp->get_rectangle());
     glViewport(rect.x, rect.y, rect.width, rect.height);
+    AEON_CHECK_GL_ERROR();
 }
 
 void device::clear_buffer(int buffer_flag)
@@ -85,6 +93,7 @@ void device::clear_buffer(int buffer_flag)
         buffers |= GL_DEPTH_BUFFER_BIT;
 
     glClear(buffers);
+    AEON_CHECK_GL_ERROR();
 }
 
 sprite_batch_ptr device::create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer)

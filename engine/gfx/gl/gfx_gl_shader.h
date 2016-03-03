@@ -35,7 +35,7 @@ public:
     shader();
     ~shader() override;
 
-    void bind();
+    void bind() const;
 
     void set_projection_matrix(const glm::mat4 &matrix) override;
     void set_model_matrix(const glm::mat4 &matrix) override;

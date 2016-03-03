@@ -15,6 +15,7 @@
 
 #include <gfx/gl/gfx_gl_shader.h>
 #include <glm/gtc/type_ptr.hpp>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -37,26 +38,31 @@ shader::~shader()
 {
     AEON_LOG_TRACE(logger_) << "Deleting Program (GL handle: " << handle_ << ")." << std::endl;
     glDeleteProgram(handle_);
+    AEON_CHECK_GL_ERROR();
 }
 
-void shader::bind()
+void shader::bind() const
 {
     glUseProgram(handle_);
+    AEON_CHECK_GL_ERROR();
 }
 
 void shader::set_projection_matrix(const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(projection_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
+    AEON_CHECK_GL_ERROR();
 }
 
 void shader::set_model_matrix(const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(model_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
+    AEON_CHECK_GL_ERROR();
 }
 
 void shader::set_view_matrix(const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(view_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
+    AEON_CHECK_GL_ERROR();
 }
 
 } // namespace gl

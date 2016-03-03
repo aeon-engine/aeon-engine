@@ -40,6 +40,12 @@
 #cmakedefine AEON_PLATFORM_RPI
 
 /*!
+ * Define if OpenGL and GLES error checking should be enabled.
+ * Warning: This is very slow, only use for debugging purposes.
+ */
+#cmakedefine AEON_ENABLE_GL_ERROR_CHECKS
+
+/*!
  * Define if Aeon should log debug messages.
  */
 #cmakedefine AEON_CONSOLE_OUTPUT_DEBUG_MSGS

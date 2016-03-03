@@ -14,6 +14,7 @@
  */
 
 #include <gfx/gl/gfx_gl_vertex_array_object.h>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -27,17 +28,23 @@ vertex_array_object::vertex_array_object(const vertex_attributes &attributes)
     , handle_(0)
 {
     glGenVertexArrays(1, &handle_);
+    AEON_CHECK_GL_ERROR();
 
     AEON_LOG_TRACE(logger_) << "Created Vertex Array Object (GL handle: " << handle_ << ")." << std::endl;
 
     glBindVertexArray(handle_);
+    AEON_CHECK_GL_ERROR();
 
     int attrib_index = 0;
     for (auto attribute : attributes)
     {
         glEnableVertexAttribArray(attrib_index);
+        AEON_CHECK_GL_ERROR();
+
         glVertexAttribPointer(attrib_index, attribute.size, GL_FLOAT, GL_FALSE, static_cast<GLsizei>(attribute.stride),
                               reinterpret_cast<void *>(attribute.offset));
+        AEON_CHECK_GL_ERROR();
+
         ++attrib_index;
     }
 }
@@ -46,11 +53,13 @@ vertex_array_object::~vertex_array_object()
 {
     AEON_LOG_TRACE(logger_) << "Deleting Vertex Array Object (GL handle: " << handle_ << ")." << std::endl;
     glDeleteVertexArrays(1, &handle_);
+    AEON_CHECK_GL_ERROR();
 }
 
 void vertex_array_object::bind() const
 {
     glBindVertexArray(handle_);
+    AEON_CHECK_GL_ERROR();
 }
 
 } // namespace gl

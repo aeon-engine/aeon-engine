@@ -15,34 +15,22 @@
 
 #pragma once
 
-#include <gfx/gfx_texture.h>
-#include <common/logger.h>
-#include <GL/glew.h>
+#include <build_config.h>
+
+#ifdef AEON_ENABLE_GL_ERROR_CHECKS
+#define AEON_CHECK_GL_ERROR() aeon::common::check_gl_error(__FILE__, __LINE__);
+#else
+#define AEON_CHECK_GL_ERROR() do{} while(0)
+#endif
 
 namespace aeon
 {
-namespace gfx
-{
-namespace gl
+namespace common
 {
 
-class texture : public gfx::texture
-{
-    friend class texture_manager;
+#ifdef AEON_ENABLE_GL_ERROR_CHECKS
+void check_gl_error(const char *file, int line);
+#endif
 
-public:
-    explicit texture(resources::image_ptr image);
-    ~texture() override;
-
-    void bind() const;
-
-private:
-    aeon::logger::logger logger_;
-    GLuint handle_;
-};
-
-using texture_gl_ptr = std::shared_ptr<gl::texture>;
-
-} // namespace gl
-} // namespace gfx
+} // namespace common
 } // namespace aeon

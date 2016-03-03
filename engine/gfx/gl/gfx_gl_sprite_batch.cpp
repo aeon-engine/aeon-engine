@@ -16,6 +16,7 @@
 #include <gfx/gl/gfx_gl_sprite_batch.h>
 #include <gfx/gl/gfx_gl_device.h>
 #include <resources/atlas.h>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -71,6 +72,7 @@ void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view
 
     GLuint element_size = static_cast<GLuint>(sprite_count_ * indices_per_sprite);
     glDrawRangeElements(GL_TRIANGLES, 0, element_size, element_size, GL_UNSIGNED_SHORT, nullptr);
+    AEON_CHECK_GL_ERROR();
 }
 
 void sprite_batch::__setup_index_buffer() const

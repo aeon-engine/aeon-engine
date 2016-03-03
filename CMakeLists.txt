@@ -48,14 +48,24 @@ if (APPLE)
 endif ()
 
 ################################################################################
-
-# GFX handlers
+# GFX options
+################################################################################
 option(AEON_GFX_GL "Use OpenGL as graphics renderer." ON)
 option(AEON_GFX_GLES2 "Use OpenGL ES 2 as graphics renderer." OFF)
 
-# Platforms
+################################################################################
+# Platform options
+################################################################################
 option(AEON_PLATFORM_GLFW "Use GLFW as platform (creates the window and context)" ON)
 option(AEON_PLATFORM_RPI "Use Raspberry Pi as platform (creates the window and context)" OFF)
+
+################################################################################
+# Debugging options
+################################################################################
+
+# Check and log all OpenGL 3 and GLES 2 errors. Warning: This is very slow,
+# only use for debugging purposes.
+option(AEON_ENABLE_GL_ERROR_CHECKS "Check and log all OpenGL 3 and GLES 2 errors." ON)
 
 ################################################################################
 

@@ -16,6 +16,7 @@
 #include <gfx/gl/gfx_gl_shader_manager.h>
 #include <gfx/gl/gfx_gl_shader.h>
 #include <iostream>
+#include <common/check_gl_error.h>
 
 namespace aeon
 {
@@ -37,14 +38,22 @@ shader_ptr shader_manager::__load(resources::shader_ptr shader)
     GLuint program = __link_gl_program(vertexshader, fragmentshader);
 
     glBindFragDataLocation(program, 0, "output_color");
+    AEON_CHECK_GL_ERROR();
 
     shader_gl_ptr s = std::make_shared<gl::shader>();
 
     s->handle_ = program;
     s->projection_matrix_handle_ = glGetUniformLocation(program, "projection_matrix");
+    AEON_CHECK_GL_ERROR();
+
     s->model_matrix_handle_ = glGetUniformLocation(program, "model_matrix");
+    AEON_CHECK_GL_ERROR();
+
     s->view_matrix_handle_ = glGetUniformLocation(program, "view_matrix");
+    AEON_CHECK_GL_ERROR();
+
     s->texture0_handle_ = glGetUniformLocation(program, "texture0");
+    AEON_CHECK_GL_ERROR();
 
     AEON_LOG_TRACE(logger_) << "Uniform locations\n" <<
         "Projection Matrix: " << s->projection_matrix_handle_ << "\n" <<
@@ -59,6 +68,7 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
 {
     // Create the shader object
     GLuint shader = glCreateShader(type);
+    AEON_CHECK_GL_ERROR();
 
     if (shader == 0)
     {
@@ -71,22 +81,27 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
 
     const char *shader_src = source.c_str();
     glShaderSource(shader, 1, &shader_src, nullptr);
+    AEON_CHECK_GL_ERROR();
 
     glCompileShader(shader);
+    AEON_CHECK_GL_ERROR();
 
     // Check the compile status
     GLint status;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+    AEON_CHECK_GL_ERROR();
 
     if (!status)
     {
         GLint info_len = 0;
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_len);
+        AEON_CHECK_GL_ERROR();
 
         if (info_len > 1)
         {
             std::vector<char> info_log(info_len);
             glGetShaderInfoLog(shader, info_len, nullptr, info_log.data());
+            AEON_CHECK_GL_ERROR();
 
             AEON_LOG_ERROR(logger_) << "Error compiling shader: " << info_log.data() << std::endl;
         }
@@ -96,6 +111,7 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
         }
 
         glDeleteShader(shader);
+        AEON_CHECK_GL_ERROR();
         throw gfx_opengl_shader_compile_exception();
     }
 
@@ -105,6 +121,7 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
 GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentshader)
 {
     GLuint program = glCreateProgram();
+    AEON_CHECK_GL_ERROR();
 
     if (program == 0)
     {
@@ -115,23 +132,30 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
     AEON_LOG_TRACE(logger_) << "Created program (GL handle: " << program << ")." << std::endl;
 
     glAttachShader(program, vertexshader);
+    AEON_CHECK_GL_ERROR();
+
     glAttachShader(program, fragmentshader);
+    AEON_CHECK_GL_ERROR();
 
     glLinkProgram(program);
+    AEON_CHECK_GL_ERROR();
 
     // Check the link status
     GLint status;
     glGetProgramiv(program, GL_LINK_STATUS, &status);
+    AEON_CHECK_GL_ERROR();
 
     if (!status)
     {
         GLint info_len = 0;
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_len);
+        AEON_CHECK_GL_ERROR();
 
         if (info_len > 1)
         {
             std::vector<char> info_log(info_len);
             glGetProgramInfoLog(program, info_len, nullptr, info_log.data());
+            AEON_CHECK_GL_ERROR();
 
             AEON_LOG_ERROR(logger_) << "Error linking shader program: " << info_log.data() << std::endl;
         }
@@ -141,6 +165,7 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
         }
 
         glDeleteProgram(program);
+        AEON_CHECK_GL_ERROR();
         throw gfx_opengl_shader_compile_exception();
     }
 
