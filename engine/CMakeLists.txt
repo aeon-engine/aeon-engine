@@ -36,6 +36,10 @@ if (AEON_PLATFORM_RPI)
     add_source_path(AEON_ENGINE_SOURCES platform/rpi)
 endif ()
 
+if (AEON_PLATFORM_IOS)
+    add_source_path(AEON_ENGINE_SOURCES platform/ios)
+endif ()
+
 ################################################################################
 
 add_source_path(AEON_ENGINE_SOURCES scene)
@@ -98,3 +102,4 @@ set_target_properties(
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
     FOLDER engine
 )
+

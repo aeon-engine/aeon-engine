@@ -15,10 +15,17 @@
 
 #pragma once
 
+#include <build_config.h>
 #include <gfx/gfx_buffer.h>
 #include <common/exception.h>
 #include <common/logger.h>
+
+#ifdef AEON_PLATFORM_IOS
+#include <OpenGLES/ES2/gl.h>
+#else
 #include <GLES2/gl2.h>
+#endif // AEON_PLATFORM_IOS
+
 #include <memory>
 
 namespace aeon

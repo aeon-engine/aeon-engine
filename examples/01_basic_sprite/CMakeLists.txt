@@ -1,6 +1,15 @@
 include(Utility)
 
-add_executable(example_01_basic_sprite main.cpp application.cpp application.h)
+    file(
+        GLOB_RECURSE resource_files
+            ${CMAKE_SOURCE_DIR}/bin/*
+    )
+
+    message(STATUS "Files: ${resource_files}")
+
+add_executable(example_01_basic_sprite main.cpp application.cpp application.h ${resource_files})
+
+set_target_properties(example_01_basic_sprite PROPERTIES RESOURCE "${resource_files}" )
 
 target_include_directories(example_01_basic_sprite
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}

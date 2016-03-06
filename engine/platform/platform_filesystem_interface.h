@@ -39,7 +39,8 @@ public:
     enum class file_type
     {
         file,
-        directory
+        directory,
+        unknown
     };
 
     class file_entry
@@ -63,6 +64,7 @@ public:
     virtual platform_file_interface_ptr open_file(const std::string &path, int openmode) = 0;
     virtual bool exists(const std::string &path) = 0;
     virtual files list(const std::string &path) = 0;
+    virtual std::string get_executable_path() = 0;
 };
 
 using platform_filesystem_interface_ptr = std::unique_ptr<platform_filesystem_interface>;

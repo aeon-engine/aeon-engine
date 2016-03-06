@@ -17,7 +17,13 @@
 #include <gfx/gles2/gfx_gles2_material.h>
 #include <gfx/gles2/gfx_gles2_device.h>
 #include <resources/material.h>
+
+#include <build_config.h>
+#ifdef AEON_PLATFORM_IOS
+#include <OpenGLES/ES2/gl.h>
+#else
 #include <GLES2/gl2.h>
+#endif // AEON_PLATFORM_IOS
 
 namespace aeon
 {

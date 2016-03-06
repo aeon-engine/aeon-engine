@@ -24,8 +24,10 @@ application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 5 - Multiple Viewports")
 {
+    std::string executable_path = get_platform_interface()->get_filesystem_interface()->get_executable_path();
+
     // Init resources
-    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
+    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>(executable_path), "/");
 
     // Set up the scene. Because we are splitting the scene vertically, the camera only has half the window to
     // render to. This is why we divide the width by 2. If this is not done, the aspect ratio will look really strange.

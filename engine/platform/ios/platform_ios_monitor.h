@@ -14,39 +14,31 @@
  */
 
 #pragma once
-
-#include <gfx/gfx_resource_manager.h>
-#include <resources/image.h>
-#include <common/logger.h>
-#include <build_config.h>
-
-#ifdef AEON_PLATFORM_IOS
-#include <OpenGLES/ES2/gl.h>
-#else
-#include <GLES2/gl2.h>
-#endif // AEON_PLATFORM_IOS
+#include <platform/platform_monitor.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
-namespace gles2
+namespace ios
 {
 
-class texture_manager : public gfx::texture_manager
+class platform_monitor : public platform::platform_monitor
 {
 public:
-    texture_manager();
-    virtual ~texture_manager() = default;
+    platform_monitor(int width, int height, int x, int y, bool primary, const std::string &name);
+    virtual ~platform_monitor() = default;
 
-private:
-    texture_ptr __load(resources::image_ptr image) override;
+    void set_gramma(float gamma) override;
 
-    GLint __image_pixelformat_to_gl(resources::image::pixel_format format);
+    gamma_ramp get_gamma_ramp() override;
+    void set_gamma_ramp(gamma_ramp ramp) override;
 
-    aeon::logger::logger logger_;
+    video_mode get_video_mode() override;
+    video_modes get_video_modes() override;
+
 };
 
-} // namespace gles2
-} // namespace gfx
+} // namespace ios
+} // namespace platform
 } // namespace aeon

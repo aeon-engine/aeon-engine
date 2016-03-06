@@ -37,7 +37,9 @@ public:
 
     platform::platform_file_interface_ptr open_file(const std::string &path, int openmode) override;
     bool exists(const std::string &path) override;
-    files list(const std::string &path) override;
+    virtual files list(const std::string &path) override;
+
+    virtual std::string get_executable_path() override;
 
 private:
     aeon::logger::logger logger_;

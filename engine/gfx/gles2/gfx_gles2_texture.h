@@ -17,7 +17,14 @@
 
 #include <gfx/gfx_texture.h>
 #include <common/logger.h>
+
+#include <build_config.h>
+
+#ifdef AEON_PLATFORM_IOS
+#include <OpenGLES/ES2/gl.h>
+#else
 #include <GLES2/gl2.h>
+#endif // AEON_PLATFORM_IOS
 
 namespace aeon
 {

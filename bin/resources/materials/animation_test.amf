@@ -1,8 +1,8 @@
-shader_gl3=/resources/shaders/sprite_batch.gl3.prg
-shader_gles2=/resources/shaders/sprite_batch.gles2.prg
+shader_gl3=/sprite_batch.gl3.prg
+shader_gles2=/sprite_batch.gles2.prg
 ambient=0.2 0.4 0.4 1.0
 diffuse=1.0 1.0 1.0
 specular=1.0 1.0 1.0 1.0
 emission=0 0 0.1 0.5
 shininess=64
-texture=/resources/textures/explosion.png
+texture=/explosion.png

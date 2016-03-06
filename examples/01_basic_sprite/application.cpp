@@ -24,8 +24,18 @@ application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 1 - Basic Sprite")
 {
+    std::string executable_path = get_platform_interface()->get_filesystem_interface()->get_executable_path();
+
+    // List files for debugging purposes.
+    auto files = get_platform_interface()->get_filesystem_interface()->list(executable_path);
+
+    for (auto f : files)
+    {
+        std::cout << f.name << std::endl;
+    }
+
     // Init resources
-    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
+    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>(executable_path), "/");
 
     // Set up the scene
     camera_ =
@@ -37,7 +47,7 @@ application::application()
 void application::main(int, char *[])
 {
     // Load resources
-    aeon::gfx::material_ptr ships_material = resource_manager_.load_material("/resources/materials/ships.amf");
+    aeon::gfx::material_ptr ships_material = resource_manager_.load_material("/ships.amf");
 
     // A sprite batch requires an atlas, we can either load one from an atlas file, or just generate one if
     // all the sprites have the same size and are properly aligned within the file.

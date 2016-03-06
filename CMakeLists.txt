@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.2.1)
 project(AeonEngine)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
@@ -34,20 +34,6 @@ if (NOT CMAKE_GENERATOR STREQUAL Xcode)
 endif ()
 
 ################################################################################
-
-if (APPLE)
-    message(STATUS "Building on Apple. Finding Frameworks.")
-    find_library(COCOA_LIBRARY Cocoa)
-    find_library(IOKIT_LIBRARY IOKit)
-    find_library(COREVIDEO_LIBRARY CoreVideo)
-    mark_as_advanced(COCOA_LIBRARY IOKIT_LIBRARY COREVIDEO_LIBRARY)
-
-    message(STATUS "Cocoa: ${COCOA_LIBRARY}")
-    message(STATUS "IOKit: ${IOKIT_LIBRARY}")
-    message(STATUS "CoreVideo: ${COREVIDEO_LIBRARY}")
-endif ()
-
-################################################################################
 # GFX options
 ################################################################################
 set(AEON_GFX_RENDERER_NAME_OPENGL3_3 "OpenGL3.3")
@@ -78,12 +64,20 @@ endif ()
 ################################################################################
 set(AEON_PLATFORM_NAME_GLFW "GLFW")
 set(AEON_PLATFORM_NAME_RPI "RaspberryPi")
+set(AEON_PLATFORM_NAME_IOS "IOS")
 
 set(AEON_PLATFORM_GLFW OFF)
 set(AEON_PLATFORM_RPI OFF)
+set(AEON_PLATFORM_IOS OFF)
 
 set(AEON_PLATFORM ${AEON_PLATFORM_NAME_GLFW} CACHE STRING "Platform backend")
-set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW} ${AEON_PLATFORM_NAME_RPI})
+
+set_property(
+    CACHE AEON_PLATFORM PROPERTY STRINGS
+    ${AEON_PLATFORM_NAME_GLFW}
+    ${AEON_PLATFORM_NAME_RPI}
+    ${AEON_PLATFORM_NAME_IOS}
+)
 
 if (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_GLFW)
     message (STATUS "Using GLFW as platform.")
@@ -91,7 +85,7 @@ if (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_GLFW)
 elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_RPI)
     if (NOT AEON_GFX_GLES2)
         message (FATAL_ERROR "Raspberry Pi requires OpenGL ES 2.0; Please set AEON_GFX_RENDERER to GLES2")
-    endif()
+    endif ()
 
     message (STATUS "Using Raspberry Pi as platform.")
 
@@ -110,6 +104,30 @@ elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_RPI)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-libgcc -static-libstdc++")
 
     set(AEON_PLATFORM_RPI ON)
+elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_IOS)
+    if (NOT AEON_GFX_GLES2)
+        message (FATAL_ERROR "iOS requires OpenGL ES 2.0; Please set AEON_GFX_RENDERER to GLES2")
+    endif ()
+
+    if (NOT CMAKE_GENERATOR STREQUAL "Xcode")
+        message (FATAL_ERROR "iOS requires Xcode as CMake generator.")
+    endif ()
+
+    message (STATUS "Using iOS as platform.")
+
+    set(XCODE_ATTRIBUTE_SDKROOT iphoneos)
+    set(CMAKE_OSX_SYSROOT iphoneos)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Foundation -framework CoreGraphics -framework QuartzCore -framework UIKit -framework OpenGLES")
+    set(XCODE_ATTRIBUTE_GCC_UNROLL_LOOPS "YES")
+    set(XCODE_ATTRIBUTE_LLVM_VECTORIZE_LOOPS "YES")
+    set(XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer")
+    set(XCODE_ATTRIBUTE_GCC_PRECOMPILE_PREFIX_HEADER "YES")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "nl.robindegen.\${PRODUCT_NAME:rfc1034identifier}")
+    set(CMAKE_OSX_ARCHITECTURES "$(ARCHS_UNIVERSAL_IPHONE_OS)")
+    set(CMAKE_MACOSX_BUNDLE YES)
+    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO")
+
+    set(AEON_PLATFORM_IOS ON)
 else ()
     message (FATAL_ERROR "No valid platform was selected.")
 endif ()
@@ -121,6 +139,20 @@ endif ()
 # Check and log all OpenGL 3 and GLES 2 errors. Warning: This is very slow,
 # only use for debugging purposes.
 option(AEON_ENABLE_GL_ERROR_CHECKS "Check and log all OpenGL 3 and GLES 2 errors." ON)
+
+################################################################################
+
+if (APPLE AND NOT AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_IOS)
+    message(STATUS "Building on Apple. Finding Frameworks.")
+    find_library(COCOA_LIBRARY Cocoa)
+    find_library(IOKIT_LIBRARY IOKit)
+    find_library(COREVIDEO_LIBRARY CoreVideo)
+    mark_as_advanced(COCOA_LIBRARY IOKIT_LIBRARY COREVIDEO_LIBRARY)
+
+    message(STATUS "Cocoa: ${COCOA_LIBRARY}")
+    message(STATUS "IOKit: ${IOKIT_LIBRARY}")
+    message(STATUS "CoreVideo: ${COREVIDEO_LIBRARY}")
+endif ()
 
 ################################################################################
 

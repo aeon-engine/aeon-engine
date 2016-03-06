@@ -15,38 +15,25 @@
 
 #pragma once
 
-#include <gfx/gfx_resource_manager.h>
-#include <resources/image.h>
-#include <common/logger.h>
-#include <build_config.h>
-
-#ifdef AEON_PLATFORM_IOS
-#include <OpenGLES/ES2/gl.h>
-#else
-#include <GLES2/gl2.h>
-#endif // AEON_PLATFORM_IOS
+#include <platform/generic/platform_generic_filesystem_interface.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
-namespace gles2
+namespace ios
 {
 
-class texture_manager : public gfx::texture_manager
+class platform_filesystem_interface : public generic::platform_filesystem_interface
 {
 public:
-    texture_manager();
-    virtual ~texture_manager() = default;
+    platform_filesystem_interface() = default;
+    virtual ~platform_filesystem_interface() = default;
 
-private:
-    texture_ptr __load(resources::image_ptr image) override;
-
-    GLint __image_pixelformat_to_gl(resources::image::pixel_format format);
-
-    aeon::logger::logger logger_;
+    files list(const std::string &path) override;
+    std::string get_executable_path() override;
 };
 
-} // namespace gles2
-} // namespace gfx
+} // namespace ios
+} // namespace platform
 } // namespace aeon

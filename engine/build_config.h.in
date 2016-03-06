@@ -40,6 +40,11 @@
 #cmakedefine AEON_PLATFORM_RPI
 
 /*!
+ * Define if iOS should be used as platform.
+ */
+#cmakedefine AEON_PLATFORM_IOS
+
+/*!
  * Define if OpenGL and GLES error checking should be enabled.
  * Warning: This is very slow, only use for debugging purposes.
  */

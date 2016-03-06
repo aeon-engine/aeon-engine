@@ -25,8 +25,10 @@ application::application()
     , turn_timer_(0.0f)
     , direction_(move_south)
 {
+    std::string executable_path = get_platform_interface()->get_filesystem_interface()->get_executable_path();
+
     // Init resources
-    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
+    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>(executable_path), "/");
 
     // Attach this class as a frame listener
     get_main_window()->attach_listener(this);

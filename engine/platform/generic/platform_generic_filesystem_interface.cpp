@@ -54,6 +54,12 @@ platform_filesystem_interface::files platform_filesystem_interface::list(const s
     throw std::runtime_error("Not yet implemented.");
 }
 
+std::string platform_filesystem_interface::get_executable_path()
+{
+    // TODO: Implement a proper way to get this path. For now we assume the working dir.
+    return ".";
+}
+
 } // namespace generic
 } // namespace platform
 } // namespace aeon

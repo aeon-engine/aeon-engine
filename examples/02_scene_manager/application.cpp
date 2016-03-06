@@ -24,8 +24,10 @@ application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 2 - Scene Manager")
 {
+    std::string executable_path = get_platform_interface()->get_filesystem_interface()->get_executable_path();
+
     // Init resources
-    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
+    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>(executable_path), "/");
 
     get_main_window()->attach_listener(this);
 

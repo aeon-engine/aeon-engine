@@ -21,8 +21,12 @@
 #endif
 
 #ifdef AEON_GFX_GLES2
+#ifdef AEON_PLATFORM_IOS
+#include <OpenGLES/ES2/gl.h>
+#else
 #include <GLES2/gl2.h>
-#endif
+#endif // AEON_PLATFORM_IOS
+#endif // AEON_GFX_GLES2
 
 namespace aeon
 {

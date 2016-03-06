@@ -13,13 +13,20 @@
  * prior written permission is obtained from Robin Degen.
  */
 
+#include <build_config.h>
 #include <gfx/gles2/gfx_gles2_texture_manager.h>
 #include <gfx/gles2/gfx_gles2_shader_manager.h>
 #include <gfx/gles2/gfx_gles2_material_manager.h>
 #include <gfx/gles2/gfx_gles2_buffer_manager.h>
 #include <gfx/gles2/gfx_gles2_device.h>
 #include <gfx/gles2/gfx_gles2_sprite_batch.h>
+
+#ifdef AEON_PLATFORM_IOS
+#include <OpenGLES/ES2/gl.h>
+#else
 #include <GLES2/gl2.h>
+#endif // AEON_PLATFORM_IOS
+
 #include <memory>
 #include <common/check_gl_error.h>
 

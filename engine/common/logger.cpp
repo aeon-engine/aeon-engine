@@ -13,6 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
+#include <build_config.h>
 #include <common/logger.h>
 
 aeon_utility_initialize_singleton(aeon::common::logger);
@@ -26,6 +27,10 @@ logger::logger()
     : aeon::logger::simple_sink_backend(aeon::logger::log_level::trace)
     , stream_sink_(io_stream_)
 {
+#ifdef AEON_PLATFORM_IOS
+    io_stream_.disable_colors();
+#endif
+
     add_sink(&stream_sink_);
 }
 
