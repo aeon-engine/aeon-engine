@@ -160,6 +160,22 @@ atlas_resource_wrapper_ptr resource_manager::load_atlas_wrapper(const std::strin
 
 resource_provider_ptr resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)
 {
+    if (path.empty())
+    {
+        AEON_LOG_ERROR(logger_) << "Empty path given to resource manager." << std::endl;
+        throw std::runtime_error("Empty path given to resource manager.");
+    }
+
+    // Finding the mountpoint requires the path to always start with a /.
+    // If it's not there, prepend one since this is more user friendly.
+    std::string actual_path = "";
+    if (path[0] != '/')
+    {
+        actual_path += "/";
+    }
+
+    actual_path += path;
+
     // TODO: This needs optimization. Too much looping and string manipulation going on.
 
     AEON_LOG_TRACE(logger_) << "Attempting to best match mountpoint resource provider for '"
@@ -177,7 +193,7 @@ resource_provider_ptr resource_manager::__find_best_match_provider(const std::st
         // has the most in common with the path
         if (p_length > best_match_length)
         {
-            if (path.compare(0, p_length, p) == 0)
+            if (actual_path.compare(0, p_length, p) == 0)
             {
                 best_match_length = p_length;
                 best_match_provider = mountpoint.second;
@@ -191,7 +207,7 @@ resource_provider_ptr resource_manager::__find_best_match_provider(const std::st
         return nullptr;
     }
 
-    provider_path = path.substr(best_match_length);
+    provider_path = actual_path.substr(best_match_length);
 
     AEON_LOG_TRACE(logger_) << "Found best match mountpoint at '" << provider_path << "'." << std::endl;
 

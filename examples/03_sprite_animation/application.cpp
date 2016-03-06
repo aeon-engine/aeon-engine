@@ -43,8 +43,7 @@ application::application()
 void application::main(int, char *[])
 {
     // Load resources
-    aeon::gfx::material_ptr animation_material =
-        resource_manager_.load_material("/resources/materials/2d_character.amf");
+    aeon::gfx::material_ptr animation_material = resource_manager_.load_material("2d_character.amf");
     aeon::resources::atlas_ptr atlas = std::make_shared<aeon::resources::atlas>(animation_material, glm::vec2(32, 32));
 
     // Set up scene
