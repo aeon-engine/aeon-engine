@@ -48,6 +48,10 @@ public:
 
     platform::platform_window_ptr get_default_window() override;
 
+    void render_frame();
+
+    static platform_interface *singleton;
+
 private:
     aeon::logger::logger logger_;
 

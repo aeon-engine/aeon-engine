@@ -17,6 +17,7 @@
 #include <platform/ios/platform_ios_monitor.h>
 #include <platform/ios/platform_ios_window.h>
 #include <platform/ios/platform_ios_filesystem_interface.h>
+#include <platform/ios/platform_ios_app_delegate.h>
 #include <gfx/gfx_device.h>
 #include <OpenGLES/ES2/gl.h>
 #include <common/check_gl_error.h>
@@ -30,6 +31,8 @@ namespace platform
 namespace ios
 {
 
+platform_interface *platform_interface::singleton = nullptr;
+
 platform_interface::platform_interface(gfx::device &device)
     : platform::platform_interface(device, std::make_unique<ios::platform_filesystem_interface>())
     , logger_(common::logger::get_singleton(), "Platform::iOS")
@@ -37,6 +40,7 @@ platform_interface::platform_interface(gfx::device &device)
     , running_(false)
     , previous_time_(0.0)
 {
+    singleton = this;
 }
 
 platform_interface::~platform_interface()
@@ -45,12 +49,12 @@ platform_interface::~platform_interface()
 
 void platform_interface::initialize(const application_settings &settings)
 {
-    AEON_LOG_MESSAGE(logger_) << "Initializing Raspberry iOS." << std::endl;
+    AEON_LOG_MESSAGE(logger_) << "Initializing iOS." << std::endl;
     device_.initialize();
     initialized_ = true;
 }
 
-int platform_interface::run(int, char *[])
+int platform_interface::run(int argc, char *argv[])
 {
     if (!initialized_)
     {
@@ -58,6 +62,11 @@ int platform_interface::run(int, char *[])
         throw platform_interface_initialize_exception();
     }
 
+    @autoreleasepool
+    {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([platform_ios_app_delegate class]));
+    }
+/*
     AEON_LOG_DEBUG(logger_) << "Starting message loop." << std::endl;
 
     //previous_time_ = glfwGetTime();
@@ -85,7 +94,7 @@ int platform_interface::run(int, char *[])
             }
         }
     }
-
+*/
     AEON_LOG_DEBUG(logger_) << "Message loop stopped." << std::endl;
 
     return 0;
@@ -123,6 +132,28 @@ platform::platform_window_ptr platform_interface::create_window(int width, int h
 platform::platform_window_ptr platform_interface::get_default_window()
 {
     return nullptr;
+}
+
+void platform_interface::render_frame()
+{
+    //double current_time = glfwGetTime(); //TODO: calculate delta time
+    double delta_time = 0.1f; //current_time - previous_time_;
+    //previous_time_ = current_time;
+
+    // TODO: handle input
+
+    // Todo: This does not belong here. However the platform interface does not know about the gfx device.
+    glClear(GL_COLOR_BUFFER_BIT);
+    AEON_CHECK_GL_ERROR();
+
+    for (gfx::render_target_ptr render_target : render_targets_)
+    {
+        if (!render_target->handle_frame(static_cast<float>(delta_time)))
+        {
+            running_ = false;
+            break;
+        }
+    }
 }
 
 } // namespace ios
