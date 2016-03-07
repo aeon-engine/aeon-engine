@@ -56,6 +56,21 @@
 #cmakedefine AEON_CONSOLE_OUTPUT_DEBUG_MSGS
 
 /*!
+ * Window width hint. This may be ignored on certain platforms.
+ */
+#define AEON_DEFAULT_WINDOW_WIDTH_HINT @AEON_DEFAULT_WINDOW_WIDTH_HINT@
+
+/*!
+ * Window height hint. This may be ignored on certain platforms.
+ */
+#define AEON_DEFAULT_WINDOW_HEIGHT_HINT @AEON_DEFAULT_WINDOW_HEIGHT_HINT@
+
+/*!
+ * Window title hint. This may be ignored on certain platforms.
+ */
+#define AEON_DEFAULT_WINDOW_TITLE_HINT "@AEON_DEFAULT_WINDOW_TITLE_HINT@"
+
+/*!
  * The maximum length of a single console line
  */
 #define AEON_CONSOLE_BUFFER_SIZE            @AEON_CONSOLE_BUFFER_SIZE@

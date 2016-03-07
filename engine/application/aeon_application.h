@@ -20,6 +20,7 @@
 #include <buildinfo.h>
 #include <build_config.h>
 #include <aeon/utility.h>
+#include <application/application_settings.h>
 
 #ifdef AEON_PLATFORM_GLFW
 #include <platform/glfw/platform_glfw_interface.h>

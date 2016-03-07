@@ -47,10 +47,14 @@ add_source_path(AEON_ENGINE_SOURCES scene/scene_managers/basic)
 add_source_path(AEON_ENGINE_SOURCES scene/scene_managers/octree)
 
 ################################################################################
+set(AEON_DEFAULT_WINDOW_WIDTH_HINT 800 CACHE STRING "Window width hint. This may be ignored on certain platforms.")
+set(AEON_DEFAULT_WINDOW_HEIGHT_HINT 600 CACHE STRING "Window height hint. This may be ignored on certain platforms.")
+set(AEON_DEFAULT_WINDOW_TITLE_HINT "Aeon Engine" CACHE STRING "Window title hint. This may be ignored on certain platforms.")
 
 option(AEON_CONSOLE_OUTPUT_DEBUG_MSGS "Console outputs debug/trace messages." ON)
 set(AEON_CONSOLE_BUFFER_SIZE 10240 CACHE STRING "The maximum length of a single console line")
 set(AEON_DEFAULT_CONSOLE_LOG_LEVEL "console::log_level::info" CACHE STRING "The default minimum log level")
+
 configure_file(build_config.h.in build_config.h @ONLY)
 
 ################################################################################
