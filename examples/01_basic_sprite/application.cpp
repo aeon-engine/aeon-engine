@@ -21,9 +21,20 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-application::application()
-    : aeon::aeon_application(WINDOW_WIDTH, WINDOW_HEIGHT, "Example 1 - Basic Sprite")
+application::application(int argc, char *argv[])
+    : aeon::aeon_application(argc, argv)
     , scene_manager_(*get_gfx_device())
+{
+}
+
+aeon::application_settings application::configure_application_settings()
+{
+    aeon::application_settings settings;
+    settings.window_title_hint = "Example 1 - Basic Sprite";
+    return settings;
+}
+
+void application::setup()
 {
     std::string executable_path = get_platform_interface()->get_filesystem_interface()->get_executable_path();
 
@@ -34,11 +45,8 @@ application::application()
     camera_ =
         std::make_shared<aeon::scene::orthographic_camera>(scene_manager_, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
-    window_->create_viewport(camera_, 0);
-}
+    get_platform_interface()->get_default_window()->create_viewport(camera_, 0);
 
-void application::main(int, char *[])
-{
     // Load resources
     aeon::gfx::material_ptr ships_material = resource_manager_.load_material("ships.amf");
 
@@ -68,7 +76,4 @@ void application::main(int, char *[])
 
     // Attach the sprite to the scene
     root_node->attach_scene_object(ship_sprite);
-
-    // Start the render loop
-    platform_.run();
 }

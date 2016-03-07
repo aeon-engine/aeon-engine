@@ -24,10 +24,11 @@
 class application : public aeon::gfx::frame_listener, public aeon::aeon_application
 {
 public:
-    application();
+    explicit application(int argc, char *argv[]);
     virtual ~application() = default;
 
-    void main(int argc, char *argv[]);
+    aeon::application_settings configure_application_settings() override;
+    void setup() override;
 
 private:
     bool on_frame(float dt) override;

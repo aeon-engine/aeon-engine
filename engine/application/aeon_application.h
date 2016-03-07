@@ -53,28 +53,36 @@ namespace aeon
 class aeon_application : aeon::utility::noncopyable
 {
 public:
-    explicit aeon_application(int width, int height, const std::string &window_title)
-        : logger_backend_()
+    explicit aeon_application(int argc, char *argv[])
+        : argc_(argc)
+        , argv_(argv)
+        , logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
         , resource_manager_(platform_, device_)
-        , window_(nullptr)
     {
-        AEON_LOG_MESSAGE(logger_) << "Initializing Aeon Engine (" << buildinfo::full_version << ", "
-                                  << buildinfo::build_date << ")." << std::endl;
-
-        // Init the platform and window
-        platform_.initialize();
-        window_ = platform_.create_window(width, height, window_title);
-
-        // Init opengl
-        device_.initialize();
     }
 
     virtual ~aeon_application() = default;
 
-    platform::platform_window_ptr get_main_window() const
+    virtual application_settings configure_application_settings() = 0;
+    virtual void setup() = 0;
+
+    int run()
     {
-        return window_;
+        application_settings settings = configure_application_settings();
+
+        AEON_LOG_MESSAGE(logger_) << "Initializing Aeon Engine (" << buildinfo::full_version << ", "
+            << buildinfo::build_date << ")." << std::endl;
+
+        // Init the platform and window
+        platform_.initialize(settings);
+
+        // Init opengl
+        device_.initialize();
+
+        setup();
+
+        return platform_.run(argc_, argv_);
     }
 
     resources::resource_manager *get_resource_manager()
@@ -98,6 +106,9 @@ public:
     }
 
 protected:
+    int argc_;
+    char **argv_;
+
     common::logger logger_backend_;
     aeon::logger::logger logger_;
 
@@ -105,8 +116,6 @@ protected:
     selected_gfx_device device_;
 
     resources::resource_manager resource_manager_;
-
-    platform::platform_window_ptr window_;
 };
 
 } // namespace aeon

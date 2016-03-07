@@ -17,6 +17,7 @@
 #include <platform/glfw/platform_glfw_monitor.h>
 #include <platform/glfw/platform_glfw_window.h>
 #include <platform/generic/platform_generic_filesystem_interface.h>
+#include <application/application_settings.h>
 #include <GLFW/glfw3.h>
 
 namespace aeon
@@ -29,6 +30,7 @@ namespace glfw
 platform_interface::platform_interface()
     : platform::platform_interface(std::make_unique<generic::platform_filesystem_interface>())
     , logger_(common::logger::get_singleton(), "Platform::GLFW")
+    , default_window_(nullptr)
     , initialized_(false)
     , running_(false)
     , previous_time_(0.0)
@@ -43,7 +45,7 @@ platform_interface::~platform_interface()
     initialized_ = false;
 }
 
-void platform_interface::initialize()
+void platform_interface::initialize(const application_settings &settings)
 {
     AEON_LOG_MESSAGE(logger_) << "Initializing GLFW." << std::endl;
 
@@ -58,9 +60,15 @@ void platform_interface::initialize()
     AEON_LOG_DEBUG(logger_) << "Successfully initialized GLFW." << std::endl;
 
     initialized_ = true;
+
+    default_window_ = create_window(
+        settings.window_size_hint_width,
+        settings.window_size_hint_height,
+        settings.window_title_hint
+    );
 }
 
-void platform_interface::run()
+int platform_interface::run(int, char *[])
 {
     if (!initialized_)
     {
@@ -96,6 +104,7 @@ void platform_interface::run()
     }
 
     AEON_LOG_DEBUG(logger_) << "Message loop stopped." << std::endl;
+    return 0;
 }
 
 void platform_interface::stop()
@@ -165,6 +174,11 @@ platform::platform_window_ptr platform_interface::create_window(int width, int h
     render_targets_.push_back(window);
 
     return window;
+}
+
+platform::platform_window_ptr platform_interface::get_default_window()
+{
+    return default_window_;
 }
 
 } // namespace glfw

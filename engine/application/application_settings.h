@@ -23,32 +23,19 @@ namespace aeon
 
 class application_settings
 {
-friend class aeon_application;
 public:
     application_settings()
-        : window_size_hint_width_(AEON_DEFAULT_WINDOW_WIDTH_HINT)
-        , window_size_hint_height_(AEON_DEFAULT_WINDOW_HEIGHT_HINT)
-        , window_title_hint_(AEON_DEFAULT_WINDOW_TITLE_HINT)
+        : window_size_hint_width(AEON_DEFAULT_WINDOW_WIDTH_HINT)
+        , window_size_hint_height(AEON_DEFAULT_WINDOW_HEIGHT_HINT)
+        , window_title_hint(AEON_DEFAULT_WINDOW_TITLE_HINT)
     {
     }
 
     virtual ~application_settings() = default;
 
-    void set_window_size_hint(int width, int height)
-    {
-        window_size_hint_width_ = width;
-        window_size_hint_height_ = height;
-    }
-
-    void set_window_title_hint(const std::string &title)
-    {
-        window_title_hint_ = title;
-    }
-
-private:
-    int window_size_hint_width_;
-    int window_size_hint_height_;
-    std::string window_title_hint_;
+    int window_size_hint_width;
+    int window_size_hint_height;
+    std::string window_title_hint;
 };
 
 } // namespace aeon

@@ -24,6 +24,9 @@
 
 namespace aeon
 {
+
+class application_settings;
+
 namespace platform
 {
 
@@ -46,13 +49,13 @@ public:
      * Initialize the engine. This will set up all platform related things like window,
      * contexts, etc. based on your platform.
      */
-    virtual void initialize() = 0;
+    virtual void initialize(const application_settings &settings) = 0;
 
     /*!
      * Enter the engine's main loop. You must first call initialize before calling run.
      * This function will not return until stop() is called.
      */
-    virtual void run() = 0;
+    virtual int run(int argc, char *argv[]) = 0;
 
     /*!
      * Stop the mainloop. Has no effect if run hasn't been called.
@@ -72,9 +75,14 @@ public:
                                               platform_monitor_ptr monitor = nullptr) = 0;
 
     /*!
+     * Get the default created window.
+     */
+    virtual platform_window_ptr get_default_window() = 0;
+
+    /*!
      * Get the subsystem for filesystem interaction for this platform.
      */
-    platform_filesystem_interface *get_filesystem_interface()
+    platform_filesystem_interface *get_filesystem_interface() const
     {
         return filesystem_interface_.get();
     }

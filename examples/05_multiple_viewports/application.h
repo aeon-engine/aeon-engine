@@ -23,10 +23,11 @@
 class application : public aeon::aeon_application
 {
 public:
-    application();
+    explicit application(int argc, char *argv[]);
     virtual ~application() = default;
 
-    void main(int argc, char *argv[]);
+    aeon::application_settings configure_application_settings() override;
+    void setup() override;
 
 private:
     aeon::scene::basic_scene_manager scene_manager_;

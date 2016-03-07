@@ -26,12 +26,23 @@ const float SHIP_ACCELERATION = 3.0f;
 const float SHIP_MAX_SPEED = 2.0f;
 const float SHIP_FRICTION = 2.0f;
 
-application::application()
-    : aeon::aeon_application(WINDOW_WIDTH, WINDOW_HEIGHT, "Example 4 - Input Handler (Use the arrow keys)")
+application::application(int argc, char *argv[])
+    : aeon::aeon_application(argc, argv)
     , scene_manager_(*get_gfx_device())
     , move_direction_(ship_move_direction::none)
     , rotate_direction_(ship_rotate_direction::none)
     , forward_speed_(0.0f)
+{
+}
+
+aeon::application_settings application::configure_application_settings()
+{
+    aeon::application_settings settings;
+    settings.window_title_hint = "Example 4 - Input Handler (Use the arrow keys)";
+    return settings;
+}
+
+void application::setup()
 {
     std::string executable_path = get_platform_interface()->get_filesystem_interface()->get_executable_path();
 
@@ -39,19 +50,16 @@ application::application()
     get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>(executable_path), "/");
 
     // Attach this class as a frame listener
-    get_main_window()->attach_listener(this);
+    get_platform_interface()->get_default_window()->attach_listener(this);
 
     // Set up the scene
     camera_ =
         std::make_shared<aeon::scene::orthographic_camera>(scene_manager_, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
-    window_->create_viewport(camera_, 0);
+    get_platform_interface()->get_default_window()->create_viewport(camera_, 0);
 
     get_platform_interface()->get_input_handler()->attach_listener(this);
-}
 
-void application::main(int, char *[])
-{
     // Load resources
     aeon::gfx::material_ptr ships_material = resource_manager_.load_material("ships.amf");
 
@@ -81,9 +89,6 @@ void application::main(int, char *[])
 
     // Attach the sprite to the scene
     root_node->attach_scene_object(ship_sprite);
-
-    // Start the render loop
-    platform_.run();
 }
 
 bool application::on_frame(float dt)

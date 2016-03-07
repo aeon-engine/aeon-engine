@@ -21,9 +21,20 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-application::application()
-    : aeon::aeon_application(WINDOW_WIDTH, WINDOW_HEIGHT, "Example 5 - Multiple Viewports")
+application::application(int argc, char *argv[])
+    : aeon::aeon_application(argc, argv)
     , scene_manager_(*get_gfx_device())
+{
+}
+
+aeon::application_settings application::configure_application_settings()
+{
+    aeon::application_settings settings;
+    settings.window_title_hint = "Example 5 - Multiple Viewports";
+    return settings;
+}
+
+void application::setup()
 {
     std::string executable_path = get_platform_interface()->get_filesystem_interface()->get_executable_path();
 
@@ -37,20 +48,17 @@ application::application()
 
     // Grab the framebuffer size from the window. The framebuffer does not always have the same size as the window.
     // On a Retina screen (Apple Mac) for example, the framebuffer is much larger due to high DPI.
-    glm::vec2 framebuffer_size = window_->get_framebuffer_size();
+    glm::vec2 framebuffer_size = get_platform_interface()->get_default_window()->get_framebuffer_size();
 
     // Create the left viewport
     aeon::common::types::rectangle<float> viewport_rect_left(0, 0, framebuffer_size.x / 2, framebuffer_size.y);
-    window_->create_viewport(camera_, viewport_rect_left, 0);
+    get_platform_interface()->get_default_window()->create_viewport(camera_, viewport_rect_left, 0);
 
     // Create the right viewport
     aeon::common::types::rectangle<float> viewport_rect_right(framebuffer_size.x / 2, 0,
         framebuffer_size.x / 2, framebuffer_size.y);
-    window_->create_viewport(camera_, viewport_rect_right, 0);
-}
+    get_platform_interface()->get_default_window()->create_viewport(camera_, viewport_rect_right, 0);
 
-void application::main(int, char *[])
-{
     // Load resources
     aeon::gfx::material_ptr ships_material = resource_manager_.load_material("ships.amf");
 
@@ -80,7 +88,4 @@ void application::main(int, char *[])
 
     // Attach the sprite to the scene
     root_node->attach_scene_object(ship_sprite);
-
-    // Start the render loop
-    platform_.run();
 }

@@ -21,26 +21,34 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-application::application()
-    : aeon::aeon_application(WINDOW_WIDTH, WINDOW_HEIGHT, "Example 2 - Scene Manager")
+application::application(int argc, char *argv[])
+    : aeon::aeon_application(argc, argv)
     , scene_manager_(*get_gfx_device())
+{
+}
+
+aeon::application_settings application::configure_application_settings()
+{
+    aeon::application_settings settings;
+    settings.window_title_hint = "Example 2 - Scene Manager";
+    return settings;
+}
+
+void application::setup()
 {
     std::string executable_path = get_platform_interface()->get_filesystem_interface()->get_executable_path();
 
     // Init resources
     get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>(executable_path), "/");
 
-    get_main_window()->attach_listener(this);
+    get_platform_interface()->get_default_window()->attach_listener(this);
 
     // Set up the scene
     camera_ =
         std::make_shared<aeon::scene::orthographic_camera>(scene_manager_, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
-    window_->create_viewport(camera_, 0);
-}
+    get_platform_interface()->get_default_window()->create_viewport(camera_, 0);
 
-void application::main(int, char *[])
-{
     // Load resources
     aeon::gfx::material_ptr ships_material = resource_manager_.load_material("ships.amf");
 
@@ -81,8 +89,6 @@ void application::main(int, char *[])
     aeon::scene::sprite_ptr ship3_sprite =
         scene_manager_.create_scene_object<aeon::scene::sprite>(sprite_batch, ship3, 1);
     ship3_node->attach_scene_object(ship3_sprite);
-
-    platform_.run();
 }
 
 bool application::on_frame(float dt)
