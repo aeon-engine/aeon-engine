@@ -37,7 +37,7 @@ class scene_object
     friend class scene_node;
 
 public:
-    explicit scene_object(int queue_group, scene_object_type type, scene_manager *scene_manager)
+    explicit scene_object(int queue_group, scene_object_type type, scene_manager &scene_manager)
         : queue_group_(queue_group)
         , type_(type)
         , scene_manager_(scene_manager)
@@ -81,7 +81,7 @@ protected:
 
     int queue_group_;
     scene_object_type type_;
-    scene_manager *scene_manager_;
+    scene_manager &scene_manager_;
     scene_node *scene_node_;
 };
 

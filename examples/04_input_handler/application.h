@@ -36,7 +36,7 @@ enum class ship_rotate_direction
     right
 };
 
-class application : public aeon::aeon_application<aeon::scene::basic_scene_manager>,
+class application : public aeon::aeon_application,
                     public aeon::gfx::frame_listener,
                     public aeon::platform::platform_input_listener
 {
@@ -55,6 +55,7 @@ private:
     void on_mouse_button_event(aeon::platform::platform_window *window, aeon::platform::mouse_button button,
                                aeon::platform::mouse_button_state button_state) override;
 
+    aeon::scene::basic_scene_manager scene_manager_;
     aeon::scene::orthographic_camera_ptr camera_;
 
     ship_move_direction move_direction_;

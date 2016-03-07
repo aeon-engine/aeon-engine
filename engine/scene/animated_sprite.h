@@ -28,7 +28,7 @@ namespace scene
 class animated_sprite : public sprite
 {
 public:
-    explicit animated_sprite(scene_manager *scene_manager, sprite_batch_ptr batch, resources::atlas_ptr atlas,
+    explicit animated_sprite(scene_manager &scene_manager, sprite_batch_ptr batch, resources::atlas_ptr atlas,
                              int zorder, const sprite_animation_settings &settings);
 
     virtual ~animated_sprite() = default;

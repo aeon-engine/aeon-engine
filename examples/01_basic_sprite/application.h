@@ -20,7 +20,7 @@
 #include <scene/scene_managers/basic/basic_scene_manager.h>
 #include <scene/orthographic_camera.h>
 
-class application : public aeon::aeon_application<aeon::scene::basic_scene_manager>
+class application : public aeon::aeon_application
 {
 public:
     application();
@@ -29,5 +29,6 @@ public:
     void main(int argc, char *argv[]);
 
 private:
+    aeon::scene::basic_scene_manager scene_manager_;
     aeon::scene::orthographic_camera_ptr camera_;
 };

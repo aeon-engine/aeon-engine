@@ -22,8 +22,8 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application()
-    : aeon::aeon_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                               "Example 5 - Multiple Viewports")
+    : aeon::aeon_application(WINDOW_WIDTH, WINDOW_HEIGHT, "Example 5 - Multiple Viewports")
+    , scene_manager_(*get_gfx_device())
 {
     std::string executable_path = get_platform_interface()->get_filesystem_interface()->get_executable_path();
 
@@ -33,7 +33,7 @@ application::application()
     // Set up the scene. Because we are splitting the scene vertically, the camera only has half the window to
     // render to. This is why we divide the width by 2. If this is not done, the aspect ratio will look really strange.
     camera_ =
-        std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH / 2, WINDOW_HEIGHT, 0);
+        std::make_shared<aeon::scene::orthographic_camera>(scene_manager_, 0, WINDOW_WIDTH / 2, WINDOW_HEIGHT, 0);
 
     // Grab the framebuffer size from the window. The framebuffer does not always have the same size as the window.
     // On a Retina screen (Apple Mac) for example, the framebuffer is much larger due to high DPI.

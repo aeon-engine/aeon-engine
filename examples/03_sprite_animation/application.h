@@ -30,7 +30,7 @@ enum move_direction : int
     move_north = 3
 };
 
-class application : public aeon::gfx::frame_listener, public aeon::aeon_application<aeon::scene::basic_scene_manager>
+class application : public aeon::gfx::frame_listener, public aeon::aeon_application
 {
 public:
     application();
@@ -41,6 +41,7 @@ public:
 private:
     bool on_frame(float dt) override;
 
+    aeon::scene::basic_scene_manager scene_manager_;
     aeon::scene::orthographic_camera_ptr camera_;
 
     aeon::scene::animated_sprite_ptr animated_sprite_;

@@ -21,7 +21,7 @@ namespace aeon
 namespace scene
 {
 
-animated_sprite::animated_sprite(scene_manager *scene_manager, sprite_batch_ptr batch, resources::atlas_ptr atlas,
+animated_sprite::animated_sprite(scene_manager &scene_manager, sprite_batch_ptr batch, resources::atlas_ptr atlas,
                                  int zorder, const sprite_animation_settings &settings)
     : sprite(scene_manager, batch, atlas->get_region_by_index(0), settings.size_, zorder)
     , atlas_(atlas)

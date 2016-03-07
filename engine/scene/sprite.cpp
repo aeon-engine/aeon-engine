@@ -21,7 +21,7 @@ namespace aeon
 namespace scene
 {
 
-sprite::sprite(scene_manager *scene_manager, sprite_batch_ptr batch, const resources::atlas_region &region, int zorder)
+sprite::sprite(scene_manager &scene_manager, sprite_batch_ptr batch, const resources::atlas_region &region, int zorder)
     : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
     , has_z_order(zorder)
     , size_(region.size)
@@ -31,7 +31,7 @@ sprite::sprite(scene_manager *scene_manager, sprite_batch_ptr batch, const resou
     batch_->__add_sprite(this);
 }
 
-sprite::sprite(scene_manager *scene_manager, sprite_batch_ptr batch, const resources::atlas_region &region,
+sprite::sprite(scene_manager &scene_manager, sprite_batch_ptr batch, const resources::atlas_region &region,
                glm::vec2 size, int zorder)
     : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
     , has_z_order(zorder)

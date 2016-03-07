@@ -21,8 +21,8 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application()
-    : aeon::aeon_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                               "Example 3 - Sprite Animation")
+    : aeon::aeon_application(WINDOW_WIDTH, WINDOW_HEIGHT, "Example 3 - Sprite Animation")
+    , scene_manager_(*get_gfx_device())
     , turn_timer_(0.0f)
     , direction_(move_south)
 {
@@ -36,7 +36,7 @@ application::application()
 
     // Set up the scene
     camera_ =
-        std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+        std::make_shared<aeon::scene::orthographic_camera>(scene_manager_, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
     window_->create_viewport(camera_, 0);
 }

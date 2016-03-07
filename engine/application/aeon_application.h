@@ -50,7 +50,6 @@ using selected_gfx_device = aeon::gfx::gles2::device;
 namespace aeon
 {
 
-template <typename scene_manager_t>
 class aeon_application : aeon::utility::noncopyable
 {
 public:
@@ -58,7 +57,6 @@ public:
         : logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
         , resource_manager_(platform_, device_)
-        , scene_manager_(device_)
         , window_(nullptr)
     {
         AEON_LOG_MESSAGE(logger_) << "Initializing Aeon Engine (" << buildinfo::full_version << ", "
@@ -79,11 +77,6 @@ public:
         return window_;
     }
 
-    scene_manager_t *get_scene_manager()
-    {
-        return &scene_manager_;
-    }
-
     resources::resource_manager *get_resource_manager()
     {
         return &resource_manager_;
@@ -92,6 +85,11 @@ public:
     selected_platform_interface *get_platform_interface()
     {
         return &platform_;
+    }
+
+    selected_gfx_device *get_gfx_device()
+    {
+        return &device_;
     }
 
     aeon::logger::logger &get_logger()
@@ -107,7 +105,6 @@ protected:
     selected_gfx_device device_;
 
     resources::resource_manager resource_manager_;
-    scene_manager_t scene_manager_;
 
     platform::platform_window_ptr window_;
 };

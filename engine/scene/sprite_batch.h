@@ -33,7 +33,7 @@ class sprite_batch : public scene_object
     friend class sprite;
 
 public:
-    explicit sprite_batch(scene_manager *scene_manager, resources::atlas_ptr atlas,
+    explicit sprite_batch(scene_manager &scene_manager, resources::atlas_ptr atlas,
                           std::uint16_t sprites_per_buffer = gfx::sprite_batch::default_sprites_per_buffer);
     virtual ~sprite_batch() = default;
 

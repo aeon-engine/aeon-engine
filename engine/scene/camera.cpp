@@ -21,7 +21,7 @@ namespace aeon
 namespace scene
 {
 
-camera::camera(scene_manager *scene_manager)
+camera::camera(scene_manager &scene_manager)
     : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
     , projection_matrix_(1.0f)
     , view_matrix_(1.0f)
@@ -30,7 +30,7 @@ camera::camera(scene_manager *scene_manager)
 
 void camera::render_scene(viewport *vp, float dt)
 {
-    scene_manager_->__render_scene(this, vp, dt);
+    scene_manager_.__render_scene(this, vp, dt);
 }
 
 void camera::reset_view()

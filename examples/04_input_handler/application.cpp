@@ -27,8 +27,8 @@ const float SHIP_MAX_SPEED = 2.0f;
 const float SHIP_FRICTION = 2.0f;
 
 application::application()
-    : aeon::aeon_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                               "Example 4 - Input Handler (Use the arrow keys)")
+    : aeon::aeon_application(WINDOW_WIDTH, WINDOW_HEIGHT, "Example 4 - Input Handler (Use the arrow keys)")
+    , scene_manager_(*get_gfx_device())
     , move_direction_(ship_move_direction::none)
     , rotate_direction_(ship_rotate_direction::none)
     , forward_speed_(0.0f)
@@ -43,7 +43,7 @@ application::application()
 
     // Set up the scene
     camera_ =
-        std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+        std::make_shared<aeon::scene::orthographic_camera>(scene_manager_, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
     window_->create_viewport(camera_, 0);
 

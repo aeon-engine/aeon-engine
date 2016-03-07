@@ -23,8 +23,7 @@ namespace aeon
 
 class application_settings
 {
-    template <typename scene_manager_t>
-    friend class aeon_application;
+friend class aeon_application;
 public:
     application_settings()
         : window_size_hint_width_(AEON_DEFAULT_WINDOW_WIDTH_HINT)

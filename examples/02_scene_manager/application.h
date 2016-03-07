@@ -21,7 +21,7 @@
 #include <scene/scene_managers/basic/basic_scene_manager.h>
 #include <scene/orthographic_camera.h>
 
-class application : public aeon::gfx::frame_listener, public aeon::aeon_application<aeon::scene::basic_scene_manager>
+class application : public aeon::gfx::frame_listener, public aeon::aeon_application
 {
 public:
     application();
@@ -32,6 +32,7 @@ public:
 private:
     bool on_frame(float dt) override;
 
+    aeon::scene::basic_scene_manager scene_manager_;
     aeon::scene::orthographic_camera_ptr camera_;
 
     aeon::scene::scene_node_ptr ship2_pivot_node_;
