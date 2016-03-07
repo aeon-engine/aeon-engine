@@ -29,7 +29,7 @@ namespace ios
 
 platform_window::platform_window(platform_interface *interface, int width, int height, const std::string &title)
     : platform::platform_window(width, height, title)
-    , logger_(common::logger::get_singleton(), "Platform::Raspberry")
+    , logger_(common::logger::get_singleton(), "Platform::iOS")
     , interface_(interface)
 {
     AEON_LOG_DEBUG(logger_) << "Creating OpenGL ES 2.0 context." << std::endl;

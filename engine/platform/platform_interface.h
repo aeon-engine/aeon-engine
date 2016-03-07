@@ -27,6 +27,11 @@ namespace aeon
 
 class application_settings;
 
+namespace gfx
+{
+class device;
+} // namespace gfx
+
 namespace platform
 {
 
@@ -38,8 +43,9 @@ DEFINE_EXCEPTION_OBJECT(platform_interface_initialize_exception, platform_interf
 class platform_interface
 {
 public:
-    explicit platform_interface(platform_filesystem_interface_ptr filesystem_interface)
-        : filesystem_interface_(std::move(filesystem_interface))
+    explicit platform_interface(gfx::device &device, platform_filesystem_interface_ptr filesystem_interface)
+        : device_(device)
+        , filesystem_interface_(std::move(filesystem_interface))
     {
     }
 
@@ -96,6 +102,7 @@ public:
     }
 
 protected:
+    gfx::device &device_;
     platform_filesystem_interface_ptr filesystem_interface_;
     platform_input_handler input_handler_;
 };

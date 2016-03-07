@@ -17,6 +17,7 @@
 #include <platform/ios/platform_ios_monitor.h>
 #include <platform/ios/platform_ios_window.h>
 #include <platform/ios/platform_ios_filesystem_interface.h>
+#include <gfx/gfx_device.h>
 #include <OpenGLES/ES2/gl.h>
 #include <common/check_gl_error.h>
 
@@ -29,9 +30,9 @@ namespace platform
 namespace ios
 {
 
-platform_interface::platform_interface()
-    : platform::platform_interface(std::make_unique<ios::platform_filesystem_interface>())
-    , logger_(common::logger::get_singleton(), "Platform::Raspberry")
+platform_interface::platform_interface(gfx::device &device)
+    : platform::platform_interface(device, std::make_unique<ios::platform_filesystem_interface>())
+    , logger_(common::logger::get_singleton(), "Platform::iOS")
     , initialized_(false)
     , running_(false)
     , previous_time_(0.0)
@@ -42,14 +43,14 @@ platform_interface::~platform_interface()
 {
 }
 
-void platform_interface::initialize()
+void platform_interface::initialize(const application_settings &settings)
 {
-    AEON_LOG_MESSAGE(logger_) << "Initializing Raspberry Pi." << std::endl;
-
+    AEON_LOG_MESSAGE(logger_) << "Initializing Raspberry iOS." << std::endl;
+    device_.initialize();
     initialized_ = true;
 }
 
-void platform_interface::run()
+int platform_interface::run(int, char *[])
 {
     if (!initialized_)
     {
@@ -86,6 +87,8 @@ void platform_interface::run()
     }
 
     AEON_LOG_DEBUG(logger_) << "Message loop stopped." << std::endl;
+
+    return 0;
 }
 
 void platform_interface::stop()
@@ -115,6 +118,11 @@ platform::platform_window_ptr platform_interface::create_window(int width, int h
     render_targets_.push_back(window);
 
     return window;
+}
+
+platform::platform_window_ptr platform_interface::get_default_window()
+{
+    return nullptr;
 }
 
 } // namespace ios

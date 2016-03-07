@@ -33,18 +33,20 @@ class platform_interface : public platform::platform_interface
 public:
     using render_targets = std::vector<gfx::render_target_ptr>;
 
-    platform_interface();
+    platform_interface(gfx::device &device);
     virtual ~platform_interface() override;
 
-    void initialize() override;
+    void initialize(const application_settings &settings) override;
 
-    void run() override;
+    int run(int argc, char *argv[]) override;
     void stop() override;
 
     platform_monitors get_monitors() override;
 
     platform::platform_window_ptr create_window(int width, int height, const std::string &name,
                                                 platform_monitor_ptr monitor = nullptr) override;
+
+    platform::platform_window_ptr get_default_window() override;
 
 private:
     aeon::logger::logger logger_;

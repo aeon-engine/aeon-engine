@@ -33,7 +33,7 @@ class platform_interface : public platform::platform_interface
 public:
     using render_targets = std::vector<gfx::render_target_ptr>;
 
-    platform_interface();
+    explicit platform_interface(gfx::device &device);
     virtual ~platform_interface() override;
 
     void initialize(const application_settings &settings) override;

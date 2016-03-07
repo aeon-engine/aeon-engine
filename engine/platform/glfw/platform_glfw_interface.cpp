@@ -17,6 +17,7 @@
 #include <platform/glfw/platform_glfw_monitor.h>
 #include <platform/glfw/platform_glfw_window.h>
 #include <platform/generic/platform_generic_filesystem_interface.h>
+#include <gfx/gfx_device.h>
 #include <application/application_settings.h>
 #include <GLFW/glfw3.h>
 
@@ -27,8 +28,8 @@ namespace platform
 namespace glfw
 {
 
-platform_interface::platform_interface()
-    : platform::platform_interface(std::make_unique<generic::platform_filesystem_interface>())
+platform_interface::platform_interface(gfx::device &device)
+    : platform::platform_interface(device, std::make_unique<generic::platform_filesystem_interface>())
     , logger_(common::logger::get_singleton(), "Platform::GLFW")
     , default_window_(nullptr)
     , initialized_(false)
@@ -66,6 +67,9 @@ void platform_interface::initialize(const application_settings &settings)
         settings.window_size_hint_height,
         settings.window_title_hint
     );
+
+    // Init opengl
+    device_.initialize();
 }
 
 int platform_interface::run(int, char *[])

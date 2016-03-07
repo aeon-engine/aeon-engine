@@ -58,6 +58,8 @@ public:
         , argv_(argv)
         , logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
+        , device_()
+        , platform_(device_)
         , resource_manager_(platform_, device_)
     {
     }
@@ -76,9 +78,6 @@ public:
 
         // Init the platform and window
         platform_.initialize(settings);
-
-        // Init opengl
-        device_.initialize();
 
         setup();
 
@@ -112,8 +111,8 @@ protected:
     common::logger logger_backend_;
     aeon::logger::logger logger_;
 
-    selected_platform_interface platform_;
     selected_gfx_device device_;
+    selected_platform_interface platform_;
 
     resources::resource_manager resource_manager_;
 };
