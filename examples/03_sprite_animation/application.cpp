@@ -15,13 +15,14 @@
 
 #include "application.h"
 #include <scene/sprite_batch.h>
+#include <resources/providers/filesystem_provider.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                                  "Example 3 - Sprite Animation")
+    : aeon::aeon_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
+                                                               "Example 3 - Sprite Animation")
     , turn_timer_(0.0f)
     , direction_(move_south)
 {

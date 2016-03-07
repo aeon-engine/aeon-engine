@@ -16,6 +16,7 @@
 #include "application.h"
 #include <scene/sprite.h>
 #include <scene/sprite_batch.h>
+#include <resources/providers/filesystem_provider.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
@@ -26,8 +27,8 @@ const float SHIP_MAX_SPEED = 2.0f;
 const float SHIP_FRICTION = 2.0f;
 
 application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                                  "Example 4 - Input Handler (Use the arrow keys)")
+    : aeon::aeon_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
+                                                               "Example 4 - Input Handler (Use the arrow keys)")
     , move_direction_(ship_move_direction::none)
     , rotate_direction_(ship_rotate_direction::none)
     , forward_speed_(0.0f)

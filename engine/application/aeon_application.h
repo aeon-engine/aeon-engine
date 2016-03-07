@@ -18,15 +18,42 @@
 #include <platform/platform_window.h>
 #include <common/logger.h>
 #include <buildinfo.h>
+#include <build_config.h>
+#include <aeon/utility.h>
+
+#ifdef AEON_PLATFORM_GLFW
+#include <platform/glfw/platform_glfw_interface.h>
+using selected_platform_interface = aeon::platform::glfw::platform_interface;
+#endif // AEON_PLATFORM_GLFW
+
+#ifdef AEON_PLATFORM_RPI
+#include <platform/rpi/platform_rpi_interface.h>
+using selected_platform_interface = aeon::platform::rpi::platform_interface;
+#endif // AEON_PLATFORM_RPI
+
+#ifdef AEON_PLATFORM_IOS
+#include <platform/ios/platform_ios_interface.h>
+using selected_platform_interface = aeon::platform::ios::platform_interface;
+#endif
+
+#ifdef AEON_GFX_GL
+#include <gfx/gl/gfx_gl_device.h>
+using selected_gfx_device = aeon::gfx::gl::device;
+#endif // AEON_GFX_GL
+
+#ifdef AEON_GFX_GLES2
+#include <gfx/gles2/gfx_gles2_device.h>
+using selected_gfx_device = aeon::gfx::gles2::device;
+#endif // AEON_GFX_GLES2
 
 namespace aeon
 {
 
-template <typename platform_interface_t, typename device_t, typename scene_manager_t>
-class base_application
+template <typename scene_manager_t>
+class aeon_application : aeon::utility::noncopyable
 {
 public:
-    explicit base_application(int width, int height, const std::string &window_title)
+    explicit aeon_application(int width, int height, const std::string &window_title)
         : logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
         , resource_manager_(platform_, device_)
@@ -44,7 +71,7 @@ public:
         device_.initialize();
     }
 
-    virtual ~base_application() = default;
+    virtual ~aeon_application() = default;
 
     platform::platform_window_ptr get_main_window() const
     {
@@ -61,7 +88,7 @@ public:
         return &resource_manager_;
     }
 
-    platform_interface_t *get_platform_interface()
+    selected_platform_interface *get_platform_interface()
     {
         return &platform_;
     }
@@ -75,8 +102,8 @@ protected:
     common::logger logger_backend_;
     aeon::logger::logger logger_;
 
-    platform_interface_t platform_;
-    device_t device_;
+    selected_platform_interface platform_;
+    selected_gfx_device device_;
 
     resources::resource_manager resource_manager_;
     scene_manager_t scene_manager_;

@@ -15,19 +15,8 @@
 
 #pragma once
 
-#include <application/aeon_application.h>
-#include <resources/wrappers/image_resource_wrapper.h>
-#include <scene/scene_managers/basic/basic_scene_manager.h>
-#include <scene/orthographic_camera.h>
-
-class application : public aeon::aeon_application<aeon::scene::basic_scene_manager>
+namespace aeon
 {
-public:
-    application();
-    virtual ~application() = default;
 
-    void main(int argc, char *argv[]);
 
-private:
-    aeon::scene::orthographic_camera_ptr camera_;
-};
+} // namespace aeon

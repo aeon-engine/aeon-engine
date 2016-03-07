@@ -15,12 +15,12 @@
 
 #pragma once
 
-#include <application/desktop_application.h>
+#include <application/aeon_application.h>
 #include <resources/wrappers/image_resource_wrapper.h>
 #include <scene/scene_managers/basic/basic_scene_manager.h>
 #include <scene/orthographic_camera.h>
 
-class application : public aeon::desktop_application<aeon::scene::basic_scene_manager>
+class application : public aeon::aeon_application<aeon::scene::basic_scene_manager>
 {
 public:
     application();

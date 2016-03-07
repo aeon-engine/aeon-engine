@@ -16,13 +16,14 @@
 #include "application.h"
 #include <scene/sprite.h>
 #include <scene/sprite_batch.h>
+#include <resources/providers/filesystem_provider.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                                  "Example 2 - Scene Manager")
+    : aeon::aeon_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
+                                                               "Example 2 - Scene Manager")
 {
     std::string executable_path = get_platform_interface()->get_filesystem_interface()->get_executable_path();
 
