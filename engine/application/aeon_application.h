@@ -77,11 +77,11 @@ public:
             << buildinfo::build_date << ")." << std::endl;
 
         // Init the platform and window
-        platform_.initialize(settings);
+        //platform_.initialize(settings);
 
-        setup();
+        //setup();
 
-        return platform_.run(argc_, argv_);
+        return platform_.run(argc_, argv_, settings, [this](){setup();});
     }
 
     resources::resource_manager *get_resource_manager()

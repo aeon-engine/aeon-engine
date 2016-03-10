@@ -17,12 +17,12 @@
 #include <platform/ios/platform_ios_monitor.h>
 #include <platform/ios/platform_ios_window.h>
 #include <platform/ios/platform_ios_filesystem_interface.h>
-#include <platform/ios/platform_ios_app_delegate.h>
 #include <gfx/gfx_device.h>
 #include <OpenGLES/ES2/gl.h>
 #include <common/check_gl_error.h>
 
 #import <UIKit/UIKit.h>
+#import <platform/ios/AppDelegate.h>
 
 namespace aeon
 {
@@ -49,22 +49,29 @@ platform_interface::~platform_interface()
 
 void platform_interface::initialize(const application_settings &settings)
 {
-    AEON_LOG_MESSAGE(logger_) << "Initializing iOS." << std::endl;
-    device_.initialize();
-    initialized_ = true;
+
 }
 
-int platform_interface::run(int argc, char *argv[])
-{
-    if (!initialized_)
+    void platform_interface::init_rest()
     {
-        AEON_LOG_FATAL(logger_) << "Error starting message loop. Platform not initialized." << std::endl;
-        throw platform_interface_initialize_exception();
+        device_.initialize();
+        callback_();
     }
+    
+int platform_interface::run(int argc, char *argv[], const application_settings &settings, std::function<void()> callback)
+{
+    AEON_LOG_MESSAGE(logger_) << "Initializing iOS." << std::endl;
+    
+    callback_ = callback;
+
+    initialized_ = true;
+    main_window_ = create_window(800, 600, "Test");
+    
+    //device_.initialize();
 
     @autoreleasepool
     {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([platform_ios_app_delegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 /*
     AEON_LOG_DEBUG(logger_) << "Starting message loop." << std::endl;
@@ -131,7 +138,7 @@ platform::platform_window_ptr platform_interface::create_window(int width, int h
 
 platform::platform_window_ptr platform_interface::get_default_window()
 {
-    return nullptr;
+    return main_window_;
 }
 
 void platform_interface::render_frame()

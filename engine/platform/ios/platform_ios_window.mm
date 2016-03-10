@@ -32,20 +32,7 @@ platform_window::platform_window(platform_interface *interface, int width, int h
     , logger_(common::logger::get_singleton(), "Platform::iOS")
     , interface_(interface)
 {
-    AEON_LOG_DEBUG(logger_) << "Creating OpenGL ES 2.0 context." << std::endl;
-
-    EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    [EAGLContext setCurrentContext:context];
-
-    GLuint frame_buffer;
-    glGenFramebuffers(1, &frame_buffer);
-    glBindBuffer(GL_FRAMEBUFFER, frame_buffer);
-
-    GLuint render_buffer;
-    glGenRenderbuffers(1, &render_buffer);
-    glBindBuffer(GL_RENDERBUFFER, render_buffer);
-
-    glBindRenderbuffer(GL_RENDERBUFFER, frame_buffer);
+    AEON_LOG_DEBUG(logger_) << "Creating window." << std::endl;
 }
 
 platform_window::~platform_window()
@@ -59,7 +46,7 @@ void platform_window::make_current()
 glm::vec2 platform_window::get_framebuffer_size()
 {
     // TODO
-    return glm::vec2(0, 0);
+    return glm::vec2(800, 600);
 }
 
 bool platform_window::__on_frame_start(float /*dt*/)
@@ -73,9 +60,6 @@ bool platform_window::__on_frame_end(float /*dt*/)
 {
     glFinish();
     AEON_CHECK_GL_ERROR();
-
-    EAGLContext* context = [EAGLContext currentContext];
-    [context presentRenderbuffer:GL_RENDERBUFFER];
 
     return true;
 }

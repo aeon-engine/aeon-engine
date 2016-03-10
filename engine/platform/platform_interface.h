@@ -21,6 +21,7 @@
 #include <platform/platform_input_handler.h>
 #include <common/exception.h>
 #include <memory>
+#include <functional>
 
 namespace aeon
 {
@@ -61,7 +62,7 @@ public:
      * Enter the engine's main loop. You must first call initialize before calling run.
      * This function will not return until stop() is called.
      */
-    virtual int run(int argc, char *argv[]) = 0;
+    virtual int run(int argc, char *argv[], const application_settings &settings, std::function<void()> callback) = 0;
 
     /*!
      * Stop the mainloop. Has no effect if run hasn't been called.

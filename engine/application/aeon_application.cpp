@@ -13,8 +13,6 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
 namespace aeon
 {
 

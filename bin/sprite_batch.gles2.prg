@@ -22,7 +22,7 @@ void main()
         in_sprite_model_mat_col2, in_sprite_model_mat_col3);
 
     // For batched sprites, the real model matrix is ignored in favour of the sprite's own model matrix
-    gl_Position = projection_matrix * view_matrix * sprite_model_matrix * vec4(in_position, 0.0, 1.0);
+    gl_Position = projection_matrix * view_matrix * vec4(in_position, 0.0, 1.0);
 
     texture_coordinate = in_texture_coord;
 }

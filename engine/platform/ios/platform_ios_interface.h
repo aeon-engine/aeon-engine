@@ -38,8 +38,10 @@ public:
 
     void initialize(const application_settings &settings) override;
 
-    int run(int argc, char *argv[]) override;
+    int run(int argc, char *argv[], const application_settings &settings, std::function<void()> callback) override;
     void stop() override;
+    
+    void init_rest();
 
     platform_monitors get_monitors() override;
 
@@ -56,7 +58,8 @@ private:
     aeon::logger::logger logger_;
 
     render_targets render_targets_;
-
+    platform::platform_window_ptr main_window_;
+    std::function<void()> callback_;
     bool initialized_;
     bool running_;
     double previous_time_;

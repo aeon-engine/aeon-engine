@@ -29,7 +29,7 @@ void device::initialize()
 {
     __initialize_impl();
 
-    set_clear_color(common::types::color(0.0f, 0.0f, 0.0f));
+    set_clear_color(common::types::color(1.0f, 0.0f, 0.0f));
 }
 
 } // namespace gfx
