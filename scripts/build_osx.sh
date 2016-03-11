@@ -4,6 +4,6 @@ export GIT_COMMIT_HASH=`git rev-parse --short HEAD`
 export BUILD_DIR=ci_build
 mkdir $BUILD_DIR
 cd $BUILD_DIR
-cmake -DCMAKE_INSTALL_PREFIX=install ../
-cmake --build . --config Debug -- -j4
+cmake -G "Xcode" -DCMAKE_INSTALL_PREFIX=install ../
+xcodebuild -parallelizeTargets -project AeonEngine.xcodeproj -configuration Debug clean build
 ctest -C Debug --verbose
