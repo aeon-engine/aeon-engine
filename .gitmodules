@@ -30,3 +30,7 @@
 	path = dep/googletest
 	url = ../../libraries/googletest.git
 	branch = submodule
+[submodule "dep/openal_soft"]
+	path = dep/openal_soft
+	url = ../../libraries/openal_soft.git
+	branch = submodule

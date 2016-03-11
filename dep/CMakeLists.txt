@@ -2,6 +2,8 @@ add_subdirectory(googletest)
 add_subdirectory(zlib)
 add_subdirectory(png)
 
+add_subdirectory(openal_soft)
+
 if (AEON_GFX_GL)
     add_subdirectory(glew)
 endif ()
