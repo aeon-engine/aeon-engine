@@ -69,6 +69,7 @@ target_link_libraries(aeon_engine
     aeon
     glm
     png_static
+    openal
     ${ASSIMP_LIBRARIES}
     ${OPENGL_LIBRARIES}
 )
