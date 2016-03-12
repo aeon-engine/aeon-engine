@@ -13,4 +13,6 @@ if (AEON_PLATFORM_GLFW)
 endif ()
 
 add_subdirectory(glm)
+add_subdirectory(libogg)
+add_subdirectory(libvorbis)
 add_subdirectory(libaeon)

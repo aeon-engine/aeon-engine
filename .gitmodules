@@ -34,3 +34,11 @@
 	path = dep/openal_soft
 	url = ../../libraries/openal_soft.git
 	branch = submodule
+[submodule "dep/libogg"]
+	path = dep/libogg
+	url = ../../libraries/libogg.git
+	branch = submodule
+[submodule "dep/libvorbis"]
+	path = dep/libvorbis
+	url = ../../libraries/libvorbis.git
+	branch = submodule

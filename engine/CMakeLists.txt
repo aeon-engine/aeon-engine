@@ -70,6 +70,8 @@ target_link_libraries(aeon_engine
     glm
     png_static
     openal
+    ogg
+    vorbis
     ${ASSIMP_LIBRARIES}
     ${OPENGL_LIBRARIES}
 )
