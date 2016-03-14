@@ -42,3 +42,7 @@
 	path = dep/libvorbis
 	url = ../../libraries/libvorbis.git
 	branch = submodule
+[submodule "dep/freetype2"]
+	path = dep/freetype2
+	url = ../../libraries/freetype2.git
+	branch = submodule
