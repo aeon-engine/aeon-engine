@@ -17,10 +17,11 @@
 
 #include <resources/resource.h>
 #include <resources/exceptions.h>
-#include <resources/wrappers/material_resource_wrapper.h>
-#include <resources/image.h>
-#include <resources/shader.h>
+#include <gfx/gfx_material.h>
+#include <resources/wrappers/font_resource_wrapper.h>
+#include <common/buffer.h>
 #include <common/logger.h>
+#include <vector>
 #include <memory>
 
 namespace aeon
@@ -28,34 +29,46 @@ namespace aeon
 namespace resources
 {
 
-class material : public resource
+class font_glyph
 {
 public:
-    explicit material(resource_wrapper_ptr wrapper, shader_ptr shader, image_ptr texture);
-    virtual ~material();
-
-    shader_ptr get_shader() const
+    explicit font_glyph(float top_, float left_, float width_, float height_, float advance_x_)
+        : top(top_)
+        , left(left_)
+        , width(width_)
+        , height(height_)
+        , advance_x(advance_x_)
     {
-        return shader_;
     }
 
-    image_ptr get_texture() const
-    {
-        return texture_;
-    }
+    ~font_glyph() = default;
 
-    material_resource_wrapper_ptr get_material_resource_wrapper() const
-    {
-        return std::dynamic_pointer_cast<material_resource_wrapper>(get_resource_wrapper());
-    }
+    float top;
+    float left;
+
+    float width;
+    float height;
+
+    float advance_x;
+};
+
+using font_glyphs = std::vector<font_glyph>;
+
+class font : public resource
+{
+public:
+    explicit font(resource_wrapper_ptr wrapper, const font_glyphs &glyphs);
+    virtual ~font();
+
+    gfx::material_ptr get_material() const;
 
 private:
     aeon::logger::logger logger_;
-    shader_ptr shader_;
-    image_ptr texture_;
+    gfx::material_ptr material_;
+    font_glyphs glyphs_;
 };
 
-using material_ptr = std::shared_ptr<material>;
+using font_ptr = std::shared_ptr<font>;
 
 } // namespace resources
 } // namespace aeon

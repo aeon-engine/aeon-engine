@@ -15,24 +15,30 @@
 
 #pragma once
 
+#include <gfx/gfx_device.h>
+#include <resources/wrappers/resource_wrapper.h>
+#include <memory>
+#include <string>
+
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_type
+class font;
+using font_ptr = std::shared_ptr<font>;
+
+class font_resource_wrapper : public resource_wrapper
 {
-    unknown,
-    raw,
-    config,
-    image,
-    shader,
-    material,
-    atlas,
-    mesh,
-    world,
-    font
+public:
+    explicit font_resource_wrapper(resource_manager &parent, const std::string &path,
+                                    resource_provider_weak_ptr provider);
+    virtual ~font_resource_wrapper() = default;
+
+    font_ptr open();
 };
+
+using font_resource_wrapper_ptr = std::shared_ptr<font_resource_wrapper>;
 
 } // namespace resources
 } // namespace aeon

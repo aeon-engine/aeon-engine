@@ -13,26 +13,31 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
+#include <resources/font.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_type
+font::font(resource_wrapper_ptr wrapper, const font_glyphs &glyphs)
+    : resource(wrapper)
+    , logger_(common::logger::get_singleton(), "Resources::Font")
+    , material_(nullptr)
+    , glyphs_(glyphs)
 {
-    unknown,
-    raw,
-    config,
-    image,
-    shader,
-    material,
-    atlas,
-    mesh,
-    world,
-    font
-};
+    AEON_LOG_TRACE(logger_) << "Created font resource." << std::endl;
+}
+
+font::~font()
+{
+    AEON_LOG_TRACE(logger_) << "Deleted font resource." << std::endl;
+}
+
+gfx::material_ptr font::get_material() const
+{
+    return material_;
+}
 
 } // namespace resources
 } // namespace aeon

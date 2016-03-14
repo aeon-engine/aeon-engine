@@ -15,47 +15,27 @@
 
 #pragma once
 
-#include <resources/resource.h>
 #include <resources/exceptions.h>
-#include <resources/wrappers/material_resource_wrapper.h>
-#include <resources/image.h>
-#include <resources/shader.h>
+#include <resources/codecs/font_codec.h>
 #include <common/logger.h>
-#include <memory>
 
 namespace aeon
 {
 namespace resources
 {
 
-class material : public resource
+class font_codec_freetype : public font_codec
 {
 public:
-    explicit material(resource_wrapper_ptr wrapper, shader_ptr shader, image_ptr texture);
-    virtual ~material();
+    font_codec_freetype();
+    virtual ~font_codec_freetype() = default;
 
-    shader_ptr get_shader() const
-    {
-        return shader_;
-    }
-
-    image_ptr get_texture() const
-    {
-        return texture_;
-    }
-
-    material_resource_wrapper_ptr get_material_resource_wrapper() const
-    {
-        return std::dynamic_pointer_cast<material_resource_wrapper>(get_resource_wrapper());
-    }
+    font_ptr decode(resource_manager &parent, font_resource_wrapper_ptr wrapper) override;
+    resource_encoding get_codec_type() const override;
 
 private:
     aeon::logger::logger logger_;
-    shader_ptr shader_;
-    image_ptr texture_;
 };
-
-using material_ptr = std::shared_ptr<material>;
 
 } // namespace resources
 } // namespace aeon

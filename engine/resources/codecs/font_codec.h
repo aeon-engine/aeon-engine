@@ -15,24 +15,30 @@
 
 #pragma once
 
+#include <resources/exceptions.h>
+#include <common/buffer.h>
+#include <resources/resource_encoding.h>
+#include <resources/wrappers/font_resource_wrapper.h>
+#include <resources/codecs/codec.h>
+#include <resources/font.h>
+
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_type
+class resource_manager;
+
+class font_codec : public codec
 {
-    unknown,
-    raw,
-    config,
-    image,
-    shader,
-    material,
-    atlas,
-    mesh,
-    world,
-    font
+public:
+    font_codec() = default;
+    virtual ~font_codec() = default;
+
+    virtual font_ptr decode(resource_manager &parent, font_resource_wrapper_ptr wrapper) = 0;
 };
+
+using font_codec_ptr = std::unique_ptr<font_codec>;
 
 } // namespace resources
 } // namespace aeon

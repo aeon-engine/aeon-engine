@@ -24,6 +24,7 @@
 #include <resources/codecs/material_codec.h>
 #include <resources/codecs/shader_codec.h>
 #include <resources/codecs/atlas_codec.h>
+#include <resources/codecs/font_codec.h>
 #include <common/logger.h>
 #include <map>
 
@@ -45,6 +46,7 @@ public:
     material_codec &get_material_codec();
     shader_codec &get_shader_codec();
     atlas_codec &get_atlas_codec();
+    font_codec &get_font_codec(resource_encoding encoding);
 
     resource_type get_resource_type_by_encoding(resource_encoding encoding) const;
 

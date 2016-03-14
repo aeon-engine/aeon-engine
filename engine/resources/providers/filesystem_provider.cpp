@@ -96,6 +96,8 @@ resource_encoding filesystem_provider::get_encoding(const std::string &path) con
         return resource_encoding::atlas;
     if (extension == "png")
         return resource_encoding::image_png;
+    if (extension == "ttf" || extension == "otf" || extension == "cff" || extension == "woff")
+        return resource_encoding::freetype_font;
 
     AEON_LOG_ERROR(logger_) << "Unknown or unsupported file extension: '" << extension << "'." << std::endl;
     throw filesystem_provider_type_exception();

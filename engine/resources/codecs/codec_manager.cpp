@@ -15,6 +15,7 @@
 
 #include <resources/codecs/codec_manager.h>
 #include <resources/codecs/image_png_codec.h>
+#include <resources/codecs/font_freetype_codec.h>
 
 namespace aeon
 {
@@ -63,6 +64,17 @@ atlas_codec &codec_manager::get_atlas_codec()
     return dynamic_cast<atlas_codec &>(get_codec(resource_encoding::atlas));
 }
 
+font_codec & codec_manager::get_font_codec(resource_encoding encoding)
+{
+    if (get_resource_type_by_encoding(encoding) != resource_type::font)
+    {
+        AEON_LOG_ERROR(logger_) << "Can not decode resource as font." << std::endl;
+        throw codec_manager_codec_mismatch_exception();
+    }
+
+    return dynamic_cast<font_codec &>(get_codec(encoding));
+}
+
 resource_type codec_manager::get_resource_type_by_encoding(resource_encoding encoding) const
 {
     switch (encoding)
@@ -75,6 +87,8 @@ resource_type codec_manager::get_resource_type_by_encoding(resource_encoding enc
             return resource_type::atlas;
         case resource_encoding::image_png:
             return resource_type::image;
+        case resource_encoding::freetype_font:
+            return resource_type::font;
         case resource_encoding::unknown:
         default:
         {
@@ -90,6 +104,7 @@ void codec_manager::__register_codecs()
     codecs_[resource_encoding::shader] = std::make_unique<shader_codec>();
     codecs_[resource_encoding::image_png] = std::make_unique<image_codec_png>();
     codecs_[resource_encoding::atlas] = std::make_unique<atlas_codec>();
+    codecs_[resource_encoding::freetype_font] = std::make_unique<font_codec_freetype>();
 
     AEON_LOG_DEBUG(logger_) << "Registered " << codecs_.size() << " codecs." << std::endl;
 }
