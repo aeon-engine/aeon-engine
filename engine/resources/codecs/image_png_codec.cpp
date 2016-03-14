@@ -31,7 +31,7 @@ namespace resources
 class png_read_structs
 {
 public:
-    png_read_structs(aeon::logger::logger &logger)
+    explicit png_read_structs(aeon::logger::logger &logger)
         : logger_(logger)
         , png_ptr_(nullptr)
         , info_ptr_(nullptr)
