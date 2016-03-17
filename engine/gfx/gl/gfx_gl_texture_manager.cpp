@@ -63,7 +63,7 @@ texture_ptr texture_manager::__load(resources::image_ptr image)
     return t;
 }
 
-GLint texture_manager::__image_pixelformat_to_gl(resources::image::pixel_format format)
+GLint texture_manager::__image_pixelformat_to_gl(resources::image::pixel_format format) const
 {
     switch (format)
     {

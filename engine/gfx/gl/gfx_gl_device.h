@@ -50,7 +50,7 @@ private:
     void __create_managers();
     void __setup_opengl() const;
 
-    mutable aeon::logger::logger logger_;
+    aeon::logger::logger logger_;
 };
 
 } // namespace gl

@@ -49,7 +49,7 @@ void scene_manager::detach_child_scene_node(scene_node_ptr node) const
     root_node_->detach_child(node);
 }
 
-void scene_manager::cleanup_scene()
+void scene_manager::cleanup_scene() const
 {
     root_node_->cleanup_children();
 }

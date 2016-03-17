@@ -40,7 +40,7 @@ private:
     void read(const std::string &path, common::buffer_u8 &buffer) override;
     resource_encoding get_encoding(const std::string &path) const override;
 
-    mutable aeon::logger::logger logger_;
+    aeon::logger::logger logger_;
 
     std::string base_path_;
 };

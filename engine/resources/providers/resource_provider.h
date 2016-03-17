@@ -68,7 +68,7 @@ public:
     virtual resource_encoding get_encoding(const std::string &path) const = 0;
 
 protected:
-    resource_manager *__get_resource_manager()
+    resource_manager *__get_resource_manager() const
     {
         return manager_;
     }

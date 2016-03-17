@@ -44,7 +44,7 @@ private:
     GLenum __buffer_type_as_gl_enum() const;
     GLenum __buffer_usage_as_gl_enum(buffer_usage usage) const;
 
-    mutable aeon::logger::logger logger_;
+    aeon::logger::logger logger_;
 
     GLuint handle_;
 };

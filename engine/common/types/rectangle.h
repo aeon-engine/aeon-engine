@@ -88,7 +88,7 @@ public:
      * \return The size of the rectangle as Size2D.
      */
     template <typename U>
-    glm::vec2 size()
+    glm::vec2 size() const
     {
         return glm::vec2(width, height);
     }

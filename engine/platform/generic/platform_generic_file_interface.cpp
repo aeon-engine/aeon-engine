@@ -91,7 +91,7 @@ int platform_file_interface::get_size()
     return static_cast<int>(stream_->size());
 }
 
-streams::stream::seek_direction platform_file_interface::__to_streams_seek_direction(seek_direction direction)
+streams::stream::seek_direction platform_file_interface::__to_streams_seek_direction(seek_direction direction) const
 {
     switch (direction)
     {

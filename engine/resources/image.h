@@ -72,7 +72,7 @@ public:
 
     void clear_data();
 
-    image_resource_wrapper_ptr get_image_resource_wrapper()
+    image_resource_wrapper_ptr get_image_resource_wrapper() const
     {
         return std::dynamic_pointer_cast<image_resource_wrapper>(get_resource_wrapper());
     }

@@ -47,7 +47,7 @@ public:
         return path_;
     }
 
-    void read_raw(common::buffer_u8 &buffer);
+    void read_raw(common::buffer_u8 &buffer) const;
 
 protected:
     explicit resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);

@@ -32,7 +32,7 @@ public:
 
     virtual ~resource() = default;
 
-    resource_wrapper_ptr get_resource_wrapper()
+    resource_wrapper_ptr get_resource_wrapper() const
     {
         return wrapper_;
     }

@@ -75,7 +75,7 @@ public:
 
     gfx::material_ptr get_material() const;
 
-    atlas_resource_wrapper_ptr get_atlas_resource_wrapper()
+    atlas_resource_wrapper_ptr get_atlas_resource_wrapper() const
     {
         return std::dynamic_pointer_cast<atlas_resource_wrapper>(get_resource_wrapper());
     }

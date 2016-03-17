@@ -49,7 +49,7 @@ public:
     int get_size() override;
 
 private:
-    streams::stream::seek_direction __to_streams_seek_direction(seek_direction direction);
+    streams::stream::seek_direction __to_streams_seek_direction(seek_direction direction) const;
 
     aeon::logger::logger logger_;
 
