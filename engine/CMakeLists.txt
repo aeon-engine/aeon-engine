@@ -68,6 +68,12 @@ add_source_path(AEON_ENGINE_SOURCES scene/scene_managers/octree)
 
 ################################################################################
 
+add_source_path(AEON_ENGINE_SOURCES audio)
+add_source_path(AEON_ENGINE_SOURCES audio/openal)
+add_source_path(AEON_ENGINE_SOURCES audio/codec)
+
+################################################################################
+
 option(AEON_CONSOLE_OUTPUT_DEBUG_MSGS "Console outputs debug/trace messages." ON)
 set(AEON_CONSOLE_BUFFER_SIZE 10240 CACHE STRING "The maximum length of a single console line")
 set(AEON_DEFAULT_CONSOLE_LOG_LEVEL "console::log_level::info" CACHE STRING "The default minimum log level")
