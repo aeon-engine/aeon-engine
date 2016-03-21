@@ -22,14 +22,14 @@ class codec_vorbis : public codec
 public:
     codec_vorbis();
     /* \note normal file access code should not be in here */
-    sample_ptr decode(std::string filename) override;
+    sample_buffer_ptr decode(std::string filename) override;
     codec_stream_ptr open_stream(std::string filename) override;
     uint64_t read(uint8_t *buffer, size_t buffer_size) override;
     void seek(double position) override;
 
     uint64_t get_total_size();
 //private:
-    sample_ptr create_from_buffer(file_buffer &buffer);
+    sample_buffer_ptr create_from_buffer(file_buffer &buffer);
 
     // kinda streaming buffer something bla..
     file_buffer buffer_;

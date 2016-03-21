@@ -38,7 +38,7 @@ void buffer::load(std::string filename, sample_format format /*= sample_format::
     else
         __debugbreak();
 
-    aeon::audio::sample_ptr sample = codec->decode(filename);
+    aeon::audio::sample_buffer_ptr sample = codec->decode(filename);
     if (!sample)
     {
         printf("aeon::audio::buffer unable to decode: '%s'\n", filename.c_str());

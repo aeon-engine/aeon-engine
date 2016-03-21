@@ -1,18 +1,18 @@
-#include <audio/sample.h>
+#include <audio/sample_buffer.h>
 
 namespace aeon
 {
 namespace audio
 {
 
-sample::sample()
+sample_buffer::sample_buffer()
     : channel_count_(0)
     , bits_per_sample_(0)
     , sample_rate_(0)
 {
 }
 
-sample::sample(int channel_count, int bits_per_sample, int sample_rate, const uint8_t *data, size_t data_len)
+sample_buffer::sample_buffer(int channel_count, int bits_per_sample, int sample_rate, const uint8_t *data, size_t data_len)
     : channel_count_(channel_count)
     , bits_per_sample_(bits_per_sample)
     , sample_rate_(sample_rate)
@@ -21,18 +21,18 @@ sample::sample(int channel_count, int bits_per_sample, int sample_rate, const ui
     memcpy(data_.data(), data, data_.size());
 }
 
-sample::~sample()
+sample_buffer::~sample_buffer()
 {
 
 }
 
-double sample::get_total_time()
+double sample_buffer::get_total_time()
 {
     double sample_count = (double)get_channel_sample_count();
     return double(sample_count) / double(sample_rate_);
 }
 
-uint64_t sample::get_channel_sample_count()
+uint64_t sample_buffer::get_channel_sample_count()
 {
     int sample_count_div = 1;
     if (channel_count_ == 2) // stereo

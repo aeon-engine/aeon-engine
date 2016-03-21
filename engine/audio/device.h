@@ -1,6 +1,6 @@
 #pragma once
 
-#include <audio/sample.h>
+#include <audio/sample_buffer.h>
 #include <audio/source_manager.h>
 #include <audio/openal/openal_includes.h>
 
@@ -20,7 +20,7 @@ public:
     aeon::audio::source_ptr get_source();
 
 protected:
-    std::list<sample_ptr> sample_list_;
+    std::list<sample_buffer_ptr> sample_list_;
     std::shared_ptr<aeon::audio::source_manager> source_manager_;
 
 private:

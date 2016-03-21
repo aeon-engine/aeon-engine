@@ -17,12 +17,12 @@ class codec_wav : public codec
 {
 public:
     /* \note normal file access code should not be in here */
-    sample_ptr decode(std::string filename) override;
+    sample_buffer_ptr decode(std::string filename) override;
 
     void seek(double position) override;
 
 private:
-    sample_ptr create_from_buffer(base_buffer &buffer);
+    sample_buffer_ptr create_from_buffer(base_buffer &buffer);
 };
 
 } // namespace audio

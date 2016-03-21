@@ -1,6 +1,6 @@
 #pragma once
 
-#include <audio/sample.h>
+#include <audio/sample_buffer.h>
 
 namespace aeon
 {
@@ -14,7 +14,7 @@ using codec_stream_ptr = std::unique_ptr<codec_stream>;
 class codec
 {
 public:
-    virtual sample_ptr decode(std::string filename) = 0;
+    virtual sample_buffer_ptr decode(std::string filename) = 0;
     virtual codec_stream_ptr open_stream(std::string /*filename*/) { return nullptr; };
     virtual uint64_t read(uint8_t * /*buffer*/, size_t /*buffer_size*/) { return 0; };
     virtual void seek(double position) = 0;

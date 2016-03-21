@@ -15,18 +15,18 @@ codec_vorbis::codec_vorbis()
 {
 }
 
-sample_ptr codec_vorbis::decode(std::string filename)
+sample_buffer_ptr codec_vorbis::decode(std::string filename)
 {
     file_buffer buffer(filename);
 
-    sample_ptr result = create_from_buffer(buffer);
+    sample_buffer_ptr result = create_from_buffer(buffer);
     return result;
 }
 
 #if 0
 // todo implement create_from_buffer with stream + read
 #else
-sample_ptr codec_vorbis::create_from_buffer(file_buffer &buffer)
+sample_buffer_ptr codec_vorbis::create_from_buffer(file_buffer &buffer)
 {
     OggVorbis_File vorbis_file;
     int res;
@@ -83,7 +83,7 @@ sample_ptr codec_vorbis::create_from_buffer(file_buffer &buffer)
         }
     }
 
-    sample_ptr result = std::make_unique<sample>(
+    sample_buffer_ptr result = std::make_unique<sample_buffer>(
         psVorbisInfo->channels,
         AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE * 8, // always 16 bits!
         psVorbisInfo->rate,

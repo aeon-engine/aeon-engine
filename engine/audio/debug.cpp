@@ -1,5 +1,5 @@
 #include <audio/debug.h>
-#include <audio/sample.h>
+#include <audio/sample_buffer.h>
 #include <audio/openal/openal_includes.h>
 #include <audio/openal/openal_check.h>
 #include <audio/openal/openal_format.h>
@@ -17,7 +17,7 @@ const char *get_openal_format_name(ALenum format)
     return "AL_FORMAT_UNKNOWN";
 }
 
-void dump_sample_stats(const aeon::audio::sample_ptr &sample)
+void dump_sample_stats(const aeon::audio::sample_buffer_ptr &sample)
 {
     auto sample_format = get_openal_format(sample);
 

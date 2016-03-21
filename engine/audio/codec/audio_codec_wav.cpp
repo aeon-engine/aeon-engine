@@ -86,16 +86,15 @@ namespace aeon
 namespace audio
 {
 
-sample_ptr codec_wav::decode(std::string filename)
+sample_buffer_ptr codec_wav::decode(std::string filename)
 {
     file_buffer buffer(filename);
 
-    sample_ptr result = create_from_buffer(buffer);
-
+    sample_buffer_ptr result = create_from_buffer(buffer);
     return result;
 }
 
-sample_ptr codec_wav::create_from_buffer(base_buffer &buffer)
+sample_buffer_ptr codec_wav::create_from_buffer(base_buffer &buffer)
 {
     /* \note totally not safe, maybe from a functional perspective this is safe
      * but the 'NOT safe' problem actually comes from the readability.
@@ -141,7 +140,7 @@ sample_ptr codec_wav::create_from_buffer(base_buffer &buffer)
         return nullptr;
     }
 
-    sample_ptr result = std::make_unique<sample>(
+    sample_buffer_ptr result = std::make_unique<sample_buffer>(
         wave_format.num_channels,
         wave_format.bits_per_sample,
         wave_format.sample_rate,

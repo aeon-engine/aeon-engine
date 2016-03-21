@@ -45,8 +45,7 @@ ALenum get_openal_format(int channel_count, int bits_per_sample)
     }
 }
 
-
-ALenum get_openal_format(const aeon::audio::sample_ptr &sample)
+ALenum get_openal_format(const aeon::audio::sample_buffer_ptr &sample)
 {
     return get_openal_format(sample->channel_count_, sample->bits_per_sample_);
 }
