@@ -1,5 +1,5 @@
 #pragma once
 
-#include <al/al.h>
-#include <al/alc.h>
-#include <al/efx.h>
+#include <ÀL/al.h>
+#include <AL/alc.h>
+#include <AL/efx.h>
