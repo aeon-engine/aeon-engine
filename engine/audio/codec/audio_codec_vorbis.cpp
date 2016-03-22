@@ -65,11 +65,10 @@ sample_buffer_ptr codec_vorbis::create_from_buffer(file_buffer &buffer)
     pcm_buffer.resize(pcm_buffer_len);
 
     int current_section;
-    long decode_size;
     size_t bytes_done = 0;
     while (1)
     {
-        decode_size = ov_read(&vorbis_file, (char*)&pcm_buffer[bytes_done], (int)(pcm_buffer.size() - bytes_done), 0, AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE, 1, &current_section);
+        long decode_size = ov_read(&vorbis_file, (char*)&pcm_buffer[bytes_done], (int)(pcm_buffer.size() - bytes_done), 0, AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE, 1, &current_section);
         if (decode_size > 0)
         {
             bytes_done += decode_size;
@@ -138,11 +137,10 @@ uint64_t codec_vorbis::read(uint8_t *buffer, size_t buffer_size)
     size_t pcm_buffer_size = buffer_size;
 
     int current_section;
-    long decode_size;
     size_t bytes_done = 0;
     while (1)
     {
-        decode_size = ov_read(&vorbis_file_, (char*)&pcm_buffer[bytes_done], int(pcm_buffer_size - bytes_done), 0, AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE, 1, &current_section);
+        long decode_size = ov_read(&vorbis_file_, (char*)&pcm_buffer[bytes_done], int(pcm_buffer_size - bytes_done), 0, AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE, 1, &current_section);
         if (decode_size > 0)
         {
             bytes_done += decode_size;
