@@ -11,8 +11,15 @@ namespace aeon
 namespace audio
 {
 buffer_streaming::buffer_streaming()
-    : data_thread_run_(false)
+    : codec_()
+    , source_(nullptr)
+    , data_thread_run_(false)
+    , data_thread_()
+    , buffers_()
+    , end_buffers_()
+    , codec_stream_()
     , prepared_(false)
+    , samples_processed_(0)
 {
 }
 
