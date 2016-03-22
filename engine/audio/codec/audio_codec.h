@@ -14,9 +14,16 @@ using codec_stream_ptr = std::unique_ptr<codec_stream>;
 class codec
 {
 public:
+    /*! open and decode the whole file */
     virtual sample_buffer_ptr decode(std::string filename) = 0;
+
+    /*! open for streaming decode*/
     virtual codec_stream_ptr open_stream(std::string /*filename*/) { return nullptr; };
+
+    /*! read/fill/decode into a buffer */
     virtual uint64_t read(uint8_t * /*buffer*/, size_t /*buffer_size*/) { return 0; };
+
+    /*! seek (in PCM time) */
     virtual void seek(double position) = 0;
 };
 

@@ -99,6 +99,12 @@ resource_encoding filesystem_provider::get_encoding(const std::string &path) con
     if (extension == "3ds" || extension == "ase" || extension == "dae")
         // Assimp supports more formats, but these should be the most common ones. More extensions could be added later.
         return resource_encoding::mesh_assimp;
+    if (extension == "ogg")
+        return resource_encoding::sound_ogg;
+    if (extension == "wav")
+        return resource_encoding::sound_wav;
+    if (extension == "opus")
+        return resource_encoding::sound_opus;
 
     AEON_LOG_ERROR(logger_) << "Unknown or unsupported file extension: '" << extension << "'." << std::endl;
     throw filesystem_provider_type_exception();

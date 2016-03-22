@@ -13,26 +13,27 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
+#include <resources/wrappers/sound_resource_wrapper.h>
+#include <resources/resource_manager.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_type
+sound_resource_wrapper::sound_resource_wrapper(resource_manager &parent, const std::string &path,
+                                               resource_provider_weak_ptr provider)
+    : resource_wrapper(parent, path, provider)
 {
-    unknown,
-    raw,
-    config,
-    image,
-    shader,
-    material,
-    atlas,
-    mesh,
-    world,
-    sound
-};
+    if (get_type() != resource_type::sound)
+        throw resource_type_exception();
+}
+
+audio::sound_ptr sound_resource_wrapper::open()
+{
+    sound_codec &codec = __get_parent().get_codec_manager().get_sound_codec(get_encoding());
+    return codec.decode(__get_parent(), std::dynamic_pointer_cast<sound_resource_wrapper>(shared_from_this()));
+}
 
 } // namespace resources
 } // namespace aeon

@@ -75,6 +75,17 @@ mesh_codec &codec_manager::get_mesh_codec(resource_encoding encoding)
     return dynamic_cast<mesh_codec &>(get_codec(encoding));
 }
 
+sound_codec &codec_manager::get_sound_codec(resource_encoding encoding)
+{
+    if (get_resource_type_by_encoding(encoding) != resource_type::sound)
+    {
+        AEON_LOG_ERROR(logger_) << "Can not decode resource as sound." << std::endl;
+        throw codec_manager_codec_mismatch_exception();
+    }
+
+    return dynamic_cast<sound_codec &>(get_codec(encoding));
+}
+
 resource_type codec_manager::get_resource_type_by_encoding(resource_encoding encoding) const
 {
     switch (encoding)
@@ -89,6 +100,12 @@ resource_type codec_manager::get_resource_type_by_encoding(resource_encoding enc
             return resource_type::image;
         case resource_encoding::mesh_assimp:
             return resource_type::mesh;
+        case resource_encoding::sound_ogg:
+            return resource_type::sound;
+        case resource_encoding::sound_wav:
+            return resource_type::sound;
+        case resource_encoding::sound_opus:
+            return resource_type::sound;
         case resource_encoding::unknown:
         default:
         {
@@ -105,6 +122,7 @@ void codec_manager::__register_codecs()
     codecs_[resource_encoding::image_png] = std::make_unique<image_codec_png>();
     codecs_[resource_encoding::atlas] = std::make_unique<atlas_codec>();
     codecs_[resource_encoding::mesh_assimp] = std::make_unique<mesh_codec_assimp>();
+    codecs_[resource_encoding::sound_ogg] = std::make_unique<sound_codec>();
 
     AEON_LOG_DEBUG(logger_) << "Registered " << codecs_.size() << " codecs." << std::endl;
 }

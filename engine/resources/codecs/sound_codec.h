@@ -15,24 +15,37 @@
 
 #pragma once
 
+#include <resources/exceptions.h>
+#include <common/buffer.h>
+#include <resources/resource_encoding.h>
+#include <resources/codecs/codec.h>
+#include <audio/audio.h>
+#include <resources/wrappers/sound_resource_wrapper.h>
+#include <common/logger.h>
+
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_type
+class material_resource_wrapper;
+class resource_manager;
+
+class sound_codec : public codec
 {
-    unknown,
-    raw,
-    config,
-    image,
-    shader,
-    material,
-    atlas,
-    mesh,
-    world,
-    sound
+public:
+    sound_codec();
+    virtual ~sound_codec() = default;
+
+    resource_encoding get_codec_type() const override;
+
+    audio::sound_ptr decode(resource_manager &parent, sound_resource_wrapper_ptr wrapper);
+
+private:
+    aeon::logger::logger logger_;
 };
+
+using sound_codec_ptr = std::unique_ptr<sound_codec>;
 
 } // namespace resources
 } // namespace aeon

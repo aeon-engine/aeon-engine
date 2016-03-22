@@ -56,11 +56,14 @@ public:
     void mount(resource_provider_ptr provider, const std::string &mountpoint = "/");
     void unmount(const std::string &mountpoint);
 
+    audio::sound_ptr load_sound(const std::string &path);
+
     image_resource_wrapper_ptr load_image_wrapper(const std::string &path);
     material_resource_wrapper_ptr load_material_wrapper(const std::string &path);
     shader_resource_wrapper_ptr load_shader_wrapper(const std::string &path);
     atlas_resource_wrapper_ptr load_atlas_wrapper(const std::string &path);
     mesh_resource_wrapper_ptr load_mesh_wrapper(const std::string &path);
+    sound_resource_wrapper_ptr load_sound_wrapper(const std::string &path);
 
     platform::platform_interface &get_platform_interface()
     {

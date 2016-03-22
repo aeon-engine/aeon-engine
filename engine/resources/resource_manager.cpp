@@ -70,6 +70,16 @@ void resource_manager::unmount(const std::string &mountpoint)
     mount_points_.erase(result);
 }
 
+audio::sound_ptr resource_manager::load_sound(const std::string &path)
+{
+    AEON_LOG_DEBUG(logger_) << "Loading sound '" << path << "'." << std::endl;
+
+    sound_resource_wrapper_ptr sound_resource = load_sound_wrapper(path);
+    audio::sound_ptr sound_resource_data = sound_resource->open();
+
+    return sound_resource_data;
+}
+
 image_resource_wrapper_ptr resource_manager::load_image_wrapper(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading image resource wrapper '" << path << "'." << std::endl;
@@ -133,6 +143,19 @@ mesh_resource_wrapper_ptr resource_manager::load_mesh_wrapper(const std::string 
         return nullptr;
 
     return std::make_shared<mesh_resource_wrapper>(*this, real_path, best_match_provider);
+}
+
+aeon::resources::sound_resource_wrapper_ptr resource_manager::load_sound_wrapper(const std::string &path)
+{
+    AEON_LOG_DEBUG(logger_) << "Loading sound resource wrapper '" << path << "'." << std::endl;
+
+    std::string real_path;
+    resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
+
+    if (!best_match_provider)
+        return nullptr;
+
+    return std::make_shared<sound_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
 resource_provider_ptr resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)

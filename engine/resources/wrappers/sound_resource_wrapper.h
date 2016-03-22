@@ -15,24 +15,35 @@
 
 #pragma once
 
+#include <resources/wrappers/resource_wrapper.h>
+#include <memory>
+#include <string>
+
 namespace aeon
 {
+    namespace audio
+    {
+        class source;
+        using source_ptr = std::shared_ptr<source>;
+        using sound_ptr = source_ptr;
+    } // namespace audio
+
 namespace resources
 {
 
-enum class resource_type
+
+
+class sound_resource_wrapper : public resource_wrapper
 {
-    unknown,
-    raw,
-    config,
-    image,
-    shader,
-    material,
-    atlas,
-    mesh,
-    world,
-    sound
+public:
+    explicit sound_resource_wrapper(resource_manager &parent, const std::string &path,
+                                    resource_provider_weak_ptr provider);
+    virtual ~sound_resource_wrapper() = default;
+
+    audio::sound_ptr open();
 };
+
+using sound_resource_wrapper_ptr = std::shared_ptr<sound_resource_wrapper>;
 
 } // namespace resources
 } // namespace aeon

@@ -68,6 +68,7 @@ private:
 };
 
 using source_ptr = std::shared_ptr<source>;
+using sound_ptr = source_ptr;
 
 } // namespace audio
 } // namespace aeon

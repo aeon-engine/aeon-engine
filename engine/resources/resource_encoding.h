@@ -28,6 +28,9 @@ enum class resource_encoding
     atlas,
     image_png,
     mesh_assimp
+    sound_ogg,
+    sound_wav,
+    sound_opus
 };
 
 } // namespace resources

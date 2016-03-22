@@ -25,6 +25,7 @@
 #include <resources/codecs/shader_codec.h>
 #include <resources/codecs/atlas_codec.h>
 #include <resources/codecs/mesh_codec.h>
+#include <resources/codecs/sound_codec.h>
 #include <common/logger.h>
 #include <map>
 
@@ -53,6 +54,7 @@ public:
     shader_codec &get_shader_codec();
     atlas_codec &get_atlas_codec();
     mesh_codec &get_mesh_codec(resource_encoding encoding);
+    sound_codec &get_sound_codec(resource_encoding encoding);
 
     resource_type get_resource_type_by_encoding(resource_encoding encoding) const;
 
