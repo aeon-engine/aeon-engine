@@ -1,21 +1,21 @@
 #include <audio/codec/audio_codec_wav.h>
 #include <audio/codec/audio_codec_file.h>
+#include <audio/codec/audio_codec_packed.h>
 #include <audio/openal/openal_includes.h>
+
 
 #define WAVE_FORMAT_PCM 0x0001 /* PCM */
 
-#ifdef _MSC_VER
-#pragma pack(push, 1)
-#endif
-
 /******************************* WAV specific headers *************************/
+PACKED(
 struct RIFF_Header
 {
     uint32_t chunk_id;
     int32_t chunk_size;
     uint32_t format;
-};
+});
 
+PACKED(
 struct WAVE_Format
 {
     uint32_t sub_chunk_id;
@@ -26,25 +26,21 @@ struct WAVE_Format
     int32_t byte_rate;
     int16_t block_align; // Block size of data = Channels times BYTES per sample.
     int16_t bits_per_sample; // Number of bits per sample (mono).
-};
+});
 
+PACKED(
 struct WAVE_Data
 {
     uint32_t sub_chunk_id;
     int32_t sub_chunk_size; // stores the size of the data block
-};
+});
 
+PACKED(
 struct RIFF_SubChunk
 {
     uint32_t sub_chunk_id;
     int32_t sub_chunk_size; // stores the size of the data block
-};
-
-#ifdef _MSC_VER
-#pragma pack(pop)
-#else
-__attribute__((packed));
-#endif
+});
 
 /*********************** WAV specific utility functions************************/
 static
