@@ -3,6 +3,8 @@
 #include <audio/codec/audio_codec_packed.h>
 #include <audio/openal/openal_includes.h>
 
+#include <cstring>
+
 
 #define WAVE_FORMAT_PCM 0x0001 /* PCM */
 
