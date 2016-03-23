@@ -33,7 +33,7 @@ sound_codec::sound_codec()
 
 resource_encoding sound_codec::get_codec_type() const
 {
-    return resource_encoding::material;
+    return resource_encoding::sound_ogg;
 }
 
 audio::sound_ptr sound_codec::decode(resource_manager & /*parent*/, sound_resource_wrapper_ptr wrapper)
