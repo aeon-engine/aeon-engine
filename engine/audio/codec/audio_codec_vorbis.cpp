@@ -51,19 +51,19 @@ long vorbis_on_tell(void *datasource)
 sample_buffer_ptr codec_vorbis::create_from_buffer(file_buffer &buffer)
 {
     OggVorbis_File vorbis_file;
-    int res;
-
-    res = ov_open_callbacks(&buffer, &vorbis_file, nullptr, 0,
-        {
-            vorbis_on_read,
-            vorbis_on_seek,
-            nullptr,
-            vorbis_on_tell
-        }
+    int res = ov_open_callbacks(&buffer, &vorbis_file, nullptr, 0, {
+        vorbis_on_read,
+        vorbis_on_seek,
+        nullptr,
+        vorbis_on_tell
+    }
     );
 
     if (res != 0)
+    {
+        printf("aeon::audio::codec_vorbis, unable to open buffer\n");
         return nullptr;
+    }
 
     std::vector<uint8_t> pcm_buffer;
 
@@ -122,7 +122,10 @@ codec_stream_ptr codec_vorbis::open_stream(std::string filename)
     );
 
     if (res != 0)
+    {
+        printf("aeon::audio::codec_vorbis, unable to open buffer\n");
         return nullptr;
+    }
 
     // Get some information about the file (Channels, Format, and Frequency)
     vorbis_info_ = ov_info(&vorbis_file_, -1);
