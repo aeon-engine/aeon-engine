@@ -23,9 +23,31 @@ sample_buffer_ptr codec_vorbis::decode(std::string filename)
     return result;
 }
 
-#if 0
+size_t vorbis_on_read(void *ptr, size_t size, size_t nmemb, void *datasource)
+{
+    file_buffer* buffer = reinterpret_cast<file_buffer*>(datasource);
+    if (buffer == nullptr)
+        return 0;
+    return buffer->read(ptr, size, nmemb);
+}
+
+int vorbis_on_seek(void *datasource, ogg_int64_t offset, int whence)
+{
+    file_buffer* buffer = reinterpret_cast<file_buffer*>(datasource);
+    if (buffer == nullptr)
+        return 0;
+    return buffer->seek(offset, whence);
+}
+
+long vorbis_on_tell(void *datasource)
+{
+    file_buffer* buffer = reinterpret_cast<file_buffer*>(datasource);
+    if (buffer == nullptr)
+        return 0;
+    return static_cast<long>(buffer->tell());
+}
+
 // todo implement create_from_buffer with stream + read
-#else
 sample_buffer_ptr codec_vorbis::create_from_buffer(file_buffer &buffer)
 {
     OggVorbis_File vorbis_file;
@@ -33,16 +55,10 @@ sample_buffer_ptr codec_vorbis::create_from_buffer(file_buffer &buffer)
 
     res = ov_open_callbacks(&buffer, &vorbis_file, nullptr, 0,
         {
-            [](void *ptr, size_t size, size_t nmemb, void *datasource) -> size_t
-            {return ((file_buffer*)datasource)->read(ptr, size, nmemb);},
-
-            [](void *datasource, ogg_int64_t offset, int whence) -> int
-            {return ((file_buffer*)datasource)->seek(offset, whence);},
-
+            vorbis_on_read,
+            vorbis_on_seek,
             nullptr,
-
-            [](void *datasource) -> long
-            {return (long)((file_buffer*)datasource)->tell();},
+            vorbis_on_tell
         }
     );
 
@@ -91,7 +107,6 @@ sample_buffer_ptr codec_vorbis::create_from_buffer(file_buffer &buffer)
 
     return result;
 }
-#endif
 
 codec_stream_ptr codec_vorbis::open_stream(std::string filename)
 {
@@ -99,16 +114,10 @@ codec_stream_ptr codec_vorbis::open_stream(std::string filename)
     buffer_ = aeon::audio::file_buffer(filename);
 
     int res = ov_open_callbacks(&buffer_, &vorbis_file_, nullptr, 0, {
-        [](void *ptr, size_t size, size_t nmemb, void *datasource) -> size_t
-        {return ((file_buffer*)datasource)->read(ptr, size, nmemb); },
-
-        [](void *datasource, ogg_int64_t offset, int whence) -> int
-        {return ((file_buffer*)datasource)->seek(offset, whence); },
-
+        vorbis_on_read,
+        vorbis_on_seek,
         nullptr,
-
-        [](void *datasource) -> long
-        {return (long)((file_buffer*)datasource)->tell(); },
+        vorbis_on_tell
     }
     );
 
