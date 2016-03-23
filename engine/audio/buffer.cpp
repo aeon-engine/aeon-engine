@@ -62,7 +62,9 @@ void buffer::unbind_source(aeon::audio::source *source)
     // unbind audio buffer
     al_check(alSourcei(source->get_al_source(), AL_BUFFER, 0));
 
-    std::remove_if(sources_.begin(), sources_.end(), [source](aeon::audio::source *x) {return x == source; });
+    sources_.erase(
+        std::remove_if(sources_.begin(), sources_.end(), [source](source *x) {return x == source; }),
+        sources_.end());
 }
 
 void buffer::prepare()
