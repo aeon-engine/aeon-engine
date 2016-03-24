@@ -1,5 +1,5 @@
-#include <audio/source.h>
-#include <audio/source_manager.h>
+#include <audio/audio_source.h>
+#include <audio/audio_source_manager.h>
 #include <audio/openal/openal_check.h>
 
 namespace aeon

@@ -1,5 +1,5 @@
-#include <audio/debug.h>
-#include <audio/sample_buffer.h>
+#include <audio/audio_debug.h>
+#include <audio/audio_sample_buffer.h>
 #include <audio/openal/openal_includes.h>
 #include <audio/openal/openal_check.h>
 #include <audio/openal/openal_format.h>

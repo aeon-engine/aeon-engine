@@ -1,4 +1,4 @@
-#include <audio/sample_format.h>
+#include <audio/audio_sample_format.h>
 
 namespace aeon
 {

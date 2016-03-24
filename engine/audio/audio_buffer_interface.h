@@ -1,6 +1,6 @@
 #pragma once
 
-#include <audio/sample_format.h>
+#include <audio/audio_sample_format.h>
 #include <string>
 
 namespace aeon

@@ -1,5 +1,5 @@
-#include <audio/buffer_static.h>
-#include <audio/source.h>
+#include <audio/audio_buffer_static.h>
+#include <audio/audio_source.h>
 #include <audio/codec/audio_codec_wav.h>
 #include <audio/codec/audio_codec_vorbis.h>
 #include <audio/openal/openal_check.h>

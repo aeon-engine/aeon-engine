@@ -1,4 +1,4 @@
-#include <audio/sample_buffer.h>
+#include <audio/audio_sample_buffer.h>
 #include <cstring>
 
 namespace aeon

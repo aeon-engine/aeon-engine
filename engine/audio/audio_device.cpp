@@ -1,4 +1,4 @@
-#include "device.h"
+#include "audio_device.h"
 #include "openal/openal_check.h"
 
 #include "codec/audio_codec_wav.h"

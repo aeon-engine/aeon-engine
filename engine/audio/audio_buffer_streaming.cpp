@@ -1,5 +1,5 @@
-#include "buffer_streaming.h"
-#include "source.h"
+#include "audio_buffer_streaming.h"
+#include "audio_source.h"
 #include "codec/audio_codec_wav.h"
 #include "codec/audio_codec_vorbis.h"
 #include "openal/openal_check.h"

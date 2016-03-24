@@ -1,9 +1,9 @@
 #pragma once
 
 /* want to use the audio stuff... include this header... */
-#include <audio/device.h>
-#include <audio/buffer_static.h>
-#include <audio/buffer_streaming.h>
-#include <audio/source.h>
-#include <audio/listener.h>
+#include <audio/audio_device.h>
+#include <audio/audio_buffer_static.h>
+#include <audio/audio_buffer_streaming.h>
+#include <audio/audio_source.h>
+#include <audio/audio_listener.h>
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <audio/sample_buffer.h>
-#include <audio/source_manager.h>
+#include <audio/audio_sample_buffer.h>
+#include <audio/audio_source_manager.h>
 #include <audio/openal/openal_includes.h>
 
 #include <string>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <audio/source.h>
+#include <audio/audio_source.h>
 #include <audio/openal/openal_includes.h>
 
 #include <vector>
