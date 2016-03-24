@@ -6,10 +6,29 @@ namespace aeon
 {
 namespace audio
 {
+/*!
+ * Wrapper class that contains 'sample' information about the audio sample.
+ * As it contains the channel count, bits per sample and the sample rate it
+ * has enough information to serve openal in playing that sample.
+ */
+class sample_info
+{
+public:
+    sample_info() = default;
+    sample_info(int channel_count, int bits_per_sample, int sample_rate)
+        : channel_count_(channel_count)
+        , bits_per_sample_(bits_per_sample)
+        , sample_rate_(sample_rate)
+    {
+    }
+
+    int channel_count_ = 0;
+    int bits_per_sample_ = 0;
+    int sample_rate_ = 0;
+};
 
 class codec_stream;
 using codec_stream_ptr = std::unique_ptr<codec_stream>;
-
 
 class codec
 {
