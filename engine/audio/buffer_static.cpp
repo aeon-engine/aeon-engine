@@ -1,4 +1,4 @@
-#include <audio/buffer.h>
+#include <audio/buffer_static.h>
 #include <audio/source.h>
 #include <audio/codec/audio_codec_wav.h>
 #include <audio/codec/audio_codec_vorbis.h>
@@ -10,12 +10,12 @@ namespace aeon
 namespace audio
 {
 
-buffer::buffer()
+buffer_static::buffer_static()
 {
     al_check(alGenBuffers(1, &buffer_));
 }
 
-buffer::~buffer()
+buffer_static::~buffer_static()
 {
     for (auto source : sources_)
         source->unbind();
@@ -23,7 +23,7 @@ buffer::~buffer()
     al_check(alDeleteBuffers(1, &buffer_));
 }
 
-void buffer::load(std::string filename, sample_format format /*= sample_format::auto_detect*/)
+void buffer_static::load(std::string filename, sample_format format /*= sample_format::auto_detect*/)
 {
     if (format == sample_format::auto_detect)
         format = format_by_file_extention(filename);
@@ -49,7 +49,7 @@ void buffer::load(std::string filename, sample_format format /*= sample_format::
     al_check(alBufferData(buffer_, buffer_format, sample->data_.data(), (ALsizei)sample->data_.size(), sample->sample_rate_));
 }
 
-void buffer::bind_source(aeon::audio::source *source)
+void buffer_static::bind_source(aeon::audio::source *source)
 {
     sources_.push_back(source);
 
@@ -57,7 +57,7 @@ void buffer::bind_source(aeon::audio::source *source)
     al_check(alSourcei(source->get_al_source(), AL_BUFFER, buffer_));
 }
 
-void buffer::unbind_source(aeon::audio::source *source)
+void buffer_static::unbind_source(aeon::audio::source *source)
 {
     // unbind audio buffer
     al_check(alSourcei(source->get_al_source(), AL_BUFFER, 0));
@@ -67,7 +67,7 @@ void buffer::unbind_source(aeon::audio::source *source)
         sources_.end());
 }
 
-void buffer::prepare()
+void buffer_static::prepare()
 {
     // for a normal static buffer there is not much (yet) to be done.
 }

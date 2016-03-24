@@ -1,6 +1,6 @@
 #pragma once
 
-#include <audio/buffer.h>
+#include <audio/buffer_static.h>
 #include <audio/buffer_streaming.h>
 #include <audio/openal/openal_includes.h>
 
