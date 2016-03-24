@@ -20,6 +20,7 @@
 #include <resources/codecs/sound_codec.h>
 #include <resources/wrappers/sound_resource_wrapper.h>
 #include <common/buffer.h>
+#include <audio/audio.h>
 
 namespace aeon
 {
