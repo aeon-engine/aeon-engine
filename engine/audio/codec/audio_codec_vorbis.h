@@ -21,6 +21,8 @@ class codec_vorbis : public codec
 {
 public:
     codec_vorbis();
+    ~codec_vorbis() = default;
+
     /* \note normal file access code should not be in here */
     sample_buffer_ptr decode(std::string filename) override;
     codec_stream_ptr open_stream(std::string filename) override;

@@ -33,6 +33,9 @@ using codec_stream_ptr = std::unique_ptr<codec_stream>;
 class codec
 {
 public:
+    codec() = default;
+    virtual ~codec() = default;
+
     /*! open and decode the whole file */
     virtual sample_buffer_ptr decode(std::string filename) = 0;
 

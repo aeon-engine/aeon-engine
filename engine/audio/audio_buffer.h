@@ -11,6 +11,9 @@ class source;
 class ibuffer
 {
 public:
+    ibuffer() = default;
+    virtual ~ibuffer() = default;
+
     virtual void load(std::string filename, sample_format format = sample_format::auto_detect) = 0;
 
     /* prepare function that is always called before the actual play

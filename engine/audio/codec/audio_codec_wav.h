@@ -16,6 +16,9 @@ class base_buffer;
 class codec_wav : public codec
 {
 public:
+    codec_wav() = default;
+    ~codec_wav() = default;
+
     /* \note normal file access code should not be in here */
     sample_buffer_ptr decode(std::string filename) override;
 

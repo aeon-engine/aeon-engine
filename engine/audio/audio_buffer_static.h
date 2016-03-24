@@ -17,7 +17,7 @@ class buffer_static : public ibuffer
 {
 public:
     buffer_static();
-    ~buffer_static();
+    virtual ~buffer_static() override;
 
     void load(std::string filename, sample_format format = sample_format::auto_detect) override;
     void bind_source(aeon::audio::source *source) override;

@@ -23,7 +23,7 @@ class buffer_streaming : public ibuffer
 {
 public:
     buffer_streaming();
-    ~buffer_streaming();
+    virtual ~buffer_streaming() override;
 
     void load(std::string filename, sample_format format = sample_format::auto_detect) override;
     void bind_source(aeon::audio::source *source) override;
