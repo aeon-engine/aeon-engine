@@ -4,4 +4,4 @@ add_subdirectory(03_sprite_animation)
 add_subdirectory(04_input_handler)
 add_subdirectory(05_multiple_viewports)
 add_subdirectory(06_mesh_loading)
-
+add_subdirectory(06_audio)

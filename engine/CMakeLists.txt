@@ -109,6 +109,7 @@ target_link_libraries(aeon_engine
     openal
     ogg
     vorbis
+    vorbisfile
     freetype
     assimp
     ${OPENGL_LIBRARIES}
