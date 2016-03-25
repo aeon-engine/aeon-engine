@@ -39,14 +39,16 @@ resource_encoding sound_codec::get_codec_type() const
 
 audio::sound_ptr sound_codec::decode(resource_manager & /*parent*/, sound_resource_wrapper_ptr wrapper)
 {
-#if 0
-    // TODO: Add error handling for missing segments in the resource file
-
-    AEON_LOG_DEBUG(logger_) << "Decoding shader resource." << std::endl;
+    AEON_LOG_DEBUG(logger_) << "Decoding sound resource." << std::endl;
 
     common::buffer_u8 input;
     wrapper->read_raw(input);
 
+    aeon::audio::buffer_static_ptr buffer = std::make_shared<aeon::audio::buffer_static>();
+    buffer->load(input);
+    return buffer;
+
+#if 0
     streams::memory_stream stream(std::move(input));
     streams::stream_reader<streams::stream> reader(stream);
 
@@ -94,7 +96,6 @@ audio::sound_ptr sound_codec::decode(resource_manager & /*parent*/, sound_resour
 
     return std::make_shared<shader>(wrapper, vertex_source, fragment_source);
 #endif
-    return nullptr;
 }
 
 } // namespace resources

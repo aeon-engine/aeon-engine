@@ -1,5 +1,7 @@
 #include <audio/audio_source.h>
 #include <audio/audio_source_manager.h>
+#include <audio/audio_buffer_static.h>
+#include <audio/audio_buffer_streaming.h>
 #include <audio/openal/openal_check.h>
 
 namespace aeon
@@ -38,9 +40,9 @@ void source::set_position(glm::vec3 &position)
     al_check(alSource3f(source_, AL_POSITION, position.x, position.y, position.z));
 }
 
-void source::bind(aeon::audio::ibuffer &buffer)
+void source::bind(aeon::audio::buffer_ptr buffer)
 {
-    buffer_ = &buffer;
+    buffer_ = buffer;
 
     /* the actual 'openal' bind between source and buffer occurs inside the
      * buffer bind_source function

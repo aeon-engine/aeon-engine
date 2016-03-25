@@ -21,18 +21,15 @@
 
 namespace aeon
 {
-    namespace audio
-    {
-        class source;
-        using source_ptr = std::shared_ptr<source>;
-        using sound_ptr = source_ptr;
-    } // namespace audio
+namespace audio
+{
+    class buffer;
+    using buffer_ptr = std::shared_ptr<buffer>;
+    using sound_ptr = buffer_ptr;
+} // namespace audio
 
 namespace resources
 {
-
-
-
 class sound_resource_wrapper : public resource_wrapper
 {
 public:

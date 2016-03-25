@@ -54,6 +54,12 @@ void buffer_streaming::load(std::string filename, sample_format format /*= sampl
     }
 }
 
+void buffer_streaming::load(common::buffer_u8 &data, sample_format format /*= sample_format::auto_detect*/)
+{
+    (void)data;
+    (void)format;
+}
+
 void buffer_streaming::bind_source(aeon::audio::source *source)
 {
     source_ = source;

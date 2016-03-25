@@ -1,7 +1,7 @@
 #pragma once
 
-#include <audio/audio_buffer_static.h>
-#include <audio/audio_buffer_streaming.h>
+#include <audio/audio_buffer.h>
+
 #include <audio/openal/openal_includes.h>
 
 #include <memory>
@@ -43,7 +43,7 @@ public:
      * \note In the future we will add support for audio streams, this will
      *       cause a aeon::audio::source to maybe contain multiple buffers.
      */
-    void bind(aeon::audio::ibuffer &buffer);
+    void bind(aeon::audio::buffer_ptr buffer);
 
 
     /*!
@@ -64,11 +64,11 @@ public:
 
 private:
     ALuint source_;
-    aeon::audio::ibuffer *buffer_;
+    aeon::audio::buffer_ptr buffer_;
 };
 
 using source_ptr = std::shared_ptr<source>;
-using sound_ptr = source_ptr;
+
 
 } // namespace audio
 } // namespace aeon

@@ -92,6 +92,13 @@ sample_buffer_ptr codec_wav::decode(std::string filename)
     return result;
 }
 
+aeon::audio::sample_buffer_ptr codec_wav::decode(common::buffer_u8 &data)
+{
+    // don't do crap for now...
+    (void)data;
+    return nullptr;
+}
+
 sample_buffer_ptr codec_wav::create_from_buffer(base_buffer &buffer)
 {
     /* \note totally not safe, maybe from a functional perspective this is safe

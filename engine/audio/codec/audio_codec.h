@@ -1,6 +1,7 @@
 #pragma once
 
 #include <audio/audio_sample_buffer.h>
+#include <common/buffer.h>
 
 namespace aeon
 {
@@ -38,9 +39,11 @@ public:
 
     /*! open and decode the whole file */
     virtual sample_buffer_ptr decode(std::string filename) = 0;
+    virtual sample_buffer_ptr decode(common::buffer_u8 &data) = 0;
 
     /*! open for streaming decode*/
     virtual codec_stream_ptr open_stream(std::string /*filename*/) { return nullptr; };
+    virtual codec_stream_ptr open_stream(common::buffer_u8 & /*data*/) { return nullptr; };
 
     /*! read/fill/decode into a buffer */
     virtual uint64_t read(uint8_t * /*buffer*/, size_t /*buffer_size*/) { return 0; };

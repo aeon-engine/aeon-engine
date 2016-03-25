@@ -21,6 +21,7 @@ public:
 
     /* \note normal file access code should not be in here */
     sample_buffer_ptr decode(std::string filename) override;
+    sample_buffer_ptr decode(common::buffer_u8 &data) override;
 
     void seek(double position) override;
 

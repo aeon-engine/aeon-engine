@@ -5,6 +5,8 @@
 #include <audio/openal/openal_check.h>
 #include <audio/openal/openal_format.h>
 
+
+
 namespace aeon
 {
 namespace audio
@@ -42,6 +44,37 @@ void buffer_static::load(std::string filename, sample_format format /*= sample_f
     if (!sample)
     {
         printf("aeon::audio::buffer unable to decode: '%s'\n", filename.c_str());
+        return;
+    }
+
+    ALenum buffer_format = get_openal_format(sample);
+    al_check(alBufferData(buffer_, buffer_format, sample->data_.data(), (ALsizei)sample->data_.size(), sample->sample_rate_));
+}
+
+void buffer_static::load(common::buffer_u8 &data, sample_format format /*= sample_format::auto_detect*/)
+{
+    uint32_t fourcc_id = 0;
+
+    // HACK!!!!!!, read the first 4 bytes from the data buffer.
+    if (data.size() > 4) fourcc_id = *(uint32_t *)data.data();
+
+    if (format == sample_format::auto_detect)
+        format = format_by_fourcc(fourcc_id);
+
+    // do magic
+    // do something related to formats
+    aeon::audio::codec_ptr codec;
+    if (format == sample_format::wav)
+        codec = std::make_unique<aeon::audio::codec_wav>();
+    else if (format == sample_format::ogg)
+        codec = std::make_unique<aeon::audio::codec_vorbis>();
+    else
+        __debugbreak();
+
+    aeon::audio::sample_buffer_ptr sample = codec->decode(data);
+    if (!sample)
+    {
+        printf("aeon::audio::buffer unable to decode raw buffer\n");
         return;
     }
 
