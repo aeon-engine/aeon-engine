@@ -1,5 +1,5 @@
 /*
- * ROBIN DEGEN; CONFIDENTIAL
+ * ROBIN DEGEN; STEVEN HOVING CONFIDENTIAL
  *
  * 2012 - 2016 Robin Degen & Steven Hoving
  * All Rights Reserved.

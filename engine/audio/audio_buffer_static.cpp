@@ -38,7 +38,10 @@ void buffer_static::load(std::string filename, sample_format format /*= sample_f
     else if (format == sample_format::ogg)
         codec = std::make_unique<aeon::audio::codec_vorbis>();
     else
-        __debugbreak();
+    {
+        printf("aeon::audio::buffer unable to decode: '%s'\n", filename.c_str());
+        return;
+    }
 
     aeon::audio::sample_buffer_ptr sample = codec->decode(filename);
     if (!sample)
@@ -69,7 +72,10 @@ void buffer_static::load(common::buffer_u8 &data, sample_format format /*= sampl
     else if (format == sample_format::ogg)
         codec = std::make_unique<aeon::audio::codec_vorbis>();
     else
-        __debugbreak();
+    {
+        printf("aeon::audio::buffer unable to decode raw buffer\n");
+        return;
+    }
 
     aeon::audio::sample_buffer_ptr sample = codec->decode(data);
     if (!sample)

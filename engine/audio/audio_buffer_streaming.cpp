@@ -44,7 +44,10 @@ void buffer_streaming::load(std::string filename, sample_format format /*= sampl
     else if (format == sample_format::ogg)
         codec_ = std::make_unique<aeon::audio::codec_vorbis>();
     else
-        __debugbreak();
+    {
+        printf("aeon::audio::buffer unable to decode: '%s'\n", filename.c_str());
+        return;
+    }
 
     codec_stream_ = codec_->open_stream(filename);
     if (!codec_stream_)

@@ -173,9 +173,7 @@ public:
 
     void open_and_read()
     {
-        FILE *fp;
-        /* fopen_s is not a Microsoft idea but actually part of C11  */
-        fopen_s(&fp, filename_.c_str(), "rb");
+        FILE *fp = fopen(filename_.c_str(), "rb");
         if (!fp)
         {
             printf("aeon::audio::file_buffer, unable to open file\n");
