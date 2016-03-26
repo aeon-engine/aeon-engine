@@ -1,7 +1,7 @@
 #pragma once
 
 #include <audio/codec/audio_codec.h>
-#include <audio/codec/audio_codec_file.h>
+#include <audio/codec/audio_codec_buffer.h>
 
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h>
