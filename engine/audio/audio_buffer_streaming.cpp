@@ -59,8 +59,28 @@ void buffer_streaming::load(std::string filename, sample_format format /*= sampl
 
 void buffer_streaming::load(common::buffer_u8 &data, sample_format format /*= sample_format::auto_detect*/)
 {
-    (void)data;
-    (void)format;
+    if (format == sample_format::auto_detect)
+        format = sample_format::ogg;
+
+    // do magic
+    // do something related to formats
+
+    if (format == sample_format::wav)
+        codec_ = std::make_unique<aeon::audio::codec_wav>();
+    else if (format == sample_format::ogg)
+        codec_ = std::make_unique<aeon::audio::codec_vorbis>();
+    else
+    {
+        printf("aeon::audio::buffer unable to decode raw buffer\n");
+        return;
+    }
+
+    codec_stream_ = codec_->open_stream(data);
+    if (!codec_stream_)
+    {
+        printf("aeon::audio::buffer unable to stream raw buffer\n");
+        return;
+    }
 }
 
 void buffer_streaming::bind_source(aeon::audio::source *source)

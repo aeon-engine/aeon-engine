@@ -40,6 +40,7 @@ public:
     resource_encoding get_codec_type() const override;
 
     audio::sound_ptr decode(resource_manager &parent, sound_resource_wrapper_ptr wrapper);
+    audio::stream_ptr open_stream(resource_manager &parent, stream_resource_wrapper_ptr wrapper);
 
 private:
     aeon::logger::logger logger_;

@@ -31,6 +31,7 @@ public:
 
 using buffer_ptr = std::shared_ptr<audio::buffer>;
 using sound_ptr = buffer_ptr;
+using stream_ptr = buffer_ptr;
 
 } // namespace audio
 } // namespace aeon

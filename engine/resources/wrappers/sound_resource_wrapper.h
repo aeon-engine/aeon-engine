@@ -26,6 +26,7 @@ namespace audio
     class buffer;
     using buffer_ptr = std::shared_ptr<buffer>;
     using sound_ptr = buffer_ptr;
+    using stream_ptr = buffer_ptr;
 } // namespace audio
 
 namespace resources
@@ -41,6 +42,20 @@ public:
 };
 
 using sound_resource_wrapper_ptr = std::shared_ptr<sound_resource_wrapper>;
+
+
+class stream_resource_wrapper : public resource_wrapper
+{
+public:
+    explicit stream_resource_wrapper(resource_manager &parent, const std::string &path,
+        resource_provider_weak_ptr provider);
+    virtual ~stream_resource_wrapper() = default;
+
+    audio::stream_ptr open();
+};
+
+using stream_resource_wrapper_ptr = std::shared_ptr<stream_resource_wrapper>;
+
 
 } // namespace resources
 } // namespace aeon

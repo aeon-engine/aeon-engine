@@ -47,55 +47,18 @@ audio::sound_ptr sound_codec::decode(resource_manager & /*parent*/, sound_resour
     aeon::audio::buffer_static_ptr buffer = std::make_shared<aeon::audio::buffer_static>();
     buffer->load(input);
     return buffer;
+}
 
-#if 0
-    streams::memory_stream stream(std::move(input));
-    streams::stream_reader<streams::stream> reader(stream);
+aeon::audio::stream_ptr sound_codec::open_stream(resource_manager & /*parent*/, stream_resource_wrapper_ptr wrapper)
+{
+    AEON_LOG_DEBUG(logger_) << "Decoding audio stream resource." << std::endl;
 
-    shader_decode_state state = shader_decode_state::initial;
+    common::buffer_u8 input;
+    wrapper->read_raw(input);
 
-    std::string vertex_source;
-    std::string fragment_source;
-
-    while (!stream.eof())
-    {
-        std::string line = reader.read_line();
-
-        if (line.empty())
-            continue;
-
-        if (line[0] == '[')
-        {
-            if (line.compare(0, 8, "[vertex]") == 0)
-            {
-                state = shader_decode_state::parsing_vertex;
-                continue;
-            }
-
-            if (line.compare(0, 10, "[fragment]") == 0)
-            {
-                state = shader_decode_state::parsing_fragment;
-                continue;
-            }
-
-            AEON_LOG_ERROR(logger_) << "Could not decode shader resource. Unexpected token '['."
-                                       "Must be either '[vertex]' or '[fragment]'."
-                                    << std::endl;
-            throw sound_codec_decode_exception();
-        }
-
-        if (state == shader_decode_state::parsing_vertex)
-        {
-            vertex_source += line + '\n';
-        }
-        else if (state == shader_decode_state::parsing_fragment)
-        {
-            fragment_source += line + '\n';
-        }
-    }
-
-    return std::make_shared<shader>(wrapper, vertex_source, fragment_source);
-#endif
+    aeon::audio::buffer_streaming_ptr buffer = std::make_shared<aeon::audio::buffer_streaming>();
+    buffer->load(input);
+    return buffer;
 }
 
 } // namespace resources

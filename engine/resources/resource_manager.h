@@ -64,6 +64,7 @@ public:
     atlas_resource_wrapper_ptr load_atlas_wrapper(const std::string &path);
     mesh_resource_wrapper_ptr load_mesh_wrapper(const std::string &path);
     sound_resource_wrapper_ptr load_sound_wrapper(const std::string &path);
+    stream_resource_wrapper_ptr load_stream_wrapper(const std::string &path);
 
     platform::platform_interface &get_platform_interface()
     {

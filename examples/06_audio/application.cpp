@@ -37,15 +37,20 @@ application::application()
 void application::main(int, char *[])
 {
     // Load resources
-    aeon::audio::sound_ptr example_sound_mono = resource_manager_.load_sound("/resources/audio/16_44100_mono.ogg");
+    aeon::audio::sound_ptr example_sound_mono = resource_manager_.load_audio_sample("/resources/audio/16_44100_mono.ogg");
     aeon::audio::source_ptr source_mono = audio_device_.get_source();
     source_mono->bind(example_sound_mono);
     source_mono->play();
 
-    aeon::audio::sound_ptr example_sound_stereo = resource_manager_.load_sound("/resources/audio/16_22050_stereo.ogg");
+    aeon::audio::sound_ptr example_sound_stereo = resource_manager_.load_audio_sample("/resources/audio/16_22050_stereo.ogg");
     aeon::audio::source_ptr source_stereo = audio_device_.get_source();
     source_stereo->bind(example_sound_stereo);
     source_stereo->play();
+
+    aeon::audio::stream_ptr example_stream_stereo = resource_manager_.load_audio_stream("/resources/audio/stream/16_44100_stereo.ogg");
+    aeon::audio::source_ptr source_stream = audio_device_.get_source();
+    source_stream->bind(example_stream_stereo);
+    source_stream->play();
 
     // Set up scene
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();

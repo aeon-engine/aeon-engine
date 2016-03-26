@@ -35,5 +35,19 @@ audio::sound_ptr sound_resource_wrapper::open()
     return codec.decode(__get_parent(), std::dynamic_pointer_cast<sound_resource_wrapper>(shared_from_this()));
 }
 
+stream_resource_wrapper::stream_resource_wrapper(resource_manager &parent, const std::string &path,
+                                                 resource_provider_weak_ptr provider)
+    : resource_wrapper(parent, path, provider)
+{
+    if (get_type() != resource_type::sound)
+        throw resource_type_exception();
+}
+
+audio::stream_ptr stream_resource_wrapper::open()
+{
+    sound_codec &codec = __get_parent().get_codec_manager().get_sound_codec(get_encoding());
+    return codec.open_stream(__get_parent(), std::dynamic_pointer_cast<stream_resource_wrapper>(shared_from_this()));
+}
+
 } // namespace resources
 } // namespace aeon
