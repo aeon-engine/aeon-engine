@@ -5,8 +5,6 @@
 #include <audio/openal/openal_check.h>
 #include <audio/openal/openal_format.h>
 
-
-
 namespace aeon
 {
 namespace audio
@@ -19,8 +17,13 @@ buffer_static::buffer_static()
 
 buffer_static::~buffer_static()
 {
-    for (auto source : sources_)
+    /* \todo this unbind loop is a bit weird, need to redesign this */
+    for (auto itr = sources_.begin(); itr != sources_.end();)
+    {
+        auto source = *itr;
+        itr++;
         source->unbind();
+    }
 
     al_check(alDeleteBuffers(1, &buffer_));
 }
