@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <list>
 
 namespace aeon
 {
@@ -28,7 +29,7 @@ public:
 //private:
     ALuint buffer_;
 private:
-    std::vector<aeon::audio::source *> sources_;
+    std::list<aeon::audio::source *> sources_;
 };
 
 using buffer_static_ptr = std::shared_ptr<buffer_static>;
