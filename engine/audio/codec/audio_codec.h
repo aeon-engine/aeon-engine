@@ -2,6 +2,7 @@
 
 #include <audio/audio_sample_buffer.h>
 #include <common/buffer.h>
+#include <string>
 
 namespace aeon
 {
