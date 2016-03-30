@@ -23,7 +23,7 @@ namespace aeon
 namespace scene
 {
 
-sprite_batch::sprite_batch(scene_manager *scene_manager, resources::atlas_ptr atlas,
+sprite_batch::sprite_batch(scene_manager *scene_manager, gfx::atlas_ptr atlas,
                            std::uint16_t sprites_per_buffer /*= default_sprites_per_buffer*/)
     : scene_object(render_layer::overlay, scene_object_type::renderable, scene_manager)
     , sprite_vertex_data_(sprites_per_buffer * sizeof(gfx::sprite_vertex))

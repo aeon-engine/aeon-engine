@@ -26,14 +26,14 @@ namespace gfx
 namespace gl
 {
 
-texture_manager::texture_manager()
+gfx_gl_texture_manager::gfx_gl_texture_manager()
     : logger_(common::logger::get_singleton(), "Gfx::GL::TextureManager")
 {
 }
 
-texture_ptr texture_manager::__load(resources::image_ptr image)
+texture_ptr gfx_gl_texture_manager::__load(resources::image_ptr image)
 {
-    texture_gl_ptr t = std::make_shared<gl::texture>(image);
+    gfx_gl_texture_ptr t = std::make_shared<gl::gfx_gl_texture>(image);
 
     GLuint handle = 0;
     glGenTextures(1, &handle);
@@ -63,7 +63,7 @@ texture_ptr texture_manager::__load(resources::image_ptr image)
     return t;
 }
 
-GLint texture_manager::__image_pixelformat_to_gl(resources::image::pixel_format format) const
+GLint gfx_gl_texture_manager::__image_pixelformat_to_gl(resources::image::pixel_format format) const
 {
     switch (format)
     {

@@ -25,17 +25,17 @@ namespace gfx
 namespace gl
 {
 
-class device;
-class material_manager : public gfx::material_manager
+class gfx_gl_device;
+class gfx_gl_material_manager : public gfx::material_manager
 {
 public:
-    explicit material_manager(device &dev);
-    virtual ~material_manager() = default;
+    explicit gfx_gl_material_manager(gfx_gl_device &dev);
+    virtual ~gfx_gl_material_manager() = default;
 
 private:
     material_ptr __load(resources::material_ptr material) override;
 
-    device &device_;
+    gfx_gl_device &device_;
 };
 
 } // namespace gl

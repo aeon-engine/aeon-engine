@@ -43,11 +43,11 @@ struct vertex_attribute
 
 using vertex_attributes = std::vector<vertex_attribute>;
 
-class vertex_array_object
+class gfx_gl_vertex_array_object
 {
 public:
-    explicit vertex_array_object(const vertex_attributes &attributes);
-    ~vertex_array_object();
+    explicit gfx_gl_vertex_array_object(const vertex_attributes &attributes);
+    ~gfx_gl_vertex_array_object();
 
     void bind() const;
 
@@ -56,7 +56,7 @@ private:
     GLuint handle_;
 };
 
-using vertex_array_object_ptr = std::unique_ptr<vertex_array_object>;
+using vertex_array_object_ptr = std::unique_ptr<gfx_gl_vertex_array_object>;
 
 } // namespace gl
 } // namespace gfx

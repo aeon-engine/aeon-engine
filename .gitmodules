@@ -46,3 +46,7 @@
 	path = dep/freetype2
 	url = ../../libraries/freetype2.git
 	branch = submodule
+[submodule "dep/std_asio"]
+	path = dep/std_asio
+	url = ../../libraries/std_asio.git
+	branch = submodule

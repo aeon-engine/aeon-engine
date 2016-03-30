@@ -17,7 +17,7 @@
 
 #include <resources/resource.h>
 #include <resources/exceptions.h>
-#include <gfx/gfx_material.h>
+#include <resources/material.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
 #include <common/buffer.h>
 #include <common/logger.h>
@@ -25,6 +25,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <glm/vec2.hpp>
 
 namespace aeon
 {
@@ -59,21 +60,15 @@ public:
     /*!
      * Constructor used by the atlas codec to load an atlas
      */
-    explicit atlas(resource_wrapper_ptr wrapper, gfx::material_ptr material, const atlas_regions &regions,
+    explicit atlas(resource_wrapper_ptr wrapper, resources::material_ptr material, const atlas_regions &regions,
                    const atlas_region_names &names);
-
-    /*!
-     * Constructor for manual auto-generated atlasses. These can not be referenced by name, but only by index.
-     * Indexes are generated left to right, top to bottom based on the given sprite size.
-     */
-    explicit atlas(gfx::material_ptr material, glm::vec2 sprite_size);
 
     virtual ~atlas();
 
-    atlas_region get_region_by_index(int index);
-    atlas_region get_region_by_name(const std::string &name);
+    resources::material_ptr get_material() const;
 
-    gfx::material_ptr get_material() const;
+    resources::atlas_regions get_regions() const;
+    resources::atlas_region_names get_region_names() const;
 
     atlas_resource_wrapper_ptr get_atlas_resource_wrapper() const
     {
@@ -81,13 +76,12 @@ public:
     }
 
 private:
-    void __calculate_atlas_regions(glm::vec2 sprite_size);
-
     aeon::logger::logger logger_;
 
-    atlas_regions regions_;
-    atlas_region_names names_;
-    gfx::material_ptr material_;
+    resources::atlas_regions regions_;
+    resources::atlas_region_names names_;
+
+    resources::material_ptr material_;
 };
 
 using atlas_ptr = std::shared_ptr<atlas>;

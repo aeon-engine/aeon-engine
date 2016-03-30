@@ -21,7 +21,7 @@ namespace aeon
 namespace scene
 {
 
-animated_sprite::animated_sprite(scene_manager *scene_manager, sprite_batch_ptr batch, resources::atlas_ptr atlas,
+animated_sprite::animated_sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::atlas_ptr atlas,
                                  int zorder, const sprite_animation_settings &settings)
     : sprite(scene_manager, batch, atlas->get_region_by_index(0), settings.size_, zorder)
     , atlas_(atlas)
@@ -64,7 +64,7 @@ void animated_sprite::update(float dt)
         frame_time_ -= settings_.speed_;
     }
 
-    if (current_frame_index_ >= sequence_.size())
+    if (static_cast<std::size_t>(current_frame_index_) >= sequence_.size())
     {
         if (settings_.repeat_ == animation_repeat::once)
             running_ = false;

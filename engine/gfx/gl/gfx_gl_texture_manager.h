@@ -27,11 +27,11 @@ namespace gfx
 namespace gl
 {
 
-class texture_manager : public gfx::texture_manager
+class gfx_gl_texture_manager : public gfx::texture_manager
 {
 public:
-    texture_manager();
-    virtual ~texture_manager() = default;
+    gfx_gl_texture_manager();
+    virtual ~gfx_gl_texture_manager() = default;
 
 private:
     texture_ptr __load(resources::image_ptr image) override;

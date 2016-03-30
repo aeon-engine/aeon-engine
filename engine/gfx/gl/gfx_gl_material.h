@@ -27,25 +27,25 @@ namespace gfx
 namespace gl
 {
 
-class material : public gfx::material
+class gfx_gl_material : public gfx::material
 {
-    friend class material_manager;
+    friend class gfx_gl_material_manager;
 
     void bind() override;
 
 public:
-    material() = default;
-    ~material() = default;
+    gfx_gl_material() = default;
+    ~gfx_gl_material() = default;
 
     gfx::shader *get_shader() const override;
     gfx::texture *get_texture() const override;
 
 protected:
     gl::shader_gl_ptr shader_;
-    gl::texture_gl_ptr texture_;
+    gl::gfx_gl_texture_ptr texture_;
 };
 
-using material_gl_ptr = std::shared_ptr<material>;
+using material_gl_ptr = std::shared_ptr<gfx_gl_material>;
 
 } // namespace gl
 } // namespace gfx

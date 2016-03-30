@@ -23,7 +23,7 @@ namespace gfx
 namespace gl
 {
 
-vertex_array_object::vertex_array_object(const vertex_attributes &attributes)
+gfx_gl_vertex_array_object::gfx_gl_vertex_array_object(const vertex_attributes &attributes)
     : logger_(common::logger::get_singleton(), "Gfx::GL::VertexArrayObject")
     , handle_(0)
 {
@@ -49,14 +49,14 @@ vertex_array_object::vertex_array_object(const vertex_attributes &attributes)
     }
 }
 
-vertex_array_object::~vertex_array_object()
+gfx_gl_vertex_array_object::~gfx_gl_vertex_array_object()
 {
     AEON_LOG_TRACE(logger_) << "Deleting Vertex Array Object (GL handle: " << handle_ << ")." << std::endl;
     glDeleteVertexArrays(1, &handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-void vertex_array_object::bind() const
+void gfx_gl_vertex_array_object::bind() const
 {
     glBindVertexArray(handle_);
     AEON_CHECK_GL_ERROR();

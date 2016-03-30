@@ -15,42 +15,45 @@
 
 #pragma once
 
-#include <gfx/gfx_buffer.h>
+#include <common/cached_object.h>
 #include <common/exception.h>
-#include <common/logger.h>
-#include <GL/glew.h>
+#include <resources/atlas.h>
+#include <gfx/gfx_material.h>
 #include <memory>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
-{
 
-DEFINE_EXCEPTION_OBJECT(gfx_opengl_buffer_exception, aeon::common::exception, "GL Buffer error");
+DEFINE_EXCEPTION_OBJECT(atlas_exception, aeon::common::exception, "Generic Atlas exception.");
 
-class gfx_gl_buffer : public gfx::buffer
+class atlas : public common::cached_object
 {
+    friend class gfx_atlas_manager;
+
 public:
-    explicit gfx_gl_buffer(buffer_type type);
-    virtual ~gfx_gl_buffer();
+    atlas();
+    explicit atlas(gfx::material_ptr material, glm::vec2 sprite_size);
+    virtual ~atlas() = default;
 
-    void set_data(int size, const void *data, buffer_usage usage) override;
+    resources::atlas_region get_region_by_index(int index);
+    resources::atlas_region get_region_by_name(const std::string &name);
 
-    void bind() override;
+    gfx::material_ptr get_material() const;
 
 private:
-    GLenum __buffer_type_as_gl_enum() const;
-    GLenum __buffer_usage_as_gl_enum(buffer_usage usage) const;
+    void __calculate_atlas_regions(glm::vec2 sprite_size);
 
     aeon::logger::logger logger_;
 
-    GLuint handle_;
+    resources::atlas_regions regions_;
+    resources::atlas_region_names names_;
+
+    gfx::material_ptr material_;
 };
 
-using buffer_ptr = std::shared_ptr<gfx_gl_buffer>;
+using atlas_ptr = std::shared_ptr<atlas>;
 
-} // namespace gl
 } // namespace gfx
 } // namespace aeon

@@ -36,7 +36,7 @@ resource_encoding atlas_codec::get_codec_type() const
     return resource_encoding::atlas;
 }
 
-atlas_ptr atlas_codec::decode(resource_manager &parent, gfx::device &device, atlas_resource_wrapper_ptr wrapper)
+atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_ptr wrapper)
 {
     AEON_LOG_DEBUG(logger_) << "Decoding atlas resource." << std::endl;
 
@@ -81,9 +81,7 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, gfx::device &device, atl
 
     AEON_LOG_DEBUG(logger_) << "Found " << regions.size() << " regions in atlas resource." << std::endl;
 
-    gfx::material_ptr gfx_mat = device.get_material_manager().load(material_res);
-
-    return std::make_shared<resources::atlas>(wrapper, gfx_mat, regions, names);
+    return std::make_shared<resources::atlas>(wrapper, material_res, regions, names);
 }
 
 atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &str) const

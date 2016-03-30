@@ -15,45 +15,29 @@
 
 #pragma once
 
-#include <GL/glew.h>
-#include <gfx/gfx_shader.h>
+#include <gfx/gfx_resource_manager.h>
+#include <resources/atlas.h>
+#include <gfx/gfx_atlas.h>
 #include <common/logger.h>
-#include <memory>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
-{
 
-class gfx_gl_shader : public gfx::shader
+class device;
+class gfx_atlas_manager : public gfx::resource_manager<gfx::atlas, resources::atlas>
 {
-    friend class gfx_gl_shader_manager;
-
 public:
-    gfx_gl_shader();
-    ~gfx_gl_shader() override;
-
-    void bind() const;
-
-    void set_projection_matrix(const glm::mat4 &matrix) override;
-    void set_model_matrix(const glm::mat4 &matrix) override;
-    void set_view_matrix(const glm::mat4 &matrix) override;
+    gfx_atlas_manager(device &dev);
+    virtual ~gfx_atlas_manager() = default;
 
 private:
+    atlas_ptr __load(resources::atlas_ptr atlas_resource) override;
+
     aeon::logger::logger logger_;
-
-    GLuint handle_;
-
-    GLint projection_matrix_handle_;
-    GLint model_matrix_handle_;
-    GLint view_matrix_handle_;
-    GLint texture0_handle_;
+    device &device_;
 };
 
-using shader_gl_ptr = std::shared_ptr<gl::gfx_gl_shader>;
-
-} // namespace gl
 } // namespace gfx
 } // namespace aeon

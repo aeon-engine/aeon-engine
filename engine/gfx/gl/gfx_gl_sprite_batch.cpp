@@ -25,7 +25,7 @@ namespace gfx
 namespace gl
 {
 
-sprite_batch::sprite_batch(device *device, material_ptr material, std::uint16_t sprites_per_buffer)
+gfx_gl_sprite_batch::gfx_gl_sprite_batch(gfx_gl_device *device, material_ptr material, std::uint16_t sprites_per_buffer)
     : gfx::sprite_batch(material, sprites_per_buffer)
     , logger_(common::logger::get_singleton(), "Gfx::GL::SpriteBatch")
     , sprite_count_(0)
@@ -39,7 +39,7 @@ sprite_batch::sprite_batch(device *device, material_ptr material, std::uint16_t 
     __create_and_setup_vao();
 }
 
-void sprite_batch::upload_sprite_buffer(const sprite_vertex *sprite_vertex_data, int count)
+void gfx_gl_sprite_batch::upload_sprite_buffer(const sprite_vertex *sprite_vertex_data, int count)
 {
     if (count > sprites_per_buffer_)
     {
@@ -54,7 +54,7 @@ void sprite_batch::upload_sprite_buffer(const sprite_vertex *sprite_vertex_data,
     sprite_count_ = count;
 }
 
-void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model)
+void gfx_gl_sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model)
 {
     if (sprite_count_ == 0)
         return;
@@ -75,7 +75,7 @@ void sprite_batch::render(const glm::mat4x4 &projection, const glm::mat4x4 &view
     AEON_CHECK_GL_ERROR();
 }
 
-void sprite_batch::__setup_index_buffer() const
+void gfx_gl_sprite_batch::__setup_index_buffer() const
 {
     std::vector<uint16_t> index_buffer_data(sprites_per_buffer_ * indices_per_sprite);
     uint16_t *index_buffer_data_ptr = index_buffer_data.data();
@@ -96,7 +96,7 @@ void sprite_batch::__setup_index_buffer() const
     index_buffer_->set_data(buffer_size, index_buffer_data.data(), gfx::buffer_usage::static_usage);
 }
 
-void sprite_batch::__create_and_setup_vao()
+void gfx_gl_sprite_batch::__create_and_setup_vao()
 {
     vertex_attributes attributes = {
         vertex_attribute{2, sizeof(sprite_vertex), 0},  vertex_attribute{2, sizeof(sprite_vertex), 8},
@@ -105,7 +105,7 @@ void sprite_batch::__create_and_setup_vao()
         vertex_attribute{4, sizeof(sprite_vertex), 80},
     };
 
-    vao_ = std::make_unique<vertex_array_object>(attributes);
+    vao_ = std::make_unique<gfx_gl_vertex_array_object>(attributes);
 }
 
 } // namespace gl

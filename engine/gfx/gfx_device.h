@@ -16,6 +16,7 @@
 #pragma once
 
 #include <gfx/gfx_resource_manager.h>
+#include <gfx/gfx_atlas_manager.h>
 #include <gfx/gfx_buffer_manager.h>
 #include <gfx/gfx_sprite_batch.h>
 #include <common/types/color.h>
@@ -68,6 +69,11 @@ public:
         return *buffer_manager_;
     }
 
+    gfx_atlas_manager &get_atlas_manager()
+    {
+        return *atlas_manager_;
+    }
+
 protected:
     virtual void __initialize_impl() = 0;
 
@@ -76,6 +82,7 @@ protected:
     std::unique_ptr<shader_manager> shader_manager_;
     std::unique_ptr<material_manager> material_manager_;
     std::unique_ptr<buffer_manager> buffer_manager_;
+    std::unique_ptr<gfx_atlas_manager> atlas_manager_;
 };
 
 } // namespace gfx

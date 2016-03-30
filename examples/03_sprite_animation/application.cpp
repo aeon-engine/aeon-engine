@@ -42,8 +42,8 @@ void application::main(int, char *[])
 {
     // Load resources
     aeon::gfx::material_ptr animation_material =
-        resource_manager_.load_material("/resources/materials/2d_character.amf");
-    aeon::resources::atlas_ptr atlas = std::make_shared<aeon::resources::atlas>(animation_material, glm::vec2(32, 32));
+        get_asset_manager().load_material("/resources/materials/2d_character.amf");
+    aeon::gfx::atlas_ptr atlas = get_asset_manager().create_atlas(animation_material, glm::vec2(32, 32));
 
     // Set up scene
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();

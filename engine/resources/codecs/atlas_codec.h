@@ -39,7 +39,7 @@ public:
 
     resource_encoding get_codec_type() const override;
 
-    atlas_ptr decode(resource_manager &parent, gfx::device &device, atlas_resource_wrapper_ptr wrapper);
+    atlas_ptr decode(resource_manager &parent, atlas_resource_wrapper_ptr wrapper);
 
 private:
     struct atlas_data

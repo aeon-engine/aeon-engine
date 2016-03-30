@@ -31,7 +31,7 @@ using selected_platform_interface = aeon::platform::rpi::platform_interface;
 
 #ifdef AEON_GFX_GL
 #include <gfx/gl/gfx_gl_device.h>
-using selected_gfx_device = aeon::gfx::gl::device;
+using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
 #endif // AEON_GFX_GL
 
 #ifdef AEON_GFX_GLES2

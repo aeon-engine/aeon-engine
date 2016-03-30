@@ -13,36 +13,29 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <gfx/gfx_texture.h>
-#include <common/logger.h>
-#include <GL/glew.h>
+#include <gfx/gfx_atlas_manager.h>
+#include <gfx/gfx_device.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace gl
+
+gfx_atlas_manager::gfx_atlas_manager(device &dev)
+    : logger_(common::logger::get_singleton(), "Gfx::AtlasManager")
+    , device_(dev)
 {
+}
 
-class gfx_gl_texture : public gfx::texture
+atlas_ptr gfx_atlas_manager::__load(resources::atlas_ptr atlas_resource)
 {
-    friend class gfx_gl_texture_manager;
+    material_manager &material_manager = device_.get_material_manager();
+    atlas_ptr atlas = std::make_shared<gfx::atlas>();
+    atlas->material_ = material_manager.load(atlas_resource->get_material());
+    atlas->regions_ = atlas_resource->get_regions();
+    atlas->names_ = atlas_resource->get_region_names();
+    return atlas;
+}
 
-public:
-    explicit gfx_gl_texture(resources::image_ptr image);
-    ~gfx_gl_texture() override;
-
-    void bind() const;
-
-private:
-    aeon::logger::logger logger_;
-    GLuint handle_;
-};
-
-using gfx_gl_texture_ptr = std::shared_ptr<gl::gfx_gl_texture>;
-
-} // namespace gl
 } // namespace gfx
 } // namespace aeon

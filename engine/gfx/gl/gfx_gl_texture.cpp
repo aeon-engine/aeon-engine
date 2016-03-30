@@ -23,21 +23,21 @@ namespace gfx
 namespace gl
 {
 
-texture::texture(resources::image_ptr image)
+gfx_gl_texture::gfx_gl_texture(resources::image_ptr image)
     : gfx::texture(image)
     , logger_(common::logger::get_singleton(), "Gfx::GL::Texture")
     , handle_(0)
 {
 }
 
-texture::~texture()
+gfx_gl_texture::~gfx_gl_texture()
 {
     AEON_LOG_TRACE(logger_) << "Deleting Texture (GL handle: " << handle_ << ")." << std::endl;
     glDeleteTextures(1, &handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-void texture::bind() const
+void gfx_gl_texture::bind() const
 {
     glActiveTexture(GL_TEXTURE0);
     AEON_CHECK_GL_ERROR();

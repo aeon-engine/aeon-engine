@@ -10,6 +10,7 @@ add_source_path(AEON_ENGINE_SOURCES resources)
 add_source_path(AEON_ENGINE_SOURCES resources/codecs)
 add_source_path(AEON_ENGINE_SOURCES resources/providers)
 add_source_path(AEON_ENGINE_SOURCES resources/wrappers)
+add_source_path(AEON_ENGINE_SOURCES assets)
 
 ################################################################################
 

@@ -31,11 +31,11 @@ DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_exception, aeon::common::exception, "O
 DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_compile_exception, gfx_opengl_shader_exception,
                         "OpenGL shader compilation exception.");
 
-class shader_manager : public gfx::shader_manager
+class gfx_gl_shader_manager : public gfx::shader_manager
 {
 public:
-    shader_manager();
-    virtual ~shader_manager() = default;
+    gfx_gl_shader_manager();
+    virtual ~gfx_gl_shader_manager() = default;
 
 private:
     shader_ptr __load(resources::shader_ptr shader) override;

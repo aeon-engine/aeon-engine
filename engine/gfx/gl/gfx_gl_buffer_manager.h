@@ -24,11 +24,11 @@ namespace gfx
 namespace gl
 {
 
-class buffer_manager : public gfx::buffer_manager
+class gfx_gl_buffer_manager : public gfx::buffer_manager
 {
 public:
-    buffer_manager() = default;
-    virtual ~buffer_manager() = default;
+    gfx_gl_buffer_manager() = default;
+    virtual ~gfx_gl_buffer_manager() = default;
 
 private:
     buffer_ptr __create_buffer(buffer_type type) override;

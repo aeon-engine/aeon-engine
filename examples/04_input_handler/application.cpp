@@ -50,11 +50,11 @@ application::application()
 void application::main(int, char *[])
 {
     // Load resources
-    aeon::gfx::material_ptr ships_material = resource_manager_.load_material("/resources/materials/ships.amf");
+    aeon::gfx::material_ptr ships_material = get_asset_manager().load_material("/resources/materials/ships.amf");
 
     // A sprite batch requires an atlas, we can either load one from an atlas file, or just generate one if
     // all the sprites have the same size and are properly aligned within the file.
-    aeon::resources::atlas_ptr atlas = std::make_shared<aeon::resources::atlas>(ships_material, glm::vec2(64, 64));
+    aeon::gfx::atlas_ptr atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
 
     // Set up scene
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();

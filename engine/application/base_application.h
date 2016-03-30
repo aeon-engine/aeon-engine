@@ -15,6 +15,7 @@
 
 #pragma once
 #include <resources/resource_manager.h>
+#include <assets/asset_manager.h>
 #include <platform/platform_window.h>
 #include <common/logger.h>
 #include <buildinfo.h>
@@ -29,7 +30,8 @@ public:
     explicit base_application(int width, int height, const std::string &window_title)
         : logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
-        , resource_manager_(platform_, device_)
+        , resource_manager_(platform_)
+        , asset_manager_(resource_manager_, device_)
         , scene_manager_(device_)
         , window_(nullptr)
     {
@@ -61,6 +63,11 @@ public:
         return &resource_manager_;
     }
 
+    assets::asset_manager &get_asset_manager()
+    {
+        return asset_manager_;
+    }
+
     platform_interface_t *get_platform_interface()
     {
         return &platform_;
@@ -79,6 +86,7 @@ protected:
     device_t device_;
 
     resources::resource_manager resource_manager_;
+    assets::asset_manager asset_manager_;
     scene_manager_t scene_manager_;
 
     platform::platform_window_ptr window_;

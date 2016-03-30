@@ -21,6 +21,7 @@
 #include <common/buffer.h>
 #include <common/logger.h>
 #include <memory>
+#include <glm/vec2.hpp>
 
 namespace aeon
 {
@@ -63,6 +64,11 @@ public:
     unsigned int get_height() const
     {
         return height_;
+    }
+
+    glm::vec2 get_size() const
+    {
+        return glm::vec2(width_, height_);
     }
 
     pixel_format get_pixelformat() const

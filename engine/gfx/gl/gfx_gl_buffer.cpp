@@ -23,7 +23,7 @@ namespace gfx
 namespace gl
 {
 
-buffer::buffer(buffer_type type)
+gfx_gl_buffer::gfx_gl_buffer(buffer_type type)
     : gfx::buffer(type)
     , logger_(common::logger::get_singleton(), "Gfx::GL::Buffer")
     , handle_(0)
@@ -34,14 +34,14 @@ buffer::buffer(buffer_type type)
     AEON_LOG_TRACE(logger_) << "Created buffer (GL handle: " << handle_ << ")." << std::endl;
 }
 
-buffer::~buffer()
+gfx_gl_buffer::~gfx_gl_buffer()
 {
     AEON_LOG_TRACE(logger_) << "Deleting buffer (GL handle: " << handle_ << ")." << std::endl;
     glDeleteBuffers(1, &handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-void buffer::set_data(int size, const void *data, buffer_usage usage)
+void gfx_gl_buffer::set_data(int size, const void *data, buffer_usage usage)
 {
     GLenum gl_type = __buffer_type_as_gl_enum();
     GLenum gl_usage = __buffer_usage_as_gl_enum(usage);
@@ -53,13 +53,13 @@ void buffer::set_data(int size, const void *data, buffer_usage usage)
     AEON_CHECK_GL_ERROR();
 }
 
-void buffer::bind()
+void gfx_gl_buffer::bind()
 {
     glBindBuffer(__buffer_type_as_gl_enum(), handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-GLenum buffer::__buffer_type_as_gl_enum() const
+GLenum gfx_gl_buffer::__buffer_type_as_gl_enum() const
 {
     switch (type_)
     {
@@ -75,7 +75,7 @@ GLenum buffer::__buffer_type_as_gl_enum() const
     }
 }
 
-GLenum buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const
+GLenum gfx_gl_buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const
 {
     switch (usage)
     {

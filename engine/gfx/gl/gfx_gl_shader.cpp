@@ -24,7 +24,7 @@ namespace gfx
 namespace gl
 {
 
-shader::shader()
+gfx_gl_shader::gfx_gl_shader()
     : logger_(common::logger::get_singleton(), "Gfx::GL::Shader")
     , handle_(0)
     , projection_matrix_handle_(0)
@@ -34,32 +34,32 @@ shader::shader()
 {
 }
 
-shader::~shader()
+gfx_gl_shader::~gfx_gl_shader()
 {
     AEON_LOG_TRACE(logger_) << "Deleting Program (GL handle: " << handle_ << ")." << std::endl;
     glDeleteProgram(handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-void shader::bind() const
+void gfx_gl_shader::bind() const
 {
     glUseProgram(handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-void shader::set_projection_matrix(const glm::mat4 &matrix)
+void gfx_gl_shader::set_projection_matrix(const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(projection_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
     AEON_CHECK_GL_ERROR();
 }
 
-void shader::set_model_matrix(const glm::mat4 &matrix)
+void gfx_gl_shader::set_model_matrix(const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(model_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
     AEON_CHECK_GL_ERROR();
 }
 
-void shader::set_view_matrix(const glm::mat4 &matrix)
+void gfx_gl_shader::set_view_matrix(const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(view_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
     AEON_CHECK_GL_ERROR();

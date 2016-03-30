@@ -30,12 +30,12 @@ namespace gfx
 namespace gl
 {
 
-device::device()
+gfx_gl_device::gfx_gl_device()
     : logger_(common::logger::get_singleton(), "Gfx::GL::Device")
 {
 }
 
-void device::__initialize_impl()
+void gfx_gl_device::__initialize_impl()
 {
     AEON_LOG_MESSAGE(logger_) << "Initializing device." << std::endl;
 
@@ -52,20 +52,20 @@ void device::__initialize_impl()
     initialized_ = true;
 }
 
-void device::set_clear_color(const common::types::color &c)
+void gfx_gl_device::set_clear_color(const common::types::color &c)
 {
     glClearColor(c.r, c.g, c.b, c.a);
     AEON_CHECK_GL_ERROR();
 }
 
-void device::set_viewport(scene::viewport *vp)
+void gfx_gl_device::set_viewport(scene::viewport *vp)
 {
     common::types::rectangle<int> rect = common::types::rectangle<int>(vp->get_rectangle());
     glViewport(rect.x, rect.y, rect.width, rect.height);
     AEON_CHECK_GL_ERROR();
 }
 
-void device::clear_buffer(int buffer_flag)
+void gfx_gl_device::clear_buffer(int buffer_flag)
 {
     GLenum buffers = 0;
 
@@ -79,12 +79,12 @@ void device::clear_buffer(int buffer_flag)
     AEON_CHECK_GL_ERROR();
 }
 
-sprite_batch_ptr device::create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer)
+sprite_batch_ptr gfx_gl_device::create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer)
 {
-    return std::make_unique<sprite_batch>(this, material, sprites_per_buffer);
+    return std::make_unique<gfx_gl_sprite_batch>(this, material, sprites_per_buffer);
 }
 
-void device::__initialize_glew() const
+void gfx_gl_device::__initialize_glew() const
 {
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK)
@@ -97,7 +97,7 @@ void device::__initialize_glew() const
     __report_and_squash_glew_errors();
 }
 
-void device::__report_and_squash_glew_errors() const
+void gfx_gl_device::__report_and_squash_glew_errors() const
 {
     int count = 0;
     while (glGetError() != GL_NO_ERROR)
@@ -113,15 +113,16 @@ void device::__report_and_squash_glew_errors() const
         AEON_LOG_WARNING(logger_) << "glewInit reported " << count << " OpenGL error(s)." << std::endl;
 }
 
-void device::__create_managers()
+void gfx_gl_device::__create_managers()
 {
-    texture_manager_ = std::make_unique<gl::texture_manager>();
-    shader_manager_ = std::make_unique<gl::shader_manager>();
-    material_manager_ = std::make_unique<gl::material_manager>(*this);
-    buffer_manager_ = std::make_unique<gl::buffer_manager>();
+    texture_manager_ = std::make_unique<gl::gfx_gl_texture_manager>();
+    shader_manager_ = std::make_unique<gl::gfx_gl_shader_manager>();
+    material_manager_ = std::make_unique<gl::gfx_gl_material_manager>(*this);
+    buffer_manager_ = std::make_unique<gl::gfx_gl_buffer_manager>();
+    atlas_manager_ = std::make_unique<gfx_atlas_manager>(*this);
 }
 
-void device::__setup_opengl() const
+void gfx_gl_device::__setup_opengl() const
 {
     glEnable(GL_BLEND);
     AEON_CHECK_GL_ERROR();

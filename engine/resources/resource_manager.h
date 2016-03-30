@@ -23,10 +23,6 @@
 #include <aeon/utility.h>
 #include <resources/codecs/codec_manager.h>
 #include <platform/platform_interface.h>
-#include <gfx/gfx_device.h>
-#include <gfx/gfx_shader.h>
-#include <gfx/gfx_texture.h>
-#include <gfx/gfx_material.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
 #include <resources/atlas.h>
 #include <common/logger.h>
@@ -45,16 +41,11 @@ class resource_manager
     using mount_points = std::map<std::string, resource_provider_ptr>;
 
 public:
-    explicit resource_manager(platform::platform_interface &platform, gfx::device &device);
+    explicit resource_manager(platform::platform_interface &platform);
     ~resource_manager();
 
     void mount(resource_provider_ptr provider, const std::string &mountpoint = "/");
     void unmount(const std::string &mountpoint);
-
-    gfx::texture_ptr load_texture(const std::string &path);
-    gfx::shader_ptr load_shader(const std::string &path);
-    gfx::material_ptr load_material(const std::string &path);
-    atlas_ptr load_atlas(const std::string &path);
 
     image_resource_wrapper_ptr load_image_wrapper(const std::string &path);
     material_resource_wrapper_ptr load_material_wrapper(const std::string &path);
@@ -76,7 +67,6 @@ private:
 
     aeon::logger::logger logger_;
     platform::platform_interface &platform_;
-    gfx::device &device_;
     mount_points mount_points_;
     codec_manager codec_manager_;
 };

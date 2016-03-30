@@ -22,18 +22,18 @@ namespace gfx
 namespace gl
 {
 
-void material::bind()
+void gfx_gl_material::bind()
 {
     shader_->bind();
     texture_->bind();
 }
 
-gfx::shader *material::get_shader() const
+gfx::shader *gfx_gl_material::get_shader() const
 {
     return shader_.get();
 }
 
-gfx::texture *material::get_texture() const
+gfx::texture *gfx_gl_material::get_texture() const
 {
     return texture_.get();
 }

@@ -18,6 +18,7 @@
 #include <scene/sprite.h>
 #include <common/types/rectangle.h>
 #include <scene/sprite_animation_settings.h>
+#include <gfx/gfx_atlas.h>
 #include <memory>
 
 namespace aeon
@@ -28,7 +29,7 @@ namespace scene
 class animated_sprite : public sprite
 {
 public:
-    explicit animated_sprite(scene_manager *scene_manager, sprite_batch_ptr batch, resources::atlas_ptr atlas,
+    explicit animated_sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::atlas_ptr atlas,
                              int zorder, const sprite_animation_settings &settings);
 
     virtual ~animated_sprite() = default;
@@ -41,7 +42,7 @@ public:
 protected:
     void update(float dt) override;
 
-    resources::atlas_ptr atlas_;
+    gfx::atlas_ptr atlas_;
     sprite_animation_settings settings_;
 
     float frame_time_;

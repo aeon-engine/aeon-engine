@@ -24,10 +24,9 @@ namespace aeon
 namespace resources
 {
 
-resource_manager::resource_manager(platform::platform_interface &platform, gfx::device &device)
+resource_manager::resource_manager(platform::platform_interface &platform)
     : logger_(common::logger::get_singleton(), "Resources::ResourceManager")
     , platform_(platform)
-    , device_(device)
 {
     AEON_LOG_TRACE(logger_) << "Created resource manager." << std::endl;
 }
@@ -69,41 +68,6 @@ void resource_manager::unmount(const std::string &mountpoint)
     result->second->manager_ = nullptr;
 
     mount_points_.erase(result);
-}
-
-gfx::texture_ptr resource_manager::load_texture(const std::string &path)
-{
-    AEON_LOG_DEBUG(logger_) << "Loading texture '" << path << "'." << std::endl;
-
-    image_resource_wrapper_ptr image_resource = load_image_wrapper(path);
-    image_ptr image_resource_data = image_resource->open();
-    return device_.get_texture_manager().load(image_resource_data);
-}
-
-gfx::shader_ptr resource_manager::load_shader(const std::string &path)
-{
-    AEON_LOG_DEBUG(logger_) << "Loading shader '" << path << "'." << std::endl;
-
-    shader_resource_wrapper_ptr shader_resource = load_shader_wrapper(path);
-    shader_ptr shader_resource_data = shader_resource->open();
-    return device_.get_shader_manager().load(shader_resource_data);
-}
-
-gfx::material_ptr resource_manager::load_material(const std::string &path)
-{
-    AEON_LOG_DEBUG(logger_) << "Loading material '" << path << "'." << std::endl;
-
-    material_resource_wrapper_ptr material_resource = load_material_wrapper(path);
-    material_ptr material_resource_data = material_resource->open();
-    return device_.get_material_manager().load(material_resource_data);
-}
-
-atlas_ptr resource_manager::load_atlas(const std::string &path)
-{
-    AEON_LOG_DEBUG(logger_) << "Loading atlas '" << path << "'." << std::endl;
-
-    atlas_resource_wrapper_ptr atlas_resource = load_atlas_wrapper(path);
-    return atlas_resource->open(device_);
 }
 
 image_resource_wrapper_ptr resource_manager::load_image_wrapper(const std::string &path)

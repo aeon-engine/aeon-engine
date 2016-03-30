@@ -27,12 +27,12 @@ namespace gfx
 namespace gl
 {
 
-class device;
-class sprite_batch : public gfx::sprite_batch
+class gfx_gl_device;
+class gfx_gl_sprite_batch : public gfx::sprite_batch
 {
 public:
-    explicit sprite_batch(device *device, material_ptr material, std::uint16_t sprites_per_buffer);
-    virtual ~sprite_batch() = default;
+    explicit gfx_gl_sprite_batch(gfx_gl_device *device, material_ptr material, std::uint16_t sprites_per_buffer);
+    virtual ~gfx_gl_sprite_batch() = default;
 
     void upload_sprite_buffer(const sprite_vertex *sprite_vertex_data, int count) override;
 

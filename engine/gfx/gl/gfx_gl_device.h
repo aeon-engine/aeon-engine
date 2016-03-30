@@ -29,11 +29,11 @@ namespace gl
 DEFINE_EXCEPTION_OBJECT(gl_initialized_exception, aeon::common::exception, "OpenGL Device already initialized.");
 DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL Device Exception");
 
-class device : public gfx::device
+class gfx_gl_device : public gfx::device
 {
 public:
-    device();
-    virtual ~device() = default;
+    gfx_gl_device();
+    virtual ~gfx_gl_device() = default;
 
     void __initialize_impl() override;
 

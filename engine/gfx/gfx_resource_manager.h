@@ -24,6 +24,9 @@
 #include <resources/material.h>
 #include <gfx/gfx_material.h>
 
+#include <resources/atlas.h>
+#include <gfx/gfx_atlas.h>
+
 #include <common/object_cache.h>
 #include <memory>
 #include <string>
@@ -60,7 +63,7 @@ public:
     }
 
 private:
-    virtual gfx_type_ptr __load(resource_type_ptr material) = 0;
+    virtual gfx_type_ptr __load(resource_type_ptr res) = 0;
 
     common::object_cache<gfx_type> cache_;
 };
