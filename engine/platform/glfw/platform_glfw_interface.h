@@ -47,6 +47,9 @@ public:
                                                 platform_monitor_ptr monitor = nullptr) override;
 
 private:
+    void __initialize_glew() const;
+    void __report_and_squash_glew_errors() const;
+
     aeon::logger::logger logger_;
 
     render_targets render_targets_;

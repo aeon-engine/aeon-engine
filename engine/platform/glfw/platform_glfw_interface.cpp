@@ -13,6 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
+#include <GL/glew.h>
 #include <platform/glfw/platform_glfw_interface.h>
 #include <platform/glfw/platform_glfw_monitor.h>
 #include <platform/glfw/platform_glfw_window.h>
@@ -162,9 +163,45 @@ platform::platform_window_ptr platform_interface::create_window(int width, int h
 
     platform_window_ptr window = std::make_shared<glfw::platform_window>(this, width, height, name, glfw_monitor);
 
+    // HACK: If there are no render targets yet, this is the first window that is being opened.
+    // This means we can initialize glew here.
+    if (render_targets_.empty())
+    {
+        __initialize_glew();
+    }
+
     render_targets_.push_back(window);
 
     return window;
+}
+
+void platform_interface::__initialize_glew() const
+{
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK)
+    {
+        AEON_LOG_FATAL(logger_) << "GLEW initialization failed." << std::endl;
+        throw platform_interface_initialize_exception();
+    }
+
+    // Squash all OpenGL errors from glewInit before continuing.
+    __report_and_squash_glew_errors();
+}
+
+void platform_interface::__report_and_squash_glew_errors() const
+{
+    int count = 0;
+    while (glGetError() != GL_NO_ERROR)
+    {
+        if (count++ > 100)
+        {
+            AEON_LOG_FATAL(logger_) << "GLEW initialization reported too many OpenGL errors (> 100)." << std::endl;
+            break;
+        }
+    }
+
+    if (count > 0)
+        AEON_LOG_WARNING(logger_) << "glewInit reported " << count << " OpenGL error(s)." << std::endl;
 }
 
 } // namespace glfw

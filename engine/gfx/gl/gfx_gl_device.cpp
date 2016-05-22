@@ -19,7 +19,6 @@
 #include <gfx/gl/gfx_gl_buffer_manager.h>
 #include <gfx/gl/gfx_gl_device.h>
 #include <gfx/gl/gfx_gl_sprite_batch.h>
-#include <GL/glew.h>
 #include <memory>
 #include <common/check_gl_error.h>
 
@@ -45,7 +44,6 @@ void gfx_gl_device::__initialize_impl()
         throw gl_initialized_exception();
     }
 
-    __initialize_glew();
     __create_managers();
     __setup_opengl();
 
@@ -82,35 +80,6 @@ void gfx_gl_device::clear_buffer(int buffer_flag)
 sprite_batch_ptr gfx_gl_device::create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer)
 {
     return std::make_unique<gfx_gl_sprite_batch>(this, material, sprites_per_buffer);
-}
-
-void gfx_gl_device::__initialize_glew() const
-{
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK)
-    {
-        AEON_LOG_FATAL(logger_) << "GLEW initialization failed. Did you create a render window first?" << std::endl;
-        throw gl_device_exception();
-    }
-
-    // Squash all OpenGL errors from glewInit before continuing.
-    __report_and_squash_glew_errors();
-}
-
-void gfx_gl_device::__report_and_squash_glew_errors() const
-{
-    int count = 0;
-    while (glGetError() != GL_NO_ERROR)
-    {
-        if (count++ > 100)
-        {
-            AEON_LOG_FATAL(logger_) << "GLEW initialization reported too many OpenGL errors (> 100)." << std::endl;
-            break;
-        }
-    }
-
-    if (count > 0)
-        AEON_LOG_WARNING(logger_) << "glewInit reported " << count << " OpenGL error(s)." << std::endl;
 }
 
 void gfx_gl_device::__create_managers()
