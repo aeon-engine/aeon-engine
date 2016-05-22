@@ -37,6 +37,23 @@ if (AEON_PLATFORM_RPI)
     add_source_path(AEON_ENGINE_SOURCES platform/rpi)
 endif ()
 
+if (AEON_PLATFORM_QT)
+    find_package(Qt5Core REQUIRED)
+    find_package(Qt5Widgets REQUIRED)
+    find_package(Qt5OpenGL REQUIRED)
+
+    add_source_path(AEON_ENGINE_SOURCES platform/qt)
+
+    qt5_wrap_ui(AEON_PLATFORM_QT_UI_HEADERS
+        platform/qt/mainwindow.ui
+    )
+
+    qt5_wrap_cpp(AEON_PLATFORM_QT_MOC_HEADERS
+        platform/qt/platform_qt_window.h
+        platform/qt/platform_qt_opengl_widget.h
+    )
+endif ()
+
 ################################################################################
 
 add_source_path(AEON_ENGINE_SOURCES scene)
@@ -57,6 +74,14 @@ generate_build_info_header(${CMAKE_CURRENT_BINARY_DIR}/buildinfo.h)
 ################################################################################
 
 generate_source_groups("${AEON_ENGINE_SOURCES}")
+
+if (AEON_PLATFORM_QT)
+    source_group(platform\\qt\\ui FILES ${AEON_PLATFORM_QT_UI_FILES})
+    list(APPEND AEON_ENGINE_SOURCES
+        ${AEON_PLATFORM_QT_UI_HEADERS}
+        ${AEON_PLATFORM_QT_MOC_HEADERS}
+    )
+endif ()
 
 add_library(aeon_engine STATIC ${AEON_ENGINE_SOURCES})
 
@@ -92,6 +117,14 @@ endif ()
 
 if (AEON_PLATFORM_RPI)
     target_link_libraries(aeon_engine RaspberryPiSdk)
+endif ()
+
+if (AEON_PLATFORM_QT)
+    target_link_libraries(aeon_engine
+        Qt5::Core
+        Qt5::Widgets
+        Qt5::OpenGL
+    )
 endif ()
 
 set_target_properties(
