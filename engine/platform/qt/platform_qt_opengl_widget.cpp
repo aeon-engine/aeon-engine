@@ -27,7 +27,11 @@ platform_qt_opengl_widget::platform_qt_opengl_widget(QWidget *parent)
     : QOpenGLWidget(parent)
     , window_(nullptr)
 {
-
+    QSurfaceFormat fmt;
+    fmt.setVersion(3, 3);
+    fmt.setProfile(QSurfaceFormat::CoreProfile);
+    setFormat(fmt);
+    QSurfaceFormat::setDefaultFormat(fmt);
 }
 
 platform_qt_opengl_widget::~platform_qt_opengl_widget()
