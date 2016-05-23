@@ -29,8 +29,6 @@ platform_interface::platform_interface(int argc, char *argv[])
     : platform::platform_interface(argc, argv, std::make_unique<generic::platform_filesystem_interface>())
     , application_(argc, argv)
     , initialized_(false)
-    , running_(false)
-    , previous_time_(0.0)
 {
 }
 
@@ -49,32 +47,11 @@ void platform_interface::run()
         throw platform_interface_initialize_exception();
 
     application_.exec();
-
-    //previous_time_ = static_cast<float>(glfwGetTime());
-
-    running_ = true;
-    while (running_)
-    {
-        /*glfwPollEvents();
-
-        float current_time = static_cast<float>(glfwGetTime());
-        float deltaTime = current_time - previous_time_;
-        previous_time_ = current_time;*/
-
-        for (gfx::render_target_ptr render_target : render_targets_)
-        {
-            if (!render_target->handle_frame(0.1f))
-            {
-                running_ = false;
-                break;
-            }
-        }
-    }
 }
 
 void platform_interface::stop()
 {
-    running_ = false;
+    application_.quit();
 }
 
 platform_monitors platform_interface::get_monitors()
@@ -86,7 +63,8 @@ platform_monitors platform_interface::get_monitors()
     return monitors;
 }
 
-platform::platform_window_ptr platform_interface::create_window(int /*width*/, int /*height*/, const std::string & /*name*/,
+platform::platform_window_ptr platform_interface::create_window(int /*width*/, int /*height*/,
+                                                                const std::string & /*name*/,
                                                                 platform_monitor_ptr monitor)
 {
     qt::platform_window_ptr window = std::make_shared<qt::platform_qt_window>(this);

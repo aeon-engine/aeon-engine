@@ -40,6 +40,7 @@ platform_qt_window::platform_qt_window(platform_interface *i)
 
 platform_qt_window::~platform_qt_window()
 {
+    delete ui;
 }
 
 void platform_qt_window::__handle_paint()

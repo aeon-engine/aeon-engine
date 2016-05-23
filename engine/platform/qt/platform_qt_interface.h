@@ -51,8 +51,6 @@ private:
     render_targets render_targets_;
 
     bool initialized_;
-    bool running_;
-    float previous_time_;
 };
 
 } // namespace qt
