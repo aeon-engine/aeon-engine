@@ -25,9 +25,9 @@ namespace platform
 namespace qt
 {
 
-platform_interface::platform_interface()
-    : platform::platform_interface(std::make_unique<generic::platform_filesystem_interface>())
-    , application_(__argc, __argv)
+platform_interface::platform_interface(int argc, char *argv[])
+    : platform::platform_interface(argc, argv, std::make_unique<generic::platform_filesystem_interface>())
+    , application_(argc, argv)
     , initialized_(false)
     , running_(false)
     , previous_time_(0.0)

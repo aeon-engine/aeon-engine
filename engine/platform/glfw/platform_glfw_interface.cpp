@@ -27,8 +27,8 @@ namespace platform
 namespace glfw
 {
 
-platform_interface::platform_interface()
-    : platform::platform_interface(std::make_unique<generic::platform_filesystem_interface>())
+platform_interface::platform_interface(int argc, char *argv[])
+    : platform::platform_interface(argc, argv, std::make_unique<generic::platform_filesystem_interface>())
     , logger_(common::logger::get_singleton(), "Platform::GLFW")
     , initialized_(false)
     , running_(false)

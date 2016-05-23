@@ -33,10 +33,10 @@ enum move_direction : int
 class application : public aeon::gfx::frame_listener, public aeon::desktop_application<aeon::scene::basic_scene_manager>
 {
 public:
-    application();
+    explicit application(int argc, char *argv[]);
     virtual ~application() = default;
 
-    void main(int argc, char *argv[]);
+    void main();
 
 private:
     bool on_frame(float dt) override;

@@ -27,9 +27,10 @@ template <typename platform_interface_t, typename device_t, typename scene_manag
 class base_application
 {
 public:
-    explicit base_application(int width, int height, const std::string &window_title)
+    explicit base_application(int argc, char *argv[], int width, int height, const std::string &window_title)
         : logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
+        , platform_(argc, argv)
         , resource_manager_(platform_)
         , asset_manager_(resource_manager_, device_)
         , scene_manager_(device_)

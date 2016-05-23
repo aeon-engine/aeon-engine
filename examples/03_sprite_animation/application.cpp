@@ -19,8 +19,8 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
+application::application(int argc, char *argv[])
+    : aeon::desktop_application<aeon::scene::basic_scene_manager>(argc, argv, WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 3 - Sprite Animation")
     , turn_timer_(0.0f)
     , direction_(move_south)
@@ -38,7 +38,7 @@ application::application()
     window_->create_viewport(camera_, 0);
 }
 
-void application::main(int, char *[])
+void application::main()
 {
     // Load resources
     aeon::gfx::material_ptr animation_material =

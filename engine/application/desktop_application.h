@@ -52,8 +52,8 @@ class desktop_application
     : public base_application<selected_platform_interface, selected_gfx_device, scene_manager_t>
 {
 public:
-    explicit desktop_application(int width, int height, const std::string &window_title)
-        : base_application<selected_platform_interface, selected_gfx_device, scene_manager_t>(width, height, window_title)
+    explicit desktop_application(int argc, char *argv[], int width, int height, const std::string &window_title)
+        : base_application<selected_platform_interface, selected_gfx_device, scene_manager_t>(argc, argv, width, height, window_title)
     {
     }
 
