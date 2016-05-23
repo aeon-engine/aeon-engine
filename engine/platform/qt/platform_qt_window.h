@@ -16,6 +16,7 @@
 #pragma once
 #include <platform/platform_window.h>
 #include <QtWidgets/QMainWindow>
+#include <QElapsedTimer>
 #include <memory>
 
 namespace Ui
@@ -52,6 +53,7 @@ private:
 
     glm::vec2 get_framebuffer_size() override;
 
+    QElapsedTimer timer_;
     platform_interface *interface_;
     Ui::mainwindow *ui;
 };

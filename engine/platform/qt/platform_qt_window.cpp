@@ -27,6 +27,7 @@ namespace qt
 platform_qt_window::platform_qt_window(platform_interface *i)
     : QMainWindow(nullptr)
     , platform::platform_window(800, 600, "Aeon Engine")
+    , timer_()
     , interface_(i)
     , ui(new Ui::mainwindow)
 {
@@ -36,6 +37,8 @@ platform_qt_window::platform_qt_window(platform_interface *i)
     show();
 
     ui->openGLWidget->makeCurrent();
+
+    timer_.start();
 }
 
 platform_qt_window::~platform_qt_window()
@@ -45,7 +48,10 @@ platform_qt_window::~platform_qt_window()
 
 void platform_qt_window::__handle_paint()
 {
-    handle_frame(0.1f);
+    double time_diff_nsecs = static_cast<double>(timer_.nsecsElapsed());
+    double time_diff_secs = time_diff_nsecs / 1000000000;
+    handle_frame(time_diff_secs);
+    timer_.restart();
 }
 
 void platform_qt_window::make_current()
