@@ -6,32 +6,45 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>837</width>
-    <height>638</height>
+    <width>1043</width>
+    <height>679</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Aeon Engine</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="aeon::platform::qt::platform_qt_opengl_widget" name="openGLWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>831</width>
-      <height>561</height>
-     </rect>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="leftMargin">
+     <number>0</number>
     </property>
-   </widget>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="aeon::platform::qt::platform_qt_opengl_widget" name="openGLWidget"/>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>837</width>
-     <height>18</height>
+     <width>1043</width>
+     <height>22</height>
     </rect>
    </property>
    <property name="nativeMenuBar">
