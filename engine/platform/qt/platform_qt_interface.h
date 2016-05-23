@@ -16,6 +16,7 @@
 #pragma once
 
 #include <memory>
+#include <common/logger.h>
 #include <gfx/gfx_render_target.h>
 #include <platform/platform_interface.h>
 #include <platform/qt/platform_qt_window.h>
@@ -47,6 +48,10 @@ public:
                                                 platform_monitor_ptr monitor = nullptr) override;
 
 private:
+    void __initialize_glew() const;
+    void __report_and_squash_glew_errors() const;
+
+    aeon::logger::logger logger_;
     QApplication application_;
     render_targets render_targets_;
 
