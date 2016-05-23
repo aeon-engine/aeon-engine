@@ -49,6 +49,7 @@ void platform_qt_opengl_widget::resizeGL(int /*w*/, int /*h*/)
 void platform_qt_opengl_widget::paintGL()
 {
     window_->__handle_paint();
+    update();
 }
 
 } // namespace qt
