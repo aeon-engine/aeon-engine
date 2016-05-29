@@ -15,19 +15,37 @@
 
 #pragma once
 
-#include <application/desktop_application.h>
-#include <resources/wrappers/image_resource_wrapper.h>
-#include <scene/scene_managers/basic/basic_scene_manager.h>
-#include <scene/orthographic_camera.h>
+#include <QtWidgets/QOpenGLWidget>
 
-class application : public aeon::desktop_application<aeon::scene::basic_scene_manager>
+namespace aeon
 {
-public:
-    explicit application(int argc, char *argv[]);
-    virtual ~application() = default;
+namespace platform
+{
+namespace qt
+{
 
-    void main();
+class platform_qt_window;
+class platform_qt_opengl_widget : public QOpenGLWidget
+{
+Q_OBJECT
+
+public:
+    platform_qt_opengl_widget(QWidget *parent = nullptr);
+    ~platform_qt_opengl_widget() override;
+
+    void set_window(platform_qt_window *window)
+    {
+        window_ = window;
+    }
+
+    void initializeGL() override;
+    void resizeGL(int w, int h) override;
+    void paintGL() override;
 
 private:
-    aeon::scene::orthographic_camera_ptr camera_;
+    platform_qt_window *window_;
 };
+
+} // namespace qt
+} // namespace platform
+} // namespace aeon

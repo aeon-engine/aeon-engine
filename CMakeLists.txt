@@ -78,12 +78,14 @@ endif ()
 ################################################################################
 set(AEON_PLATFORM_NAME_GLFW "GLFW")
 set(AEON_PLATFORM_NAME_RPI "RaspberryPi")
+set(AEON_PLATFORM_NAME_QT "Qt")
 
 set(AEON_PLATFORM_GLFW OFF)
 set(AEON_PLATFORM_RPI OFF)
+set(AEON_PLATFORM_QT OFF)
 
-set(AEON_PLATFORM ${AEON_PLATFORM_NAME_GLFW} CACHE STRING "Platform backend")
-set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW} ${AEON_PLATFORM_NAME_RPI})
+set(AEON_PLATFORM ${AEON_PLATFORM_NAME_QT} CACHE STRING "Platform backend")
+set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW} ${AEON_PLATFORM_NAME_RPI} ${AEON_PLATFORM_NAME_QT})
 
 if (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_GLFW)
     message (STATUS "Using GLFW as platform.")
@@ -110,6 +112,15 @@ elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_RPI)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-libgcc -static-libstdc++")
 
     set(AEON_PLATFORM_RPI ON)
+elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_QT)
+    set(CMAKE_PREFIX_PATH "$ENV{QTDIR}")
+    if (NOT AEON_GFX_GL)
+        message (FATAL_ERROR "Qt requires OpenGL 3.3; Please set AEON_GFX_RENDER to OpenGL3.3")
+    endif()
+
+    message (STATUS "Using Qt as platform.")
+
+    set(AEON_PLATFORM_QT ON)
 else ()
     message (FATAL_ERROR "No valid platform was selected.")
 endif ()

@@ -19,13 +19,14 @@
 #include <common/logger.h>
 #include <gfx/gfx_render_target.h>
 #include <platform/platform_interface.h>
-#include <platform/glfw/platform_glfw_window.h>
+#include <platform/qt/platform_qt_window.h>
+#include <QApplication>
 
 namespace aeon
 {
 namespace platform
 {
-namespace glfw
+namespace qt
 {
 
 class platform_interface : public platform::platform_interface
@@ -33,7 +34,7 @@ class platform_interface : public platform::platform_interface
 public:
     using render_targets = std::vector<gfx::render_target_ptr>;
 
-    explicit platform_interface(int argc, char *argv[]);
+    platform_interface(int argc, char *argv[]);
     virtual ~platform_interface() override;
 
     void initialize() override;
@@ -51,14 +52,12 @@ private:
     void __report_and_squash_glew_errors() const;
 
     aeon::logger::logger logger_;
-
+    QApplication application_;
     render_targets render_targets_;
 
     bool initialized_;
-    bool running_;
-    double previous_time_;
 };
 
-} // namespace glfw
+} // namespace qt
 } // namespace platform
 } // namespace aeon

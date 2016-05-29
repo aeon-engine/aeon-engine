@@ -20,8 +20,8 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
+application::application(int argc, char *argv[])
+    : aeon::desktop_application<aeon::scene::basic_scene_manager>(argc, argv, WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 5 - Multiple Viewports")
 {
     // Init resources
@@ -46,7 +46,7 @@ application::application()
     window_->create_viewport(camera_, viewport_rect_right, 0);
 }
 
-void application::main(int, char *[])
+void application::main()
 {
     // Load resources
     aeon::gfx::material_ptr ships_material = get_asset_manager().load_material("/resources/materials/ships.amf");
