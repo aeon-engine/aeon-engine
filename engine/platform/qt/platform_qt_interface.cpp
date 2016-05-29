@@ -16,7 +16,7 @@
 #include <platform/qt/platform_qt_interface.h>
 #include <platform/qt/platform_qt_window.h>
 #include <platform/generic/platform_generic_filesystem_interface.h>
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 namespace aeon
 {
