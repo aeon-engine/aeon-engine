@@ -125,6 +125,10 @@ if (AEON_PLATFORM_QT)
         Qt5::Widgets
         Qt5::OpenGL
     )
+
+    # Do not use emit, signals, slots etc; but use Q_EMIT instead,
+    # to avoid nameclashes.
+    target_compile_definitions(aeon_engine PUBLIC -DQT_NO_KEYWORDS)
 endif ()
 
 set_target_properties(
