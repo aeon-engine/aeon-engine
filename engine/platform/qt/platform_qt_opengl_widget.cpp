@@ -26,6 +26,7 @@ namespace qt
 platform_qt_opengl_widget::platform_qt_opengl_widget(QWidget *parent)
     : QOpenGLWidget(parent)
     , window_(nullptr)
+    , context_size_(0, 0)
 {
     QSurfaceFormat fmt;
     fmt.setVersion(3, 3);
@@ -38,12 +39,18 @@ platform_qt_opengl_widget::~platform_qt_opengl_widget()
 {
 }
 
+glm::vec2 platform_qt_opengl_widget::get_context_size() const
+{
+    return context_size_;
+}
+
 void platform_qt_opengl_widget::initializeGL()
 {
 }
 
-void platform_qt_opengl_widget::resizeGL(int /*w*/, int /*h*/)
+void platform_qt_opengl_widget::resizeGL(int width, int height)
 {
+    context_size_ = glm::vec2(width, height);
 }
 
 void platform_qt_opengl_widget::paintGL()

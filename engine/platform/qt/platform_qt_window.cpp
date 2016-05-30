@@ -72,8 +72,7 @@ bool platform_qt_window::__on_frame_end(float /*dt*/)
 
 glm::vec2 platform_qt_window::get_framebuffer_size()
 {
-    // TODO:
-    return glm::vec2(800, 600);
+    return ui->openGLWidget->get_context_size();
 }
 
 } // namespace qt

@@ -16,6 +16,7 @@
 #pragma once
 
 #include <QtWidgets/QOpenGLWidget>
+#include <glm/vec2.hpp>
 
 namespace aeon
 {
@@ -38,12 +39,15 @@ public:
         window_ = window;
     }
 
+    glm::vec2 get_context_size() const;
+
+private:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
 
-private:
     platform_qt_window *window_;
+    glm::vec2 context_size_;
 };
 
 } // namespace qt
