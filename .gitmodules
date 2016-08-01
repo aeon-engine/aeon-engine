@@ -50,3 +50,7 @@
 	path = dep/std_asio
 	url = ../../libraries/std_asio.git
 	branch = submodule
+[submodule "dep/assimp"]
+	path = dep/assimp
+	url = ../../libraries/assimp.git
+	branch = submodule
