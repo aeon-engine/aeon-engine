@@ -44,6 +44,11 @@ using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
 using selected_gfx_device = aeon::gfx::gles2::device;
 #endif // AEON_GFX_GLES2
 
+#ifdef AEON_GFX_NULL
+#include <gfx/null/gfx_null_device.h>
+using selected_gfx_device = aeon::gfx::null::gfx_null_device;
+#endif // AEON_GFX_NULL
+
 namespace aeon
 {
 

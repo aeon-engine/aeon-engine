@@ -30,6 +30,11 @@
 #cmakedefine AEON_GFX_GLES2
 
 /*!
+ * Define if the Null device should be used as GFX backend.
+ */
+#cmakedefine AEON_GFX_NULL
+
+/*!
  * Define if GLFW should be used as platform.
  */
 #cmakedefine AEON_PLATFORM_GLFW

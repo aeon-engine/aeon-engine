@@ -54,12 +54,14 @@ endif ()
 ################################################################################
 set(AEON_GFX_RENDERER_NAME_OPENGL3_3 "OpenGL3.3")
 set(AEON_GFX_RENDERER_NAME_GLES2 "GLES2")
+set(AEON_GFX_RENDERER_NAME_NULL "NULL")
 
 set(AEON_GFX_GL OFF)
 set(AEON_GFX_GLES2 OFF)
+set(AEON_GFX_NULL OFF)
 
 set(AEON_GFX_RENDERER ${AEON_GFX_RENDERER_NAME_OPENGL3_3} CACHE STRING "GFX Render backend")
-set_property(CACHE AEON_GFX_RENDERER PROPERTY STRINGS ${AEON_GFX_RENDERER_NAME_OPENGL3_3} ${AEON_GFX_RENDERER_NAME_GLES2})
+set_property(CACHE AEON_GFX_RENDERER PROPERTY STRINGS ${AEON_GFX_RENDERER_NAME_OPENGL3_3} ${AEON_GFX_RENDERER_NAME_GLES2} ${AEON_GFX_RENDERER_NAME_NULL})
 
 if (AEON_GFX_RENDERER STREQUAL AEON_GFX_RENDERER_NAME_OPENGL3_3)
     message(STATUS "Using OpenGL as graphics renderer.")
@@ -71,6 +73,11 @@ elseif (AEON_GFX_RENDERER STREQUAL AEON_GFX_RENDERER_NAME_GLES2)
     message (STATUS "Using OpenGL ES 2.0 as graphics renderer.")
 
     set(AEON_GFX_GLES2 ON)
+elseif (AEON_GFX_RENDERER STREQUAL AEON_GFX_RENDERER_NAME_NULL)
+	message (STATUS "Using Null as graphics renderer.")
+	message (WARNING "This renderer is for debugging/testing only.")
+
+	set(AEON_GFX_NULL ON)
 else ()
     message (FATAL_ERROR "No valid graphics renderer selected.")
 endif ()
