@@ -41,7 +41,7 @@ public:
     gfx::texture *get_texture() const override;
 
 protected:
-    gl::shader_gl_ptr shader_;
+    gl::gfx_gl_shader_ptr shader_;
     gl::gfx_gl_texture_ptr texture_;
 };
 

@@ -33,7 +33,7 @@ gfx_gl_texture_manager::gfx_gl_texture_manager()
 
 texture_ptr gfx_gl_texture_manager::__load(resources::image_ptr image)
 {
-    gfx_gl_texture_ptr t = std::make_shared<gl::gfx_gl_texture>(image);
+    gfx_gl_texture_ptr t = std::make_shared<gfx_gl_texture>(image);
 
     GLuint handle = 0;
     glGenTextures(1, &handle);

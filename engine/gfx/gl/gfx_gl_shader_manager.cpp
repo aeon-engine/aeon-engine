@@ -40,7 +40,7 @@ shader_ptr gfx_gl_shader_manager::__load(resources::shader_ptr shader)
     glBindFragDataLocation(program, 0, "output_color");
     AEON_CHECK_GL_ERROR();
 
-    shader_gl_ptr s = std::make_shared<gl::gfx_gl_shader>();
+    gfx_gl_shader_ptr s = std::make_shared<gfx_gl_shader>();
 
     s->handle_ = program;
     s->projection_matrix_handle_ = glGetUniformLocation(program, "projection_matrix");
