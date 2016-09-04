@@ -16,6 +16,7 @@ add_source_path(AEON_ENGINE_SOURCES assets)
 ################################################################################
 
 add_source_path(AEON_ENGINE_SOURCES gfx)
+add_source_path(AEON_ENGINE_SOURCES gfx/null)
 
 if (AEON_GFX_GL)
     add_source_path(AEON_ENGINE_SOURCES gfx/gl)
