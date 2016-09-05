@@ -32,7 +32,7 @@ using selected_platform_interface = aeon::platform::rpi::platform_interface;
 #ifdef AEON_PLATFORM_QT
 #include <platform/qt/platform_qt_interface.h>
 using selected_platform_interface = aeon::platform::qt::platform_interface;
-#endif
+#endif // AEON_PLATFORM_QT
 
 #ifdef AEON_GFX_GL
 #include <gfx/gl/gfx_gl_device.h>
