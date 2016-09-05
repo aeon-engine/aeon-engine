@@ -56,13 +56,18 @@ material_ptr material_codec::decode(resource_manager &parent, material_resource_
 
 #ifdef AEON_GFX_GL
     shader_resource_wrapper_ptr shader_res = parent.load_shader_wrapper(material_file.get<std::string>("shader_gl3", ""));
-#else
+#else // AEON_GFX_GL
 #ifdef AEON_GFX_GLES2
     shader_resource_wrapper_ptr shader_res = parent.load_shader_wrapper(material_file.get<std::string>("shader_gles2", ""));
-#else
+#else // AEON_GFX_GLES2
+#ifdef AEON_GFX_NULL
+    // TODO: Handle this better.
+    shader_resource_wrapper_ptr shader_res = parent.load_shader_wrapper(material_file.get<std::string>("shader_gl3", ""));
+#else // AEON_GFX_NULL
     shader_resource_wrapper_ptr shader_res = parent.load_shader_wrapper(material_file.get<std::string>("shader", ""));
-#endif
-#endif
+#endif // AEON_GFX_NULL
+#endif // AEON_GFX_GLES2
+#endif // AEON_GFX_GL
 
     image_resource_wrapper_ptr texture_res = parent.load_image_wrapper(material_file.get<std::string>("texture", ""));
 
