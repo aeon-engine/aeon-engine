@@ -16,7 +16,7 @@
 #include <gfx/gl/gfx_gl_sprite_batch.h>
 #include <gfx/gl/gfx_gl_device.h>
 #include <resources/atlas.h>
-#include <common/check_gl_error.h>
+#include <gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {

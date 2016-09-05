@@ -17,7 +17,7 @@
 #include <gfx/gl/gfx_gl_texture.h>
 #include <resources/image.h>
 #include <GL/glew.h>
-#include <common/check_gl_error.h>
+#include <gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {

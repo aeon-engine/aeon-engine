@@ -20,7 +20,7 @@
 #include <gfx/gl/gfx_gl_device.h>
 #include <gfx/gl/gfx_gl_sprite_batch.h>
 #include <memory>
-#include <common/check_gl_error.h>
+#include <gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {

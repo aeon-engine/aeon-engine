@@ -15,7 +15,7 @@
 
 #include <gfx/gl/gfx_gl_shader.h>
 #include <glm/gtc/type_ptr.hpp>
-#include <common/check_gl_error.h>
+#include <gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {

@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <common/check_gl_error.h>
+#include <gfx/gl_common/check_gl_error.h>
 #include <common/logger.h>
 
 #ifdef AEON_GFX_GL
@@ -26,14 +26,16 @@
 
 namespace aeon
 {
-namespace common
+namespace gfx
+{
+namespace gl_common
 {
 
 #ifdef AEON_ENABLE_GL_ERROR_CHECKS
 void check_gl_error(const char *file, int line)
 {
     int count = 0;
-    aeon::logger::logger logger(common::logger::get_singleton(), "Gfx::Debug");
+    aeon::logger::logger logger(common::logger::get_singleton(), "Gfx::GL::Debug");
 
     GLenum result = glGetError();
     while (result != GL_NO_ERROR)
@@ -74,5 +76,6 @@ void check_gl_error(const char *file, int line)
 }
 #endif
 
-} // namespace common
+} // namespace gl
+} // namespace gfx
 } // namespace aeon

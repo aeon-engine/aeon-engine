@@ -14,7 +14,7 @@
  */
 
 #include <gfx/gl/gfx_gl_buffer.h>
-#include <common/check_gl_error.h>
+#include <gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {

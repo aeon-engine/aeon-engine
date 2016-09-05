@@ -18,19 +18,22 @@
 #include <build_config.h>
 
 #ifdef AEON_ENABLE_GL_ERROR_CHECKS
-#define AEON_CHECK_GL_ERROR() aeon::common::check_gl_error(__FILE__, __LINE__);
+#define AEON_CHECK_GL_ERROR() aeon::gfx::gl_common::check_gl_error(__FILE__, __LINE__);
 #else
 #define AEON_CHECK_GL_ERROR() do{} while(0)
 #endif
 
 namespace aeon
 {
-namespace common
+namespace gfx
+{
+namespace gl_common
 {
 
 #ifdef AEON_ENABLE_GL_ERROR_CHECKS
 void check_gl_error(const char *file, int line);
 #endif
 
-} // namespace common
+} // namespace gl_common
+} // namespace gfx
 } // namespace aeon

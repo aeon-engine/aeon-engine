@@ -20,10 +20,12 @@ add_source_path(AEON_ENGINE_SOURCES gfx)
 add_source_path(AEON_ENGINE_SOURCES gfx/null)
 
 if (AEON_GFX_GL)
+    add_source_path(AEON_ENGINE_SOURCES gfx/gl_common)
     add_source_path(AEON_ENGINE_SOURCES gfx/gl)
 endif ()
 
 if (AEON_GFX_GLES2)
+    add_source_path(AEON_ENGINE_SOURCES gfx/gl_common)
     add_source_path(AEON_ENGINE_SOURCES gfx/gles2)
 endif ()
 
