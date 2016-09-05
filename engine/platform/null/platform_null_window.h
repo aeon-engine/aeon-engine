@@ -14,51 +14,40 @@
  */
 
 #pragma once
-#include <gfx/gfx_render_target.h>
-#include <glm/vec2.hpp>
-#include <string>
+#include <platform/platform_window.h>
+#include <common/logger.h>
 #include <memory>
 
 namespace aeon
 {
 namespace platform
 {
+namespace null
+{
 
-class platform_window : public gfx::render_target
+class platform_interface;
+class platform_window : public platform::platform_window
 {
 public:
-    explicit platform_window(int width, int height, const std::string &title)
-        : width_(width)
-        , height_(height)
-        , title_(title)
-    {
-    }
+    explicit platform_window(platform_interface *interface, int width, int height, const std::string &title);
+    ~platform_window() override;
 
-    virtual ~platform_window() = default;
+    void make_current() override;
 
-    glm::vec2 get_size() const
-    {
-        return glm::vec2(width_, height_);
-    }
-
-    void get_size(int &width, int &height) const
-    {
-        width = width_;
-        height = height_;
-    }
-
-    const std::string &get_title() const
-    {
-        return title_;
-    }
+    glm::vec2 get_framebuffer_size() override;
 
 private:
-    int width_;
-    int height_;
-    std::string title_;
+    bool __on_frame_start(float dt) override;
+
+    bool __on_frame_end(float dt) override;
+
+    aeon::logger::logger logger_;
+
+    platform_interface *interface_;
 };
 
 using platform_window_ptr = std::shared_ptr<platform_window>;
 
+} // namespace null
 } // namespace platform
 } // namespace aeon

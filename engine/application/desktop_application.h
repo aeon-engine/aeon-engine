@@ -34,6 +34,11 @@ using selected_platform_interface = aeon::platform::rpi::platform_interface;
 using selected_platform_interface = aeon::platform::qt::platform_interface;
 #endif // AEON_PLATFORM_QT
 
+#ifdef AEON_PLATFORM_NULL
+#include <platform/null/platform_null_interface.h>
+using selected_platform_interface = aeon::platform::null::platform_interface;
+#endif // AEON_PLATFORM_NULL
+
 #ifdef AEON_GFX_GL
 #include <gfx/gl/gfx_gl_device.h>
 using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
