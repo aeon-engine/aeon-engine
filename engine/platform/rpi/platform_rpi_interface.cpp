@@ -19,7 +19,7 @@
 #include <platform/generic/platform_generic_filesystem_interface.h>
 #include <GLES2/gl2.h>
 #include <bcm_host.h>
-#include <common/check_gl_error.h>
+#include <gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {
@@ -28,8 +28,8 @@ namespace platform
 namespace rpi
 {
 
-platform_interface::platform_interface()
-    : platform::platform_interface(std::make_unique<generic::platform_filesystem_interface>())
+platform_interface::platform_interface(int argc, char *argv[])
+    : platform::platform_interface(argc, argv, std::make_unique<generic::platform_filesystem_interface>())
     , logger_(common::logger::get_singleton(), "Platform::Raspberry")
     , initialized_(false)
     , running_(false)

@@ -15,8 +15,8 @@
 
 #include <gfx/gles2/gfx_gles2_shader_manager.h>
 #include <gfx/gles2/gfx_gles2_shader.h>
+#include <gfx/gl_common/check_gl_error.h>
 #include <iostream>
-#include <common/check_gl_error.h>
 
 namespace aeon
 {

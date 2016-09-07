@@ -19,7 +19,7 @@
 #include <GLES2/gl2.h>
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
-#include <common/check_gl_error.h>
+#include <gfx/gl_common/check_gl_error.h>
 
 // esCreateWindow flag - RGB color buffer
 #define ES_WINDOW_RGB           0

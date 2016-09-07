@@ -19,9 +19,9 @@
 #include <gfx/gles2/gfx_gles2_buffer_manager.h>
 #include <gfx/gles2/gfx_gles2_device.h>
 #include <gfx/gles2/gfx_gles2_sprite_batch.h>
+#include <gfx/gl_common/check_gl_error.h>
 #include <GLES2/gl2.h>
 #include <memory>
-#include <common/check_gl_error.h>
 
 namespace aeon
 {

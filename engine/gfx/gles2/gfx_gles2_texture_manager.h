@@ -36,7 +36,7 @@ public:
 private:
     texture_ptr __load(resources::image_ptr image) override;
 
-    GLint __image_pixelformat_to_gl(resources::image::pixel_format format);
+    GLint __image_pixelformat_to_gl(data::image::pixel_format format);
 
     aeon::logger::logger logger_;
 };

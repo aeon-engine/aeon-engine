@@ -16,7 +16,7 @@
 #include <gfx/gles2/gfx_gles2_texture_manager.h>
 #include <gfx/gles2/gfx_gles2_texture.h>
 #include <resources/image.h>
-#include <common/check_gl_error.h>
+#include <gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {
@@ -43,11 +43,12 @@ texture_ptr texture_manager::__load(resources::image_ptr image)
     glBindTexture(GL_TEXTURE_2D, handle);
     AEON_CHECK_GL_ERROR();
 
-    GLint pixelformat = __image_pixelformat_to_gl(image->get_pixelformat());
-    GLsizei width = image->get_width();
-    GLsizei height = image->get_height();
+    const data::image &image_data = image->get_data();
+    GLint pixelformat = __image_pixelformat_to_gl(image_data.get_pixelformat());
+    GLsizei width = image_data.get_width();
+    GLsizei height = image_data.get_height();
     glTexImage2D(GL_TEXTURE_2D, 0, pixelformat, width, height, 0, pixelformat, GL_UNSIGNED_BYTE,
-                 image->get_data().data());
+                 image_data.get_data().data());
     AEON_CHECK_GL_ERROR();
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -62,13 +63,13 @@ texture_ptr texture_manager::__load(resources::image_ptr image)
     return t;
 }
 
-GLint texture_manager::__image_pixelformat_to_gl(resources::image::pixel_format format)
+GLint texture_manager::__image_pixelformat_to_gl(data::image::pixel_format format)
 {
     switch (format)
     {
-        case resources::image::pixel_format::rgb:
+        case data::image::pixel_format::rgb:
             return GL_RGB;
-        case resources::image::pixel_format::rgba:
+        case data::image::pixel_format::rgba:
             return GL_RGBA;
         default:
         {
