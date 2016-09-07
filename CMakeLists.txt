@@ -160,7 +160,7 @@ add_subdirectory(tests)
 
 include(CopyToRuntimePath)
 
-option(AEON_SKIP_COPY_ASSETS_TO_RUNTIME_PATH "Skip copying asset files in .\bin to the executable folders." OFF)
+option(AEON_SKIP_COPY_ASSETS_TO_RUNTIME_PATH "Skip copying asset files in the bin folder to the executable folders." OFF)
 if (NOT AEON_SKIP_COPY_ASSETS_TO_RUNTIME_PATH)
     copy_folder_to_runtime_path(
         PATH bin
