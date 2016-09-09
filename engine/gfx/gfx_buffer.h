@@ -47,6 +47,8 @@ public:
 
     virtual void bind() = 0;
 
+    virtual bool has_data() const = 0;
+
 protected:
     buffer_type type_;
 };

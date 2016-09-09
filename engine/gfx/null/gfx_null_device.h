@@ -42,8 +42,7 @@ public:
 
     void clear_buffer(int buffer_flag) override;
 
-    sprite_batch_ptr create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer) override;
-    mesh_ptr create_mesh() override;
+    mesh_ptr create_mesh(material_ptr material) override;
 
 private:
     void __create_managers();

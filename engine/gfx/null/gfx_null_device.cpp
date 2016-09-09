@@ -18,7 +18,6 @@
 #include <gfx/null/gfx_null_material_manager.h>
 #include <gfx/null/gfx_null_buffer_manager.h>
 #include <gfx/null/gfx_null_device.h>
-#include <gfx/null/gfx_null_sprite_batch.h>
 #include <memory>
 
 namespace aeon
@@ -60,13 +59,9 @@ void gfx_null_device::clear_buffer(int)
 {
 }
 
-sprite_batch_ptr gfx_null_device::create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer)
+mesh_ptr gfx_null_device::create_mesh(material_ptr material)
 {
-    return std::make_unique<gfx_null_sprite_batch>(material, sprites_per_buffer);
-}
-
-mesh_ptr gfx_null_device::create_mesh()
-{
+    // TODO: Implement
     return nullptr;
 }
 

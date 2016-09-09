@@ -18,7 +18,7 @@
 #include <gfx/gl/gfx_gl_material_manager.h>
 #include <gfx/gl/gfx_gl_buffer_manager.h>
 #include <gfx/gl/gfx_gl_device.h>
-#include <gfx/gl/gfx_gl_sprite_batch.h>
+#include <gfx/gl/gfx_gl_mesh.h>
 #include <memory>
 #include <gfx/gl_common/check_gl_error.h>
 
@@ -77,14 +77,9 @@ void gfx_gl_device::clear_buffer(int buffer_flag)
     AEON_CHECK_GL_ERROR();
 }
 
-sprite_batch_ptr gfx_gl_device::create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer)
+mesh_ptr gfx_gl_device::create_mesh(material_ptr material)
 {
-    return std::make_unique<gfx_gl_sprite_batch>(this, material, sprites_per_buffer);
-}
-
-mesh_ptr gfx_gl_device::create_mesh()
-{
-    return nullptr;
+    return std::make_unique<gfx_gl_mesh>(this, material);
 }
 
 void gfx_gl_device::__create_managers()

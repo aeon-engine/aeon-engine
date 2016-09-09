@@ -16,7 +16,6 @@
 #include <gtest/gtest.h>
 #include <scene/render_queue.h>
 #include <scene/sprite.h>
-#include <scene/sprite_batch.h>
 #include <aeon/platform.h>
 
 AEON_IGNORE_VS_WARNING(4189)

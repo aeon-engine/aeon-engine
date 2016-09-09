@@ -137,14 +137,6 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
     AEON_CHECK_GL_ERROR();
     glBindAttribLocation(program, 2, "in_color");
     AEON_CHECK_GL_ERROR();
-    glBindAttribLocation(program, 3, "in_sprite_model_mat_col0");
-    AEON_CHECK_GL_ERROR();
-    glBindAttribLocation(program, 4, "in_sprite_model_mat_col1");
-    AEON_CHECK_GL_ERROR();
-    glBindAttribLocation(program, 5, "in_sprite_model_mat_col2");
-    AEON_CHECK_GL_ERROR();
-    glBindAttribLocation(program, 6, "in_sprite_model_mat_col3");
-    AEON_CHECK_GL_ERROR();
 
     glLinkProgram(program);
     AEON_CHECK_GL_ERROR();
@@ -184,3 +176,4 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
 } // namespace gles2
 } // namespace gfx
 } // namespace aeon
+

@@ -21,7 +21,7 @@ namespace scene
 {
 
 mesh::mesh(scene_manager *scene_manager)
-    : scene_object(render_layer::world_geometry, scene_object_type::renderable, scene_manager)
+    : scene_object(render_layer::world_geometry, scene_object_type::mesh, scene_manager)
 {
 }
 

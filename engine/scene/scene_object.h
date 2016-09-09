@@ -27,7 +27,8 @@ namespace scene
 enum class scene_object_type
 {
     spatial,    // This object is merely added for spatial information (camera's etc.)
-    renderable, // This object needs to be rendered
+    sprite,     // 2D object
+    mesh        // 3D object
 };
 
 class scene_node;

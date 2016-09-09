@@ -40,6 +40,8 @@ public:
 
     void bind() override;
 
+    bool has_data() const override;
+
 private:
     GLenum __buffer_type_as_gl_enum() const;
     GLenum __buffer_usage_as_gl_enum(buffer_usage usage) const;
@@ -47,6 +49,7 @@ private:
     mutable aeon::logger::logger logger_;
 
     GLuint handle_;
+    bool has_data_;
 };
 
 using buffer_ptr = std::shared_ptr<buffer>;

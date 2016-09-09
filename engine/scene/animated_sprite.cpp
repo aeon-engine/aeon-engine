@@ -21,10 +21,9 @@ namespace aeon
 namespace scene
 {
 
-animated_sprite::animated_sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::atlas_ptr atlas,
-                                 int zorder, const sprite_animation_settings &settings)
-    : sprite(scene_manager, batch, atlas->get_region_by_index(0), settings.size_, zorder)
-    , atlas_(atlas)
+animated_sprite::animated_sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, int zorder,
+                                 const sprite_animation_settings &settings)
+    : sprite(scene_manager, atlas, atlas->get_region_by_index(0), settings.size_, zorder)
     , settings_(settings)
     , frame_time_(0.0f)
     , current_frame_index_(0)
@@ -75,6 +74,8 @@ void animated_sprite::update(float dt)
     // TODO: This is highly inefficient. Figure out a better way to do this cleanly.
     if (frame_changed)
         region_ = atlas_->get_region_by_index(sequence_.at(current_frame_index_));
+
+    __generate_and_upload_vertex_data();
 }
 
 } // namespace scene

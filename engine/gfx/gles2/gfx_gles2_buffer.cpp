@@ -27,6 +27,7 @@ buffer::buffer(buffer_type type)
     : gfx::buffer(type)
     , logger_(common::logger::get_singleton(), "Gfx::GL::Buffer")
     , handle_(0)
+    , has_data_(false)
 {
     glGenBuffers(1, &handle_);
     AEON_CHECK_GL_ERROR();
@@ -51,12 +52,19 @@ void buffer::set_data(int size, const void *data, buffer_usage usage)
 
     glBufferData(gl_type, size, data, gl_usage);
     AEON_CHECK_GL_ERROR();
+
+    has_data_ = true;
 }
 
 void buffer::bind()
 {
     glBindBuffer(__buffer_type_as_gl_enum(), handle_);
     AEON_CHECK_GL_ERROR();
+}
+
+bool buffer::has_data() const
+{
+    return has_data_;
 }
 
 GLenum buffer::__buffer_type_as_gl_enum() const

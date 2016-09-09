@@ -18,7 +18,7 @@
 #include <gfx/gles2/gfx_gles2_material_manager.h>
 #include <gfx/gles2/gfx_gles2_buffer_manager.h>
 #include <gfx/gles2/gfx_gles2_device.h>
-#include <gfx/gles2/gfx_gles2_sprite_batch.h>
+#include <gfx/gles2/gfx_gles2_mesh.h>
 #include <gfx/gl_common/check_gl_error.h>
 #include <GLES2/gl2.h>
 #include <memory>
@@ -49,9 +49,6 @@ void device::__initialize_impl()
     shader_manager_ = std::make_unique<gles2::shader_manager>();
     material_manager_ = std::make_unique<gles2::material_manager>(*this);
     buffer_manager_ = std::make_unique<gles2::buffer_manager>();
-
-    glEnable(GL_TEXTURE_2D);
-    AEON_CHECK_GL_ERROR();
 
     glEnable(GL_BLEND);
     AEON_CHECK_GL_ERROR();
@@ -89,11 +86,12 @@ void device::clear_buffer(int buffer_flag)
     AEON_CHECK_GL_ERROR();
 }
 
-sprite_batch_ptr device::create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer)
+mesh_ptr device::create_mesh(material_ptr material)
 {
-    return std::make_unique<sprite_batch>(this, material, sprites_per_buffer);
+    return std::make_unique<gfx_gles2_mesh>(this, material);
 }
 
 } // namespace gles2
 } // namespace gfx
 } // namespace aeon
+

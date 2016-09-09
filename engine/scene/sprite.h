@@ -18,6 +18,8 @@
 #include <common/has_z_order.h>
 #include <scene/scene_object.h>
 #include <resources/atlas.h>
+#include <gfx/gfx_atlas.h>
+#include <gfx/gfx_mesh.h>
 #include <glm/vec2.hpp>
 #include <memory>
 
@@ -26,15 +28,12 @@ namespace aeon
 namespace scene
 {
 
-class sprite_batch;
-using sprite_batch_ptr = std::shared_ptr<sprite_batch>;
-
 class sprite : public scene_object, public common::has_z_order
 {
 public:
-    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch, const resources::atlas_region &region,
+    explicit sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const resources::atlas_region &region,
                     int zorder);
-    explicit sprite(scene_manager *scene_manager, sprite_batch_ptr batch, const resources::atlas_region &region,
+    explicit sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const resources::atlas_region &region,
                     glm::vec2 size, int zorder);
 
     virtual ~sprite();
@@ -46,18 +45,26 @@ public:
 
     glm::vec2 get_size() const;
 
+    gfx::atlas_ptr get_atlas() const;
+
     void set_atlas_region(const resources::atlas_region &region);
     resources::atlas_region get_atlas_region() const;
 
-    virtual void update(float /*dt*/)
-    {
-    }
+    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt) override;
+
+    virtual void update(float /*dt*/);
 
 protected:
+    void __upload_mesh_data() const;
+    void __generate_and_upload_vertex_data() const;
+    void __generate_and_upload_index_data() const;
+
     glm::vec2 size_;
 
+    gfx::atlas_ptr atlas_;
     resources::atlas_region region_;
-    sprite_batch_ptr batch_;
+
+    gfx::mesh_ptr mesh_;
 };
 
 using sprite_ptr = std::shared_ptr<sprite>;

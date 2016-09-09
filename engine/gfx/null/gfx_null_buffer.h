@@ -39,8 +39,12 @@ public:
 
     void bind() override;
 
+    bool has_data() const override;
+
 private:
     aeon::logger::logger logger_;
+
+    bool has_data_;
 };
 
 using buffer_ptr = std::shared_ptr<gfx_null_buffer>;

@@ -29,8 +29,8 @@ namespace scene
 class animated_sprite : public sprite
 {
 public:
-    explicit animated_sprite(scene_manager *scene_manager, sprite_batch_ptr batch, gfx::atlas_ptr atlas,
-                             int zorder, const sprite_animation_settings &settings);
+    explicit animated_sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, int zorder,
+        const sprite_animation_settings &settings);
 
     virtual ~animated_sprite() = default;
 
@@ -42,7 +42,6 @@ public:
 protected:
     void update(float dt) override;
 
-    gfx::atlas_ptr atlas_;
     sprite_animation_settings settings_;
 
     float frame_time_;

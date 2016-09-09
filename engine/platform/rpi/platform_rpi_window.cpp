@@ -61,7 +61,7 @@ void platform_window::make_current()
 glm::vec2 platform_window::get_framebuffer_size()
 {
     // TODO
-    return glm::vec2(0, 0);
+    return glm::vec2(800, 600);
 }
 
 bool platform_window::__on_frame_start(float /*dt*/)

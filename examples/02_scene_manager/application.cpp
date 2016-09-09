@@ -15,7 +15,6 @@
 
 #include "application.h"
 #include <scene/sprite.h>
-#include <scene/sprite_batch.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
@@ -49,18 +48,12 @@ void application::main()
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
     root_node->translate(400, 300);
 
-    // Create a sprite batch. All sprites must be batched in order to be rendered
-    aeon::scene::sprite_batch_ptr sprite_batch = scene_manager_.create_scene_object<aeon::scene::sprite_batch>(atlas);
-
-    // The sprite batch must be attached to the scene.
-    root_node->attach_scene_object(sprite_batch);
-
     aeon::resources::atlas_region ship1 = atlas->get_region_by_index(0);
     aeon::resources::atlas_region ship2 = atlas->get_region_by_index(4);
     aeon::resources::atlas_region ship3 = atlas->get_region_by_index(10);
 
     aeon::scene::sprite_ptr ship1_sprite =
-        scene_manager_.create_scene_object<aeon::scene::sprite>(sprite_batch, ship1, 0);
+        scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship1, 0);
     root_node->attach_scene_object(ship1_sprite);
 
     ship2_pivot_node_ = root_node->create_child_scene_node();
@@ -68,7 +61,7 @@ void application::main()
     ship2_node->translate(200.0f, 0.0f);
 
     aeon::scene::sprite_ptr ship2_sprite =
-        scene_manager_.create_scene_object<aeon::scene::sprite>(sprite_batch, ship2, 1);
+        scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship2, 1);
     ship2_node->attach_scene_object(ship2_sprite);
 
     ship3_pivot_node_ = ship2_node->create_child_scene_node();
@@ -76,7 +69,7 @@ void application::main()
     ship3_node->translate(100.0f, 0.0f);
 
     aeon::scene::sprite_ptr ship3_sprite =
-        scene_manager_.create_scene_object<aeon::scene::sprite>(sprite_batch, ship3, 1);
+        scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship3, 1);
     ship3_node->attach_scene_object(ship3_sprite);
 
     platform_.run();
