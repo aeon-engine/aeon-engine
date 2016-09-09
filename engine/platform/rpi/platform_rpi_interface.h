@@ -20,6 +20,7 @@
 #include <gfx/gfx_render_target.h>
 #include <platform/platform_interface.h>
 #include <platform/rpi/platform_rpi_window.h>
+#include <sys/time.h>
 
 namespace aeon
 {
@@ -53,7 +54,6 @@ private:
 
     bool initialized_;
     bool running_;
-    double previous_time_;
 };
 
 } // namespace rpi

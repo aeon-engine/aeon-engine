@@ -60,8 +60,14 @@ void platform_window::make_current()
 
 glm::vec2 platform_window::get_framebuffer_size()
 {
+    std::uint32_t display_width;
+    std::uint32_t display_height;
+
+    if (graphics_get_display_size(0, &display_width, &display_height) < 0)
+        throw std::runtime_error("Could not get display size");
+
     // TODO
-    return glm::vec2(800, 600);
+    return glm::vec2(display_width, display_height);
 }
 
 bool platform_window::__on_frame_start(float /*dt*/)

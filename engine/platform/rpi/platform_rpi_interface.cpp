@@ -33,7 +33,6 @@ platform_interface::platform_interface(int argc, char *argv[])
     , logger_(common::logger::get_singleton(), "Platform::Raspberry")
     , initialized_(false)
     , running_(false)
-    , previous_time_(0.0)
 {
 }
 
@@ -58,15 +57,18 @@ void platform_interface::run()
 
     AEON_LOG_DEBUG(logger_) << "Starting message loop." << std::endl;
 
-    //previous_time_ = glfwGetTime();
+    struct timeval t1, t2;
+    struct timezone tz;
+
+    gettimeofday(&t1, &tz);
 
     running_ = true;
 
     while (running_)
     {
-        //double current_time = glfwGetTime(); //TODO: calculate delta time
-        double delta_time = 0.1f; //current_time - previous_time_;
-        //previous_time_ = current_time;
+        gettimeofday(&t2, &tz);
+        float delta_time = static_cast<float>(t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec) * 1e-6);
+        t1 = t2;
 
         // TODO: handle input
 
@@ -76,7 +78,7 @@ void platform_interface::run()
 
         for (gfx::render_target_ptr render_target : render_targets_)
         {
-            if (!render_target->handle_frame(static_cast<float>(delta_time)))
+            if (!render_target->handle_frame(delta_time))
             {
                 running_ = false;
                 break;
