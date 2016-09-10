@@ -25,19 +25,19 @@ namespace gfx
 namespace gles2
 {
 
-shader_manager::shader_manager()
-    : logger_(common::logger::get_singleton(), "Gfx::GL::ShaderManager")
+gfx_gles2_shader_manager::gfx_gles2_shader_manager()
+    : logger_(common::logger::get_singleton(), "Gfx::GLES2::ShaderManager")
 {
 }
 
-shader_ptr shader_manager::__load(resources::shader_ptr shader)
+shader_ptr gfx_gles2_shader_manager::__load(resources::shader_ptr shader)
 {
     GLuint vertexshader = __load_gl_shader(shader->get_vertex_source(), GL_VERTEX_SHADER);
     GLuint fragmentshader = __load_gl_shader(shader->get_fragment_source(), GL_FRAGMENT_SHADER);
 
     GLuint program = __link_gl_program(vertexshader, fragmentshader);
 
-    shader_gles2_ptr s = std::make_shared<gles2::shader>();
+    gfx_gles2_shader_ptr s = std::make_shared<gfx_gles2_shader>();
 
     s->handle_ = program;
     s->projection_matrix_handle_ = glGetUniformLocation(program, "projection_matrix");
@@ -61,7 +61,7 @@ shader_ptr shader_manager::__load(resources::shader_ptr shader)
     return s;
 }
 
-GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
+GLuint gfx_gles2_shader_manager::__load_gl_shader(const std::string &source, GLenum type)
 {
     // Create the shader object
     GLuint shader = glCreateShader(type);
@@ -69,7 +69,7 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
     if (shader == 0)
     {
         AEON_LOG_ERROR(logger_) << "Create shader failed." << std::endl;
-        throw gfx_opengl_shader_exception();
+        throw gfx_gles2_shader_exception();
     }
 
     AEON_LOG_TRACE(logger_) << "Created " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment")
@@ -107,13 +107,13 @@ GLuint shader_manager::__load_gl_shader(const std::string &source, GLenum type)
 
         glDeleteShader(shader);
         AEON_CHECK_GL_ERROR();
-        throw gfx_opengl_shader_compile_exception();
+        throw gfx_gles2_shader_compile_exception();
     }
 
     return shader;
 }
 
-GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentshader)
+GLuint gfx_gles2_shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentshader)
 {
     GLuint program = glCreateProgram();
     AEON_CHECK_GL_ERROR();
@@ -121,7 +121,7 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
     if (program == 0)
     {
         AEON_LOG_ERROR(logger_) << "Create program failed." << std::endl;
-        throw gfx_opengl_shader_exception();
+        throw gfx_gles2_shader_exception();
     }
 
     AEON_LOG_TRACE(logger_) << "Created program (GL handle: " << program << ")." << std::endl;
@@ -167,7 +167,7 @@ GLuint shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentsha
 
         glDeleteProgram(program);
         AEON_CHECK_GL_ERROR();
-        throw gfx_opengl_shader_compile_exception();
+        throw gfx_gles2_shader_compile_exception();
     }
 
     return program;

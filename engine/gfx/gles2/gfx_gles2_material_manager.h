@@ -25,17 +25,17 @@ namespace gfx
 namespace gles2
 {
 
-class device;
-class material_manager : public gfx::material_manager
+class gfx_gles2_device;
+class gfx_gles2_material_manager : public gfx::material_manager
 {
 public:
-    explicit material_manager(device &dev);
-    virtual ~material_manager() = default;
+    explicit gfx_gles2_material_manager(gfx_gles2_device &dev);
+    virtual ~gfx_gles2_material_manager() = default;
 
 private:
-    material_ptr __load(resources::material_ptr material) override;
+    gfx::material_ptr __load(resources::material_ptr material) override;
 
-    device &device_;
+    gfx_gles2_device &device_;
 };
 
 } // namespace gles2

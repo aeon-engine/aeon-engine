@@ -25,14 +25,14 @@ namespace gfx
 namespace gles2
 {
 
-texture_manager::texture_manager()
-    : logger_(common::logger::get_singleton(), "Gfx::GL::TextureManager")
+gfx_gles2_texture_manager::gfx_gles2_texture_manager()
+    : logger_(common::logger::get_singleton(), "Gfx::GLES2::TextureManager")
 {
 }
 
-texture_ptr texture_manager::__load(resources::image_ptr image)
+texture_ptr gfx_gles2_texture_manager::__load(resources::image_ptr image)
 {
-    texture_gles2_ptr t = std::make_shared<gles2::texture>(image);
+    gfx_gles2_texture_ptr t = std::make_shared<gfx_gles2_texture>(image);
 
     GLuint handle = 0;
     glGenTextures(1, &handle);
@@ -63,7 +63,7 @@ texture_ptr texture_manager::__load(resources::image_ptr image)
     return t;
 }
 
-GLint texture_manager::__image_pixelformat_to_gl(data::image::pixel_format format)
+GLint gfx_gles2_texture_manager::__image_pixelformat_to_gl(data::image::pixel_format format)
 {
     switch (format)
     {

@@ -28,13 +28,13 @@ namespace gfx
 namespace gles2
 {
 
-DEFINE_EXCEPTION_OBJECT(gfx_opengl_buffer_exception, aeon::common::exception, "GL Buffer error");
+DEFINE_EXCEPTION_OBJECT(gfx_gles2_buffer_exception, aeon::common::exception, "Gles2 Buffer error");
 
-class buffer : public gfx::buffer
+class gfx_gles2_buffer : public gfx::buffer
 {
 public:
-    explicit buffer(buffer_type type);
-    virtual ~buffer();
+    explicit gfx_gles2_buffer(buffer_type type);
+    virtual ~gfx_gles2_buffer();
 
     void set_data(int size, const void *data, buffer_usage usage) override;
 
@@ -52,7 +52,7 @@ private:
     bool has_data_;
 };
 
-using buffer_ptr = std::shared_ptr<buffer>;
+using gfx_gles2_buffer_ptr = std::shared_ptr<gfx_gles2_buffer>;
 
 } // namespace gles2
 } // namespace gfx

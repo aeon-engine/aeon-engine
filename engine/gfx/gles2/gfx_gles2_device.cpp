@@ -30,25 +30,25 @@ namespace gfx
 namespace gles2
 {
 
-device::device()
-    : logger_(common::logger::get_singleton(), "Gfx::GL::Device")
+gfx_gles2_device::gfx_gles2_device()
+    : logger_(common::logger::get_singleton(), "Gfx::GLES2::Device")
 {
 }
 
-void device::__initialize_impl()
+void gfx_gles2_device::__initialize_impl()
 {
     AEON_LOG_MESSAGE(logger_) << "Initializing device." << std::endl;
 
     if (initialized_)
     {
         AEON_LOG_FATAL(logger_) << "Initialize called while already initialized." << std::endl;
-        throw gl_initialized_exception();
+        throw gfx_gles2_initialized_exception();
     }
 
-    texture_manager_ = std::make_unique<gles2::texture_manager>();
-    shader_manager_ = std::make_unique<gles2::shader_manager>();
-    material_manager_ = std::make_unique<gles2::material_manager>(*this);
-    buffer_manager_ = std::make_unique<gles2::buffer_manager>();
+    texture_manager_ = std::make_unique<gfx_gles2_texture_manager>();
+    shader_manager_ = std::make_unique<gfx_gles2_shader_manager>();
+    material_manager_ = std::make_unique<gfx_gles2_material_manager>(*this);
+    buffer_manager_ = std::make_unique<gfx_gles2_buffer_manager>();
 
     glEnable(GL_BLEND);
     AEON_CHECK_GL_ERROR();
@@ -59,20 +59,20 @@ void device::__initialize_impl()
     initialized_ = true;
 }
 
-void device::set_clear_color(const common::types::color &c)
+void gfx_gles2_device::set_clear_color(const common::types::color &c)
 {
     glClearColor(c.r, c.g, c.b, c.a);
     AEON_CHECK_GL_ERROR();
 }
 
-void device::set_viewport(scene::viewport *vp)
+void gfx_gles2_device::set_viewport(scene::viewport *vp)
 {
     common::types::rectangle<int> rect = common::types::rectangle<int>(vp->get_rectangle());
     glViewport(rect.x, rect.y, rect.width, rect.height);
     AEON_CHECK_GL_ERROR();
 }
 
-void device::clear_buffer(int buffer_flag)
+void gfx_gles2_device::clear_buffer(int buffer_flag)
 {
     GLenum buffers = 0;
 
@@ -86,7 +86,7 @@ void device::clear_buffer(int buffer_flag)
     AEON_CHECK_GL_ERROR();
 }
 
-mesh_ptr device::create_mesh(material_ptr material)
+mesh_ptr gfx_gles2_device::create_mesh(material_ptr material)
 {
     return std::make_unique<gfx_gles2_mesh>(this, material);
 }

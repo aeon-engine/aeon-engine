@@ -23,9 +23,9 @@ namespace gfx
 namespace gles2
 {
 
-gfx::buffer_ptr buffer_manager::__create_buffer(buffer_type type)
+gfx::buffer_ptr gfx_gles2_buffer_manager::__create_buffer(buffer_type type)
 {
-    return std::make_shared<gles2::buffer>(type);
+    return std::make_shared<gles2::gfx_gles2_buffer>(type);
 }
 
 } // namespace gles2

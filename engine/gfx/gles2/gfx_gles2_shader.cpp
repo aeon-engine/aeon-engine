@@ -24,8 +24,8 @@ namespace gfx
 namespace gles2
 {
 
-shader::shader()
-    : logger_(common::logger::get_singleton(), "Gfx::GL::Shader")
+gfx_gles2_shader::gfx_gles2_shader()
+    : logger_(common::logger::get_singleton(), "Gfx::GLES2::Shader")
     , handle_(0)
     , projection_matrix_handle_(0)
     , model_matrix_handle_(0)
@@ -34,38 +34,38 @@ shader::shader()
 {
 }
 
-shader::~shader()
+gfx_gles2_shader::~gfx_gles2_shader()
 {
     AEON_LOG_TRACE(logger_) << "Deleting Program (GL handle: " << handle_ << ")." << std::endl;
     glDeleteProgram(handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-void shader::bind() const
+void gfx_gles2_shader::bind() const
 {
     glUseProgram(handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-void shader::set_projection_matrix(const glm::mat4 &matrix)
+void gfx_gles2_shader::set_projection_matrix(const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(projection_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
     AEON_CHECK_GL_ERROR();
 }
 
-void shader::set_model_matrix(const glm::mat4 &matrix)
+void gfx_gles2_shader::set_model_matrix(const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(model_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
     AEON_CHECK_GL_ERROR();
 }
 
-void shader::set_view_matrix(const glm::mat4 &matrix)
+void gfx_gles2_shader::set_view_matrix(const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(view_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
     AEON_CHECK_GL_ERROR();
 }
 
-GLint shader::get_texture0_handle() const
+GLint gfx_gles2_shader::get_texture0_handle() const
 {
     return texture0_handle_;
 }

@@ -23,9 +23,9 @@ namespace gfx
 namespace gles2
 {
 
-buffer::buffer(buffer_type type)
+gfx_gles2_buffer::gfx_gles2_buffer(buffer_type type)
     : gfx::buffer(type)
-    , logger_(common::logger::get_singleton(), "Gfx::GL::Buffer")
+    , logger_(common::logger::get_singleton(), "Gfx::GLES2::Buffer")
     , handle_(0)
     , has_data_(false)
 {
@@ -35,14 +35,14 @@ buffer::buffer(buffer_type type)
     AEON_LOG_TRACE(logger_) << "Created buffer (GL handle: " << handle_ << ")." << std::endl;
 }
 
-buffer::~buffer()
+gfx_gles2_buffer::~gfx_gles2_buffer()
 {
     AEON_LOG_TRACE(logger_) << "Deleting buffer (GL handle: " << handle_ << ")." << std::endl;
     glDeleteBuffers(1, &handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-void buffer::set_data(int size, const void *data, buffer_usage usage)
+void gfx_gles2_buffer::set_data(int size, const void *data, buffer_usage usage)
 {
     GLenum gl_type = __buffer_type_as_gl_enum();
     GLenum gl_usage = __buffer_usage_as_gl_enum(usage);
@@ -56,18 +56,18 @@ void buffer::set_data(int size, const void *data, buffer_usage usage)
     has_data_ = true;
 }
 
-void buffer::bind()
+void gfx_gles2_buffer::bind()
 {
     glBindBuffer(__buffer_type_as_gl_enum(), handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-bool buffer::has_data() const
+bool gfx_gles2_buffer::has_data() const
 {
     return has_data_;
 }
 
-GLenum buffer::__buffer_type_as_gl_enum() const
+GLenum gfx_gles2_buffer::__buffer_type_as_gl_enum() const
 {
     switch (type_)
     {
@@ -78,12 +78,12 @@ GLenum buffer::__buffer_type_as_gl_enum() const
         default:
         {
             AEON_LOG_ERROR(logger_) << "Unknown or unsupported buffer type." << std::endl;
-            throw gfx_opengl_buffer_exception();
+            throw gfx_gles2_buffer_exception();
         }
     }
 }
 
-GLenum buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const
+GLenum gfx_gles2_buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const
 {
     switch (usage)
     {
@@ -96,7 +96,7 @@ GLenum buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const
         default:
         {
             AEON_LOG_ERROR(logger_) << "Unknown or unsupported buffer usage." << std::endl;
-            throw gfx_opengl_buffer_exception();
+            throw gfx_gles2_buffer_exception();
         }
     }
 }

@@ -24,21 +24,21 @@ namespace gfx
 namespace gles2
 {
 
-texture::texture(resources::image_ptr image)
+gfx_gles2_texture::gfx_gles2_texture(resources::image_ptr image)
     : gfx::texture(image)
-    , logger_(common::logger::get_singleton(), "Gfx::GL::Texture")
+    , logger_(common::logger::get_singleton(), "Gfx::GLES2::Texture")
     , handle_(0)
 {
 }
 
-texture::~texture()
+gfx_gles2_texture::~gfx_gles2_texture()
 {
     AEON_LOG_TRACE(logger_) << "Deleting Texture (GL handle: " << handle_ << ")." << std::endl;
     glDeleteTextures(1, &handle_);
     AEON_CHECK_GL_ERROR();
 }
 
-void texture::bind(shader &s) const
+void gfx_gles2_texture::bind(gfx_gles2_shader &s) const
 {
     glActiveTexture(GL_TEXTURE0);
     AEON_CHECK_GL_ERROR();

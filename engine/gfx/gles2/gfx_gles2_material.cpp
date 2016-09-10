@@ -22,18 +22,18 @@ namespace gfx
 namespace gles2
 {
 
-void material::bind()
+void gfx_gles2_material::bind()
 {
     shader_->bind();
     texture_->bind(*shader_);
 }
 
-gfx::shader *material::get_shader() const
+gfx::shader *gfx_gles2_material::get_shader() const
 {
     return shader_.get();
 }
 
-gfx::texture *material::get_texture() const
+gfx::texture *gfx_gles2_material::get_texture() const
 {
     return texture_.get();
 }

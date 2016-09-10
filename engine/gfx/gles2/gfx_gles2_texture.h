@@ -26,23 +26,23 @@ namespace gfx
 namespace gles2
 {
 
-class shader;
-class texture : public gfx::texture
+class gfx_gles2_shader;
+class gfx_gles2_texture : public gfx::texture
 {
-    friend class texture_manager;
+    friend class gfx_gles2_texture_manager;
 
 public:
-    explicit texture(resources::image_ptr image);
-    ~texture() override;
+    explicit gfx_gles2_texture(resources::image_ptr image);
+    ~gfx_gles2_texture() override;
 
-    void bind(shader &s) const;
+    void bind(gfx_gles2_shader &s) const;
 
 private:
     aeon::logger::logger logger_;
     GLuint handle_;
 };
 
-using texture_gles2_ptr = std::shared_ptr<gles2::texture>;
+using gfx_gles2_texture_ptr = std::shared_ptr<gles2::gfx_gles2_texture>;
 
 } // namespace gles2
 } // namespace gfx

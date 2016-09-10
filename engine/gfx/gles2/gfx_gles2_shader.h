@@ -27,13 +27,13 @@ namespace gfx
 namespace gles2
 {
 
-class shader : public gfx::shader
+class gfx_gles2_shader : public gfx::shader
 {
-    friend class shader_manager;
+    friend class gfx_gles2_shader_manager;
 
 public:
-    shader();
-    ~shader() override;
+    gfx_gles2_shader();
+    ~gfx_gles2_shader() override;
 
     void bind() const;
 
@@ -54,7 +54,7 @@ private:
     GLint texture0_handle_;
 };
 
-using shader_gles2_ptr = std::shared_ptr<gles2::shader>;
+using gfx_gles2_shader_ptr = std::shared_ptr<gfx_gles2_shader>;
 
 } // namespace gles2
 } // namespace gfx

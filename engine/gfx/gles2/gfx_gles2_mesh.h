@@ -27,11 +27,11 @@ namespace gfx
 namespace gles2
 {
 
-class device;
+class gfx_gles2_device;
 class gfx_gles2_mesh : public gfx::mesh
 {
 public:
-    explicit gfx_gles2_mesh(device *device, material_ptr material);
+    explicit gfx_gles2_mesh(gfx_gles2_device *device, gfx::material_ptr material);
     virtual ~gfx_gles2_mesh() = default;
 
     void upload_vertex_buffer(const std::vector<mesh_vertex> &vertex_data, const gfx::buffer_usage usage) override;

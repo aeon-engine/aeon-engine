@@ -26,14 +26,14 @@ namespace gfx
 namespace gles2
 {
 
-DEFINE_EXCEPTION_OBJECT(gl_initialized_exception, aeon::common::exception, "OpenGL Device already initialized.");
-DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL Device Exception");
+DEFINE_EXCEPTION_OBJECT(gfx_gles2_initialized_exception, aeon::common::exception, "GLES 2 Device already initialized.");
+DEFINE_EXCEPTION_OBJECT(gfx_gles2_device_exception, aeon::common::exception, "GLES 2 Device Exception");
 
-class device : public gfx::device
+class gfx_gles2_device : public gfx::device
 {
 public:
-    device();
-    virtual ~device() = default;
+    gfx_gles2_device();
+    virtual ~gfx_gles2_device() = default;
 
     void __initialize_impl() override;
 

@@ -27,25 +27,25 @@ namespace gfx
 namespace gles2
 {
 
-class material : public gfx::material
+class gfx_gles2_material : public gfx::material
 {
-    friend class material_manager;
+    friend class gfx_gles2_material_manager;
 
     void bind() override;
 
 public:
-    material() = default;
-    ~material() = default;
+    gfx_gles2_material() = default;
+    ~gfx_gles2_material() = default;
 
     gfx::shader *get_shader() const override;
     gfx::texture *get_texture() const override;
 
 protected:
-    gles2::shader_gles2_ptr shader_;
-    gles2::texture_gles2_ptr texture_;
+    gfx_gles2_shader_ptr shader_;
+    gfx_gles2_texture_ptr texture_;
 };
 
-using material_gl_ptr = std::shared_ptr<material>;
+using gfx_gles2_material_ptr = std::shared_ptr<gfx_gles2_material>;
 
 } // namespace gles2
 } // namespace gfx
