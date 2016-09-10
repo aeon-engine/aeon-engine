@@ -28,7 +28,7 @@ platform_monitor::platform_monitor(int width, int height, int x, int y, bool pri
 {
 }
 
-void platform_monitor::set_gramma(float gamma)
+void platform_monitor::set_gramma(float)
 {
     throw std::runtime_error("Not yet implemented.");
 }
@@ -38,7 +38,7 @@ gamma_ramp platform_monitor::get_gamma_ramp()
     throw std::runtime_error("Not yet implemented.");
 }
 
-void platform_monitor::set_gamma_ramp(gamma_ramp ramp)
+void platform_monitor::set_gamma_ramp(gamma_ramp)
 {
     throw std::runtime_error("Not yet implemented.");
 }
