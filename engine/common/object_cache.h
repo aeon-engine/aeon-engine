@@ -53,25 +53,43 @@ public:
         if (result == objects_.end())
             return nullptr;
 
-        return result->second.lock();
+        cached_object_weak_ptr object = result->second;
+
+        if (object.expired())
+        {
+            garbage_collect_cached_objects();
+            return nullptr;
+        }
+
+        return object.lock();
     }
 
     void add_cached_object(const std::string &name, cached_object_ptr obj)
     {
         obj->name_ = name;
 
-        if (objects_.find(name) != objects_.end())
-            throw object_cache_name_exception();
+        auto result = objects_.find(name);
+        if (result != objects_.end())
+        {
+            if (!result->second.expired())
+            {
+                throw object_cache_name_exception();
+            }
+
+            garbage_collect_cached_objects();
+        }
 
         objects_[name] = obj;
     }
 
     void garbage_collect_cached_objects()
     {
-        objects_.erase_if([](const typename cached_objects::pair_type &obj)
-                          {
-                              return obj.second->expired();
-                          });
+        utility::container::erase_if(objects_,
+            [](const auto &obj)
+            {
+                return obj.second.expired();
+            }
+        );
     }
 
 private:
