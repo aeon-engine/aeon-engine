@@ -77,7 +77,7 @@ void gfx_gl_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
 
 void gfx_gl_mesh::__check_vao()
 {
-    if (index_buffer_->has_data() && vertex_buffer_->has_data())
+    if (index_buffer_->has_data() && vertex_buffer_->has_data() && !vao_)
         __create_and_setup_vao();
 }
 
