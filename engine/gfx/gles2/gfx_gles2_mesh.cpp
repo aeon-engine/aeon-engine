@@ -62,17 +62,20 @@ void gfx_gles2_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &vi
     material_->get_shader()->set_model_matrix(model);
     material_->get_shader()->set_view_matrix(view);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(mesh_vertex), (GLvoid *) 0); //offsetof(mesh_vertex, x));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(mesh_vertex),
+        reinterpret_cast<GLvoid*>(offsetof(mesh_vertex, x)));
     AEON_CHECK_GL_ERROR();
     glEnableVertexAttribArray(0);
     AEON_CHECK_GL_ERROR();
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(mesh_vertex), (GLvoid *) 12); //offsetof(mesh_vertex, u));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(mesh_vertex),
+        reinterpret_cast<GLvoid*>(offsetof(mesh_vertex, u)));
     AEON_CHECK_GL_ERROR();
     glEnableVertexAttribArray(1);
     AEON_CHECK_GL_ERROR();
 
-    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(mesh_vertex), (GLvoid *) 20); //offsetof(mesh_vertex, r));
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(mesh_vertex),
+        reinterpret_cast<GLvoid*>(offsetof(mesh_vertex, r)));
     AEON_CHECK_GL_ERROR();
     glEnableVertexAttribArray(2);
     AEON_CHECK_GL_ERROR();
