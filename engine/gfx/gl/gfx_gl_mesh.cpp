@@ -49,8 +49,8 @@ void gfx_gl_mesh::upload_vertex_buffer(const std::vector<mesh_vertex> &vertex_da
 
 void gfx_gl_mesh::upload_index_buffer(const std::vector<std::uint16_t> &index_data, const gfx::buffer_usage usage)
 {
-    element_count_ = static_cast<GLuint>(index_data.size() * sizeof(uint16_t));
-    index_buffer_->set_data(static_cast<int>(element_count_), index_data.data(), usage);
+    element_count_ = static_cast<GLuint>(index_data.size());
+    index_buffer_->set_data(static_cast<int>(element_count_ * sizeof(uint16_t)), index_data.data(), usage);
 
     __check_vao();
 }
