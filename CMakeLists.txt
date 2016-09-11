@@ -49,6 +49,13 @@ if (APPLE)
     message(STATUS "CoreVideo: ${COREVIDEO_LIBRARY}")
 endif ()
 
+if (MSVC)
+	option(AEON_ENABLE_MSVC_ITERATOR_DEBUGGING "Enable iterator debugging in Visual Studio" OFF)
+	if (NOT AEON_ENABLE_MSVC_ITERATOR_DEBUGGING)
+		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D _HAS_ITERATOR_DEBUGGING=0")
+	endif ()
+endif ()
+
 ################################################################################
 # GFX options
 ################################################################################
