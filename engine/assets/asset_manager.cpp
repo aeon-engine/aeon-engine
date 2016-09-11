@@ -14,6 +14,7 @@
  */
 
 #include <assets/asset_manager.h>
+#include <scene/mesh.h>
 
 namespace aeon
 {
@@ -25,50 +26,78 @@ asset_manager::asset_manager(resources::resource_manager &resource_manager, scen
     , resource_manager_(resource_manager)
     , scene_manager_(scene_manager)
     , device_(scene_manager.get_device())
+    , texture_cache_()
+    , shader_cache_()
+    , material_cache_()
+    , atlas_cache_()
 {
 }
 
-asset_manager::~asset_manager()
-{
-}
-
-gfx::texture_ptr asset_manager::load_texture(const std::string &path) const
+gfx::texture_ptr asset_manager::load_texture(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading texture '" << path << "'." << std::endl;
 
+    auto result = texture_cache_.get_cached_object(path);
+
+    if (result)
+        return result;
+
     resources::image_resource_wrapper_ptr image_resource = resource_manager_.load_image_wrapper(path);
     resources::image_ptr image_resource_data = image_resource->open();
-    return device_.get_texture_manager().load(image_resource_data);
+    auto texture = device_.get_texture_manager().load(image_resource_data);
+    texture_cache_.add_cached_object(path, texture);
+    return texture;
 }
 
-gfx::shader_ptr asset_manager::load_shader(const std::string &path) const
+gfx::shader_ptr asset_manager::load_shader(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading shader '" << path << "'." << std::endl;
 
+    auto result = shader_cache_.get_cached_object(path);
+
+    if (result)
+        return result;
+
     resources::shader_resource_wrapper_ptr shader_resource = resource_manager_.load_shader_wrapper(path);
     resources::shader_ptr shader_resource_data = shader_resource->open();
-    return device_.get_shader_manager().load(shader_resource_data);
+    auto shader = device_.get_shader_manager().load(shader_resource_data);
+    shader_cache_.add_cached_object(path, shader);
+    return shader;
 }
 
-gfx::material_ptr asset_manager::load_material(const std::string &path) const
+gfx::material_ptr asset_manager::load_material(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading material '" << path << "'." << std::endl;
 
+    auto result = material_cache_.get_cached_object(path);
+
+    if (result)
+        return result;
+
     resources::material_resource_wrapper_ptr material_resource = resource_manager_.load_material_wrapper(path);
     resources::material_ptr material_resource_data = material_resource->open();
-    return device_.get_material_manager().load(material_resource_data);
+    auto material = device_.get_material_manager().load(material_resource_data);
+    material_cache_.add_cached_object(path, material);
+    return material;
 }
 
-gfx::atlas_ptr asset_manager::load_atlas(const std::string& path) const
+gfx::atlas_ptr asset_manager::load_atlas(const std::string& path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading atlas '" << path << "'." << std::endl;
 
+    auto result = atlas_cache_.get_cached_object(path);
+
+    if (result)
+        return result;
+
     resources::atlas_resource_wrapper_ptr atlas_resource = resource_manager_.load_atlas_wrapper(path);
     resources::atlas_ptr atlas_resource_data = atlas_resource->open();
-    return device_.get_atlas_manager().load(atlas_resource_data);
+    auto atlas = device_.get_atlas_manager().load(atlas_resource_data);
+    atlas_cache_.add_cached_object(path, atlas);
+    return atlas;
 }
 
-scene::scene_node_ptr asset_manager::load_mesh(const std::string &path) const
+scene::scene_node_ptr asset_manager::load_mesh(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading mesh '" << path << "'." << std::endl;
 
@@ -94,8 +123,18 @@ gfx::atlas_ptr asset_manager::create_atlas(gfx::material_ptr material, glm::vec2
     return std::make_shared<gfx::atlas>(material, sprite_size);
 }
 
-void asset_manager::__convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node) const
+void asset_manager::__convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node)
 {
+    auto submeshes = mesh_node.get_submeshes();
+
+    for (resources::submesh *submesh : submeshes)
+    {
+        scene::mesh_ptr mesh = std::make_shared<scene::mesh>(&scene_manager_, load_material(submesh->get_material()),
+            submesh->get_vertex_data(), submesh->get_index_data());
+
+        scene_node.attach_scene_object(mesh);
+    }
+
     auto children = mesh_node.get_children();
     for (resources::mesh_node *mesh_node_child : children)
     {

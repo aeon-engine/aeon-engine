@@ -31,7 +31,7 @@ DEFINE_EXCEPTION_OBJECT(object_cache_name_exception, object_cache_exception,
                         "There is already an object cached with the same name.");
 
 template <typename T>
-class object_cache
+class object_cache : utility::noncopyable
 {
 public:
     using cached_object_ptr = std::shared_ptr<T>;

@@ -45,6 +45,7 @@ void scene_node::attach_child(scene_node_ptr node)
     children_.push_back(node);
 
     dirty_ = true;
+    node->dirty_ = true;
 }
 
 void scene_node::detach_child(scene_node_ptr node)
@@ -132,29 +133,29 @@ void scene_node::translate(const glm::vec3 &vector)
 
 void scene_node::rotate(float x, float y, float z)
 {
-    matrix_ = glm::rotate(matrix_, x, glm::vec3(1.0f, 0.0f, 0.0f));
-    matrix_ = glm::rotate(matrix_, y, glm::vec3(0.0f, 1.0f, 0.0f));
-    matrix_ = glm::rotate(matrix_, z, glm::vec3(0.0f, 0.0f, 1.0f));
+    matrix_ = glm::rotate(matrix_, glm::degrees(x), glm::vec3(1.0f, 0.0f, 0.0f));
+    matrix_ = glm::rotate(matrix_, glm::degrees(y), glm::vec3(0.0f, 1.0f, 0.0f));
+    matrix_ = glm::rotate(matrix_, glm::degrees(z), glm::vec3(0.0f, 0.0f, 1.0f));
     dirty_ = true;
 }
 
 void scene_node::rotate(const glm::vec3 &vector)
 {
-    matrix_ = glm::rotate(matrix_, vector.x, glm::vec3(1.0f, 0.0f, 0.0f));
-    matrix_ = glm::rotate(matrix_, vector.y, glm::vec3(0.0f, 1.0f, 0.0f));
-    matrix_ = glm::rotate(matrix_, vector.z, glm::vec3(0.0f, 0.0f, 1.0f));
+    matrix_ = glm::rotate(matrix_, glm::degrees(vector.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    matrix_ = glm::rotate(matrix_, glm::degrees(vector.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    matrix_ = glm::rotate(matrix_, glm::degrees(vector.z), glm::vec3(0.0f, 0.0f, 1.0f));
     dirty_ = true;
 }
 
 void scene_node::rotate(float angle, const glm::vec3 &vector)
 {
-    matrix_ = glm::rotate(matrix_, angle, vector);
+    matrix_ = glm::rotate(matrix_, glm::degrees(angle), vector);
     dirty_ = true;
 }
 
 void scene_node::rotate(float angle)
 {
-    matrix_ = glm::rotate(matrix_, angle, glm::vec3(0.0f, 0.0f, 1.0f));
+    matrix_ = glm::rotate(matrix_, glm::degrees(angle), glm::vec3(0.0f, 0.0f, 1.0f));
     dirty_ = true;
 }
 
@@ -188,6 +189,24 @@ void scene_node::cleanup_children()
 
     detach_all_scene_objects();
     detach_all_children();
+}
+
+scene_node_ptr scene_node::clone()
+{
+    scene_node_ptr node_copy = scene_node_ptr(new scene_node());
+    node_copy->scene_objects_ = scene_objects_;
+    node_copy->matrix_ = matrix_;
+    node_copy->parent_matrix_ = parent_matrix_;
+    node_copy->total_matrix_ = total_matrix_;
+    node_copy->dirty_ = true;
+    node_copy->is_root_ = false;
+
+    for (auto &node : children_)
+    {
+        node_copy->children_.push_back(node->clone());
+    }
+
+    return node_copy;
 }
 
 } // namespace scene

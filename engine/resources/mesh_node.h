@@ -37,6 +37,7 @@ public:
 
     mesh_node &create_child(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);
     std::vector<mesh_node *> get_children() const;
+    std::vector<submesh *> get_submeshes() const;
 
 private:
     explicit mesh_node(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);

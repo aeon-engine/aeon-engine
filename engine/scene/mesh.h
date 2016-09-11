@@ -16,6 +16,8 @@
 #pragma once
 
 #include <scene/scene_object.h>
+#include <gfx/gfx_mesh.h>
+#include <gfx/gfx_material.h>
 #include <memory>
 
 namespace aeon
@@ -26,13 +28,15 @@ namespace scene
 class mesh : public scene_object
 {
 public:
-    explicit mesh(scene_manager *scene_manager);
+    explicit mesh(scene_manager *scene_manager, gfx::material_ptr material,
+        const std::vector<data::vertex_data> &vertex_data, const std::vector<std::uint16_t> &index_data);
 
     virtual ~mesh();
 
 private:
     void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt) override;
 
+    gfx::mesh_ptr mesh_;
 };
 
 using mesh_ptr = std::shared_ptr<mesh>;

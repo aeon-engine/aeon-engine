@@ -25,9 +25,12 @@ application::application(int argc, char *argv[])
     // Init resources
     get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
 
+        // Attach this class as a frame listener
+    get_main_window()->attach_listener(this);
+
     // Set up the scene
     camera_ =
-        std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+        std::make_shared<aeon::scene::perspective_camera>(get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
 
     window_->create_viewport(camera_, 0);
 }
@@ -35,9 +38,24 @@ application::application(int argc, char *argv[])
 void application::main()
 {
     // Load resources
-    aeon::scene::scene_node_ptr node = get_asset_manager().load_mesh("/resources/meshes/teapot.dae");
-    get_scene_manager()->get_root_scene_node()->attach_child(node);
+    node_ = get_asset_manager().load_mesh("/resources/meshes/teapot.dae");
+    get_scene_manager()->get_root_scene_node()->attach_child(node_);
+
+    node_->translate(0.0f, -1.2f, -5.0f);
+    node_->rotate(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+
+    node2_ = get_asset_manager().load_mesh("/resources/meshes/cube.dae");
+    node_->attach_child(node2_);
+
+    node2_->translate(0.0f, 0.0f, -10.0f);
 
     // Start the render loop
     platform_.run();
+}
+
+bool application::on_frame(float dt)
+{
+    (void) dt;
+    node_->rotate(0.01f * dt, glm::vec3(0.0f, 0.0f, 1.0f));
+    return true;
 }

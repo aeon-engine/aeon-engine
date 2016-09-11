@@ -18,9 +18,9 @@
 #include <application/desktop_application.h>
 #include <resources/wrappers/image_resource_wrapper.h>
 #include <scene/scene_managers/basic/basic_scene_manager.h>
-#include <scene/orthographic_camera.h>
+#include <scene/perspective_camera.h>
 
-class application : public aeon::desktop_application<aeon::scene::basic_scene_manager>
+class application : public aeon::gfx::frame_listener, public aeon::desktop_application<aeon::scene::basic_scene_manager>
 {
 public:
     explicit application(int argc, char *argv[]);
@@ -28,6 +28,10 @@ public:
 
     void main();
 
+    bool on_frame(float dt) override;
+
 private:
-    aeon::scene::orthographic_camera_ptr camera_;
+    aeon::scene::perspective_camera_ptr camera_;
+    aeon::scene::scene_node_ptr node_;
+    aeon::scene::scene_node_ptr node2_;
 };

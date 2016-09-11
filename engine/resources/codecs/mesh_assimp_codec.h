@@ -42,6 +42,7 @@ public:
     resource_encoding get_codec_type() const override;
 
 private:
+    void __decode_materials(const aiScene *scene, mesh &mesh_ref) const;
     void __decode_submeshes(const aiScene *scene, mesh &mesh_ref) const;
     void __read_index_data(aiMesh *mesh, data::index_data_buffer &indices) const;
     void __read_vertex_data(aiMesh *mesh, data::vertex_data_buffer &vertices) const;

@@ -28,9 +28,9 @@ namespace data
 AEON_PACK_STRUCT_PUSH(1)
 struct vertex_data
 {
-    glm::vec3 vertex;
+    glm::vec3 position;
     glm::vec3 normal;
-    glm::vec3 texture_uvw;
+    glm::vec3 uvw;
     common::types::color color;
 }
 AEON_PACK_STRUCT_POP(1);

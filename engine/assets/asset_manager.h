@@ -23,35 +23,41 @@
 #include <gfx/gfx_atlas.h>
 #include <scene/scene_manager.h>
 #include <scene/scene_node.h>
+#include <common/object_cache.h>
 
 namespace aeon
 {
 namespace assets
 {
 
-class asset_manager
+class asset_manager : utility::noncopyable
 {
 public:
     explicit asset_manager(resources::resource_manager &resource_manager, scene::scene_manager &scene_manager);
-    ~asset_manager();
+    virtual ~asset_manager() = default;
 
-    gfx::texture_ptr load_texture(const std::string &path) const;
-    gfx::shader_ptr load_shader(const std::string &path) const;
-    gfx::material_ptr load_material(const std::string &path) const;
-    gfx::atlas_ptr load_atlas(const std::string &path) const;
+    gfx::texture_ptr load_texture(const std::string &path);
+    gfx::shader_ptr load_shader(const std::string &path);
+    gfx::material_ptr load_material(const std::string &path);
+    gfx::atlas_ptr load_atlas(const std::string &path);
 
-    scene::scene_node_ptr load_mesh(const std::string &path) const;
+    scene::scene_node_ptr load_mesh(const std::string &path);
 
     gfx::atlas_ptr create_atlas(resources::material_ptr material, glm::vec2 sprite_size) const;
     gfx::atlas_ptr create_atlas(gfx::material_ptr material, glm::vec2 sprite_size) const;
 
 private:
-    void __convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node) const;
+    void __convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node);
 
     aeon::logger::logger logger_;
     resources::resource_manager &resource_manager_;
     scene::scene_manager &scene_manager_;
     gfx::device &device_;
+
+    common::object_cache<gfx::texture> texture_cache_;
+    common::object_cache<gfx::shader> shader_cache_;
+    common::object_cache<gfx::material> material_cache_;
+    common::object_cache<gfx::atlas> atlas_cache_;
 };
 
 } // namespace assets

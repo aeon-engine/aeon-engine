@@ -24,6 +24,8 @@ namespace resources
 mesh::mesh(resource_wrapper_ptr wrapper)
     : resource(wrapper)
     , logger_(common::logger::get_singleton(), "Resources::Mesh")
+    , materials_()
+    , submeshes_()
     , root_mesh_node_(nullptr)
 {
     AEON_LOG_TRACE(logger_) << "Created empty mesh resource." << std::endl;
@@ -34,12 +36,24 @@ mesh::~mesh()
     AEON_LOG_TRACE(logger_) << "Deleted mesh resource." << std::endl;
 }
 
-void mesh::create_submesh(const int id, const std::string &name, data::index_data_buffer &&indices, data::vertex_data_buffer &&vertices)
+void mesh::add_material(const std::string &name)
 {
-    submeshes_.emplace_back(std::move(submesh_ptr(new submesh(id, name, std::move(indices), std::move(vertices)))));
+    materials_.push_back(name);
 }
 
-submesh * mesh::get_submesh_by_id(const int id)
+void mesh::create_submesh(const int id, const std::string &name, data::index_data_buffer &&indices,
+    data::vertex_data_buffer &&vertices, const std::string &material)
+{
+    submeshes_.emplace_back(std::move(submesh_ptr(new submesh(id, name, std::move(indices),
+        std::move(vertices), material))));
+}
+
+std::string &mesh::get_material_by_id(const int id)
+{
+    return materials_.at(id);
+}
+
+submesh *mesh::get_submesh_by_id(const int id)
 {
     for (auto &submesh : submeshes_)
     {

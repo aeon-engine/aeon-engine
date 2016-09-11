@@ -40,10 +40,7 @@ mesh_ptr mesh_codec_assimp::decode(resource_manager & /*parent*/, mesh_resource_
 
     Assimp::Importer importer;
     const aiScene *scene = importer.ReadFileFromMemory(input.data(), input.size(),
-        aiProcess_CalcTangentSpace |
-        aiProcess_Triangulate |
-        aiProcess_JoinIdenticalVertices |
-        aiProcess_SortByPType);
+        aiProcessPreset_TargetRealtime_Quality);
 
     if(!scene)
     {
@@ -52,6 +49,7 @@ mesh_ptr mesh_codec_assimp::decode(resource_manager & /*parent*/, mesh_resource_
     }
 
     mesh_ptr mesh_data = std::make_shared<mesh>(wrapper);
+    __decode_materials(scene, *mesh_data);
     __decode_submeshes(scene, *mesh_data);
     __decode_scene(scene, *mesh_data);
 
@@ -61,6 +59,26 @@ mesh_ptr mesh_codec_assimp::decode(resource_manager & /*parent*/, mesh_resource_
 resource_encoding mesh_codec_assimp::get_codec_type() const
 {
     return resource_encoding::mesh_assimp;
+}
+
+void mesh_codec_assimp::__decode_materials(const aiScene* scene, mesh& mesh_ref) const
+{
+    for (unsigned int i = 0; i < scene->mNumMaterials; ++i)
+    {
+        aiMaterial *ai_material = scene->mMaterials[i];
+        aiString ai_texture_path;
+        if (ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &ai_texture_path) == AI_SUCCESS)
+        {
+            std::string texture_path = ai_texture_path.data;
+            mesh_ref.add_material(texture_path + ".amf");
+        }
+        else
+        {
+            AEON_LOG_ERROR(logger_) << "Could not get diffuse texture for material. Ignoring." << std::endl;
+            // TODO: How to handle this?
+            mesh_ref.add_material("/resources/materials/test.amf");
+        }
+    }
 }
 
 void mesh_codec_assimp::__decode_submeshes(const aiScene *scene, mesh &mesh_ref) const
@@ -75,7 +93,10 @@ void mesh_codec_assimp::__decode_submeshes(const aiScene *scene, mesh &mesh_ref)
         data::vertex_data_buffer vertices;
         __read_vertex_data(ai_submesh, vertices);
 
-        mesh_ref.create_submesh(i, ai_submesh->mName.C_Str(), std::move(indices), std::move(vertices));
+        std::string mesh_name = ai_submesh->mName.C_Str();
+        std::string material = mesh_ref.get_material_by_id(ai_submesh->mMaterialIndex);
+
+        mesh_ref.create_submesh(i, mesh_name, std::move(indices), std::move(vertices), material);
     }
 }
 
@@ -87,8 +108,11 @@ void mesh_codec_assimp::__read_index_data(aiMesh *mesh, data::index_data_buffer 
     // Copy indices
     const unsigned int num_faces = mesh->mNumFaces;
 
-    indices.reserve(num_faces * indices_per_face);
+    indices.resize(num_faces * indices_per_face);
 
+    std::uint16_t *indices_ptr = indices.data();
+
+    unsigned int offset = 0;
     for (unsigned int face = 0; face < num_faces; ++face)
     {
         aiFace &ai_face = mesh->mFaces[face];
@@ -99,13 +123,13 @@ void mesh_codec_assimp::__read_index_data(aiMesh *mesh, data::index_data_buffer 
             unsigned int index_val = ai_face.mIndices[index];
 
             // We only support 16-bit meshes currently.
-            if (index_val > 0xFFFF)
+            if (index_val >= 0xFFFF)
             {
                 AEON_LOG_ERROR(logger_) << "Index out of range. Only 16-bit indices are currently supported." << std::endl;
                 throw assimp_codec_decode_exception();
             }
 
-            indices.push_back(static_cast<unsigned short>(index_val));
+            indices_ptr[offset++] = static_cast<unsigned short>(index_val);
         }
     }
 }
@@ -115,24 +139,27 @@ void mesh_codec_assimp::__read_vertex_data(aiMesh *mesh, data::vertex_data_buffe
     assert(mesh->mVertices != nullptr);
 
     const unsigned int num_vertices = mesh->mNumVertices;
-    vertices.reserve(num_vertices);
+    vertices.resize(num_vertices);
+
+    data::vertex_data *vertex_data_ptr = vertices.data();
 
     // Interleave the data for the GPU
     for (unsigned int i = 0; i < num_vertices; ++i)
     {
-        data::vertex_data data;
-        data.vertex = __convert_to_glm_vec3(mesh->mVertices[i]);
+        data::vertex_data &data = vertex_data_ptr[i];
+        data.position = __convert_to_glm_vec3(mesh->mVertices[i]);
 
         if (mesh->HasNormals())
             data.normal = __convert_to_glm_vec3(mesh->mNormals[i]);
 
+        if (mesh->mTextureCoords[0])
+        {
+            data.uvw = __convert_to_glm_vec3(mesh->mTextureCoords[0][i]);
+            data.uvw.y = 1.0f - data.uvw.y; //?
+        }
+
         if (mesh->mColors[0])
             data.color = __convert_to_color(mesh->mColors[0][i]);
-
-        if (mesh->mTextureCoords[0])
-            data.texture_uvw = __convert_to_glm_vec3(mesh->mTextureCoords[0][i]);
-
-        vertices.push_back(data);
     }
 }
 

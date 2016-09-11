@@ -93,10 +93,16 @@ void gfx_gl_device::__create_managers()
 
 void gfx_gl_device::__setup_opengl() const
 {
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
     glEnable(GL_BLEND);
     AEON_CHECK_GL_ERROR();
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    AEON_CHECK_GL_ERROR();
+
+    glCullFace(GL_FRONT);
     AEON_CHECK_GL_ERROR();
 }
 

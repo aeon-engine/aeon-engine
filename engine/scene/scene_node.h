@@ -16,6 +16,7 @@
 #pragma once
 
 #include <scene/scene_object.h>
+#include <aeon/utility.h>
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <vector>
@@ -29,7 +30,7 @@ namespace scene
 class scene_node;
 using scene_node_ptr = std::shared_ptr<scene_node>;
 
-class scene_node : public std::enable_shared_from_this<scene_node>
+class scene_node : public std::enable_shared_from_this<scene_node>, public utility::noncopyable
 {
     friend class scene_manager;
 
@@ -197,6 +198,11 @@ public:
      * Recursively detach and cleanup all scene nodes and their children from this node.
      */
     void cleanup_children();
+
+    /*!
+     * Make a deepcopy of this scene node and all it's children so that it can be attached somewhere else.
+     */
+    scene_node_ptr clone();
 
     /*!
      * Begin iterator for c++11 "foreach".

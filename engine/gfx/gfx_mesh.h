@@ -18,6 +18,7 @@
 #include <gfx/gfx_buffer.h>
 #include <glm/mat4x4.hpp>
 #include <common/exception.h>
+#include <data/mesh.h>
 #include <memory>
 #include <vector>
 
@@ -28,20 +29,13 @@ namespace gfx
 
 DEFINE_EXCEPTION_OBJECT(gfx_mesh_exception, aeon::common::exception, "Mesh exception.");
 
-struct mesh_vertex
-{
-    float x, y, z;
-    float u, v;
-    float r, g, b, a;
-};
-
 class mesh
 {
 public:
     mesh() = default;
     virtual ~mesh() = default;
 
-    virtual void upload_vertex_buffer(const std::vector<mesh_vertex> &vertex_data, const gfx::buffer_usage usage) = 0;
+    virtual void upload_vertex_buffer(const std::vector<data::vertex_data> &vertex_data, const gfx::buffer_usage usage) = 0;
     virtual void upload_index_buffer(const std::vector<std::uint16_t> &index_data, const gfx::buffer_usage usage) = 0;
 
     virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) = 0;

@@ -46,7 +46,7 @@ using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
 
 #ifdef AEON_GFX_GLES2
 #include <gfx/gles2/gfx_gles2_device.h>
-using selected_gfx_device = aeon::gfx::gles2::device;
+using selected_gfx_device = aeon::gfx::gles2::gfx_gles2_device;
 #endif // AEON_GFX_GLES2
 
 #ifdef AEON_GFX_NULL

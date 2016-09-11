@@ -20,11 +20,13 @@ namespace aeon
 namespace resources
 {
 
-submesh::submesh(const int id, const std::string &name, data::index_data_buffer &&indices, data::vertex_data_buffer &&vertices)
+submesh::submesh(const int id, const std::string &name, data::index_data_buffer &&indices,
+                 data::vertex_data_buffer &&vertices, const std::string &material)
     : id_(id)
     , name_(name)
     , indices_(std::move(indices))
     , vertices_(std::move(vertices))
+    , material_(material)
 {
 }
 
@@ -46,6 +48,11 @@ const data::index_data_buffer &submesh::get_index_data() const
 const data::vertex_data_buffer &submesh::get_vertex_data() const
 {
     return vertices_;
+}
+
+const std::string& submesh::get_material() const
+{
+    return material_;
 }
 
 } // namespace resources

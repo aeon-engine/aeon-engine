@@ -103,34 +103,38 @@ void sprite::__upload_mesh_data() const
 void sprite::__generate_and_upload_vertex_data() const
 {
     glm::vec2 size_2 = size_ * 0.5f;
-    std::vector<gfx::mesh_vertex> vertex_data = 
+    std::vector<data::vertex_data> vertex_data = 
     {
         // Bottom left
         {
-            -size_2.x, size_2.y, 0.0f,
-            region_.u1, region_.v2,
-            1.0f, 1.0f, 1.0f, 1.0f
+            glm::vec3{ -size_2.x, size_2.y, 0.0f },
+            glm::vec3{ 0.0f, 0.0f, 1.0f },
+            glm::vec3{ region_.u1, region_.v2, 0.0f },
+            common::types::color{ 1.0f, 1.0f, 1.0f, 1.0f }
         },
 
         // Bottom right
         {
-            size_2.x, size_2.y, 0.0f,
-            region_.u2, region_.v2,
-            1.0f, 1.0f, 1.0f, 1.0f
+            glm::vec3{ size_2.x, size_2.y, 0.0f },
+            glm::vec3{ 0.0f, 0.0f, 1.0f },
+            glm::vec3{ region_.u2, region_.v2, 0.0f },
+            common::types::color{ 1.0f, 1.0f, 1.0f, 1.0f }
         },
 
         // Top left
         {
-            -size_2.x, -size_2.y, 0.0f,
-            region_.u1, region_.v1,
-            1.0f, 1.0f, 1.0f, 1.0f
+            glm::vec3{ -size_2.x, -size_2.y, 0.0f },
+            glm::vec3{ 0.0f, 0.0f, 1.0f },
+            glm::vec3{ region_.u1, region_.v1, 0.0f },
+            common::types::color{ 1.0f, 1.0f, 1.0f, 1.0f }
         },
 
         // Top right
         {
-            size_2.x, -size_2.y, 0.0f,
-            region_.u2, region_.v1,
-            1.0f, 1.0f, 1.0f, 1.0f
+            glm::vec3{ size_2.x, -size_2.y, 0.0f },
+            glm::vec3{ 0.0f, 0.0f, 1.0f },
+            glm::vec3{ region_.u2, region_.v1, 0.0f },
+            common::types::color{ 1.0f, 1.0f, 1.0f, 1.0f }
         }
     };
 

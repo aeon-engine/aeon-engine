@@ -27,7 +27,8 @@ namespace resources
 class submesh
 {
 public:
-    explicit submesh(const int id, const std::string &name, data::index_data_buffer &&indices, data::vertex_data_buffer &&vertices);
+    explicit submesh(const int id, const std::string &name, data::index_data_buffer &&indices,
+        data::vertex_data_buffer &&vertices, const std::string &material);
     ~submesh() = default;
 
     int get_id() const;
@@ -36,12 +37,16 @@ public:
     const data::index_data_buffer &get_index_data() const;
     const data::vertex_data_buffer &get_vertex_data() const;
 
+    const std::string &get_material() const;
+
 private:
     int id_;
     std::string name_;
 
     data::index_data_buffer indices_;
     data::vertex_data_buffer vertices_;
+
+    std::string material_;
 };
 
 using submesh_ptr = std::unique_ptr<submesh>;

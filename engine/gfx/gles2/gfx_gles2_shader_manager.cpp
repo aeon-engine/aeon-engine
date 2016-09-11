@@ -133,9 +133,11 @@ GLuint gfx_gles2_shader_manager::__link_gl_program(GLuint vertexshader, GLuint f
 
     glBindAttribLocation(program, 0, "in_position");
     AEON_CHECK_GL_ERROR();
-    glBindAttribLocation(program, 1, "in_texture_coord");
+    glBindAttribLocation(program, 1, "in_normal");
     AEON_CHECK_GL_ERROR();
-    glBindAttribLocation(program, 2, "in_color");
+    glBindAttribLocation(program, 2, "in_uvw");
+    AEON_CHECK_GL_ERROR();
+    glBindAttribLocation(program, 3, "in_color");
     AEON_CHECK_GL_ERROR();
 
     glLinkProgram(program);

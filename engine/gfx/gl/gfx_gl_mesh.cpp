@@ -39,9 +39,9 @@ gfx_gl_mesh::gfx_gl_mesh(gfx_gl_device *device, material_ptr material)
     __create_and_setup_vao();
 }
 
-void gfx_gl_mesh::upload_vertex_buffer(const std::vector<mesh_vertex> &vertex_data, const gfx::buffer_usage usage)
+void gfx_gl_mesh::upload_vertex_buffer(const std::vector<data::vertex_data> &vertex_data, const gfx::buffer_usage usage)
 {
-    int buffer_size = static_cast<int>(vertex_data.size() * sizeof(gfx::mesh_vertex));
+    int buffer_size = static_cast<int>(vertex_data.size() * sizeof(data::vertex_data));
     vertex_buffer_->set_data(buffer_size, vertex_data.data(), usage);
 
     __check_vao();
@@ -61,35 +61,37 @@ void gfx_gl_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
         return;
 
     material_->bind();
-
-    vertex_buffer_->bind();
-    index_buffer_->bind();
-
     material_->get_shader()->set_projection_matrix(projection);
     material_->get_shader()->set_model_matrix(model);
     material_->get_shader()->set_view_matrix(view);
 
     vao_->bind();
 
-    glDrawRangeElements(GL_TRIANGLES, 0, element_count_, element_count_, GL_UNSIGNED_SHORT, nullptr);
+    glDrawElements(GL_TRIANGLES, element_count_, GL_UNSIGNED_SHORT, nullptr);
     AEON_CHECK_GL_ERROR();
 }
 
 void gfx_gl_mesh::__check_vao()
 {
-    if (index_buffer_->has_data() && vertex_buffer_->has_data() && !vao_)
-        __create_and_setup_vao();
+    if (index_buffer_->has_data() && vertex_buffer_->has_data() && vao_)
+    {
+        glBindVertexArray(0);
+        AEON_CHECK_GL_ERROR();
+    }
 }
 
 void gfx_gl_mesh::__create_and_setup_vao()
 {
+    AEON_LOG_TRACE(logger_) << "Setting up VAO for mesh." << std::endl;
+
     vertex_buffer_->bind();
     index_buffer_->bind();
 
     vertex_attributes attributes = {
-        vertex_attribute{ 3, sizeof(mesh_vertex), offsetof(mesh_vertex, x) }, // X Y Z
-        vertex_attribute{ 2, sizeof(mesh_vertex), offsetof(mesh_vertex, u) }, // U V
-        vertex_attribute{ 4, sizeof(mesh_vertex), offsetof(mesh_vertex, r) }, // R G B A
+        vertex_attribute{ 3, sizeof(data::vertex_data), offsetof(data::vertex_data, position) },
+        vertex_attribute{ 3, sizeof(data::vertex_data), offsetof(data::vertex_data, normal) },
+        vertex_attribute{ 3, sizeof(data::vertex_data), offsetof(data::vertex_data, uvw) },
+        vertex_attribute{ 4, sizeof(data::vertex_data), offsetof(data::vertex_data, color) },
     };
 
     vao_ = std::make_unique<gfx_gl_vertex_array_object>(attributes);
@@ -98,3 +100,4 @@ void gfx_gl_mesh::__create_and_setup_vao()
 } // namespace gl
 } // namespace gfx
 } // namespace aeon
+

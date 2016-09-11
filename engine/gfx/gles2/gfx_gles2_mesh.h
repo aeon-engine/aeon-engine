@@ -34,7 +34,8 @@ public:
     explicit gfx_gles2_mesh(gfx_gles2_device *device, gfx::material_ptr material);
     virtual ~gfx_gles2_mesh() = default;
 
-    void upload_vertex_buffer(const std::vector<mesh_vertex> &vertex_data, const gfx::buffer_usage usage) override;
+    void upload_vertex_buffer(const std::vector<data::vertex_data> &vertex_data,
+        const gfx::buffer_usage usage) override;
     void upload_index_buffer(const std::vector<std::uint16_t> &index_data, const gfx::buffer_usage usage) override;
 
     void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) override;

@@ -14,24 +14,30 @@
  */
 
 #include <scene/mesh.h>
+#include <scene/scene_manager.h>
+#include <gfx/gfx_device.h>
 
 namespace aeon
 {
 namespace scene
 {
 
-mesh::mesh(scene_manager *scene_manager)
+mesh::mesh(scene_manager *scene_manager, gfx::material_ptr material, const std::vector<data::vertex_data> &vertex_data,
+           const std::vector<std::uint16_t> &index_data)
     : scene_object(render_layer::world_geometry, scene_object_type::mesh, scene_manager)
+    , mesh_(scene_manager->get_device().create_mesh(material))
 {
+    mesh_->upload_vertex_buffer(vertex_data, gfx::buffer_usage::static_usage);
+    mesh_->upload_index_buffer(index_data, gfx::buffer_usage::static_usage);
 }
 
 mesh::~mesh()
 {
 }
 
-void mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt)
+void mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float)
 {
-    scene_object::render(projection, view, model, dt);
+    mesh_->render(projection, view, model);
 }
 
 } // namespace scene

@@ -43,5 +43,10 @@ std::vector<mesh_node *> mesh_node::get_children() const
     return utility::container::unique_ptr_to_raw_ptr(children_);
 }
 
+std::vector<submesh *> mesh_node::get_submeshes() const
+{
+    return submeshes_;
+}
+
 } // namespace resources
 } // namespace aeon

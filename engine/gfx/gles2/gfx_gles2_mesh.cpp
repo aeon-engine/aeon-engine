@@ -36,9 +36,10 @@ gfx_gles2_mesh::gfx_gles2_mesh(gfx_gles2_device *device, material_ptr material)
     vertex_buffer_->set_data(0, nullptr, gfx::buffer_usage::stream_usage);
 }
 
-void gfx_gles2_mesh::upload_vertex_buffer(const std::vector<mesh_vertex> &vertex_data, const gfx::buffer_usage usage)
+void gfx_gles2_mesh::upload_vertex_buffer(const std::vector<data::vertex_data> &vertex_data,
+    const gfx::buffer_usage usage)
 {
-    int buffer_size = static_cast<int>(vertex_data.size() * sizeof(gfx::mesh_vertex));
+    int buffer_size = static_cast<int>(vertex_data.size() * sizeof(data::vertex_data));
     vertex_buffer_->set_data(buffer_size, vertex_data.data(), usage);
 }
 
@@ -62,22 +63,28 @@ void gfx_gles2_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &vi
     material_->get_shader()->set_model_matrix(model);
     material_->get_shader()->set_view_matrix(view);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(mesh_vertex),
-        reinterpret_cast<GLvoid*>(offsetof(mesh_vertex, x)));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(data::vertex_data),
+        reinterpret_cast<GLvoid*>(offsetof(data::vertex_data, position)));
     AEON_CHECK_GL_ERROR();
     glEnableVertexAttribArray(0);
     AEON_CHECK_GL_ERROR();
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(mesh_vertex),
-        reinterpret_cast<GLvoid*>(offsetof(mesh_vertex, u)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(data::vertex_data),
+        reinterpret_cast<GLvoid*>(offsetof(data::vertex_data, normal)));
     AEON_CHECK_GL_ERROR();
     glEnableVertexAttribArray(1);
     AEON_CHECK_GL_ERROR();
 
-    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(mesh_vertex),
-        reinterpret_cast<GLvoid*>(offsetof(mesh_vertex, r)));
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(data::vertex_data),
+        reinterpret_cast<GLvoid*>(offsetof(data::vertex_data, uvw)));
     AEON_CHECK_GL_ERROR();
     glEnableVertexAttribArray(2);
+    AEON_CHECK_GL_ERROR();
+
+    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(data::vertex_data),
+        reinterpret_cast<GLvoid*>(offsetof(data::vertex_data, color)));
+    AEON_CHECK_GL_ERROR();
+    glEnableVertexAttribArray(3);
     AEON_CHECK_GL_ERROR();
 
     glDrawElements(GL_TRIANGLES, element_count_, GL_UNSIGNED_SHORT, nullptr);

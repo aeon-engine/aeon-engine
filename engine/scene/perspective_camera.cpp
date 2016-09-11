@@ -25,7 +25,7 @@ perspective_camera::perspective_camera(scene_manager *scene_manager, float fov_y
                                        float far)
     : camera(scene_manager)
 {
-    projection_matrix_ = glm::perspective(fov_y, aspect_ratio, near, far);
+    projection_matrix_ = glm::perspective(glm::radians(fov_y), aspect_ratio, near, far);
 }
 
 perspective_camera::perspective_camera(scene_manager *scene_manager, float fov, float width, float height, float near,

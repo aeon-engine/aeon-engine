@@ -41,7 +41,7 @@ void basic_scene_manager::__traverse_scene_node(scene_node_ptr node)
     for (auto o : objects)
     {
         // TODO: Make distinction between 2d and 3d (z-order)
-        if (o->get_type() == scene_object_type::sprite)
+        if (o->get_type() == scene_object_type::sprite || o->get_type() == scene_object_type::mesh)
             queue_.add_render_object(node->get_total_matrix(), o, o->get_queue_group());
     }
 
