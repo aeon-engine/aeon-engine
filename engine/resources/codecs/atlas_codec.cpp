@@ -57,8 +57,9 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_p
         parent.load_material_wrapper(atlas_file.get<std::string>("material", ""));
     material_ptr material_res = material_res_wrapper->open();
 
-    unsigned int texture_width = material_res->get_texture()->get_width();
-    unsigned int texture_height = material_res->get_texture()->get_height();
+    const data::image &image_data = material_res->get_texture()->get_data();
+    unsigned int texture_width = image_data.get_width();
+    unsigned int texture_height = image_data.get_height();
 
     atlas_regions regions;
     atlas_region_names names;

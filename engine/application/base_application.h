@@ -32,8 +32,8 @@ public:
         , logger_(common::logger::get_singleton(), "Application")
         , platform_(argc, argv)
         , resource_manager_(platform_)
-        , asset_manager_(resource_manager_, device_)
         , scene_manager_(device_)
+        , asset_manager_(resource_manager_, scene_manager_)
         , window_(nullptr)
     {
         AEON_LOG_MESSAGE(logger_) << "Initializing Aeon Engine (" << buildinfo::full_version << ", "
@@ -87,8 +87,8 @@ protected:
     device_t device_;
 
     resources::resource_manager resource_manager_;
-    assets::asset_manager asset_manager_;
     scene_manager_t scene_manager_;
+    assets::asset_manager asset_manager_;
 
     platform::platform_window_ptr window_;
 };

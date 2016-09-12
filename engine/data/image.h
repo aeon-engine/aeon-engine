@@ -15,42 +15,53 @@
 
 #pragma once
 
-#include <resources/resource.h>
-#include <resources/exceptions.h>
-#include <resources/wrappers/image_resource_wrapper.h>
+#include <aeon/utility.h>
 #include <common/buffer.h>
-#include <common/logger.h>
-#include <data/image.h>
 #include <memory>
+#include <glm/vec2.hpp>
 
 namespace aeon
 {
-namespace resources
+namespace data
 {
 
-class image : public resource
+class image : utility::noncopyable
 {
 public:
-    explicit image(resource_wrapper_ptr wrapper, data::image &&image_data);
-
-    virtual ~image();
-
-    const data::image &get_data() const
+    enum class pixel_format
     {
-        return image_data_;
-    }
+        rgb,
+        rgba,
+    };
 
-    image_resource_wrapper_ptr get_image_resource_wrapper() const
-    {
-        return std::dynamic_pointer_cast<image_resource_wrapper>(get_resource_wrapper());
-    }
+    explicit image(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
+                   pixel_format pixelformat = pixel_format::rgba);
+
+    ~image() = default;
+
+    image(image &&other);
+    image &operator=(image &&other);
+
+    bool has_data() const;
+
+    const common::buffer_u8 &get_data() const;
+
+    unsigned int get_width() const;
+
+    unsigned int get_height() const;
+
+    glm::vec2 get_size() const;
+
+    pixel_format get_pixelformat() const;
 
 private:
-    aeon::logger::logger logger_;
-    data::image image_data_;
+    common::buffer_u8 buffer_;
+    unsigned int width_;
+    unsigned int height_;
+    pixel_format pixel_format_;
 };
 
 using image_ptr = std::shared_ptr<image>;
 
-} // namespace resources
+} // namespace data
 } // namespace aeon

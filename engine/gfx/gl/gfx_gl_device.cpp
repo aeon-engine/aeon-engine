@@ -82,6 +82,11 @@ sprite_batch_ptr gfx_gl_device::create_sprite_batch(material_ptr material, std::
     return std::make_unique<gfx_gl_sprite_batch>(this, material, sprites_per_buffer);
 }
 
+mesh_ptr gfx_gl_device::create_mesh()
+{
+    return nullptr;
+}
+
 void gfx_gl_device::__create_managers()
 {
     texture_manager_ = std::make_unique<gl::gfx_gl_texture_manager>();

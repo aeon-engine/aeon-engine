@@ -15,31 +15,29 @@
 
 #pragma once
 
+#include <resources/wrappers/resource_wrapper.h>
 #include <memory>
-#include <vector>
-#include <cstdint>
+#include <string>
 
 namespace aeon
 {
-namespace common
+namespace resources
 {
 
-template <typename T>
-using buffer = std::vector<T>;
+class mesh;
+using mesh_ptr = std::shared_ptr<mesh>;
 
-using buffer_u8 = buffer<std::uint8_t>;
-using buffer_pu8 = buffer<std::uint8_t *>;
+class mesh_resource_wrapper : public resource_wrapper
+{
+public:
+    explicit mesh_resource_wrapper(resource_manager &parent, const std::string &path,
+                                   resource_provider_weak_ptr provider);
+    virtual ~mesh_resource_wrapper() = default;
 
-using buffer_u16 = buffer<std::uint16_t>;
-using buffer_pu16 = buffer<std::uint16_t *>;
+    mesh_ptr open();
+};
 
-using buffer_u32 = buffer<std::uint32_t>;
-using buffer_pu32 = buffer<std::uint32_t *>;
+using mesh_resource_wrapper_ptr = std::shared_ptr<mesh_resource_wrapper>;
 
-template <typename T>
-using buffer_ptr = std::shared_ptr<buffer<T>>;
-
-using buffer_ptr_u8 = buffer_ptr<std::uint8_t>;
-
-} // namespace common
+} // namespace resources
 } // namespace aeon

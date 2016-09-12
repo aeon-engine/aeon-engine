@@ -26,7 +26,8 @@ enum class resource_encoding
     material,
     shader,
     atlas,
-    image_png
+    image_png,
+    mesh_assimp
 };
 
 } // namespace resources

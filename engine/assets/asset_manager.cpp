@@ -20,10 +20,11 @@ namespace aeon
 namespace assets
 {
 
-asset_manager::asset_manager(resources::resource_manager &manager, gfx::device &device)
+asset_manager::asset_manager(resources::resource_manager &resource_manager, scene::scene_manager &scene_manager)
     : logger_(common::logger::get_singleton(), "Assets::AssetManager")
-    , resource_manager_(manager)
-    , device_(device)
+    , resource_manager_(resource_manager)
+    , scene_manager_(scene_manager)
+    , device_(scene_manager.get_device())
 {
 }
 
@@ -67,6 +68,21 @@ gfx::atlas_ptr asset_manager::load_atlas(const std::string& path) const
     return device_.get_atlas_manager().load(atlas_resource_data);
 }
 
+scene::scene_node_ptr asset_manager::load_mesh(const std::string &path) const
+{
+    AEON_LOG_DEBUG(logger_) << "Loading mesh '" << path << "'." << std::endl;
+
+    resources::mesh_resource_wrapper_ptr mesh_resource = resource_manager_.load_mesh_wrapper(path);
+    resources::mesh_ptr mesh = mesh_resource->open();
+
+    resources::mesh_node &mesh_root_node = mesh->get_root_mesh_node();
+    scene::scene_node_ptr scene_node = scene_manager_.create_detached_scene_node();
+
+    __convert_mesh_node_to_scene_node(mesh_root_node, *scene_node);
+
+    return scene_node;
+}
+
 gfx::atlas_ptr asset_manager::create_atlas(resources::material_ptr material, glm::vec2 sprite_size) const
 {
     gfx::material_ptr gfx_material = device_.get_material_manager().load(material);
@@ -76,6 +92,16 @@ gfx::atlas_ptr asset_manager::create_atlas(resources::material_ptr material, glm
 gfx::atlas_ptr asset_manager::create_atlas(gfx::material_ptr material, glm::vec2 sprite_size) const
 {
     return std::make_shared<gfx::atlas>(material, sprite_size);
+}
+
+void asset_manager::__convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node) const
+{
+    auto children = mesh_node.get_children();
+    for (resources::mesh_node *mesh_node_child : children)
+    {
+        scene::scene_node_ptr scene_node_child = scene_node.create_child_scene_node();
+        __convert_mesh_node_to_scene_node(*mesh_node_child, *scene_node_child);
+    }
 }
 
 } // namespace assets

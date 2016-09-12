@@ -13,24 +13,34 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <resources/image.h>
+#include <resources/mesh_node.h>
+#include <aeon/utility.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-image::image(resource_wrapper_ptr wrapper, data::image &&image_data)
-    : resource(wrapper)
-    , logger_(common::logger::get_singleton(), "Resources::Image")
-    , image_data_(std::move(image_data))
+mesh_node::mesh_node(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
+    : name_(name)
+    , matrix_(matrix)
+    , submeshes_(submeshes)
 {
-    AEON_LOG_TRACE(logger_) << "Created image resource." << std::endl;
 }
 
-image::~image()
+mesh_node &mesh_node::create_child(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
 {
-    AEON_LOG_TRACE(logger_) << "Deleted image resource." << std::endl;
+    mesh_node_ptr mesh = mesh_node_ptr(new mesh_node(name, matrix, submeshes));
+    mesh_node *mesh_ptr = mesh.get();
+
+    children_.emplace_back(std::move(mesh));
+
+    return *mesh_ptr;
+}
+
+std::vector<mesh_node *> mesh_node::get_children() const
+{
+    return utility::container::unique_ptr_to_raw_ptr(children_);
 }
 
 } // namespace resources

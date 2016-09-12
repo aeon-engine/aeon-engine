@@ -44,6 +44,11 @@ scene_node_ptr scene_manager::create_child_scene_node() const
     return root_node_->create_child_scene_node();
 }
 
+scene_node_ptr scene_manager::create_detached_scene_node() const
+{
+    return scene_node_ptr(new scene_node());
+}
+
 void scene_manager::detach_child_scene_node(scene_node_ptr node) const
 {
     root_node_->detach_child(node);

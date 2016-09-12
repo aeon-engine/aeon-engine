@@ -19,6 +19,7 @@
 #include <gfx/gfx_atlas_manager.h>
 #include <gfx/gfx_buffer_manager.h>
 #include <gfx/gfx_sprite_batch.h>
+#include <gfx/gfx_mesh.h>
 #include <common/types/color.h>
 #include <scene/viewport.h>
 #include <memory>
@@ -48,6 +49,7 @@ public:
     virtual void clear_buffer(int buffer_flag) = 0;
 
     virtual sprite_batch_ptr create_sprite_batch(material_ptr material, std::uint16_t sprites_per_buffer) = 0;
+    virtual mesh_ptr create_mesh() = 0;
 
     texture_manager &get_texture_manager()
     {

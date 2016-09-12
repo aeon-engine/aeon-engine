@@ -13,24 +13,26 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <resources/image.h>
+#include <resources/wrappers/mesh_resource_wrapper.h>
+#include <resources/resource_manager.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-image::image(resource_wrapper_ptr wrapper, data::image &&image_data)
-    : resource(wrapper)
-    , logger_(common::logger::get_singleton(), "Resources::Image")
-    , image_data_(std::move(image_data))
+mesh_resource_wrapper::mesh_resource_wrapper(resource_manager &parent, const std::string &path,
+                                             resource_provider_weak_ptr provider)
+    : resource_wrapper(parent, path, provider)
 {
-    AEON_LOG_TRACE(logger_) << "Created image resource." << std::endl;
+    if (get_type() != resource_type::mesh)
+        throw resource_type_exception();
 }
 
-image::~image()
+mesh_ptr mesh_resource_wrapper::open()
 {
-    AEON_LOG_TRACE(logger_) << "Deleted image resource." << std::endl;
+    mesh_codec &codec = __get_parent().get_codec_manager().get_mesh_codec(get_encoding());
+    return codec.decode(__get_parent(), std::dynamic_pointer_cast<mesh_resource_wrapper>(shared_from_this()));
 }
 
 } // namespace resources

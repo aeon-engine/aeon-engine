@@ -15,31 +15,19 @@
 
 #pragma once
 
-#include <memory>
-#include <vector>
-#include <cstdint>
+#include <application/desktop_application.h>
+#include <resources/wrappers/image_resource_wrapper.h>
+#include <scene/scene_managers/basic/basic_scene_manager.h>
+#include <scene/orthographic_camera.h>
 
-namespace aeon
+class application : public aeon::desktop_application<aeon::scene::basic_scene_manager>
 {
-namespace common
-{
+public:
+    explicit application(int argc, char *argv[]);
+    virtual ~application() = default;
 
-template <typename T>
-using buffer = std::vector<T>;
+    void main();
 
-using buffer_u8 = buffer<std::uint8_t>;
-using buffer_pu8 = buffer<std::uint8_t *>;
-
-using buffer_u16 = buffer<std::uint16_t>;
-using buffer_pu16 = buffer<std::uint16_t *>;
-
-using buffer_u32 = buffer<std::uint32_t>;
-using buffer_pu32 = buffer<std::uint32_t *>;
-
-template <typename T>
-using buffer_ptr = std::shared_ptr<buffer<T>>;
-
-using buffer_ptr_u8 = buffer_ptr<std::uint8_t>;
-
-} // namespace common
-} // namespace aeon
+private:
+    aeon::scene::orthographic_camera_ptr camera_;
+};

@@ -5,6 +5,7 @@ include(Buildinfo)
 
 add_source_path(AEON_ENGINE_SOURCES common)
 add_source_path(AEON_ENGINE_SOURCES common/types)
+add_source_path(AEON_ENGINE_SOURCES data)
 add_source_path(AEON_ENGINE_SOURCES application)
 add_source_path(AEON_ENGINE_SOURCES resources)
 add_source_path(AEON_ENGINE_SOURCES resources/codecs)
@@ -88,7 +89,6 @@ add_library(aeon_engine STATIC ${AEON_ENGINE_SOURCES})
 target_include_directories(aeon_engine
     PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-    PUBLIC ${ASSIMP_INCLUDE_DIRS}
 )
 
 target_link_libraries(aeon_engine
@@ -99,7 +99,7 @@ target_link_libraries(aeon_engine
     ogg
     vorbis
     freetype
-    ${ASSIMP_LIBRARIES}
+    assimp
     ${OPENGL_LIBRARIES}
 )
 

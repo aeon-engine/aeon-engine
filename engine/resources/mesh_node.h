@@ -13,25 +13,39 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <resources/image.h>
+#pragma once
+
+#include <string>
+#include <vector>
+#include <memory>
+#include <glm/mat4x4.hpp>
+#include <resources/submesh.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-image::image(resource_wrapper_ptr wrapper, data::image &&image_data)
-    : resource(wrapper)
-    , logger_(common::logger::get_singleton(), "Resources::Image")
-    , image_data_(std::move(image_data))
-{
-    AEON_LOG_TRACE(logger_) << "Created image resource." << std::endl;
-}
+class mesh_node;
+using mesh_node_ptr = std::unique_ptr<mesh_node>;
 
-image::~image()
+class mesh_node
 {
-    AEON_LOG_TRACE(logger_) << "Deleted image resource." << std::endl;
-}
+friend class mesh;
+public:
+    ~mesh_node() = default;
+
+    mesh_node &create_child(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);
+    std::vector<mesh_node *> get_children() const;
+
+private:
+    explicit mesh_node(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);
+
+    std::string name_;
+    glm::mat4 matrix_;
+    std::vector<mesh_node_ptr> children_;
+    std::vector<submesh *> submeshes_;
+};
 
 } // namespace resources
 } // namespace aeon

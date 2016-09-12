@@ -15,31 +15,28 @@
 
 #pragma once
 
-#include <memory>
+#include <glm/vec3.hpp>
+#include <common/types/color.h>
+#include <aeon/platform.h>
 #include <vector>
-#include <cstdint>
 
 namespace aeon
 {
-namespace common
+namespace data
 {
 
-template <typename T>
-using buffer = std::vector<T>;
+AEON_PACK_STRUCT_PUSH(1)
+struct vertex_data
+{
+    glm::vec3 vertex;
+    glm::vec3 normal;
+    glm::vec3 texture_uvw;
+    common::types::color color;
+}
+AEON_PACK_STRUCT_POP(1);
 
-using buffer_u8 = buffer<std::uint8_t>;
-using buffer_pu8 = buffer<std::uint8_t *>;
+using index_data_buffer = std::vector<std::uint16_t>;
+using vertex_data_buffer = std::vector<vertex_data>;
 
-using buffer_u16 = buffer<std::uint16_t>;
-using buffer_pu16 = buffer<std::uint16_t *>;
-
-using buffer_u32 = buffer<std::uint32_t>;
-using buffer_pu32 = buffer<std::uint32_t *>;
-
-template <typename T>
-using buffer_ptr = std::shared_ptr<buffer<T>>;
-
-using buffer_ptr_u8 = buffer_ptr<std::uint8_t>;
-
-} // namespace common
+}; // namespace data
 } // namespace aeon

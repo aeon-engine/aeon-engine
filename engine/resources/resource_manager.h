@@ -24,6 +24,7 @@
 #include <resources/codecs/codec_manager.h>
 #include <platform/platform_interface.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
+#include <resources/wrappers/mesh_resource_wrapper.h>
 #include <resources/atlas.h>
 #include <common/logger.h>
 #include <map>
@@ -51,6 +52,7 @@ public:
     material_resource_wrapper_ptr load_material_wrapper(const std::string &path);
     shader_resource_wrapper_ptr load_shader_wrapper(const std::string &path);
     atlas_resource_wrapper_ptr load_atlas_wrapper(const std::string &path);
+    mesh_resource_wrapper_ptr load_mesh_wrapper(const std::string &path);
 
     platform::platform_interface &get_platform_interface()
     {

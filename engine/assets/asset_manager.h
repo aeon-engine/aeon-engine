@@ -21,6 +21,8 @@
 #include <gfx/gfx_texture.h>
 #include <gfx/gfx_material.h>
 #include <gfx/gfx_atlas.h>
+#include <scene/scene_manager.h>
+#include <scene/scene_node.h>
 
 namespace aeon
 {
@@ -30,7 +32,7 @@ namespace assets
 class asset_manager
 {
 public:
-    explicit asset_manager(resources::resource_manager &manager, gfx::device &device);
+    explicit asset_manager(resources::resource_manager &resource_manager, scene::scene_manager &scene_manager);
     ~asset_manager();
 
     gfx::texture_ptr load_texture(const std::string &path) const;
@@ -38,12 +40,17 @@ public:
     gfx::material_ptr load_material(const std::string &path) const;
     gfx::atlas_ptr load_atlas(const std::string &path) const;
 
+    scene::scene_node_ptr load_mesh(const std::string &path) const;
+
     gfx::atlas_ptr create_atlas(resources::material_ptr material, glm::vec2 sprite_size) const;
     gfx::atlas_ptr create_atlas(gfx::material_ptr material, glm::vec2 sprite_size) const;
 
 private:
+    void __convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node) const;
+
     aeon::logger::logger logger_;
     resources::resource_manager &resource_manager_;
+    scene::scene_manager &scene_manager_;
     gfx::device &device_;
 };
 

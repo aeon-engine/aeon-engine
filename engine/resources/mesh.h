@@ -17,40 +17,49 @@
 
 #include <resources/resource.h>
 #include <resources/exceptions.h>
-#include <resources/wrappers/image_resource_wrapper.h>
+#include <resources/wrappers/mesh_resource_wrapper.h>
+#include <resources/mesh_node.h>
+#include <resources/submesh.h>
 #include <common/buffer.h>
 #include <common/logger.h>
-#include <data/image.h>
+#include <string>
 #include <memory>
+#include <vector>
 
 namespace aeon
 {
 namespace resources
 {
 
-class image : public resource
+class mesh : public resource
 {
 public:
-    explicit image(resource_wrapper_ptr wrapper, data::image &&image_data);
+    explicit mesh(resource_wrapper_ptr wrapper);
 
-    virtual ~image();
+    virtual ~mesh();
 
-    const data::image &get_data() const
+    mesh_resource_wrapper_ptr get_mesh_resource_wrapper() const
     {
-        return image_data_;
+        return std::dynamic_pointer_cast<mesh_resource_wrapper>(get_resource_wrapper());
     }
 
-    image_resource_wrapper_ptr get_image_resource_wrapper() const
-    {
-        return std::dynamic_pointer_cast<image_resource_wrapper>(get_resource_wrapper());
-    }
+    void create_submesh(const int id, const std::string &name, data::index_data_buffer &&indices, data::vertex_data_buffer &&vertices);
+
+    submesh *get_submesh_by_id(const int id);
+
+    std::vector<submesh *> get_submeshes() const;
+
+    mesh_node &create_root_mesh_node(const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);
+    mesh_node &get_root_mesh_node() const;
 
 private:
     aeon::logger::logger logger_;
-    data::image image_data_;
+
+    std::vector<submesh_ptr> submeshes_;
+    mesh_node_ptr root_mesh_node_;
 };
 
-using image_ptr = std::shared_ptr<image>;
+using mesh_ptr = std::shared_ptr<mesh>;
 
 } // namespace resources
 } // namespace aeon

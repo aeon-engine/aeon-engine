@@ -96,6 +96,11 @@ resource_encoding filesystem_provider::get_encoding(const std::string &path) con
         return resource_encoding::atlas;
     if (extension == "png")
         return resource_encoding::image_png;
+    if (extension == "3ds" ||
+        extension == "ase" ||
+        extension == "dae")
+        // Assimp supports more formats, but these should be the most common ones. More extensions could be added later.
+        return resource_encoding::mesh_assimp;
 
     AEON_LOG_ERROR(logger_) << "Unknown or unsupported file extension: '" << extension << "'." << std::endl;
     throw filesystem_provider_type_exception();

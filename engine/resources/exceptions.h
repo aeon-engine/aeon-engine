@@ -103,5 +103,9 @@ DEFINE_EXCEPTION_OBJECT(image_data_exception, image_exception, "Image resource d
 // atlas
 DEFINE_EXCEPTION_OBJECT(atlas_exception, resource_exception, "Atlas resource exception.");
 
+// mesh
+// image_codec_png
+DEFINE_EXCEPTION_OBJECT(assimp_codec_decode_exception, codec_decode_exception, "Error while decoding AssImp mesh resource.");
+
 } // namespace resources
 } // namespace aeon

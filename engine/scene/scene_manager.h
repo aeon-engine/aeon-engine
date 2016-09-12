@@ -39,7 +39,16 @@ public:
 
     scene_node_ptr get_root_scene_node() const;
 
+    /*!
+     * Create a child scene node attached to the root scene node.
+     */
     scene_node_ptr create_child_scene_node() const;
+
+    /*!
+     * Create a scene node that is not attached to anything. This scene node must be attached to another node
+     * through scene_node::attach_child().
+     */
+    scene_node_ptr create_detached_scene_node() const;
 
     void detach_child_scene_node(scene_node_ptr node) const;
 

@@ -15,31 +15,31 @@
 
 #pragma once
 
-#include <memory>
-#include <vector>
-#include <cstdint>
+#include <resources/exceptions.h>
+#include <common/buffer.h>
+#include <resources/resource_encoding.h>
+#include <resources/codecs/codec.h>
+#include <resources/mesh.h>
 
 namespace aeon
 {
-namespace common
+namespace resources
 {
 
-template <typename T>
-using buffer = std::vector<T>;
+class mesh;
+class mesh_resource_wrapper;
+class resource_manager;
 
-using buffer_u8 = buffer<std::uint8_t>;
-using buffer_pu8 = buffer<std::uint8_t *>;
+class mesh_codec : public codec
+{
+public:
+    mesh_codec() = default;
+    virtual ~mesh_codec() = default;
 
-using buffer_u16 = buffer<std::uint16_t>;
-using buffer_pu16 = buffer<std::uint16_t *>;
+    virtual mesh_ptr decode(resource_manager &parent, mesh_resource_wrapper_ptr wrapper) = 0;
+};
 
-using buffer_u32 = buffer<std::uint32_t>;
-using buffer_pu32 = buffer<std::uint32_t *>;
+using mesh_codec_ptr = std::unique_ptr<mesh_codec>;
 
-template <typename T>
-using buffer_ptr = std::shared_ptr<buffer<T>>;
-
-using buffer_ptr_u8 = buffer_ptr<std::uint8_t>;
-
-} // namespace common
+} // namespace resources
 } // namespace aeon

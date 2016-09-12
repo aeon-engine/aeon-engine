@@ -13,33 +13,40 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <memory>
-#include <vector>
-#include <cstdint>
+#include <resources/submesh.h>
 
 namespace aeon
 {
-namespace common
+namespace resources
 {
 
-template <typename T>
-using buffer = std::vector<T>;
+submesh::submesh(const int id, const std::string &name, data::index_data_buffer &&indices, data::vertex_data_buffer &&vertices)
+    : id_(id)
+    , name_(name)
+    , indices_(std::move(indices))
+    , vertices_(std::move(vertices))
+{
+}
 
-using buffer_u8 = buffer<std::uint8_t>;
-using buffer_pu8 = buffer<std::uint8_t *>;
+int submesh::get_id() const
+{
+    return id_;
+}
 
-using buffer_u16 = buffer<std::uint16_t>;
-using buffer_pu16 = buffer<std::uint16_t *>;
+std::string submesh::get_name() const
+{
+    return name_;
+}
 
-using buffer_u32 = buffer<std::uint32_t>;
-using buffer_pu32 = buffer<std::uint32_t *>;
+const data::index_data_buffer &submesh::get_index_data() const
+{
+    return indices_;
+}
 
-template <typename T>
-using buffer_ptr = std::shared_ptr<buffer<T>>;
+const data::vertex_data_buffer &submesh::get_vertex_data() const
+{
+    return vertices_;
+}
 
-using buffer_ptr_u8 = buffer_ptr<std::uint8_t>;
-
-} // namespace common
+} // namespace resources
 } // namespace aeon

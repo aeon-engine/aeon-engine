@@ -13,33 +13,26 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <memory>
-#include <vector>
-#include <cstdint>
+#include <scene/mesh.h>
 
 namespace aeon
 {
-namespace common
+namespace scene
 {
 
-template <typename T>
-using buffer = std::vector<T>;
+mesh::mesh(scene_manager *scene_manager)
+    : scene_object(render_layer::world_geometry, scene_object_type::renderable, scene_manager)
+{
+}
 
-using buffer_u8 = buffer<std::uint8_t>;
-using buffer_pu8 = buffer<std::uint8_t *>;
+mesh::~mesh()
+{
+}
 
-using buffer_u16 = buffer<std::uint16_t>;
-using buffer_pu16 = buffer<std::uint16_t *>;
+void mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt)
+{
+    scene_object::render(projection, view, model, dt);
+}
 
-using buffer_u32 = buffer<std::uint32_t>;
-using buffer_pu32 = buffer<std::uint32_t *>;
-
-template <typename T>
-using buffer_ptr = std::shared_ptr<buffer<T>>;
-
-using buffer_ptr_u8 = buffer_ptr<std::uint8_t>;
-
-} // namespace common
+} // namespace scene
 } // namespace aeon

@@ -193,15 +193,15 @@ image_ptr image_codec_png::decode(resource_manager & /*parent*/, image_resource_
     png_get_IHDR(png_structs.png_ptr(), png_structs.info_ptr(), &temp_width, &temp_height, &bit_depth, &color_type,
                  nullptr, nullptr, nullptr);
 
-    image::pixel_format pixel_format = image::pixel_format::rgba;
+    data::image::pixel_format pixel_format = data::image::pixel_format::rgba;
     // Check the pixel format
     switch (color_type)
     {
         case PNG_COLOR_TYPE_RGB:
-            pixel_format = image::pixel_format::rgb;
+            pixel_format = data::image::pixel_format::rgb;
             break;
         case PNG_COLOR_TYPE_RGB_ALPHA:
-            pixel_format = image::pixel_format::rgba;
+            pixel_format = data::image::pixel_format::rgba;
             break;
         default:
             AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Invalid or unsupported pixel format." << std::endl;
@@ -241,8 +241,10 @@ image_ptr image_codec_png::decode(resource_manager & /*parent*/, image_resource_
     // Read the png into image_data through row_pointers
     png_read_image(png_structs.png_ptr(), row_pointers);
 
+    data::image img(std::move(bitmap_buffer), temp_width, temp_height, pixel_format);
+
     // Create the image object
-    return std::make_shared<image>(wrapper, std::move(bitmap_buffer), temp_width, temp_height, pixel_format);
+    return std::make_shared<image>(wrapper, std::move(img));
 }
 
 resource_encoding image_codec_png::get_codec_type() const

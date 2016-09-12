@@ -22,7 +22,6 @@
 
 namespace aeon
 {
-
 namespace gfx
 {
 

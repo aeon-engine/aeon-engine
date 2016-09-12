@@ -15,31 +15,33 @@
 
 #pragma once
 
+#include <gfx/gfx_material.h>
+#include <glm/mat4x4.hpp>
+#include <common/exception.h>
 #include <memory>
-#include <vector>
-#include <cstdint>
 
 namespace aeon
 {
-namespace common
+namespace gfx
 {
 
-template <typename T>
-using buffer = std::vector<T>;
+DEFINE_EXCEPTION_OBJECT(gfx_mesh_exception, aeon::common::exception, "Mesh exception.");
 
-using buffer_u8 = buffer<std::uint8_t>;
-using buffer_pu8 = buffer<std::uint8_t *>;
+class mesh
+{
+public:
+    explicit mesh(material_ptr material);
+    virtual ~mesh() = default;
 
-using buffer_u16 = buffer<std::uint16_t>;
-using buffer_pu16 = buffer<std::uint16_t *>;
+    virtual void upload_index_buffer() = 0;
+    virtual void upload_vertex_buffer() = 0;
 
-using buffer_u32 = buffer<std::uint32_t>;
-using buffer_pu32 = buffer<std::uint32_t *>;
+    virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) = 0;
 
-template <typename T>
-using buffer_ptr = std::shared_ptr<buffer<T>>;
 
-using buffer_ptr_u8 = buffer_ptr<std::uint8_t>;
+};
 
-} // namespace common
+using mesh_ptr = std::unique_ptr<mesh>;
+
+} // namespace gfx
 } // namespace aeon

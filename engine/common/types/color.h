@@ -74,6 +74,14 @@ public:
 class color
 {
 public:
+    color()
+        : r(0.0f)
+        , g(0.0f)
+        , b(0.0f)
+        , a(1.0f)
+    {
+    }
+
     explicit color(float red, float green, float blue, float alpha = 1.0f)
         : r(red)
         , g(green)

@@ -13,33 +13,12 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
+#include "application.h"
 
-#include <memory>
-#include <vector>
-#include <cstdint>
-
-namespace aeon
+int main(int argc, char *argv[])
 {
-namespace common
-{
+    application app(argc, argv);
+    app.main();
 
-template <typename T>
-using buffer = std::vector<T>;
-
-using buffer_u8 = buffer<std::uint8_t>;
-using buffer_pu8 = buffer<std::uint8_t *>;
-
-using buffer_u16 = buffer<std::uint16_t>;
-using buffer_pu16 = buffer<std::uint16_t *>;
-
-using buffer_u32 = buffer<std::uint32_t>;
-using buffer_pu32 = buffer<std::uint32_t *>;
-
-template <typename T>
-using buffer_ptr = std::shared_ptr<buffer<T>>;
-
-using buffer_ptr_u8 = buffer_ptr<std::uint8_t>;
-
-} // namespace common
-} // namespace aeon
+    return 0;
+}

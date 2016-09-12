@@ -15,31 +15,27 @@
 
 #pragma once
 
+#include <scene/scene_object.h>
 #include <memory>
-#include <vector>
-#include <cstdint>
 
 namespace aeon
 {
-namespace common
+namespace scene
 {
 
-template <typename T>
-using buffer = std::vector<T>;
+class mesh : public scene_object
+{
+public:
+    explicit mesh(scene_manager *scene_manager);
 
-using buffer_u8 = buffer<std::uint8_t>;
-using buffer_pu8 = buffer<std::uint8_t *>;
+    virtual ~mesh();
 
-using buffer_u16 = buffer<std::uint16_t>;
-using buffer_pu16 = buffer<std::uint16_t *>;
+private:
+    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt) override;
 
-using buffer_u32 = buffer<std::uint32_t>;
-using buffer_pu32 = buffer<std::uint32_t *>;
+};
 
-template <typename T>
-using buffer_ptr = std::shared_ptr<buffer<T>>;
+using mesh_ptr = std::shared_ptr<mesh>;
 
-using buffer_ptr_u8 = buffer_ptr<std::uint8_t>;
-
-} // namespace common
+} // namespace scene
 } // namespace aeon
