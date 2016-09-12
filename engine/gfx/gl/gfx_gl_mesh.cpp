@@ -13,8 +13,6 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
 #include <gfx/gl/gfx_gl_mesh.h>
 #include <gfx/gl/gfx_gl_device.h>
 #include <gfx/gl_common/check_gl_error.h>
