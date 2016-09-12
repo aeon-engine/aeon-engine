@@ -50,7 +50,7 @@ void platform_qt_opengl_widget::initializeGL()
 
 void platform_qt_opengl_widget::resizeGL(int width, int height)
 {
-    context_size_ = glm::vec2(width, height);
+    context_size_ = glm::vec2(width * devicePixelRatioF(), height * devicePixelRatioF());
 }
 
 void platform_qt_opengl_widget::paintGL()
