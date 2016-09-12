@@ -35,6 +35,10 @@ add_source_path(AEON_ENGINE_SOURCES platform)
 add_source_path(AEON_ENGINE_SOURCES platform/generic)
 add_source_path(AEON_ENGINE_SOURCES platform/null)
 
+if (AEON_ENABLE_TGA_SUPPORT)
+    add_source_path(AEON_ENGINE_SOURCES resources/codecs/tga)
+endif ()
+
 if (AEON_PLATFORM_GLFW)
     add_source_path(AEON_ENGINE_SOURCES platform/glfw)
 endif ()
@@ -110,6 +114,10 @@ target_link_libraries(aeon_engine
 
 if (APPLE)
     target_link_libraries(aeon_engine ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY})
+endif ()
+
+if (AEON_ENABLE_TGA_SUPPORT)
+    target_link_libraries(aeon_engine tga_static)
 endif ()
 
 if (AEON_GFX_GL)

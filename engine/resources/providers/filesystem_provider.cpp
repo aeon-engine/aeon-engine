@@ -16,6 +16,7 @@
 #include <platform/platform_filesystem_interface.h>
 #include <resources/providers/filesystem_provider.h>
 #include <resources/resource_manager.h>
+#include <build_config.h>
 
 namespace aeon
 {
@@ -96,6 +97,12 @@ resource_encoding filesystem_provider::get_encoding(const std::string &path) con
         return resource_encoding::atlas;
     if (extension == "png")
         return resource_encoding::image_png;
+
+#ifdef AEON_ENABLE_TGA_SUPPORT
+    if (extension == "tga")
+        return resource_encoding::image_tga;
+#endif
+
     if (extension == "3ds" ||
         extension == "ase" ||
         extension == "dae")

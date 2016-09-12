@@ -15,7 +15,12 @@
 
 #include <resources/codecs/codec_manager.h>
 #include <resources/codecs/image_png_codec.h>
-#include "mesh_assimp_codec.h"
+#include <resources/codecs/mesh_assimp_codec.h>
+
+#include <build_config.h>
+#ifdef AEON_ENABLE_TGA_SUPPORT
+#include <resources/codecs/tga/image_tga_codec.h>
+#endif
 
 namespace aeon
 {
@@ -105,6 +110,10 @@ void codec_manager::__register_codecs()
     codecs_[resource_encoding::image_png] = std::make_unique<image_codec_png>();
     codecs_[resource_encoding::atlas] = std::make_unique<atlas_codec>();
     codecs_[resource_encoding::mesh_assimp] = std::make_unique<mesh_codec_assimp>();
+
+#ifdef AEON_ENABLE_TGA_SUPPORT
+    codecs_[resource_encoding::image_tga] = std::make_unique<image_codec_tga>();
+#endif
 
     AEON_LOG_DEBUG(logger_) << "Registered " << codecs_.size() << " codecs." << std::endl;
 }

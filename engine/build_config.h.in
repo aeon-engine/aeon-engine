@@ -20,6 +20,11 @@
  */
 
 /*!
+ * Define if TGA support is enabled.
+ */
+#cmakedefine AEON_ENABLE_TGA_SUPPORT
+ 
+/*!
  * Define if OpenGL should be used as GFX backend.
  */
 #cmakedefine AEON_GFX_GL

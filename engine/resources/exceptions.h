@@ -16,6 +16,7 @@
 #pragma once
 
 #include <common/exception.h>
+#include <build_config.h>
 
 namespace aeon
 {
@@ -94,6 +95,11 @@ DEFINE_EXCEPTION_OBJECT(image_codec_decode_exception, codec_decode_exception, "E
 
 // image_codec_png
 DEFINE_EXCEPTION_OBJECT(codec_png_decode_exception, codec_decode_exception, "Error while decoding PNG image resource.");
+
+#ifdef AEON_ENABLE_TGA_SUPPORT
+    // image_codec_tga
+    DEFINE_EXCEPTION_OBJECT(codec_tga_decode_exception, codec_decode_exception, "Error while decoding TGA image resource.");
+#endif
 
 // image
 DEFINE_EXCEPTION_OBJECT(image_exception, resource_exception, "Image resource exception.");

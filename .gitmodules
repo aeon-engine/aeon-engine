@@ -54,3 +54,7 @@
 	path = dep/assimp
 	url = ../../libraries/assimp.git
 	branch = submodule
+[submodule "dep/libtga"]
+	path = dep/libtga
+	url = ../../libraries/libtga.git
+	branch = submodule

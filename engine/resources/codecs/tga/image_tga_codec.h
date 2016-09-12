@@ -15,24 +15,26 @@
 
 #pragma once
 
-#include <build_config.h>
+#include <resources/exceptions.h>
+#include <resources/codecs/image_codec.h>
+#include <common/logger.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+class image_codec_tga : public image_codec
 {
-    unknown,
-    material,
-    shader,
-    atlas,
-    image_png,
-#ifdef AEON_ENABLE_TGA_SUPPORT
-    image_tga,
-#endif
-    mesh_assimp
+public:
+    image_codec_tga();
+    virtual ~image_codec_tga() = default;
+
+    image_ptr decode(resource_manager &parent, image_resource_wrapper_ptr wrapper) override;
+    resource_encoding get_codec_type() const override;
+
+private:
+    aeon::logger::logger logger_;
 };
 
 } // namespace resources
