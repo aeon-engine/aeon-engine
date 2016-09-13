@@ -92,6 +92,10 @@ resource_type codec_manager::get_resource_type_by_encoding(resource_encoding enc
             return resource_type::atlas;
         case resource_encoding::image_png:
             return resource_type::image;
+#ifdef AEON_ENABLE_TGA_SUPPORT
+        case resource_encoding::image_tga:
+            return resource_type::image;
+#endif
         case resource_encoding::mesh_assimp:
             return resource_type::mesh;
         case resource_encoding::unknown:

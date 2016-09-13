@@ -36,16 +36,15 @@ static int tga_stream_fgetc(TGA *tga)
 static size_t tga_stream_fread(TGA *tga, void *buffer, size_t size, size_t count)
 {
     streams::memory_stream &memory_stream = *reinterpret_cast<streams::memory_stream *>(tga->fd);
-    memory_stream.read(static_cast<std::uint8_t *>(buffer), size * count);
-	return 0;
+	return memory_stream.read(static_cast<std::uint8_t *>(buffer), size * count);
 }
 
-static int tga_stream_fputc(TGA *tga, int c)
+static int tga_stream_fputc(TGA *, int)
 {
     throw codec_tga_decode_exception();
 }
 
-static size_t tga_stream_fwrite(TGA *tga, const void* buffer, size_t size, size_t count)
+static size_t tga_stream_fwrite(TGA *, const void *, size_t, size_t)
 {
     throw codec_tga_decode_exception();
 }
@@ -75,8 +74,8 @@ static void tga_stream_fseek(TGA *tga, long offset, int origin)
 
 static long tga_stream_ftell(TGA *tga)
 {
-    // Since ftell is only used when opening the file, we can safely return 0 here.
-    return 0;
+    streams::memory_stream &memory_stream = *reinterpret_cast<streams::memory_stream *>(tga->fd);
+    return static_cast<long>(memory_stream.tell());
 }
 
 static void tga_free_data(TGAData *data)
@@ -120,8 +119,7 @@ image_ptr image_codec_tga::decode(resource_manager & /*parent*/, image_resource_
 
     TGAData data { nullptr, nullptr, nullptr, 0};
 
-    TGAReadImage(tga, &data);
-    if (tga->last != TGA_OK)
+    if (TGAReadImage(tga, &data) != TGA_OK)
         throw codec_png_decode_exception();
 
     tga_free_data(&data);
