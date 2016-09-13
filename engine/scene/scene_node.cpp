@@ -159,6 +159,23 @@ void scene_node::rotate(float angle)
     dirty_ = true;
 }
 
+void scene_node::scale(float x, float y, float z)
+{
+    glm::vec3 scale_vector(x, y, z);
+    scale(scale_vector);
+}
+
+void scene_node::scale(const glm::vec3& vector)
+{
+    matrix_ = glm::scale(matrix_, vector);
+}
+
+void scene_node::scale(float xyz)
+{
+    glm::vec3 scale_vector(xyz, xyz, xyz);
+    scale(scale_vector);
+}
+
 void scene_node::multiply(const glm::mat4 &matrix)
 {
     matrix_ *= matrix;

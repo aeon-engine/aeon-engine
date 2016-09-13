@@ -144,6 +144,24 @@ public:
     void rotate(float angle);
 
     /*!
+     * Scale the internal matrix.
+     * Sets the dirty flag.
+     */
+    void scale(float x, float y, float z);
+
+    /*!
+     * Scale the internal matrix.
+     * Sets the dirty flag.
+     */
+    void scale(const glm::vec3 &vector);
+
+    /*!
+     * Scale the internal matrix uniformly across all axis.
+     * Sets the dirty flag.
+     */
+    void scale(float xyz);
+
+    /*!
      * Multiply the internal matrix with another matrix.
      * Sets the dirty flag.
      */
