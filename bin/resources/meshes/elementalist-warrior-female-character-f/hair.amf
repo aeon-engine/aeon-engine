@@ -1,0 +1,8 @@
+shader_gl3=/resources/shaders/default.gl3.prg
+shader_gles2=/resources/shaders/default.gles2.prg
+ambient=0.2 0.4 0.4 1.0
+diffuse=1.0 1.0 1.0
+specular=1.0 1.0 1.0 1.0
+emission=0 0 0.1 0.5
+shininess=64
+texture=/resources/meshes/elementalist-warrior-female-character-f/hair_diffuse.png

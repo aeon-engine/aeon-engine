@@ -38,16 +38,10 @@ application::application(int argc, char *argv[])
 void application::main()
 {
     // Load resources
-    node_ = get_asset_manager().load_mesh("/resources/meshes/teapot.dae");
+    node_ = get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
     get_scene_manager()->get_root_scene_node()->attach_child(node_);
 
-    node_->translate(0.0f, -1.2f, -5.0f);
-    node_->rotate(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-
-    node2_ = get_asset_manager().load_mesh("/resources/meshes/cube.dae");
-    node_->attach_child(node2_);
-
-    node2_->translate(0.0f, 0.0f, -10.0f);
+    node_->translate(0.0f, -1.5f, -10.0f);
 
     // Start the render loop
     platform_.run();
@@ -55,7 +49,6 @@ void application::main()
 
 bool application::on_frame(float dt)
 {
-    (void) dt;
-    node_->rotate(0.01f * dt, glm::vec3(0.0f, 0.0f, 1.0f));
+    node_->rotate(0.01f * dt, glm::vec3(0.0f, -1.0f, 0.0f));
     return true;
 }

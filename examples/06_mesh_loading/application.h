@@ -33,5 +33,4 @@ public:
 private:
     aeon::scene::perspective_camera_ptr camera_;
     aeon::scene::scene_node_ptr node_;
-    aeon::scene::scene_node_ptr node2_;
 };
