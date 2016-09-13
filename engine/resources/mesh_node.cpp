@@ -48,5 +48,10 @@ std::vector<submesh *> mesh_node::get_submeshes() const
     return submeshes_;
 }
 
+const glm::mat4 &mesh_node::get_matrix() const
+{
+    return matrix_;
+}
+
 } // namespace resources
 } // namespace aeon
