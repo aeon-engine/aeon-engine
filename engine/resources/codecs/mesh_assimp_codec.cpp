@@ -70,7 +70,7 @@ void mesh_codec_assimp::__decode_materials(const aiScene* scene, mesh& mesh_ref)
         if (ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &ai_texture_path) == AI_SUCCESS)
         {
             std::string texture_path = ai_texture_path.data;
-            mesh_ref.add_material(texture_path + ".amf");
+            mesh_ref.add_material(texture_path);
         }
         else
         {
