@@ -142,6 +142,17 @@ resource_provider_ptr resource_manager::__find_best_match_provider(const std::st
     AEON_LOG_TRACE(logger_) << "Attempting to best match mountpoint resource provider for '"
         << path << "'." << std::endl;
 
+    if (path.empty())
+    {
+        AEON_LOG_WARNING(logger_) << "Could not find mountpoint for empty path." << std::endl;
+        return nullptr;
+    }
+
+    std::string actual_path = path;
+
+    if (path[0] != '/')
+        actual_path = "/" + path;
+
     std::size_t best_match_length = 0;
     resource_provider_ptr best_match_provider = nullptr;
 
@@ -154,7 +165,7 @@ resource_provider_ptr resource_manager::__find_best_match_provider(const std::st
         // has the most in common with the path
         if (p_length > best_match_length)
         {
-            if (path.compare(0, p_length, p) == 0)
+            if (actual_path.compare(0, p_length, p) == 0)
             {
                 best_match_length = p_length;
                 best_match_provider = mountpoint.second;
@@ -164,11 +175,11 @@ resource_provider_ptr resource_manager::__find_best_match_provider(const std::st
 
     if (!best_match_provider)
     {
-        AEON_LOG_WARNING(logger_) << "Could not find mountpoint for '" << path << "'." << std::endl;
+        AEON_LOG_WARNING(logger_) << "Could not find mountpoint for '" << actual_path << "'." << std::endl;
         return nullptr;
     }
 
-    provider_path = path.substr(best_match_length);
+    provider_path = actual_path.substr(best_match_length);
 
     AEON_LOG_TRACE(logger_) << "Found best match mountpoint at '" << provider_path << "'." << std::endl;
 
