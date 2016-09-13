@@ -31,6 +31,8 @@ public:
     bool on_frame(float dt) override;
 
 private:
+    float timer_;
     aeon::scene::perspective_camera_ptr camera_;
-    aeon::scene::scene_node_ptr node_;
+    aeon::scene::scene_node_ptr rotation_node_;
+    aeon::scene::scene_node_ptr wave_node_;
 };
