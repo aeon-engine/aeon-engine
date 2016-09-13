@@ -3,3 +3,8 @@ osx:
     - osx
   script:
     - source scripts/build_osx.sh
+windows:
+  tags:
+    - windows
+  script:
+    - cmd /C scripts\build_windows.cmd
