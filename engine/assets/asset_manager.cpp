@@ -139,6 +139,7 @@ void asset_manager::__convert_mesh_node_to_scene_node(resources::mesh_node &mesh
     for (resources::mesh_node *mesh_node_child : children)
     {
         scene::scene_node_ptr scene_node_child = scene_node.create_child_scene_node();
+        scene_node_child->set_matrix(mesh_node_child->get_matrix());
         __convert_mesh_node_to_scene_node(*mesh_node_child, *scene_node_child);
     }
 }
