@@ -4,8 +4,8 @@ if errorlevel 1 (
     exit /b 1
 )
 
-if exist vs_build (
-    rd /s /q vs_build
+if exist ci_build (
+    rd /s /q ci_build
     if errorlevel 1 (
         exit /b 1
     )
