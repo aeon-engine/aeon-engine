@@ -15,6 +15,7 @@
 
 #pragma once
 #include <platform/platform_window.h>
+#include <platform/platform_exception.h>
 #include <common/logger.h>
 #include <GLFW/glfw3.h>
 #include <memory>
@@ -25,6 +26,9 @@ namespace platform
 {
 namespace glfw
 {
+
+DEFINE_EXCEPTION_OBJECT(platform_glfw_cursor_mode_exception, platform_exception,
+    "Unknown or invalid mouse cursor mode given to GLFW.");
 
 class platform_interface;
 class platform_window : public platform::platform_window
@@ -37,6 +41,10 @@ public:
     void make_current() override;
 
     glm::vec2 get_framebuffer_size() override;
+
+    void set_mouse_cursor_mode(const mouse_cursor_mode mode) override;
+
+    mouse_cursor_mode get_mouse_cursor_mode() const override;
 
 private:
     bool __on_frame_start(float dt) override;
@@ -53,6 +61,7 @@ private:
 
     GLFWwindow *window_;
     platform_interface *interface_;
+    mouse_cursor_mode cursor_mode_;
 };
 
 using platform_window_ptr = std::shared_ptr<platform_window>;

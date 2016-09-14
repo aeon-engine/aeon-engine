@@ -24,6 +24,16 @@ namespace aeon
 namespace platform
 {
 
+/*!
+ * Enum that describes the behaviour of the mouse cursor in relation to the render window.
+ */
+enum mouse_cursor_mode
+{
+    normal, // Normal cursor
+    capture, // Capture the cursor (infinite mouse movements)
+    hidden, // Normal cursor, but hidden when moved over the window
+};
+
 class platform_window : public gfx::render_target
 {
 public:
@@ -51,6 +61,9 @@ public:
     {
         return title_;
     }
+
+    virtual void set_mouse_cursor_mode(const mouse_cursor_mode mode) = 0;
+    virtual mouse_cursor_mode get_mouse_cursor_mode() const = 0;
 
 private:
     int width_;

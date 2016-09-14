@@ -29,6 +29,7 @@ platform_window::platform_window(platform_interface *interface, int width, int h
     , logger_(common::logger::get_singleton(), "Platform::GLFW")
     , window_(nullptr)
     , interface_(interface)
+    , cursor_mode_(mouse_cursor_mode::normal)
 {
     AEON_LOG_DEBUG(logger_) << "Creating OpenGL 3.3 core profile context with forward compatibility." << std::endl;
 
@@ -85,6 +86,34 @@ glm::vec2 platform_window::get_framebuffer_size()
     int width, height;
     glfwGetFramebufferSize(window_, &width, &height);
     return glm::vec2(width, height);
+}
+
+void platform_window::set_mouse_cursor_mode(const mouse_cursor_mode mode)
+{
+    int glfw_cursor_mode = GLFW_CURSOR_NORMAL;
+
+    switch (mode)
+    {
+        case normal:
+            glfw_cursor_mode = GLFW_CURSOR_NORMAL;
+            break;
+        case capture:
+            glfw_cursor_mode = GLFW_CURSOR_DISABLED;
+            break;
+        case hidden:
+            glfw_cursor_mode = GLFW_CURSOR_HIDDEN;
+            break;
+        default:
+            throw platform_glfw_cursor_mode_exception();
+    }
+
+    glfwSetInputMode(window_, GLFW_CURSOR, glfw_cursor_mode);
+    cursor_mode_ = mode;
+}
+
+mouse_cursor_mode platform_window::get_mouse_cursor_mode() const
+{
+    return cursor_mode_;
 }
 
 bool platform_window::__on_frame_start(float /*dt*/)

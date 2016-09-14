@@ -36,6 +36,10 @@ public:
 
     glm::vec2 get_framebuffer_size() override;
 
+    void set_mouse_cursor_mode(const mouse_cursor_mode mode) override;
+
+    mouse_cursor_mode get_mouse_cursor_mode() const override;
+
 private:
     bool __on_frame_start(float dt) override;
 

@@ -38,6 +38,7 @@ public:
     virtual void on_mouse_move_event(platform_window * /*window*/, float /*x*/, float /*y*/)
     {
     }
+
     virtual void on_mouse_button_event(platform_window * /*window*/, mouse_button /*button*/,
                                        mouse_button_state /*button_state*/)
     {

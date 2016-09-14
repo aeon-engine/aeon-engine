@@ -45,6 +45,15 @@ glm::vec2 platform_window::get_framebuffer_size()
     return get_size();
 }
 
+void platform_window::set_mouse_cursor_mode(const mouse_cursor_mode)
+{
+}
+
+mouse_cursor_mode platform_window::get_mouse_cursor_mode() const
+{
+    return mouse_cursor_mode::normal;
+}
+
 bool platform_window::__on_frame_start(float)
 {
     make_current();
