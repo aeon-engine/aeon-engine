@@ -119,7 +119,7 @@ static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, png_s
     if (stream->read(output_ptr, static_cast<size_t>(output_size)) != output_size)
     {
         AEON_LOG_ERROR(logger) << "Could not decode PNG image. Could not read the requested data from stream."
-            << std::endl;
+                               << std::endl;
         throw codec_png_decode_exception();
     }
 }

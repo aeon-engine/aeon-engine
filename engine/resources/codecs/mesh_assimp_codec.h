@@ -33,7 +33,7 @@ namespace resources
 {
 
 DEFINE_EXCEPTION_OBJECT(assimp_codec_decode_exception, codec_decode_exception,
-    "Error while decoding AssImp mesh resource.");
+                        "Error while decoding AssImp mesh resource.");
 
 class mesh_codec_assimp : public mesh_codec
 {

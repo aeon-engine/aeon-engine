@@ -165,7 +165,7 @@ void scene_node::scale(float x, float y, float z)
     scale(scale_vector);
 }
 
-void scene_node::scale(const glm::vec3& vector)
+void scene_node::scale(const glm::vec3 &vector)
 {
     matrix_ = glm::scale(matrix_, vector);
 }

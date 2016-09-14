@@ -94,4 +94,3 @@ mesh_ptr gfx_gles2_device::create_mesh(material_ptr material)
 } // namespace gles2
 } // namespace gfx
 } // namespace aeon
-

@@ -26,7 +26,7 @@ application::application(int argc, char *argv[])
     // Init resources
     get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
 
-        // Attach this class as a frame listener
+    // Attach this class as a frame listener
     get_main_window()->attach_listener(this);
 
     // Set up the scene
@@ -44,7 +44,8 @@ void application::main()
     rotation_node_->translate(0.0f, -1.5f, -10.0f);
 
     // Load resources
-    wave_node_ = get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
+    wave_node_ =
+        get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
     rotation_node_->attach_child(wave_node_);
 
     aeon::scene::scene_node_ptr skydome = get_asset_manager().load_mesh("resources/meshes/skysphere/skydome.dae");
@@ -59,7 +60,7 @@ void application::main()
 bool application::on_frame(float dt)
 {
     rotation_node_->rotate(0.005f * dt, glm::vec3(0.0f, -1.0f, 0.0f));
-    
+
     timer_ += dt;
     wave_node_->set_identity();
     wave_node_->translate(0.0f, 0.0f, sin(timer_ * 0.1f) * 4.0f);

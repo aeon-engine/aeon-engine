@@ -40,7 +40,7 @@ public:
 private:
     bool __on_frame_start(float dt) override;
     bool __on_frame_end(float dt) override;
-    
+
     void __create_window();
     void __create_native_window();
     void __create_egl_context(EGLint attribList[]);

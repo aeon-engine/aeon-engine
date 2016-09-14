@@ -53,8 +53,7 @@ void application::main()
     aeon::resources::atlas_region region = atlas->get_region_by_index(10);
 
     // Create a sprite. The second parameter is the z-order; used to determine which sprite should be rendered on top
-    aeon::scene::sprite_ptr ship_sprite =
-        scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, 0);
+    aeon::scene::sprite_ptr ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, 0);
 
     // Attach the sprite to the scene
     root_node->attach_scene_object(ship_sprite);

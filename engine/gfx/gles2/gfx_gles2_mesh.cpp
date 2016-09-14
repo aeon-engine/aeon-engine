@@ -37,7 +37,7 @@ gfx_gles2_mesh::gfx_gles2_mesh(gfx_gles2_device *device, material_ptr material)
 }
 
 void gfx_gles2_mesh::upload_vertex_buffer(const std::vector<data::vertex_data> &vertex_data,
-    const gfx::buffer_usage usage)
+                                          const gfx::buffer_usage usage)
 {
     int buffer_size = static_cast<int>(vertex_data.size() * sizeof(data::vertex_data));
     vertex_buffer_->set_data(buffer_size, vertex_data.data(), usage);
@@ -51,7 +51,7 @@ void gfx_gles2_mesh::upload_index_buffer(const std::vector<std::uint16_t> &index
 
 void gfx_gles2_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model)
 {
-    if (!vertex_buffer_ || ! index_buffer_)
+    if (!vertex_buffer_ || !index_buffer_)
         return;
 
     material_->bind();
@@ -64,25 +64,25 @@ void gfx_gles2_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &vi
     material_->get_shader()->set_view_matrix(view);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(data::vertex_data),
-        reinterpret_cast<GLvoid*>(offsetof(data::vertex_data, position)));
+                          reinterpret_cast<GLvoid *>(offsetof(data::vertex_data, position)));
     AEON_CHECK_GL_ERROR();
     glEnableVertexAttribArray(0);
     AEON_CHECK_GL_ERROR();
 
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(data::vertex_data),
-        reinterpret_cast<GLvoid*>(offsetof(data::vertex_data, normal)));
+                          reinterpret_cast<GLvoid *>(offsetof(data::vertex_data, normal)));
     AEON_CHECK_GL_ERROR();
     glEnableVertexAttribArray(1);
     AEON_CHECK_GL_ERROR();
 
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(data::vertex_data),
-        reinterpret_cast<GLvoid*>(offsetof(data::vertex_data, uvw)));
+                          reinterpret_cast<GLvoid *>(offsetof(data::vertex_data, uvw)));
     AEON_CHECK_GL_ERROR();
     glEnableVertexAttribArray(2);
     AEON_CHECK_GL_ERROR();
 
     glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(data::vertex_data),
-        reinterpret_cast<GLvoid*>(offsetof(data::vertex_data, color)));
+                          reinterpret_cast<GLvoid *>(offsetof(data::vertex_data, color)));
     AEON_CHECK_GL_ERROR();
     glEnableVertexAttribArray(3);
     AEON_CHECK_GL_ERROR();

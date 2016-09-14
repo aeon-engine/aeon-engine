@@ -53,8 +53,8 @@ bool render_target::handle_frame(float dt)
 scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, int zorder)
 {
     glm::vec2 backbuffer_size = get_framebuffer_size();
-    return create_viewport(camera,
-        aeon::common::types::rectangle<float>(0, 0, backbuffer_size.x, backbuffer_size.y), zorder);
+    return create_viewport(camera, aeon::common::types::rectangle<float>(0, 0, backbuffer_size.x, backbuffer_size.y),
+                           zorder);
 }
 
 scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera,

@@ -55,7 +55,7 @@ void gfx_gl_mesh::upload_index_buffer(const std::vector<std::uint16_t> &index_da
 
 void gfx_gl_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model)
 {
-    if (!vertex_buffer_ || ! index_buffer_)
+    if (!vertex_buffer_ || !index_buffer_)
         return;
 
     material_->bind();
@@ -86,10 +86,10 @@ void gfx_gl_mesh::__create_and_setup_vao()
     index_buffer_->bind();
 
     vertex_attributes attributes = {
-        vertex_attribute{ 3, sizeof(data::vertex_data), offsetof(data::vertex_data, position) },
-        vertex_attribute{ 3, sizeof(data::vertex_data), offsetof(data::vertex_data, normal) },
-        vertex_attribute{ 3, sizeof(data::vertex_data), offsetof(data::vertex_data, uvw) },
-        vertex_attribute{ 4, sizeof(data::vertex_data), offsetof(data::vertex_data, color) },
+        vertex_attribute{3, sizeof(data::vertex_data), offsetof(data::vertex_data, position)},
+        vertex_attribute{3, sizeof(data::vertex_data), offsetof(data::vertex_data, normal)},
+        vertex_attribute{3, sizeof(data::vertex_data), offsetof(data::vertex_data, uvw)},
+        vertex_attribute{4, sizeof(data::vertex_data), offsetof(data::vertex_data, color)},
     };
 
     vao_ = std::make_unique<gfx_gl_vertex_array_object>(attributes);
@@ -98,4 +98,3 @@ void gfx_gl_mesh::__create_and_setup_vao()
 } // namespace gl
 } // namespace gfx
 } // namespace aeon
-

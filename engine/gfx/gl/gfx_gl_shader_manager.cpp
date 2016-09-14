@@ -55,11 +55,11 @@ shader_ptr gfx_gl_shader_manager::__load(resources::shader_ptr shader)
     s->texture0_handle_ = glGetUniformLocation(program, "texture0");
     AEON_CHECK_GL_ERROR();
 
-    AEON_LOG_TRACE(logger_) << "Uniform locations\n" <<
-        "Projection Matrix: " << s->projection_matrix_handle_ << "\n" <<
-        "Model Matrix: " << s->model_matrix_handle_ << "\n" <<
-        "View Matrix: " << s->view_matrix_handle_ << "\n" <<
-        "Texture0: " << s->texture0_handle_ << std::endl;
+    AEON_LOG_TRACE(logger_) << "Uniform locations\n"
+                            << "Projection Matrix: " << s->projection_matrix_handle_ << "\n"
+                            << "Model Matrix: " << s->model_matrix_handle_ << "\n"
+                            << "View Matrix: " << s->view_matrix_handle_ << "\n"
+                            << "Texture0: " << s->texture0_handle_ << std::endl;
 
     return s;
 }
@@ -77,7 +77,7 @@ GLuint gfx_gl_shader_manager::__load_gl_shader(const std::string &source, GLenum
     }
 
     AEON_LOG_TRACE(logger_) << "Created " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment")
-        << " shader (GL handle: " << shader << ")." << std::endl;
+                            << " shader (GL handle: " << shader << ")." << std::endl;
 
     const char *shader_src = source.c_str();
     glShaderSource(shader, 1, &shader_src, nullptr);

@@ -23,7 +23,10 @@
  */
 #define AEON_CHECK_GL_ERROR() aeon::gfx::gl_common::check_gl_error(__FILE__, __LINE__);
 #else
-#define AEON_CHECK_GL_ERROR() do{} while(0)
+#define AEON_CHECK_GL_ERROR()                                                                                          \
+    do                                                                                                                 \
+    {                                                                                                                  \
+    } while (0)
 #endif
 
 namespace aeon

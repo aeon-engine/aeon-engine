@@ -37,7 +37,8 @@ gfx_null_buffer::~gfx_null_buffer()
 
 void gfx_null_buffer::set_data(int size, const void *, buffer_usage)
 {
-    AEON_LOG_TRACE(logger_) << "Setting buffer data " << "(" << size << " bytes.)" << std::endl;
+    AEON_LOG_TRACE(logger_) << "Setting buffer data "
+                            << "(" << size << " bytes.)" << std::endl;
     has_data_ = true;
 }
 

@@ -84,12 +84,10 @@ public:
 
     void garbage_collect_cached_objects()
     {
-        utility::container::erase_if(objects_,
-            [](const auto &obj)
-            {
-                return obj.second.expired();
-            }
-        );
+        utility::container::erase_if(objects_, [](const auto &obj)
+                                     {
+                                         return obj.second.expired();
+                                     });
     }
 
 private:

@@ -22,8 +22,7 @@ namespace platform
 namespace rpi
 {
 
-platform_monitor::platform_monitor(int width, int height, int x, int y, bool primary,
-                                   const std::string &name)
+platform_monitor::platform_monitor(int width, int height, int x, int y, bool primary, const std::string &name)
     : platform::platform_monitor(width, height, x, y, primary, name)
 {
 }

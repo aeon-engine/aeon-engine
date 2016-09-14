@@ -36,7 +36,6 @@ public:
 
     video_mode get_video_mode() override;
     video_modes get_video_modes() override;
-
 };
 
 } // namespace rpi

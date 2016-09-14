@@ -91,7 +91,8 @@ atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &s
 
     if (items.size() != 4)
     {
-        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Expected 4 tokens, got " << items.size() << "." << std::endl;
+        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Expected 4 tokens, got " << items.size() << "."
+                                << std::endl;
         throw atlas_codec_decode_exception();
     }
 

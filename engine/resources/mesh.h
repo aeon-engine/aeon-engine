@@ -45,7 +45,7 @@ public:
 
     void add_material(const std::string &name);
     void create_submesh(const int id, const std::string &name, data::index_data_buffer &&indices,
-        data::vertex_data_buffer &&vertices, const std::string &material);
+                        data::vertex_data_buffer &&vertices, const std::string &material);
 
     std::string &get_material_by_id(const int id);
     submesh *get_submesh_by_id(const int id);

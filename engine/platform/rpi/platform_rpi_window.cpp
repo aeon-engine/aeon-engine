@@ -22,15 +22,15 @@
 #include <gfx/gl_common/check_gl_error.h>
 
 // esCreateWindow flag - RGB color buffer
-#define ES_WINDOW_RGB           0
+#define ES_WINDOW_RGB 0
 // esCreateWindow flag - ALPHA color buffer
-#define ES_WINDOW_ALPHA         1
+#define ES_WINDOW_ALPHA 1
 // esCreateWindow flag - depth buffer
-#define ES_WINDOW_DEPTH         2
+#define ES_WINDOW_DEPTH 2
 // esCreateWindow flag - stencil buffer
-#define ES_WINDOW_STENCIL       4
+#define ES_WINDOW_STENCIL 4
 // esCreateWindow flat - multi-sample buffer
-#define ES_WINDOW_MULTISAMPLE   8
+#define ES_WINDOW_MULTISAMPLE 8
 
 namespace aeon
 {
@@ -90,17 +90,21 @@ void platform_window::__create_window()
 {
     GLuint flags = 0;
 
-    EGLint attrib_list[] =
-    {
-        EGL_RED_SIZE, 5,
-        EGL_GREEN_SIZE, 6,
-        EGL_BLUE_SIZE, 5,
-        EGL_ALPHA_SIZE, 8, //(flags & ES_WINDOW_ALPHA) ? 8 : EGL_DONT_CARE,
-        EGL_DEPTH_SIZE, (flags & ES_WINDOW_DEPTH) ? 8 : EGL_DONT_CARE,
-        EGL_STENCIL_SIZE, (flags & ES_WINDOW_STENCIL) ? 8 : EGL_DONT_CARE,
-        EGL_SAMPLE_BUFFERS, (flags & ES_WINDOW_MULTISAMPLE) ? 1 : 0,
-        EGL_NONE
-    };
+    EGLint attrib_list[] = {EGL_RED_SIZE,
+                            5,
+                            EGL_GREEN_SIZE,
+                            6,
+                            EGL_BLUE_SIZE,
+                            5,
+                            EGL_ALPHA_SIZE,
+                            8, //(flags & ES_WINDOW_ALPHA) ? 8 : EGL_DONT_CARE,
+                            EGL_DEPTH_SIZE,
+                            (flags & ES_WINDOW_DEPTH) ? 8 : EGL_DONT_CARE,
+                            EGL_STENCIL_SIZE,
+                            (flags & ES_WINDOW_STENCIL) ? 8 : EGL_DONT_CARE,
+                            EGL_SAMPLE_BUFFERS,
+                            (flags & ES_WINDOW_MULTISAMPLE) ? 1 : 0,
+                            EGL_NONE};
 
     __create_native_window();
     __create_egl_context(attrib_list);
@@ -130,19 +134,13 @@ void platform_window::__create_native_window()
     DISPMANX_DISPLAY_HANDLE_T dispman_display = vc_dispmanx_display_open(0); /* LCD */
     DISPMANX_UPDATE_HANDLE_T dispman_update = vc_dispmanx_update_start(0);
 
-    DISPMANX_ELEMENT_HANDLE_T dispman_element = vc_dispmanx_element_add
-    (
-        dispman_update,
-        dispman_display,
-        0,                            /* layer */
-        &dst_rect,
-        0,                            /* src */
-        &src_rect,
-        DISPMANX_PROTECTION_NONE,
-        0,                            /* alpha */
-        0,                            /* clamp */
-        (DISPMANX_TRANSFORM_T) 0    /* transform */
-    );
+    DISPMANX_ELEMENT_HANDLE_T dispman_element =
+        vc_dispmanx_element_add(dispman_update, dispman_display, 0,     /* layer */
+                                &dst_rect, 0,                           /* src */
+                                &src_rect, DISPMANX_PROTECTION_NONE, 0, /* alpha */
+                                0,                                      /* clamp */
+                                (DISPMANX_TRANSFORM_T)0                 /* transform */
+                                );
 
     window_.element = dispman_element;
     window_.width = display_width;
@@ -152,11 +150,11 @@ void platform_window::__create_native_window()
 
 void platform_window::__create_egl_context(EGLint attrib_list[])
 {
-    EGLint context_attribs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
+    EGLint context_attribs[] = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE};
 
     // Get Display
     display_ = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-    if (display_ == EGL_NO_DISPLAY )
+    if (display_ == EGL_NO_DISPLAY)
         throw std::runtime_error("Failed to create display.");
 
     // Initialize EGL
@@ -176,13 +174,13 @@ void platform_window::__create_egl_context(EGLint attrib_list[])
         throw std::runtime_error("Failed to choose config.");
 
     // Create a surface
-    surface_ = eglCreateWindowSurface(display_, config, (EGLNativeWindowType) &window_, nullptr);
-    if (surface_ == EGL_NO_SURFACE )
+    surface_ = eglCreateWindowSurface(display_, config, (EGLNativeWindowType)&window_, nullptr);
+    if (surface_ == EGL_NO_SURFACE)
         throw std::runtime_error("Failed to create surface.");
 
     // Create a GL context
     context_ = eglCreateContext(display_, config, EGL_NO_CONTEXT, context_attribs);
-    if (context_ == EGL_NO_CONTEXT )
+    if (context_ == EGL_NO_CONTEXT)
         throw std::runtime_error("Failed to create context.");
 
     // Make the context current

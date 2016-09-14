@@ -28,7 +28,7 @@ class submesh
 {
 public:
     explicit submesh(const int id, const std::string &name, data::index_data_buffer &&indices,
-        data::vertex_data_buffer &&vertices, const std::string &material);
+                     data::vertex_data_buffer &&vertices, const std::string &material);
     ~submesh() = default;
 
     int get_id() const;

@@ -28,7 +28,7 @@ namespace qt
 class platform_qt_window;
 class platform_qt_opengl_widget : public QOpenGLWidget
 {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     platform_qt_opengl_widget(QWidget *parent = nullptr);

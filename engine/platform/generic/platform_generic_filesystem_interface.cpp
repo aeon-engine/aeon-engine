@@ -42,8 +42,8 @@ bool platform_filesystem_interface::exists(const std::string &path)
 {
     bool exists = filesystem::exists(path);
 
-    AEON_LOG_DEBUG(logger_) << "Checking if path exists: " << path << " (Result: "
-        << (exists ? "true" : "false") << ")" << std::endl;
+    AEON_LOG_DEBUG(logger_) << "Checking if path exists: " << path << " (Result: " << (exists ? "true" : "false") << ")"
+                            << std::endl;
 
     return exists;
 }

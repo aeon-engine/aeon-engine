@@ -139,8 +139,8 @@ resource_provider_ptr resource_manager::__find_best_match_provider(const std::st
 {
     // TODO: This needs optimization. Too much looping and string manipulation going on.
 
-    AEON_LOG_TRACE(logger_) << "Attempting to best match mountpoint resource provider for '"
-        << path << "'." << std::endl;
+    AEON_LOG_TRACE(logger_) << "Attempting to best match mountpoint resource provider for '" << path << "'."
+                            << std::endl;
 
     if (path.empty())
     {

@@ -30,10 +30,10 @@ namespace resources
 
 // resource
 DEFINE_EXCEPTION_OBJECT(resource_closed_exception, resource_exception,
-    "Resource is no longer available. It may have been unmounted.");
+                        "Resource is no longer available. It may have been unmounted.");
 
 DEFINE_EXCEPTION_OBJECT(resource_type_exception, resource_exception,
-    "Unknown resource encoding or actual type does not match expected resource type.");
+                        "Unknown resource encoding or actual type does not match expected resource type.");
 
 class resource_manager;
 class resource_wrapper : public std::enable_shared_from_this<resource_wrapper>

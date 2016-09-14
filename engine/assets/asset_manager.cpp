@@ -81,7 +81,7 @@ gfx::material_ptr asset_manager::load_material(const std::string &path)
     return material;
 }
 
-gfx::atlas_ptr asset_manager::load_atlas(const std::string& path)
+gfx::atlas_ptr asset_manager::load_atlas(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading atlas '" << path << "'." << std::endl;
 
@@ -130,7 +130,7 @@ void asset_manager::__convert_mesh_node_to_scene_node(resources::mesh_node &mesh
     for (resources::submesh *submesh : submeshes)
     {
         scene::mesh_ptr mesh = std::make_shared<scene::mesh>(&scene_manager_, load_material(submesh->get_material()),
-            submesh->get_vertex_data(), submesh->get_index_data());
+                                                             submesh->get_vertex_data(), submesh->get_index_data());
 
         scene_node.attach_scene_object(mesh);
     }

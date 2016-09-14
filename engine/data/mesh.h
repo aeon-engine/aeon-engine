@@ -32,8 +32,7 @@ struct vertex_data
     glm::vec3 normal;
     glm::vec3 uvw;
     common::types::color color;
-}
-AEON_PACK_STRUCT_POP(1);
+} AEON_PACK_STRUCT_POP(1);
 
 using index_data_buffer = std::vector<std::uint16_t>;
 using vertex_data_buffer = std::vector<vertex_data>;

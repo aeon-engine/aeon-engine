@@ -69,7 +69,7 @@ void check_gl_error(const char *file, int line)
         }
 
         AEON_LOG_ERROR(logger) << "OpenGL error detected in " << file << ":" << line
-            << ". Description: " << error_message << "." << std::endl;
+                               << ". Description: " << error_message << "." << std::endl;
 
         result = glGetError();
     }

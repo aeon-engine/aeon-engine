@@ -75,7 +75,7 @@ GLint gfx_gl_texture_manager::__image_pixelformat_to_gl(data::image::pixel_forma
         default:
         {
             AEON_LOG_WARNING(logger_) << "Unknown or invalid image pixel format, assuming RGBA. (This is a bug!)"
-                << std::endl;
+                                      << std::endl;
             // TODO: Error condition?
             return GL_RGBA;
         }

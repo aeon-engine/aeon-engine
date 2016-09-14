@@ -23,8 +23,8 @@ namespace aeon
 
 namespace platform
 {
-    class platform_filesystem_interface;
-    class platform_file_interface;
+class platform_filesystem_interface;
+class platform_file_interface;
 } // namespace platform
 
 namespace storage
@@ -33,7 +33,6 @@ namespace storage
 class resource_file_chunk
 {
 public:
-    
 };
 
 class resource_file

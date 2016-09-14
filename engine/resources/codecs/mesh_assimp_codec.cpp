@@ -39,10 +39,10 @@ mesh_ptr mesh_codec_assimp::decode(resource_manager & /*parent*/, mesh_resource_
     wrapper->read_raw(input);
 
     Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFileFromMemory(input.data(), input.size(),
-        aiProcessPreset_TargetRealtime_Quality);
+    const aiScene *scene =
+        importer.ReadFileFromMemory(input.data(), input.size(), aiProcessPreset_TargetRealtime_Quality);
 
-    if(!scene)
+    if (!scene)
     {
         AEON_LOG_ERROR(logger_) << "Decoding AssImp mesh resource: " << importer.GetErrorString() << std::endl;
         throw assimp_codec_decode_exception();
@@ -61,7 +61,7 @@ resource_encoding mesh_codec_assimp::get_codec_type() const
     return resource_encoding::mesh_assimp;
 }
 
-void mesh_codec_assimp::__decode_materials(const aiScene* scene, mesh& mesh_ref) const
+void mesh_codec_assimp::__decode_materials(const aiScene *scene, mesh &mesh_ref) const
 {
     for (unsigned int i = 0; i < scene->mNumMaterials; ++i)
     {
@@ -125,7 +125,8 @@ void mesh_codec_assimp::__read_index_data(aiMesh *mesh, data::index_data_buffer 
             // We only support 16-bit meshes currently.
             if (index_val >= 0xFFFF)
             {
-                AEON_LOG_ERROR(logger_) << "Index out of range. Only 16-bit indices are currently supported." << std::endl;
+                AEON_LOG_ERROR(logger_) << "Index out of range. Only 16-bit indices are currently supported."
+                                        << std::endl;
                 throw assimp_codec_decode_exception();
             }
 
@@ -187,7 +188,8 @@ void mesh_codec_assimp::__decode_scene_node(const aiNode *ai_node, mesh &mesh_re
     }
 }
 
-std::vector<submesh *> mesh_codec_assimp::__decode_submeshes_from_scene_node(const aiNode *ai_node, mesh &mesh_ref) const
+std::vector<submesh *> mesh_codec_assimp::__decode_submeshes_from_scene_node(const aiNode *ai_node,
+                                                                             mesh &mesh_ref) const
 {
     std::vector<submesh *> submeshes;
     for (unsigned int i = 0; i < ai_node->mNumMeshes; ++i)
@@ -214,11 +216,8 @@ glm::vec3 mesh_codec_assimp::__convert_to_glm_vec3(const aiVector3D &vector) con
 
 glm::mat4 mesh_codec_assimp::__convert_to_glm_mat4(const aiMatrix4x4 &matrix) const
 {
-    return glm::mat4(
-        matrix.a1, matrix.b1, matrix.c1, matrix.d1,
-        matrix.a2, matrix.b2, matrix.c2, matrix.d2,
-        matrix.a3, matrix.b3, matrix.c3, matrix.d3,
-        matrix.a4, matrix.b4, matrix.c4, matrix.d4);
+    return glm::mat4(matrix.a1, matrix.b1, matrix.c1, matrix.d1, matrix.a2, matrix.b2, matrix.c2, matrix.d2, matrix.a3,
+                     matrix.b3, matrix.c3, matrix.d3, matrix.a4, matrix.b4, matrix.c4, matrix.d4);
 }
 
 common::types::color mesh_codec_assimp::__convert_to_color(const aiColor4D &color) const

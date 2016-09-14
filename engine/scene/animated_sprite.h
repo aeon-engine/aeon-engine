@@ -30,7 +30,7 @@ class animated_sprite : public sprite
 {
 public:
     explicit animated_sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, int zorder,
-        const sprite_animation_settings &settings);
+                             const sprite_animation_settings &settings);
 
     virtual ~animated_sprite() = default;
 

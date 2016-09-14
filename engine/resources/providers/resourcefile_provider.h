@@ -29,10 +29,10 @@ namespace resources
 
 // resourcefile_provider
 DEFINE_EXCEPTION_OBJECT(resourcefile_provider_exception, resource_provider_exception,
-    "ResourceFile Provider exception.");
+                        "ResourceFile Provider exception.");
 
 DEFINE_EXCEPTION_OBJECT(resourcefile_provider_not_implemented_exception, resourcefile_provider_exception,
-    "ResourceFile Provider not implemented exception.");
+                        "ResourceFile Provider not implemented exception.");
 
 class resourcefile_provider : public resource_provider
 {

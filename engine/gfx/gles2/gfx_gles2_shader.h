@@ -40,7 +40,7 @@ public:
     void set_projection_matrix(const glm::mat4 &matrix) override;
     void set_model_matrix(const glm::mat4 &matrix) override;
     void set_view_matrix(const glm::mat4 &matrix) override;
-    
+
     GLint get_texture0_handle() const;
 
 private:

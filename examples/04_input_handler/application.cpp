@@ -66,8 +66,7 @@ void application::main()
     aeon::resources::atlas_region region = atlas->get_region_by_index(10);
 
     // Create a sprite. The second parameter is the z-order; used to determine which sprite should be rendered on top
-    aeon::scene::sprite_ptr ship_sprite =
-        scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, 0);
+    aeon::scene::sprite_ptr ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, 0);
 
     // Attach the sprite to the scene
     root_node->attach_scene_object(ship_sprite);
@@ -131,8 +130,8 @@ bool application::on_frame(float dt)
 void application::on_keyboard_event(aeon::platform::platform_window * /*window*/, aeon::platform::keyboard_key key,
                                     aeon::platform::keyboard_key_state key_state, int /*modifier*/)
 {
-    AEON_LOG_MESSAGE(get_logger()) << "Key: " << static_cast<int>(key) << " "
-        << static_cast<int>(key_state) << std::endl;
+    AEON_LOG_MESSAGE(get_logger()) << "Key: " << static_cast<int>(key) << " " << static_cast<int>(key_state)
+                                   << std::endl;
 
     if (key == aeon::platform::keyboard_key::key_escape && key_state == aeon::platform::keyboard_key_state::pressed)
     {

@@ -31,7 +31,8 @@ using mesh_node_ptr = std::unique_ptr<mesh_node>;
 
 class mesh_node
 {
-friend class mesh;
+    friend class mesh;
+
 public:
     ~mesh_node() = default;
 

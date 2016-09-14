@@ -50,7 +50,7 @@ const data::vertex_data_buffer &submesh::get_vertex_data() const
     return vertices_;
 }
 
-const std::string& submesh::get_material() const
+const std::string &submesh::get_material() const
 {
     return material_;
 }

@@ -28,8 +28,7 @@ namespace aeon
  * Base class for universal desktop games with a single render window.
  */
 template <typename scene_manager_t>
-class desktop_application
-    : public base_application<selected_platform_interface, selected_gfx_device, scene_manager_t>
+class desktop_application : public base_application<selected_platform_interface, selected_gfx_device, scene_manager_t>
 {
 public:
     /*!
@@ -39,7 +38,7 @@ public:
     explicit desktop_application(int argc, char *argv[], const int default_width, const int default_height,
                                  const std::string &window_title)
         : base_application<selected_platform_interface, selected_gfx_device, scene_manager_t>(
-            argc, argv, default_width, default_height, window_title)
+              argc, argv, default_width, default_height, window_title)
     {
     }
 

@@ -21,7 +21,7 @@
 
 namespace Ui
 {
-    class mainwindow;
+class mainwindow;
 }
 
 namespace aeon
@@ -36,7 +36,7 @@ class platform_qt_window : public QMainWindow, public platform::platform_window
 {
     Q_OBJECT
 
-friend class platform_qt_opengl_widget;
+    friend class platform_qt_opengl_widget;
 
 public:
     platform_qt_window(platform_interface *i);
