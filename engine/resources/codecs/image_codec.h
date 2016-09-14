@@ -26,6 +26,8 @@ namespace aeon
 namespace resources
 {
 
+DEFINE_EXCEPTION_OBJECT(image_codec_decode_exception, codec_decode_exception, "Error while decoding image resource.");
+
 class image;
 class image_resource_wrapper;
 class resource_manager;

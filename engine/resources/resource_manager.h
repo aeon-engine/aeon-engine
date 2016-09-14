@@ -34,6 +34,14 @@ namespace aeon
 namespace resources
 {
 
+DEFINE_EXCEPTION_OBJECT(resource_manager_exception, resource_exception, "Generic resource manager exception.");
+
+DEFINE_EXCEPTION_OBJECT(resource_manager_mount_exception, resource_manager_exception,
+    "Could not mount resource provider.");
+
+DEFINE_EXCEPTION_OBJECT(resource_manager_duplicate_mount_exception, resource_manager_mount_exception,
+    "Could not mount resource provider. Duplicate mountpoint given.");
+
 class resource_wrapper;
 using resource_wrapper_ptr = std::shared_ptr<resource_wrapper>;
 

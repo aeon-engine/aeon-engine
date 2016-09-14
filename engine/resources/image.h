@@ -28,6 +28,9 @@ namespace aeon
 namespace resources
 {
 
+DEFINE_EXCEPTION_OBJECT(image_exception, resource_exception, "Image resource exception.");
+DEFINE_EXCEPTION_OBJECT(image_data_exception, image_exception, "Image resource data exception.");
+
 class image : public resource
 {
 public:

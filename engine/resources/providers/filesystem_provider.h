@@ -28,6 +28,17 @@ namespace aeon
 namespace resources
 {
 
+DEFINE_EXCEPTION_OBJECT(filesystem_provider_exception, resource_provider_exception,
+    "Filesystem Provider exception.");
+DEFINE_EXCEPTION_OBJECT(filesystem_provider_list_exception, filesystem_provider_exception,
+    "Filesystem Provider list exception. Can not list given path.");
+DEFINE_EXCEPTION_OBJECT(
+    filesystem_provider_read_exception, filesystem_provider_exception,
+    "Filesystem Provider read exception. Can not read given path. Path does not exist or is unreadable.");
+DEFINE_EXCEPTION_OBJECT(
+    filesystem_provider_type_exception, filesystem_provider_exception,
+    "Filesystem Provider type exception. Can not figure out the type of the resource. File has no extension.");
+
 class filesystem_provider : public resource_provider
 {
 public:

@@ -33,6 +33,12 @@ namespace aeon
 namespace resources
 {
 
+DEFINE_EXCEPTION_OBJECT(codec_manager_exception, resource_exception, "Generic Codec Manager exception.");
+DEFINE_EXCEPTION_OBJECT(codec_manager_unknown_codec_exception, codec_manager_exception,
+    "Unknown or unsupported codec requested from codec manager.");
+DEFINE_EXCEPTION_OBJECT(codec_manager_codec_mismatch_exception, codec_manager_exception,
+    "Resource encoding does not match expected resource type.");
+
 class codec_manager
 {
     using codec_map = std::map<resource_encoding, codec_ptr>;

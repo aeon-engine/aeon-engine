@@ -24,6 +24,10 @@ namespace aeon
 namespace resources
 {
 
+// codec
+DEFINE_EXCEPTION_OBJECT(codec_exception, resource_exception, "Generic Codec exception.");
+DEFINE_EXCEPTION_OBJECT(codec_decode_exception, codec_exception, "Error while decoding resource.");
+
 class codec
 {
 public:

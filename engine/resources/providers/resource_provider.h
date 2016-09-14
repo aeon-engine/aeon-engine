@@ -27,6 +27,8 @@ namespace aeon
 namespace resources
 {
 
+DEFINE_EXCEPTION_OBJECT(resource_provider_exception, resource_exception, "Generic Resource Provider exception.");
+
 enum class resource_node_type
 {
     file,

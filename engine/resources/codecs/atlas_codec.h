@@ -28,6 +28,8 @@ namespace aeon
 namespace resources
 {
 
+DEFINE_EXCEPTION_OBJECT(atlas_codec_decode_exception, codec_decode_exception, "Error while decoding atlas resource.");
+
 class atlas_resource_wrapper;
 class resource_manager;
 

@@ -27,6 +27,8 @@ namespace aeon
 namespace resources
 {
 
+DEFINE_EXCEPTION_OBJECT(shader_codec_decode_exception, codec_decode_exception, "Error while decoding shader resource.");
+
 class material_resource_wrapper;
 class resource_manager;
 
