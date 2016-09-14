@@ -30,7 +30,8 @@ template <typename platform_interface_t, typename device_t, typename scene_manag
 class base_application
 {
 public:
-    explicit base_application(int argc, char *argv[], int width, int height, const std::string &window_title)
+    explicit base_application(int argc, char *argv[], const int default_width, const int default_height,
+                              const std::string &window_title)
         : logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
         , config_file_()
@@ -47,8 +48,7 @@ public:
         platform_.initialize();
 
         __load_config_file();
-
-        window_ = platform_.create_window(width, height, window_title);
+        __create_window(default_width, default_height, window_title);
 
         // Init opengl
         device_.initialize();
@@ -92,7 +92,7 @@ private:
         try
         {
             platform::platform_file_interface_ptr file_interface = platform_.get_filesystem_interface()->open_file(
-                "config.ini", platform::file_open_mode::binary | platform::file_open_mode::read);
+                "config.conf", platform::file_open_mode::binary | platform::file_open_mode::read);
 
             common::buffer_u8 config_file_data;
             file_interface->read(config_file_data);
@@ -107,6 +107,13 @@ private:
         {
             AEON_LOG_ERROR(logger_) << "Error while reading config file." << std::endl;
         }
+    }
+
+    void __create_window(const int default_width, const int default_height, const std::string &title)
+    {
+        const int width = config_file_.get<int>("window_width", default_width);
+        const int height = config_file_.get<int>("window_height", default_height);
+        window_ = platform_.create_window(width, height, title);
     }
 
 protected:
