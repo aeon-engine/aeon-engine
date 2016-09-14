@@ -4,6 +4,13 @@ if errorlevel 1 (
     exit /b 1
 )
 
+if exist vs_build (
+    rd /s /q vs_build
+    if errorlevel 1 (
+        exit /b 1
+    )
+)
+
 mkdir ci_build
 
 if errorlevel 1 (
