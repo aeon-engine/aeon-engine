@@ -17,7 +17,10 @@
 #include <resources/resource_manager.h>
 #include <assets/asset_manager.h>
 #include <platform/platform_window.h>
+#include <platform/platform_filesystem_interface.h>
+#include <platform/platform_file_interface.h>
 #include <common/logger.h>
+#include <aeon/utility.h>
 #include <buildinfo.h>
 
 namespace aeon
@@ -30,6 +33,7 @@ public:
     explicit base_application(int argc, char *argv[], int width, int height, const std::string &window_title)
         : logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
+        , config_file_()
         , platform_(argc, argv)
         , resource_manager_(platform_)
         , scene_manager_(device_)
@@ -41,6 +45,9 @@ public:
 
         // Init the platform and window
         platform_.initialize();
+
+        __load_config_file();
+
         window_ = platform_.create_window(width, height, window_title);
 
         // Init opengl
@@ -79,9 +86,34 @@ public:
         return logger_;
     }
 
+private:
+    void __load_config_file()
+    {
+        try
+        {
+            platform::platform_file_interface_ptr file_interface = platform_.get_filesystem_interface()->open_file(
+                "config.ini", platform::file_open_mode::binary | platform::file_open_mode::read);
+
+            common::buffer_u8 config_file_data;
+            file_interface->read(config_file_data);
+
+            config_file_.load(std::move(config_file_data));
+        }
+        catch (utility::configfile_exception &)
+        {
+            AEON_LOG_ERROR(logger_) << "Error while parsing config file." << std::endl;
+        }
+        catch (platform::platform_file_exception &)
+        {
+            AEON_LOG_ERROR(logger_) << "Error while reading config file." << std::endl;
+        }
+    }
+
 protected:
     common::logger logger_backend_;
     aeon::logger::logger logger_;
+
+    utility::configfile config_file_;
 
     platform_interface_t platform_;
     device_t device_;
