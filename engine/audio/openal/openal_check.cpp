@@ -10,13 +10,12 @@ struct al_error_desc
 };
 
 static al_error_desc al_error_lookup[] = {
-    { "AL_INVALID_NAME" , "an unacceptable name has been specified" },
-    { "AL_INVALID_ENUM", "an unacceptable value has been specified for an enumerated argument" },
-    { "AL_INVALID_VALUE", "a numeric argument is out of range" },
-    { "AL_INVALID_OPERATION", "the specified operation is not allowed in the current state" },
-    { "AL_OUT_OF_MEMORY", "there is not enough memory left to execute the command" },
-    {nullptr, nullptr}
-};
+    {"AL_INVALID_NAME", "an unacceptable name has been specified"},
+    {"AL_INVALID_ENUM", "an unacceptable value has been specified for an enumerated argument"},
+    {"AL_INVALID_VALUE", "a numeric argument is out of range"},
+    {"AL_INVALID_OPERATION", "the specified operation is not allowed in the current state"},
+    {"AL_OUT_OF_MEMORY", "there is not enough memory left to execute the command"},
+    {nullptr, nullptr}};
 
 void al_check_error(const char *file, unsigned int line)
 {

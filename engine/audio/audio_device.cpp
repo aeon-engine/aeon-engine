@@ -8,9 +8,9 @@ namespace aeon
 namespace audio
 {
 
-device::device() :
-    device_(nullptr),
-    context_(nullptr)
+device::device()
+    : device_(nullptr)
+    , context_(nullptr)
 {
     /*!
      * \todo
@@ -27,7 +27,7 @@ device::device() :
     context_ = alcCreateContext(device_, nullptr);
     if (!context_)
         printf("aeon::device, failed to create context\n");
-    
+
     alcMakeContextCurrent(context_);
 
     source_manager_ = std::make_shared<aeon::audio::source_manager>();

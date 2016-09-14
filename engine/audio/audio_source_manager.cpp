@@ -2,7 +2,7 @@
 
 namespace aeon
 {
-namespace audio 
+namespace audio
 {
 
 source_manager::source_manager()
@@ -12,7 +12,6 @@ source_manager::source_manager()
 
 source_manager::~source_manager()
 {
-
 }
 
 void source_manager::initialize(int nr_sources_hint)
@@ -27,7 +26,6 @@ void source_manager::initialize(int nr_sources_hint)
     for (auto itr : sources_)
         free_sources_.push(itr);
 }
-
 
 int source_manager::__detect_nr_of_voices(int nr_sources_hint)
 {

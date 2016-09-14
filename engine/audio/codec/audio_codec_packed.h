@@ -16,7 +16,7 @@
  */
 
 #ifdef __GNUC__
-#define PACKED( pack_struct ) pack_struct __attribute__((__packed__))
+#define PACKED(pack_struct) pack_struct __attribute__((__packed__))
 #else
-#define PACKED( pack_struct ) __pragma( pack(push, 1) ) pack_struct __pragma( pack(pop) )
+#define PACKED(pack_struct) __pragma(pack(push, 1)) pack_struct __pragma(pack(pop))
 #endif

@@ -8,10 +8,18 @@ const char *get_openal_format_name(ALenum format)
 {
     switch (format)
     {
-    case AL_FORMAT_STEREO8: return "AL_FORMAT_STEREO8"; break;
-    case AL_FORMAT_STEREO16: return "AL_FORMAT_STEREO16"; break;
-    case AL_FORMAT_MONO8: return "AL_FORMAT_MONO8"; break;
-    case AL_FORMAT_MONO16: return "AL_FORMAT_MONO16"; break;
+        case AL_FORMAT_STEREO8:
+            return "AL_FORMAT_STEREO8";
+            break;
+        case AL_FORMAT_STEREO16:
+            return "AL_FORMAT_STEREO16";
+            break;
+        case AL_FORMAT_MONO8:
+            return "AL_FORMAT_MONO8";
+            break;
+        case AL_FORMAT_MONO16:
+            return "AL_FORMAT_MONO16";
+            break;
     }
 
     return "AL_FORMAT_UNKNOWN";

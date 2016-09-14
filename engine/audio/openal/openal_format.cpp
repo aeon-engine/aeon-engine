@@ -1,6 +1,5 @@
 #include <audio/openal/openal_format.h>
 
-
 ALenum get_openal_format(int channel_count, int bits_per_sample)
 {
     if (channel_count == 2) // stereo

@@ -33,7 +33,7 @@ public:
     void seek(double position) override;
 
     uint64_t get_total_size();
-//private:
+    // private:
     sample_buffer_ptr create_from_buffer(base_buffer &buffer);
 
     // kinda streaming buffer something bla..

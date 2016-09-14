@@ -87,10 +87,13 @@ source_status source::get_status()
 
     switch (status)
     {
-    case AL_INITIAL:
-    case AL_STOPPED: return source_status::stopped;
-    case AL_PAUSED:  return source_status::paused;
-    case AL_PLAYING: return source_status::playing;
+        case AL_INITIAL:
+        case AL_STOPPED:
+            return source_status::stopped;
+        case AL_PAUSED:
+            return source_status::paused;
+        case AL_PLAYING:
+            return source_status::playing;
     }
 
     printf("aeon::audio::source, unknown source status\n");

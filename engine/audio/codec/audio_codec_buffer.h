@@ -98,47 +98,48 @@ public:
     {
         switch (origin)
         {
-        case SEEK_SET:
+            case SEEK_SET:
 
-            if (offset <= (int64_t)buffer_.size()) // blegh c style cast
+                if (offset <= (int64_t)buffer_.size()) // blegh c style cast
+                {
+                    read_offset_ = offset;
+                }
+                else
+                {
+                    printf("aeon::audio::codec_file, seek error case SET\n");
+                    return -1;
+                }
+                break;
+            case SEEK_CUR:
+                if (read_offset_ + offset <= (int64_t)buffer_.size()) // blegh cast
+                {
+                    read_offset_ += offset;
+                }
+                else
+                {
+                    printf("aeon::audio::codec_file, seek error case CUR\n");
+                    return -1;
+                }
+                break;
+            case SEEK_END:
             {
-                read_offset_ = offset;
-            }
-            else
-            {
-                printf("aeon::audio::codec_file, seek error case SET\n");
-                return -1;
-            }
-            break;
-        case SEEK_CUR:
-            if (read_offset_ + offset <= (int64_t)buffer_.size()) //blegh cast
-            {
-                read_offset_ += offset;
-            }
-            else
-            {
-                printf("aeon::audio::codec_file, seek error case CUR\n");
-                return -1;
-            }
-            break;
-        case SEEK_END:
-        {
-            int64_t new_offset = buffer_.size();
-            new_offset -= offset;
+                int64_t new_offset = buffer_.size();
+                new_offset -= offset;
 
-            if ((int64_t)buffer_.size() - offset >= 0) //blegh cast
-            {
-                read_offset_ = buffer_.size() - offset;
+                if ((int64_t)buffer_.size() - offset >= 0) // blegh cast
+                {
+                    read_offset_ = buffer_.size() - offset;
+                }
+                else
+                {
+                    printf("aeon::audio::codec_file, seek error case END\n");
+                    return -1;
+                }
             }
-            else
-            {
-                printf("aeon::audio::codec_file, seek error case END\n");
-                return -1;
-            }
-        } break;
-        default:
-            return -1;
             break;
+            default:
+                return -1;
+                break;
         }
         return 0;
     }
@@ -147,6 +148,7 @@ public:
     {
         return read_offset_;
     }
+
 private:
     common::buffer_u8 buffer_;
     int64_t read_offset_; // we only allow to read in a audio codec file buffer
@@ -235,47 +237,48 @@ public:
     {
         switch (origin)
         {
-        case SEEK_SET:
+            case SEEK_SET:
 
-            if (offset <= (int64_t)buffer_.size()) // blegh c style cast
+                if (offset <= (int64_t)buffer_.size()) // blegh c style cast
+                {
+                    read_offset_ = offset;
+                }
+                else
+                {
+                    printf("aeon::audio::codec_file, seek error case SET\n");
+                    return -1;
+                }
+                break;
+            case SEEK_CUR:
+                if (read_offset_ + offset <= (int64_t)buffer_.size()) // blegh cast
+                {
+                    read_offset_ += offset;
+                }
+                else
+                {
+                    printf("aeon::audio::codec_file, seek error case CUR\n");
+                    return -1;
+                }
+                break;
+            case SEEK_END:
             {
-                read_offset_ = offset;
-            }
-            else
-            {
-                printf("aeon::audio::codec_file, seek error case SET\n");
-                return -1;
-            }
-            break;
-        case SEEK_CUR:
-            if (read_offset_ + offset <= (int64_t)buffer_.size()) //blegh cast
-            {
-                read_offset_ += offset;
-            }
-            else
-            {
-                printf("aeon::audio::codec_file, seek error case CUR\n");
-                return -1;
-            }
-            break;
-        case SEEK_END:
-        {
-            int64_t new_offset = buffer_.size();
-            new_offset -= offset;
+                int64_t new_offset = buffer_.size();
+                new_offset -= offset;
 
-            if ((int64_t)buffer_.size() - offset >= 0) //blegh cast
-            {
-                read_offset_ = buffer_.size() - offset;
+                if ((int64_t)buffer_.size() - offset >= 0) // blegh cast
+                {
+                    read_offset_ = buffer_.size() - offset;
+                }
+                else
+                {
+                    printf("aeon::audio::codec_file, seek error case END\n");
+                    return -1;
+                }
             }
-            else
-            {
-                printf("aeon::audio::codec_file, seek error case END\n");
-                return -1;
-            }
-        } break;
-        default:
-            return -1;
             break;
+            default:
+                return -1;
+                break;
         }
         return 0;
     }

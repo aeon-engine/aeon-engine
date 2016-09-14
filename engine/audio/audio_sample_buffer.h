@@ -21,7 +21,7 @@ public:
     uint64_t get_channel_sample_count();
 
     int channel_count_;
-    int sample_rate_;   /* think in the likes of: 44.1khz */
+    int sample_rate_; /* think in the likes of: 44.1khz */
     int bits_per_sample_;
 
     std::vector<uint8_t> data_; // the data of the sample....
@@ -31,4 +31,3 @@ using sample_buffer_ptr = std::unique_ptr<sample_buffer>;
 
 } // namespace audio
 } // namespace aeon
-

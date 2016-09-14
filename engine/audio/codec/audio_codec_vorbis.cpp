@@ -31,7 +31,7 @@ aeon::audio::sample_buffer_ptr codec_vorbis::decode(common::buffer_u8 &data)
 
 size_t vorbis_on_read(void *ptr, size_t size, size_t nmemb, void *datasource)
 {
-    base_buffer* buffer = reinterpret_cast<base_buffer*>(datasource);
+    base_buffer *buffer = reinterpret_cast<base_buffer *>(datasource);
     if (buffer == nullptr)
         return 0;
     return buffer->read(ptr, size, nmemb);
@@ -39,7 +39,7 @@ size_t vorbis_on_read(void *ptr, size_t size, size_t nmemb, void *datasource)
 
 int vorbis_on_seek(void *datasource, ogg_int64_t offset, int whence)
 {
-    base_buffer* buffer = reinterpret_cast<base_buffer*>(datasource);
+    base_buffer *buffer = reinterpret_cast<base_buffer *>(datasource);
     if (buffer == nullptr)
         return 0;
     return buffer->seek(offset, whence);
@@ -47,7 +47,7 @@ int vorbis_on_seek(void *datasource, ogg_int64_t offset, int whence)
 
 long vorbis_on_tell(void *datasource)
 {
-    base_buffer* buffer = reinterpret_cast<base_buffer*>(datasource);
+    base_buffer *buffer = reinterpret_cast<base_buffer *>(datasource);
     if (buffer == nullptr)
         return 0;
     return static_cast<long>(buffer->tell());
@@ -57,13 +57,8 @@ long vorbis_on_tell(void *datasource)
 sample_buffer_ptr codec_vorbis::create_from_buffer(base_buffer &buffer)
 {
     OggVorbis_File vorbis_file;
-    int res = ov_open_callbacks(&buffer, &vorbis_file, nullptr, 0, {
-        vorbis_on_read,
-        vorbis_on_seek,
-        nullptr,
-        vorbis_on_tell
-    }
-    );
+    int res =
+        ov_open_callbacks(&buffer, &vorbis_file, nullptr, 0, {vorbis_on_read, vorbis_on_seek, nullptr, vorbis_on_tell});
 
     if (res != 0)
     {
@@ -90,19 +85,18 @@ sample_buffer_ptr codec_vorbis::create_from_buffer(base_buffer &buffer)
     size_t bytes_done = 0;
     while (bytes_done < pcm_buffer.size())
     {
-        long decode_size = ov_read(&vorbis_file, (char*)&pcm_buffer[bytes_done], (int)(pcm_buffer.size() - bytes_done), 0, AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE, 1, &current_section);
+        long decode_size = ov_read(&vorbis_file, (char *)&pcm_buffer[bytes_done], (int)(pcm_buffer.size() - bytes_done),
+                                   0, AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE, 1, &current_section);
         if (decode_size > 0)
             bytes_done += decode_size;
         else
             break;
     }
 
-    sample_buffer_ptr result = std::make_unique<sample_buffer>(
-        psVorbisInfo->channels,
-        AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE * 8, // always 16 bits!
-        psVorbisInfo->rate,
-        pcm_buffer.data(),
-        pcm_buffer.size());
+    sample_buffer_ptr result =
+        std::make_unique<sample_buffer>(psVorbisInfo->channels,
+                                        AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE * 8, // always 16 bits!
+                                        psVorbisInfo->rate, pcm_buffer.data(), pcm_buffer.size());
 
     return result;
 }
@@ -116,13 +110,8 @@ codec_stream_ptr codec_vorbis::open_stream(std::string filename)
 aeon::audio::codec_stream_ptr codec_vorbis::open_stream(common::buffer_u8 &data)
 {
     buffer_ = memory_buffer(data);
-    int res = ov_open_callbacks(&buffer_, &vorbis_file_, nullptr, 0, {
-        vorbis_on_read,
-        vorbis_on_seek,
-        nullptr,
-        vorbis_on_tell
-    }
-    );
+    int res = ov_open_callbacks(&buffer_, &vorbis_file_, nullptr, 0,
+                                {vorbis_on_read, vorbis_on_seek, nullptr, vorbis_on_tell});
 
     if (res != 0)
     {
@@ -138,12 +127,9 @@ aeon::audio::codec_stream_ptr codec_vorbis::open_stream(common::buffer_u8 &data)
         return nullptr;
     }
 
-    return std::make_unique<codec_stream>(
-        this,
-        vorbis_info_->channels,
-        AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE * 8, // always 16 bits!
-        vorbis_info_->rate
-        );
+    return std::make_unique<codec_stream>(this, vorbis_info_->channels,
+                                          AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE * 8, // always 16 bits!
+                                          vorbis_info_->rate);
 }
 
 uint64_t codec_vorbis::read(uint8_t *buffer, size_t buffer_size)
@@ -155,7 +141,8 @@ uint64_t codec_vorbis::read(uint8_t *buffer, size_t buffer_size)
     size_t bytes_done = 0;
     while (bytes_done < pcm_buffer_size)
     {
-        long decode_size = ov_read(&vorbis_file_, (char*)&pcm_buffer[bytes_done], int(pcm_buffer_size - bytes_done), 0, AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE, 1, &current_section);
+        long decode_size = ov_read(&vorbis_file_, (char *)&pcm_buffer[bytes_done], int(pcm_buffer_size - bytes_done), 0,
+                                   AEON_AUDIO_CODEC_VORBIS_SAMPLE_SIZE, 1, &current_section);
         if (decode_size > 0)
             bytes_done += decode_size;
         else
@@ -182,6 +169,3 @@ uint64_t codec_vorbis::get_total_size()
 
 } // namespace audio
 } // namespace aeon
-
-
-

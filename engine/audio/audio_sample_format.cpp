@@ -1,7 +1,6 @@
 #include <audio/audio_sample_format.h>
 
-constexpr
-uint32_t fourcc(char const p[5])
+constexpr uint32_t fourcc(char const p[5])
 {
     return (p[3] << 24) | (p[2] << 16) | (p[1] << 8) | p[0];
 }
@@ -32,4 +31,3 @@ aeon::audio::sample_format format_by_fourcc(uint32_t fourcc_value)
 
 } // namespace audio
 } // namespace aeon
-

@@ -30,8 +30,7 @@ void listener::set_position(glm::vec3 &position)
 
 void listener::set_direction(glm::vec3 &direction)
 {
-    float orientation[] = { direction.x, direction.y, direction.z,
-        0.f, 1.f, 0.f };
+    float orientation[] = {direction.x, direction.y, direction.z, 0.f, 1.f, 0.f};
     al_check(alListenerfv(AL_ORIENTATION, orientation));
 }
 

@@ -43,11 +43,20 @@ public:
     virtual sample_buffer_ptr decode(common::buffer_u8 &data) = 0;
 
     /*! open for streaming decode*/
-    virtual codec_stream_ptr open_stream(std::string /*filename*/) { return nullptr; };
-    virtual codec_stream_ptr open_stream(common::buffer_u8 & /*data*/) { return nullptr; };
+    virtual codec_stream_ptr open_stream(std::string /*filename*/)
+    {
+        return nullptr;
+    };
+    virtual codec_stream_ptr open_stream(common::buffer_u8 & /*data*/)
+    {
+        return nullptr;
+    };
 
     /*! read/fill/decode into a buffer */
-    virtual uint64_t read(uint8_t * /*buffer*/, size_t /*buffer_size*/) { return 0; };
+    virtual uint64_t read(uint8_t * /*buffer*/, size_t /*buffer_size*/)
+    {
+        return 0;
+    };
 
     /*! seek (in PCM time) */
     virtual void seek(double position) = 0;
@@ -80,8 +89,6 @@ public:
 };
 
 using codec_stream_ptr = std::unique_ptr<codec_stream>;
-
-
 
 } // namespace audio
 } // namespace aeon

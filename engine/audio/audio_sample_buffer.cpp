@@ -13,7 +13,8 @@ sample_buffer::sample_buffer()
 {
 }
 
-sample_buffer::sample_buffer(int channel_count, int bits_per_sample, int sample_rate, const uint8_t *data, size_t data_len)
+sample_buffer::sample_buffer(int channel_count, int bits_per_sample, int sample_rate, const uint8_t *data,
+                             size_t data_len)
     : channel_count_(channel_count)
     , bits_per_sample_(bits_per_sample)
     , sample_rate_(sample_rate)
@@ -24,7 +25,6 @@ sample_buffer::sample_buffer(int channel_count, int bits_per_sample, int sample_
 
 sample_buffer::~sample_buffer()
 {
-
 }
 
 double sample_buffer::get_total_time()

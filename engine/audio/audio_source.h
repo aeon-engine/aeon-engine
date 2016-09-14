@@ -45,7 +45,6 @@ public:
      */
     void bind(aeon::audio::buffer_ptr buffer);
 
-
     /*!
      * Unbind audio buffer from this source, this function is usually called
      * from the binded audio buffer object.
@@ -68,7 +67,6 @@ private:
 };
 
 using source_ptr = std::shared_ptr<source>;
-
 
 } // namespace audio
 } // namespace aeon

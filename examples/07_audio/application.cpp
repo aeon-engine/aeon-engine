@@ -45,7 +45,8 @@ void application::main()
     source_stereo->bind(example_sound_stereo);
     source_stereo->play();
 
-    aeon::audio::stream_ptr example_stream_stereo = resource_manager_.load_audio_stream("/resources/audio/stream/16_44100_stereo.ogg");
+    aeon::audio::stream_ptr example_stream_stereo =
+        resource_manager_.load_audio_stream("/resources/audio/stream/16_44100_stereo.ogg");
     aeon::audio::source_ptr source_stream = audio_device_.get_source();
     source_stream->bind(example_stream_stereo);
     source_stream->play();

@@ -54,7 +54,8 @@ void buffer_static::load(std::string filename, sample_format format /*= sample_f
     }
 
     ALenum buffer_format = get_openal_format(sample);
-    al_check(alBufferData(buffer_, buffer_format, sample->data_.data(), (ALsizei)sample->data_.size(), sample->sample_rate_));
+    al_check(alBufferData(buffer_, buffer_format, sample->data_.data(), (ALsizei)sample->data_.size(),
+                          sample->sample_rate_));
 }
 
 void buffer_static::load(common::buffer_u8 &data, sample_format format /*= sample_format::auto_detect*/)
@@ -62,7 +63,8 @@ void buffer_static::load(common::buffer_u8 &data, sample_format format /*= sampl
     uint32_t fourcc_id = 0;
 
     // HACK!!!!!!, read the first 4 bytes from the data buffer.
-    if (data.size() > 4) fourcc_id = *(uint32_t *)data.data();
+    if (data.size() > 4)
+        fourcc_id = *(uint32_t *)data.data();
 
     if (format == sample_format::auto_detect)
         format = format_by_fourcc(fourcc_id);
@@ -88,7 +90,8 @@ void buffer_static::load(common::buffer_u8 &data, sample_format format /*= sampl
     }
 
     ALenum buffer_format = get_openal_format(sample);
-    al_check(alBufferData(buffer_, buffer_format, sample->data_.data(), (ALsizei)sample->data_.size(), sample->sample_rate_));
+    al_check(alBufferData(buffer_, buffer_format, sample->data_.data(), (ALsizei)sample->data_.size(),
+                          sample->sample_rate_));
 }
 
 void buffer_static::bind_source(aeon::audio::source *source)
@@ -104,9 +107,12 @@ void buffer_static::unbind_source(aeon::audio::source *source)
     // unbind audio buffer
     al_check(alSourcei(source->get_al_source(), AL_BUFFER, 0));
 
-    sources_.erase(
-        std::remove_if(sources_.begin(), sources_.end(), [source](audio::source *x) {return x == source; }),
-        sources_.end());
+    sources_.erase(std::remove_if(sources_.begin(), sources_.end(),
+                                  [source](audio::source *x)
+                                  {
+                                      return x == source;
+                                  }),
+                   sources_.end());
 }
 
 void buffer_static::prepare()

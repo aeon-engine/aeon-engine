@@ -34,10 +34,10 @@ public:
     int nr_available_sources_;
     std::thread update_thread_; // \todo implement update thread :P
     std::mutex stream_list_lock_;
-    
+
     // note this free/taken design is crap...!!!
-    std::vector<source_ptr> sources_; //all sources
-    std::queue<source_ptr> free_sources_; // free sources
+    std::vector<source_ptr> sources_; // all sources
+    std::queue<source_ptr> free_sources_;   // free sources
     std::vector<source_ptr> taken_sources_; // sources that are currently active
 };
 

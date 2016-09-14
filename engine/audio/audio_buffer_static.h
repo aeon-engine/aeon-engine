@@ -26,8 +26,9 @@ public:
     void unbind_source(aeon::audio::source *source) override;
     void prepare() override;
 
-//private:
+    // private:
     ALuint buffer_;
+
 private:
     std::list<aeon::audio::source *> sources_;
 };

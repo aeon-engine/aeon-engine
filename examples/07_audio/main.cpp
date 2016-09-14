@@ -35,9 +35,9 @@ void play_sample(const char *filename)
 
 void test_static()
 {
-    //play_sample(R"(D:\dev\aeon\audio\test\16_22050_stereo.wav)");
-    //play_sample(R"(D:\dev\aeon\audio\test\16_22050_stereo.ogg)");
-    //play_sample(R"(D:\dev\aeon\audio\test\16_44100_mono.wav)");
+    // play_sample(R"(D:\dev\aeon\audio\test\16_22050_stereo.wav)");
+    // play_sample(R"(D:\dev\aeon\audio\test\16_22050_stereo.ogg)");
+    // play_sample(R"(D:\dev\aeon\audio\test\16_44100_mono.wav)");
     play_sample(R"(D:\dev\aeon\audio\test\16_44100_mono.ogg)");
 }
 
@@ -63,7 +63,7 @@ void test_dynamic()
 {
     play_stream(R"(D:\dev\aeon\audio\test\16_22050_stereo.ogg)");
     play_stream(R"(D:\dev\aeon\audio\test\16_44100_mono.ogg)");
-    //play_stream(R"(D:\dev\aeon\audio\test\stream\16_44100_stereo.ogg)");
+    // play_stream(R"(D:\dev\aeon\audio\test\stream\16_44100_stereo.ogg)");
 }
 
 void test_dynamic_pause()
@@ -97,7 +97,7 @@ void test_dynamic_reuse()
     aeon::audio::device aldevice;
     aeon::audio::listener listener;
     aeon::audio::buffer_streaming_ptr buffer = std::make_shared<aeon::audio::buffer_streaming>();
-    //buffer->load(R"(D:\dev\aeon\audio\test\16_22050_stereo.ogg)");
+    // buffer->load(R"(D:\dev\aeon\audio\test\16_22050_stereo.ogg)");
     buffer->load(R"(D:\dev\aeon\audio\test\stream\16_44100_stereo.ogg)");
 
     aeon::audio::source_ptr source = aldevice.get_source();

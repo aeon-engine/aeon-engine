@@ -38,7 +38,7 @@ void buffer_streaming::load(std::string filename, sample_format format /*= sampl
 
     // do magic
     // do something related to formats
-    
+
     if (format == sample_format::wav)
         codec_ = std::make_unique<aeon::audio::codec_wav>();
     else if (format == sample_format::ogg)
@@ -117,7 +117,7 @@ bool buffer_streaming::load_and_queue_buffer(int buffer_index)
         ALenum buffer_format = get_openal_format(codec_stream_->channel_count_, codec_stream_->bits_per_sample_);
 
         // Fill the buffer
-        //ALsizei size = static_cast<ALsizei>(data.sampleCount) * sizeof(Int16);
+        // ALsizei size = static_cast<ALsizei>(data.sampleCount) * sizeof(Int16);
         al_check(alBufferData(al_buffer, buffer_format, buffer, (ALsizei)buffer_length, codec_stream_->sample_rate_));
 
         // Push it into the sound queue
@@ -169,8 +169,8 @@ void buffer_streaming::__data_thread()
             }
 
             // Fill it and push it back into the playing queue
-            //if (load_and_queue_buffer(bufferNum))
-                //requestStop = true;
+            // if (load_and_queue_buffer(bufferNum))
+            // requestStop = true;
 
             load_and_queue_buffer(buffer_index);
         }
@@ -194,7 +194,8 @@ void buffer_streaming::prepare()
         data_thread_run_ = false;
         prepared_ = false;
 
-        // check if the buffer stream has already played a audio file and we want to repeat. If that is the case, we should wait until the streaming thread has finished.
+        // check if the buffer stream has already played a audio file and we want to repeat. If that is the case, we
+        // should wait until the streaming thread has finished.
         if (data_thread_.joinable())
             data_thread_.join();
 
