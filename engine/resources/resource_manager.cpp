@@ -80,7 +80,7 @@ audio::sound_ptr resource_manager::load_sound(const std::string &path)
     return sound_resource_data;
 }
 
-aeon::audio::stream_ptr resource_manager::load_audio_stream(const std::string &path)
+audio::stream_ptr resource_manager::load_audio_stream(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading stream '" << path << "'." << std::endl;
 

@@ -14,15 +14,13 @@
  */
 
 #include "application.h"
-#include <scene/sprite.h>
-#include <scene/sprite_batch.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                                  "Example 6 - Audio")
+application::application(int argc, char *argv[])
+    : aeon::desktop_application<aeon::scene::basic_scene_manager>(argc, argv, WINDOW_WIDTH, WINDOW_HEIGHT,
+                                                                  "Example 7 - Audio")
 {
     // Init resources
     get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
@@ -34,15 +32,15 @@ application::application()
     window_->create_viewport(camera_, 0);
 }
 
-void application::main(int, char *[])
+void application::main()
 {
     // Load resources
-    aeon::audio::sound_ptr example_sound_mono = resource_manager_.load_audio_sample("/resources/audio/16_44100_mono.ogg");
+    aeon::audio::sound_ptr example_sound_mono = resource_manager_.load_sound("/resources/audio/16_44100_mono.ogg");
     aeon::audio::source_ptr source_mono = audio_device_.get_source();
     source_mono->bind(example_sound_mono);
     source_mono->play();
 
-    aeon::audio::sound_ptr example_sound_stereo = resource_manager_.load_audio_sample("/resources/audio/16_22050_stereo.ogg");
+    aeon::audio::sound_ptr example_sound_stereo = resource_manager_.load_sound("/resources/audio/16_22050_stereo.ogg");
     aeon::audio::source_ptr source_stereo = audio_device_.get_source();
     source_stereo->bind(example_sound_stereo);
     source_stereo->play();

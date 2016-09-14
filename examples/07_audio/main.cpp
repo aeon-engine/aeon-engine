@@ -119,8 +119,8 @@ void test_dynamic_reuse()
 
 int main(int argc, char *argv[])
 {
-    application app;
-    app.main(argc, argv);
+    application app(argc, argv);
+    app.main();
 
 // disabled, old & classic audio engine api
 #if 0

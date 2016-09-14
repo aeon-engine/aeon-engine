@@ -27,7 +27,7 @@ enum class resource_encoding
     shader,
     atlas,
     image_png,
-    mesh_assimp
+    mesh_assimp,
     sound_ogg,
     sound_wav,
     sound_opus

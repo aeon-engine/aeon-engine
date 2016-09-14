@@ -57,6 +57,7 @@ public:
     void unmount(const std::string &mountpoint);
 
     audio::sound_ptr load_sound(const std::string &path);
+    audio::stream_ptr load_audio_stream(const std::string &path);
 
     image_resource_wrapper_ptr load_image_wrapper(const std::string &path);
     material_resource_wrapper_ptr load_material_wrapper(const std::string &path);

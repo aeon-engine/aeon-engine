@@ -24,10 +24,10 @@
 class application : public aeon::desktop_application<aeon::scene::basic_scene_manager>
 {
 public:
-    application();
+    application(int argc, char *argv[]);
     virtual ~application() = default;
 
-    void main(int argc, char *argv[]);
+    void main();
 
 private:
     aeon::scene::orthographic_camera_ptr camera_;
