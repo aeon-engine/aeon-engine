@@ -40,19 +40,16 @@ public:
 
     glm::mat4 get_view_matrix() const
     {
-        return view_matrix_;
+        return get_scene_matrix();
     }
 
     glm::mat4 get_camera_matrix() const
     {
-        return projection_matrix_ * view_matrix_;
+        return projection_matrix_ * get_view_matrix();
     }
-
-    void reset_view();
 
 protected:
     glm::mat4 projection_matrix_;
-    glm::mat4 view_matrix_;
 };
 
 using camera_ptr = std::shared_ptr<camera>;
