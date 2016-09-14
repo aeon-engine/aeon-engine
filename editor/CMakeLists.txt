@@ -1,0 +1,58 @@
+set(CMAKE_PREFIX_PATH "$ENV{QTDIR}")
+
+find_package(Qt5Core)
+find_package(Qt5Widgets)
+
+set(CMAKE_AUTOMOC ON)
+
+################################################################################
+
+set (AEON_EDITOR_APPLICATION_SOURCES
+    application/main.cpp
+    application/application.cpp
+    application/application.h
+    application/frm_mainwindow_view.cpp
+    application/frm_mainwindow_view.h
+)
+
+source_group(application FILES ${AEON_EDITOR_APPLICATION_SOURCES})
+
+################################################################################
+
+set(AEON_EDITOR_UI_SOURCES
+    ui/frm_mainwindow.ui
+)
+
+source_group(ui FILES ${AEON_EDITOR_UI_SOURCES})
+
+qt5_wrap_ui(AEON_EDITOR_UI_HEADERS
+    ${AEON_EDITOR_UI_SOURCES}
+)
+
+source_group(generated FILES ${AEON_EDITOR_UI_HEADERS})
+
+################################################################################
+
+add_executable(aeon_editor WIN32 MACOSX_BUNDLE
+    ${AEON_EDITOR_APPLICATION_SOURCES}
+    ${AEON_EDITOR_UI_HEADERS}
+)
+
+target_link_libraries(aeon_editor
+    aeon
+    aeon_engine
+    Qt5::Core
+    Qt5::Widgets
+)
+
+target_include_directories(aeon_editor
+    PRIVATE
+        application
+        ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+set_target_properties(
+    aeon_editor PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    FOLDER editor
+)

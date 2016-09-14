@@ -170,6 +170,12 @@ add_subdirectory(examples)
 add_subdirectory(tests)
 add_subdirectory(doxygen)
 
+option(AEON_BUILD_EDITOR "Build the Aeon Editor (Requires Qt)" ON)
+
+if (AEON_BUILD_EDITOR)
+    add_subdirectory(editor)
+endif ()
+
 ################################################################################
 
 include(CopyToRuntimePath)

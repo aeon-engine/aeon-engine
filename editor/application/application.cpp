@@ -1,0 +1,40 @@
+/*
+ * ROBIN DEGEN; CONFIDENTIAL
+ *
+ * 2012 - 2016 Robin Degen
+ * All Rights Reserved.
+ *
+ * NOTICE:  All information contained herein is, and remains the property of
+ * Robin Degen and its suppliers, if any. The intellectual and technical
+ * concepts contained herein are proprietary to Robin Degen and its suppliers
+ * and may be covered by U.S. and Foreign Patents, patents in process, and are
+ * protected by trade secret or copyright law. Dissemination of this
+ * information or reproduction of this material is strictly forbidden unless
+ * prior written permission is obtained from Robin Degen.
+ */
+
+#include <application.h>
+#include <QtWidgets/QApplication>
+#include <frm_mainwindow_view.h>
+
+namespace aeon
+{
+namespace editor
+{
+
+application::application()
+{
+}
+
+int application::main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+
+    frm_mainwindow_view mainwindow;
+    mainwindow.show();
+
+    return app.exec();
+}
+
+} // namespace editor
+} // namespace aeon
