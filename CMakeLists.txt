@@ -162,6 +162,7 @@ add_subdirectory(dep)
 add_subdirectory(engine)
 add_subdirectory(examples)
 add_subdirectory(tests)
+add_subdirectory(doxygen)
 
 ################################################################################
 
