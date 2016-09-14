@@ -27,17 +27,18 @@ platform_file_interface::platform_file_interface(const std::string &path, int op
     , logger_(common::logger::get_singleton(), "Platform::Generic::Filesystem")
     , stream_(nullptr)
 {
-    int access_mode = 0;
-    access_mode |= (openmode & file_open_mode::read) ? aeon::streams::access_mode::read : 0;
-    access_mode |= (openmode & file_open_mode::write) ? aeon::streams::access_mode::write : 0;
-    access_mode |= (openmode & file_open_mode::truncate) ? aeon::streams::access_mode::truncate : 0;
-
-    aeon::streams::file_mode file_mode =
-        (openmode & file_open_mode::binary) ? aeon::streams::file_mode::binary : aeon::streams::file_mode::text;
-
     AEON_LOG_DEBUG(logger_) << "Opening file " << path << " with file stream." << std::endl;
 
-    stream_ = std::make_shared<aeon::streams::file_stream>(path, access_mode, file_mode);
+    try
+    {
+        int access_mode = __open_mode_to_stream_open_mode(openmode);
+        streams::file_mode file_mode = __open_mode_to_stream_file_mode(openmode);
+        stream_ = std::make_shared<streams::file_stream>(path, access_mode, file_mode);
+    }
+    catch (streams::file_stream_exception &)
+    {
+        throw platform_file_open_exception();
+    }
 }
 
 platform_file_interface::~platform_file_interface()
@@ -89,6 +90,20 @@ void platform_file_interface::seek_write(seek_direction direction, int offset)
 int platform_file_interface::get_size()
 {
     return static_cast<int>(stream_->size());
+}
+
+int platform_file_interface::__open_mode_to_stream_open_mode(const int openmode) const
+{
+    int access_mode = 0;
+    access_mode |= (openmode & file_open_mode::read) ? aeon::streams::access_mode::read : 0;
+    access_mode |= (openmode & file_open_mode::write) ? aeon::streams::access_mode::write : 0;
+    access_mode |= (openmode & file_open_mode::truncate) ? aeon::streams::access_mode::truncate : 0;
+    return access_mode;
+}
+
+streams::file_mode platform_file_interface::__open_mode_to_stream_file_mode(const int openmode) const
+{
+    return (openmode & file_open_mode::binary) ? streams::file_mode::binary : streams::file_mode::text;
 }
 
 streams::stream::seek_direction platform_file_interface::__to_streams_seek_direction(seek_direction direction) const

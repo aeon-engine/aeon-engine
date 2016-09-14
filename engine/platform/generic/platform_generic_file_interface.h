@@ -49,6 +49,9 @@ public:
     int get_size() override;
 
 private:
+    int __open_mode_to_stream_open_mode(const int openmode) const;
+    streams::file_mode __open_mode_to_stream_file_mode(const int openmode) const;
+
     streams::stream::seek_direction __to_streams_seek_direction(seek_direction direction) const;
 
     aeon::logger::logger logger_;
