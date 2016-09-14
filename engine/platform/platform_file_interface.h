@@ -16,6 +16,7 @@
 #pragma once
 
 #include <platform/platform_file_open_mode.h>
+#include <platform/platform_exception.h>
 #include <common/buffer.h>
 #include <memory>
 #include <string>
@@ -24,6 +25,11 @@ namespace aeon
 {
 namespace platform
 {
+
+DEFINE_EXCEPTION_OBJECT(platform_file_exception, platform_exception, "File I/O error.");
+DEFINE_EXCEPTION_OBJECT(platform_file_open_exception, platform_file_exception, "Error while opening file.");
+DEFINE_EXCEPTION_OBJECT(platform_file_read_exception, platform_file_exception, "Error while reading file.");
+DEFINE_EXCEPTION_OBJECT(platform_file_write_exception, platform_file_exception, "Error while writing to file.");
 
 class platform_file_interface
 {
