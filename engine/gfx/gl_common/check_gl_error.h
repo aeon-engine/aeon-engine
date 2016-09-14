@@ -18,6 +18,9 @@
 #include <build_config.h>
 
 #ifdef AEON_ENABLE_GL_ERROR_CHECKS
+/*!
+ * Check for OpenGL errors through glGetError and report them in the console.
+ */
 #define AEON_CHECK_GL_ERROR() aeon::gfx::gl_common::check_gl_error(__FILE__, __LINE__);
 #else
 #define AEON_CHECK_GL_ERROR() do{} while(0)
@@ -31,6 +34,9 @@ namespace gl_common
 {
 
 #ifdef AEON_ENABLE_GL_ERROR_CHECKS
+/*!
+ * Internal function used by the AEON_CHECK_GL_ERROR macro.
+ */
 void check_gl_error(const char *file, int line);
 #endif
 

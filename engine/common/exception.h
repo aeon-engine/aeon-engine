@@ -23,14 +23,25 @@ namespace aeon
 namespace common
 {
 
+/*!
+ * Base class for exceptions within the aeon engine.
+ */
 class exception : public std::exception
 {
 public:
+    /*!
+     * Constructor
+     * \param message A message describing the exception.
+     */
     explicit exception(const std::string &message = "")
         : message_(message)
     {
     }
 
+    /*!
+     * Get a message describing the exception.
+     * \return A message describing the exception.
+     */
     const char *what() const noexcept override
     {
         return message_.c_str();

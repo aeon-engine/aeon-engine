@@ -26,10 +26,25 @@
 namespace aeon
 {
 
+/*!
+ * Generic base class for games with a single render window. This saves the user
+ * from having to instantiate and initialize all the required core engine components.
+ *
+ * It's possible to use the engine without using this class. In that case all core
+ * components (like platform, gfx, resource manager, etc.) must be initialized manually.
+ */
 template <typename platform_interface_t, typename device_t, typename scene_manager_t>
 class base_application
 {
 public:
+    /*!
+     * Constructor
+     * \param argc Argument count (like main)
+     * \param argv Arguments (like main)
+     * \param default_width The default width of the render window if the value is missing from the config file.
+     * \param default_height The default height of the render window if the value is missing from the config file.
+     * \param window_title The title of the window (may not be shown on some platforms)
+     */
     explicit base_application(int argc, char *argv[], const int default_width, const int default_height,
                               const std::string &window_title)
         : logger_backend_()
@@ -54,39 +69,69 @@ public:
         device_.initialize();
     }
 
+    /*!
+     * Destructor
+     */
     virtual ~base_application() = default;
 
+    /*!
+     * Get the main window created for this application.
+     */
     platform::platform_window_ptr get_main_window() const
     {
         return window_;
     }
 
+    /*!
+     * Get a pointer to the scene manager.
+     */
     scene_manager_t *get_scene_manager()
     {
         return &scene_manager_;
     }
 
+    /*!
+     * Get a pointer to the resource manager. The resource manager can be used
+     * for loading raw data like images.
+     */
     resources::resource_manager *get_resource_manager()
     {
         return &resource_manager_;
     }
 
+    /*!
+     * Get a pointer to the asset manager. The asset manager can be used for
+     * loading raw data into usable assets like textures.
+     */
     assets::asset_manager &get_asset_manager()
     {
         return asset_manager_;
     }
 
+    /*!
+     * Get a pointer to the platform interface. The platform interface can be
+     * used to perform all sorts of generic platform specific operations, like
+     * file IO.
+     */
     platform_interface_t *get_platform_interface()
     {
         return &platform_;
     }
 
+    /*!
+     * Get a pointer to the main logger backend. Logging through this backend
+     * will log to the console log.
+     */
     aeon::logger::logger &get_logger()
     {
         return logger_;
     }
 
 private:
+    /*!
+     * Try to load the config.conf file. Will log an error to the console if it could not be loaded or parsed.
+     * In this case, default values will be used.
+     */
     void __load_config_file()
     {
         try
@@ -109,6 +154,12 @@ private:
         }
     }
 
+    /*!
+     * Create the main render window
+     * \param default_width The default width of the window if the value is missing from the config file.
+     * \param default_height The default height of the window if the value is missing from the config file.
+     * \param title The window title. This title may not be shown on certain platforms.
+     */
     void __create_window(const int default_width, const int default_height, const std::string &title)
     {
         const int width = config_file_.get<int>("window_width", default_width);

@@ -22,19 +22,37 @@ namespace aeon
 namespace common
 {
 
+/*!
+ * Base class used for object caching. To make sure certain objects like assets
+ * are not created multiple times, they are cached by "cache name"
+ * (usually file path) by the object_cache.
+ *
+ * All objects that can be cached in the object_cache class must be dirived from
+ * this class.
+ */
 class cached_object
 {
     template <typename T>
     friend class object_cache;
 
 public:
+    /*!
+     * Constructor
+     */
     cached_object()
         : name_("Unnamed")
     {
     }
 
+    /*!
+     * Destructor
+     */
     virtual ~cached_object() = default;
 
+    /*!
+     * Get the cached name of this object. Usually this is a file name or path.
+     * \return The cached name of this object.
+     */
     const std::string &get_cached_name() const
     {
         return name_;
