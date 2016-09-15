@@ -75,8 +75,8 @@ void application::main()
 bool application::on_frame(float dt)
 {
     // Scene nodes can be moved every frame to move objects on the screen.
-    ship2_pivot_node_->rotate(dt * -0.03f);
-    ship3_pivot_node_->rotate(dt * -0.05f);
+    ship2_pivot_node_->rotate(dt);
+    ship3_pivot_node_->rotate(dt * -2.0f);
 
     return true;
 }
