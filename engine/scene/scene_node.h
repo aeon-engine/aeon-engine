@@ -16,9 +16,11 @@
 #pragma once
 
 #include <scene/scene_object.h>
+#include <scene/exceptions.h>
 #include <aeon/utility.h>
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <vector>
 #include <memory>
 
@@ -27,8 +29,16 @@ namespace aeon
 namespace scene
 {
 
+DEFINE_EXCEPTION_OBJECT(scene_transform_space_exception, scene_exception, "Unknown or unsupported transform space.");
+
 class scene_node;
 using scene_node_ptr = std::shared_ptr<scene_node>;
+
+enum class transform_space
+{
+    local,
+    parent
+};
 
 class scene_node : public std::enable_shared_from_this<scene_node>, public utility::noncopyable
 {
@@ -111,37 +121,30 @@ public:
     void translate(const glm::vec3 &vector);
 
     /*!
-     * Rotate the internal matrix. The matrix is rotated 3 seperate times, in the order X Y Z.
-     * If you only want to rotate over 1 angle, consider using rotate(float rotation, const glm::vec3 &vector) instead,
-     * as this is much faster.
+     * Rotate the internal matrix. Angles are in radians.
      * Sets the dirty flag.
      */
-    void rotate(float x, float y, float z);
+    void rotate(float x, float y, float z, const transform_space space = transform_space::local);
 
     /*!
-     * Rotate the internal matrix. The matrix is rotated 3 seperate times, in the order X Y Z.
-     * If you only want to rotate over 1 angle, consider using rotate(float rotation, const glm::vec3 &vector) instead,
-     * as this is much faster.
+     * Rotate the internal matrix. Angles given in the vector are in radians.
      * Sets the dirty flag.
      */
-    void rotate(const glm::vec3 &vector);
+    void rotate(const glm::vec3 &vector, const transform_space space = transform_space::local);
 
     /*!
-     * Rotate the internal matrix based on an angle and a vector. For example, to rotate 10 degrees over Y:
-     * rotate(10.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-     * This is the prefered method if rotating over only 1 direction, or if the angle is the same for multiple
-     * directions.
-     * Sets the dirty flag.
-     */
-    void rotate(float angle, const glm::vec3 &vector);
-
-    /*!
-     * Rotate the internal matrix over the Z axis.
-     * This is the prefered method for rotating 2D objects such as sprites, as it only really makes sense for
+     * Rotate the internal matrix over the Z axis. The given angle must be in radians.
+     * This method is intended for rotating 2D objects such as sprites, as it only really makes sense for
      * orthographic views.
      * Sets the dirty flag.
      */
-    void rotate(float angle);
+    void rotate(float angle, const transform_space space = transform_space::local);
+
+    /*!
+     * Rotate the internal matrix through a quaternion. The transform space determines how the rotation is applied.
+     * Sets the dirty flag.
+     */
+    void rotate(const glm::quat &quat, const transform_space space = transform_space::local);
 
     /*!
      * Scale the internal matrix.

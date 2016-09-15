@@ -59,11 +59,11 @@ void application::main()
 
 bool application::on_frame(float dt)
 {
-    rotation_node_->rotate(0.005f * dt, glm::vec3(0.0f, -1.0f, 0.0f));
+    rotation_node_->rotate(0.0f, -0.005f * dt, 0.0f);
 
     timer_ += dt;
     wave_node_->set_identity();
     wave_node_->translate(0.0f, 0.0f, sin(timer_ * 0.1f) * 4.0f);
-    wave_node_->rotate(sin(timer_ * 0.1f) * 0.001f, glm::vec3(1.0f, 0.0f, 0.0f));
+    wave_node_->rotate(sin(timer_ * 0.1f) * 0.001f, 0.0f, 0.0f);
     return true;
 }

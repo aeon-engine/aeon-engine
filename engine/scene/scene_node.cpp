@@ -131,31 +131,35 @@ void scene_node::translate(const glm::vec3 &vector)
     dirty_ = true;
 }
 
-void scene_node::rotate(float x, float y, float z)
+void scene_node::rotate(float x, float y, float z, const transform_space space)
 {
-    matrix_ = glm::rotate(matrix_, glm::degrees(x), glm::vec3(1.0f, 0.0f, 0.0f));
-    matrix_ = glm::rotate(matrix_, glm::degrees(y), glm::vec3(0.0f, 1.0f, 0.0f));
-    matrix_ = glm::rotate(matrix_, glm::degrees(z), glm::vec3(0.0f, 0.0f, 1.0f));
-    dirty_ = true;
+    rotate(glm::quat(glm::vec3(x, y, z)), space);
 }
 
-void scene_node::rotate(const glm::vec3 &vector)
+void scene_node::rotate(const glm::vec3 &vector, const transform_space space)
 {
-    matrix_ = glm::rotate(matrix_, glm::degrees(vector.x), glm::vec3(1.0f, 0.0f, 0.0f));
-    matrix_ = glm::rotate(matrix_, glm::degrees(vector.y), glm::vec3(0.0f, 1.0f, 0.0f));
-    matrix_ = glm::rotate(matrix_, glm::degrees(vector.z), glm::vec3(0.0f, 0.0f, 1.0f));
-    dirty_ = true;
+    rotate(glm::quat(vector), space);
 }
 
-void scene_node::rotate(float angle, const glm::vec3 &vector)
+void scene_node::rotate(float angle, const transform_space space)
 {
-    matrix_ = glm::rotate(matrix_, glm::degrees(angle), vector);
-    dirty_ = true;
+    rotate(glm::quat(glm::vec3(0.0f, 0.0f, angle)), space);
 }
 
-void scene_node::rotate(float angle)
+void scene_node::rotate(const glm::quat &quat, const transform_space space)
 {
-    matrix_ = glm::rotate(matrix_, glm::degrees(angle), glm::vec3(0.0f, 0.0f, 1.0f));
+    switch (space)
+    {
+        case transform_space::local:
+            matrix_ = matrix_ * glm::mat4_cast(quat);
+            break;
+        case transform_space::parent:
+            matrix_ = glm::mat4_cast(quat) * matrix_;
+            break;
+        default:
+            throw scene_transform_space_exception();
+    }
+
     dirty_ = true;
 }
 
