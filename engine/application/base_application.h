@@ -164,7 +164,15 @@ private:
     {
         const int width = config_file_.get<int>("window_width", default_width);
         const int height = config_file_.get<int>("window_height", default_height);
-        window_ = platform_.create_window(width, height, title);
+        const int multisample = config_file_.get<int>("multisample", 0);
+        const bool double_buffer = config_file_.get<bool>("double_buffer", true);
+
+        platform::platform_window_settings settings(width, height, title);
+        settings.set_multisample(multisample);
+        settings.set_buffer_mode(double_buffer ? platform::buffer_mode::double_buffer
+                                               : platform::buffer_mode::single_buffer);
+
+        window_ = platform_.create_window(settings);
     }
 
 protected:

@@ -69,7 +69,7 @@ public:
      * Create a window. A window can be created on a specific monitor. When no monitor is
      * given, the window appears on the main monitor.
      */
-    virtual platform_window_ptr create_window(int width, int height, const std::string &name,
+    virtual platform_window_ptr create_window(const platform_window_settings &settings,
                                               platform_monitor_ptr monitor = nullptr) = 0;
 
     /*!

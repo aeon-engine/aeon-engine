@@ -87,7 +87,7 @@ platform_monitors platform_interface::get_monitors()
     return monitors;
 }
 
-platform::platform_window_ptr platform_interface::create_window(int width, int height, const std::string &name,
+platform::platform_window_ptr platform_interface::create_window(const platform_window_settings &settings,
                                                                 platform_monitor_ptr monitor)
 {
     if (!initialized_)
@@ -96,9 +96,10 @@ platform::platform_window_ptr platform_interface::create_window(int width, int h
         throw platform_interface_initialize_exception();
     }
 
-    AEON_LOG_DEBUG(logger_) << "Creating window: " << width << "x" << height << " '" << name << "'." << std::endl;
+    AEON_LOG_DEBUG(logger_) << "Creating window: " << settings.get_width() << "x" << settings.get_height() << " '"
+                            << settings.get_title() << "'." << std::endl;
 
-    platform_window_ptr window = std::make_shared<null::platform_window>(this, width, height, name);
+    platform_window_ptr window = std::make_shared<null::platform_window>(this, settings);
 
     render_targets_.push_back(window);
 

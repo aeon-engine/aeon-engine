@@ -28,13 +28,13 @@ namespace glfw
 {
 
 DEFINE_EXCEPTION_OBJECT(platform_glfw_cursor_mode_exception, platform_exception,
-    "Unknown or invalid mouse cursor mode given to GLFW.");
+                        "Unknown or invalid mouse cursor mode given to GLFW.");
 
 class platform_interface;
 class platform_window : public platform::platform_window
 {
 public:
-    explicit platform_window(platform_interface *interface, int width, int height, const std::string &title,
+    explicit platform_window(platform_interface *interface, const platform_window_settings &settings,
                              GLFWmonitor *monitor);
     ~platform_window() override;
 

@@ -29,7 +29,7 @@ class platform_interface;
 class platform_window : public platform::platform_window
 {
 public:
-    explicit platform_window(platform_interface *interface, int width, int height, const std::string &title);
+    explicit platform_window(platform_interface *interface, const platform_window_settings &settings);
     ~platform_window() override;
 
     void make_current() override;

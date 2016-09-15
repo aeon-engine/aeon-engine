@@ -23,8 +23,8 @@ namespace platform
 namespace null
 {
 
-platform_window::platform_window(platform_interface *interface, int width, int height, const std::string &title)
-    : platform::platform_window(width, height, title)
+platform_window::platform_window(platform_interface *interface, const platform_window_settings &settings)
+    : platform::platform_window(settings)
     , logger_(common::logger::get_singleton(), "Platform::Null")
     , interface_(interface)
 {

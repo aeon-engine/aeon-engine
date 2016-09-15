@@ -14,6 +14,8 @@
  */
 
 #pragma once
+
+#include <platform/platform_window_settings.h>
 #include <gfx/gfx_render_target.h>
 #include <glm/vec2.hpp>
 #include <string>
@@ -29,18 +31,18 @@ namespace platform
  */
 enum mouse_cursor_mode
 {
-    normal, // Normal cursor
+    normal,  // Normal cursor
     capture, // Capture the cursor (infinite mouse movements)
-    hidden, // Normal cursor, but hidden when moved over the window
+    hidden,  // Normal cursor, but hidden when moved over the window
 };
 
 class platform_window : public gfx::render_target
 {
 public:
-    explicit platform_window(int width, int height, const std::string &title)
-        : width_(width)
-        , height_(height)
-        , title_(title)
+    explicit platform_window(const platform_window_settings &settings)
+        : width_(settings.get_width())
+        , height_(settings.get_height())
+        , title_(settings.get_title())
     {
     }
 

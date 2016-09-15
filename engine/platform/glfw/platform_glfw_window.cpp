@@ -23,9 +23,9 @@ namespace platform
 namespace glfw
 {
 
-platform_window::platform_window(platform_interface *interface, int width, int height, const std::string &title,
+platform_window::platform_window(platform_interface *interface, const platform_window_settings &settings,
                                  GLFWmonitor *monitor)
-    : platform::platform_window(width, height, title)
+    : platform::platform_window(settings)
     , logger_(common::logger::get_singleton(), "Platform::GLFW")
     , window_(nullptr)
     , interface_(interface)
@@ -37,11 +37,13 @@ platform_window::platform_window(platform_interface *interface, int width, int h
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
+    glfwWindowHint(GLFW_DOUBLEBUFFER, settings.get_buffer_mode() == buffer_mode::double_buffer ? GL_TRUE : GL_FALSE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     glfwWindowHint(GLFW_FOCUSED, GL_TRUE);
+    glfwWindowHint(GLFW_SAMPLES, settings.get_multisample());
 
-    window_ = glfwCreateWindow(width, height, title.c_str(), monitor, nullptr);
+    window_ =
+        glfwCreateWindow(settings.get_width(), settings.get_height(), settings.get_title().c_str(), monitor, nullptr);
 
     AEON_LOG_DEBUG(logger_) << "Setting user pointer." << std::endl;
 
