@@ -60,6 +60,23 @@ if (AEON_PLATFORM_QT)
     )
 endif ()
 
+if (AEON_PLATFORM_IOS_QT)
+    find_package(Qt5Core REQUIRED)
+    find_package(Qt5Widgets REQUIRED)
+    find_package(Qt5OpenGL REQUIRED)
+
+    add_source_path(AEON_ENGINE_SOURCES platform/ios_qt)
+
+    qt5_wrap_ui(AEON_PLATFORM_IOS_QT_UI_HEADERS
+        platform/ios_qt/mainwindow.ui
+    )
+
+    qt5_wrap_cpp(AEON_PLATFORM_IOS_QT_MOC_HEADERS
+        platform/ios_qt/platform_ios_qt_window.h
+        platform/ios_qt/platform_ios_qt_opengl_widget.h
+    )
+endif ()
+
 ################################################################################
 
 add_source_path(AEON_ENGINE_SOURCES scene)
@@ -86,6 +103,14 @@ if (AEON_PLATFORM_QT)
     list(APPEND AEON_ENGINE_SOURCES
         ${AEON_PLATFORM_QT_UI_HEADERS}
         ${AEON_PLATFORM_QT_MOC_HEADERS}
+    )
+endif ()
+
+if (AEON_PLATFORM_IOS_QT)
+    source_group(platform\\qt\\ui FILES ${AEON_PLATFORM_IOS_QT_UI_FILES})
+    list(APPEND AEON_ENGINE_SOURCES
+        ${AEON_PLATFORM_IOS_QT_UI_HEADERS}
+        ${AEON_PLATFORM_IOS_QT_MOC_HEADERS}
     )
 endif ()
 
@@ -125,6 +150,18 @@ if (AEON_PLATFORM_RPI)
 endif ()
 
 if (AEON_PLATFORM_QT)
+    target_link_libraries(aeon_engine
+        Qt5::Core
+        Qt5::Widgets
+        Qt5::OpenGL
+    )
+
+    # Do not use emit, signals, slots etc; but use Q_EMIT instead,
+    # to avoid nameclashes.
+    target_compile_definitions(aeon_engine PUBLIC -DQT_NO_KEYWORDS)
+endif ()
+
+if (AEON_PLATFORM_IOS_QT)
     target_link_libraries(aeon_engine
         Qt5::Core
         Qt5::Widgets

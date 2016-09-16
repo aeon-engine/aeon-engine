@@ -16,7 +16,7 @@ add_subdirectory(png)
 message(STATUS "+------------------------------------------------------------------------------+")
 message(STATUS "| OpenAL Soft                                                                  |")
 message(STATUS "+------------------------------------------------------------------------------+")
-add_subdirectory(openal_soft)
+#add_subdirectory(openal_soft)
 
 if (AEON_GFX_GL)
     message(STATUS "+------------------------------------------------------------------------------+")
@@ -70,3 +70,4 @@ add_subdirectory(libaeon)
 message(STATUS "+------------------------------------------------------------------------------+")
 message(STATUS "| Finished submodules                                                          |")
 message(STATUS "+------------------------------------------------------------------------------+")
+
