@@ -31,7 +31,7 @@ gfx_gl_texture_manager::gfx_gl_texture_manager()
 {
 }
 
-texture_ptr gfx_gl_texture_manager::__load(resources::image_ptr image)
+texture_ptr gfx_gl_texture_manager::create(const resources::image &image)
 {
     gfx_gl_texture_ptr t = std::make_shared<gfx_gl_texture>(image);
 
@@ -44,7 +44,7 @@ texture_ptr gfx_gl_texture_manager::__load(resources::image_ptr image)
     glBindTexture(GL_TEXTURE_2D, handle);
     AEON_CHECK_GL_ERROR();
 
-    const data::image &image_data = image->get_data();
+    const data::image &image_data = image.get_data();
     GLint pixelformat = __image_pixelformat_to_gl(image_data.get_pixelformat());
     GLsizei width = image_data.get_width();
     GLsizei height = image_data.get_height();

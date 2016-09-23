@@ -30,7 +30,7 @@ class gfx_null_texture : public gfx::texture
     friend class gfx_null_texture_manager;
 
 public:
-    explicit gfx_null_texture(resources::image_ptr image);
+    explicit gfx_null_texture(const resources::image &image);
     ~gfx_null_texture() override;
 
     void bind() const;

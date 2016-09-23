@@ -20,8 +20,8 @@ namespace aeon
 namespace gfx
 {
 
-texture::texture(resources::image_ptr image)
-    : image_wrapper_(image->get_image_resource_wrapper())
+texture::texture(const resources::image &image)
+    : image_wrapper_(image.get_image_resource_wrapper())
 {
 }
 

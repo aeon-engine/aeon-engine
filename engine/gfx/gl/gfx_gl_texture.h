@@ -31,7 +31,7 @@ class gfx_gl_texture : public gfx::texture
     friend class gfx_gl_texture_manager;
 
 public:
-    explicit gfx_gl_texture(resources::image_ptr image);
+    explicit gfx_gl_texture(const resources::image &image);
     ~gfx_gl_texture() override;
 
     void bind() const;

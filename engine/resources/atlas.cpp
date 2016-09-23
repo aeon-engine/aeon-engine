@@ -21,11 +21,11 @@ namespace aeon
 namespace resources
 {
 
-atlas::atlas(resource_wrapper_ptr wrapper, resources::material_ptr material, const data::atlas &data)
+atlas::atlas(resource_wrapper_ptr wrapper, const std::string &material_path, const data::atlas &data)
     : resource(wrapper)
     , logger_(common::logger::get_singleton(), "Resources::Atlas")
     , data_(data)
-    , material_(material)
+    , material_path_(material_path)
 {
     AEON_LOG_TRACE(logger_) << "Created atlas resource based on regions." << std::endl;
 }
@@ -35,9 +35,9 @@ atlas::~atlas()
     AEON_LOG_TRACE(logger_) << "Deleted atlas resource." << std::endl;
 }
 
-resources::material_ptr atlas::get_material() const
+const std::string &atlas::get_material_path() const
 {
-    return material_;
+    return material_path_;
 }
 
 const data::atlas &atlas::get_data() const

@@ -29,7 +29,7 @@ namespace gfx
 class texture : public common::cached_object
 {
 public:
-    explicit texture(resources::image_ptr image);
+    explicit texture(const resources::image &image);
     virtual ~texture() = default;
 
     glm::vec2 get_size() const;

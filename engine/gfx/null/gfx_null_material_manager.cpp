@@ -30,18 +30,18 @@ gfx_null_material_manager::gfx_null_material_manager(gfx_null_device &dev)
 {
 }
 
-material_ptr gfx_null_material_manager::__load(resources::material_ptr mat)
+material_ptr gfx_null_material_manager::create(const resources::material &mat)
 {
     gfx::texture_manager &texture_mgr = device_.get_texture_manager();
     gfx::shader_manager &shader_mgr = device_.get_shader_manager();
 
     material_null_ptr m = std::make_shared<gfx_null_material>();
 
-    resources::image_ptr texture_image = mat->get_texture();
-    m->texture_ = std::dynamic_pointer_cast<gfx_null_texture>(texture_mgr.load(texture_image));
+    resources::image_ptr texture_image = mat.get_texture();
+    m->texture_ = std::dynamic_pointer_cast<gfx_null_texture>(texture_mgr.create(*texture_image));
 
-    resources::shader_ptr shader_res = mat->get_shader();
-    m->shader_ = std::dynamic_pointer_cast<gfx_null_shader>(shader_mgr.load(shader_res));
+    resources::shader_ptr shader_res = mat.get_shader();
+    m->shader_ = std::dynamic_pointer_cast<gfx_null_shader>(shader_mgr.create(*shader_res));
 
     return m;
 }

@@ -88,7 +88,7 @@ void gfx_gl_device::__create_managers()
     shader_manager_ = std::make_unique<gfx_gl_shader_manager>();
     material_manager_ = std::make_unique<gfx_gl_material_manager>(*this);
     buffer_manager_ = std::make_unique<gfx_gl_buffer_manager>();
-    atlas_manager_ = std::make_unique<gfx_atlas_manager>(*this);
+    atlas_manager_ = std::make_unique<gfx_atlas_manager>();
 }
 
 void gfx_gl_device::__setup_opengl() const

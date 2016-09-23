@@ -30,10 +30,10 @@ gfx_gl_shader_manager::gfx_gl_shader_manager()
 {
 }
 
-shader_ptr gfx_gl_shader_manager::__load(resources::shader_ptr shader)
+shader_ptr gfx_gl_shader_manager::create(const resources::shader &shader)
 {
-    GLuint vertexshader = __load_gl_shader(shader->get_vertex_source(), GL_VERTEX_SHADER);
-    GLuint fragmentshader = __load_gl_shader(shader->get_fragment_source(), GL_FRAGMENT_SHADER);
+    GLuint vertexshader = __load_gl_shader(shader.get_vertex_source(), GL_VERTEX_SHADER);
+    GLuint fragmentshader = __load_gl_shader(shader.get_fragment_source(), GL_FRAGMENT_SHADER);
 
     GLuint program = __link_gl_program(vertexshader, fragmentshader);
 

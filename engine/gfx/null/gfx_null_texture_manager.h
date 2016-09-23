@@ -33,7 +33,7 @@ public:
     virtual ~gfx_null_texture_manager() = default;
 
 private:
-    texture_ptr __load(resources::image_ptr image) override;
+    texture_ptr create(const resources::image &image) override;
 
     aeon::logger::logger logger_;
 };

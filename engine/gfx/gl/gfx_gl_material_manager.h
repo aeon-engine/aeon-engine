@@ -33,7 +33,7 @@ public:
     virtual ~gfx_gl_material_manager() = default;
 
 private:
-    material_ptr __load(resources::material_ptr material) override;
+    material_ptr create(const resources::material &material) override;
 
     gfx_gl_device &device_;
 };

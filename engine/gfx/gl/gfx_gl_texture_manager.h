@@ -34,7 +34,7 @@ public:
     virtual ~gfx_gl_texture_manager() = default;
 
 private:
-    texture_ptr __load(resources::image_ptr image) override;
+    texture_ptr create(const resources::image &image) override;
 
     GLint __image_pixelformat_to_gl(data::image::pixel_format format) const;
 

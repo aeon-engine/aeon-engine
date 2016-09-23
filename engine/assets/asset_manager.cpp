@@ -44,7 +44,7 @@ gfx::texture_ptr asset_manager::load_texture(const std::string &path)
 
     resources::image_resource_wrapper_ptr image_resource = resource_manager_.load_image_wrapper(path);
     resources::image_ptr image_resource_data = image_resource->open();
-    auto texture = device_.get_texture_manager().load(image_resource_data);
+    auto texture = device_.get_texture_manager().create(*image_resource_data);
     texture_cache_.add_cached_object(path, texture);
     return texture;
 }
@@ -60,7 +60,7 @@ gfx::shader_ptr asset_manager::load_shader(const std::string &path)
 
     resources::shader_resource_wrapper_ptr shader_resource = resource_manager_.load_shader_wrapper(path);
     resources::shader_ptr shader_resource_data = shader_resource->open();
-    auto shader = device_.get_shader_manager().load(shader_resource_data);
+    auto shader = device_.get_shader_manager().create(*shader_resource_data);
     shader_cache_.add_cached_object(path, shader);
     return shader;
 }
@@ -76,7 +76,7 @@ gfx::material_ptr asset_manager::load_material(const std::string &path)
 
     resources::material_resource_wrapper_ptr material_resource = resource_manager_.load_material_wrapper(path);
     resources::material_ptr material_resource_data = material_resource->open();
-    auto material = device_.get_material_manager().load(material_resource_data);
+    auto material = device_.get_material_manager().create(*material_resource_data);
     material_cache_.add_cached_object(path, material);
     return material;
 }
@@ -92,7 +92,8 @@ gfx::atlas_ptr asset_manager::load_atlas(const std::string &path)
 
     resources::atlas_resource_wrapper_ptr atlas_resource = resource_manager_.load_atlas_wrapper(path);
     resources::atlas_ptr atlas_resource_data = atlas_resource->open();
-    auto atlas = device_.get_atlas_manager().load(atlas_resource_data);
+    auto material = load_material(atlas_resource_data->get_material_path());
+    auto atlas = device_.get_atlas_manager().create(material, atlas_resource_data->get_data());
     atlas_cache_.add_cached_object(path, atlas);
     return atlas;
 }
@@ -110,12 +111,6 @@ scene::scene_node_ptr asset_manager::load_mesh(const std::string &path)
     __convert_mesh_node_to_scene_node(mesh_root_node, *scene_node);
 
     return scene_node;
-}
-
-gfx::atlas_ptr asset_manager::create_atlas(resources::material_ptr material, glm::vec2 sprite_size) const
-{
-    gfx::material_ptr gfx_material = device_.get_material_manager().load(material);
-    return std::make_shared<gfx::atlas>(gfx_material, sprite_size);
 }
 
 gfx::atlas_ptr asset_manager::create_atlas(gfx::material_ptr material, glm::vec2 sprite_size) const

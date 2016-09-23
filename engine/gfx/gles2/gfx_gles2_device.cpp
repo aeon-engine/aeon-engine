@@ -49,6 +49,7 @@ void gfx_gles2_device::__initialize_impl()
     shader_manager_ = std::make_unique<gfx_gles2_shader_manager>();
     material_manager_ = std::make_unique<gfx_gles2_material_manager>(*this);
     buffer_manager_ = std::make_unique<gfx_gles2_buffer_manager>();
+    atlas_manager_ = std::make_unique<gfx_atlas_manager>();
 
     glEnable(GL_BLEND);
     AEON_CHECK_GL_ERROR();

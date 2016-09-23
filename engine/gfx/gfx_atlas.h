@@ -17,8 +17,10 @@
 
 #include <common/cached_object.h>
 #include <common/exception.h>
-#include <resources/atlas.h>
+#include <common/logger.h>
 #include <gfx/gfx_material.h>
+#include <data/atlas.h>
+#include <glm/vec2.hpp>
 #include <memory>
 
 namespace aeon
@@ -33,8 +35,8 @@ class atlas : public common::cached_object
     friend class gfx_atlas_manager;
 
 public:
-    atlas();
-    explicit atlas(gfx::material_ptr material, glm::vec2 sprite_size);
+    explicit atlas(const gfx::material_ptr &material, const data::atlas &atlas);
+    explicit atlas(const gfx::material_ptr &material, glm::vec2 sprite_size);
     virtual ~atlas() = default;
 
     data::atlas::region get_region_by_index(int index);
@@ -47,9 +49,8 @@ private:
 
     aeon::logger::logger logger_;
 
-    data::atlas atlas_;
-
     gfx::material_ptr material_;
+    data::atlas atlas_;
 };
 
 using atlas_ptr = std::shared_ptr<atlas>;

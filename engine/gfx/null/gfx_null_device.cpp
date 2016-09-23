@@ -71,7 +71,7 @@ void gfx_null_device::__create_managers()
     shader_manager_ = std::make_unique<null::gfx_null_shader_manager>();
     material_manager_ = std::make_unique<null::gfx_null_material_manager>(*this);
     buffer_manager_ = std::make_unique<null::gfx_null_buffer_manager>();
-    atlas_manager_ = std::make_unique<gfx_atlas_manager>(*this);
+    atlas_manager_ = std::make_unique<gfx_atlas_manager>();
 }
 
 } // namespace null

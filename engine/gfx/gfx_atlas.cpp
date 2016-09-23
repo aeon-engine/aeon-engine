@@ -21,14 +21,17 @@ namespace aeon
 namespace gfx
 {
 
-atlas::atlas()
+atlas::atlas(const gfx::material_ptr &material, const data::atlas &atlas)
     : logger_(common::logger::get_singleton(), "Gfx::Atlas")
+    , material_(material)
+    , atlas_(atlas)
 {
 }
 
-atlas::atlas(gfx::material_ptr material, glm::vec2 sprite_size)
+atlas::atlas(const gfx::material_ptr &material, glm::vec2 sprite_size)
     : logger_(common::logger::get_singleton(), "Gfx::Atlas")
     , material_(material)
+    , atlas_()
 {
     __calculate_atlas_regions(sprite_size);
 }

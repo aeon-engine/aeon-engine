@@ -17,7 +17,6 @@
 
 #include <resources/resource.h>
 #include <resources/exceptions.h>
-#include <resources/material.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
 #include <data/atlas.h>
 #include <common/buffer.h>
@@ -39,11 +38,11 @@ public:
     /*!
      * Constructor used by the atlas codec to load an atlas
      */
-    explicit atlas(resource_wrapper_ptr wrapper, resources::material_ptr material, const data::atlas &data);
+    explicit atlas(resource_wrapper_ptr wrapper, const std::string &material_path, const data::atlas &data);
 
     virtual ~atlas();
 
-    resources::material_ptr get_material() const;
+    const std::string &get_material_path() const;
     const data::atlas &get_data() const;
 
     atlas_resource_wrapper_ptr get_atlas_resource_wrapper() const
@@ -55,7 +54,7 @@ private:
     aeon::logger::logger logger_;
 
     data::atlas data_;
-    resources::material_ptr material_;
+    std::string material_path_;
 };
 
 using atlas_ptr = std::shared_ptr<atlas>;

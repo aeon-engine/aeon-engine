@@ -100,16 +100,6 @@ public:
      *                    top to bottom.
      * \return A gfx atlas
      */
-    gfx::atlas_ptr create_atlas(resources::material_ptr material, glm::vec2 sprite_size) const;
-
-    /*!
-     * Generate an atlas based on the given parameters. The atlas will index
-     * sprites from the left top to the right bottom.
-     * \param material The material to be used for the atlas
-     * \param sprite_size The size of an individual sprite on the atlas. They will be auto tiled from left to right,
-     *                    top to bottom.
-     * \return A gfx atlas
-     */
     gfx::atlas_ptr create_atlas(gfx::material_ptr material, glm::vec2 sprite_size) const;
 
 private:

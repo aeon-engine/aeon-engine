@@ -16,8 +16,9 @@
 #pragma once
 
 #include <gfx/gfx_resource_manager.h>
-#include <resources/atlas.h>
+#include <data/atlas.h>
 #include <gfx/gfx_atlas.h>
+#include <gfx/gfx_material.h>
 #include <common/logger.h>
 
 namespace aeon
@@ -26,17 +27,16 @@ namespace gfx
 {
 
 class device;
-class gfx_atlas_manager : public gfx::resource_manager<gfx::atlas, resources::atlas>
+class gfx_atlas_manager
 {
 public:
-    gfx_atlas_manager(device &dev);
+    gfx_atlas_manager();
     virtual ~gfx_atlas_manager() = default;
 
-private:
-    atlas_ptr __load(resources::atlas_ptr atlas_resource) override;
+    std::shared_ptr<gfx::atlas> create(const gfx::material_ptr &material, const data::atlas &atlas_data);
 
+private:
     aeon::logger::logger logger_;
-    device &device_;
 };
 
 } // namespace gfx

@@ -23,7 +23,7 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_texture::gfx_gl_texture(resources::image_ptr image)
+gfx_gl_texture::gfx_gl_texture(const resources::image &image)
     : gfx::texture(image)
     , logger_(common::logger::get_singleton(), "Gfx::GL::Texture")
     , handle_(0)

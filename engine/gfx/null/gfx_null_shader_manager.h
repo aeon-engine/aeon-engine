@@ -32,7 +32,7 @@ public:
     virtual ~gfx_null_shader_manager() = default;
 
 private:
-    shader_ptr __load(resources::shader_ptr shader) override;
+    shader_ptr create(const resources::shader &shader) override;
 
     aeon::logger::logger logger_;
 };

@@ -21,19 +21,14 @@ namespace aeon
 namespace gfx
 {
 
-gfx_atlas_manager::gfx_atlas_manager(device &dev)
+gfx_atlas_manager::gfx_atlas_manager()
     : logger_(common::logger::get_singleton(), "Gfx::AtlasManager")
-    , device_(dev)
 {
 }
 
-atlas_ptr gfx_atlas_manager::__load(resources::atlas_ptr atlas_resource)
+atlas_ptr gfx_atlas_manager::create(const gfx::material_ptr &material, const data::atlas &atlas_data)
 {
-    material_manager &material_manager = device_.get_material_manager();
-    atlas_ptr atlas = std::make_shared<gfx::atlas>();
-    atlas->material_ = material_manager.load(atlas_resource->get_material());
-    atlas->atlas_ = atlas_resource->get_data();
-    return atlas;
+    return std::make_shared<gfx::atlas>(material, atlas_data);
 }
 
 } // namespace gfx

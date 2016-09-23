@@ -79,7 +79,7 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_p
 
     AEON_LOG_DEBUG(logger_) << "Found " << atlas_data.size() << " regions in atlas resource." << std::endl;
 
-    return std::make_shared<resources::atlas>(wrapper, material_res, atlas_data);
+    return std::make_shared<resources::atlas>(wrapper, material_res_wrapper->get_path(), atlas_data);
 }
 
 atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &str) const

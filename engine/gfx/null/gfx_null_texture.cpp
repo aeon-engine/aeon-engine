@@ -22,7 +22,7 @@ namespace gfx
 namespace null
 {
 
-gfx_null_texture::gfx_null_texture(resources::image_ptr image)
+gfx_null_texture::gfx_null_texture(const resources::image &image)
     : gfx::texture(image)
     , logger_(common::logger::get_singleton(), "Gfx::Null::Texture")
 {

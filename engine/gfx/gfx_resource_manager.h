@@ -40,32 +40,10 @@ template <typename gfx_type, typename resource_type>
 class resource_manager
 {
 public:
-    using gfx_type_ptr = std::shared_ptr<gfx_type>;
-    using resource_type_ptr = std::shared_ptr<resource_type>;
-
     resource_manager() = default;
     virtual ~resource_manager() = default;
 
-    gfx_type_ptr load(resource_type_ptr res)
-    {
-        const std::string &path = res->get_resource_wrapper()->get_path();
-        gfx_type_ptr gfx_res = cache_.get_cached_object(path);
-
-        if (gfx_res)
-            return gfx_res;
-
-        gfx_res = __load(res);
-
-        if (gfx_res)
-            cache_.add_cached_object(path, gfx_res);
-
-        return gfx_res;
-    }
-
-private:
-    virtual gfx_type_ptr __load(resource_type_ptr res) = 0;
-
-    common::object_cache<gfx_type> cache_;
+    virtual std::shared_ptr<gfx_type> create(const resource_type &res) = 0;
 };
 
 using shader_manager = resource_manager<gfx::shader, resources::shader>;

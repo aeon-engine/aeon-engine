@@ -29,11 +29,11 @@ gfx_null_texture_manager::gfx_null_texture_manager()
 {
 }
 
-texture_ptr gfx_null_texture_manager::__load(resources::image_ptr image)
+texture_ptr gfx_null_texture_manager::create(const resources::image &image)
 {
     AEON_LOG_TRACE(logger_) << "Created Texture." << std::endl;
     gfx_null_texture_ptr t = std::make_shared<gfx_null_texture>(image);
-    t->size_ = image->get_data().get_size();
+    t->size_ = image.get_data().get_size();
     return t;
 }
 
