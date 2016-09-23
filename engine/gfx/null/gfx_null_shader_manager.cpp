@@ -28,7 +28,7 @@ gfx_null_shader_manager::gfx_null_shader_manager()
 {
 }
 
-shader_ptr gfx_null_shader_manager::create(const resources::shader &shader)
+shader_ptr gfx_null_shader_manager::create(const resources::shader &)
 {
     AEON_LOG_TRACE(logger_) << "Loading Program." << std::endl;
     gfx_null_shader_ptr s = std::make_shared<gfx_null_shader>();
