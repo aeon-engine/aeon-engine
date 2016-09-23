@@ -32,8 +32,8 @@ sprite::sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::a
     __upload_mesh_data();
 }
 
-sprite::sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::atlas::region &region,
-               glm::vec2 size, int zorder)
+sprite::sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::atlas::region &region, glm::vec2 size,
+               int zorder)
     : scene_object(render_layer::overlay, scene_object_type::sprite, scene_manager)
     , has_z_order(zorder)
     , size_(size)

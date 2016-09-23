@@ -46,10 +46,8 @@ render_queue::render_queue_vector::const_iterator render_queue::end() const
 
 void render_queue::sort()
 {
-    std::sort(objects_.begin(), objects_.end(), [](const render_queue_object &a, const render_queue_object &b)
-              {
-                  return a.group < b.group;
-              });
+    std::sort(objects_.begin(), objects_.end(),
+              [](const render_queue_object &a, const render_queue_object &b) { return a.group < b.group; });
 }
 
 } // namespace scene

@@ -31,8 +31,7 @@ namespace scene
 class sprite : public scene_object, public common::has_z_order
 {
 public:
-    explicit sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::atlas::region &region,
-                    int zorder);
+    explicit sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::atlas::region &region, int zorder);
     explicit sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::atlas::region &region,
                     glm::vec2 size, int zorder);
 

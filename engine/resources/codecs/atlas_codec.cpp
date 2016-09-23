@@ -73,7 +73,8 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_p
 
         glm::vec2 size(data.width, data.height);
 
-        atlas_data.push_back({ region_entry.first, region_rect.x, region_rect.y, region_rect.width, region_rect.height, size });
+        atlas_data.push_back(
+            {region_entry.first, region_rect.x, region_rect.y, region_rect.width, region_rect.height, size});
     }
 
     AEON_LOG_DEBUG(logger_) << "Found " << atlas_data.size() << " regions in atlas resource." << std::endl;
