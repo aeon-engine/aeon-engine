@@ -48,9 +48,9 @@ void application::main()
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
     root_node->translate(400, 300);
 
-    aeon::resources::atlas_region ship1 = atlas->get_region_by_index(0);
-    aeon::resources::atlas_region ship2 = atlas->get_region_by_index(4);
-    aeon::resources::atlas_region ship3 = atlas->get_region_by_index(10);
+    aeon::data::atlas::region ship1 = atlas->get_region_by_index(0);
+    aeon::data::atlas::region ship2 = atlas->get_region_by_index(4);
+    aeon::data::atlas::region ship3 = atlas->get_region_by_index(10);
 
     aeon::scene::sprite_ptr ship1_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship1, 0);
     root_node->attach_scene_object(ship1_sprite);

@@ -37,8 +37,8 @@ public:
     explicit atlas(gfx::material_ptr material, glm::vec2 sprite_size);
     virtual ~atlas() = default;
 
-    resources::atlas_region get_region_by_index(int index);
-    resources::atlas_region get_region_by_name(const std::string &name);
+    data::atlas::region get_region_by_index(int index);
+    data::atlas::region get_region_by_name(const std::string &name);
 
     gfx::material_ptr get_material() const;
 
@@ -47,8 +47,7 @@ private:
 
     aeon::logger::logger logger_;
 
-    resources::atlas_regions regions_;
-    resources::atlas_region_names names_;
+    data::atlas atlas_;
 
     gfx::material_ptr material_;
 };

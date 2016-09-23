@@ -17,7 +17,7 @@
 
 #include <common/has_z_order.h>
 #include <scene/scene_object.h>
-#include <resources/atlas.h>
+#include <data/atlas.h>
 #include <gfx/gfx_atlas.h>
 #include <gfx/gfx_mesh.h>
 #include <glm/vec2.hpp>
@@ -31,9 +31,9 @@ namespace scene
 class sprite : public scene_object, public common::has_z_order
 {
 public:
-    explicit sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const resources::atlas_region &region,
+    explicit sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::atlas::region &region,
                     int zorder);
-    explicit sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const resources::atlas_region &region,
+    explicit sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::atlas::region &region,
                     glm::vec2 size, int zorder);
 
     virtual ~sprite();
@@ -47,8 +47,8 @@ public:
 
     gfx::atlas_ptr get_atlas() const;
 
-    void set_atlas_region(const resources::atlas_region &region);
-    resources::atlas_region get_atlas_region() const;
+    void set_atlas_region(const data::atlas::region &region);
+    data::atlas::region get_atlas_region() const;
 
     void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt) override;
 
@@ -62,7 +62,7 @@ protected:
     glm::vec2 size_;
 
     gfx::atlas_ptr atlas_;
-    resources::atlas_region region_;
+    data::atlas::region region_;
 
     gfx::mesh_ptr mesh_;
 };

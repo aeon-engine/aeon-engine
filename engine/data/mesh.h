@@ -37,5 +37,5 @@ struct vertex_data
 using index_data_buffer = std::vector<std::uint16_t>;
 using vertex_data_buffer = std::vector<vertex_data>;
 
-}; // namespace data
+} // namespace data
 } // namespace aeon

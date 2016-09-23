@@ -19,6 +19,7 @@
 #include <resources/exceptions.h>
 #include <resources/material.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
+#include <data/atlas.h>
 #include <common/buffer.h>
 #include <common/logger.h>
 #include <map>
@@ -32,43 +33,18 @@ namespace aeon
 namespace resources
 {
 
-class atlas_region
-{
-public:
-    explicit atlas_region(float u1_, float v1_, float u2_, float v2_, glm::vec2 size_)
-        : u1(u1_)
-        , v1(v1_)
-        , u2(u2_)
-        , v2(v2_)
-        , size(size_)
-    {
-    }
-
-    ~atlas_region() = default;
-
-    float u1, v1;
-    float u2, v2;
-    glm::vec2 size;
-};
-
-using atlas_regions = std::vector<atlas_region>;
-using atlas_region_names = std::map<std::string, int>;
-
 class atlas : public resource
 {
 public:
     /*!
      * Constructor used by the atlas codec to load an atlas
      */
-    explicit atlas(resource_wrapper_ptr wrapper, resources::material_ptr material, const atlas_regions &regions,
-                   const atlas_region_names &names);
+    explicit atlas(resource_wrapper_ptr wrapper, resources::material_ptr material, const data::atlas &data);
 
     virtual ~atlas();
 
     resources::material_ptr get_material() const;
-
-    resources::atlas_regions get_regions() const;
-    resources::atlas_region_names get_region_names() const;
+    const data::atlas &get_data() const;
 
     atlas_resource_wrapper_ptr get_atlas_resource_wrapper() const
     {
@@ -78,9 +54,7 @@ public:
 private:
     aeon::logger::logger logger_;
 
-    resources::atlas_regions regions_;
-    resources::atlas_region_names names_;
-
+    data::atlas data_;
     resources::material_ptr material_;
 };
 

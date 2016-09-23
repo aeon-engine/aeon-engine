@@ -61,28 +61,24 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_p
     unsigned int texture_width = image_data.get_width();
     unsigned int texture_height = image_data.get_height();
 
-    atlas_regions regions;
-    atlas_region_names names;
+    data::atlas atlas_data;
 
     for (auto region_entry : atlas_file)
     {
         if (region_entry.first == "material")
             continue;
 
-        atlas_data data = __atlas_string_to_data(region_entry.second);
+        atlas_codec::atlas_data data = __atlas_string_to_data(region_entry.second);
         common::types::rectangle<float> region_rect = __atlas_data_to_uv(data, texture_width, texture_height);
 
         glm::vec2 size(data.width, data.height);
 
-        atlas_region region(region_rect.x, region_rect.y, region_rect.width, region_rect.height, size);
-
-        names.insert({region_entry.first, static_cast<int>(regions.size())});
-        regions.push_back(region);
+        atlas_data.push_back({ region_entry.first, region_rect.x, region_rect.y, region_rect.width, region_rect.height, size });
     }
 
-    AEON_LOG_DEBUG(logger_) << "Found " << regions.size() << " regions in atlas resource." << std::endl;
+    AEON_LOG_DEBUG(logger_) << "Found " << atlas_data.size() << " regions in atlas resource." << std::endl;
 
-    return std::make_shared<resources::atlas>(wrapper, material_res, regions, names);
+    return std::make_shared<resources::atlas>(wrapper, material_res, atlas_data);
 }
 
 atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &str) const

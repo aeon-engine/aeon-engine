@@ -38,27 +38,16 @@ gfx::material_ptr atlas::get_material() const
     return material_;
 }
 
-resources::atlas_region atlas::get_region_by_index(int index)
+data::atlas::region atlas::get_region_by_index(int index)
 {
     AEON_LOG_TRACE(logger_) << "Getting region index " << index << "." << std::endl;
-
-    assert(regions_.size() >= static_cast<std::size_t>(index));
-    return regions_.at(index);
+    return atlas_.at(index);
 }
 
-resources::atlas_region atlas::get_region_by_name(const std::string &name)
+data::atlas::region atlas::get_region_by_name(const std::string &name)
 {
     AEON_LOG_TRACE(logger_) << "Getting region " << name << "." << std::endl;
-
-    auto result = names_.find(name);
-
-    if (result == names_.end())
-    {
-        AEON_LOG_ERROR(logger_) << "Region " << name << " was not found." << std::endl;
-        throw atlas_exception();
-    }
-
-    return get_region_by_index(result->second);
+    return atlas_.at(name);
 }
 
 void atlas::__calculate_atlas_regions(glm::vec2 sprite_size)
@@ -82,8 +71,7 @@ void atlas::__calculate_atlas_regions(glm::vec2 sprite_size)
             float top = static_cast<float>(top_offset) / static_cast<float>(full_size.y);
             float bottom = static_cast<float>(top_offset + sprite_size.y) / static_cast<float>(full_size.y);
 
-            resources::atlas_region region(left, top, right, bottom, sprite_size);
-            regions_.push_back(region);
+            atlas_.push_back({ left, top, right, bottom, sprite_size });
         }
     }
 }

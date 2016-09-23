@@ -32,8 +32,7 @@ atlas_ptr gfx_atlas_manager::__load(resources::atlas_ptr atlas_resource)
     material_manager &material_manager = device_.get_material_manager();
     atlas_ptr atlas = std::make_shared<gfx::atlas>();
     atlas->material_ = material_manager.load(atlas_resource->get_material());
-    atlas->regions_ = atlas_resource->get_regions();
-    atlas->names_ = atlas_resource->get_region_names();
+    atlas->atlas_ = atlas_resource->get_data();
     return atlas;
 }
 
