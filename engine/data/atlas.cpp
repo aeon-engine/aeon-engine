@@ -54,7 +54,7 @@ const atlas::region &atlas::at(const std::string &name) const
     throw atlas_exception();
 }
 
-int atlas::size() const
+std::size_t atlas::size() const
 {
     return regions_.size();
 }

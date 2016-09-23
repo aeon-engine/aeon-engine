@@ -75,7 +75,7 @@ public:
     const region &at(const int index) const;
     const region &at(const std::string &name) const;
 
-    int size() const;
+    std::size_t size() const;
 
 private:
     regions regions_;
