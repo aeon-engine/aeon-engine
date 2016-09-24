@@ -55,26 +55,25 @@ material_ptr material_codec::decode(resource_manager &parent, material_resource_
     }
 
 #ifdef AEON_GFX_GL
-    shader_resource_wrapper_ptr shader_res =
-        parent.load_shader_wrapper(material_file.get<std::string>("shader_gl3", ""));
+    std::string shader_path = material_file.get<std::string>("shader_gl3", "");
 #else // AEON_GFX_GL
 #ifdef AEON_GFX_GLES2
-    shader_resource_wrapper_ptr shader_res =
-        parent.load_shader_wrapper(material_file.get<std::string>("shader_gles2", ""));
+    std::string shader_path = material_file.get<std::string>("shader_gles2", "");
 #else // AEON_GFX_GLES2
 #ifdef AEON_GFX_NULL
     // TODO: Handle this better.
-    shader_resource_wrapper_ptr shader_res =
-        parent.load_shader_wrapper(material_file.get<std::string>("shader_gl3", ""));
+    std::string shader_path = material_file.get<std::string>("shader_gl3", "");
 #else  // AEON_GFX_NULL
-    shader_resource_wrapper_ptr shader_res = parent.load_shader_wrapper(material_file.get<std::string>("shader", ""));
+    std::string shader_path = material_file.get<std::string>("shader", "");
 #endif // AEON_GFX_NULL
 #endif // AEON_GFX_GLES2
 #endif // AEON_GFX_GL
 
-    image_resource_wrapper_ptr texture_res = parent.load_image_wrapper(material_file.get<std::string>("texture", ""));
+    data::material::texture_paths textures;
+    textures["texture"] = material_file.get<std::string>("texture", "");
+    data::material material_data(shader_path, textures);
 
-    return std::make_shared<resources::material>(wrapper, shader_res->open(), texture_res->open());
+    return std::make_shared<resources::material>(wrapper, material_data);
 }
 
 } // namespace resources

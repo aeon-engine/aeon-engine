@@ -57,10 +57,6 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_p
         parent.load_material_wrapper(atlas_file.get<std::string>("material", ""));
     material_ptr material_res = material_res_wrapper->open();
 
-    const data::image &image_data = material_res->get_texture()->get_data();
-    unsigned int texture_width = image_data.get_width();
-    unsigned int texture_height = image_data.get_height();
-
     data::atlas atlas_data;
 
     for (auto region_entry : atlas_file)
@@ -68,13 +64,9 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_p
         if (region_entry.first == "material")
             continue;
 
-        atlas_codec::atlas_data data = __atlas_string_to_data(region_entry.second);
-        common::types::rectangle<float> region_rect = __atlas_data_to_uv(data, texture_width, texture_height);
+        common::types::rectangle<float> region_rect = __atlas_string_to_data(region_entry.second);
 
-        glm::vec2 size(data.width, data.height);
-
-        atlas_data.push_back(
-            {region_entry.first, region_rect.x, region_rect.y, region_rect.width, region_rect.height, size});
+        atlas_data.push_back({region_entry.first, region_rect.x, region_rect.y, region_rect.width, region_rect.height});
     }
 
     AEON_LOG_DEBUG(logger_) << "Found " << atlas_data.size() << " regions in atlas resource." << std::endl;
@@ -82,7 +74,7 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_p
     return std::make_shared<resources::atlas>(wrapper, material_res_wrapper->get_path(), atlas_data);
 }
 
-atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &str) const
+common::types::rectangle<float> atlas_codec::__atlas_string_to_data(const std::string &str) const
 {
     std::vector<std::string> items = utility::string::split(str, ',');
 
@@ -93,17 +85,17 @@ atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &s
         throw atlas_codec_decode_exception();
     }
 
-    int x = 0;
-    int y = 0;
-    int width = 0;
-    int height = 0;
+    float left = 0;
+    float right = 0;
+    float top = 0;
+    float bottom = 0;
 
     try
     {
-        x = std::stoi(items[0]);
-        y = std::stoi(items[1]);
-        width = std::stoi(items[2]);
-        height = std::stoi(items[3]);
+        left = std::stof(items[0]);
+        right = std::stof(items[1]);
+        top = std::stof(items[2]);
+        bottom = std::stof(items[3]);
     }
     catch (const std::invalid_argument &)
     {
@@ -116,19 +108,7 @@ atlas_codec::atlas_data atlas_codec::__atlas_string_to_data(const std::string &s
         throw atlas_codec_decode_exception();
     }
 
-    return {x, y, width, height};
-}
-
-common::types::rectangle<float> atlas_codec::__atlas_data_to_uv(const atlas_codec::atlas_data &data,
-                                                                unsigned int texture_width,
-                                                                unsigned int texture_height) const
-{
-    float left = static_cast<float>(data.x) / static_cast<float>(texture_width);
-    float right = static_cast<float>(data.x + data.width) / static_cast<float>(texture_width);
-    float top = static_cast<float>(data.y) / static_cast<float>(texture_height);
-    float bottom = static_cast<float>(data.y + data.height) / static_cast<float>(texture_height);
-
-    return {left, top, right, bottom};
+    return {left, right, top, bottom};
 }
 
 } // namespace resources

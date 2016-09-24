@@ -20,11 +20,10 @@ namespace aeon
 namespace resources
 {
 
-material::material(resource_wrapper_ptr wrapper, shader_ptr shader, image_ptr texture)
+material::material(resource_wrapper_ptr wrapper, const data::material &material_data)
     : resource(wrapper)
     , logger_(common::logger::get_singleton(), "Resources::Material")
-    , shader_(shader)
-    , texture_(texture)
+    , material_data_(material_data)
 {
     AEON_LOG_TRACE(logger_) << "Created material resource." << std::endl;
 }

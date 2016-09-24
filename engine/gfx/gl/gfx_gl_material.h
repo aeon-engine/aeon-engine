@@ -34,15 +34,22 @@ class gfx_gl_material : public gfx::material
     void bind() override;
 
 public:
-    gfx_gl_material() = default;
-    ~gfx_gl_material() = default;
+    explicit gfx_gl_material(const shader_ptr &shader, const material::sampler_map &samplers);
+    virtual ~gfx_gl_material() = default;
 
     gfx::shader *get_shader() const override;
-    gfx::texture *get_texture() const override;
+    gfx::texture *get_sampler(const std::string &name) const override;
 
 protected:
-    gl::gfx_gl_shader_ptr shader_;
-    gl::gfx_gl_texture_ptr texture_;
+    using gl_sampler_map = std::map<std::string, std::shared_ptr<gfx_gl_texture>>;
+    using gl_samplers = std::vector<gfx_gl_texture *>;
+
+    gl_sampler_map __convert_sampler_map_to_gl(const material::sampler_map &samplers) const;
+    gl_samplers __generate_sampler_indices(const gl_sampler_map &samplers) const;
+
+    gfx_gl_shader_ptr shader_;
+    gl_sampler_map sampler_map_;
+    gl_samplers samplers_;
 };
 
 using material_gl_ptr = std::shared_ptr<gfx_gl_material>;

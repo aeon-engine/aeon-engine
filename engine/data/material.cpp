@@ -13,40 +13,38 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <resources/shader.h>
-#include <gfx/gfx_shader.h>
-
-#include <resources/image.h>
-#include <gfx/gfx_texture.h>
-
 #include <data/material.h>
-#include <gfx/gfx_material.h>
-
-#include <resources/atlas.h>
-#include <gfx/gfx_atlas.h>
-
-#include <memory>
-#include <string>
 
 namespace aeon
 {
-namespace gfx
+namespace data
 {
 
-template <typename gfx_type, typename resource_type>
-class resource_manager
+material::material(const std::string &shader_path, const material::texture_paths &textures)
+    : shader_path_(shader_path)
+    , texture_paths_(textures)
 {
-public:
-    resource_manager() = default;
-    virtual ~resource_manager() = default;
+}
 
-    virtual std::shared_ptr<gfx_type> create(const resource_type &res) = 0;
-};
+const std::string &material::get_shader_path() const
+{
+    return shader_path_;
+}
 
-using shader_manager = resource_manager<gfx::shader, resources::shader>;
-using texture_manager = resource_manager<gfx::texture, resources::image>;
+const std::string &material::get_texture_path_by_name(const std::string &name) const
+{
+    auto itr = texture_paths_.find(name);
 
-} // namespace gfx
+    if (itr == texture_paths_.end())
+        throw material_exception();
+
+    return itr->second;
+}
+
+const material::texture_paths &material::get_texture_paths() const
+{
+    return texture_paths_;
+}
+
+} // namespace data
 } // namespace aeon

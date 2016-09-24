@@ -25,11 +25,6 @@ namespace gfx
 namespace null
 {
 
-gfx_null_material_manager::gfx_null_material_manager(gfx_null_device &dev)
-    : device_(dev)
-{
-}
-
 material_ptr gfx_null_material_manager::create(const resources::material &mat)
 {
     gfx::texture_manager &texture_mgr = device_.get_texture_manager();

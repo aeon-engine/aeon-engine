@@ -21,17 +21,6 @@ namespace aeon
 namespace scene
 {
 
-sprite::sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::atlas::region &region, int zorder)
-    : scene_object(render_layer::overlay, scene_object_type::sprite, scene_manager)
-    , has_z_order(zorder)
-    , size_(region.size)
-    , atlas_(atlas)
-    , region_(region)
-    , mesh_(scene_manager->get_device().create_mesh(atlas->get_material()))
-{
-    __upload_mesh_data();
-}
-
 sprite::sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::atlas::region &region, glm::vec2 size,
                int zorder)
     : scene_object(render_layer::overlay, scene_object_type::sprite, scene_manager)
@@ -46,11 +35,6 @@ sprite::sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::a
 
 sprite::~sprite()
 {
-}
-
-void sprite::set_default_size()
-{
-    size_ = region_.size;
 }
 
 void sprite::set_size(glm::vec2 size)

@@ -76,7 +76,20 @@ gfx::material_ptr asset_manager::load_material(const std::string &path)
 
     resources::material_resource_wrapper_ptr material_resource = resource_manager_.load_material_wrapper(path);
     resources::material_ptr material_resource_data = material_resource->open();
-    auto material = device_.get_material_manager().create(*material_resource_data);
+
+    auto &material_data = material_resource_data->get_material_data();
+
+    auto shader = load_shader(material_data.get_shader_path());
+
+    data::material::texture_paths texture_paths = material_data.get_texture_paths();
+    gfx::material::sampler_map sampler_map;
+
+    for (auto &texture_path : texture_paths)
+    {
+        sampler_map[texture_path.first] = load_texture(texture_path.second);
+    }
+
+    auto material = device_.get_material_manager().create(shader, sampler_map);
     material_cache_.add_cached_object(path, material);
     return material;
 }

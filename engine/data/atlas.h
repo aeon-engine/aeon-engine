@@ -33,23 +33,21 @@ public:
     class region
     {
     public:
-        region(float u1_, float v1_, float u2_, float v2_, glm::vec2 size_)
+        region(float u1_, float v1_, float u2_, float v2_)
             : name()
             , u1(u1_)
             , v1(v1_)
             , u2(u2_)
             , v2(v2_)
-            , size(size_)
         {
         }
 
-        region(const std::string &name_, float u1_, float v1_, float u2_, float v2_, glm::vec2 size_)
+        region(const std::string &name_, float u1_, float v1_, float u2_, float v2_)
             : name(name_)
             , u1(u1_)
             , v1(v1_)
             , u2(u2_)
             , v2(v2_)
-            , size(size_)
         {
         }
 
@@ -58,7 +56,6 @@ public:
         std::string name;
         float u1, v1;
         float u2, v2;
-        glm::vec2 size;
     };
 
     using regions = std::vector<region>;

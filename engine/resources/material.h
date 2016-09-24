@@ -18,8 +18,7 @@
 #include <resources/resource.h>
 #include <resources/exceptions.h>
 #include <resources/wrappers/material_resource_wrapper.h>
-#include <resources/image.h>
-#include <resources/shader.h>
+#include <data/material.h>
 #include <common/logger.h>
 #include <memory>
 
@@ -31,17 +30,12 @@ namespace resources
 class material : public resource
 {
 public:
-    explicit material(resource_wrapper_ptr wrapper, shader_ptr shader, image_ptr texture);
+    explicit material(resource_wrapper_ptr wrapper, const data::material &material_data);
     virtual ~material();
 
-    shader_ptr get_shader() const
+    const data::material &get_material_data() const
     {
-        return shader_;
-    }
-
-    image_ptr get_texture() const
-    {
-        return texture_;
+        return material_data_;
     }
 
     material_resource_wrapper_ptr get_material_resource_wrapper()
@@ -51,8 +45,7 @@ public:
 
 private:
     aeon::logger::logger logger_;
-    shader_ptr shader_;
-    image_ptr texture_;
+    data::material material_data_;
 };
 
 using material_ptr = std::shared_ptr<material>;

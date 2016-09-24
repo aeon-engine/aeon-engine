@@ -22,10 +22,18 @@ namespace gfx
 namespace gl
 {
 
+gfx_gl_material::gfx_gl_material(const shader_ptr &shader, const material::sampler_map &samplers)
+    : shader_(std::dynamic_pointer_cast<gfx_gl_shader>(shader))
+    , sampler_map_(std::move(__convert_sampler_map_to_gl(samplers)))
+    , samplers_(std::move(__generate_sampler_indices(sampler_map_)))
+{
+}
+
 void gfx_gl_material::bind()
 {
+    // TODO: bind all samplers
     shader_->bind();
-    texture_->bind();
+    samplers_[0]->bind();
 }
 
 gfx::shader *gfx_gl_material::get_shader() const
@@ -33,9 +41,38 @@ gfx::shader *gfx_gl_material::get_shader() const
     return shader_.get();
 }
 
-gfx::texture *gfx_gl_material::get_texture() const
+gfx::texture *gfx_gl_material::get_sampler(const std::string &name) const
 {
-    return texture_.get();
+    auto result = sampler_map_.find(name);
+
+    if (result == sampler_map_.end())
+        throw gfx_material_exception();
+
+    return result->second.get();
+}
+
+gfx_gl_material::gl_sampler_map
+gfx_gl_material::__convert_sampler_map_to_gl(const material::sampler_map &samplers) const
+{
+    gfx_gl_material::gl_sampler_map gl_samplers;
+
+    for (auto &sampler : samplers)
+    {
+        gl_samplers[sampler.first] = std::dynamic_pointer_cast<gfx_gl_texture>(sampler.second);
+    }
+
+    return std::move(gl_samplers);
+}
+
+gfx_gl_material::gl_samplers
+gfx_gl_material::__generate_sampler_indices(const gfx_gl_material::gl_sampler_map &samplers) const
+{
+    gfx_gl_material::gl_samplers gl_samplers;
+
+    // TODO: Sampler index info should be generated based on the shader and the material definition.
+    gl_samplers.push_back(samplers.at("texture").get());
+
+    return std::move(gl_samplers);
 }
 
 } // namespace gl

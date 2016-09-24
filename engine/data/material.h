@@ -15,36 +15,34 @@
 
 #pragma once
 
-#include <common/cached_object.h>
 #include <common/exception.h>
-#include <memory>
 #include <string>
 #include <map>
 
 namespace aeon
 {
-namespace gfx
+namespace data
 {
 
-DEFINE_EXCEPTION_OBJECT(gfx_material_exception, aeon::common::exception, "Material exception.");
+DEFINE_EXCEPTION_OBJECT(material_exception, aeon::common::exception, "Generic Material exception.");
 
-class shader;
-class texture;
-class material : public common::cached_object
+class material
 {
 public:
-    using sampler_map = std::map<std::string, std::shared_ptr<texture>>;
+    using texture_paths = std::map<std::string, std::string>;
 
-    material() = default;
-    virtual ~material() = default;
+    material(const std::string &shader_path, const texture_paths &textures);
+    ~material() = default;
 
-    virtual void bind() = 0;
+    const std::string &get_shader_path() const;
 
-    virtual shader *get_shader() const = 0;
-    virtual texture *get_sampler(const std::string &name) const = 0;
+    const std::string &get_texture_path_by_name(const std::string &name) const;
+    const texture_paths &get_texture_paths() const;
+
+private:
+    std::string shader_path_;
+    texture_paths texture_paths_;
 };
 
-using material_ptr = std::shared_ptr<material>;
-
-} // namespace gfx
+} // namespace data
 } // namespace aeon

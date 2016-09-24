@@ -16,7 +16,6 @@
 #pragma once
 
 #include <gfx/gfx_resource_manager.h>
-#include <resources/material.h>
 
 namespace aeon
 {
@@ -25,17 +24,14 @@ namespace gfx
 namespace null
 {
 
-class gfx_null_device;
 class gfx_null_material_manager : public gfx::material_manager
 {
 public:
-    explicit gfx_null_material_manager(gfx_null_device &dev);
+    explicit gfx_null_material_manager();
     virtual ~gfx_null_material_manager() = default;
 
 private:
-    material_ptr create(const resources::material &material) override;
-
-    gfx_null_device &device_;
+    material_ptr create(const data::material &material) override;
 };
 
 } // namespace gl

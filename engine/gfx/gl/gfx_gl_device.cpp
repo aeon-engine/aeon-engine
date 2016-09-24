@@ -86,7 +86,7 @@ void gfx_gl_device::__create_managers()
 {
     texture_manager_ = std::make_unique<gfx_gl_texture_manager>();
     shader_manager_ = std::make_unique<gfx_gl_shader_manager>();
-    material_manager_ = std::make_unique<gfx_gl_material_manager>(*this);
+    material_manager_ = std::make_unique<gfx_gl_material_manager>();
     buffer_manager_ = std::make_unique<gfx_gl_buffer_manager>();
     atlas_manager_ = std::make_unique<gfx_atlas_manager>();
 }

@@ -17,7 +17,10 @@ add_source_path(AEON_ENGINE_SOURCES storage)
 ################################################################################
 
 add_source_path(AEON_ENGINE_SOURCES gfx)
-add_source_path(AEON_ENGINE_SOURCES gfx/null)
+
+if (AEON_GFX_NULL)
+    add_source_path(AEON_ENGINE_SOURCES gfx/null)
+endif ()
 
 if (AEON_GFX_GL)
     add_source_path(AEON_ENGINE_SOURCES gfx/gl_common)
