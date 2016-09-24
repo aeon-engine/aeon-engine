@@ -37,7 +37,7 @@ resource_encoding material_codec::get_codec_type() const
     return resource_encoding::material;
 }
 
-material_ptr material_codec::decode(resource_manager &parent, material_resource_wrapper_ptr wrapper) const
+material_ptr material_codec::decode(material_resource_wrapper_ptr wrapper) const
 {
     AEON_LOG_DEBUG(logger_) << "Decoding material resource." << std::endl;
 

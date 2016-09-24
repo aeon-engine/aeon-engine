@@ -32,7 +32,7 @@ material_resource_wrapper::material_resource_wrapper(resource_manager &parent, c
 material_ptr material_resource_wrapper::open()
 {
     material_codec &codec = __get_parent().get_codec_manager().get_material_codec();
-    return codec.decode(__get_parent(), std::dynamic_pointer_cast<material_resource_wrapper>(shared_from_this()));
+    return codec.decode(std::dynamic_pointer_cast<material_resource_wrapper>(shared_from_this()));
 }
 
 } // namespace resources

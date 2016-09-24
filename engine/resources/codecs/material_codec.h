@@ -41,7 +41,7 @@ public:
 
     resource_encoding get_codec_type() const override;
 
-    material_ptr decode(resource_manager &parent, material_resource_wrapper_ptr wrapper) const;
+    material_ptr decode(material_resource_wrapper_ptr wrapper) const;
 
 private:
     aeon::logger::logger logger_;
