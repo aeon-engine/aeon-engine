@@ -13,30 +13,28 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <resources/image.h>
-#include <gfx/gfx_texture.h>
-
-#include <memory>
-#include <string>
+#include <data/shader.h>
 
 namespace aeon
 {
-namespace gfx
+namespace data
 {
 
-template <typename gfx_type, typename resource_type>
-class resource_manager
+shader::shader(const std::string &vertex_source, const std::string &fragment_source)
+    : vertex_source_(vertex_source)
+    , fragment_source_(fragment_source)
 {
-public:
-    resource_manager() = default;
-    virtual ~resource_manager() = default;
+}
 
-    virtual std::shared_ptr<gfx_type> create(const resource_type &res) = 0;
-};
+const std::string &shader::get_vertex_source() const
+{
+    return vertex_source_;
+}
 
-using texture_manager = resource_manager<gfx::texture, resources::image>;
+const std::string &shader::get_fragment_source() const
+{
+    return fragment_source_;
+}
 
-} // namespace gfx
+} // namespace data
 } // namespace aeon

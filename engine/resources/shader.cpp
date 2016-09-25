@@ -20,11 +20,10 @@ namespace aeon
 namespace resources
 {
 
-shader::shader(resource_wrapper_ptr wrapper, const std::string &vertex_source, const std::string &fragment_source)
+shader::shader(resource_wrapper_ptr wrapper, const data::shader &shader_data)
     : resource(wrapper)
     , logger_(common::logger::get_singleton(), "Resources::Shader")
-    , vertex_source_(vertex_source)
-    , fragment_source_(fragment_source)
+    , shader_data_(shader_data)
 {
     AEON_LOG_TRACE(logger_) << "Created shader resource." << std::endl;
 }

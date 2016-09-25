@@ -17,6 +17,7 @@
 
 #include <gfx/gfx_resource_manager.h>
 #include <gfx/gfx_material_manager.h>
+#include <gfx/gfx_shader_manager.h>
 #include <gfx/gfx_atlas_manager.h>
 #include <gfx/gfx_buffer_manager.h>
 #include <gfx/gfx_mesh.h>

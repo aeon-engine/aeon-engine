@@ -15,28 +15,26 @@
 
 #pragma once
 
-#include <resources/image.h>
-#include <gfx/gfx_texture.h>
-
-#include <memory>
 #include <string>
 
 namespace aeon
 {
-namespace gfx
+namespace data
 {
 
-template <typename gfx_type, typename resource_type>
-class resource_manager
+class shader
 {
 public:
-    resource_manager() = default;
-    virtual ~resource_manager() = default;
+    explicit shader(const std::string &vertex_source, const std::string &fragment_source);
+    ~shader() = default;
 
-    virtual std::shared_ptr<gfx_type> create(const resource_type &res) = 0;
+    const std::string &get_vertex_source() const;
+    const std::string &get_fragment_source() const;
+
+private:
+    std::string vertex_source_;
+    std::string fragment_source_;
 };
 
-using texture_manager = resource_manager<gfx::texture, resources::image>;
-
-} // namespace gfx
+} // namespace data
 } // namespace aeon

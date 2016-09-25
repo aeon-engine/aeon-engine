@@ -60,7 +60,7 @@ gfx::shader_ptr asset_manager::load_shader(const std::string &path)
 
     resources::shader_resource_wrapper_ptr shader_resource = resource_manager_.load_shader_wrapper(path);
     resources::shader_ptr shader_resource_data = shader_resource->open();
-    auto shader = device_.get_shader_manager().create(*shader_resource_data);
+    auto shader = device_.get_shader_manager().create(shader_resource_data->get_data());
     shader_cache_.add_cached_object(path, shader);
     return shader;
 }

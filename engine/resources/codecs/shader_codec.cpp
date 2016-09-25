@@ -90,7 +90,8 @@ shader_ptr shader_codec::decode(resource_manager & /*parent*/, shader_resource_w
         }
     }
 
-    return std::make_shared<shader>(wrapper, vertex_source, fragment_source);
+    data::shader shader_data(vertex_source, fragment_source);
+    return std::make_shared<shader>(wrapper, shader_data);
 }
 
 } // namespace resources
