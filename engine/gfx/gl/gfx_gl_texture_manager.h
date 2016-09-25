@@ -15,8 +15,7 @@
 
 #pragma once
 
-#include <gfx/gfx_resource_manager.h>
-#include <resources/image.h>
+#include <gfx/gfx_texture_manager.h>
 #include <common/logger.h>
 #include <GL/glew.h>
 
@@ -34,7 +33,7 @@ public:
     virtual ~gfx_gl_texture_manager() = default;
 
 private:
-    texture_ptr create(const resources::image &image) override;
+    texture_ptr create(const data::image &image_data) override;
 
     GLint __image_pixelformat_to_gl(data::image::pixel_format format) const;
 

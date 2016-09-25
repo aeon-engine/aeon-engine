@@ -15,7 +15,6 @@
 
 #pragma once
 
-#include <gfx/gfx_resource_manager.h>
 #include <data/atlas.h>
 #include <gfx/gfx_atlas.h>
 #include <gfx/gfx_material.h>

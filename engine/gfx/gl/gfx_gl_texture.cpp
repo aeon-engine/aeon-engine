@@ -23,10 +23,11 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_texture::gfx_gl_texture(const resources::image &image)
-    : gfx::texture(image)
+gfx_gl_texture::gfx_gl_texture()
+    : gfx::texture()
     , logger_(common::logger::get_singleton(), "Gfx::GL::Texture")
     , handle_(0)
+    , size_(0)
 {
 }
 
@@ -44,6 +45,11 @@ void gfx_gl_texture::bind() const
 
     glBindTexture(GL_TEXTURE_2D, handle_);
     AEON_CHECK_GL_ERROR();
+}
+
+glm::vec2 gfx_gl_texture::get_size() const
+{
+    return size_;
 }
 
 } // namespace gl

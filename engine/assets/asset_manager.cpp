@@ -44,7 +44,7 @@ gfx::texture_ptr asset_manager::load_texture(const std::string &path)
 
     resources::image_resource_wrapper_ptr image_resource = resource_manager_.load_image_wrapper(path);
     resources::image_ptr image_resource_data = image_resource->open();
-    auto texture = device_.get_texture_manager().create(*image_resource_data);
+    auto texture = device_.get_texture_manager().create(image_resource_data->get_data());
     texture_cache_.add_cached_object(path, texture);
     return texture;
 }

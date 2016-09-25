@@ -31,14 +31,16 @@ class gfx_gl_texture : public gfx::texture
     friend class gfx_gl_texture_manager;
 
 public:
-    explicit gfx_gl_texture(const resources::image &image);
+    explicit gfx_gl_texture();
     ~gfx_gl_texture() override;
 
     void bind() const;
+    glm::vec2 get_size() const override;
 
 private:
     aeon::logger::logger logger_;
     GLuint handle_;
+    glm::vec2 size_;
 };
 
 using gfx_gl_texture_ptr = std::shared_ptr<gl::gfx_gl_texture>;

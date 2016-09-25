@@ -29,19 +29,10 @@ namespace gfx
 class texture : public common::cached_object
 {
 public:
-    explicit texture(const resources::image &image);
+    explicit texture() = default;
     virtual ~texture() = default;
 
-    glm::vec2 get_size() const;
-
-protected:
-    glm::vec2 size_;
-
-private:
-    /* Object that points to the image resource for this texture. This object does
-     * not actually contain any resource data.
-     */
-    resources::image_resource_wrapper_ptr image_wrapper_;
+    virtual glm::vec2 get_size() const = 0;
 };
 
 using texture_ptr = std::shared_ptr<texture>;
