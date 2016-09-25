@@ -17,7 +17,7 @@
 
 #include <resources/exceptions.h>
 #include <resources/codecs/image_codec.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {

@@ -1,10 +1,12 @@
 include(Utility)
 include(Buildinfo)
 
+generate_build_info_header(${CMAKE_BINARY_DIR}/buildinfo.h)
+
+add_subdirectory(common)
+
 ################################################################################
 
-add_source_path(AEON_ENGINE_SOURCES common)
-add_source_path(AEON_ENGINE_SOURCES common/types)
 add_source_path(AEON_ENGINE_SOURCES data)
 add_source_path(AEON_ENGINE_SOURCES application)
 add_source_path(AEON_ENGINE_SOURCES resources)
@@ -74,11 +76,11 @@ add_source_path(AEON_ENGINE_SOURCES scene/scene_managers/octree)
 option(AEON_CONSOLE_OUTPUT_DEBUG_MSGS "Console outputs debug/trace messages." ON)
 set(AEON_CONSOLE_BUFFER_SIZE 10240 CACHE STRING "The maximum length of a single console line")
 set(AEON_DEFAULT_CONSOLE_LOG_LEVEL "console::log_level::info" CACHE STRING "The default minimum log level")
-configure_file(build_config.h.in build_config.h @ONLY)
+configure_file(build_config.h.in ${CMAKE_BINARY_DIR}/build_config.h @ONLY)
 
 ################################################################################
 
-generate_build_info_header(${CMAKE_CURRENT_BINARY_DIR}/buildinfo.h)
+
 
 ################################################################################
 
@@ -95,11 +97,12 @@ endif ()
 add_library(aeon_engine STATIC ${AEON_ENGINE_SOURCES})
 
 target_include_directories(aeon_engine
-    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+    PUBLIC ${CMAKE_BINARY_DIR}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(aeon_engine
+    aeon_engine_common
     aeon
     glm
     png_static

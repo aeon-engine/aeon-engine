@@ -25,7 +25,7 @@
 #include <resources/codecs/shader_codec.h>
 #include <resources/codecs/atlas_codec.h>
 #include <resources/codecs/mesh_codec.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <map>
 
 namespace aeon

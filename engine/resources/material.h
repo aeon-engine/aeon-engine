@@ -19,7 +19,7 @@
 #include <resources/exceptions.h>
 #include <resources/wrappers/material_resource_wrapper.h>
 #include <data/material.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <memory>
 
 namespace aeon

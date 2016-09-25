@@ -17,7 +17,7 @@
 
 #include <platform/platform_file_interface.h>
 #include <platform/platform_file_open_mode.h>
-#include <common/exception.h>
+#include <aeon/common/exception.h>
 #include <string>
 #include <memory>
 #include <vector>

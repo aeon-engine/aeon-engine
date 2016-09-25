@@ -19,7 +19,7 @@
 #include <resources/resource_manager.h>
 #include <resources/codecs/atlas_codec.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
-#include <common/buffer.h>
+#include <aeon/common/buffer.h>
 
 namespace aeon
 {

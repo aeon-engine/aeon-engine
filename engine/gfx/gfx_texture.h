@@ -17,7 +17,7 @@
 
 #include <resources/wrappers/image_resource_wrapper.h>
 #include <resources/image.h>
-#include <common/cached_object.h>
+#include <aeon/common/cached_object.h>
 #include <glm/vec2.hpp>
 #include <memory>
 

@@ -19,7 +19,7 @@
 #include <platform/platform_window.h>
 #include <platform/platform_filesystem_interface.h>
 #include <platform/platform_file_interface.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <aeon/utility.h>
 #include <buildinfo.h>
 

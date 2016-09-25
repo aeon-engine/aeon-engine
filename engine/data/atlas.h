@@ -18,7 +18,7 @@
 #include <vector>
 #include <string>
 #include <glm/vec2.hpp>
-#include <common/exception.h>
+#include <aeon/common/exception.h>
 
 namespace aeon
 {

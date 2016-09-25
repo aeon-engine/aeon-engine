@@ -16,7 +16,7 @@
 #pragma once
 
 #include <scene/sprite.h>
-#include <common/types/rectangle.h>
+#include <aeon/common/types/rectangle.h>
 #include <map>
 #include <vector>
 #include <memory>

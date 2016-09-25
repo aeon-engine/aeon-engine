@@ -16,8 +16,8 @@
 #pragma once
 
 #include <type_traits>
-#include <common/exception.h>
-#include <common/cached_object.h>
+#include <aeon/common/exception.h>
+#include <aeon/common/cached_object.h>
 #include <aeon/utility.h>
 #include <map>
 

@@ -15,9 +15,9 @@
 
 #pragma once
 
-#include <common/cached_object.h>
-#include <common/exception.h>
-#include <common/logger.h>
+#include <aeon/common/cached_object.h>
+#include <aeon/common/exception.h>
+#include <aeon/common/logger.h>
 #include <gfx/gfx_material.h>
 #include <data/atlas.h>
 #include <glm/vec2.hpp>

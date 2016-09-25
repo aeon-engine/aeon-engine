@@ -15,7 +15,7 @@
 
 #pragma once
 #include <platform/platform_window.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <memory>
 
 namespace aeon

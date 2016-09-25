@@ -16,7 +16,7 @@
 #pragma once
 
 #include <aeon/utility.h>
-#include <common/buffer.h>
+#include <aeon/common/buffer.h>
 #include <memory>
 #include <glm/vec2.hpp>
 

@@ -15,8 +15,8 @@
 
 #pragma once
 
-#include <common/cached_object.h>
-#include <common/exception.h>
+#include <aeon/common/cached_object.h>
+#include <aeon/common/exception.h>
 #include <memory>
 #include <string>
 #include <map>

@@ -16,7 +16,7 @@
 #pragma once
 
 #include <memory>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <gfx/gfx_render_target.h>
 #include <platform/platform_interface.h>
 #include <platform/qt/platform_qt_window.h>

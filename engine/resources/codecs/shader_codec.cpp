@@ -19,7 +19,7 @@
 #include <resources/resource_manager.h>
 #include <resources/codecs/shader_codec.h>
 #include <resources/wrappers/shader_resource_wrapper.h>
-#include <common/buffer.h>
+#include <aeon/common/buffer.h>
 
 namespace aeon
 {

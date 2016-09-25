@@ -21,7 +21,7 @@
 #include <gfx/gfx_atlas_manager.h>
 #include <gfx/gfx_buffer_manager.h>
 #include <gfx/gfx_mesh.h>
-#include <common/types/color.h>
+#include <aeon/common/types/color.h>
 #include <scene/viewport.h>
 #include <memory>
 

@@ -16,8 +16,8 @@
 #pragma once
 
 #include <gfx/gfx_buffer.h>
-#include <common/exception.h>
-#include <common/logger.h>
+#include <aeon/common/exception.h>
+#include <aeon/common/logger.h>
 #include <GL/glew.h>
 #include <memory>
 

@@ -16,7 +16,7 @@
 #pragma once
 #include <platform/platform_window.h>
 #include <platform/platform_exception.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <GLFW/glfw3.h>
 #include <memory>
 

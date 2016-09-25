@@ -18,7 +18,7 @@
 #include <resources/exceptions.h>
 #include <resources/codecs/mesh_codec.h>
 #include <resources/mesh.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <assimp/Importer.hpp>
 #include <assimp/matrix4x4.h>
 #include <glm/mat4x4.hpp>

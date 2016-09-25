@@ -17,7 +17,7 @@
 #include <aeon/streams.h>
 #include <resources/codecs/image_png_codec.h>
 #include <resources/wrappers/image_resource_wrapper.h>
-#include <common/buffer.h>
+#include <aeon/common/buffer.h>
 #include <png.h>
 
 #define PNG_HEADER_SIGNATURE_SIZE 8

@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 
 aeon_utility_initialize_singleton(aeon::common::logger);
 

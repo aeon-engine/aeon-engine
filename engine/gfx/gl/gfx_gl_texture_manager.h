@@ -16,7 +16,7 @@
 #pragma once
 
 #include <gfx/gfx_texture_manager.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <GL/glew.h>
 
 namespace aeon

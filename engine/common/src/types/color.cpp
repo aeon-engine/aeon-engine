@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <common/types/color.h>
+#include <aeon/common/types/color.h>
 
 #include <algorithm>
 #include <cmath>

@@ -17,7 +17,7 @@
 
 #include <resources/providers/resource_provider.h>
 #include <resources/resource_encoding.h>
-#include <common/buffer.h>
+#include <aeon/common/buffer.h>
 #include <resources/exceptions.h>
 #include <vector>
 #include <string>

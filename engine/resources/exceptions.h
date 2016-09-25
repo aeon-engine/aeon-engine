@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <common/exception.h>
+#include <aeon/common/exception.h>
 
 namespace aeon
 {

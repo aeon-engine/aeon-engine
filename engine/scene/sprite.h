@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <common/has_z_order.h>
+#include <aeon/common/has_z_order.h>
 #include <scene/scene_object.h>
 #include <data/atlas.h>
 #include <gfx/gfx_atlas.h>

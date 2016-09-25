@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <common/cached_object.h>
+#include <aeon/common/cached_object.h>
 #include <glm/mat4x4.hpp>
 #include <memory>
 

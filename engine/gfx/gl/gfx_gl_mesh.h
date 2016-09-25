@@ -19,7 +19,7 @@
 #include <gfx/gl/gfx_gl_buffer.h>
 #include <gfx/gfx_material.h>
 #include <gfx/gl/gfx_gl_vertex_array_object.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {

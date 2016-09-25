@@ -15,8 +15,8 @@
 
 #pragma once
 
-#include <common/types/rectangle.h>
-#include <common/has_z_order.h>
+#include <aeon/common/types/rectangle.h>
+#include <aeon/common/has_z_order.h>
 #include <scene/camera.h>
 #include <memory>
 

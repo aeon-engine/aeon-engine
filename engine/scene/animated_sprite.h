@@ -16,7 +16,7 @@
 #pragma once
 
 #include <scene/sprite.h>
-#include <common/types/rectangle.h>
+#include <aeon/common/types/rectangle.h>
 #include <scene/sprite_animation_settings.h>
 #include <gfx/gfx_atlas.h>
 #include <memory>

@@ -14,7 +14,7 @@
  */
 
 #include <gfx/gl_common/check_gl_error.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 
 #ifdef AEON_GFX_GL
 #include <GL/glew.h>

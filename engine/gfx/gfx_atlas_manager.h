@@ -18,7 +18,7 @@
 #include <data/atlas.h>
 #include <gfx/gfx_atlas.h>
 #include <gfx/gfx_material.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {

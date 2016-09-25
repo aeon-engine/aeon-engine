@@ -15,7 +15,7 @@
 
 #include <gtest/gtest.h>
 #include <aeon/platform.h>
-#include <common/types/rectangle.h>
+#include <aeon/common/types/rectangle.h>
 
 AEON_IGNORE_VS_WARNING(4189)
 

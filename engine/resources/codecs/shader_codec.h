@@ -16,11 +16,11 @@
 #pragma once
 
 #include <resources/exceptions.h>
-#include <common/buffer.h>
+#include <aeon/common/buffer.h>
 #include <resources/resource_encoding.h>
 #include <resources/codecs/codec.h>
 #include <resources/shader.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {

@@ -17,9 +17,9 @@
 
 #include <platform/platform_file_open_mode.h>
 #include <platform/platform_file_interface.h>
-#include <common/buffer.h>
+#include <aeon/common/buffer.h>
 #include <aeon/streams.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <memory>
 #include <string>
 

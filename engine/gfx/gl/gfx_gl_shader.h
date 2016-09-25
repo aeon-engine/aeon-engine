@@ -17,7 +17,7 @@
 
 #include <GL/glew.h>
 #include <gfx/gfx_shader.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <memory>
 
 namespace aeon

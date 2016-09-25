@@ -19,7 +19,7 @@
 #include <resources/resource_manager.h>
 #include <resources/codecs/material_codec.h>
 #include <resources/wrappers/material_resource_wrapper.h>
-#include <common/buffer.h>
+#include <aeon/common/buffer.h>
 #include <build_config.h>
 
 namespace aeon

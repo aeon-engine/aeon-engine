@@ -26,7 +26,7 @@
 #include <resources/wrappers/atlas_resource_wrapper.h>
 #include <resources/wrappers/mesh_resource_wrapper.h>
 #include <resources/atlas.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <map>
 
 namespace aeon

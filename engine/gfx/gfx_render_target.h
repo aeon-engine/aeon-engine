@@ -19,7 +19,7 @@
 #include <gfx/gfx_frame_listener.h>
 #include <scene/viewport.h>
 #include <scene/camera.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <memory>
 #include <vector>
 

@@ -19,7 +19,7 @@
 #include <platform/platform_window.h>
 #include <platform/platform_filesystem_interface.h>
 #include <platform/platform_input_handler.h>
-#include <common/exception.h>
+#include <aeon/common/exception.h>
 #include <memory>
 
 namespace aeon

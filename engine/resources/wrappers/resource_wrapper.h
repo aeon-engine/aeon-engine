@@ -19,7 +19,7 @@
 #include <resources/resource_type.h>
 #include <resources/resource_encoding.h>
 #include <resources/providers/resource_provider.h>
-#include <common/logger.h>
+#include <aeon/common/logger.h>
 #include <memory>
 #include <string>
 

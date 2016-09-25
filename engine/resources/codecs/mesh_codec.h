@@ -16,7 +16,7 @@
 #pragma once
 
 #include <resources/exceptions.h>
-#include <common/buffer.h>
+#include <aeon/common/buffer.h>
 #include <resources/resource_encoding.h>
 #include <resources/codecs/codec.h>
 #include <resources/mesh.h>

@@ -23,7 +23,7 @@
 #include <gfx/gfx_atlas.h>
 #include <scene/scene_manager.h>
 #include <scene/scene_node.h>
-#include <common/object_cache.h>
+#include <aeon/common/object_cache.h>
 
 namespace aeon
 {

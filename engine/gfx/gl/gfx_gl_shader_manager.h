@@ -17,8 +17,8 @@
 
 #include <gfx/gfx_shader_manager.h>
 #include <GL/glew.h>
-#include <common/logger.h>
-#include <common/exception.h>
+#include <aeon/common/logger.h>
+#include <aeon/common/exception.h>
 
 namespace aeon
 {

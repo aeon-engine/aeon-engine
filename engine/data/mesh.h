@@ -16,7 +16,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
-#include <common/types/color.h>
+#include <aeon/common/types/color.h>
 #include <aeon/platform.h>
 #include <vector>
 

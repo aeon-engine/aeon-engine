@@ -18,8 +18,8 @@
 #include <resources/resource.h>
 #include <resources/exceptions.h>
 #include <resources/wrappers/image_resource_wrapper.h>
-#include <common/buffer.h>
-#include <common/logger.h>
+#include <aeon/common/buffer.h>
+#include <aeon/common/logger.h>
 #include <data/image.h>
 #include <memory>
 

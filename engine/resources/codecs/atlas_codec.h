@@ -19,8 +19,8 @@
 #include <resources/resource_encoding.h>
 #include <resources/codecs/codec.h>
 #include <resources/atlas.h>
-#include <common/types/rectangle.h>
-#include <common/logger.h>
+#include <aeon/common/types/rectangle.h>
+#include <aeon/common/logger.h>
 #include <string>
 
 namespace aeon

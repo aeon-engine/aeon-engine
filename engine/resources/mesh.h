@@ -20,8 +20,8 @@
 #include <resources/wrappers/mesh_resource_wrapper.h>
 #include <resources/mesh_node.h>
 #include <resources/submesh.h>
-#include <common/buffer.h>
-#include <common/logger.h>
+#include <aeon/common/buffer.h>
+#include <aeon/common/logger.h>
 #include <string>
 #include <memory>
 #include <vector>
