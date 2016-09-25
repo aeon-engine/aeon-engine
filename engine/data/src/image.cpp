@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <data/image.h>
+#include <aeon/data/image.h>
 
 namespace aeon
 {

@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <data/shader.h>
+#include <aeon/data/shader.h>
 #include <gfx/gfx_shader.h>
 
 #include <memory>

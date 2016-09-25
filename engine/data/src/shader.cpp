@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <data/shader.h>
+#include <aeon/data/shader.h>
 
 namespace aeon
 {

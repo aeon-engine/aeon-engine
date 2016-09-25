@@ -18,7 +18,7 @@
 #include <resources/resource.h>
 #include <resources/exceptions.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
-#include <data/atlas.h>
+#include <aeon/data/atlas.h>
 #include <aeon/common/buffer.h>
 #include <aeon/common/logger.h>
 #include <map>

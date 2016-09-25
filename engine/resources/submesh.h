@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <data/mesh.h>
+#include <aeon/data/mesh.h>
 #include <string>
 #include <memory>
 

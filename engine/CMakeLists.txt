@@ -4,10 +4,10 @@ include(Buildinfo)
 generate_build_info_header(${CMAKE_BINARY_DIR}/buildinfo.h)
 
 add_subdirectory(common)
+add_subdirectory(data)
 
 ################################################################################
 
-add_source_path(AEON_ENGINE_SOURCES data)
 add_source_path(AEON_ENGINE_SOURCES application)
 add_source_path(AEON_ENGINE_SOURCES resources)
 add_source_path(AEON_ENGINE_SOURCES resources/codecs)
@@ -103,6 +103,7 @@ target_include_directories(aeon_engine
 
 target_link_libraries(aeon_engine
     aeon_engine_common
+    aeon_engine_data
     aeon
     glm
     png_static

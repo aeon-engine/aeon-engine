@@ -20,7 +20,7 @@
 #include <resources/wrappers/image_resource_wrapper.h>
 #include <aeon/common/buffer.h>
 #include <aeon/common/logger.h>
-#include <data/image.h>
+#include <aeon/data/image.h>
 #include <memory>
 
 namespace aeon

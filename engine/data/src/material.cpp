@@ -13,50 +13,37 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <data/atlas.h>
+#include <aeon/data/material.h>
 
 namespace aeon
 {
 namespace data
 {
 
-atlas::atlas(const atlas::regions &regions)
-    : regions_(regions)
+material::material(const std::string &shader_path, const material::texture_paths &textures)
+    : shader_path_(shader_path)
+    , texture_paths_(textures)
 {
 }
 
-void atlas::push_back(const atlas::region &region)
+const std::string &material::get_shader_path() const
 {
-    regions_.push_back(region);
+    return shader_path_;
 }
 
-const atlas::regions &atlas::get_regions() const
+const std::string &material::get_texture_path_by_name(const std::string &name) const
 {
-    return regions_;
+    auto itr = texture_paths_.find(name);
+
+    if (itr == texture_paths_.end())
+        throw material_exception();
+
+    return itr->second;
 }
 
-const atlas::region &atlas::at(const int index) const
+const material::texture_paths &material::get_texture_paths() const
 {
-    if (index >= regions_.size())
-        throw atlas_exception();
-
-    return regions_.at(index);
-}
-
-const atlas::region &atlas::at(const std::string &name) const
-{
-    for (const atlas::region &region : regions_)
-    {
-        if (region.name == name)
-            return region;
-    }
-
-    throw atlas_exception();
-}
-
-std::size_t atlas::size() const
-{
-    return regions_.size();
+    return texture_paths_;
 }
 
 } // namespace data

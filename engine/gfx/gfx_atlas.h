@@ -19,7 +19,7 @@
 #include <aeon/common/exception.h>
 #include <aeon/common/logger.h>
 #include <gfx/gfx_material.h>
-#include <data/atlas.h>
+#include <aeon/data/atlas.h>
 #include <glm/vec2.hpp>
 #include <memory>
 

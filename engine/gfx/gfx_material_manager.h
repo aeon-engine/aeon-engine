@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <data/material.h>
+#include <aeon/data/material.h>
 #include <gfx/gfx_material.h>
 #include <gfx/gfx_shader.h>
 #include <gfx/gfx_texture.h>

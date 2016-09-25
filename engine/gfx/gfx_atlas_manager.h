@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <data/atlas.h>
+#include <aeon/data/atlas.h>
 #include <gfx/gfx_atlas.h>
 #include <gfx/gfx_material.h>
 #include <aeon/common/logger.h>

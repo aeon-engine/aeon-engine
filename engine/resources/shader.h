@@ -18,7 +18,7 @@
 #include <resources/resource.h>
 #include <resources/exceptions.h>
 #include <resources/wrappers/shader_resource_wrapper.h>
-#include <data/shader.h>
+#include <aeon/data/shader.h>
 #include <aeon/common/buffer.h>
 #include <aeon/common/logger.h>
 #include <memory>

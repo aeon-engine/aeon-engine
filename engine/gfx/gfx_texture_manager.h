@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <data/image.h>
+#include <aeon/data/image.h>
 #include <gfx/gfx_texture.h>
 
 #include <memory>

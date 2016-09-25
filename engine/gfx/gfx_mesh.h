@@ -18,7 +18,7 @@
 #include <gfx/gfx_buffer.h>
 #include <glm/mat4x4.hpp>
 #include <aeon/common/exception.h>
-#include <data/mesh.h>
+#include <aeon/data/mesh.h>
 #include <memory>
 #include <vector>
 
