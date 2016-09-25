@@ -25,7 +25,6 @@ namespace aeon
 namespace gfx
 {
 
-class device;
 class gfx_atlas_manager
 {
 public:
