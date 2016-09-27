@@ -80,10 +80,6 @@ configure_file(build_config.h.in ${CMAKE_BINARY_DIR}/build_config.h @ONLY)
 
 ################################################################################
 
-
-
-################################################################################
-
 generate_source_groups("${AEON_ENGINE_SOURCES}")
 
 if (AEON_PLATFORM_QT)

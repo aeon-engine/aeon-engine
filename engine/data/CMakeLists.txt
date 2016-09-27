@@ -27,3 +27,8 @@ target_include_directories(aeon_engine_data
     PRIVATE ${CMAKE_BINARY_DIR}
 )
 
+set_target_properties(
+    aeon_engine_data PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    FOLDER engine
+)

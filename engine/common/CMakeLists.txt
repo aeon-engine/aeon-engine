@@ -16,7 +16,7 @@ set (AEON_ENGINE_COMMON_TYPES_SOURCES
     src/types/color.cpp
 )
 
-source_group(common/types FILES ${AEON_ENGINE_COMMON_TYPES_SOURCES})
+source_group(common\\types FILES ${AEON_ENGINE_COMMON_TYPES_SOURCES})
 
 add_library(aeon_engine_common STATIC
     ${AEON_ENGINE_COMMON_SOURCES}
@@ -33,3 +33,8 @@ target_include_directories(aeon_engine_common
     PRIVATE ${CMAKE_BINARY_DIR}
 )
 
+set_target_properties(
+    aeon_engine_common PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    FOLDER engine
+)
