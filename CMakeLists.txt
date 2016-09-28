@@ -50,10 +50,11 @@ if (APPLE)
 endif ()
 
 if (MSVC)
-	option(AEON_ENABLE_MSVC_ITERATOR_DEBUGGING "Enable iterator debugging in Visual Studio" OFF)
-	if (NOT AEON_ENABLE_MSVC_ITERATOR_DEBUGGING)
-		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D _HAS_ITERATOR_DEBUGGING=0")
-	endif ()
+    # Iterator debugging can not be disabled when linking with the standard Qt binaries on Windows.
+    option(AEON_ENABLE_MSVC_ITERATOR_DEBUGGING "Enable iterator debugging in Visual Studio" ON)
+    if (NOT AEON_ENABLE_MSVC_ITERATOR_DEBUGGING)
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D _HAS_ITERATOR_DEBUGGING=0")
+    endif ()
 endif ()
 
 ################################################################################
