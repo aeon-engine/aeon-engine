@@ -33,9 +33,20 @@ source_group(generated FILES ${AEON_EDITOR_UI_HEADERS})
 
 ################################################################################
 
+set(AEON_EDITOR_RESOURCES
+    resources/resources.qrc
+)
+
+qt5_add_resources(AEON_EDITOR_RESOURCES_RCC ${AEON_EDITOR_RESOURCES})
+
+source_group(generated FILES ${AEON_EDITOR_UI_HEADERS})
+
+################################################################################
+
 add_executable(aeon_editor WIN32 MACOSX_BUNDLE
     ${AEON_EDITOR_APPLICATION_SOURCES}
     ${AEON_EDITOR_UI_HEADERS}
+    ${AEON_EDITOR_RESOURCES_RCC}
 )
 
 target_link_libraries(aeon_editor

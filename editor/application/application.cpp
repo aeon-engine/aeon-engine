@@ -14,26 +14,34 @@
  */
 
 #include <application.h>
-#include <QtWidgets/QApplication>
 #include <frm_mainwindow_view.h>
+#include <QFile>
 
 namespace aeon
 {
 namespace editor
 {
 
-application::application()
+application::application(int argc, char *argv[])
+    : qt_application_(argc, argv)
 {
+    apply_stylesheet();
 }
 
-int application::main(int argc, char *argv[])
+int application::exec() const
 {
-    QApplication app(argc, argv);
-
     frm_mainwindow_view mainwindow;
     mainwindow.show();
 
-    return app.exec();
+    return qt_application_.exec();
+}
+
+void application::apply_stylesheet()
+{
+    QFile sheet(":/style/stylesheet");
+    sheet.open(QFile::ReadOnly);
+    QString styleSheet = sheet.readAll();
+    qt_application_.setStyleSheet(styleSheet);
 }
 
 } // namespace editor

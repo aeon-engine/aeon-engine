@@ -17,6 +17,6 @@
 
 int main(int argc, char *argv[])
 {
-    aeon::editor::application app;
-    return app.main(argc, argv);
+    aeon::editor::application app(argc, argv);
+    return app.exec();
 }

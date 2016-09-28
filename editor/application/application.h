@@ -16,6 +16,7 @@
 #pragma once
 
 #include <aeon/utility.h>
+#include <QtWidgets/QApplication>
 
 namespace aeon
 {
@@ -25,10 +26,14 @@ namespace editor
 class application : utility::noncopyable
 {
 public:
-    application();
+    application(int argc, char *argv[]);
     ~application() = default;
 
-    int main(int argc, char *argv[]);
+    int exec() const;
+private:
+    void apply_stylesheet();
+
+    QApplication qt_application_;
 };
 
 } // namespace editor
