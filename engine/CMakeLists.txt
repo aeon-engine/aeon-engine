@@ -103,9 +103,6 @@ target_link_libraries(aeon_engine
     aeon
     glm
     png_static
-    openal
-    ogg
-    vorbis
     freetype
     assimp
     ${OPENGL_LIBRARIES}
@@ -137,6 +134,14 @@ if (AEON_PLATFORM_QT)
     # Do not use emit, signals, slots etc; but use Q_EMIT instead,
     # to avoid nameclashes.
     target_compile_definitions(aeon_engine PUBLIC -DQT_NO_KEYWORDS)
+endif ()
+
+if (AEON_AUDIO_USE_OPENAL)
+    target_link_libraries(aeon_engine
+        openal
+        ogg
+        vorbis
+    )
 endif ()
 
 set_target_properties(
