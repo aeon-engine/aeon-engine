@@ -2,10 +2,9 @@
     font-family: Tahoma;
     font-size: 9pt;
     text-align: center;
-    background: #cfcfcf;
-    alternate-background-color: #acacac;
-    border-color: #4a4a4a;
-    color: #262626;
+    background: #1a1a1f;
+    border-color: #33313b;
+    color: #e4e4e4;
 }
 
 *:disabled {
@@ -18,46 +17,31 @@
     border-color: #ffffff;
 }
 
-QMainWindow::separator {
-    background: #6e6e6e;
-    height: 4px;
-    width: 4px;
-}
-
-QToolTip {
-    font-size: 8pt;
-    background-color: qlineargradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FFFFFF, stop: 1 #E4E5F0);
-    border: 1px solid black;
-	border-radius: 3;
-    color: #262626;
-    padding: 2px -4px -3px 2px;
+QMenu, QMenu:disabled {
+    border: 1 solid #e4e4e4;
+    background: #393643;
+    color: #e4e4e4;
 }
 
 QMenu::separator {
-    background: #6e6e6e;
+    background: #e4e4e4;
     height: 2px;
     width: 2px;
 }
 
-QMenu, QMenu:disabled {
-    border: 1 solid #4a4a4a;
-    background: white;
-    color: #363636;
-}
-
 QMenuBar {
-    background: #363636;
-    color: white;
+    background: #393643;
+    color: #e4e4e4;
 }
 
 QMenuBar::item {
     background: transparent;
-    color: white;
+    color: #e4e4e4;
 }
 
 QMenuBar::item:enabled:hover, QMenuBar::item:enabled:selected, QMenu::item:enabled:hover, QMenu::item:enabled:selected {
     color: white;
-    background-color: #316ac5;
+    background-color: #292633;
 }
 
 QMenuBar::item:disabled, QMenu::item:disabled {
