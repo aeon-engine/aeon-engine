@@ -22,16 +22,43 @@ namespace editor
 
 editor_view::editor_view(QWidget *parent)
     : QOpenGLWidget(parent)
+    , timer_()
+    , context_size_(0, 0)
 {
     QSurfaceFormat fmt;
     fmt.setVersion(3, 3);
     fmt.setProfile(QSurfaceFormat::CoreProfile);
     setFormat(fmt);
     QSurfaceFormat::setDefaultFormat(fmt);
+
+    makeCurrent();
+
+    timer_.start();
 }
 
 editor_view::~editor_view()
 {
+}
+
+void editor_view::make_current()
+{
+    makeCurrent();
+}
+
+glm::vec2 editor_view::get_framebuffer_size()
+{
+    return context_size_;
+}
+
+bool editor_view::__on_frame_start(float)
+{
+    make_current();
+    return true;
+}
+
+bool editor_view::__on_frame_end(float)
+{
+    return true;
 }
 
 void editor_view::initializeGL()
@@ -40,12 +67,16 @@ void editor_view::initializeGL()
 
 void editor_view::resizeGL(int width, int height)
 {
-    //context_size_ = glm::vec2(width * devicePixelRatioF(), height * devicePixelRatioF());
+    context_size_ = glm::vec2(width * devicePixelRatioF(), height * devicePixelRatioF());
 }
 
 void editor_view::paintGL()
 {
-    // Redraw...
+    double time_diff_nsecs = static_cast<double>(timer_.nsecsElapsed());
+    double time_diff_secs = time_diff_nsecs / 1000000000;
+    handle_frame(time_diff_secs);
+    timer_.restart();
+
     update();
 }
 

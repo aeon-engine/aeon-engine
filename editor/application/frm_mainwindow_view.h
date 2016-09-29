@@ -13,7 +13,10 @@
  * prior written permission is obtained from Robin Degen.
  */
 
+#pragma once
+
 #include <QtWidgets/QMainWindow>
+#include <scene/perspective_camera.h>
 
 namespace Ui
 {
@@ -37,6 +40,8 @@ public:
 private:
     Ui::MainWindow *ui_;
     application &application_;
+
+    scene::perspective_camera_ptr camera_;
 };
 
 } // namespace editor

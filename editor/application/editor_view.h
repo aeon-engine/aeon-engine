@@ -16,24 +16,35 @@
 #pragma once
 
 #include <QtWidgets/QOpenGLWidget>
+#include <gfx/gfx_render_target.h>
+#include <QElapsedTimer>
 
 namespace aeon
 {
 namespace editor
 {
 
-class editor_view : public QOpenGLWidget
+class editor_view : public QOpenGLWidget, public gfx::render_target
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     editor_view(QWidget *parent = nullptr);
     ~editor_view() override;
 
 private:
+    void make_current() override;
+    glm::vec2 get_framebuffer_size() override;
+
+    bool __on_frame_start(float dt) override;
+    bool __on_frame_end(float dt) override;
+
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
+
+    QElapsedTimer timer_;
+    glm::vec2 context_size_;
 };
 
 } // namespace editor

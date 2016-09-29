@@ -54,8 +54,8 @@ platform::platform_monitors platform_interface::get_monitors()
     throw platform::platform_exception();
 }
 
-platform::platform_window_ptr platform_interface::create_window(const platform::platform_window_settings &settings,
-    platform::platform_monitor_ptr monitor)
+platform::platform_window_ptr platform_interface::create_window(const platform::platform_window_settings &,
+    platform::platform_monitor_ptr)
 {
     throw platform::platform_exception();
 }

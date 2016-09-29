@@ -16,8 +16,15 @@
 #include <application.h>
 #include <QApplication>
 
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
 int main(int argc, char *argv[])
 {
+    AllocConsole();
+    freopen("CONOUT$", "wt", stdout);
+    SetConsoleTitle("Debug Console");
+
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
     
     aeon::editor::application app(argc, argv);

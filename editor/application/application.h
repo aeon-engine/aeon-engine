@@ -22,6 +22,7 @@
 #include <scene/scene_managers/basic/basic_scene_manager.h>
 #include <assets/asset_manager.h>
 #include <QtWidgets/QApplication>
+#include <frm_mainwindow_view.h>
 
 namespace aeon
 {
@@ -34,14 +35,20 @@ public:
     application(int argc, char *argv[]);
     ~application() = default;
 
-    int exec() const;
+    int exec();
 
     gfx::gl::gfx_gl_device &get_device();
+    resources::resource_manager &get_resource_manager();
+    scene::scene_manager &get_scene_manager();
+    assets::asset_manager &get_asset_manager();
 
 private:
     void apply_stylesheet();
 
     QApplication qt_application_;
+
+    common::logger logger_backend_;
+    aeon::logger::logger logger_;
 
     platform_interface platform_;
     gfx::gl::gfx_gl_device device_;
@@ -49,6 +56,7 @@ private:
     resources::resource_manager resource_manager_;
     scene::basic_scene_manager scene_manager_;
     assets::asset_manager asset_manager_;
+    frm_mainwindow_view mainwindow_;
 };
 
 } // namespace editor

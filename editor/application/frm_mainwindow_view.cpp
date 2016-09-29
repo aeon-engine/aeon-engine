@@ -13,11 +13,13 @@
  * prior written permission is obtained from Robin Degen.
  */
 
+#include <GL/glew.h>
 #include <frm_mainwindow_view.h>
 #include <ui_frm_mainwindow.h>
 #include <editor_view.h>
 #include <application.h>
 #include <QSplitter>
+#include <resources/providers/filesystem_provider.h>
 
 namespace aeon
 {
@@ -37,15 +39,38 @@ frm_mainwindow_view::frm_mainwindow_view(application &app)
     QSplitter *hsplitter2 = new QSplitter(Qt::Horizontal, vsplitter);
     vsplitter->addWidget(hsplitter2);
 
-    hsplitter1->addWidget(new editor_view(hsplitter1));
-    hsplitter1->addWidget(new editor_view(hsplitter1));
+    editor_view *editor_view1 = new editor_view(hsplitter1);
+    hsplitter1->addWidget(editor_view1);
 
-    hsplitter2->addWidget(new editor_view(hsplitter2));
-    hsplitter2->addWidget(new editor_view(hsplitter2));
+    editor_view *editor_view2 = new editor_view(hsplitter1);
+    hsplitter1->addWidget(editor_view2);
+
+    editor_view *editor_view3 = new editor_view(hsplitter2);
+    hsplitter2->addWidget(editor_view3);
+
+    editor_view *editor_view4 = new editor_view(hsplitter2);
+    hsplitter2->addWidget(editor_view4);
 
     setCentralWidget(vsplitter);
 
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK)
+    {
+        throw std::runtime_error("Glew init fail.");
+    }
+
     application_.get_device().initialize();
+
+    application_.get_resource_manager().mount(std::make_shared<resources::filesystem_provider>("."), "/");
+
+    camera_ =
+        std::make_shared<scene::perspective_camera>(&application_.get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+
+    editor_view1->create_viewport(camera_, 0);
+
+    auto root_scene_node = application_.get_scene_manager().get_root_scene_node();
+    auto mesh_node = application_.get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
+    root_scene_node->attach_child(mesh_node);
 }
 
 frm_mainwindow_view::~frm_mainwindow_view()
