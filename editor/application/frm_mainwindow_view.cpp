@@ -15,17 +15,19 @@
 
 #include <frm_mainwindow_view.h>
 #include <ui_frm_mainwindow.h>
+#include <editor_view.h>
+#include <application.h>
 #include <QSplitter>
-#include <QOpenGLWidget>
 
 namespace aeon
 {
 namespace editor
 {
 
-frm_mainwindow_view::frm_mainwindow_view()
+frm_mainwindow_view::frm_mainwindow_view(application &app)
     : QMainWindow(nullptr)
     , ui_(new Ui::MainWindow)
+    , application_(app)
 {
     ui_->setupUi(this);
 
@@ -35,13 +37,15 @@ frm_mainwindow_view::frm_mainwindow_view()
     QSplitter *hsplitter2 = new QSplitter(Qt::Horizontal, vsplitter);
     vsplitter->addWidget(hsplitter2);
 
-    hsplitter1->addWidget(new QOpenGLWidget(hsplitter1));
-    hsplitter1->addWidget(new QOpenGLWidget(hsplitter1));
+    hsplitter1->addWidget(new editor_view(hsplitter1));
+    hsplitter1->addWidget(new editor_view(hsplitter1));
 
-    hsplitter2->addWidget(new QOpenGLWidget(hsplitter2));
-    hsplitter2->addWidget(new QOpenGLWidget(hsplitter2));
+    hsplitter2->addWidget(new editor_view(hsplitter2));
+    hsplitter2->addWidget(new editor_view(hsplitter2));
 
     setCentralWidget(vsplitter);
+
+    application_.get_device().initialize();
 }
 
 frm_mainwindow_view::~frm_mainwindow_view()

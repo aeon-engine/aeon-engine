@@ -16,6 +16,11 @@
 #pragma once
 
 #include <aeon/utility.h>
+#include <platform_interface.h>
+#include <gfx/gl/gfx_gl_device.h>
+#include <resources/resource_manager.h>
+#include <scene/scene_managers/basic/basic_scene_manager.h>
+#include <assets/asset_manager.h>
 #include <QtWidgets/QApplication>
 
 namespace aeon
@@ -30,10 +35,20 @@ public:
     ~application() = default;
 
     int exec() const;
+
+    gfx::gl::gfx_gl_device &get_device();
+
 private:
     void apply_stylesheet();
 
     QApplication qt_application_;
+
+    platform_interface platform_;
+    gfx::gl::gfx_gl_device device_;
+
+    resources::resource_manager resource_manager_;
+    scene::basic_scene_manager scene_manager_;
+    assets::asset_manager asset_manager_;
 };
 
 } // namespace editor

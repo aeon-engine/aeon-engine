@@ -13,30 +13,27 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <QtWidgets/QMainWindow>
+#pragma once
 
-namespace Ui
-{
-    class MainWindow;
-}
+#include <QtWidgets/QOpenGLWidget>
 
 namespace aeon
 {
 namespace editor
 {
 
-class application;
-class frm_mainwindow_view : public QMainWindow
+class editor_view : public QOpenGLWidget
 {
     Q_OBJECT
 
 public:
-    frm_mainwindow_view(application &app);
-    virtual ~frm_mainwindow_view();
+    editor_view(QWidget *parent = nullptr);
+    ~editor_view() override;
 
 private:
-    Ui::MainWindow *ui_;
-    application &application_;
+    void initializeGL() override;
+    void resizeGL(int w, int h) override;
+    void paintGL() override;
 };
 
 } // namespace editor

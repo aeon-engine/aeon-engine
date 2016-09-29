@@ -13,31 +13,41 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <QtWidgets/QMainWindow>
-
-namespace Ui
-{
-    class MainWindow;
-}
+#include <editor_view.h>
 
 namespace aeon
 {
 namespace editor
 {
 
-class application;
-class frm_mainwindow_view : public QMainWindow
+editor_view::editor_view(QWidget *parent)
+    : QOpenGLWidget(parent)
 {
-    Q_OBJECT
+    QSurfaceFormat fmt;
+    fmt.setVersion(3, 3);
+    fmt.setProfile(QSurfaceFormat::CoreProfile);
+    setFormat(fmt);
+    QSurfaceFormat::setDefaultFormat(fmt);
+}
 
-public:
-    frm_mainwindow_view(application &app);
-    virtual ~frm_mainwindow_view();
+editor_view::~editor_view()
+{
+}
 
-private:
-    Ui::MainWindow *ui_;
-    application &application_;
-};
+void editor_view::initializeGL()
+{
+}
+
+void editor_view::resizeGL(int width, int height)
+{
+    //context_size_ = glm::vec2(width * devicePixelRatioF(), height * devicePixelRatioF());
+}
+
+void editor_view::paintGL()
+{
+    // Redraw...
+    update();
+}
 
 } // namespace editor
 } // namespace aeon
