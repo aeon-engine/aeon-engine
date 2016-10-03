@@ -28,6 +28,7 @@ namespace aeon
 namespace editor
 {
 
+class editor_view;
 class application;
 class frm_mainwindow_view : public QMainWindow
 {
@@ -37,11 +38,14 @@ public:
     frm_mainwindow_view(application &app);
     virtual ~frm_mainwindow_view();
 
+    void handle_gl_init(editor_view *view);
+
 private:
     Ui::MainWindow *ui_;
     application &application_;
 
     scene::perspective_camera_ptr camera_;
+    bool gl_initialized_;
 };
 
 } // namespace editor

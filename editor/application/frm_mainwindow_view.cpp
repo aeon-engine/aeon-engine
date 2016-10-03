@@ -30,6 +30,7 @@ frm_mainwindow_view::frm_mainwindow_view(application &app)
     : QMainWindow(nullptr)
     , ui_(new Ui::MainWindow)
     , application_(app)
+    , gl_initialized_(false)
 {
     ui_->setupUi(this);
 
@@ -39,19 +40,35 @@ frm_mainwindow_view::frm_mainwindow_view(application &app)
     QSplitter *hsplitter2 = new QSplitter(Qt::Horizontal, vsplitter);
     vsplitter->addWidget(hsplitter2);
 
-    editor_view *editor_view1 = new editor_view(hsplitter1);
+    editor_view *editor_view1 = new editor_view(this, hsplitter1);
     hsplitter1->addWidget(editor_view1);
 
-    editor_view *editor_view2 = new editor_view(hsplitter1);
+    editor_view *editor_view2 = new editor_view(this, hsplitter1);
     hsplitter1->addWidget(editor_view2);
 
-    editor_view *editor_view3 = new editor_view(hsplitter2);
+    editor_view *editor_view3 = new editor_view(this, hsplitter2);
     hsplitter2->addWidget(editor_view3);
 
-    editor_view *editor_view4 = new editor_view(hsplitter2);
+    editor_view *editor_view4 = new editor_view(this, hsplitter2);
     hsplitter2->addWidget(editor_view4);
-
+    
     setCentralWidget(vsplitter);
+
+    /*editor_view *editor_view1 = new editor_view(this);
+    setCentralWidget(editor_view1);*/
+
+    editor_view1->makeCurrent();
+}
+
+frm_mainwindow_view::~frm_mainwindow_view()
+{
+    delete ui_;
+}
+
+void frm_mainwindow_view::handle_gl_init(editor_view *view)
+{
+    if (gl_initialized_)
+        return;
 
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK)
@@ -60,22 +77,20 @@ frm_mainwindow_view::frm_mainwindow_view(application &app)
     }
 
     application_.get_device().initialize();
+    application_.get_device().set_clear_color(common::types::color(1, 0, 0, 1));
 
     application_.get_resource_manager().mount(std::make_shared<resources::filesystem_provider>("."), "/");
 
     camera_ =
         std::make_shared<scene::perspective_camera>(&application_.get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
 
-    editor_view1->create_viewport(camera_, 0);
+    view->create_viewport(camera_, 0);
 
     auto root_scene_node = application_.get_scene_manager().get_root_scene_node();
     auto mesh_node = application_.get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
     root_scene_node->attach_child(mesh_node);
-}
 
-frm_mainwindow_view::~frm_mainwindow_view()
-{
-    delete ui_;
+    gl_initialized_ = true;
 }
 
 } // namespace editor

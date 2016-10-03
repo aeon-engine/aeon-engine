@@ -24,12 +24,13 @@ namespace aeon
 namespace editor
 {
 
+class frm_mainwindow_view;
 class editor_view : public QOpenGLWidget, public gfx::render_target
 {
 Q_OBJECT
 
 public:
-    editor_view(QWidget *parent = nullptr);
+    editor_view(frm_mainwindow_view *main_window, QWidget *parent = nullptr);
     ~editor_view() override;
 
 private:
@@ -45,6 +46,7 @@ private:
 
     QElapsedTimer timer_;
     glm::vec2 context_size_;
+    frm_mainwindow_view *main_window_;
 };
 
 } // namespace editor

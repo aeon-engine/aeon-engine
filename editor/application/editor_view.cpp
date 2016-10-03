@@ -13,25 +13,24 @@
  * prior written permission is obtained from Robin Degen.
  */
 
+#include <GL/glew.h>
 #include <editor_view.h>
+#include <frm_mainwindow_view.h>
 
 namespace aeon
 {
 namespace editor
 {
 
-editor_view::editor_view(QWidget *parent)
+editor_view::editor_view(frm_mainwindow_view *main_window, QWidget *parent)
     : QOpenGLWidget(parent)
     , timer_()
     , context_size_(0, 0)
+    , main_window_(main_window)
 {
-    QSurfaceFormat fmt;
-    fmt.setVersion(3, 3);
-    fmt.setProfile(QSurfaceFormat::CoreProfile);
-    setFormat(fmt);
-    QSurfaceFormat::setDefaultFormat(fmt);
 
-    makeCurrent();
+
+    //makeCurrent();
 
     timer_.start();
 }
@@ -63,6 +62,7 @@ bool editor_view::__on_frame_end(float)
 
 void editor_view::initializeGL()
 {
+    main_window_->handle_gl_init(this);
 }
 
 void editor_view::resizeGL(int width, int height)
@@ -72,6 +72,7 @@ void editor_view::resizeGL(int width, int height)
 
 void editor_view::paintGL()
 {
+    make_current();
     double time_diff_nsecs = static_cast<double>(timer_.nsecsElapsed());
     double time_diff_secs = time_diff_nsecs / 1000000000;
     handle_frame(time_diff_secs);

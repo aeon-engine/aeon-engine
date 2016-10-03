@@ -18,6 +18,7 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <QtGui/QSurfaceFormat>
 
 int main(int argc, char *argv[])
 {
@@ -25,7 +26,15 @@ int main(int argc, char *argv[])
     freopen("CONOUT$", "wt", stdout);
     SetConsoleTitle("Debug Console");
 
-    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL, true);
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts, true);
+
+    QSurfaceFormat fmt;
+    fmt.setDepthBufferSize(24);
+    fmt.setStencilBufferSize(8);
+    fmt.setVersion(3, 3);
+    fmt.setProfile(QSurfaceFormat::CoreProfile);
+    QSurfaceFormat::setDefaultFormat(fmt);
     
     aeon::editor::application app(argc, argv);
     return app.exec();
