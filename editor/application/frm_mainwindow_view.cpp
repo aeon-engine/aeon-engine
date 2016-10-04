@@ -31,6 +31,7 @@ frm_mainwindow_view::frm_mainwindow_view(application &app)
     , ui_(new Ui::MainWindow)
     , application_(app)
     , gl_initialized_(false)
+    , count(0)
 {
     ui_->setupUi(this);
 
@@ -67,6 +68,10 @@ frm_mainwindow_view::~frm_mainwindow_view()
 
 void frm_mainwindow_view::handle_gl_init()
 {
+    // hack to make sure all the contexts are there before trying to load anything
+    if (++count < 4)
+        return;
+
     // hack hack
     if (gl_initialized_)
         return;

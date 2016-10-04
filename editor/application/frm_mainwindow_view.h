@@ -46,6 +46,7 @@ private:
 
     scene::camera_ptr cameras_[4];
     bool gl_initialized_;
+    int count;
 
     editor_view *editor_views[4];
 };
