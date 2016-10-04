@@ -40,24 +40,24 @@ frm_mainwindow_view::frm_mainwindow_view(application &app)
     QSplitter *hsplitter2 = new QSplitter(Qt::Horizontal, vsplitter);
     vsplitter->addWidget(hsplitter2);
 
-    editor_view *editor_view1 = new editor_view(this, hsplitter1);
-    hsplitter1->addWidget(editor_view1);
+    editor_views[0] = new editor_view(this, hsplitter1);
+    hsplitter1->addWidget(editor_views[0]);
 
-    editor_view *editor_view2 = new editor_view(this, hsplitter1);
-    hsplitter1->addWidget(editor_view2);
+    editor_views[1] = new editor_view(this, hsplitter1);
+    hsplitter1->addWidget(editor_views[1]);
 
-    editor_view *editor_view3 = new editor_view(this, hsplitter2);
-    hsplitter2->addWidget(editor_view3);
+    editor_views[2] = new editor_view(this, hsplitter2);
+    hsplitter2->addWidget(editor_views[2]);
 
-    editor_view *editor_view4 = new editor_view(this, hsplitter2);
-    hsplitter2->addWidget(editor_view4);
+    editor_views[3] = new editor_view(this, hsplitter2);
+    hsplitter2->addWidget(editor_views[3]);
     
     setCentralWidget(vsplitter);
 
     /*editor_view *editor_view1 = new editor_view(this);
     setCentralWidget(editor_view1);*/
 
-    editor_view1->makeCurrent();
+    editor_views[0]->makeCurrent();
 }
 
 frm_mainwindow_view::~frm_mainwindow_view()
@@ -65,8 +65,9 @@ frm_mainwindow_view::~frm_mainwindow_view()
     delete ui_;
 }
 
-void frm_mainwindow_view::handle_gl_init(editor_view *view)
+void frm_mainwindow_view::handle_gl_init()
 {
+    // hack hack
     if (gl_initialized_)
         return;
 
@@ -77,17 +78,27 @@ void frm_mainwindow_view::handle_gl_init(editor_view *view)
     }
 
     application_.get_device().initialize();
-    application_.get_device().set_clear_color(common::types::color(1, 0, 0, 1));
+    //application_.get_device().set_clear_color(common::types::color(1, 0, 0, 1));
 
     application_.get_resource_manager().mount(std::make_shared<resources::filesystem_provider>("."), "/");
 
-    camera_ =
+    cameras_[0] =
+        std::make_shared<scene::perspective_camera>(&application_.get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+    cameras_[1] =
+        std::make_shared<scene::perspective_camera>(&application_.get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+    cameras_[2] =
+        std::make_shared<scene::perspective_camera>(&application_.get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+    cameras_[3] =
         std::make_shared<scene::perspective_camera>(&application_.get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
 
-    view->create_viewport(camera_, 0);
+    editor_views[0]->create_viewport(cameras_[0], 0);
+    editor_views[1]->create_viewport(cameras_[1], 0);
+    editor_views[2]->create_viewport(cameras_[2], 0);
+    editor_views[3]->create_viewport(cameras_[3], 0);
 
     auto root_scene_node = application_.get_scene_manager().get_root_scene_node();
     auto mesh_node = application_.get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
+    mesh_node->translate(0.0f, -1.5f, -10.0f);
     root_scene_node->attach_child(mesh_node);
 
     gl_initialized_ = true;

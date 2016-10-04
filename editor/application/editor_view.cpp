@@ -62,12 +62,14 @@ bool editor_view::__on_frame_end(float)
 
 void editor_view::initializeGL()
 {
-    main_window_->handle_gl_init(this);
 }
 
 void editor_view::resizeGL(int width, int height)
 {
     context_size_ = glm::vec2(width * devicePixelRatioF(), height * devicePixelRatioF());
+    
+    // Massive hack. Context size must have been set.....
+    main_window_->handle_gl_init();
 }
 
 void editor_view::paintGL()

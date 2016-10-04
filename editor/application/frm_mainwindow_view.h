@@ -38,14 +38,16 @@ public:
     frm_mainwindow_view(application &app);
     virtual ~frm_mainwindow_view();
 
-    void handle_gl_init(editor_view *view);
+    void handle_gl_init();
 
 private:
     Ui::MainWindow *ui_;
     application &application_;
 
-    scene::perspective_camera_ptr camera_;
+    scene::camera_ptr cameras_[4];
     bool gl_initialized_;
+
+    editor_view *editor_views[4];
 };
 
 } // namespace editor
