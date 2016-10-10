@@ -13,28 +13,28 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <platform/glfw/platform_glfw_monitor.h>
+#include <gfx/gl/gfx_gl_monitor.h>
 
 namespace aeon
 {
-namespace platform
+namespace gfx
 {
-namespace glfw
+namespace gl
 {
 
-platform_monitor::platform_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary,
-                                   const std::string &name)
-    : platform::platform_monitor(width, height, x, y, primary, name)
+gfx_gl_monitor::gfx_gl_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary,
+                               const std::string &name)
+    : gfx_monitor(width, height, x, y, primary, name)
     , monitor_(monitor)
 {
 }
 
-void platform_monitor::set_gramma(float gamma)
+void gfx_gl_monitor::set_gramma(float gamma)
 {
     glfwSetGamma(monitor_, gamma);
 }
 
-gamma_ramp platform_monitor::get_gamma_ramp()
+gamma_ramp gfx_gl_monitor::get_gamma_ramp()
 {
     const GLFWgammaramp *ramp = glfwGetGammaRamp(monitor_);
     gamma_ramp r;
@@ -47,7 +47,7 @@ gamma_ramp platform_monitor::get_gamma_ramp()
     return r;
 }
 
-void platform_monitor::set_gamma_ramp(gamma_ramp ramp)
+void gfx_gl_monitor::set_gamma_ramp(gamma_ramp ramp)
 {
     GLFWgammaramp r;
     r.size = static_cast<unsigned int>(ramp.size());
@@ -69,7 +69,7 @@ void platform_monitor::set_gamma_ramp(gamma_ramp ramp)
     delete[] r.blue;
 }
 
-video_mode platform_monitor::get_video_mode()
+video_mode gfx_gl_monitor::get_video_mode()
 {
     const GLFWvidmode *vidmode = glfwGetVideoMode(monitor_);
 
@@ -77,7 +77,7 @@ video_mode platform_monitor::get_video_mode()
                       vidmode->refreshRate);
 }
 
-video_modes platform_monitor::get_video_modes()
+video_modes gfx_gl_monitor::get_video_modes()
 {
     int count;
     const GLFWvidmode *vidmodes = glfwGetVideoModes(monitor_, &count);
@@ -92,6 +92,6 @@ video_modes platform_monitor::get_video_modes()
     return modes;
 }
 
-} // namespace glfw
-} // namespace platform
+} // namespace gl
+} // namespace gfx
 } // namespace aeon

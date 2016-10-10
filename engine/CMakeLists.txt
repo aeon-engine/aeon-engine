@@ -20,10 +20,6 @@ add_source_path(AEON_ENGINE_SOURCES storage)
 
 add_source_path(AEON_ENGINE_SOURCES gfx)
 
-if (AEON_GFX_NULL)
-    add_source_path(AEON_ENGINE_SOURCES gfx/null)
-endif ()
-
 if (AEON_GFX_GL)
     add_source_path(AEON_ENGINE_SOURCES gfx/gl_common)
     add_source_path(AEON_ENGINE_SOURCES gfx/gl)
@@ -38,32 +34,6 @@ endif ()
 
 add_source_path(AEON_ENGINE_SOURCES platform)
 add_source_path(AEON_ENGINE_SOURCES platform/generic)
-add_source_path(AEON_ENGINE_SOURCES platform/null)
-
-if (AEON_PLATFORM_GLFW)
-    add_source_path(AEON_ENGINE_SOURCES platform/glfw)
-endif ()
-
-if (AEON_PLATFORM_RPI)
-    add_source_path(AEON_ENGINE_SOURCES platform/rpi)
-endif ()
-
-if (AEON_PLATFORM_QT)
-    find_package(Qt5Core REQUIRED)
-    find_package(Qt5Widgets REQUIRED)
-    find_package(Qt5OpenGL REQUIRED)
-
-    add_source_path(AEON_ENGINE_SOURCES platform/qt)
-
-    qt5_wrap_ui(AEON_PLATFORM_QT_UI_HEADERS
-        platform/qt/mainwindow.ui
-    )
-
-    qt5_wrap_cpp(AEON_PLATFORM_QT_MOC_HEADERS
-        platform/qt/platform_qt_window.h
-        platform/qt/platform_qt_opengl_widget.h
-    )
-endif ()
 
 ################################################################################
 
@@ -81,14 +51,6 @@ configure_file(build_config.h.in ${CMAKE_BINARY_DIR}/build_config.h @ONLY)
 ################################################################################
 
 generate_source_groups("${AEON_ENGINE_SOURCES}")
-
-if (AEON_PLATFORM_QT)
-    source_group(platform\\qt\\ui FILES ${AEON_PLATFORM_QT_UI_FILES})
-    list(APPEND AEON_ENGINE_SOURCES
-        ${AEON_PLATFORM_QT_UI_HEADERS}
-        ${AEON_PLATFORM_QT_MOC_HEADERS}
-    )
-endif ()
 
 add_library(aeon_engine STATIC ${AEON_ENGINE_SOURCES})
 
@@ -113,27 +75,7 @@ if (APPLE)
 endif ()
 
 if (AEON_GFX_GL)
-    target_link_libraries(aeon_engine glew_s)
-endif ()
-
-if (AEON_PLATFORM_GLFW)
-    target_link_libraries(aeon_engine glfw)
-endif ()
-
-if (AEON_PLATFORM_RPI)
-    target_link_libraries(aeon_engine RaspberryPiSdk)
-endif ()
-
-if (AEON_PLATFORM_QT)
-    target_link_libraries(aeon_engine
-        Qt5::Core
-        Qt5::Widgets
-        Qt5::OpenGL
-    )
-
-    # Do not use emit, signals, slots etc; but use Q_EMIT instead,
-    # to avoid nameclashes.
-    target_compile_definitions(aeon_engine PUBLIC -DQT_NO_KEYWORDS)
+    target_link_libraries(aeon_engine glew_s glfw)
 endif ()
 
 if (AEON_AUDIO_USE_OPENAL)

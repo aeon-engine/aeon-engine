@@ -13,30 +13,16 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/null/gfx_null_texture.h>
+#pragma once
+
+#include <aeon/common/exception.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace null
-{
 
-gfx_null_texture::gfx_null_texture(const resources::image &image)
-    : gfx::texture(image)
-    , logger_(common::logger::get_singleton(), "Gfx::Null::Texture")
-{
-}
+DEFINE_EXCEPTION_OBJECT(gfx_exception, aeon::common::exception, "Generic gfx exception.");
 
-gfx_null_texture::~gfx_null_texture()
-{
-    AEON_LOG_TRACE(logger_) << "Deleting Texture." << std::endl;
-}
-
-void gfx_null_texture::bind() const
-{
-}
-
-} // namespace null
 } // namespace gfx
 } // namespace aeon

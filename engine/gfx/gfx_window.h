@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <platform/platform_window_settings.h>
+#include <gfx/gfx_window_settings.h>
 #include <gfx/gfx_render_target.h>
 #include <glm/vec2.hpp>
 #include <string>
@@ -23,7 +23,7 @@
 
 namespace aeon
 {
-namespace platform
+namespace gfx
 {
 
 /*!
@@ -36,17 +36,17 @@ enum mouse_cursor_mode
     hidden,  // Normal cursor, but hidden when moved over the window
 };
 
-class platform_window : public gfx::render_target
+class gfx_window : public render_target
 {
 public:
-    explicit platform_window(const platform_window_settings &settings)
+    explicit gfx_window(const gfx_window_settings &settings)
         : width_(settings.get_width())
         , height_(settings.get_height())
         , title_(settings.get_title())
     {
     }
 
-    virtual ~platform_window() = default;
+    virtual ~gfx_window() = default;
 
     glm::vec2 get_size() const
     {
@@ -73,7 +73,7 @@ private:
     std::string title_;
 };
 
-using platform_window_ptr = std::shared_ptr<platform_window>;
+using gfx_window_ptr = std::shared_ptr<gfx_window>;
 
-} // namespace platform
+} // namespace gfx
 } // namespace aeon

@@ -18,7 +18,6 @@
 #include <build_config.h>
 #include <application/base_application.h>
 #include <resources/providers/filesystem_provider.h>
-#include <application/platform_types.h>
 #include <application/gfx_types.h>
 
 namespace aeon
@@ -28,17 +27,15 @@ namespace aeon
  * Base class for universal desktop games with a single render window.
  */
 template <typename scene_manager_t>
-class desktop_application : public base_application<selected_platform_interface, selected_gfx_device, scene_manager_t>
+class desktop_application : public base_application<selected_gfx_device, scene_manager_t>
 {
 public:
     /*!
      * Constructor
      * \see base_application::base_application
      */
-    explicit desktop_application(int argc, char *argv[], const int default_width, const int default_height,
-                                 const std::string &window_title)
-        : base_application<selected_platform_interface, selected_gfx_device, scene_manager_t>(
-              argc, argv, default_width, default_height, window_title)
+    explicit desktop_application(const int default_width, const int default_height, const std::string &window_title)
+        : base_application<selected_gfx_device, scene_manager_t>(default_width, default_height, window_title)
     {
     }
 

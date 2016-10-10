@@ -19,7 +19,7 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application(int argc, char *argv[])
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(argc, argv, WINDOW_WIDTH, WINDOW_HEIGHT,
+    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 3 - Sprite Animation")
     , turn_timer_(0.0f)
     , direction_(move_south)
@@ -78,7 +78,7 @@ void application::main()
     animated_sprite_ = scene_manager_.create_scene_object<aeon::scene::animated_sprite>(atlas, 0, animation_settings);
     root_node->attach_scene_object(animated_sprite_);
 
-    platform_.run();
+    device_.run();
 }
 
 bool application::on_frame(float dt)

@@ -15,8 +15,6 @@
 
 #pragma once
 
-#include <platform/platform_monitor.h>
-#include <platform/platform_window.h>
 #include <platform/platform_filesystem_interface.h>
 #include <platform/platform_input_handler.h>
 #include <aeon/common/exception.h>
@@ -27,16 +25,10 @@ namespace aeon
 namespace platform
 {
 
-DEFINE_EXCEPTION_OBJECT(platform_interface_exception, aeon::common::exception, "Generic platform interface exception.");
-
-DEFINE_EXCEPTION_OBJECT(platform_interface_initialize_exception, platform_interface_exception,
-                        "Could not initialize platform.");
-
 class platform_interface
 {
 public:
-    explicit platform_interface(int /*argc*/, char * /* argv */ [],
-                                platform_filesystem_interface_ptr filesystem_interface)
+    explicit platform_interface(platform_filesystem_interface_ptr filesystem_interface)
         : filesystem_interface_(std::move(filesystem_interface))
     {
     }
@@ -44,40 +36,12 @@ public:
     virtual ~platform_interface() = default;
 
     /*!
-     * Initialize the engine. This will set up all platform related things like window,
-     * contexts, etc. based on your platform.
-     */
-    virtual void initialize() = 0;
-
-    /*!
-     * Enter the engine's main loop. You must first call initialize before calling run.
-     * This function will not return until stop() is called.
-     */
-    virtual void run() = 0;
-
-    /*!
-     * Stop the mainloop. Has no effect if run hasn't been called.
-     */
-    virtual void stop() = 0;
-
-    /*!
-     * Get a list of all monitors connected to this system.
-     */
-    virtual platform_monitors get_monitors() = 0;
-
-    /*!
-     * Create a window. A window can be created on a specific monitor. When no monitor is
-     * given, the window appears on the main monitor.
-     */
-    virtual platform_window_ptr create_window(const platform_window_settings &settings,
-                                              platform_monitor_ptr monitor = nullptr) = 0;
-
-    /*!
      * Get the subsystem for filesystem interaction for this platform.
      */
-    platform_filesystem_interface *get_filesystem_interface()
+    platform_filesystem_interface &get_filesystem_interface() const
     {
-        return filesystem_interface_.get();
+        platform_filesystem_interface *filesystem_interface = filesystem_interface_.get();
+        return *filesystem_interface;
     }
 
     /*!

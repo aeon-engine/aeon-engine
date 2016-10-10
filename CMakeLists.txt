@@ -94,57 +94,15 @@ endif ()
 # Platform options
 ################################################################################
 set(AEON_PLATFORM_NAME_GLFW "GLFW")
-set(AEON_PLATFORM_NAME_RPI "RaspberryPi")
-set(AEON_PLATFORM_NAME_QT "Qt")
-set(AEON_PLATFORM_NAME_NULL "NULL")
 
 set(AEON_PLATFORM_GLFW OFF)
-set(AEON_PLATFORM_RPI OFF)
-set(AEON_PLATFORM_QT OFF)
-set(AEON_PLATFORM_NULL OFF)
 
 set(AEON_PLATFORM ${AEON_PLATFORM_NAME_GLFW} CACHE STRING "Platform backend")
-set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW} ${AEON_PLATFORM_NAME_RPI} ${AEON_PLATFORM_NAME_QT} ${AEON_PLATFORM_NAME_NULL})
+set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW})
 
 if (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_GLFW)
     message (STATUS "Using GLFW as platform.")
     set(AEON_PLATFORM_GLFW ON)
-elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_RPI)
-    if (NOT AEON_GFX_GLES2)
-        message (FATAL_ERROR "Raspberry Pi requires OpenGL ES 2.0; Please set AEON_GFX_RENDERER to GLES2")
-    endif()
-
-    message (STATUS "Using Raspberry Pi as platform.")
-
-    find_package(RaspberryPiSDK COMPONENTS
-        EGL
-        GLESv2
-        vcos
-        vchiq_arm
-        bcm_host
-    )
-
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-
-    set(AEON_PLATFORM_RPI ON)
-elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_QT)
-    set(CMAKE_PREFIX_PATH "$ENV{QTDIR}")
-    if (NOT AEON_GFX_GL)
-        message (FATAL_ERROR "Qt requires OpenGL 3.3; Please set AEON_GFX_RENDER to OpenGL3.3")
-    endif()
-
-    message (STATUS "Using Qt as platform.")
-
-    set(AEON_PLATFORM_QT ON)
-elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_NULL)
-    message (STATUS "Using Null as platform.")
-    message (WARNING "This platform is for debugging/testing only.")
-
-    set(AEON_PLATFORM_NULL ON)
 else ()
     message (FATAL_ERROR "No valid platform was selected.")
 endif ()

@@ -16,6 +16,7 @@
 #include <platform/platform_filesystem_interface.h>
 #include <resources/providers/filesystem_provider.h>
 #include <resources/resource_manager.h>
+#include <platform/platform_interface.h>
 
 namespace aeon
 {
@@ -43,8 +44,8 @@ filesystem_provider::~filesystem_provider()
 bool filesystem_provider::exists(const std::string &path)
 {
     platform::platform_interface &platform = __get_resource_manager()->get_platform_interface();
-    platform::platform_filesystem_interface *filesystem_interface = platform.get_filesystem_interface();
-    return filesystem_interface->exists(__get_real_path(base_path_, path));
+    platform::platform_filesystem_interface &filesystem_interface = platform.get_filesystem_interface();
+    return filesystem_interface.exists(__get_real_path(base_path_, path));
 }
 
 std::vector<resource_node> filesystem_provider::list(const std::string & /*path*/)
@@ -60,16 +61,16 @@ void filesystem_provider::read(const std::string &path, common::buffer_u8 &buffe
     std::string p = __get_real_path(base_path_, path);
 
     platform::platform_interface &platform = __get_resource_manager()->get_platform_interface();
-    platform::platform_filesystem_interface *filesystem_interface = platform.get_filesystem_interface();
+    platform::platform_filesystem_interface &filesystem_interface = platform.get_filesystem_interface();
 
-    if (!filesystem_interface->exists(p))
+    if (!filesystem_interface.exists(p))
     {
         AEON_LOG_ERROR(logger_) << "Could not read file at '" << path << "'. File does not exist." << std::endl;
         throw filesystem_provider_read_exception();
     }
 
     platform::platform_file_interface_ptr file =
-        filesystem_interface->open_file(p, platform::file_open_mode::read | platform::file_open_mode::binary);
+        filesystem_interface.open_file(p, platform::file_open_mode::read | platform::file_open_mode::binary);
 
     common::buffer_u8 read_buffer;
     file->read(read_buffer);

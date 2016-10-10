@@ -19,7 +19,7 @@
 
 namespace aeon
 {
-namespace platform
+namespace gfx
 {
 
 enum class buffer_mode
@@ -28,10 +28,10 @@ enum class buffer_mode
     double_buffer
 };
 
-class platform_window_settings
+class gfx_window_settings
 {
 public:
-    platform_window_settings(const int width, const int height, const std::string &title)
+    gfx_window_settings(const int width, const int height, const std::string &title)
         : width_(width)
         , height_(height)
         , title_(title)
@@ -40,7 +40,7 @@ public:
     {
     }
 
-    ~platform_window_settings() = default;
+    ~gfx_window_settings() = default;
 
     int get_width() const
     {
@@ -86,5 +86,5 @@ private:
     buffer_mode buffer_mode_;
 };
 
-} // namespace platform
+} // namespace gfx
 } // namespace aeon

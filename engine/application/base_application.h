@@ -16,9 +16,10 @@
 #pragma once
 #include <resources/resource_manager.h>
 #include <assets/asset_manager.h>
-#include <platform/platform_window.h>
+#include <gfx/gfx_window.h>
 #include <platform/platform_filesystem_interface.h>
 #include <platform/platform_file_interface.h>
+#include <platform/generic/platform_generic_filesystem_interface.h>
 #include <aeon/common/logger.h>
 #include <aeon/utility.h>
 #include <buildinfo.h>
@@ -33,7 +34,7 @@ namespace aeon
  * It's possible to use the engine without using this class. In that case all core
  * components (like platform, gfx, resource manager, etc.) must be initialized manually.
  */
-template <typename platform_interface_t, typename device_t, typename scene_manager_t>
+template <typename device_t, typename scene_manager_t>
 class base_application
 {
 public:
@@ -45,12 +46,12 @@ public:
      * \param default_height The default height of the render window if the value is missing from the config file.
      * \param window_title The title of the window (may not be shown on some platforms)
      */
-    explicit base_application(int argc, char *argv[], const int default_width, const int default_height,
-                              const std::string &window_title)
+    explicit base_application(const int default_width, const int default_height, const std::string &window_title)
         : logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
         , config_file_()
-        , platform_(argc, argv)
+        , platform_(std::make_unique<platform::generic::platform_filesystem_interface>())
+        , device_(platform_)
         , resource_manager_(platform_)
         , scene_manager_(device_)
         , asset_manager_(resource_manager_, scene_manager_)
@@ -59,14 +60,11 @@ public:
         AEON_LOG_MESSAGE(logger_) << "Initializing Aeon Engine (" << buildinfo::full_version << ", "
                                   << buildinfo::build_date << ")." << std::endl;
 
-        // Init the platform and window
-        platform_.initialize();
+        // Init opengl
+        device_.initialize();
 
         __load_config_file();
         __create_window(default_width, default_height, window_title);
-
-        // Init opengl
-        device_.initialize();
     }
 
     /*!
@@ -77,7 +75,7 @@ public:
     /*!
      * Get the main window created for this application.
      */
-    platform::platform_window_ptr get_main_window() const
+    gfx::gfx_window_ptr get_main_window() const
     {
         return window_;
     }
@@ -113,7 +111,7 @@ public:
      * used to perform all sorts of generic platform specific operations, like
      * file IO.
      */
-    platform_interface_t *get_platform_interface()
+    platform::platform_interface *get_platform_interface()
     {
         return &platform_;
     }
@@ -136,7 +134,7 @@ private:
     {
         try
         {
-            platform::platform_file_interface_ptr file_interface = platform_.get_filesystem_interface()->open_file(
+            platform::platform_file_interface_ptr file_interface = platform_.get_filesystem_interface().open_file(
                 "config.conf", platform::file_open_mode::binary | platform::file_open_mode::read);
 
             common::buffer_u8 config_file_data;
@@ -167,12 +165,12 @@ private:
         const int multisample = config_file_.get<int>("multisample", 0);
         const bool double_buffer = config_file_.get<bool>("double_buffer", true);
 
-        platform::platform_window_settings settings(width, height, title);
+        gfx::gfx_window_settings settings(width, height, title);
         settings.set_multisample(multisample);
-        settings.set_buffer_mode(double_buffer ? platform::buffer_mode::double_buffer
-                                               : platform::buffer_mode::single_buffer);
+        settings.set_buffer_mode(double_buffer ? gfx::buffer_mode::double_buffer
+                                               : gfx::buffer_mode::single_buffer);
 
-        window_ = platform_.create_window(settings);
+        window_ = device_.create_window(settings);
     }
 
 protected:
@@ -181,14 +179,14 @@ protected:
 
     utility::configfile config_file_;
 
-    platform_interface_t platform_;
+    platform::platform_interface platform_;
     device_t device_;
 
     resources::resource_manager resource_manager_;
     scene_manager_t scene_manager_;
     assets::asset_manager asset_manager_;
 
-    platform::platform_window_ptr window_;
+    gfx::gfx_window_ptr window_;
 };
 
 } // namespace aeon

@@ -14,33 +14,39 @@
  */
 
 #pragma once
-
-#include <gfx/gfx_texture.h>
-#include <common/logger.h>
+#include <gfx/gfx_monitor.h>
+#include <GLFW/glfw3.h>
 
 namespace aeon
 {
 namespace gfx
 {
-namespace null
+namespace gl
 {
 
-class gfx_null_texture : public gfx::texture
+class gfx_gl_monitor : public gfx_monitor
 {
-    friend class gfx_null_texture_manager;
-
 public:
-    explicit gfx_null_texture(const resources::image &image);
-    ~gfx_null_texture() override;
+    gfx_gl_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary, const std::string &name);
+    virtual ~gfx_gl_monitor() = default;
 
-    void bind() const;
+    void set_gramma(float gamma) override;
+
+    gamma_ramp get_gamma_ramp() override;
+    void set_gamma_ramp(gamma_ramp ramp) override;
+
+    video_mode get_video_mode() override;
+    video_modes get_video_modes() override;
+
+    GLFWmonitor *get_internal_handle() const
+    {
+        return monitor_;
+    }
 
 private:
-    aeon::logger::logger logger_;
+    GLFWmonitor *monitor_;
 };
 
-using gfx_null_texture_ptr = std::shared_ptr<gfx_null_texture>;
-
-} // namespace null
+} // namespace gl
 } // namespace gfx
 } // namespace aeon

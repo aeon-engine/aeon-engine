@@ -19,7 +19,7 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application(int argc, char *argv[])
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(argc, argv, WINDOW_WIDTH, WINDOW_HEIGHT,
+    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 6 - Mesh Loading")
     , timer_(0.0f)
 {
@@ -54,7 +54,7 @@ void application::main()
     skydome->translate(0.0f, -30.0f, 0.0f);
 
     // Start the render loop
-    platform_.run();
+    device_.run();
 }
 
 bool application::on_frame(float dt)

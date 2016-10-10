@@ -21,6 +21,9 @@
 #include <gfx/gfx_atlas_manager.h>
 #include <gfx/gfx_buffer_manager.h>
 #include <gfx/gfx_mesh.h>
+#include <gfx/gfx_window.h>
+#include <gfx/gfx_monitor.h>
+#include <platform/platform_interface.h>
 #include <aeon/common/types/color.h>
 #include <scene/viewport.h>
 #include <memory>
@@ -39,8 +42,7 @@ struct buffer_clear_flag
 class device
 {
 public:
-    device();
-
+    explicit device(platform::platform_interface &platform);
     virtual ~device() = default;
 
     void initialize();
@@ -50,6 +52,28 @@ public:
     virtual void clear_buffer(int buffer_flag) = 0;
 
     virtual mesh_ptr create_mesh(material_ptr material) = 0;
+
+    /*!
+     * Get a list of all monitors connected to this system.
+     */
+    virtual gfx_monitors get_monitors() = 0;
+
+    /*!
+     * Create a window. A window can be created on a specific monitor. When no monitor is
+     * given, the window appears on the main monitor.
+     */
+    virtual gfx_window_ptr create_window(const gfx_window_settings &settings, gfx_monitor_ptr monitor = nullptr) = 0;
+
+    /*!
+     * Enter the engine's main loop. You must first call initialize before calling run.
+     * This function will not return until stop() is called.
+     */
+    virtual void run() = 0;
+
+    /*!
+     * Stop the mainloop. Has no effect if run hasn't been called.
+     */
+    virtual void stop() = 0;
 
     texture_manager &get_texture_manager()
     {
@@ -76,9 +100,15 @@ public:
         return *atlas_manager_;
     }
 
+    platform::platform_interface &get_platform_interface()
+    {
+        return platform_interface_;
+    }
+
 protected:
     virtual void __initialize_impl() = 0;
 
+    platform::platform_interface &platform_interface_;
     bool initialized_;
     std::unique_ptr<texture_manager> texture_manager_;
     std::unique_ptr<shader_manager> shader_manager_;

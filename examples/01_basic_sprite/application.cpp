@@ -20,7 +20,7 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application(int argc, char *argv[])
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(argc, argv, WINDOW_WIDTH, WINDOW_HEIGHT,
+    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 1 - Basic Sprite")
 {
     // Init resources
@@ -60,5 +60,5 @@ void application::main()
     root_node->attach_scene_object(ship_sprite);
 
     // Start the render loop
-    platform_.run();
+    device_.run();
 }

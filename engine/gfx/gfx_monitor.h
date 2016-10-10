@@ -20,7 +20,7 @@
 
 namespace aeon
 {
-namespace platform
+namespace gfx
 {
 
 class video_mode
@@ -63,10 +63,10 @@ public:
 
 using gamma_ramp = std::vector<gamma_ramp_data>;
 
-class platform_monitor
+class gfx_monitor
 {
 public:
-    explicit platform_monitor(int width, int height, int x, int y, bool primary, const std::string &name)
+    explicit gfx_monitor(int width, int height, int x, int y, bool primary, const std::string &name)
         : physical_width_(width)
         , physical_height_(height)
         , x_(x)
@@ -76,7 +76,7 @@ public:
     {
     }
 
-    virtual ~platform_monitor() = default;
+    virtual ~gfx_monitor() = default;
 
     virtual void set_gramma(float gamma) = 0;
 
@@ -135,8 +135,8 @@ private:
     std::string name_;
 };
 
-using platform_monitor_ptr = std::shared_ptr<platform_monitor>;
-using platform_monitors = std::vector<platform_monitor_ptr>;
+using gfx_monitor_ptr = std::shared_ptr<gfx_monitor>;
+using gfx_monitors = std::vector<gfx_monitor_ptr>;
 
-} // namespace platform
+} // namespace gfx
 } // namespace aeon

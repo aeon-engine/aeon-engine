@@ -20,7 +20,7 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application(int argc, char *argv[])
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(argc, argv, WINDOW_WIDTH, WINDOW_HEIGHT,
+    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 2 - Scene Manager")
 {
     // Init resources
@@ -72,7 +72,7 @@ void application::main()
         scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship3, glm::vec2(64, 64), 2);
     ship3_node->attach_scene_object(ship3_sprite);
 
-    platform_.run();
+    device_.run();
 }
 
 bool application::on_frame(float dt)

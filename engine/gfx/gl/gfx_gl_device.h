@@ -16,6 +16,7 @@
 #pragma once
 
 #include <gfx/gfx_device.h>
+#include <gfx/gfx_render_target.h>
 #include <aeon/common/exception.h>
 #include <aeon/common/logger.h>
 
@@ -32,8 +33,10 @@ DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL De
 class gfx_gl_device : public gfx::device
 {
 public:
-    gfx_gl_device();
-    virtual ~gfx_gl_device() = default;
+    using render_targets = std::vector<render_target_ptr>;
+
+    explicit gfx_gl_device(platform::platform_interface &platform);
+    virtual ~gfx_gl_device();
 
     void __initialize_impl() override;
 
@@ -44,11 +47,24 @@ public:
 
     mesh_ptr create_mesh(material_ptr material) override;
 
+    gfx_monitors get_monitors() override;
+
+    gfx_window_ptr create_window(const gfx_window_settings &settings, gfx_monitor_ptr monitor = nullptr) override;
+
+    void run() override;
+    void stop() override;
+
 private:
+    void __initialize_glfw() const;
     void __create_managers();
     void __setup_opengl() const;
+    void __initialize_glew() const;
+    void __report_and_squash_glew_errors() const;
 
     aeon::logger::logger logger_;
+    render_targets render_targets_;
+    bool running_;
+    double previous_time_;
 };
 
 } // namespace gl

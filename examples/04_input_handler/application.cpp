@@ -25,7 +25,7 @@ const float SHIP_MAX_SPEED = 2.0f;
 const float SHIP_FRICTION = 2.0f;
 
 application::application(int argc, char *argv[])
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(argc, argv, WINDOW_WIDTH, WINDOW_HEIGHT,
+    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 4 - Input Handler (Use the arrow keys)")
     , move_direction_(ship_move_direction::none)
     , rotate_direction_(ship_rotate_direction::none)
@@ -73,7 +73,7 @@ void application::main()
     root_node->attach_scene_object(ship_sprite);
 
     // Start the render loop
-    platform_.run();
+    device_.run();
 }
 
 bool application::on_frame(float dt)
@@ -128,15 +128,14 @@ bool application::on_frame(float dt)
     return true;
 }
 
-void application::on_keyboard_event(aeon::platform::platform_window * /*window*/, aeon::platform::keyboard_key key,
-                                    aeon::platform::keyboard_key_state key_state, int /*modifier*/)
+void application::on_keyboard_event(aeon::platform::keyboard_key key, aeon::platform::keyboard_key_state key_state, int /*modifier*/)
 {
     AEON_LOG_MESSAGE(get_logger()) << "Key: " << static_cast<int>(key) << " " << static_cast<int>(key_state)
                                    << std::endl;
 
     if (key == aeon::platform::keyboard_key::key_escape && key_state == aeon::platform::keyboard_key_state::pressed)
     {
-        platform_.stop();
+        device_.stop();
     }
 
     if (key == aeon::platform::keyboard_key::key_up)
@@ -172,8 +171,7 @@ void application::on_keyboard_event(aeon::platform::platform_window * /*window*/
     }
 }
 
-void application::on_mouse_button_event(aeon::platform::platform_window * /*window*/,
-                                        aeon::platform::mouse_button button,
+void application::on_mouse_button_event(aeon::platform::mouse_button button,
                                         aeon::platform::mouse_button_state button_state)
 {
     std::cout << "Button: " << static_cast<int>(button) << " " << static_cast<int>(button_state) << std::endl;

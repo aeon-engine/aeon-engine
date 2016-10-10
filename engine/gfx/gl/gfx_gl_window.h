@@ -14,29 +14,29 @@
  */
 
 #pragma once
-#include <platform/platform_window.h>
-#include <platform/platform_exception.h>
+#include <gfx/gfx_window.h>
+#include <gfx/gfx_exception.h>
+#include <platform/platform_interface.h>
 #include <aeon/common/logger.h>
 #include <GLFW/glfw3.h>
 #include <memory>
 
 namespace aeon
 {
-namespace platform
+namespace gfx
 {
-namespace glfw
+namespace gl
 {
 
-DEFINE_EXCEPTION_OBJECT(platform_glfw_cursor_mode_exception, platform_exception,
+DEFINE_EXCEPTION_OBJECT(gfx_gl_cursor_mode_exception, gfx_exception,
                         "Unknown or invalid mouse cursor mode given to GLFW.");
 
-class platform_interface;
-class platform_window : public platform::platform_window
+class gfx_gl_window : public gfx_window
 {
 public:
-    explicit platform_window(platform_interface *interface, const platform_window_settings &settings,
+    explicit gfx_gl_window(platform::platform_interface &interface, const gfx_window_settings &settings,
                              GLFWmonitor *monitor);
-    ~platform_window() override;
+    ~gfx_gl_window() override;
 
     void make_current() override;
 
@@ -60,12 +60,12 @@ private:
     aeon::logger::logger logger_;
 
     GLFWwindow *window_;
-    platform_interface *interface_;
+    platform::platform_interface &interface_;
     mouse_cursor_mode cursor_mode_;
 };
 
-using platform_window_ptr = std::shared_ptr<platform_window>;
+using gfx_window_ptr = std::shared_ptr<gfx_window>;
 
-} // namespace glfw
-} // namespace platform
+} // namespace gl
+} // namespace gfx
 } // namespace aeon

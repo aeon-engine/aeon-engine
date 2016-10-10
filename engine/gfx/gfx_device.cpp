@@ -20,16 +20,15 @@ namespace aeon
 namespace gfx
 {
 
-device::device()
-    : initialized_(false)
+device::device(platform::platform_interface &platform)
+    : platform_interface_(platform)
+    , initialized_(false)
 {
 }
 
 void device::initialize()
 {
     __initialize_impl();
-
-    set_clear_color(common::types::color(0.0f, 0.0f, 0.0f));
 }
 
 } // namespace gfx
