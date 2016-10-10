@@ -22,7 +22,7 @@
 #include <resources/wrappers/resource_wrapper.h>
 #include <aeon/utility.h>
 #include <resources/codecs/codec_manager.h>
-#include <platform/platform_interface.h>
+#include <aeon/platform/platform_interface.h>
 #include <resources/wrappers/atlas_resource_wrapper.h>
 #include <resources/wrappers/mesh_resource_wrapper.h>
 #include <resources/atlas.h>

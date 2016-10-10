@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <platform/platform_file_interface.h>
+#include <aeon/platform/platform_file_interface.h>
 #include <string>
 #include <cstdint>
 #include <memory>

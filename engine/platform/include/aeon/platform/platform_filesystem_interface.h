@@ -15,8 +15,8 @@
 
 #pragma once
 
-#include <platform/platform_file_interface.h>
-#include <platform/platform_file_open_mode.h>
+#include <aeon/platform/platform_file_interface.h>
+#include <aeon/platform/platform_file_open_mode.h>
 #include <aeon/common/exception.h>
 #include <string>
 #include <memory>

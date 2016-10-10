@@ -20,7 +20,7 @@
 #include <resources/wrappers/image_resource_wrapper.h>
 #include <scene/scene_managers/basic/basic_scene_manager.h>
 #include <scene/orthographic_camera.h>
-#include <platform/platform_input_listener.h>
+#include <aeon/platform/platform_input_listener.h>
 
 enum class ship_move_direction
 {

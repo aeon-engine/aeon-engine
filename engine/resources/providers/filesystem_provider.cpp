@@ -13,10 +13,10 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <platform/platform_filesystem_interface.h>
+#include <aeon/platform/platform_filesystem_interface.h>
 #include <resources/providers/filesystem_provider.h>
 #include <resources/resource_manager.h>
-#include <platform/platform_interface.h>
+#include <aeon/platform/platform_interface.h>
 
 namespace aeon
 {

@@ -15,8 +15,8 @@
 
 #pragma once
 
-#include <platform/platform_filesystem_interface.h>
-#include <platform/platform_input_handler.h>
+#include <aeon/platform/platform_filesystem_interface.h>
+#include <aeon/platform/platform_input_handler.h>
 #include <aeon/common/exception.h>
 #include <memory>
 

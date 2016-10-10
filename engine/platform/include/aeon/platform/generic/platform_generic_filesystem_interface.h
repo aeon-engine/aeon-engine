@@ -15,37 +15,34 @@
 
 #pragma once
 
-#include <platform/platform_keyboard_keys.h>
-#include <platform/platform_mouse_buttons.h>
+#include <aeon/platform/platform_file_interface.h>
+#include <aeon/platform/platform_filesystem_interface.h>
+#include <aeon/platform/platform_file_open_mode.h>
+#include <aeon/common/logger.h>
+#include <string>
+#include <vector>
 
 namespace aeon
 {
 namespace platform
 {
+namespace generic
+{
 
-class platform_window;
-class platform_input_listener
+class platform_filesystem_interface : public platform::platform_filesystem_interface
 {
 public:
-    platform_input_listener() = default;
-    virtual ~platform_input_listener() = default;
+    platform_filesystem_interface();
+    virtual ~platform_filesystem_interface() = default;
 
-    virtual void on_keyboard_event(keyboard_key /*key*/, keyboard_key_state /*key_state*/, int /*modifier*/)
-    {
-    }
+    platform::platform_file_interface_ptr open_file(const std::string &path, int openmode) override;
+    bool exists(const std::string &path) override;
+    files list(const std::string &path) override;
 
-    virtual void on_mouse_move_event(float /*x*/, float /*y*/)
-    {
-    }
-
-    virtual void on_mouse_button_event(mouse_button /*button*/, mouse_button_state /*button_state*/)
-    {
-    }
-
-    virtual void on_mouse_scroll_event(float /*x*/, float /*y*/)
-    {
-    }
+private:
+    aeon::logger::logger logger_;
 };
 
+} // namespace generic
 } // namespace platform
 } // namespace aeon

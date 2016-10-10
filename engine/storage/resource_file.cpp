@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <platform/platform_filesystem_interface.h>
+#include <aeon/platform/platform_filesystem_interface.h>
 #include <storage/resource_file.h>
 #include <aeon/platform.h>
 #include <string.h>

@@ -17,9 +17,9 @@
 #include <resources/resource_manager.h>
 #include <assets/asset_manager.h>
 #include <gfx/gfx_window.h>
-#include <platform/platform_filesystem_interface.h>
-#include <platform/platform_file_interface.h>
-#include <platform/generic/platform_generic_filesystem_interface.h>
+#include <aeon/platform/platform_filesystem_interface.h>
+#include <aeon/platform/platform_file_interface.h>
+#include <aeon/platform/generic/platform_generic_filesystem_interface.h>
 #include <aeon/common/logger.h>
 #include <aeon/utility.h>
 #include <buildinfo.h>

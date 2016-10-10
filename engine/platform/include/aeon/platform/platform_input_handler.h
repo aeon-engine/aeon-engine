@@ -16,9 +16,9 @@
 #pragma once
 
 #include <aeon/utility.h>
-#include <platform/platform_keyboard_keys.h>
-#include <platform/platform_mouse_buttons.h>
-#include <platform/platform_input_listener.h>
+#include <aeon/platform/platform_keyboard_keys.h>
+#include <aeon/platform/platform_mouse_buttons.h>
+#include <aeon/platform/platform_input_listener.h>
 #include <memory>
 
 namespace aeon

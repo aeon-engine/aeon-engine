@@ -23,7 +23,7 @@
 #include <gfx/gfx_mesh.h>
 #include <gfx/gfx_window.h>
 #include <gfx/gfx_monitor.h>
-#include <platform/platform_interface.h>
+#include <aeon/platform/platform_interface.h>
 #include <aeon/common/types/color.h>
 #include <scene/viewport.h>
 #include <memory>

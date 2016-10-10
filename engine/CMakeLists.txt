@@ -5,6 +5,7 @@ generate_build_info_header(${CMAKE_BINARY_DIR}/buildinfo.h)
 
 add_subdirectory(common)
 add_subdirectory(data)
+add_subdirectory(platform)
 
 ################################################################################
 
@@ -29,11 +30,6 @@ if (AEON_GFX_GLES2)
     add_source_path(AEON_ENGINE_SOURCES gfx/gl_common)
     add_source_path(AEON_ENGINE_SOURCES gfx/gles2)
 endif ()
-
-################################################################################
-
-add_source_path(AEON_ENGINE_SOURCES platform)
-add_source_path(AEON_ENGINE_SOURCES platform/generic)
 
 ################################################################################
 
@@ -62,6 +58,7 @@ target_include_directories(aeon_engine
 target_link_libraries(aeon_engine
     aeon_engine_common
     aeon_engine_data
+    aeon_engine_platform
     aeon
     glm
     png_static

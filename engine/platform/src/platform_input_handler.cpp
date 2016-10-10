@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <platform/platform_input_handler.h>
+#include <aeon/platform/platform_input_handler.h>
 
 namespace aeon
 {

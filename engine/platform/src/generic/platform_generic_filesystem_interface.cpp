@@ -13,8 +13,8 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <platform/generic/platform_generic_filesystem_interface.h>
-#include <platform/generic/platform_generic_file_interface.h>
+#include <aeon/platform/generic/platform_generic_filesystem_interface.h>
+#include <aeon/platform/generic/platform_generic_file_interface.h>
 #include <aeon/filesystem.h>
 #include <aeon/utility.h>
 
