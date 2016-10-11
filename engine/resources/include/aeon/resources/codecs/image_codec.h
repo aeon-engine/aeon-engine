@@ -15,27 +15,33 @@
 
 #pragma once
 
-#include <aeon/resources/wrappers/image_resource_wrapper.h>
+#include <aeon/resources/exceptions.h>
+#include <aeon/common/buffer.h>
+#include <aeon/resources/resource_encoding.h>
+#include <aeon/resources/codecs/codec.h>
 #include <aeon/resources/image.h>
-#include <aeon/common/cached_object.h>
-#include <glm/vec2.hpp>
-#include <memory>
 
 namespace aeon
 {
-namespace gfx
+namespace resources
 {
 
-class texture : public common::cached_object
+DEFINE_EXCEPTION_OBJECT(image_codec_decode_exception, codec_decode_exception, "Error while decoding image resource.");
+
+class image;
+class image_resource_wrapper;
+class resource_manager;
+
+class image_codec : public codec
 {
 public:
-    explicit texture() = default;
-    virtual ~texture() = default;
+    image_codec() = default;
+    virtual ~image_codec() = default;
 
-    virtual glm::vec2 get_size() const = 0;
+    virtual image_ptr decode(resource_manager &parent, image_resource_wrapper_ptr wrapper) = 0;
 };
 
-using texture_ptr = std::shared_ptr<texture>;
+using image_codec_ptr = std::unique_ptr<image_codec>;
 
-} // namespace gfx
+} // namespace resources
 } // namespace aeon

@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <resources/resource_manager.h>
+#include <aeon/resources/resource_manager.h>
 #include <gfx/gfx_device.h>
 #include <gfx/gfx_shader.h>
 #include <gfx/gfx_texture.h>

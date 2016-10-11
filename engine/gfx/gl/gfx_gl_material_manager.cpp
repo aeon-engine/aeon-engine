@@ -16,7 +16,7 @@
 #include <gfx/gl/gfx_gl_material_manager.h>
 #include <gfx/gl/gfx_gl_material.h>
 #include <gfx/gl/gfx_gl_device.h>
-#include <resources/material.h>
+#include <aeon/data/material.h>
 #include <GL/glew.h>
 
 namespace aeon

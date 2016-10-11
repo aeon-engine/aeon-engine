@@ -13,29 +13,25 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <aeon/resources/wrappers/image_resource_wrapper.h>
-#include <aeon/resources/image.h>
-#include <aeon/common/cached_object.h>
-#include <glm/vec2.hpp>
-#include <memory>
+#include <aeon/resources/shader.h>
 
 namespace aeon
 {
-namespace gfx
+namespace resources
 {
 
-class texture : public common::cached_object
+shader::shader(resource_wrapper_ptr wrapper, const data::shader &shader_data)
+    : resource(wrapper)
+    , logger_(common::logger::get_singleton(), "Resources::Shader")
+    , shader_data_(shader_data)
 {
-public:
-    explicit texture() = default;
-    virtual ~texture() = default;
+    AEON_LOG_TRACE(logger_) << "Created shader resource." << std::endl;
+}
 
-    virtual glm::vec2 get_size() const = 0;
-};
+shader::~shader()
+{
+    AEON_LOG_TRACE(logger_) << "Deleted shader resource." << std::endl;
+}
 
-using texture_ptr = std::shared_ptr<texture>;
-
-} // namespace gfx
+} // namespace resources
 } // namespace aeon

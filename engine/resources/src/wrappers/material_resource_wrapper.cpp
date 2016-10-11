@@ -13,29 +13,27 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
 #include <aeon/resources/wrappers/image_resource_wrapper.h>
-#include <aeon/resources/image.h>
-#include <aeon/common/cached_object.h>
-#include <glm/vec2.hpp>
-#include <memory>
+#include <aeon/resources/resource_manager.h>
 
 namespace aeon
 {
-namespace gfx
+namespace resources
 {
 
-class texture : public common::cached_object
+material_resource_wrapper::material_resource_wrapper(resource_manager &parent, const std::string &path,
+                                                     resource_provider_weak_ptr provider)
+    : resource_wrapper(parent, path, provider)
 {
-public:
-    explicit texture() = default;
-    virtual ~texture() = default;
+    if (get_type() != resource_type::material)
+        throw resource_type_exception();
+}
 
-    virtual glm::vec2 get_size() const = 0;
-};
+material_ptr material_resource_wrapper::open()
+{
+    material_codec &codec = __get_parent().get_codec_manager().get_material_codec();
+    return codec.decode(std::dynamic_pointer_cast<material_resource_wrapper>(shared_from_this()));
+}
 
-using texture_ptr = std::shared_ptr<texture>;
-
-} // namespace gfx
+} // namespace resources
 } // namespace aeon

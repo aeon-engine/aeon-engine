@@ -14,7 +14,7 @@
  */
 
 #pragma once
-#include <resources/resource_manager.h>
+#include <aeon/resources/resource_manager.h>
 #include <assets/asset_manager.h>
 #include <gfx/gfx_window.h>
 #include <aeon/platform/platform_filesystem_interface.h>

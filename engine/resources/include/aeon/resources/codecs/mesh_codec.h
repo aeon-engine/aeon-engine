@@ -15,27 +15,31 @@
 
 #pragma once
 
-#include <aeon/resources/wrappers/image_resource_wrapper.h>
-#include <aeon/resources/image.h>
-#include <aeon/common/cached_object.h>
-#include <glm/vec2.hpp>
-#include <memory>
+#include <aeon/resources/exceptions.h>
+#include <aeon/common/buffer.h>
+#include <aeon/resources/resource_encoding.h>
+#include <aeon/resources/codecs/codec.h>
+#include <aeon/resources/mesh.h>
 
 namespace aeon
 {
-namespace gfx
+namespace resources
 {
 
-class texture : public common::cached_object
+class mesh;
+class mesh_resource_wrapper;
+class resource_manager;
+
+class mesh_codec : public codec
 {
 public:
-    explicit texture() = default;
-    virtual ~texture() = default;
+    mesh_codec() = default;
+    virtual ~mesh_codec() = default;
 
-    virtual glm::vec2 get_size() const = 0;
+    virtual mesh_ptr decode(resource_manager &parent, mesh_resource_wrapper_ptr wrapper) = 0;
 };
 
-using texture_ptr = std::shared_ptr<texture>;
+using mesh_codec_ptr = std::unique_ptr<mesh_codec>;
 
-} // namespace gfx
+} // namespace resources
 } // namespace aeon
