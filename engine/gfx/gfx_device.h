@@ -23,9 +23,9 @@
 #include <gfx/gfx_mesh.h>
 #include <gfx/gfx_window.h>
 #include <gfx/gfx_monitor.h>
+#include <gfx/gfx_viewport.h>
 #include <aeon/platform/platform_interface.h>
 #include <aeon/common/types/color.h>
-#include <scene/viewport.h>
 #include <memory>
 
 namespace aeon
@@ -48,7 +48,7 @@ public:
     void initialize();
 
     virtual void set_clear_color(const common::types::color &c) = 0;
-    virtual void set_viewport(scene::viewport *vp) = 0;
+    virtual void set_viewport(viewport &vp) = 0;
     virtual void clear_buffer(int buffer_flag) = 0;
 
     virtual mesh_ptr create_mesh(material_ptr material) = 0;

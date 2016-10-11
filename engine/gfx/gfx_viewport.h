@@ -22,30 +22,30 @@
 
 namespace aeon
 {
-namespace scene
+namespace gfx
 {
 
 class viewport : public common::has_z_order
 {
 public:
-    explicit viewport(camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
+    explicit viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
     virtual ~viewport() = default;
 
     void set_rectangle(const common::types::rectangle<float> &rect);
 
-    void set_camera(camera_ptr camera);
-    camera_ptr get_camera() const;
+    void set_camera(scene::camera_ptr camera);
+    scene::camera_ptr get_camera() const;
 
     void update(float dt);
 
     common::types::rectangle<float> get_rectangle() const;
 
 private:
-    camera_ptr camera_;
+    scene::camera_ptr camera_;
     common::types::rectangle<float> rectangle_;
 };
 
 using viewport_ptr = std::shared_ptr<viewport>;
 
-} // namespace scene
+} // namespace gfx
 } // namespace aeon

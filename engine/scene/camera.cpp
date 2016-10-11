@@ -28,7 +28,7 @@ camera::camera(scene_manager *scene_manager)
 {
 }
 
-void camera::render_scene(viewport *vp, float dt)
+void camera::render_scene(gfx::viewport &vp, float dt)
 {
     scene_manager_->__render_scene(this, vp, dt);
 }

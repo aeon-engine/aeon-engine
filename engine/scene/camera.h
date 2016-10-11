@@ -21,17 +21,22 @@
 
 namespace aeon
 {
+
+namespace gfx
+{
+class viewport;
+} // namespace gfx
+
 namespace scene
 {
 
-class viewport;
 class camera : public scene_object
 {
 public:
     explicit camera(scene_manager *scene_manager);
     virtual ~camera() = default;
 
-    void render_scene(viewport *vp, float dt);
+    void render_scene(gfx::viewport &vp, float dt);
 
     glm::mat4 get_projection_matrix() const
     {

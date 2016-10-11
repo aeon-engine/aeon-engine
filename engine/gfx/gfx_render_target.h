@@ -17,7 +17,7 @@
 
 #include <aeon/utility.h>
 #include <gfx/gfx_frame_listener.h>
-#include <scene/viewport.h>
+#include <gfx/gfx_viewport.h>
 #include <scene/camera.h>
 #include <aeon/common/logger.h>
 #include <memory>
@@ -40,15 +40,13 @@ public:
      */
     bool handle_frame(float dt);
 
-    scene::viewport_ptr create_viewport(scene::camera_ptr camera, int zorder);
+    viewport_ptr create_viewport(scene::camera_ptr camera, int zorder);
 
-    scene::viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect,
-                                        int zorder);
+    viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
 
-    scene::viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<int> &rect,
-                                        int zorder);
+    viewport_ptr create_viewport(scene::camera_ptr camera, const common::types::rectangle<int> &rect, int zorder);
 
-    void detach_viewport(scene::viewport_ptr vp);
+    void detach_viewport(viewport_ptr vp);
 
     void remove_all_viewports();
 
@@ -74,7 +72,7 @@ protected:
 
 private:
     aeon::logger::logger logger_;
-    std::vector<scene::viewport_ptr> viewports_;
+    std::vector<viewport_ptr> viewports_;
 };
 
 using render_target_ptr = std::shared_ptr<render_target>;

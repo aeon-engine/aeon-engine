@@ -50,31 +50,31 @@ bool render_target::handle_frame(float dt)
     return true;
 }
 
-scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, int zorder)
+viewport_ptr render_target::create_viewport(scene::camera_ptr camera, int zorder)
 {
     glm::vec2 backbuffer_size = get_framebuffer_size();
     return create_viewport(camera, aeon::common::types::rectangle<float>(0, 0, backbuffer_size.x, backbuffer_size.y),
                            zorder);
 }
 
-scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera,
-                                                   const common::types::rectangle<float> &rect, int zorder)
+viewport_ptr render_target::create_viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect,
+                                            int zorder)
 {
     AEON_LOG_DEBUG(logger_) << "Creating viewport (" << rect << ")." << std::endl;
 
-    scene::viewport_ptr vp = std::make_shared<scene::viewport>(camera, rect, zorder);
+    viewport_ptr vp = std::make_shared<viewport>(camera, rect, zorder);
     viewports_.push_back(vp);
 
     return vp;
 }
 
-scene::viewport_ptr render_target::create_viewport(scene::camera_ptr camera, const common::types::rectangle<int> &rect,
-                                                   int zorder)
+viewport_ptr render_target::create_viewport(scene::camera_ptr camera, const common::types::rectangle<int> &rect,
+                                            int zorder)
 {
     return create_viewport(camera, common::types::rectangle<float>(rect), zorder);
 }
 
-void render_target::detach_viewport(scene::viewport_ptr vp)
+void render_target::detach_viewport(viewport_ptr vp)
 {
     AEON_LOG_DEBUG(logger_) << "Detaching viewport." << std::endl;
     viewports_.erase(std::remove(viewports_.begin(), viewports_.end(), vp), viewports_.end());

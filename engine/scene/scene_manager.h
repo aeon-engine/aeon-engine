@@ -16,7 +16,7 @@
 #pragma once
 
 #include <scene/scene_node.h>
-#include <scene/viewport.h>
+#include <gfx/gfx_viewport.h>
 #include <scene/render_queue.h>
 #include <gfx/gfx_device.h>
 #include <vector>
@@ -68,7 +68,7 @@ public:
     gfx::device &get_device() const;
 
 protected:
-    virtual void __render_scene(camera *cam, viewport *vp, float dt);
+    virtual void __render_scene(camera *cam, gfx::viewport &vp, float dt);
 
     virtual void __prepare_render_queue(camera *cam) = 0;
 

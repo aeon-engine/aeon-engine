@@ -64,7 +64,7 @@ gfx::device &scene_manager::get_device() const
     return device_;
 }
 
-void scene_manager::__render_scene(camera *cam, viewport *vp, float dt)
+void scene_manager::__render_scene(camera *cam, gfx::viewport &vp, float dt)
 {
     device_.set_viewport(vp);
 

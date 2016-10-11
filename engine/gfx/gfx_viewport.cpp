@@ -13,14 +13,14 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <scene/viewport.h>
+#include <gfx/gfx_viewport.h>
 
 namespace aeon
 {
-namespace scene
+namespace gfx
 {
 
-viewport::viewport(camera_ptr camera, const common::types::rectangle<float> &rect, int zorder)
+viewport::viewport(scene::camera_ptr camera, const common::types::rectangle<float> &rect, int zorder)
     : has_z_order(zorder)
     , camera_(camera)
     , rectangle_(rect)
@@ -32,19 +32,19 @@ void viewport::set_rectangle(const common::types::rectangle<float> &rect)
     rectangle_ = rect;
 }
 
-void viewport::set_camera(camera_ptr camera)
+void viewport::set_camera(scene::camera_ptr camera)
 {
     camera_ = camera;
 }
 
-camera_ptr viewport::get_camera() const
+scene::camera_ptr viewport::get_camera() const
 {
     return camera_;
 }
 
 void viewport::update(float dt)
 {
-    camera_->render_scene(this, dt);
+    camera_->render_scene(*this, dt);
 }
 
 common::types::rectangle<float> viewport::get_rectangle() const
@@ -52,5 +52,5 @@ common::types::rectangle<float> viewport::get_rectangle() const
     return rectangle_;
 }
 
-} // namespace scene
+} // namespace gfx
 } // namespace aeon
