@@ -23,7 +23,7 @@
 class application : public aeon::gfx::frame_listener, public aeon::desktop_application<aeon::scene::basic_scene_manager>
 {
 public:
-    explicit application(int argc, char *argv[]);
+    explicit application();
     virtual ~application() = default;
 
     void main();

@@ -41,7 +41,7 @@ class application : public aeon::desktop_application<aeon::scene::basic_scene_ma
                     public aeon::platform::platform_input_listener
 {
 public:
-    explicit application(int argc, char *argv[]);
+    explicit application();
     virtual ~application() = default;
 
     void main();

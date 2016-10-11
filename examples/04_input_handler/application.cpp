@@ -24,7 +24,7 @@ const float SHIP_ACCELERATION = 3.0f;
 const float SHIP_MAX_SPEED = 2.0f;
 const float SHIP_FRICTION = 2.0f;
 
-application::application(int argc, char *argv[])
+application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 4 - Input Handler (Use the arrow keys)")
     , move_direction_(ship_move_direction::none)

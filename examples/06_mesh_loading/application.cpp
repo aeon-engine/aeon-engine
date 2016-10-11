@@ -18,7 +18,7 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-application::application(int argc, char *argv[])
+application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 6 - Mesh Loading")
     , timer_(0.0f)

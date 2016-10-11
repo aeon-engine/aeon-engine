@@ -15,9 +15,9 @@
 
 #include "application.h"
 
-int main(int argc, char *argv[])
+int main(int , char *[])
 {
-    application app(argc, argv);
+    application app;
     app.main();
 
     return 0;
