@@ -14,7 +14,7 @@
  */
 
 #include <aeon/platform/platform_filesystem_interface.h>
-#include <storage/resource_file.h>
+#include <aeon/storage/resource_file.h>
 #include <aeon/platform.h>
 #include <string.h>
 #include <cstdint>

@@ -6,6 +6,7 @@ generate_build_info_header(${CMAKE_BINARY_DIR}/buildinfo.h)
 add_subdirectory(common)
 add_subdirectory(data)
 add_subdirectory(platform)
+add_subdirectory(storage)
 
 ################################################################################
 
@@ -15,7 +16,6 @@ add_source_path(AEON_ENGINE_SOURCES resources/codecs)
 add_source_path(AEON_ENGINE_SOURCES resources/providers)
 add_source_path(AEON_ENGINE_SOURCES resources/wrappers)
 add_source_path(AEON_ENGINE_SOURCES assets)
-add_source_path(AEON_ENGINE_SOURCES storage)
 
 ################################################################################
 
@@ -59,6 +59,7 @@ target_link_libraries(aeon_engine
     aeon_engine_common
     aeon_engine_data
     aeon_engine_platform
+    aeon_engine_storage
     aeon
     glm
     png_static
