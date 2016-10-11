@@ -167,8 +167,7 @@ private:
 
         gfx::gfx_window_settings settings(width, height, title);
         settings.set_multisample(multisample);
-        settings.set_buffer_mode(double_buffer ? gfx::buffer_mode::double_buffer
-                                               : gfx::buffer_mode::single_buffer);
+        settings.set_buffer_mode(double_buffer ? gfx::buffer_mode::double_buffer : gfx::buffer_mode::single_buffer);
 
         window_ = device_.create_window(settings);
     }

@@ -126,7 +126,8 @@ gfx_monitors gfx_gl_device::get_monitors()
 
         const char *name = glfwGetMonitorName(m);
 
-        monitors.emplace_back(std::make_shared<gfx_gl_monitor>(m, physical_width, physical_height, x, y, primary, name));
+        monitors.emplace_back(
+            std::make_shared<gfx_gl_monitor>(m, physical_width, physical_height, x, y, primary, name));
     }
 
     return monitors;
@@ -141,7 +142,7 @@ gfx_window_ptr gfx_gl_device::create_window(const gfx_window_settings &settings,
     }
 
     AEON_LOG_DEBUG(logger_) << "Creating window: " << settings.get_width() << "x" << settings.get_height() << " '"
-        << settings.get_title() << "'." << std::endl;
+                            << settings.get_title() << "'." << std::endl;
 
     GLFWmonitor *glfw_monitor = nullptr;
 
