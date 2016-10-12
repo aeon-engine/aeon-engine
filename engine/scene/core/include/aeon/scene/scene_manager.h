@@ -29,6 +29,8 @@ namespace aeon
 namespace scene
 {
 
+class camera;
+
 class scene_manager
 {
     friend class camera;
