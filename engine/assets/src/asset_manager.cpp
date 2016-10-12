@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <assets/asset_manager.h>
+#include <aeon/assets/asset_manager.h>
 #include <aeon/scene/mesh.h>
 
 namespace aeon
