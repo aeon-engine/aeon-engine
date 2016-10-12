@@ -57,7 +57,7 @@ void application::main()
     device_.run();
 }
 
-bool application::on_frame(float dt)
+bool application::on_frame_begin(const float dt)
 {
     rotation_node_->rotate(0.0f, -0.005f * dt, 0.0f);
 

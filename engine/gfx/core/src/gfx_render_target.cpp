@@ -34,7 +34,7 @@ bool render_target::handle_frame(float dt)
     // Update all listeners
     for (auto frame_listener : listeners_)
     {
-        if (!frame_listener->on_frame(dt))
+        if (!frame_listener->on_frame_begin(dt))
             return false;
     }
 
@@ -42,6 +42,13 @@ bool render_target::handle_frame(float dt)
     for (auto vp : viewports_)
     {
         vp->update(dt);
+    }
+
+    // Update all listeners
+    for (auto frame_listener : listeners_)
+    {
+        if (!frame_listener->on_frame_end(dt))
+            return false;
     }
 
     if (!__on_frame_end(dt))

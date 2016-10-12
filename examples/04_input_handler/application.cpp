@@ -76,7 +76,7 @@ void application::main()
     device_.run();
 }
 
-bool application::on_frame(float dt)
+bool application::on_frame_begin(const float dt)
 {
     aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
 

@@ -75,7 +75,7 @@ void application::main()
     device_.run();
 }
 
-bool application::on_frame(float dt)
+bool application::on_frame_begin(const float dt)
 {
     // Scene nodes can be moved every frame to move objects on the screen.
     ship2_pivot_node_->rotate(dt);

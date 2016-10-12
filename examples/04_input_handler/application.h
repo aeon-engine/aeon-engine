@@ -47,7 +47,7 @@ public:
     void main();
 
 private:
-    bool on_frame(float dt) override;
+    bool on_frame_begin(const float dt) override;
 
     void on_keyboard_event(aeon::platform::keyboard_key key, aeon::platform::keyboard_key_state key_state, int modifier) override;
 

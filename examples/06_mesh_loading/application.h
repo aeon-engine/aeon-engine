@@ -28,7 +28,7 @@ public:
 
     void main();
 
-    bool on_frame(float dt) override;
+    bool on_frame_begin(const float dt) override;
 
 private:
     float timer_;
