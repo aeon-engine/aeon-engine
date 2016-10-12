@@ -24,6 +24,7 @@ namespace gfx
 {
 
 class viewport;
+class render_target;
 
 class gfx_camera
 {
@@ -31,7 +32,7 @@ public:
     explicit gfx_camera();
     virtual ~gfx_camera() = default;
 
-    virtual void render_scene(gfx::viewport &vp, float dt) = 0;
+    virtual void render_scene(render_target &rt, viewport &vp, float dt) = 0;
 
     glm::mat4 get_projection_matrix() const
     {

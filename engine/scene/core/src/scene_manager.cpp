@@ -65,11 +65,11 @@ gfx::device &scene_manager::get_device() const
     return device_;
 }
 
-void scene_manager::__render_scene(camera *cam, gfx::viewport &vp, float dt)
+void scene_manager::__render_scene(camera &cam, gfx::render_target &rt, gfx::viewport &vp, float dt)
 {
-    device_.set_viewport(vp);
+    device_.set_viewport(rt, vp);
 
-    __prepare_render_queue(cam);
+    __prepare_render_queue(&cam);
 
     queue_.sort();
 
@@ -77,7 +77,7 @@ void scene_manager::__render_scene(camera *cam, gfx::viewport &vp, float dt)
 
     for (auto render_object : queue_)
     {
-        render_object.object->render(cam->get_projection_matrix(), cam->get_view_matrix(), render_object.matrix, dt);
+        render_object.object->render(cam.get_projection_matrix(), cam.get_view_matrix(), render_object.matrix, dt);
     }
 }
 

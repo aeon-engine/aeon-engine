@@ -26,6 +26,7 @@ namespace aeon
 namespace gfx
 {
 class viewport;
+class render_target;
 } // namespace gfx
 
 namespace scene
@@ -37,7 +38,7 @@ public:
     explicit camera(scene_manager *scene_manager);
     virtual ~camera() = default;
 
-    void render_scene(gfx::viewport &vp, float dt) override;
+    void render_scene(gfx::render_target &rt, gfx::viewport &vp, float dt) override;
 };
 
 using camera_ptr = std::shared_ptr<camera>;

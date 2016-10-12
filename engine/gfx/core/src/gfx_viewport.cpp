@@ -20,7 +20,7 @@ namespace aeon
 namespace gfx
 {
 
-viewport::viewport(gfx::gfx_camera_ptr camera, const common::types::rectangle<float> &rect, int zorder)
+viewport::viewport(gfx_camera_ptr camera, const common::types::rectangle<float> &rect, int zorder)
     : has_z_order(zorder)
     , camera_(camera)
     , rectangle_(rect)
@@ -32,19 +32,19 @@ void viewport::set_rectangle(const common::types::rectangle<float> &rect)
     rectangle_ = rect;
 }
 
-void viewport::set_camera(gfx::gfx_camera_ptr camera)
+void viewport::set_camera(gfx_camera_ptr camera)
 {
     camera_ = camera;
 }
 
-gfx::gfx_camera_ptr viewport::get_camera() const
+gfx_camera_ptr viewport::get_camera() const
 {
     return camera_;
 }
 
-void viewport::update(float dt)
+void viewport::update(render_target &rt, float dt)
 {
-    camera_->render_scene(*this, dt);
+    camera_->render_scene(rt, *this, dt);
 }
 
 common::types::rectangle<float> viewport::get_rectangle() const

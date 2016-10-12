@@ -38,6 +38,8 @@ struct buffer_clear_flag
     static const int color_buffer = 0x01;
     static const int depth_buffer = 0x02;
 };
+    
+class renter_target;
 
 class device
 {
@@ -48,7 +50,7 @@ public:
     void initialize();
 
     virtual void set_clear_color(const common::types::color &c) = 0;
-    virtual void set_viewport(viewport &vp) = 0;
+    virtual void set_viewport(render_target &rt, viewport &vp) = 0;
     virtual void clear_buffer(int buffer_flag) = 0;
 
     virtual mesh_ptr create_mesh(material_ptr material) = 0;

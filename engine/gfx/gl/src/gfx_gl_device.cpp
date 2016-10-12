@@ -70,10 +70,19 @@ void gfx_gl_device::set_clear_color(const common::types::color &c)
     AEON_CHECK_GL_ERROR();
 }
 
-void gfx_gl_device::set_viewport(viewport &vp)
+void gfx_gl_device::set_viewport(render_target &rt, viewport &vp)
 {
-    common::types::rectangle<int> rect = common::types::rectangle<int>(vp.get_rectangle());
-    glViewport(rect.x, rect.y, rect.width, rect.height);
+    common::types::rectangle<float> vp_rel_rect = vp.get_rectangle();
+    glm::vec2 framebuffer_size = rt.get_framebuffer_size();
+    common::types::rectangle<int> vp_abs_rect =
+    {
+        static_cast<int>(vp_rel_rect.x * framebuffer_size.x),
+        static_cast<int>(vp_rel_rect.y * framebuffer_size.y),
+        static_cast<int>(vp_rel_rect.width * framebuffer_size.x),
+        static_cast<int>(vp_rel_rect.height * framebuffer_size.y)
+    };
+    
+    glViewport(vp_abs_rect.x, vp_abs_rect.y, vp_abs_rect.width, vp_abs_rect.height);
     AEON_CHECK_GL_ERROR();
 }
 

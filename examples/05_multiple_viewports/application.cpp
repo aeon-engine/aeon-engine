@@ -31,17 +31,12 @@ application::application()
     camera_ =
         std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH / 2, WINDOW_HEIGHT, 0);
 
-    // Grab the framebuffer size from the window. The framebuffer does not always have the same size as the window.
-    // On a Retina screen (Apple Mac) for example, the framebuffer is much larger due to high DPI.
-    glm::vec2 framebuffer_size = window_->get_framebuffer_size();
-
     // Create the left viewport
-    aeon::common::types::rectangle<float> viewport_rect_left(0, 0, framebuffer_size.x / 2, framebuffer_size.y);
+    aeon::common::types::rectangle<float> viewport_rect_left(0.0f, 0.0f, 0.5f, 1.0f);
     window_->create_viewport(camera_, viewport_rect_left, 0);
 
     // Create the right viewport
-    aeon::common::types::rectangle<float> viewport_rect_right(framebuffer_size.x / 2, 0, framebuffer_size.x / 2,
-                                                              framebuffer_size.y);
+    aeon::common::types::rectangle<float> viewport_rect_right(0.5f, 0.0f, 0.5f, 1.0f);
     window_->create_viewport(camera_, viewport_rect_right, 0);
 }
 

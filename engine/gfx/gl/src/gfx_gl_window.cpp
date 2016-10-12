@@ -37,7 +37,7 @@ gfx_gl_window::gfx_gl_window(platform::platform_interface &interface, const gfx_
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_DOUBLEBUFFER, settings.get_buffer_mode() == buffer_mode::double_buffer ? GL_TRUE : GL_FALSE);
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
     glfwWindowHint(GLFW_FOCUSED, GL_TRUE);
     glfwWindowHint(GLFW_SAMPLES, settings.get_multisample());
 

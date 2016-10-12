@@ -42,7 +42,7 @@ public:
     void __initialize_impl() override;
 
     void set_clear_color(const common::types::color &c) override;
-    void set_viewport(viewport &vp) override;
+    void set_viewport(render_target &rt, viewport &vp) override;
 
     void clear_buffer(int buffer_flag) override;
 

@@ -41,7 +41,7 @@ bool render_target::handle_frame(float dt)
     // Update all viewports
     for (auto vp : viewports_)
     {
-        vp->update(dt);
+        vp->update(*this, dt);
     }
 
     // Update all listeners
@@ -59,9 +59,7 @@ bool render_target::handle_frame(float dt)
 
 viewport_ptr render_target::create_viewport(gfx::gfx_camera_ptr camera, int zorder)
 {
-    glm::vec2 backbuffer_size = get_framebuffer_size();
-    return create_viewport(camera, aeon::common::types::rectangle<float>(0, 0, backbuffer_size.x, backbuffer_size.y),
-                           zorder);
+    return create_viewport(camera, aeon::common::types::rectangle<float>(0.0f, 0.0f, 1.0f, 1.0f), zorder);
 }
 
 viewport_ptr render_target::create_viewport(gfx::gfx_camera_ptr camera, const common::types::rectangle<float> &rect,
