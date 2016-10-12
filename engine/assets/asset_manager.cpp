@@ -14,7 +14,7 @@
  */
 
 #include <assets/asset_manager.h>
-#include <scene/mesh.h>
+#include <aeon/scene/mesh.h>
 
 namespace aeon
 {

@@ -15,19 +15,31 @@
 
 #pragma once
 
-#include <application/desktop_application.h>
-#include <aeon/resources/wrappers/image_resource_wrapper.h>
-#include <aeon/scene/basic_scene_manager/basic_scene_manager.h>
-#include <aeon/scene/orthographic_camera.h>
+#include <aeon/scene/scene_object.h>
+#include <aeon/gfx/gfx_mesh.h>
+#include <aeon/gfx/gfx_material.h>
+#include <memory>
 
-class application : public aeon::desktop_application<aeon::scene::basic_scene_manager>
+namespace aeon
+{
+namespace scene
+{
+
+class mesh : public scene_object
 {
 public:
-    explicit application();
-    virtual ~application() = default;
+    explicit mesh(scene_manager *scene_manager, gfx::material_ptr material,
+                  const std::vector<data::vertex_data> &vertex_data, const std::vector<std::uint16_t> &index_data);
 
-    void main();
+    virtual ~mesh();
 
 private:
-    aeon::scene::orthographic_camera_ptr camera_;
+    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt) override;
+
+    gfx::mesh_ptr mesh_;
 };
+
+using mesh_ptr = std::shared_ptr<mesh>;
+
+} // namespace scene
+} // namespace aeon

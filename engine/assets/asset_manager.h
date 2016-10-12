@@ -21,8 +21,8 @@
 #include <aeon/gfx/gfx_texture.h>
 #include <aeon/gfx/gfx_material.h>
 #include <aeon/gfx/gfx_atlas.h>
-#include <scene/scene_manager.h>
-#include <scene/scene_node.h>
+#include <aeon/scene/scene_manager.h>
+#include <aeon/scene/scene_node.h>
 #include <aeon/common/object_cache.h>
 
 namespace aeon

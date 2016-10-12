@@ -13,16 +13,26 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gtest/gtest.h>
-#include <aeon/scene/render_queue.h>
-#include <aeon/scene/sprite.h>
-#include <aeon/platform.h>
+#pragma once
 
-AEON_IGNORE_VS_WARNING(4189)
+#include <aeon/scene/camera.h>
+#include <memory>
 
-using namespace aeon;
-
-TEST(test_render_queue, test_render_queue_create)
+namespace aeon
 {
-    ASSERT_NO_THROW(scene::render_queue queue);
-}
+namespace scene
+{
+
+class perspective_camera : public camera
+{
+public:
+    explicit perspective_camera(scene_manager *scene_manager, float fov_y, float aspect_ratio, float near, float far);
+    explicit perspective_camera(scene_manager *scene_manager, float fov, float width, float height, float near,
+                                float far);
+    virtual ~perspective_camera() = default;
+};
+
+using perspective_camera_ptr = std::shared_ptr<perspective_camera>;
+
+} // namespace scene
+} // namespace aeon

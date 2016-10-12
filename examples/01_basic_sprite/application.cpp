@@ -14,7 +14,7 @@
  */
 
 #include "application.h"
-#include <scene/sprite.h>
+#include <aeon/scene/sprite.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;

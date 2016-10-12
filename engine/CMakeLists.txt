@@ -9,17 +9,12 @@ add_subdirectory(platform)
 add_subdirectory(storage)
 add_subdirectory(resources)
 add_subdirectory(gfx)
+add_subdirectory(scene)
 
 ################################################################################
 
 add_source_path(AEON_ENGINE_SOURCES application)
 add_source_path(AEON_ENGINE_SOURCES assets)
-
-################################################################################
-
-add_source_path(AEON_ENGINE_SOURCES scene)
-add_source_path(AEON_ENGINE_SOURCES scene/scene_managers/basic)
-add_source_path(AEON_ENGINE_SOURCES scene/scene_managers/octree)
 
 ################################################################################
 
@@ -46,6 +41,8 @@ target_link_libraries(aeon_engine
     aeon_engine_storage
     aeon_engine_resources
     aeon_engine_gfx_core
+    aeon_engine_scene_core
+    aeon_engine_basic_scene_manager
     aeon
     glm
     ${OPENGL_LIBRARIES}

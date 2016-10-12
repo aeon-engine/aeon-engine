@@ -13,16 +13,24 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gtest/gtest.h>
-#include <aeon/scene/render_queue.h>
-#include <aeon/scene/sprite.h>
-#include <aeon/platform.h>
+#include <aeon/scene/camera.h>
+#include <aeon/scene/scene_manager.h>
 
-AEON_IGNORE_VS_WARNING(4189)
-
-using namespace aeon;
-
-TEST(test_render_queue, test_render_queue_create)
+namespace aeon
 {
-    ASSERT_NO_THROW(scene::render_queue queue);
+namespace scene
+{
+
+camera::camera(scene_manager *scene_manager)
+    : gfx::gfx_camera()
+    , scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
+{
 }
+
+void camera::render_scene(gfx::viewport &vp, float dt)
+{
+    scene_manager_->__render_scene(this, vp, dt);
+}
+
+} // namespace scene
+} // namespace aeon

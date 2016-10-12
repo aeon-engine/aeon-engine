@@ -13,16 +13,21 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gtest/gtest.h>
-#include <aeon/scene/render_queue.h>
-#include <aeon/scene/sprite.h>
-#include <aeon/platform.h>
+#include <aeon/scene/scene_object.h>
+#include <aeon/scene/scene_node.h>
 
-AEON_IGNORE_VS_WARNING(4189)
-
-using namespace aeon;
-
-TEST(test_render_queue, test_render_queue_create)
+namespace aeon
 {
-    ASSERT_NO_THROW(scene::render_queue queue);
+namespace scene
+{
+
+glm::mat4 scene_object::get_scene_matrix() const
+{
+    if (!scene_node_)
+        return glm::mat4(1.0f);
+
+    return scene_node_->get_total_matrix();
 }
+
+} // namespace scene
+} // namespace aeon

@@ -13,16 +13,34 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gtest/gtest.h>
-#include <aeon/scene/render_queue.h>
-#include <aeon/scene/sprite.h>
-#include <aeon/platform.h>
+#pragma once
 
-AEON_IGNORE_VS_WARNING(4189)
+#include <aeon/gfx/gfx_camera.h>
+#include <aeon/scene/scene_object.h>
+#include <glm/mat4x4.hpp>
+#include <memory>
 
-using namespace aeon;
-
-TEST(test_render_queue, test_render_queue_create)
+namespace aeon
 {
-    ASSERT_NO_THROW(scene::render_queue queue);
-}
+
+namespace gfx
+{
+class viewport;
+} // namespace gfx
+
+namespace scene
+{
+
+class camera : public gfx::gfx_camera, public scene_object
+{
+public:
+    explicit camera(scene_manager *scene_manager);
+    virtual ~camera() = default;
+
+    void render_scene(gfx::viewport &vp, float dt) override;
+};
+
+using camera_ptr = std::shared_ptr<camera>;
+
+} // namespace scene
+} // namespace aeon
