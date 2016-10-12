@@ -2,6 +2,7 @@ set (AEON_ENGINE_GFX_GL_SOURCES
     include/aeon/gfx/gl/gfx_gl_buffer.h
     include/aeon/gfx/gl/gfx_gl_buffer_manager.h
     include/aeon/gfx/gl/gfx_gl_device.h
+    include/aeon/gfx/gl/gfx_gl_imgui_renderer.h
     include/aeon/gfx/gl/gfx_gl_material.h
     include/aeon/gfx/gl/gfx_gl_material_manager.h
     include/aeon/gfx/gl/gfx_gl_mesh.h
@@ -15,6 +16,7 @@ set (AEON_ENGINE_GFX_GL_SOURCES
     src/gfx_gl_buffer.cpp
     src/gfx_gl_buffer_manager.cpp
     src/gfx_gl_device.cpp
+    src/gfx_gl_imgui_renderer.cpp
     src/gfx_gl_material.cpp
     src/gfx_gl_material_manager.cpp
     src/gfx_gl_mesh.cpp

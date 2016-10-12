@@ -117,6 +117,11 @@ mouse_cursor_mode gfx_gl_window::get_mouse_cursor_mode() const
     return cursor_mode_;
 }
 
+GLFWwindow *gfx_gl_window::get_glfw_window_ptr() const
+{
+    return window_;
+}
+
 bool gfx_gl_window::__on_frame_start(float /*dt*/)
 {
     make_current();

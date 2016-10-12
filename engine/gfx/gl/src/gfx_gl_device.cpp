@@ -153,6 +153,7 @@ gfx_window_ptr gfx_gl_device::create_window(const gfx_window_settings &settings,
     }
 
     gfx_window_ptr window = std::make_shared<gfx_gl_window>(platform_interface_, settings, glfw_monitor);
+    gfx_gl_window *gl_window = dynamic_cast<gfx_gl_window *>(window.get());
 
     // HACK: If there are no render targets yet, this is the first window that is being opened.
     // This means we can initialize opengl here.
@@ -161,6 +162,9 @@ gfx_window_ptr gfx_gl_device::create_window(const gfx_window_settings &settings,
         __create_managers();
         __setup_opengl();
         __initialize_glew();
+        
+        imgui_render_.initialize(*gl_window);
+        window->attach_listener(&imgui_render_);
     }
 
     render_targets_.push_back(window);

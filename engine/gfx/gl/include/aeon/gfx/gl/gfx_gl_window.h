@@ -46,6 +46,8 @@ public:
 
     mouse_cursor_mode get_mouse_cursor_mode() const override;
 
+    GLFWwindow *get_glfw_window_ptr() const;
+
 private:
     bool __on_frame_start(float dt) override;
 
