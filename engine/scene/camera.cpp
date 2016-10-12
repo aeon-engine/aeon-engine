@@ -22,20 +22,14 @@ namespace scene
 {
 
 camera::camera(scene_manager *scene_manager)
-    : scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
-    , projection_matrix_(1.0f)
-    , view_matrix_(1.0f)
+    : gfx::gfx_camera()
+    , scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
 {
 }
 
 void camera::render_scene(gfx::viewport &vp, float dt)
 {
     scene_manager_->__render_scene(this, vp, dt);
-}
-
-void camera::reset_view()
-{
-    view_matrix_ = glm::mat4(1.0f);
 }
 
 } // namespace scene

@@ -15,32 +15,47 @@
 
 #pragma once
 
-#include <gfx/gfx_camera.h>
-#include <scene/scene_object.h>
 #include <glm/mat4x4.hpp>
 #include <memory>
 
 namespace aeon
 {
-
 namespace gfx
 {
+
 class viewport;
-} // namespace gfx
 
-namespace scene
-{
-
-class camera : public gfx::gfx_camera, public scene_object
+class gfx_camera
 {
 public:
-    explicit camera(scene_manager *scene_manager);
-    virtual ~camera() = default;
+    explicit gfx_camera();
+    virtual ~gfx_camera() = default;
 
-    void render_scene(gfx::viewport &vp, float dt) override;
+    virtual void render_scene(gfx::viewport &vp, float dt) = 0;
+
+    glm::mat4 get_projection_matrix() const
+    {
+        return projection_matrix_;
+    }
+
+    glm::mat4 get_view_matrix() const
+    {
+        return view_matrix_;
+    }
+
+    glm::mat4 get_camera_matrix() const
+    {
+        return projection_matrix_ * view_matrix_;
+    }
+
+    void reset_view();
+
+protected:
+    glm::mat4 projection_matrix_;
+    glm::mat4 view_matrix_;
 };
 
-using camera_ptr = std::shared_ptr<camera>;
+using gfx_camera_ptr = std::shared_ptr<gfx_camera>;
 
-} // namespace scene
+} // namespace gfx
 } // namespace aeon

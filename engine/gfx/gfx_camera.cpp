@@ -13,34 +13,23 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
 #include <gfx/gfx_camera.h>
-#include <scene/scene_object.h>
-#include <glm/mat4x4.hpp>
-#include <memory>
 
 namespace aeon
 {
-
 namespace gfx
 {
-class viewport;
+
+gfx_camera::gfx_camera()
+    : projection_matrix_(1.0f)
+    , view_matrix_(1.0f)
+{
+}
+
+void gfx_camera::reset_view()
+{
+    view_matrix_ = glm::mat4(1.0f);
+}
+
 } // namespace gfx
-
-namespace scene
-{
-
-class camera : public gfx::gfx_camera, public scene_object
-{
-public:
-    explicit camera(scene_manager *scene_manager);
-    virtual ~camera() = default;
-
-    void render_scene(gfx::viewport &vp, float dt) override;
-};
-
-using camera_ptr = std::shared_ptr<camera>;
-
-} // namespace scene
 } // namespace aeon
