@@ -16,11 +16,11 @@
 #pragma once
 
 #include <aeon/resources/resource_manager.h>
-#include <gfx/gfx_device.h>
-#include <gfx/gfx_shader.h>
-#include <gfx/gfx_texture.h>
-#include <gfx/gfx_material.h>
-#include <gfx/gfx_atlas.h>
+#include <aeon/gfx/gfx_device.h>
+#include <aeon/gfx/gfx_shader.h>
+#include <aeon/gfx/gfx_texture.h>
+#include <aeon/gfx/gfx_material.h>
+#include <aeon/gfx/gfx_atlas.h>
 #include <scene/scene_manager.h>
 #include <scene/scene_node.h>
 #include <aeon/common/object_cache.h>

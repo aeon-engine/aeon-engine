@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <scene/scene_manager.h>
+#include <scene/camera.h>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace aeon

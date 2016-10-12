@@ -18,8 +18,8 @@
 #include <aeon/common/has_z_order.h>
 #include <scene/scene_object.h>
 #include <aeon/data/atlas.h>
-#include <gfx/gfx_atlas.h>
-#include <gfx/gfx_mesh.h>
+#include <aeon/gfx/gfx_atlas.h>
+#include <aeon/gfx/gfx_mesh.h>
 #include <glm/vec2.hpp>
 #include <memory>
 

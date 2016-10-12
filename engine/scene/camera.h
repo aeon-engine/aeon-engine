@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <gfx/gfx_camera.h>
+#include <aeon/gfx/gfx_camera.h>
 #include <scene/scene_object.h>
 #include <glm/mat4x4.hpp>
 #include <memory>

@@ -16,7 +16,7 @@
 #pragma once
 
 #include <application/desktop_application.h>
-#include <gfx/gfx_frame_listener.h>
+#include <aeon/gfx/gfx_frame_listener.h>
 #include <aeon/resources/wrappers/image_resource_wrapper.h>
 #include <scene/scene_managers/basic/basic_scene_manager.h>
 #include <scene/orthographic_camera.h>

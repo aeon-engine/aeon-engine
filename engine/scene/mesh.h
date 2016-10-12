@@ -16,8 +16,8 @@
 #pragma once
 
 #include <scene/scene_object.h>
-#include <gfx/gfx_mesh.h>
-#include <gfx/gfx_material.h>
+#include <aeon/gfx/gfx_mesh.h>
+#include <aeon/gfx/gfx_material.h>
 #include <memory>
 
 namespace aeon

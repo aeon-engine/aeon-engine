@@ -8,25 +8,12 @@ add_subdirectory(data)
 add_subdirectory(platform)
 add_subdirectory(storage)
 add_subdirectory(resources)
+add_subdirectory(gfx)
 
 ################################################################################
 
 add_source_path(AEON_ENGINE_SOURCES application)
 add_source_path(AEON_ENGINE_SOURCES assets)
-
-################################################################################
-
-add_source_path(AEON_ENGINE_SOURCES gfx)
-
-if (AEON_GFX_GL)
-    add_source_path(AEON_ENGINE_SOURCES gfx/gl_common)
-    add_source_path(AEON_ENGINE_SOURCES gfx/gl)
-endif ()
-
-if (AEON_GFX_GLES2)
-    add_source_path(AEON_ENGINE_SOURCES gfx/gl_common)
-    add_source_path(AEON_ENGINE_SOURCES gfx/gles2)
-endif ()
 
 ################################################################################
 
@@ -58,6 +45,7 @@ target_link_libraries(aeon_engine
     aeon_engine_platform
     aeon_engine_storage
     aeon_engine_resources
+    aeon_engine_gfx_core
     aeon
     glm
     ${OPENGL_LIBRARIES}
@@ -68,8 +56,19 @@ if (APPLE)
 endif ()
 
 if (AEON_GFX_GL)
-    target_link_libraries(aeon_engine glew_s glfw)
+    target_link_libraries(aeon_engine
+        aeon_engine_gfx_gl_common
+        aeon_engine_gfx_gl
+    )
 endif ()
+
+if (AEON_GFX_GLES2)
+    target_link_libraries(aeon_engine
+        aeon_engine_gfx_gl_common
+        aeon_engine_gfx_gles2
+    )
+endif ()
+
 
 if (AEON_AUDIO_USE_OPENAL)
     target_link_libraries(aeon_engine

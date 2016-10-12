@@ -18,7 +18,7 @@
 #include <scene/sprite.h>
 #include <aeon/common/types/rectangle.h>
 #include <scene/sprite_animation_settings.h>
-#include <gfx/gfx_atlas.h>
+#include <aeon/gfx/gfx_atlas.h>
 #include <memory>
 
 namespace aeon

@@ -16,9 +16,9 @@
 #pragma once
 
 #include <scene/scene_node.h>
-#include <gfx/gfx_viewport.h>
+#include <aeon/gfx/gfx_viewport.h>
 #include <scene/render_queue.h>
-#include <gfx/gfx_device.h>
+#include <aeon/gfx/gfx_device.h>
 #include <vector>
 #include <type_traits>
 #include <utility>

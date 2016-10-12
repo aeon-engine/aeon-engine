@@ -15,7 +15,7 @@
 
 #include <scene/mesh.h>
 #include <scene/scene_manager.h>
-#include <gfx/gfx_device.h>
+#include <aeon/gfx/gfx_device.h>
 
 namespace aeon
 {
