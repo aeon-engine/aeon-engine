@@ -33,20 +33,21 @@ namespace gfx
 namespace gl
 {
 
-static double       g_Time = 0.0f;
-static bool         g_MousePressed[3] = { false, false, false };
-static float        g_MouseWheel = 0.0f;
-static GLuint       g_FontTexture = 0;
-static int          g_ShaderHandle = 0, g_VertHandle = 0, g_FragHandle = 0;
-static int          g_AttribLocationTex = 0, g_AttribLocationProjMtx = 0;
-static int          g_AttribLocationPosition = 0, g_AttribLocationUV = 0, g_AttribLocationColor = 0;
+static double g_Time = 0.0f;
+static bool g_MousePressed[3] = {false, false, false};
+static float g_MouseWheel = 0.0f;
+static GLuint g_FontTexture = 0;
+static int g_ShaderHandle = 0, g_VertHandle = 0, g_FragHandle = 0;
+static int g_AttribLocationTex = 0, g_AttribLocationProjMtx = 0;
+static int g_AttribLocationPosition = 0, g_AttribLocationUV = 0, g_AttribLocationColor = 0;
 static unsigned int g_VboHandle = 0, g_VaoHandle = 0, g_ElementsHandle = 0;
 static bool g_ShowTestWindow = true;
 
 static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
 {
-    // Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
-    ImGuiIO& io = ImGui::GetIO();
+    // Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer
+    // coordinates)
+    ImGuiIO &io = ImGui::GetIO();
     int fb_width = static_cast<int>(io.DisplaySize.x * io.DisplayFramebufferScale.x);
     int fb_height = static_cast<int>(io.DisplaySize.y * io.DisplayFramebufferScale.y);
     if (fb_width == 0 || fb_height == 0)
@@ -54,18 +55,30 @@ static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
     draw_data->ScaleClipRects(io.DisplayFramebufferScale);
 
     // Backup GL state
-    GLint last_program; glGetIntegerv(GL_CURRENT_PROGRAM, &last_program);
-    GLint last_texture; glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
-    GLint last_active_texture; glGetIntegerv(GL_ACTIVE_TEXTURE, &last_active_texture);
-    GLint last_array_buffer; glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &last_array_buffer);
-    GLint last_element_array_buffer; glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &last_element_array_buffer);
-    GLint last_vertex_array; glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
-    GLint last_blend_src; glGetIntegerv(GL_BLEND_SRC, &last_blend_src);
-    GLint last_blend_dst; glGetIntegerv(GL_BLEND_DST, &last_blend_dst);
-    GLint last_blend_equation_rgb; glGetIntegerv(GL_BLEND_EQUATION_RGB, &last_blend_equation_rgb);
-    GLint last_blend_equation_alpha; glGetIntegerv(GL_BLEND_EQUATION_ALPHA, &last_blend_equation_alpha);
-    GLint last_viewport[4]; glGetIntegerv(GL_VIEWPORT, last_viewport);
-    GLint last_scissor_box[4]; glGetIntegerv(GL_SCISSOR_BOX, last_scissor_box);
+    GLint last_program;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &last_program);
+    GLint last_texture;
+    glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
+    GLint last_active_texture;
+    glGetIntegerv(GL_ACTIVE_TEXTURE, &last_active_texture);
+    GLint last_array_buffer;
+    glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &last_array_buffer);
+    GLint last_element_array_buffer;
+    glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &last_element_array_buffer);
+    GLint last_vertex_array;
+    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
+    GLint last_blend_src;
+    glGetIntegerv(GL_BLEND_SRC, &last_blend_src);
+    GLint last_blend_dst;
+    glGetIntegerv(GL_BLEND_DST, &last_blend_dst);
+    GLint last_blend_equation_rgb;
+    glGetIntegerv(GL_BLEND_EQUATION_RGB, &last_blend_equation_rgb);
+    GLint last_blend_equation_alpha;
+    glGetIntegerv(GL_BLEND_EQUATION_ALPHA, &last_blend_equation_alpha);
+    GLint last_viewport[4];
+    glGetIntegerv(GL_VIEWPORT, last_viewport);
+    GLint last_scissor_box[4];
+    glGetIntegerv(GL_SCISSOR_BOX, last_scissor_box);
     GLboolean last_enable_blend = glIsEnabled(GL_BLEND);
     GLboolean last_enable_cull_face = glIsEnabled(GL_CULL_FACE);
     GLboolean last_enable_depth_test = glIsEnabled(GL_DEPTH_TEST);
@@ -82,12 +95,11 @@ static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
 
     // Setup viewport, orthographic projection matrix
     glViewport(0, 0, static_cast<GLsizei>(fb_width), static_cast<GLsizei>(fb_height));
-    const float ortho_projection[4][4] =
-    {
-        { 2.0f / io.DisplaySize.x, 0.0f,                   0.0f, 0.0f },
-        { 0.0f,                  2.0f / -io.DisplaySize.y, 0.0f, 0.0f },
-        { 0.0f,                  0.0f,                  -1.0f, 0.0f },
-        { -1.0f,                  1.0f,                   0.0f, 1.0f },
+    const float ortho_projection[4][4] = {
+        {2.0f / io.DisplaySize.x, 0.0f, 0.0f, 0.0f},
+        {0.0f, 2.0f / -io.DisplaySize.y, 0.0f, 0.0f},
+        {0.0f, 0.0f, -1.0f, 0.0f},
+        {-1.0f, 1.0f, 0.0f, 1.0f},
     };
     glUseProgram(g_ShaderHandle);
     glUniform1i(g_AttribLocationTex, 0);
@@ -96,18 +108,20 @@ static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
 
     for (int n = 0; n < draw_data->CmdListsCount; n++)
     {
-        const ImDrawList* cmd_list = draw_data->CmdLists[n];
-        const ImDrawIdx* idx_buffer_offset = 0;
+        const ImDrawList *cmd_list = draw_data->CmdLists[n];
+        const ImDrawIdx *idx_buffer_offset = 0;
 
         glBindBuffer(GL_ARRAY_BUFFER, g_VboHandle);
-        glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(cmd_list->VtxBuffer.Size) * sizeof(ImDrawVert), static_cast<GLvoid*>(cmd_list->VtxBuffer.Data), GL_STREAM_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(cmd_list->VtxBuffer.Size) * sizeof(ImDrawVert),
+                     static_cast<GLvoid *>(cmd_list->VtxBuffer.Data), GL_STREAM_DRAW);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_ElementsHandle);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(cmd_list->IdxBuffer.Size) * sizeof(ImDrawIdx), static_cast<GLvoid*>(cmd_list->IdxBuffer.Data), GL_STREAM_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(cmd_list->IdxBuffer.Size) * sizeof(ImDrawIdx),
+                     static_cast<GLvoid *>(cmd_list->IdxBuffer.Data), GL_STREAM_DRAW);
 
         for (int cmd_i = 0; cmd_i < cmd_list->CmdBuffer.Size; cmd_i++)
         {
-            const ImDrawCmd* pcmd = &cmd_list->CmdBuffer[cmd_i];
+            const ImDrawCmd *pcmd = &cmd_list->CmdBuffer[cmd_i];
             if (pcmd->UserCallback)
             {
                 pcmd->UserCallback(cmd_list, pcmd);
@@ -115,8 +129,11 @@ static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
             else
             {
                 glBindTexture(GL_TEXTURE_2D, static_cast<GLuint>(reinterpret_cast<intptr_t>(pcmd->TextureId)));
-                glScissor((int)pcmd->ClipRect.x, static_cast<int>(fb_height - pcmd->ClipRect.w), static_cast<int>(pcmd->ClipRect.z - pcmd->ClipRect.x), static_cast<int>(pcmd->ClipRect.w - pcmd->ClipRect.y));
-                glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(pcmd->ElemCount), sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, idx_buffer_offset);
+                glScissor((int)pcmd->ClipRect.x, static_cast<int>(fb_height - pcmd->ClipRect.w),
+                          static_cast<int>(pcmd->ClipRect.z - pcmd->ClipRect.x),
+                          static_cast<int>(pcmd->ClipRect.w - pcmd->ClipRect.y));
+                glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(pcmd->ElemCount),
+                               sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, idx_buffer_offset);
             }
             idx_buffer_offset += pcmd->ElemCount;
         }
@@ -131,17 +148,31 @@ static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, last_element_array_buffer);
     glBlendEquationSeparate(last_blend_equation_rgb, last_blend_equation_alpha);
     glBlendFunc(last_blend_src, last_blend_dst);
-    if (last_enable_blend) glEnable(GL_BLEND); else glDisable(GL_BLEND);
-    if (last_enable_cull_face) glEnable(GL_CULL_FACE); else glDisable(GL_CULL_FACE);
-    if (last_enable_depth_test) glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST);
-    if (last_enable_scissor_test) glEnable(GL_SCISSOR_TEST); else glDisable(GL_SCISSOR_TEST);
-    glViewport(last_viewport[0], last_viewport[1], static_cast<GLsizei>(last_viewport[2]), static_cast<GLsizei>(last_viewport[3]));
-    glScissor(last_scissor_box[0], last_scissor_box[1], static_cast<GLsizei>(last_scissor_box[2]), static_cast<GLsizei>(last_scissor_box[3]));
+    if (last_enable_blend)
+        glEnable(GL_BLEND);
+    else
+        glDisable(GL_BLEND);
+    if (last_enable_cull_face)
+        glEnable(GL_CULL_FACE);
+    else
+        glDisable(GL_CULL_FACE);
+    if (last_enable_depth_test)
+        glEnable(GL_DEPTH_TEST);
+    else
+        glDisable(GL_DEPTH_TEST);
+    if (last_enable_scissor_test)
+        glEnable(GL_SCISSOR_TEST);
+    else
+        glDisable(GL_SCISSOR_TEST);
+    glViewport(last_viewport[0], last_viewport[1], static_cast<GLsizei>(last_viewport[2]),
+               static_cast<GLsizei>(last_viewport[3]));
+    glScissor(last_scissor_box[0], last_scissor_box[1], static_cast<GLsizei>(last_scissor_box[2]),
+              static_cast<GLsizei>(last_scissor_box[3]));
 }
 
-static void imgui_renderer_set_clipboard_text(const char* text)
+static void imgui_renderer_set_clipboard_text(const char *text)
 {
-    (void) text;
+    (void)text;
 }
 
 static const char *imgui_renderer_get_clipboard_text()
@@ -152,12 +183,17 @@ static const char *imgui_renderer_get_clipboard_text()
 bool ImGui_ImplGlfwGL3_CreateFontsTexture()
 {
     // Build texture atlas
-    ImGuiIO& io = ImGui::GetIO();
-    unsigned char* pixels;
+    ImGuiIO &io = ImGui::GetIO();
+    unsigned char *pixels;
     int width, height;
-    io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
+    io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height); // Load as RGBA 32-bits (75% of the memory is wasted, but
+                                                            // default font is so small) because it is more likely to be
+                                                            // compatible with user's existing shaders. If your
+                                                            // ImTextureId represent a higher-level concept than just a
+                                                            // GL texture id, consider calling GetTexDataAsAlpha8()
+                                                            // instead to save on GPU memory.
 
-                                                              // Upload texture to graphics system
+    // Upload texture to graphics system
     GLint last_texture;
     glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
     glGenTextures(1, &g_FontTexture);
@@ -183,31 +219,29 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
     glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &last_array_buffer);
     glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
 
-    const GLchar *vertex_shader =
-        "#version 330\n"
-        "uniform mat4 ProjMtx;\n"
-        "in vec2 Position;\n"
-        "in vec2 UV;\n"
-        "in vec4 Color;\n"
-        "out vec2 Frag_UV;\n"
-        "out vec4 Frag_Color;\n"
-        "void main()\n"
-        "{\n"
-        "	Frag_UV = UV;\n"
-        "	Frag_Color = Color;\n"
-        "	gl_Position = ProjMtx * vec4(Position.xy,0,1);\n"
-        "}\n";
+    const GLchar *vertex_shader = "#version 330\n"
+                                  "uniform mat4 ProjMtx;\n"
+                                  "in vec2 Position;\n"
+                                  "in vec2 UV;\n"
+                                  "in vec4 Color;\n"
+                                  "out vec2 Frag_UV;\n"
+                                  "out vec4 Frag_Color;\n"
+                                  "void main()\n"
+                                  "{\n"
+                                  "	Frag_UV = UV;\n"
+                                  "	Frag_Color = Color;\n"
+                                  "	gl_Position = ProjMtx * vec4(Position.xy,0,1);\n"
+                                  "}\n";
 
-    const GLchar* fragment_shader =
-        "#version 330\n"
-        "uniform sampler2D Texture;\n"
-        "in vec2 Frag_UV;\n"
-        "in vec4 Frag_Color;\n"
-        "out vec4 Out_Color;\n"
-        "void main()\n"
-        "{\n"
-        "	Out_Color = Frag_Color * texture( Texture, Frag_UV.st);\n"
-        "}\n";
+    const GLchar *fragment_shader = "#version 330\n"
+                                    "uniform sampler2D Texture;\n"
+                                    "in vec2 Frag_UV;\n"
+                                    "in vec4 Frag_Color;\n"
+                                    "out vec4 Out_Color;\n"
+                                    "void main()\n"
+                                    "{\n"
+                                    "	Out_Color = Frag_Color * texture( Texture, Frag_UV.st);\n"
+                                    "}\n";
 
     g_ShaderHandle = glCreateProgram();
     g_VertHandle = glCreateShader(GL_VERTEX_SHADER);
@@ -236,10 +270,13 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
     glEnableVertexAttribArray(g_AttribLocationUV);
     glEnableVertexAttribArray(g_AttribLocationColor);
 
-#define OFFSETOF(TYPE, ELEMENT) ((size_t)&(((TYPE *)0)->ELEMENT))
-    glVertexAttribPointer(g_AttribLocationPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos));
-    glVertexAttribPointer(g_AttribLocationUV, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv));
-    glVertexAttribPointer(g_AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
+#define OFFSETOF(TYPE, ELEMENT) ((size_t) & (((TYPE *)0)->ELEMENT))
+    glVertexAttribPointer(g_AttribLocationPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert),
+                          (GLvoid *)OFFSETOF(ImDrawVert, pos));
+    glVertexAttribPointer(g_AttribLocationUV, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert),
+                          (GLvoid *)OFFSETOF(ImDrawVert, uv));
+    glVertexAttribPointer(g_AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert),
+                          (GLvoid *)OFFSETOF(ImDrawVert, col));
 #undef OFFSETOF
 
     ImGui_ImplGlfwGL3_CreateFontsTexture();
@@ -251,7 +288,6 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
 
     return true;
 }
-
 
 gl_imgui_renderer::gl_imgui_renderer()
     : window_(nullptr)
@@ -271,7 +307,7 @@ bool gl_imgui_renderer::on_frame_begin(const float dt)
     if (!g_FontTexture)
         ImGui_ImplGlfwGL3_CreateDeviceObjects();
 
-    ImGuiIO& io = ImGui::GetIO();
+    ImGuiIO &io = ImGui::GetIO();
     GLFWwindow *window = window_->get_glfw_window_ptr();
 
     // Setup display size (every frame to accommodate for window resizing)
@@ -280,7 +316,8 @@ bool gl_imgui_renderer::on_frame_begin(const float dt)
     glfwGetWindowSize(window, &w, &h);
     glfwGetFramebufferSize(window, &display_w, &display_h);
     io.DisplaySize = ImVec2(static_cast<float>(w), static_cast<float>(h));
-    io.DisplayFramebufferScale = ImVec2(w > 0 ? (static_cast<float>(display_w) / w) : 0, h > 0 ? (static_cast<float>(display_h) / h) : 0);
+    io.DisplayFramebufferScale =
+        ImVec2(w > 0 ? (static_cast<float>(display_w) / w) : 0, h > 0 ? (static_cast<float>(display_h) / h) : 0);
 
     // Setup time step
     io.DeltaTime = dt;
@@ -291,7 +328,10 @@ bool gl_imgui_renderer::on_frame_begin(const float dt)
     {
         double mouse_x, mouse_y;
         glfwGetCursorPos(window, &mouse_x, &mouse_y);
-        io.MousePos = ImVec2(static_cast<float>(mouse_x), static_cast<float>(mouse_y));   // Mouse position in screen coordinates (set to -1,-1 if no mouse / on another screen, etc.)
+        io.MousePos = ImVec2(
+            static_cast<float>(mouse_x),
+            static_cast<float>(
+                mouse_y)); // Mouse position in screen coordinates (set to -1,-1 if no mouse / on another screen, etc.)
     }
     else
     {
@@ -300,7 +340,10 @@ bool gl_imgui_renderer::on_frame_begin(const float dt)
 
     for (int i = 0; i < 3; i++)
     {
-        io.MouseDown[i] = g_MousePressed[i] || glfwGetMouseButton(window, i) != 0;    // If a mouse press event came, always pass it as "mouse held this frame", so we don't miss click-release events that are shorter than 1 frame.
+        io.MouseDown[i] = g_MousePressed[i] ||
+                          glfwGetMouseButton(window, i) != 0; // If a mouse press event came, always pass it as "mouse
+                                                              // held this frame", so we don't miss click-release events
+                                                              // that are shorter than 1 frame.
         g_MousePressed[i] = false;
     }
 
@@ -319,7 +362,7 @@ bool gl_imgui_renderer::on_frame_begin(const float dt)
         ui_listener->on_render_ui();
     }
 
-    //HACK HACK
+    // HACK HACK
     ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
     ImGui::ShowTestWindow(&g_ShowTestWindow);
 

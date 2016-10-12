@@ -20,7 +20,5 @@ namespace aeon
 namespace ui
 {
 
-
-
 } // namespace ui
 } // namespace aeon

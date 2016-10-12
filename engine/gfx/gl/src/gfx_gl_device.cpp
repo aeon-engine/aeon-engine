@@ -162,7 +162,7 @@ gfx_window_ptr gfx_gl_device::create_window(const gfx_window_settings &settings,
         __create_managers();
         __setup_opengl();
         __initialize_glew();
-        
+
         imgui_render_.initialize(*gl_window);
         window->attach_listener(&imgui_render_);
     }

@@ -34,7 +34,6 @@ public:
 
     void initialize(gfx_gl_window &window);
 
-
 private:
     bool on_frame_begin(const float dt) override;
     bool on_frame_end(const float dt) override;
