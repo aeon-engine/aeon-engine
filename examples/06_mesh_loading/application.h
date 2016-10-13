@@ -33,6 +33,7 @@ public:
 private:
     float timer_;
     aeon::scene::perspective_camera_ptr camera_;
+    aeon::scene::perspective_camera_ptr camera2_;
     aeon::scene::scene_node_ptr rotation_node_;
     aeon::scene::scene_node_ptr wave_node_;
 };
