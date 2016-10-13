@@ -38,8 +38,8 @@ struct buffer_clear_flag
     static const int color_buffer = 0x01;
     static const int depth_buffer = 0x02;
 };
-    
-class renter_target;
+
+class render_target;
 
 class device
 {

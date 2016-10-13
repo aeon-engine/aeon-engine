@@ -24,7 +24,7 @@ namespace aeon
 {
 namespace gfx
 {
-    
+
 class render_target;
 
 class viewport : public common::has_z_order
