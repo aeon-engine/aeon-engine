@@ -203,8 +203,7 @@ void gfx_gl_device::run()
 
         glfwPollEvents();
 
-        // Todo: This does not belong here. However the platform interface does not know about the gfx device.
-        glClear(GL_COLOR_BUFFER_BIT);
+        clear_buffer(gfx::buffer_clear_flag::color_buffer | gfx::buffer_clear_flag::depth_buffer);
 
         for (gfx::render_target_ptr render_target : render_targets_)
         {

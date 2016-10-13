@@ -73,8 +73,6 @@ void scene_manager::__render_scene(camera &cam, gfx::render_target &rt, gfx::vie
 
     queue_.sort();
 
-    device_.clear_buffer(gfx::buffer_clear_flag::color_buffer | gfx::buffer_clear_flag::depth_buffer);
-
     for (auto render_object : queue_)
     {
         render_object.object->render(cam.get_projection_matrix(), cam.get_view_matrix(), render_object.matrix, dt);
