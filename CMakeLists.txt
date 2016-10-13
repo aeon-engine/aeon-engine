@@ -55,6 +55,13 @@ if (MSVC)
     if (NOT AEON_ENABLE_MSVC_ITERATOR_DEBUGGING)
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D _HAS_ITERATOR_DEBUGGING=0")
     endif ()
+
+    option(AEON_ENABLE_MSVC_MP_BUILD "Use the /MP flag in Visual Studio to use multiple processes per cpp file." ON)
+    if (AEON_ENABLE_MSVC_MP_BUILD)
+        message (STATUS "Using Visual Studio /MP flag.")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+    endif ()
 endif ()
 
 ################################################################################
