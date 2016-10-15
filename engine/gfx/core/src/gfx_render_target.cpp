@@ -59,7 +59,11 @@ bool render_target::handle_frame(float dt)
 
 viewport_ptr render_target::create_viewport(gfx::gfx_camera_ptr camera, int zorder)
 {
-    return create_viewport(camera, aeon::common::types::rectangle<float>(0.0f, 0.0f, 1.0f, 1.0f), zorder);
+    AEON_LOG_DEBUG(logger_) << "Creating full-screen viewport." << std::endl;
+
+    viewport_ptr vp = std::make_shared<viewport>(camera, zorder);
+    attach_viewport(vp);
+    return vp;
 }
 
 viewport_ptr render_target::create_viewport(gfx::gfx_camera_ptr camera, const common::types::rectangle<float> &rect,
@@ -68,27 +72,35 @@ viewport_ptr render_target::create_viewport(gfx::gfx_camera_ptr camera, const co
     AEON_LOG_DEBUG(logger_) << "Creating viewport (" << rect << ")." << std::endl;
 
     viewport_ptr vp = std::make_shared<viewport>(camera, rect, zorder);
-    viewports_.push_back(vp);
-
+    attach_viewport(vp);
     return vp;
 }
 
-viewport_ptr render_target::create_viewport(gfx::gfx_camera_ptr camera, const common::types::rectangle<int> &rect,
-                                            int zorder)
+void render_target::attach_viewport(viewport_ptr vp)
 {
-    return create_viewport(camera, common::types::rectangle<float>(rect), zorder);
+    AEON_LOG_DEBUG(logger_) << "Attaching viewport (" << vp->get_rectangle() << ")." << std::endl;
+    viewports_.push_back(vp);
+    __sort_viewports_by_zorder();
 }
 
 void render_target::detach_viewport(viewport_ptr vp)
 {
     AEON_LOG_DEBUG(logger_) << "Detaching viewport." << std::endl;
     viewports_.erase(std::remove(viewports_.begin(), viewports_.end(), vp), viewports_.end());
+    __sort_viewports_by_zorder();
 }
 
 void render_target::remove_all_viewports()
 {
     AEON_LOG_DEBUG(logger_) << "Detaching all viewports." << std::endl;
     viewports_.clear();
+}
+
+void render_target::__sort_viewports_by_zorder()
+{
+    AEON_LOG_DEBUG(logger_) << "Sorting " << viewports_.size() << " viewport(s)." << std::endl;
+    std::sort(viewports_.begin(), viewports_.end(),
+              [](const viewport_ptr &a, const viewport_ptr &b) { return a->get_zorder() < b->get_zorder(); });
 }
 
 } // namespace gfx

@@ -20,6 +20,13 @@ namespace aeon
 namespace gfx
 {
 
+viewport::viewport(gfx_camera_ptr camera, int zorder)
+    : has_z_order(zorder)
+    , camera_(camera)
+    , rectangle_(0.0f, 0.0f, 1.0f, 1.0f)
+{
+}
+
 viewport::viewport(gfx_camera_ptr camera, const common::types::rectangle<float> &rect, int zorder)
     : has_z_order(zorder)
     , camera_(camera)

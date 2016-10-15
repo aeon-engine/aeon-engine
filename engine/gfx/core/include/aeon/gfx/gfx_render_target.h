@@ -44,7 +44,7 @@ public:
 
     viewport_ptr create_viewport(gfx::gfx_camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
 
-    viewport_ptr create_viewport(gfx::gfx_camera_ptr camera, const common::types::rectangle<int> &rect, int zorder);
+    void attach_viewport(viewport_ptr vp);
 
     void detach_viewport(viewport_ptr vp);
 
@@ -71,6 +71,8 @@ protected:
     virtual bool __on_frame_end(float dt) = 0;
 
 private:
+    void __sort_viewports_by_zorder();
+
     aeon::logger::logger logger_;
     std::vector<viewport_ptr> viewports_;
 };

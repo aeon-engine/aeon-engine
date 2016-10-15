@@ -30,7 +30,8 @@ class render_target;
 class viewport : public common::has_z_order
 {
 public:
-    explicit viewport(gfx_camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
+    explicit viewport(gfx_camera_ptr camera, int zorder = 0);
+    explicit viewport(gfx_camera_ptr camera, const common::types::rectangle<float> &rect, int zorder = 0);
     virtual ~viewport() = default;
 
     void set_rectangle(const common::types::rectangle<float> &rect);
