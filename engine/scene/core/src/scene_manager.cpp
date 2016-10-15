@@ -68,6 +68,7 @@ gfx::device &scene_manager::get_device() const
 void scene_manager::__render_scene(camera &cam, gfx::render_target &rt, gfx::viewport &vp, float dt)
 {
     device_.set_viewport(rt, vp);
+    device_.clear_buffer(gfx::buffer_clear_flag::depth_buffer);
 
     __prepare_render_queue(&cam);
 

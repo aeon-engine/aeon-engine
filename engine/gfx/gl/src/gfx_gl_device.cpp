@@ -81,6 +81,9 @@ void gfx_gl_device::set_viewport(render_target &rt, viewport &vp)
 
     glViewport(vp_abs_rect.x, vp_abs_rect.y, vp_abs_rect.width, vp_abs_rect.height);
     AEON_CHECK_GL_ERROR();
+
+    glScissor(vp_abs_rect.x, vp_abs_rect.y, vp_abs_rect.width, vp_abs_rect.height);
+    AEON_CHECK_GL_ERROR();
 }
 
 void gfx_gl_device::clear_buffer(int buffer_flag)
