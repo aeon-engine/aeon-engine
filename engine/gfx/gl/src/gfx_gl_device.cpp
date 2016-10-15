@@ -251,15 +251,24 @@ void gfx_gl_device::__create_managers()
 void gfx_gl_device::__setup_opengl() const
 {
     glEnable(GL_DEPTH_TEST);
+    AEON_CHECK_GL_ERROR();
+
     glDepthFunc(GL_LESS);
+    AEON_CHECK_GL_ERROR();
 
     glEnable(GL_BLEND);
+    AEON_CHECK_GL_ERROR();
+
+    glEnable(GL_SCISSOR_TEST);
     AEON_CHECK_GL_ERROR();
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     AEON_CHECK_GL_ERROR();
 
-    glCullFace(GL_FRONT);
+    glEnable(GL_CULL_FACE);
+    AEON_CHECK_GL_ERROR();
+
+    glCullFace(GL_BACK);
     AEON_CHECK_GL_ERROR();
 }
 
