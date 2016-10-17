@@ -26,6 +26,8 @@
 #include <GLFW/glfw3native.h>
 #endif
 
+aeon_utility_initialize_singleton(aeon::gfx::gl::gl_imgui_renderer);
+
 namespace aeon
 {
 namespace gfx
@@ -33,17 +35,51 @@ namespace gfx
 namespace gl
 {
 
-static double g_Time = 0.0f;
-static bool g_MousePressed[3] = {false, false, false};
-static float g_MouseWheel = 0.0f;
-static GLuint g_FontTexture = 0;
-static int g_ShaderHandle = 0, g_VertHandle = 0, g_FragHandle = 0;
-static int g_AttribLocationTex = 0, g_AttribLocationProjMtx = 0;
-static int g_AttribLocationPosition = 0, g_AttribLocationUV = 0, g_AttribLocationColor = 0;
-static unsigned int g_VboHandle = 0, g_VaoHandle = 0, g_ElementsHandle = 0;
-static bool g_ShowTestWindow = true;
-
 static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
+{
+    gl_imgui_renderer::get_singleton().render_draw_lists(draw_data);
+}
+
+static void imgui_renderer_set_clipboard_text(const char *text)
+{
+    (void)text;
+}
+
+static const char *imgui_renderer_get_clipboard_text()
+{
+    return "Hello";
+}
+
+gl_imgui_renderer::gl_imgui_renderer()
+    : window_(nullptr)
+    , time_(0)
+    , mouse_pressed_({{false, false, false}})
+    , mouse_wheel_(0)
+    , font_texture_(0)
+    , shader_handle_(0)
+    , vert_handle_(0)
+    , frag_handle_(0)
+    , attrib_location_tex_(0)
+    , attrib_location_proj_mtx_(0)
+    , attrib_location_position_(0)
+    , attrib_location_uv_(0)
+    , attrib_location_color_(0)
+    , vbo_handle_(0)
+    , vao_handle_(0)
+    , elements_handle_(0)
+    , show_test_window_(true)
+{
+}
+
+void gl_imgui_renderer::initialize(gfx_gl_window &window)
+{
+    window_ = &window;
+
+    register_keymap();
+    register_callbacks();
+}
+
+void gl_imgui_renderer::render_draw_lists(ImDrawData *draw_data)
 {
     // Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer
     // coordinates)
@@ -67,21 +103,21 @@ static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
         {-1.0f, 1.0f, 0.0f, 1.0f},
     };
 
-    glUseProgram(g_ShaderHandle);
-    glUniform1i(g_AttribLocationTex, 0);
-    glUniformMatrix4fv(g_AttribLocationProjMtx, 1, GL_FALSE, &ortho_projection[0][0]);
-    glBindVertexArray(g_VaoHandle);
+    glUseProgram(shader_handle_);
+    glUniform1i(attrib_location_tex_, 0);
+    glUniformMatrix4fv(attrib_location_proj_mtx_, 1, GL_FALSE, &ortho_projection[0][0]);
+    glBindVertexArray(vao_handle_);
 
     for (int n = 0; n < draw_data->CmdListsCount; n++)
     {
         const ImDrawList *cmd_list = draw_data->CmdLists[n];
-        const ImDrawIdx *idx_buffer_offset = 0;
+        const ImDrawIdx *idx_buffer_offset = nullptr;
 
-        glBindBuffer(GL_ARRAY_BUFFER, g_VboHandle);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo_handle_);
         glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(cmd_list->VtxBuffer.Size) * sizeof(ImDrawVert),
                      static_cast<GLvoid *>(cmd_list->VtxBuffer.Data), GL_STREAM_DRAW);
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_ElementsHandle);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elements_handle_);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(cmd_list->IdxBuffer.Size) * sizeof(ImDrawIdx),
                      static_cast<GLvoid *>(cmd_list->IdxBuffer.Data), GL_STREAM_DRAW);
 
@@ -95,7 +131,7 @@ static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
             else
             {
                 glBindTexture(GL_TEXTURE_2D, static_cast<GLuint>(reinterpret_cast<intptr_t>(pcmd->TextureId)));
-                glScissor((int)pcmd->ClipRect.x, static_cast<int>(fb_height - pcmd->ClipRect.w),
+                glScissor(static_cast<int>(pcmd->ClipRect.x), static_cast<int>(fb_height - pcmd->ClipRect.w),
                           static_cast<int>(pcmd->ClipRect.z - pcmd->ClipRect.x),
                           static_cast<int>(pcmd->ClipRect.w - pcmd->ClipRect.y));
                 glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(pcmd->ElemCount),
@@ -109,48 +145,7 @@ static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
     glEnable(GL_DEPTH_TEST);
 }
 
-static void imgui_renderer_set_clipboard_text(const char *text)
-{
-    (void)text;
-}
-
-static const char *imgui_renderer_get_clipboard_text()
-{
-    return "Hello";
-}
-
-bool ImGui_ImplGlfwGL3_CreateFontsTexture()
-{
-    // Build texture atlas
-    ImGuiIO &io = ImGui::GetIO();
-    unsigned char *pixels;
-    int width, height;
-    io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height); // Load as RGBA 32-bits (75% of the memory is wasted, but
-                                                            // default font is so small) because it is more likely to be
-                                                            // compatible with user's existing shaders. If your
-                                                            // ImTextureId represent a higher-level concept than just a
-                                                            // GL texture id, consider calling GetTexDataAsAlpha8()
-                                                            // instead to save on GPU memory.
-
-    // Upload texture to graphics system
-    GLint last_texture;
-    glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
-    glGenTextures(1, &g_FontTexture);
-    glBindTexture(GL_TEXTURE_2D, g_FontTexture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-
-    // Store our identifier
-    io.Fonts->TexID = (void *)(intptr_t)g_FontTexture;
-
-    // Restore state
-    glBindTexture(GL_TEXTURE_2D, last_texture);
-
-    return true;
-}
-
-bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
+void gl_imgui_renderer::__create_device_objects()
 {
     // Backup GL state
     GLint last_texture, last_array_buffer, last_vertex_array;
@@ -182,69 +177,79 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
                                     "	Out_Color = Frag_Color * texture( Texture, Frag_UV.st);\n"
                                     "}\n";
 
-    g_ShaderHandle = glCreateProgram();
-    g_VertHandle = glCreateShader(GL_VERTEX_SHADER);
-    g_FragHandle = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(g_VertHandle, 1, &vertex_shader, 0);
-    glShaderSource(g_FragHandle, 1, &fragment_shader, 0);
-    glCompileShader(g_VertHandle);
-    glCompileShader(g_FragHandle);
-    glAttachShader(g_ShaderHandle, g_VertHandle);
-    glAttachShader(g_ShaderHandle, g_FragHandle);
-    glLinkProgram(g_ShaderHandle);
+    shader_handle_ = glCreateProgram();
+    vert_handle_ = glCreateShader(GL_VERTEX_SHADER);
+    frag_handle_ = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(vert_handle_, 1, &vertex_shader, 0);
+    glShaderSource(frag_handle_, 1, &fragment_shader, 0);
+    glCompileShader(vert_handle_);
+    glCompileShader(frag_handle_);
+    glAttachShader(shader_handle_, vert_handle_);
+    glAttachShader(shader_handle_, frag_handle_);
+    glLinkProgram(shader_handle_);
 
-    g_AttribLocationTex = glGetUniformLocation(g_ShaderHandle, "Texture");
-    g_AttribLocationProjMtx = glGetUniformLocation(g_ShaderHandle, "ProjMtx");
-    g_AttribLocationPosition = glGetAttribLocation(g_ShaderHandle, "Position");
-    g_AttribLocationUV = glGetAttribLocation(g_ShaderHandle, "UV");
-    g_AttribLocationColor = glGetAttribLocation(g_ShaderHandle, "Color");
+    attrib_location_tex_ = glGetUniformLocation(shader_handle_, "Texture");
+    attrib_location_proj_mtx_ = glGetUniformLocation(shader_handle_, "ProjMtx");
+    attrib_location_position_ = glGetAttribLocation(shader_handle_, "Position");
+    attrib_location_uv_ = glGetAttribLocation(shader_handle_, "UV");
+    attrib_location_color_ = glGetAttribLocation(shader_handle_, "Color");
 
-    glGenBuffers(1, &g_VboHandle);
-    glGenBuffers(1, &g_ElementsHandle);
+    glGenBuffers(1, &vbo_handle_);
+    glGenBuffers(1, &elements_handle_);
 
-    glGenVertexArrays(1, &g_VaoHandle);
-    glBindVertexArray(g_VaoHandle);
-    glBindBuffer(GL_ARRAY_BUFFER, g_VboHandle);
-    glEnableVertexAttribArray(g_AttribLocationPosition);
-    glEnableVertexAttribArray(g_AttribLocationUV);
-    glEnableVertexAttribArray(g_AttribLocationColor);
+    glGenVertexArrays(1, &vao_handle_);
+    glBindVertexArray(vao_handle_);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_handle_);
+    glEnableVertexAttribArray(attrib_location_position_);
+    glEnableVertexAttribArray(attrib_location_uv_);
+    glEnableVertexAttribArray(attrib_location_color_);
 
 #define OFFSETOF(TYPE, ELEMENT) ((size_t) & (((TYPE *)0)->ELEMENT))
-    glVertexAttribPointer(g_AttribLocationPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert),
-                          (GLvoid *)OFFSETOF(ImDrawVert, pos));
-    glVertexAttribPointer(g_AttribLocationUV, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert),
-                          (GLvoid *)OFFSETOF(ImDrawVert, uv));
-    glVertexAttribPointer(g_AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert),
-                          (GLvoid *)OFFSETOF(ImDrawVert, col));
+    glVertexAttribPointer(attrib_location_position_, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert),
+                          reinterpret_cast<GLvoid *>(OFFSETOF(ImDrawVert, pos)));
+    glVertexAttribPointer(attrib_location_uv_, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert),
+                          reinterpret_cast<GLvoid *>(OFFSETOF(ImDrawVert, uv)));
+    glVertexAttribPointer(attrib_location_color_, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert),
+                          reinterpret_cast<GLvoid *>(OFFSETOF(ImDrawVert, col)));
 #undef OFFSETOF
 
-    ImGui_ImplGlfwGL3_CreateFontsTexture();
+    __create_fonts_texture();
 
     // Restore modified GL state
     glBindTexture(GL_TEXTURE_2D, last_texture);
     glBindBuffer(GL_ARRAY_BUFFER, last_array_buffer);
     glBindVertexArray(last_vertex_array);
-
-    return true;
 }
 
-gl_imgui_renderer::gl_imgui_renderer()
-    : window_(nullptr)
+void gl_imgui_renderer::__create_fonts_texture()
 {
-}
+    // Build texture atlas
+    ImGuiIO &io = ImGui::GetIO();
+    unsigned char *pixels;
+    int width, height;
 
-void gl_imgui_renderer::initialize(gfx_gl_window &window)
-{
-    window_ = &window;
+    // TODO: Could be optimized to not load full rgb8
+    io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 
-    register_keymap();
-    register_callbacks();
+    GLint last_texture;
+    glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
+    glGenTextures(1, &font_texture_);
+    glBindTexture(GL_TEXTURE_2D, font_texture_);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+    // Store our identifier
+    io.Fonts->TexID = reinterpret_cast<void *>(static_cast<intptr_t>(font_texture_));
+
+    // Restore state
+    glBindTexture(GL_TEXTURE_2D, last_texture);
 }
 
 bool gl_imgui_renderer::on_frame_begin(const float dt)
 {
-    if (!g_FontTexture)
-        ImGui_ImplGlfwGL3_CreateDeviceObjects();
+    if (!font_texture_)
+        __create_device_objects();
 
     ImGuiIO &io = ImGui::GetIO();
     GLFWwindow *window = window_->get_glfw_window_ptr();
@@ -279,15 +284,15 @@ bool gl_imgui_renderer::on_frame_begin(const float dt)
 
     for (int i = 0; i < 3; i++)
     {
-        io.MouseDown[i] = g_MousePressed[i] ||
+        io.MouseDown[i] = mouse_pressed_[i] ||
                           glfwGetMouseButton(window, i) != 0; // If a mouse press event came, always pass it as "mouse
                                                               // held this frame", so we don't miss click-release events
                                                               // that are shorter than 1 frame.
-        g_MousePressed[i] = false;
+        mouse_pressed_[i] = false;
     }
 
-    io.MouseWheel = g_MouseWheel;
-    g_MouseWheel = 0.0f;
+    io.MouseWheel = mouse_wheel_;
+    mouse_wheel_ = 0.0f;
 
     // Hide OS mouse cursor if ImGui is drawing it
     glfwSetInputMode(window, GLFW_CURSOR, io.MouseDrawCursor ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL);
@@ -303,7 +308,7 @@ bool gl_imgui_renderer::on_frame_begin(const float dt)
 
     // HACK HACK
     ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
-    ImGui::ShowTestWindow(&g_ShowTestWindow);
+    ImGui::ShowTestWindow(&show_test_window_);
 
     return true;
 }
