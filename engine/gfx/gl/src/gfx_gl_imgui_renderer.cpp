@@ -37,7 +37,7 @@ namespace gl
 static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
 {
     ImGuiIO &io = ImGui::GetIO();
-    gl_imgui_renderer *renderer = static_cast<gl_imgui_renderer*>(io.UserData);
+    gl_imgui_renderer *renderer = static_cast<gl_imgui_renderer *>(io.UserData);
 
     assert(renderer != nullptr);
 
