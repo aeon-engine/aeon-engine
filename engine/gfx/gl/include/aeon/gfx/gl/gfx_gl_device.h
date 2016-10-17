@@ -55,6 +55,8 @@ public:
     void run() override;
     void stop() override;
 
+    imgui_renderer &get_imgui_renderer() override;
+
     void set_scissor(const common::types::rectangle<float> &scissor) const;
 
 private:

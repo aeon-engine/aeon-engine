@@ -14,11 +14,30 @@
  */
 
 #include <aeon/ui/ui_manager.h>
+#include <imgui.h>
 
 namespace aeon
 {
 namespace ui
 {
+
+ui_manager::ui_manager(gfx::device &device)
+    : device_(device)
+{
+    device_.get_imgui_renderer().attach_listener(this);
+}
+
+ui_manager::~ui_manager()
+{
+    device_.get_imgui_renderer().detach_listener(this);
+}
+
+void ui_manager::on_render_ui()
+{
+    bool show_test_window = true;
+    ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
+    ImGui::ShowTestWindow(&show_test_window);
+}
 
 } // namespace ui
 } // namespace aeon

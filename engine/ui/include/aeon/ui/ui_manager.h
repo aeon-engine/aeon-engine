@@ -15,6 +15,8 @@
 
 #pragma once
 
+#include <aeon/gfx/gfx_imgui_listener.h>
+#include <aeon/gfx/gfx_device.h>
 #include <aeon/utility.h>
 
 namespace aeon
@@ -22,11 +24,16 @@ namespace aeon
 namespace ui
 {
 
-class ui_manager : utility::noncopyable
+class ui_manager : public gfx::imgui_listener, public utility::noncopyable
 {
 public:
-    ui_manager();
-    ~ui_manager() = default;
+    ui_manager(gfx::device &device);
+    ~ui_manager();
+
+private:
+    void on_render_ui() override;
+
+    gfx::device &device_;
 };
 
 } // namespace ui

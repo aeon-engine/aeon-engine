@@ -71,7 +71,6 @@ gl_imgui_renderer::gl_imgui_renderer()
     , vbo_handle_(0)
     , vao_handle_(0)
     , elements_handle_(0)
-    , show_test_window_(true)
 {
 }
 
@@ -311,10 +310,6 @@ bool gl_imgui_renderer::on_frame_begin(const float dt)
     {
         ui_listener->on_render_ui();
     }
-
-    // HACK HACK
-    ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
-    ImGui::ShowTestWindow(&show_test_window_);
 
     return true;
 }

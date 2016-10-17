@@ -10,6 +10,7 @@ add_library(aeon_engine_ui STATIC
 )
 
 target_link_libraries(aeon_engine_ui
+    aeon_engine_gfx_core
     aeon
     imgui
 )

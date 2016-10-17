@@ -224,6 +224,11 @@ void gfx_gl_device::stop()
     running_ = false;
 }
 
+imgui_renderer &gfx_gl_device::get_imgui_renderer()
+{
+    return imgui_render_;
+}
+
 void gfx_gl_device::set_scissor(const common::types::rectangle<float> &scissor) const
 {
     glScissor(static_cast<GLsizei>(scissor.x), static_cast<GLsizei>(scissor.y), static_cast<GLsizei>(scissor.width),

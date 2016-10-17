@@ -20,6 +20,7 @@
 #include <aeon/platform/platform_filesystem_interface.h>
 #include <aeon/platform/platform_file_interface.h>
 #include <aeon/platform/generic/platform_generic_filesystem_interface.h>
+#include <aeon/ui/ui_manager.h>
 #include <aeon/common/logger.h>
 #include <aeon/utility.h>
 #include <buildinfo.h>
@@ -52,6 +53,7 @@ public:
         , config_file_()
         , platform_(std::make_unique<platform::generic::platform_filesystem_interface>())
         , device_(platform_)
+        , ui_manager_(device_)
         , resource_manager_(platform_)
         , scene_manager_(device_)
         , asset_manager_(resource_manager_, scene_manager_)
@@ -180,6 +182,7 @@ protected:
 
     platform::platform_interface platform_;
     device_t device_;
+    ui::ui_manager ui_manager_;
 
     resources::resource_manager resource_manager_;
     scene_manager_t scene_manager_;

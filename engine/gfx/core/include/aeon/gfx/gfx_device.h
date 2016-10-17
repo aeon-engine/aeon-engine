@@ -24,6 +24,7 @@
 #include <aeon/gfx/gfx_window.h>
 #include <aeon/gfx/gfx_monitor.h>
 #include <aeon/gfx/gfx_viewport.h>
+#include <aeon/gfx/gfx_imgui_renderer.h>
 #include <aeon/platform/platform_interface.h>
 #include <aeon/common/types/color.h>
 #include <memory>
@@ -76,6 +77,11 @@ public:
      * Stop the mainloop. Has no effect if run hasn't been called.
      */
     virtual void stop() = 0;
+
+    /*!
+     * Get a reference to the imgui renderer to be able to hook on on_render_ui events from imgui_listener.
+     */
+    virtual imgui_renderer &get_imgui_renderer() = 0;
 
     texture_manager &get_texture_manager()
     {

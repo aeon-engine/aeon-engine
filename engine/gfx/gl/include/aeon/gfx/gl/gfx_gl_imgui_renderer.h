@@ -65,7 +65,6 @@ private:
     unsigned int vbo_handle_;
     unsigned int vao_handle_;
     unsigned int elements_handle_;
-    bool show_test_window_;
 };
 
 } // namespace gl
