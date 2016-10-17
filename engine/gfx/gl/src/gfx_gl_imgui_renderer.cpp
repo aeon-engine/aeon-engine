@@ -18,6 +18,7 @@
 #include <aeon/gfx/gl/gfx_gl_imgui_renderer.h>
 #include <aeon/platform.h>
 #include <imgui.h>
+#include <cstddef>
 
 #if (AEON_PLATFORM_OS_WINDOWS)
 #undef APIENTRY
@@ -204,14 +205,12 @@ void gl_imgui_renderer::__create_device_objects()
     glEnableVertexAttribArray(attrib_location_uv_);
     glEnableVertexAttribArray(attrib_location_color_);
 
-#define OFFSETOF(TYPE, ELEMENT) ((size_t) & (((TYPE *)0)->ELEMENT))
     glVertexAttribPointer(attrib_location_position_, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert),
-                          reinterpret_cast<GLvoid *>(OFFSETOF(ImDrawVert, pos)));
+                          reinterpret_cast<GLvoid *>(offsetof(ImDrawVert, pos)));
     glVertexAttribPointer(attrib_location_uv_, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert),
-                          reinterpret_cast<GLvoid *>(OFFSETOF(ImDrawVert, uv)));
+                          reinterpret_cast<GLvoid *>(offsetof(ImDrawVert, uv)));
     glVertexAttribPointer(attrib_location_color_, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert),
-                          reinterpret_cast<GLvoid *>(OFFSETOF(ImDrawVert, col)));
-#undef OFFSETOF
+                          reinterpret_cast<GLvoid *>(offsetof(ImDrawVert, col)));
 
     __create_fonts_texture();
 
