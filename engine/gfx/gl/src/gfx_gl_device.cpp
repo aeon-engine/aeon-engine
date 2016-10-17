@@ -161,7 +161,7 @@ gfx_window_ptr gfx_gl_device::create_window(const gfx_window_settings &settings,
         glfw_monitor = m->get_internal_handle();
     }
 
-    gfx_window_ptr window = std::make_shared<gfx_gl_window>(platform_interface_, settings, glfw_monitor);
+    gfx_window_ptr window = std::make_shared<gfx_gl_window>(*this, platform_interface_, settings, glfw_monitor);
     gfx_gl_window *gl_window = dynamic_cast<gfx_gl_window *>(window.get());
 
     // HACK: If there are no render targets yet, this is the first window that is being opened.
@@ -222,6 +222,13 @@ void gfx_gl_device::stop()
 {
     AEON_LOG_DEBUG(logger_) << "Stopping GLFW message loop." << std::endl;
     running_ = false;
+}
+
+void gfx_gl_device::set_scissor(const common::types::rectangle<float> &scissor) const
+{
+    glScissor(static_cast<GLsizei>(scissor.x), static_cast<GLsizei>(scissor.y), static_cast<GLsizei>(scissor.width),
+              static_cast<GLsizei>(scissor.height));
+    AEON_CHECK_GL_ERROR();
 }
 
 void gfx_gl_device::__initialize_glfw() const

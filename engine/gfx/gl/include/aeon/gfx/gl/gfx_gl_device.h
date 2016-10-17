@@ -55,6 +55,8 @@ public:
     void run() override;
     void stop() override;
 
+    void set_scissor(const common::types::rectangle<float> &scissor) const;
+
 private:
     void __initialize_glfw() const;
     void __create_managers();

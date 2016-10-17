@@ -63,7 +63,7 @@ public:
     /*!
      * Get the size of the render framebuffer.
      */
-    virtual glm::vec2 get_framebuffer_size() = 0;
+    virtual glm::vec2 get_framebuffer_size() const = 0;
 
 protected:
     virtual bool __on_frame_start(float dt) = 0;

@@ -14,6 +14,7 @@
  */
 
 #include <aeon/gfx/gl/gfx_gl_window.h>
+#include <aeon/gfx/gl/gfx_gl_device.h>
 
 namespace aeon
 {
@@ -22,11 +23,12 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_window::gfx_gl_window(platform::platform_interface &interface, const gfx_window_settings &settings,
-                             GLFWmonitor *monitor)
+gfx_gl_window::gfx_gl_window(gfx_gl_device &device, platform::platform_interface &interface,
+                             const gfx_window_settings &settings, GLFWmonitor *monitor)
     : gfx_window(settings)
     , logger_(common::logger::get_singleton(), "Gfx::GL::Window")
     , window_(nullptr)
+    , device_(device)
     , interface_(interface)
     , cursor_mode_(mouse_cursor_mode::normal)
 {
@@ -82,7 +84,7 @@ void gfx_gl_window::make_current()
     glfwMakeContextCurrent(window_);
 }
 
-glm::vec2 gfx_gl_window::get_framebuffer_size()
+glm::vec2 gfx_gl_window::get_framebuffer_size() const
 {
     int width, height;
     glfwGetFramebufferSize(window_, &width, &height);
@@ -122,6 +124,13 @@ GLFWwindow *gfx_gl_window::get_glfw_window_ptr() const
     return window_;
 }
 
+void gfx_gl_window::__reset_scissor() const
+{
+    glm::vec2 framebuffer_size = get_framebuffer_size();
+    common::types::rectangle<float> rect(0.0f, 0.0f, framebuffer_size.x, framebuffer_size.y);
+    device_.set_scissor(rect);
+}
+
 bool gfx_gl_window::__on_frame_start(float /*dt*/)
 {
     make_current();
@@ -134,6 +143,8 @@ bool gfx_gl_window::__on_frame_start(float /*dt*/)
 
 bool gfx_gl_window::__on_frame_end(float /*dt*/)
 {
+    __reset_scissor();
+
     glFinish();
     glfwSwapBuffers(window_);
     return true;

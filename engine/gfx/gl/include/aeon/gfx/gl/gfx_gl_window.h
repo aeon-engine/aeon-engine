@@ -31,16 +31,18 @@ namespace gl
 DEFINE_EXCEPTION_OBJECT(gfx_gl_cursor_mode_exception, gfx_exception,
                         "Unknown or invalid mouse cursor mode given to GLFW.");
 
+class gfx_gl_device;
+
 class gfx_gl_window : public gfx_window
 {
 public:
-    explicit gfx_gl_window(platform::platform_interface &interface, const gfx_window_settings &settings,
-                           GLFWmonitor *monitor);
+    explicit gfx_gl_window(gfx_gl_device &device, platform::platform_interface &interface,
+                           const gfx_window_settings &settings, GLFWmonitor *monitor);
     ~gfx_gl_window() override;
 
     void make_current() override;
 
-    glm::vec2 get_framebuffer_size() override;
+    glm::vec2 get_framebuffer_size() const override;
 
     void set_mouse_cursor_mode(const mouse_cursor_mode mode) override;
 
@@ -49,6 +51,8 @@ public:
     GLFWwindow *get_glfw_window_ptr() const;
 
 private:
+    void __reset_scissor() const;
+
     bool __on_frame_start(float dt) override;
 
     bool __on_frame_end(float dt) override;
@@ -62,6 +66,7 @@ private:
     aeon::logger::logger logger_;
 
     GLFWwindow *window_;
+    gfx_gl_device &device_;
     platform::platform_interface &interface_;
     mouse_cursor_mode cursor_mode_;
 };
