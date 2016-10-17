@@ -79,6 +79,10 @@ void gl_imgui_renderer::initialize(gfx_gl_window &window)
 {
     window_ = &window;
 
+    ImGuiIO &io = ImGui::GetIO();
+    io.IniFilename = nullptr;
+    io.LogFilename = nullptr;
+
     register_keymap();
     register_callbacks();
 }
