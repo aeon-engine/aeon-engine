@@ -29,7 +29,7 @@ namespace gfx
 namespace gl
 {
 
-class gl_imgui_renderer : public imgui_renderer, public frame_listener, public utility::singleton<gl_imgui_renderer>
+class gl_imgui_renderer : public imgui_renderer, public frame_listener
 {
 public:
     gl_imgui_renderer();

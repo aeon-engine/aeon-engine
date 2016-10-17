@@ -27,8 +27,6 @@
 #include <GLFW/glfw3native.h>
 #endif
 
-aeon_utility_initialize_singleton(aeon::gfx::gl::gl_imgui_renderer);
-
 namespace aeon
 {
 namespace gfx
@@ -38,7 +36,12 @@ namespace gl
 
 static void imgui_renderer_render_draw_lists(ImDrawData *draw_data)
 {
-    gl_imgui_renderer::get_singleton().render_draw_lists(draw_data);
+    ImGuiIO &io = ImGui::GetIO();
+    gl_imgui_renderer *renderer = static_cast<gl_imgui_renderer*>(io.UserData);
+
+    assert(renderer != nullptr);
+
+    renderer->render_draw_lists(draw_data);
 }
 
 static void imgui_renderer_set_clipboard_text(const char *text)
@@ -347,6 +350,9 @@ void gl_imgui_renderer::register_keymap()
 void gl_imgui_renderer::register_callbacks()
 {
     ImGuiIO &io = ImGui::GetIO();
+
+    io.UserData = this;
+
     io.RenderDrawListsFn = imgui_renderer_render_draw_lists;
     io.SetClipboardTextFn = imgui_renderer_set_clipboard_text;
     io.GetClipboardTextFn = imgui_renderer_get_clipboard_text;
