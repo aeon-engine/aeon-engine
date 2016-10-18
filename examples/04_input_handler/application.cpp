@@ -128,7 +128,8 @@ bool application::on_frame_begin(const float dt)
     return true;
 }
 
-void application::on_keyboard_event(aeon::platform::keyboard_key key, aeon::platform::keyboard_key_state key_state, int /*modifier*/)
+void application::on_keyboard_key_state_changed_event(aeon::platform::keyboard_key key,
+                                                      aeon::platform::keyboard_key_state key_state, int /*modifier*/)
 {
     AEON_LOG_MESSAGE(get_logger()) << "Key: " << static_cast<int>(key) << " " << static_cast<int>(key_state)
                                    << std::endl;

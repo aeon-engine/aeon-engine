@@ -30,18 +30,32 @@ public:
     platform_input_listener() = default;
     virtual ~platform_input_listener() = default;
 
-    virtual void on_keyboard_event(keyboard_key /*key*/, keyboard_key_state /*key_state*/, int /*modifier*/)
+    /*!
+     * Called every time the state of a keyboard key changes.
+     */
+    virtual void on_keyboard_key_state_changed_event(keyboard_key /*key*/, keyboard_key_state /*key_state*/,
+                                                     int /*modifier*/)
     {
     }
 
+    /*!
+     * Called whenever the mouse is moved. If mouse capturing is turned on, these values will keep
+     * increasing/decreasing on movement.
+     */
     virtual void on_mouse_move_event(float /*x*/, float /*y*/)
     {
     }
 
+    /*!
+     * Called whenever the state of a mouse button changes.
+     */
     virtual void on_mouse_button_event(mouse_button /*button*/, mouse_button_state /*button_state*/)
     {
     }
 
+    /*!
+     * Called whenever the mouse is scrolled.
+     */
     virtual void on_mouse_scroll_event(float /*x*/, float /*y*/)
     {
     }

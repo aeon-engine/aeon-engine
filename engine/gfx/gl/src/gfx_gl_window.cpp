@@ -153,7 +153,7 @@ bool gfx_gl_window::__on_frame_end(float /*dt*/)
 void gfx_gl_window::__static_keyboard_key_handler(GLFWwindow *window, int key, int /*scancode*/, int action, int mods)
 {
     gfx_gl_window *window_ptr = static_cast<gfx_gl_window *>(glfwGetWindowUserPointer(window));
-    window_ptr->interface_.get_input_handler()->handle_keyboard_event(
+    window_ptr->interface_.get_input_handler()->handle_keyboard_key_state_changed_event(
         static_cast<platform::keyboard_key>(key),
         action == GLFW_RELEASE ? platform::keyboard_key_state::released : platform::keyboard_key_state::pressed, mods);
 }

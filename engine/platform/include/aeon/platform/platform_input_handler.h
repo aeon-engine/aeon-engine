@@ -33,7 +33,7 @@ public:
     platform_input_handler() = default;
     virtual ~platform_input_handler() = default;
 
-    void handle_keyboard_event(keyboard_key key, keyboard_key_state key_state, int modifier);
+    void handle_keyboard_key_state_changed_event(keyboard_key key, keyboard_key_state key_state, int modifier);
 
     void handle_mouse_move_event(float x, float y);
     void handle_mouse_button_event(mouse_button button, mouse_button_state button_state);

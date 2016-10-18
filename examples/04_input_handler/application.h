@@ -49,9 +49,11 @@ public:
 private:
     bool on_frame_begin(const float dt) override;
 
-    void on_keyboard_event(aeon::platform::keyboard_key key, aeon::platform::keyboard_key_state key_state, int modifier) override;
+    void on_keyboard_key_state_changed_event(aeon::platform::keyboard_key key,
+                                             aeon::platform::keyboard_key_state key_state, int modifier) override;
 
-    void on_mouse_button_event(aeon::platform::mouse_button button, aeon::platform::mouse_button_state button_state) override;
+    void on_mouse_button_event(aeon::platform::mouse_button button,
+                               aeon::platform::mouse_button_state button_state) override;
 
     aeon::scene::orthographic_camera_ptr camera_;
 

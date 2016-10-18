@@ -20,11 +20,12 @@ namespace aeon
 namespace platform
 {
 
-void platform_input_handler::handle_keyboard_event(keyboard_key key, keyboard_key_state key_state, int modifier)
+void platform_input_handler::handle_keyboard_key_state_changed_event(keyboard_key key, keyboard_key_state key_state,
+                                                                     int modifier)
 {
     for (auto listener : listeners_)
     {
-        listener->on_keyboard_event(key, key_state, modifier);
+        listener->on_keyboard_key_state_changed_event(key, key_state, modifier);
     }
 }
 
