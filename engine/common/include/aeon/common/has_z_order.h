@@ -20,26 +20,46 @@ namespace aeon
 namespace common
 {
 
+/*!
+ * Base class for objects that have a z-order. These
+ * objects are usually sorted by z-order for a painter's
+ * algorithm.
+ */
 class has_z_order
 {
 public:
+    /*!
+     * Constructor, default z-order is 0.
+     */
     has_z_order()
         : zorder_(0)
     {
     }
 
-    explicit has_z_order(int zorder)
+    /*!
+     * Constructor
+     */
+    explicit has_z_order(const int zorder)
         : zorder_(zorder)
     {
     }
 
+    /*!
+     * Destructor
+     */
     virtual ~has_z_order() = default;
 
-    void set_zorder(int zorder)
+    /*!
+     * Set the z-order for this object.
+     */
+    void set_zorder(const int zorder)
     {
         zorder_ = zorder;
     }
 
+    /*!
+     * Get the z-order for this object.
+     */
     int get_zorder() const
     {
         return zorder_;

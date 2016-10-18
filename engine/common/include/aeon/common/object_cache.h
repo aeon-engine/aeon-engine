@@ -30,6 +30,13 @@ DEFINE_EXCEPTION_OBJECT(object_cache_exception, exception, "object_cache_excepti
 DEFINE_EXCEPTION_OBJECT(object_cache_name_exception, object_cache_exception,
                         "There is already an object cached with the same name.");
 
+/*!
+ * Generic templated base class for cachable objects, like assets. Objects are cached by name.
+ * If an object is still referenced anywhere, get_cached_object will return the existing object,
+ * otherwise it will return a nullptr.
+ *
+ * This class does not take ownership of the cached objects, as it merely stores weak pointers.
+ */
 template <typename T>
 class object_cache : utility::noncopyable
 {
@@ -38,14 +45,25 @@ public:
     using cached_object_weak_ptr = std::weak_ptr<T>;
     using cached_objects = std::map<std::string, cached_object_weak_ptr>;
 
+    /*!
+     * Constructor
+     */
     object_cache()
     {
         static_assert(std::is_base_of<cached_object, T>::value,
                       "Object given to object_cache must be derived from aeon::common::cached_object.");
     }
 
+    /*!
+     * Destructor
+     */
     virtual ~object_cache() = default;
 
+    /*!
+     * Get a cached object by name. This method will return a shared pointer to the requested object
+     * or a nullptr. If the object was found to be expired, a garbage collection will be triggered to
+     * clean up expired weak pointers.
+     */
     cached_object_ptr get_cached_object(const std::string &name)
     {
         auto result = objects_.find(name);
@@ -64,7 +82,12 @@ public:
         return object.lock();
     }
 
-    void add_cached_object(const std::string &name, cached_object_ptr obj)
+    /*!
+     * Register a newly created object to be cached. If an object with the same name is found, which is not yet expired,
+     * an object_cache_name_exception is thrown. This method will take a weak pointer of the given shared pointer to
+     * store internally.
+     */
+    void add_cached_object(const std::string &name, const cached_object_ptr &obj)
     {
         obj->name_ = name;
 
@@ -82,6 +105,9 @@ public:
         objects_[name] = obj;
     }
 
+    /*!
+     * Garbage collect all expired cached objects.
+     */
     void garbage_collect_cached_objects()
     {
         utility::container::erase_if(objects_, [](const auto &obj) { return obj.second.expired(); });
