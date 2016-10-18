@@ -46,7 +46,6 @@ private:
     bool on_frame_begin(const float dt) override;
     bool on_frame_end(const float dt) override;
 
-    void register_keymap();
     void register_callbacks();
 
     gfx_gl_window *window_;

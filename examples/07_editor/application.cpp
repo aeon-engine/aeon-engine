@@ -103,7 +103,7 @@ void application::on_keyboard_key_state_changed_event(aeon::input::keyboard_key 
     io.KeyAlt   = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
     io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
 
-    // Entering text shizzle
+    // \note this really is a hack because we should use glfwSetCharCallback todo this.
     if (key_state == aeon::input::keyboard_key_state::released)
     {
         if (temp_key > 0 && temp_key < 0x10000)
