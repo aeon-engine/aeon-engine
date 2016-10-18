@@ -153,30 +153,30 @@ bool gfx_gl_window::__on_frame_end(float /*dt*/)
 void gfx_gl_window::__static_keyboard_key_handler(GLFWwindow *window, int key, int /*scancode*/, int action, int mods)
 {
     gfx_gl_window *window_ptr = static_cast<gfx_gl_window *>(glfwGetWindowUserPointer(window));
-    window_ptr->interface_.get_input_handler()->handle_keyboard_key_state_changed_event(
-        static_cast<platform::keyboard_key>(key),
-        action == GLFW_RELEASE ? platform::keyboard_key_state::released : platform::keyboard_key_state::pressed, mods);
+    window_ptr->device_.get_input_handler().handle_keyboard_key_state_changed_event(
+        static_cast<input::keyboard_key>(key),
+        action == GLFW_RELEASE ? input::keyboard_key_state::released : input::keyboard_key_state::pressed, mods);
 }
 
 void gfx_gl_window::__static_mouse_move_handler(GLFWwindow *window, double x, double y)
 {
     gfx_gl_window *window_ptr = static_cast<gfx_gl_window *>(glfwGetWindowUserPointer(window));
-    window_ptr->interface_.get_input_handler()->handle_mouse_move_event(static_cast<float>(x), static_cast<float>(y));
+    window_ptr->device_.get_input_handler().handle_mouse_move_event(static_cast<float>(x), static_cast<float>(y));
 }
 
 void gfx_gl_window::__static_mouse_button_handler(GLFWwindow *window, int button, int action, int /*mods*/)
 {
     gfx_gl_window *window_ptr = static_cast<gfx_gl_window *>(glfwGetWindowUserPointer(window));
-    window_ptr->interface_.get_input_handler()->handle_mouse_button_event(
-        static_cast<platform::mouse_button>(button),
-        action == GLFW_RELEASE ? platform::mouse_button_state::released : platform::mouse_button_state::pressed);
+    window_ptr->device_.get_input_handler().handle_mouse_button_event(
+        static_cast<input::mouse_button>(button),
+        action == GLFW_RELEASE ? input::mouse_button_state::released : input::mouse_button_state::pressed);
 }
 
 void gfx_gl_window::__static_mouse_scroll_handler(GLFWwindow *window, double xoffset, double yoffset)
 {
     gfx_gl_window *window_ptr = static_cast<gfx_gl_window *>(glfwGetWindowUserPointer(window));
-    window_ptr->interface_.get_input_handler()->handle_mouse_scroll_event(static_cast<float>(xoffset),
-                                                                          static_cast<float>(yoffset));
+    window_ptr->device_.get_input_handler().handle_mouse_scroll_event(static_cast<float>(xoffset),
+                                                                      static_cast<float>(yoffset));
 }
 
 } // namespace gl

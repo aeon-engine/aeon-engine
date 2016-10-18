@@ -13,15 +13,15 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <aeon/platform/platform_input_handler.h>
+#include <aeon/input/input_handler.h>
 
 namespace aeon
 {
-namespace platform
+namespace input
 {
 
-void platform_input_handler::handle_keyboard_key_state_changed_event(keyboard_key key, keyboard_key_state key_state,
-                                                                     int modifier)
+void input_handler::handle_keyboard_key_state_changed_event(keyboard_key key, keyboard_key_state key_state,
+                                                            int modifier)
 {
     for (auto listener : listeners_)
     {
@@ -29,7 +29,7 @@ void platform_input_handler::handle_keyboard_key_state_changed_event(keyboard_ke
     }
 }
 
-void platform_input_handler::handle_mouse_move_event(float x, float y)
+void input_handler::handle_mouse_move_event(float x, float y)
 {
     for (auto listener : listeners_)
     {
@@ -37,7 +37,7 @@ void platform_input_handler::handle_mouse_move_event(float x, float y)
     }
 }
 
-void platform_input_handler::handle_mouse_button_event(mouse_button button, mouse_button_state button_state)
+void input_handler::handle_mouse_button_event(mouse_button button, mouse_button_state button_state)
 {
     for (auto listener : listeners_)
     {
@@ -45,7 +45,7 @@ void platform_input_handler::handle_mouse_button_event(mouse_button button, mous
     }
 }
 
-void platform_input_handler::handle_mouse_scroll_event(float x, float y)
+void input_handler::handle_mouse_scroll_event(float x, float y)
 {
     for (auto listener : listeners_)
     {
@@ -53,5 +53,5 @@ void platform_input_handler::handle_mouse_scroll_event(float x, float y)
     }
 }
 
-} // namespace platform
+} // namespace input
 } // namespace aeon

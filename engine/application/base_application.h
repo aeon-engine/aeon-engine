@@ -20,6 +20,7 @@
 #include <aeon/platform/platform_filesystem_interface.h>
 #include <aeon/platform/platform_file_interface.h>
 #include <aeon/platform/generic/platform_generic_filesystem_interface.h>
+#include <aeon/input/input_handler.h>
 #include <aeon/ui/ui_manager.h>
 #include <aeon/common/logger.h>
 #include <aeon/utility.h>
@@ -52,7 +53,8 @@ public:
         , logger_(common::logger::get_singleton(), "Application")
         , config_file_()
         , platform_(std::make_unique<platform::generic::platform_filesystem_interface>())
-        , device_(platform_)
+        , input_handler_()
+        , device_(platform_, input_handler_)
         , ui_manager_(device_)
         , resource_manager_(platform_)
         , scene_manager_(device_)
@@ -100,7 +102,7 @@ public:
     }
 
     /*!
-     * Get a pointer to the asset manager. The asset manager can be used for
+     * Get a reference to the asset manager. The asset manager can be used for
      * loading raw data into usable assets like textures.
      */
     assets::asset_manager &get_asset_manager()
@@ -116,6 +118,15 @@ public:
     platform::platform_interface *get_platform_interface()
     {
         return &platform_;
+    }
+
+    /*!
+     * Get a reference to the input handler. The input handler can be used for
+     * handling generic keyboard, mouse, touch and joystick events.
+     */
+    input::input_handler &get_input_handler()
+    {
+        return input_handler_;
     }
 
     /*!
@@ -181,6 +192,7 @@ protected:
     utility::configfile config_file_;
 
     platform::platform_interface platform_;
+    input::input_handler input_handler_;
     device_t device_;
     ui::ui_manager ui_manager_;
 

@@ -17,7 +17,7 @@
 
 namespace aeon
 {
-namespace platform
+namespace input
 {
 
 enum class mouse_button_state
@@ -42,5 +42,5 @@ enum class mouse_button
     mouse_button_middle = mouse_button_3
 };
 
-} // namespace platform
+} // namespace input
 } // namespace aeon

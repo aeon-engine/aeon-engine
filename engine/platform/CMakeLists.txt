@@ -3,12 +3,7 @@ set (AEON_ENGINE_PLATFORM_SOURCES
     include/aeon/platform/platform_file_interface.h
     include/aeon/platform/platform_file_open_mode.h
     include/aeon/platform/platform_filesystem_interface.h
-    include/aeon/platform/platform_input_handler.h
-    include/aeon/platform/platform_input_listener.h
     include/aeon/platform/platform_interface.h
-    include/aeon/platform/platform_keyboard_keys.h
-    include/aeon/platform/platform_mouse_buttons.h
-    src/platform_input_handler.cpp
 )
 
 source_group(platform FILES ${AEON_ENGINE_PLATFORM_SOURCES})

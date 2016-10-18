@@ -16,7 +16,6 @@
 #pragma once
 
 #include <aeon/platform/platform_filesystem_interface.h>
-#include <aeon/platform/platform_input_handler.h>
 #include <aeon/common/exception.h>
 #include <memory>
 
@@ -44,17 +43,8 @@ public:
         return *filesystem_interface;
     }
 
-    /*!
-     * Get the input handler for this platform.
-     */
-    platform_input_handler *get_input_handler()
-    {
-        return &input_handler_;
-    }
-
 protected:
     platform_filesystem_interface_ptr filesystem_interface_;
-    platform_input_handler input_handler_;
 };
 
 } // namespace platform

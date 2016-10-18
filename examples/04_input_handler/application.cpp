@@ -43,7 +43,7 @@ application::application()
 
     window_->create_viewport(camera_, 0);
 
-    get_platform_interface()->get_input_handler()->attach_listener(this);
+    get_input_handler().attach_listener(this);
 }
 
 void application::main()
@@ -128,52 +128,51 @@ bool application::on_frame_begin(const float dt)
     return true;
 }
 
-void application::on_keyboard_key_state_changed_event(aeon::platform::keyboard_key key,
-                                                      aeon::platform::keyboard_key_state key_state, int /*modifier*/)
+void application::on_keyboard_key_state_changed_event(aeon::input::keyboard_key key,
+                                                      aeon::input::keyboard_key_state key_state, int /*modifier*/)
 {
     AEON_LOG_MESSAGE(get_logger()) << "Key: " << static_cast<int>(key) << " " << static_cast<int>(key_state)
                                    << std::endl;
 
-    if (key == aeon::platform::keyboard_key::key_escape && key_state == aeon::platform::keyboard_key_state::pressed)
+    if (key == aeon::input::keyboard_key::key_escape && key_state == aeon::input::keyboard_key_state::pressed)
     {
         device_.stop();
     }
 
-    if (key == aeon::platform::keyboard_key::key_up)
+    if (key == aeon::input::keyboard_key::key_up)
     {
-        if (key_state == aeon::platform::keyboard_key_state::pressed)
+        if (key_state == aeon::input::keyboard_key_state::pressed)
             move_direction_ = ship_move_direction::forward;
         else
             move_direction_ = ship_move_direction::none;
     }
 
-    if (key == aeon::platform::keyboard_key::key_down)
+    if (key == aeon::input::keyboard_key::key_down)
     {
-        if (key_state == aeon::platform::keyboard_key_state::pressed)
+        if (key_state == aeon::input::keyboard_key_state::pressed)
             move_direction_ = ship_move_direction::reverse;
         else
             move_direction_ = ship_move_direction::none;
     }
 
-    if (key == aeon::platform::keyboard_key::key_left)
+    if (key == aeon::input::keyboard_key::key_left)
     {
-        if (key_state == aeon::platform::keyboard_key_state::pressed)
+        if (key_state == aeon::input::keyboard_key_state::pressed)
             rotate_direction_ = ship_rotate_direction::left;
         else
             rotate_direction_ = ship_rotate_direction::none;
     }
 
-    if (key == aeon::platform::keyboard_key::key_right)
+    if (key == aeon::input::keyboard_key::key_right)
     {
-        if (key_state == aeon::platform::keyboard_key_state::pressed)
+        if (key_state == aeon::input::keyboard_key_state::pressed)
             rotate_direction_ = ship_rotate_direction::right;
         else
             rotate_direction_ = ship_rotate_direction::none;
     }
 }
 
-void application::on_mouse_button_event(aeon::platform::mouse_button button,
-                                        aeon::platform::mouse_button_state button_state)
+void application::on_mouse_button_event(aeon::input::mouse_button button, aeon::input::mouse_button_state button_state)
 {
     std::cout << "Button: " << static_cast<int>(button) << " " << static_cast<int>(button_state) << std::endl;
 }

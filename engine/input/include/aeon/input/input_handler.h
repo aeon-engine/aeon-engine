@@ -16,22 +16,21 @@
 #pragma once
 
 #include <aeon/utility.h>
-#include <aeon/platform/platform_keyboard_keys.h>
-#include <aeon/platform/platform_mouse_buttons.h>
-#include <aeon/platform/platform_input_listener.h>
+#include <aeon/input/input_keyboard_keys.h>
+#include <aeon/input/input_mouse_buttons.h>
+#include <aeon/input/input_listener.h>
 #include <memory>
 
 namespace aeon
 {
-namespace platform
+namespace input
 {
 
-class platform_window;
-class platform_input_handler : public utility::listener_subject<platform_input_listener>
+class input_handler : public utility::listener_subject<input_listener>
 {
 public:
-    platform_input_handler() = default;
-    virtual ~platform_input_handler() = default;
+    input_handler() = default;
+    virtual ~input_handler() = default;
 
     void handle_keyboard_key_state_changed_event(keyboard_key key, keyboard_key_state key_state, int modifier);
 
@@ -40,7 +39,7 @@ public:
     void handle_mouse_scroll_event(float x, float y);
 };
 
-using platform_input_handler_ptr = std::unique_ptr<platform_input_handler>;
+using platform_input_handler_ptr = std::unique_ptr<input_handler>;
 
-} // namespace platform
+} // namespace input
 } // namespace aeon

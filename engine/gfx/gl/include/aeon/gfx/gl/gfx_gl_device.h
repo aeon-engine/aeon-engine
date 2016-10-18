@@ -18,6 +18,7 @@
 #include <aeon/gfx/gfx_device.h>
 #include <aeon/gfx/gfx_render_target.h>
 #include <aeon/gfx/gl/gfx_gl_imgui_renderer.h>
+#include <aeon/input/input_handler.h>
 #include <aeon/common/exception.h>
 #include <aeon/common/logger.h>
 
@@ -36,7 +37,7 @@ class gfx_gl_device : public gfx::device
 public:
     using render_targets = std::vector<render_target_ptr>;
 
-    explicit gfx_gl_device(platform::platform_interface &platform);
+    explicit gfx_gl_device(platform::platform_interface &platform, input::input_handler &input_handler);
     virtual ~gfx_gl_device();
 
     void __initialize_impl() override;
@@ -57,6 +58,8 @@ public:
 
     imgui_renderer &get_imgui_renderer() override;
 
+    input::input_handler &get_input_handler();
+
     void set_scissor(const common::types::rectangle<float> &scissor) const;
 
 private:
@@ -67,6 +70,7 @@ private:
     void __report_and_squash_glew_errors() const;
 
     aeon::logger::logger logger_;
+    input::input_handler &input_handler_;
     render_targets render_targets_;
     bool running_;
     double previous_time_;

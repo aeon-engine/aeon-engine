@@ -15,23 +15,24 @@
 
 #pragma once
 
-#include <aeon/platform/platform_keyboard_keys.h>
-#include <aeon/platform/platform_mouse_buttons.h>
+#include <aeon/input/input_keyboard_keys.h>
+#include <aeon/input/input_mouse_buttons.h>
 
 namespace aeon
 {
-namespace platform
+namespace input
 {
 
-class platform_window;
-class platform_input_listener
+class input_listener
 {
 public:
-    platform_input_listener() = default;
-    virtual ~platform_input_listener() = default;
+    input_listener() = default;
+    virtual ~input_listener() = default;
 
     /*!
-     * Called every time the state of a keyboard key changes.
+     * Called every time the state of a keyboard key changes. The modifier can be any or multiple of
+     * the modifiers in keyboard_modifier_key.
+     * \see keyboard_modifier_key::keyboard_modifier_key_enum
      */
     virtual void on_keyboard_key_state_changed_event(keyboard_key /*key*/, keyboard_key_state /*key_state*/,
                                                      int /*modifier*/)
@@ -61,5 +62,5 @@ public:
     }
 };
 
-} // namespace platform
+} // namespace input
 } // namespace aeon

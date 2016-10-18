@@ -34,9 +34,10 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_device::gfx_gl_device(platform::platform_interface &platform)
+gfx_gl_device::gfx_gl_device(platform::platform_interface &platform, input::input_handler &input_handler)
     : gfx::device(platform)
     , logger_(common::logger::get_singleton(), "Gfx::GL::Device")
+    , input_handler_(input_handler)
     , render_targets_()
     , running_(false)
     , previous_time_(0.0)
@@ -227,6 +228,11 @@ void gfx_gl_device::stop()
 imgui_renderer &gfx_gl_device::get_imgui_renderer()
 {
     return imgui_render_;
+}
+
+input::input_handler &gfx_gl_device::get_input_handler()
+{
+    return input_handler_;
 }
 
 void gfx_gl_device::set_scissor(const common::types::rectangle<float> &scissor) const
