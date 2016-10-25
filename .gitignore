@@ -1,6 +1,7 @@
 # Common
 *.log
 .clang-format
+bin/imgui.ini
 
 # OSX
 .DS_Store

@@ -11,6 +11,7 @@ add_subdirectory(resources)
 add_subdirectory(gfx)
 add_subdirectory(scene)
 add_subdirectory(assets)
+add_subdirectory(input)
 
 ################################################################################
 
@@ -44,6 +45,7 @@ target_link_libraries(aeon_engine
     aeon_engine_scene_core
     aeon_engine_basic_scene_manager
     aeon_engine_assets
+    aeon_engine_input
     aeon
     glm
     ${OPENGL_LIBRARIES}

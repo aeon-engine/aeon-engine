@@ -36,6 +36,7 @@ add_library(aeon_engine_gfx_gl STATIC
 target_link_libraries(aeon_engine_gfx_gl
     aeon_engine_gfx_core
     aeon_engine_gfx_gl_common
+    aeon_engine_input
     glew_s
     glfw
     aeon

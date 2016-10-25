@@ -81,7 +81,7 @@ void application::main()
     device_.run();
 }
 
-bool application::on_frame(float dt)
+bool application::on_frame_begin(const float dt)
 {
     turn_timer_ += dt;
     if (turn_timer_ > 5.0f)

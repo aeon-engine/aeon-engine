@@ -32,8 +32,12 @@ application::application()
     // Set up the scene
     camera_ =
         std::make_shared<aeon::scene::perspective_camera>(get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
-
     window_->create_viewport(camera_, 0);
+
+    camera2_ =
+        std::make_shared<aeon::scene::perspective_camera>(get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+    aeon::common::types::rectangle<float> smaller_viewport_rect(0.1f, 0.1f, 0.3f, 0.3f);
+    window_->create_viewport(camera2_, smaller_viewport_rect, 1);
 }
 
 void application::main()
@@ -57,7 +61,7 @@ void application::main()
     device_.run();
 }
 
-bool application::on_frame(float dt)
+bool application::on_frame_begin(const float dt)
 {
     rotation_node_->rotate(0.0f, -0.005f * dt, 0.0f);
 

@@ -24,10 +24,20 @@ namespace aeon
 namespace common
 {
 
+/*!
+ * This class is the main aeon engine logger. Every subsystem will log through this class.
+ */
 class logger : public aeon::logger::simple_sink_backend, public utility::singleton<logger>
 {
 public:
+    /*!
+     * Constructor
+     */
     logger();
+
+    /*!
+     * Destructor
+     */
     virtual ~logger();
 
 private:

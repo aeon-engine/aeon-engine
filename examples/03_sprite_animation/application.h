@@ -39,7 +39,7 @@ public:
     void main();
 
 private:
-    bool on_frame(float dt) override;
+    bool on_frame_begin(const float dt) override;
 
     aeon::scene::orthographic_camera_ptr camera_;
 

@@ -17,7 +17,7 @@
 
 namespace aeon
 {
-namespace platform
+namespace input
 {
 
 enum class keyboard_key_state
@@ -159,6 +159,9 @@ enum class keyboard_key
 
 struct keyboard_modifier_key
 {
+    /*!
+     * Bitflags for keyboard modifier keys.
+     */
     enum keyboard_modifier_key_enum
     {
         shift = 0x0001,
@@ -168,5 +171,5 @@ struct keyboard_modifier_key
     };
 };
 
-} // namespace platform
+} // namespace input
 } // namespace aeon
