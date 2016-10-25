@@ -17,7 +17,6 @@
 
 #include <aeon/gfx/gfx_device.h>
 #include <aeon/gfx/gfx_render_target.h>
-#include <aeon/gfx/gl/gfx_gl_imgui_renderer.h>
 #include <aeon/input/input_handler.h>
 #include <aeon/common/exception.h>
 #include <aeon/common/logger.h>
@@ -56,8 +55,6 @@ public:
     void run() override;
     void stop() override;
 
-    imgui_renderer &get_imgui_renderer() override;
-
     input::input_handler &get_input_handler();
 
     void set_scissor(const common::types::rectangle<float> &scissor) const;
@@ -74,8 +71,6 @@ private:
     render_targets render_targets_;
     bool running_;
     double previous_time_;
-
-    gl_imgui_renderer imgui_render_;
 };
 
 } // namespace gl

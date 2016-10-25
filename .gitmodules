@@ -54,7 +54,3 @@
 	path = dep/assimp
 	url = ../../libraries/assimp.git
 	branch = submodule
-[submodule "dep/imgui"]
-	path = dep/imgui
-	url = ../../libraries/imgui.git
-	branch = submodule

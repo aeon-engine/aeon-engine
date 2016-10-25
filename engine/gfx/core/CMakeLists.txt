@@ -7,8 +7,6 @@ set (AEON_ENGINE_GFX_CORE_SOURCES
     include/aeon/gfx/gfx_device.h
     include/aeon/gfx/gfx_exception.h
     include/aeon/gfx/gfx_frame_listener.h
-    include/aeon/gfx/gfx_imgui_listener.h
-    include/aeon/gfx/gfx_imgui_renderer.h
     include/aeon/gfx/gfx_material.h
     include/aeon/gfx/gfx_material_manager.h
     include/aeon/gfx/gfx_mesh.h
@@ -44,7 +42,6 @@ target_link_libraries(aeon_engine_gfx_core
     aeon_engine_resources
     aeon
     glm
-    imgui
 )
 
 target_include_directories(aeon_engine_gfx_core
