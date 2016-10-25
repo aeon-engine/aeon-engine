@@ -24,7 +24,7 @@ namespace gl
 {
 
 gfx_gl_window::gfx_gl_window(gfx_gl_device &device, platform::platform_interface &interface,
-                             const gfx_window_settings &settings, GLFWmonitor *monitor)
+                             const gfx_window_settings &settings, GLFWmonitor *monitor, gfx_gl_window *share_window)
     : gfx_window(settings)
     , logger_(common::logger::get_singleton(), "Gfx::GL::Window")
     , window_(nullptr)
@@ -43,8 +43,10 @@ gfx_gl_window::gfx_gl_window(gfx_gl_device &device, platform::platform_interface
     glfwWindowHint(GLFW_FOCUSED, GL_TRUE);
     glfwWindowHint(GLFW_SAMPLES, settings.get_multisample());
 
+    GLFWwindow *share_glfw_window = (share_window != nullptr) ? share_window->get_glfw_window_ptr() : nullptr;
+
     window_ =
-        glfwCreateWindow(settings.get_width(), settings.get_height(), settings.get_title().c_str(), monitor, nullptr);
+        glfwCreateWindow(settings.get_width(), settings.get_height(), settings.get_title().c_str(), monitor, share_glfw_window);
 
     AEON_LOG_DEBUG(logger_) << "Setting user pointer." << std::endl;
 

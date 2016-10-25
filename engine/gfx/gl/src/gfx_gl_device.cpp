@@ -162,7 +162,8 @@ gfx_window_ptr gfx_gl_device::create_window(const gfx_window_settings &settings,
         glfw_monitor = m->get_internal_handle();
     }
 
-    gfx_window_ptr window = std::make_shared<gfx_gl_window>(*this, platform_interface_, settings, glfw_monitor);
+    gfx_gl_window *share_window = dynamic_cast<gfx_gl_window *>((!render_targets_.empty()) ? render_targets_.at(0).get() : nullptr);
+    gfx_window_ptr window = std::make_shared<gfx_gl_window>(*this, platform_interface_, settings, glfw_monitor, share_window);
     gfx_gl_window *gl_window = dynamic_cast<gfx_gl_window *>(window.get());
 
     // HACK: If there are no render targets yet, this is the first window that is being opened.

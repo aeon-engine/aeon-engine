@@ -37,7 +37,7 @@ class gfx_gl_window : public gfx_window
 {
 public:
     explicit gfx_gl_window(gfx_gl_device &device, platform::platform_interface &interface,
-                           const gfx_window_settings &settings, GLFWmonitor *monitor);
+                           const gfx_window_settings &settings, GLFWmonitor *monitor, gfx_gl_window *share_window);
     ~gfx_gl_window() override;
 
     void make_current() override;

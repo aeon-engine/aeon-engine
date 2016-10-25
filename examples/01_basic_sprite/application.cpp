@@ -31,6 +31,13 @@ application::application()
         std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
     window_->create_viewport(camera_, 0);
+
+    aeon::gfx::gfx_window_settings settings(800, 600, "Test window 2");
+    aeon::gfx::gfx_window_ptr window2 = device_.create_window(settings);
+
+    aeon::scene::orthographic_camera_ptr camera2 =
+        std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+    window2->create_viewport(camera2, 0);
 }
 
 void application::main()
