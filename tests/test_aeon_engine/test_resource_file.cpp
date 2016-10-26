@@ -16,6 +16,7 @@
 #include <gtest/gtest.h>
 #include <aeon/platform.h>
 #include <aeon/storage/resource_file.h>
+#include <aeon/storage/resource_file_structs.h>
 
 AEON_IGNORE_VS_WARNING(4189)
 
@@ -23,5 +24,6 @@ using namespace aeon;
 
 TEST(test_resource_file, test_resource_file_sanity_check)
 {
-    
+    ASSERT_EQ(128, sizeof(storage::resource_file_index_chunk));
+    ASSERT_EQ(64, sizeof(storage::resource_file_header));
 }

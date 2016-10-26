@@ -13,6 +13,8 @@
  * prior written permission is obtained from Robin Degen.
  */
 
+#pragma once
+
 #include <aeon/platform/platform_file_interface.h>
 #include <string>
 #include <cstdint>

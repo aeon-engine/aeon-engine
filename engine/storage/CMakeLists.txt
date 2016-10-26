@@ -1,5 +1,6 @@
 set (AEON_ENGINE_STORAGE_SOURCES
     include/aeon/storage/resource_file.h
+    include/aeon/storage/resource_file_structs.h
     src/resource_file.cpp
 )
 

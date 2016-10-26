@@ -15,7 +15,7 @@
 
 #include <aeon/platform/platform_filesystem_interface.h>
 #include <aeon/storage/resource_file.h>
-#include <aeon/platform.h>
+#include <aeon/storage/resource_file_structs.h>
 #include <string.h>
 #include <cstdint>
 
@@ -36,33 +36,8 @@ resource_file_index_chunk[
 #define RESOURCE_FILE_MAJOR_VERSION 1
 #define RESOURCE_FILE_MINOR_VERSION 0
 
-#define RESOURCE_FILE_CHUNK_NAME_MAX_LEN 88
+
 #define RESOURCE_FILE_DEFAULT_RESERVE_ALIGNMENT (8 * 1024)
-
-AEON_PACK_STRUCT_PUSH(1)
-struct resource_file_index_chunk
-{
-    std::uint8_t name[RESOURCE_FILE_CHUNK_NAME_MAX_LEN];
-    std::uint32_t type_id;
-    std::uint32_t flags;
-    std::uint64_t offset;
-    std::uint64_t reserved_size;
-    std::uint64_t compressed_size;
-    std::uint64_t actual_size;
-} AEON_PACK_STRUCT_POP(1);
-
-AEON_PACK_STRUCT_PUSH(1)
-struct resource_file_header
-{
-    std::uint32_t magic;
-    std::uint8_t major_version;
-    std::uint8_t minor_version;
-    std::uint64_t index_chunks_offset;
-    std::uint64_t index_chunk_count;
-    std::uint8_t reserved[42]; // Pad to 64 bytes. Can be used in the future.
-} AEON_PACK_STRUCT_POP(1);
-
-static_assert(sizeof(resource_file_header) == 64, "Resource file header must be 64 bytes. Check the reserved padding.");
 
 resource_file::resource_file(const std::string &filename, platform::platform_filesystem_interface &filesystem_interface)
     : filename_(filename)
