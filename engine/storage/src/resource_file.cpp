@@ -24,6 +24,15 @@ namespace aeon
 namespace storage
 {
 
+/*!
+Resource file format
+
+Header
+Data
+resource_file_index_chunk[
+
+*/
+
 #define RESOURCE_FILE_MAJOR_VERSION 1
 #define RESOURCE_FILE_MINOR_VERSION 0
 
@@ -49,8 +58,11 @@ struct resource_file_header
     std::uint8_t major_version;
     std::uint8_t minor_version;
     std::uint64_t index_chunks_offset;
-    std::uint8_t reserved[50]; // Pad to 64 bytes. Can be used in the future.
+    std::uint64_t index_chunk_count;
+    std::uint8_t reserved[42]; // Pad to 64 bytes. Can be used in the future.
 } AEON_PACK_STRUCT_POP(1);
+
+static_assert(sizeof(resource_file_header) == 64, "Resource file header must be 64 bytes. Check the reserved padding.");
 
 resource_file::resource_file(const std::string &filename, platform::platform_filesystem_interface &filesystem_interface)
     : filename_(filename)
