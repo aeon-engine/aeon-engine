@@ -33,9 +33,7 @@ resource_file_index_chunk[
 
 */
 
-#define RESOURCE_FILE_MAJOR_VERSION 1
-#define RESOURCE_FILE_MINOR_VERSION 0
-
+#define RESOURCE_FILE_VERSION 1
 
 #define RESOURCE_FILE_DEFAULT_RESERVE_ALIGNMENT (8 * 1024)
 
@@ -68,8 +66,7 @@ void resource_file::__write_file_header()
     resource_file_header header;
     memset(&header, 0, sizeof(resource_file_header));
     header.magic = 'AEON';
-    header.major_version = RESOURCE_FILE_MAJOR_VERSION;
-    header.minor_version = RESOURCE_FILE_MINOR_VERSION;
+    header.version = 1;
     header.index_chunks_offset = 0;
 }
 

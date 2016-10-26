@@ -41,11 +41,10 @@ AEON_PACK_STRUCT_PUSH(1)
 struct resource_file_header
 {
     std::uint32_t magic;
-    std::uint8_t major_version;
-    std::uint8_t minor_version;
+    std::uint32_t version;
     std::uint64_t index_chunks_offset;
     std::uint64_t index_chunk_count;
-    std::uint8_t reserved[42]; // Pad to 64 bytes. Can be used in the future.
+    std::uint8_t reserved[40]; // Pad to 64 bytes. Can be used in the future.
 } AEON_PACK_STRUCT_POP(1);
 
 } // namespace storage
