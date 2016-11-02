@@ -44,7 +44,5 @@ public:
     virtual texture *get_sampler(const std::string &name) const = 0;
 };
 
-using material_ptr = std::shared_ptr<material>;
-
 } // namespace gfx
 } // namespace aeon

@@ -43,8 +43,8 @@ filesystem_provider::~filesystem_provider()
 
 bool filesystem_provider::exists(const std::string &path)
 {
-    platform::platform_interface &platform = __get_resource_manager()->get_platform_interface();
-    platform::platform_filesystem_interface &filesystem_interface = platform.get_filesystem_interface();
+    auto &platform = __get_resource_manager()->get_platform_interface();
+    auto &filesystem_interface = platform.get_filesystem_interface();
     return filesystem_interface.exists(__get_real_path(base_path_, path));
 }
 
@@ -54,14 +54,14 @@ std::vector<resource_node> filesystem_provider::list(const std::string & /*path*
     throw std::runtime_error("Not yet implemented.");
 }
 
-void filesystem_provider::read(const std::string &path, common::buffer_u8 &buffer)
+void filesystem_provider::read(const std::string &path, std::vector<std::uint8_t> &buffer)
 {
     AEON_LOG_TRACE(logger_) << "Read file at '" << path << "'." << std::endl;
 
     std::string p = __get_real_path(base_path_, path);
 
-    platform::platform_interface &platform = __get_resource_manager()->get_platform_interface();
-    platform::platform_filesystem_interface &filesystem_interface = platform.get_filesystem_interface();
+    auto &platform = __get_resource_manager()->get_platform_interface();
+    auto &filesystem_interface = platform.get_filesystem_interface();
 
     if (!filesystem_interface.exists(p))
     {
@@ -69,17 +69,16 @@ void filesystem_provider::read(const std::string &path, common::buffer_u8 &buffe
         throw filesystem_provider_read_exception();
     }
 
-    platform::platform_file_interface_ptr file =
-        filesystem_interface.open_file(p, platform::file_open_mode::read | platform::file_open_mode::binary);
+    auto file = filesystem_interface.open_file(p, platform::file_open_mode::read | platform::file_open_mode::binary);
 
-    common::buffer_u8 read_buffer;
+    std::vector<std::uint8_t> read_buffer;
     file->read(read_buffer);
     buffer = std::move(read_buffer);
 }
 
 resource_encoding filesystem_provider::get_encoding(const std::string &path) const
 {
-    std::string::size_type offset = path.find_last_of('.');
+    auto offset = path.find_last_of('.');
 
     if (offset == std::string::npos)
     {
@@ -87,7 +86,7 @@ resource_encoding filesystem_provider::get_encoding(const std::string &path) con
         throw filesystem_provider_type_exception();
     }
 
-    std::string extension = path.substr(offset + 1);
+    auto extension = path.substr(offset + 1);
 
     if (extension == "amf")
         return resource_encoding::material;

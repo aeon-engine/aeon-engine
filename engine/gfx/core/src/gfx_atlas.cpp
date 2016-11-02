@@ -21,14 +21,14 @@ namespace aeon
 namespace gfx
 {
 
-atlas::atlas(const gfx::material_ptr &material, const data::atlas &atlas)
+atlas::atlas(const std::shared_ptr<material> &material, const data::atlas &atlas)
     : logger_(common::logger::get_singleton(), "Gfx::Atlas")
     , material_(material)
     , atlas_(atlas)
 {
 }
 
-atlas::atlas(const gfx::material_ptr &material, glm::vec2 sprite_size)
+atlas::atlas(const std::shared_ptr<material> &material, glm::vec2 sprite_size)
     : logger_(common::logger::get_singleton(), "Gfx::Atlas")
     , material_(material)
     , atlas_()
@@ -36,7 +36,7 @@ atlas::atlas(const gfx::material_ptr &material, glm::vec2 sprite_size)
     __calculate_atlas_regions(sprite_size);
 }
 
-gfx::material_ptr atlas::get_material() const
+std::shared_ptr<material> atlas::get_material() const
 {
     return material_;
 }

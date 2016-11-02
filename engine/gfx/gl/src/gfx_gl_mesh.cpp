@@ -25,7 +25,7 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_mesh::gfx_gl_mesh(gfx_gl_device *device, material_ptr material)
+gfx_gl_mesh::gfx_gl_mesh(gfx_gl_device *device, std::shared_ptr<material> material)
     : gfx::mesh()
     , logger_(common::logger::get_singleton(), "Gfx::GL::Mesh")
     , material_(material)

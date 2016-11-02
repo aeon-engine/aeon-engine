@@ -35,7 +35,5 @@ public:
     virtual void set_view_matrix(const glm::mat4 &matrix) = 0;
 };
 
-using shader_ptr = std::shared_ptr<shader>;
-
 } // namespace gfx
 } // namespace aeon

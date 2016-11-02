@@ -21,7 +21,7 @@ namespace aeon
 namespace resources
 {
 
-mesh::mesh(resource_wrapper_ptr wrapper)
+mesh::mesh(const std::shared_ptr<resource_wrapper> &wrapper)
     : resource(wrapper)
     , logger_(common::logger::get_singleton(), "Resources::Mesh")
     , materials_()
@@ -45,7 +45,7 @@ void mesh::create_submesh(const int id, const std::string &name, data::index_dat
                           data::vertex_data_buffer &&vertices, const std::string &material)
 {
     submeshes_.emplace_back(
-        std::move(submesh_ptr(new submesh(id, name, std::move(indices), std::move(vertices), material))));
+        std::move(std::unique_ptr<submesh>(new submesh(id, name, std::move(indices), std::move(vertices), material))));
 }
 
 std::string &mesh::get_material_by_id(const int id)
@@ -72,7 +72,7 @@ std::vector<submesh *> mesh::get_submeshes() const
 mesh_node &mesh::create_root_mesh_node(const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
 {
     assert(root_mesh_node_ == nullptr);
-    root_mesh_node_ = mesh_node_ptr(new mesh_node(get_mesh_resource_wrapper()->get_path(), matrix, submeshes));
+    root_mesh_node_ = std::unique_ptr<mesh_node>(new mesh_node(get_mesh_resource_wrapper()->get_path(), matrix, submeshes));
     return *root_mesh_node_.get();
 }
 

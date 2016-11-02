@@ -32,7 +32,7 @@ class gfx_gl_device;
 class gfx_gl_mesh : public gfx::mesh
 {
 public:
-    explicit gfx_gl_mesh(gfx_gl_device *device, material_ptr material);
+    explicit gfx_gl_mesh(gfx_gl_device *device, std::shared_ptr<material> material);
     virtual ~gfx_gl_mesh() = default;
 
     void upload_vertex_buffer(const std::vector<data::vertex_data> &vertex_data,
@@ -47,12 +47,12 @@ private:
 
     aeon::logger::logger logger_;
 
-    gfx::material_ptr material_;
+    std::shared_ptr<material> material_;
 
-    gfx::buffer_ptr vertex_buffer_;
-    gfx::buffer_ptr index_buffer_;
+    std::shared_ptr<buffer> vertex_buffer_;
+    std::shared_ptr<buffer> index_buffer_;
     GLuint element_count_;
-    vertex_array_object_ptr vao_;
+    std::unique_ptr<gfx_gl_vertex_array_object> vao_;
 };
 
 } // namespace gl

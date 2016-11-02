@@ -37,7 +37,5 @@ public:
     virtual resource_encoding get_codec_type() const = 0;
 };
 
-using codec_ptr = std::shared_ptr<codec>;
-
 } // namespace resources
 } // namespace aeon

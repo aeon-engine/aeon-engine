@@ -28,14 +28,14 @@ scene_node::scene_node()
 {
 }
 
-scene_node_ptr scene_node::create_child_scene_node()
+std::shared_ptr<scene_node> scene_node::create_child_scene_node()
 {
-    scene_node_ptr node = scene_node_ptr(new scene_node());
+    auto node = std::shared_ptr<scene_node>(new scene_node());
     attach_child(node);
     return node;
 }
 
-void scene_node::attach_child(scene_node_ptr node)
+void scene_node::attach_child(const std::shared_ptr<scene_node> &node)
 {
     if (node->parent_ != nullptr)
         node->parent_->detach_child(node);
@@ -48,7 +48,7 @@ void scene_node::attach_child(scene_node_ptr node)
     node->dirty_ = true;
 }
 
-void scene_node::detach_child(scene_node_ptr node)
+void scene_node::detach_child(const std::shared_ptr<scene_node> &node)
 {
     children_.erase(std::remove(children_.begin(), children_.end(), node), children_.end());
     node->parent_ = nullptr;
@@ -66,13 +66,13 @@ void scene_node::detach_all_children()
     dirty_ = true;
 }
 
-void scene_node::attach_scene_object(scene_object_ptr object)
+void scene_node::attach_scene_object(const std::shared_ptr<scene_object> &object)
 {
     object->__set_scene_node(this);
     scene_objects_.push_back(object);
 }
 
-void scene_node::detach_scene_object(scene_object_ptr object)
+void scene_node::detach_scene_object(const std::shared_ptr<scene_object> &object)
 {
     object->__set_scene_node(nullptr);
     scene_objects_.erase(std::remove(scene_objects_.begin(), scene_objects_.end(), object), scene_objects_.end());
@@ -186,17 +186,21 @@ void scene_node::multiply(const glm::mat4 &matrix)
     dirty_ = true;
 }
 
-std::vector<scene_node_ptr>::const_iterator scene_node::begin() const
+std::vector<std::reference_wrapper<scene_node>> scene_node::get_children_refs() const
 {
-    return children_.cbegin();
+    // TODO: This method should be optimized with a cache. This will speed up the render
+    // loop considerably since it doesn't need to recreate this vector each time.
+    auto children = std::vector<std::reference_wrapper<scene_node>>{};
+
+    for (auto &c : children_)
+    {
+        children.push_back(*c);
+    }
+
+    return children;
 }
 
-std::vector<scene_node_ptr>::const_iterator scene_node::end() const
-{
-    return children_.cend();
-}
-
-std::vector<scene_object_ptr> scene_node::get_scene_objects() const
+const std::vector<std::shared_ptr<scene_object>> &scene_node::get_scene_objects() const
 {
     return scene_objects_;
 }
@@ -212,9 +216,9 @@ void scene_node::cleanup_children()
     detach_all_children();
 }
 
-scene_node_ptr scene_node::clone()
+std::shared_ptr<scene_node> scene_node::clone()
 {
-    scene_node_ptr node_copy = scene_node_ptr(new scene_node());
+    auto node_copy = std::shared_ptr<scene_node>(new scene_node());
     node_copy->scene_objects_ = scene_objects_;
     node_copy->matrix_ = matrix_;
     node_copy->parent_matrix_ = parent_matrix_;

@@ -49,7 +49,5 @@ private:
     std::string material_;
 };
 
-using submesh_ptr = std::unique_ptr<submesh>;
-
 } // namespace resources
 } // namespace aeon

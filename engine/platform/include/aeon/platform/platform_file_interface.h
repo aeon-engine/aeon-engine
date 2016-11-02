@@ -17,9 +17,10 @@
 
 #include <aeon/platform/platform_file_open_mode.h>
 #include <aeon/platform/platform_exception.h>
-#include <aeon/common/buffer.h>
 #include <memory>
 #include <string>
+#include <cstdint>
+#include <vector>
 
 namespace aeon
 {
@@ -45,11 +46,11 @@ public:
 
     virtual ~platform_file_interface() = default;
 
-    virtual void read(common::buffer_u8 &buffer) = 0;
-    virtual void read(common::buffer_u8 &buffer, int size) = 0;
+    virtual void read(std::vector<std::uint8_t> &buffer) = 0;
+    virtual void read(std::vector<std::uint8_t> &buffer, int size) = 0;
 
-    virtual void write(common::buffer_u8 &buffer) = 0;
-    virtual void write(common::buffer_u8 &buffer, int size) = 0;
+    virtual void write(std::vector<std::uint8_t> &buffer) = 0;
+    virtual void write(std::vector<std::uint8_t> &buffer, int size) = 0;
 
     virtual void seek_read(seek_direction direction, int offset) = 0;
     virtual void seek_write(seek_direction direction, int offset) = 0;
@@ -62,7 +63,7 @@ public:
     }
 
 protected:
-    explicit platform_file_interface(const std::string &path, int openmode)
+    explicit platform_file_interface(const std::string &path, const int openmode)
         : openmode_(openmode)
         , path_(path)
     {
@@ -72,8 +73,6 @@ private:
     int openmode_;
     std::string path_;
 };
-
-using platform_file_interface_ptr = std::shared_ptr<platform_file_interface>;
 
 } // namespace platform
 } // namespace aeon

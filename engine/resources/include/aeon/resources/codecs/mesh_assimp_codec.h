@@ -41,7 +41,7 @@ public:
     mesh_codec_assimp();
     virtual ~mesh_codec_assimp() = default;
 
-    mesh_ptr decode(resource_manager &parent, mesh_resource_wrapper_ptr wrapper) override;
+    std::shared_ptr<mesh> decode(resource_manager &parent, const std::shared_ptr<mesh_resource_wrapper> &wrapper) override;
     resource_encoding get_codec_type() const override;
 
 private:

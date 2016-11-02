@@ -25,19 +25,15 @@ namespace resources
 {
 
 class material;
-using material_ptr = std::shared_ptr<material>;
-
 class material_resource_wrapper : public resource_wrapper
 {
 public:
     explicit material_resource_wrapper(resource_manager &parent, const std::string &path,
-                                       resource_provider_weak_ptr provider);
+                                       const std::weak_ptr<resource_provider> &provider);
     virtual ~material_resource_wrapper() = default;
 
-    material_ptr open();
+    std::shared_ptr<material> open();
 };
-
-using material_resource_wrapper_ptr = std::shared_ptr<material_resource_wrapper>;
 
 } // namespace resources
 } // namespace aeon

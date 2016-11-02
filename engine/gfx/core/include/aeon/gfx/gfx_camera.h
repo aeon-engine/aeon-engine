@@ -56,7 +56,5 @@ protected:
     glm::mat4 view_matrix_;
 };
 
-using gfx_camera_ptr = std::shared_ptr<gfx_camera>;
-
 } // namespace gfx
 } // namespace aeon

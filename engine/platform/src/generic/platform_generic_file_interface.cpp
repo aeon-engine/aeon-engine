@@ -46,12 +46,12 @@ platform_file_interface::~platform_file_interface()
     AEON_LOG_DEBUG(logger_) << "Closing file " << stream_->get_filename() << "." << std::endl;
 }
 
-void platform_file_interface::read(common::buffer_u8 &buffer)
+void platform_file_interface::read(std::vector<std::uint8_t> &buffer)
 {
     read(buffer, static_cast<int>(stream_->size()));
 }
 
-void platform_file_interface::read(common::buffer_u8 &buffer, int size)
+void platform_file_interface::read(std::vector<std::uint8_t> &buffer, int size)
 {
     AEON_LOG_TRACE(logger_) << "Reading " << size << " bytes from " << stream_->get_filename() << "." << std::endl;
 
@@ -60,7 +60,7 @@ void platform_file_interface::read(common::buffer_u8 &buffer, int size)
     buffer.resize(read_size);
 }
 
-void platform_file_interface::write(common::buffer_u8 &buffer)
+void platform_file_interface::write(std::vector<std::uint8_t> &buffer)
 {
     AEON_LOG_TRACE(logger_) << "Writing " << stream_->size() << " bytes to " << stream_->get_filename() << "."
                             << std::endl;
@@ -68,7 +68,7 @@ void platform_file_interface::write(common::buffer_u8 &buffer)
     stream_->write(buffer.data(), buffer.size());
 }
 
-void platform_file_interface::write(common::buffer_u8 &buffer, int size)
+void platform_file_interface::write(std::vector<std::uint8_t> &buffer, int size)
 {
     AEON_LOG_TRACE(logger_) << "Writing " << size << " bytes to " << stream_->get_filename() << "." << std::endl;
 

@@ -19,7 +19,6 @@
 #include <aeon/resources/resource_manager.h>
 #include <aeon/resources/codecs/material_codec.h>
 #include <aeon/resources/wrappers/material_resource_wrapper.h>
-#include <aeon/common/buffer.h>
 #include <build_config.h>
 
 namespace aeon
@@ -37,11 +36,11 @@ resource_encoding material_codec::get_codec_type() const
     return resource_encoding::material;
 }
 
-material_ptr material_codec::decode(material_resource_wrapper_ptr wrapper) const
+std::shared_ptr<material> material_codec::decode(const std::shared_ptr<material_resource_wrapper> &wrapper) const
 {
     AEON_LOG_DEBUG(logger_) << "Decoding material resource." << std::endl;
 
-    common::buffer_u8 input;
+    std::vector<std::uint8_t> input;
     wrapper->read_raw(input);
 
     streams::memory_stream stream(std::move(input));

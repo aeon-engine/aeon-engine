@@ -53,7 +53,5 @@ protected:
     buffer_type type_;
 };
 
-using buffer_ptr = std::shared_ptr<buffer>;
-
 } // namespace gfx
 } // namespace aeon

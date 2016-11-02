@@ -41,9 +41,9 @@ public:
 private:
     bool on_frame_begin(const float dt) override;
 
-    aeon::scene::orthographic_camera_ptr camera_;
+    std::shared_ptr<aeon::scene::orthographic_camera> camera_;
 
-    aeon::scene::animated_sprite_ptr animated_sprite_;
+    std::shared_ptr<aeon::scene::animated_sprite> animated_sprite_;
 
     float turn_timer_;
     int direction_;

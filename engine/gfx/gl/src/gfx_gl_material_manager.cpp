@@ -26,7 +26,7 @@ namespace gfx
 namespace gl
 {
 
-material_ptr gfx_gl_material_manager::create(const shader_ptr &shader, const material::sampler_map &samplers)
+std::shared_ptr<material> gfx_gl_material_manager::create(const std::shared_ptr<shader> &shader, const material::sampler_map &samplers)
 {
     return std::make_shared<gfx_gl_material>(shader, samplers);
 }

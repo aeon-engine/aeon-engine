@@ -30,7 +30,7 @@ gfx_gl_shader_manager::gfx_gl_shader_manager()
 {
 }
 
-shader_ptr gfx_gl_shader_manager::create(const data::shader &shader_data)
+std::shared_ptr<shader> gfx_gl_shader_manager::create(const data::shader &shader_data)
 {
     GLuint vertexshader = __load_gl_shader(shader_data.get_vertex_source(), GL_VERTEX_SHADER);
     GLuint fragmentshader = __load_gl_shader(shader_data.get_fragment_source(), GL_FRAGMENT_SHADER);
@@ -40,7 +40,7 @@ shader_ptr gfx_gl_shader_manager::create(const data::shader &shader_data)
     glBindFragDataLocation(program, 0, "output_color");
     AEON_CHECK_GL_ERROR();
 
-    gfx_gl_shader_ptr s = std::make_shared<gfx_gl_shader>();
+    std::shared_ptr<gfx_gl_shader> s = std::make_shared<gfx_gl_shader>();
 
     s->handle_ = program;
     s->projection_matrix_handle_ = glGetUniformLocation(program, "projection_matrix");

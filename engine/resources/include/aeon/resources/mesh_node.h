@@ -20,16 +20,14 @@
 #include <memory>
 #include <glm/mat4x4.hpp>
 #include <aeon/resources/submesh.h>
+#include <aeon/utility.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class mesh_node;
-using mesh_node_ptr = std::unique_ptr<mesh_node>;
-
-class mesh_node
+class mesh_node : public utility::noncopyable
 {
     friend class mesh;
 
@@ -47,7 +45,7 @@ private:
 
     std::string name_;
     glm::mat4 matrix_;
-    std::vector<mesh_node_ptr> children_;
+    std::vector<std::unique_ptr<mesh_node>> children_;
     std::vector<submesh *> submeshes_;
 };
 

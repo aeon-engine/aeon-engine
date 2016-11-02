@@ -135,8 +135,5 @@ private:
     std::string name_;
 };
 
-using gfx_monitor_ptr = std::shared_ptr<gfx_monitor>;
-using gfx_monitors = std::vector<gfx_monitor_ptr>;
-
 } // namespace gfx
 } // namespace aeon

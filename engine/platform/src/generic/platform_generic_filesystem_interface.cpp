@@ -30,7 +30,7 @@ platform_filesystem_interface::platform_filesystem_interface()
 {
 }
 
-platform::platform_file_interface_ptr platform_filesystem_interface::open_file(const std::string &path, int openmode)
+std::shared_ptr<platform::platform_file_interface> platform_filesystem_interface::open_file(const std::string &path, const int openmode)
 {
     AEON_LOG_DEBUG(logger_) << "Opening filesystem file: " << path << " (Mode: " << openmode << ")" << std::endl;
 

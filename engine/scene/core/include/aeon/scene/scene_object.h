@@ -86,7 +86,5 @@ protected:
     scene_node *scene_node_;
 };
 
-using scene_object_ptr = std::shared_ptr<scene_object>;
-
 } // namespace scene
 } // namespace aeon

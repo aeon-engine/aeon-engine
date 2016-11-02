@@ -42,7 +42,5 @@ public:
     virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) = 0;
 };
 
-using mesh_ptr = std::unique_ptr<mesh>;
-
 } // namespace gfx
 } // namespace aeon

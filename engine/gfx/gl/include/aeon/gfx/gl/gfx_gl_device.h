@@ -34,7 +34,7 @@ DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL De
 class gfx_gl_device : public gfx::device
 {
 public:
-    using render_targets = std::vector<render_target_ptr>;
+    using render_targets = std::vector<std::shared_ptr<render_target>>;
 
     explicit gfx_gl_device(platform::platform_interface &platform, input::input_handler &input_handler);
     virtual ~gfx_gl_device();
@@ -46,11 +46,11 @@ public:
 
     void clear_buffer(int buffer_flag) override;
 
-    mesh_ptr create_mesh(material_ptr material) override;
+    std::unique_ptr<mesh> create_mesh(std::shared_ptr<material> material) override;
 
-    gfx_monitors get_monitors() override;
+    std::vector<std::shared_ptr<gfx_monitor>> get_monitors() override;
 
-    gfx_window_ptr create_window(const gfx_window_settings &settings, gfx_monitor_ptr monitor = nullptr) override;
+    std::shared_ptr<gfx_window> create_window(const gfx_window_settings &settings, std::shared_ptr<gfx_monitor> monitor = nullptr) override;
 
     void run() override;
     void stop() override;

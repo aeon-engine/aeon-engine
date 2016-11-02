@@ -28,7 +28,7 @@ namespace scene
 struct render_queue_object
 {
     glm::mat4 matrix;
-    scene_object_ptr object;
+    std::shared_ptr<scene_object> object;
     int group;
 };
 
@@ -45,7 +45,7 @@ public:
      * The groups are sorted in descending order, meaning higher numbers will get rendered first,
      * due to front to back rendering. Default groups are defined in render_layer::render_layer_enum.
      */
-    void add_render_object(const glm::mat4 &matrix, scene_object_ptr object, int group);
+    void add_render_object(const glm::mat4 &matrix, const std::shared_ptr<scene_object> &object, int group);
     void clear_render_objects();
 
     void sort();

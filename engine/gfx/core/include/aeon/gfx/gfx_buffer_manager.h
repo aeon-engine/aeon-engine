@@ -29,10 +29,10 @@ public:
     buffer_manager() = default;
     virtual ~buffer_manager() = default;
 
-    buffer_ptr create_buffer(buffer_type type);
+    std::shared_ptr<buffer> create_buffer(buffer_type type);
 
 private:
-    virtual buffer_ptr __create_buffer(buffer_type type) = 0;
+    virtual std::shared_ptr<buffer> __create_buffer(buffer_type type) = 0;
 };
 
 } // namespace gfx

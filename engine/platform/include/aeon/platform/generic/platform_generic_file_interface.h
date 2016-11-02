@@ -17,7 +17,6 @@
 
 #include <aeon/platform/platform_file_open_mode.h>
 #include <aeon/platform/platform_file_interface.h>
-#include <aeon/common/buffer.h>
 #include <aeon/streams.h>
 #include <aeon/common/logger.h>
 #include <memory>
@@ -37,11 +36,11 @@ public:
     explicit platform_file_interface(const std::string &path, int openmode);
     virtual ~platform_file_interface() override;
 
-    void read(common::buffer_u8 &buffer) override;
-    void read(common::buffer_u8 &buffer, int size) override;
+    void read(std::vector<std::uint8_t> &buffer) override;
+    void read(std::vector<std::uint8_t> &buffer, int size) override;
 
-    void write(common::buffer_u8 &buffer) override;
-    void write(common::buffer_u8 &buffer, int size) override;
+    void write(std::vector<std::uint8_t> &buffer) override;
+    void write(std::vector<std::uint8_t> &buffer, int size) override;
 
     void seek_read(seek_direction direction, int offset) override;
     void seek_write(seek_direction direction, int offset) override;
@@ -58,8 +57,6 @@ private:
 
     streams::file_stream_ptr stream_;
 };
-
-using platform_file_interface_ptr = std::shared_ptr<platform_file_interface>;
 
 } // namespace generic
 } // namespace platform

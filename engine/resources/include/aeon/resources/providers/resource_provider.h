@@ -16,7 +16,6 @@
 #pragma once
 
 #include <aeon/resources/resource_encoding.h>
-#include <aeon/common/buffer.h>
 #include <aeon/resources/exceptions.h>
 #include <vector>
 #include <string>
@@ -65,7 +64,7 @@ public:
 
     virtual std::vector<resource_node> list(const std::string &path) = 0;
 
-    virtual void read(const std::string &path, common::buffer_u8 &buffer) = 0;
+    virtual void read(const std::string &path, std::vector<std::uint8_t> &buffer) = 0;
 
     virtual resource_encoding get_encoding(const std::string &path) const = 0;
 
@@ -78,9 +77,6 @@ protected:
 private:
     resource_manager *manager_;
 };
-
-using resource_provider_ptr = std::shared_ptr<resource_provider>;
-using resource_provider_weak_ptr = std::weak_ptr<resource_provider>;
 
 } // namespace resources
 } // namespace aeon

@@ -52,8 +52,6 @@ private:
     bool has_data_;
 };
 
-using buffer_ptr = std::shared_ptr<gfx_gl_buffer>;
-
 } // namespace gl
 } // namespace gfx
 } // namespace aeon

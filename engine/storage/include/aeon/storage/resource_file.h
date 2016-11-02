@@ -49,7 +49,7 @@ private:
 
     std::string filename_;
     platform::platform_filesystem_interface &filesystem_interface_;
-    platform::platform_file_interface_ptr file_interface_;
+    std::shared_ptr<platform::platform_file_interface> file_interface_;
 };
 
 } // namespace storage

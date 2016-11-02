@@ -53,17 +53,17 @@ public:
         return path_;
     }
 
-    void read_raw(common::buffer_u8 &buffer) const;
+    void read_raw(std::vector<std::uint8_t> &buffer) const;
 
 protected:
-    explicit resource_wrapper(resource_manager &parent, const std::string &path, resource_provider_weak_ptr provider);
+    explicit resource_wrapper(resource_manager &parent, const std::string &path, const std::weak_ptr<resource_provider> &provider);
 
     resource_manager &__get_parent() const
     {
         return parent_;
     }
 
-    resource_provider_weak_ptr __get_provider() const
+    std::weak_ptr<resource_provider> __get_provider() const
     {
         return provider_;
     }
@@ -72,11 +72,9 @@ private:
     aeon::logger::logger logger_;
     resource_manager &parent_;
     std::string path_;
-    resource_provider_weak_ptr provider_;
+    std::weak_ptr<resource_provider> provider_;
     resource_encoding encoding_;
 };
-
-using resource_wrapper_ptr = std::shared_ptr<resource_wrapper>;
 
 } // namespace resources
 } // namespace aeon

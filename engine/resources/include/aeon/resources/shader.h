@@ -19,7 +19,6 @@
 #include <aeon/resources/exceptions.h>
 #include <aeon/resources/wrappers/shader_resource_wrapper.h>
 #include <aeon/data/shader.h>
-#include <aeon/common/buffer.h>
 #include <aeon/common/logger.h>
 #include <memory>
 
@@ -31,10 +30,10 @@ namespace resources
 class shader : public resource
 {
 public:
-    explicit shader(resource_wrapper_ptr wrapper, const data::shader &shader_data);
+    explicit shader(const std::shared_ptr<resource_wrapper> &wrapper, const data::shader &shader_data);
     virtual ~shader();
 
-    shader_resource_wrapper_ptr get_material_resource_wrapper() const
+    std::shared_ptr<shader_resource_wrapper> get_material_resource_wrapper() const
     {
         return std::dynamic_pointer_cast<shader_resource_wrapper>(get_resource_wrapper());
     }
@@ -48,8 +47,6 @@ private:
     aeon::logger::logger logger_;
     data::shader shader_data_;
 };
-
-using shader_ptr = std::shared_ptr<shader>;
 
 } // namespace resources
 } // namespace aeon

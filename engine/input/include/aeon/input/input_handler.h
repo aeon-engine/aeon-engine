@@ -39,7 +39,5 @@ public:
     void handle_mouse_scroll_event(float x, float y);
 };
 
-using platform_input_handler_ptr = std::unique_ptr<input_handler>;
-
 } // namespace input
 } // namespace aeon

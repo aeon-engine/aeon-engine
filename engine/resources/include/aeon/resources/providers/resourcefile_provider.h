@@ -17,7 +17,6 @@
 
 #include <aeon/resources/providers/resource_provider.h>
 #include <aeon/resources/resource_encoding.h>
-#include <aeon/common/buffer.h>
 #include <aeon/resources/exceptions.h>
 #include <vector>
 #include <string>
@@ -43,7 +42,7 @@ public:
 private:
     bool exists(const std::string &path) override;
     std::vector<resource_node> list(const std::string &path) override;
-    void read(const std::string &path, common::buffer_u8 &buffer) override;
+    void read(const std::string &path, std::vector<std::uint8_t> &buffer) override;
     resource_encoding get_encoding(const std::string &path) const override;
 
     std::string base_path_;

@@ -31,15 +31,15 @@ mesh_codec_assimp::mesh_codec_assimp()
 {
 }
 
-mesh_ptr mesh_codec_assimp::decode(resource_manager & /*parent*/, mesh_resource_wrapper_ptr wrapper)
+std::shared_ptr<mesh> mesh_codec_assimp::decode(resource_manager & /*parent*/, const std::shared_ptr<mesh_resource_wrapper> &wrapper)
 {
     AEON_LOG_DEBUG(logger_) << "Decoding AssImp mesh resource." << std::endl;
 
-    common::buffer_u8 input;
+    auto input = std::vector<std::uint8_t>{};
     wrapper->read_raw(input);
 
-    Assimp::Importer importer;
-    const aiScene *scene =
+    auto importer = Assimp::Importer{};
+    const auto *scene =
         importer.ReadFileFromMemory(input.data(), input.size(), aiProcessPreset_TargetRealtime_Quality);
 
     if (!scene)
@@ -48,7 +48,7 @@ mesh_ptr mesh_codec_assimp::decode(resource_manager & /*parent*/, mesh_resource_
         throw assimp_codec_decode_exception();
     }
 
-    mesh_ptr mesh_data = std::make_shared<mesh>(wrapper);
+    auto mesh_data = std::make_shared<mesh>(wrapper);
     __decode_materials(scene, *mesh_data);
     __decode_submeshes(scene, *mesh_data);
     __decode_scene(scene, *mesh_data);
@@ -63,13 +63,13 @@ resource_encoding mesh_codec_assimp::get_codec_type() const
 
 void mesh_codec_assimp::__decode_materials(const aiScene *scene, mesh &mesh_ref) const
 {
-    for (unsigned int i = 0; i < scene->mNumMaterials; ++i)
+    for (auto i = 0ul; i < scene->mNumMaterials; ++i)
     {
-        aiMaterial *ai_material = scene->mMaterials[i];
-        aiString ai_texture_path;
+        auto ai_material = scene->mMaterials[i];
+        auto ai_texture_path = aiString{};
         if (ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &ai_texture_path) == AI_SUCCESS)
         {
-            std::string texture_path = ai_texture_path.data;
+            auto texture_path = ai_texture_path.data;
             mesh_ref.add_material(texture_path);
         }
         else
@@ -83,18 +83,18 @@ void mesh_codec_assimp::__decode_materials(const aiScene *scene, mesh &mesh_ref)
 
 void mesh_codec_assimp::__decode_submeshes(const aiScene *scene, mesh &mesh_ref) const
 {
-    for (unsigned int i = 0; i < scene->mNumMeshes; ++i)
+    for (auto i = 0ul; i < scene->mNumMeshes; ++i)
     {
-        aiMesh *ai_submesh = scene->mMeshes[i];
+        auto ai_submesh = scene->mMeshes[i];
 
-        data::index_data_buffer indices;
+        auto indices = data::index_data_buffer{};
         __read_index_data(ai_submesh, indices);
 
-        data::vertex_data_buffer vertices;
+        auto vertices = data::vertex_data_buffer{};
         __read_vertex_data(ai_submesh, vertices);
 
-        std::string mesh_name = ai_submesh->mName.C_Str();
-        std::string material = mesh_ref.get_material_by_id(ai_submesh->mMaterialIndex);
+        auto mesh_name = ai_submesh->mName.C_Str();
+        auto material = mesh_ref.get_material_by_id(ai_submesh->mMaterialIndex);
 
         mesh_ref.create_submesh(i, mesh_name, std::move(indices), std::move(vertices), material);
     }
@@ -103,24 +103,24 @@ void mesh_codec_assimp::__decode_submeshes(const aiScene *scene, mesh &mesh_ref)
 void mesh_codec_assimp::__read_index_data(aiMesh *mesh, data::index_data_buffer &indices) const
 {
     // Faces should be triangulated by aiProcess_Triangulate, so the expected indices in a face is always 3.
-    const unsigned int indices_per_face = 3;
+    const auto indices_per_face = 3;
 
     // Copy indices
-    const unsigned int num_faces = mesh->mNumFaces;
+    const auto num_faces = mesh->mNumFaces;
 
     indices.resize(num_faces * indices_per_face);
 
     std::uint16_t *indices_ptr = indices.data();
 
     unsigned int offset = 0;
-    for (unsigned int face = 0; face < num_faces; ++face)
+    for (auto face = 0ul; face < num_faces; ++face)
     {
-        aiFace &ai_face = mesh->mFaces[face];
+        auto &ai_face = mesh->mFaces[face];
         assert(ai_face.mNumIndices == indices_per_face);
 
-        for (unsigned int index = 0; index < indices_per_face; ++index)
+        for (auto index = 0ul; index < indices_per_face; ++index)
         {
-            unsigned int index_val = ai_face.mIndices[index];
+            auto index_val = ai_face.mIndices[index];
 
             // We only support 16-bit meshes currently.
             if (index_val >= 0xFFFF)
@@ -139,15 +139,15 @@ void mesh_codec_assimp::__read_vertex_data(aiMesh *mesh, data::vertex_data_buffe
 {
     assert(mesh->mVertices != nullptr);
 
-    const unsigned int num_vertices = mesh->mNumVertices;
+    const auto num_vertices = mesh->mNumVertices;
     vertices.resize(num_vertices);
 
-    data::vertex_data *vertex_data_ptr = vertices.data();
+    auto vertex_data_ptr = vertices.data();
 
     // Interleave the data for the GPU
-    for (unsigned int i = 0; i < num_vertices; ++i)
+    for (auto i = 0ul; i < num_vertices; ++i)
     {
-        data::vertex_data &data = vertex_data_ptr[i];
+        auto &data = vertex_data_ptr[i];
         data.position = __convert_to_glm_vec3(mesh->mVertices[i]);
 
         if (mesh->HasNormals())
@@ -166,23 +166,23 @@ void mesh_codec_assimp::__read_vertex_data(aiMesh *mesh, data::vertex_data_buffe
 
 void mesh_codec_assimp::__decode_scene(const aiScene *scene, mesh &mesh_ref) const
 {
-    aiNode *ai_root_node = scene->mRootNode;
-    glm::mat4 matrix = __convert_to_glm_mat4(ai_root_node->mTransformation);
-    std::vector<submesh *> submeshes = __decode_submeshes_from_scene_node(ai_root_node, mesh_ref);
-    mesh_node &root_node = mesh_ref.create_root_mesh_node(matrix, submeshes);
+    auto ai_root_node = scene->mRootNode;
+    auto matrix = __convert_to_glm_mat4(ai_root_node->mTransformation);
+    auto submeshes = __decode_submeshes_from_scene_node(ai_root_node, mesh_ref);
+    auto &root_node = mesh_ref.create_root_mesh_node(matrix, submeshes);
 
     __decode_scene_node(ai_root_node, mesh_ref, root_node);
 }
 
 void mesh_codec_assimp::__decode_scene_node(const aiNode *ai_node, mesh &mesh_ref, mesh_node &node) const
 {
-    for (unsigned int i = 0; i < ai_node->mNumChildren; ++i)
+    for (auto i = 0ul; i < ai_node->mNumChildren; ++i)
     {
-        aiNode *ai_node_child = ai_node->mChildren[i];
-        glm::mat4 matrix = __convert_to_glm_mat4(ai_node_child->mTransformation);
+        auto ai_node_child = ai_node->mChildren[i];
+        auto matrix = __convert_to_glm_mat4(ai_node_child->mTransformation);
 
-        std::vector<submesh *> submeshes = __decode_submeshes_from_scene_node(ai_node_child, mesh_ref);
-        mesh_node &child = node.create_child(ai_node_child->mName.C_Str(), matrix, submeshes);
+        auto submeshes = __decode_submeshes_from_scene_node(ai_node_child, mesh_ref);
+        auto &child = node.create_child(ai_node_child->mName.C_Str(), matrix, submeshes);
 
         __decode_scene_node(ai_node_child, mesh_ref, child);
     }
@@ -191,11 +191,11 @@ void mesh_codec_assimp::__decode_scene_node(const aiNode *ai_node, mesh &mesh_re
 std::vector<submesh *> mesh_codec_assimp::__decode_submeshes_from_scene_node(const aiNode *ai_node,
                                                                              mesh &mesh_ref) const
 {
-    std::vector<submesh *> submeshes;
-    for (unsigned int i = 0; i < ai_node->mNumMeshes; ++i)
+    auto submeshes = std::vector<submesh *>{};
+    for (auto i = 0ul; i < ai_node->mNumMeshes; ++i)
     {
-        unsigned int mesh_id = ai_node->mMeshes[i];
-        submesh *submesh = mesh_ref.get_submesh_by_id(mesh_id);
+        auto mesh_id = ai_node->mMeshes[i];
+        auto submesh = mesh_ref.get_submesh_by_id(mesh_id);
 
         if (!submesh)
         {

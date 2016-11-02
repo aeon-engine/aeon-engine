@@ -30,25 +30,23 @@ class render_target;
 class viewport : public common::has_z_order
 {
 public:
-    explicit viewport(gfx_camera_ptr camera, int zorder = 0);
-    explicit viewport(gfx_camera_ptr camera, const common::types::rectangle<float> &rect, int zorder = 0);
+    explicit viewport(std::shared_ptr<gfx_camera> camera, int zorder = 0);
+    explicit viewport(std::shared_ptr<gfx_camera> camera, const common::types::rectangle<float> &rect, int zorder = 0);
     virtual ~viewport() = default;
 
     void set_rectangle(const common::types::rectangle<float> &rect);
 
-    void set_camera(gfx_camera_ptr camera);
-    gfx_camera_ptr get_camera() const;
+    void set_camera(std::shared_ptr<gfx_camera> camera);
+    std::shared_ptr<gfx_camera> get_camera() const;
 
     void update(render_target &rt, float dt);
 
     common::types::rectangle<float> get_rectangle() const;
 
 private:
-    gfx_camera_ptr camera_;
+    std::shared_ptr<gfx_camera> camera_;
     common::types::rectangle<float> rectangle_;
 };
-
-using viewport_ptr = std::shared_ptr<viewport>;
 
 } // namespace gfx
 } // namespace aeon

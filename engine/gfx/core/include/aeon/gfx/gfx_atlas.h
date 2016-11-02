@@ -35,25 +35,23 @@ class atlas : public common::cached_object
     friend class gfx_atlas_manager;
 
 public:
-    explicit atlas(const gfx::material_ptr &material, const data::atlas &atlas);
-    explicit atlas(const gfx::material_ptr &material, glm::vec2 sprite_size);
+    explicit atlas(const std::shared_ptr<material> &material, const data::atlas &atlas);
+    explicit atlas(const std::shared_ptr<material> &material, glm::vec2 sprite_size);
     virtual ~atlas() = default;
 
     data::atlas::region get_region_by_index(int index);
     data::atlas::region get_region_by_name(const std::string &name);
 
-    gfx::material_ptr get_material() const;
+    std::shared_ptr<material> get_material() const;
 
 private:
     void __calculate_atlas_regions(glm::vec2 sprite_size);
 
     aeon::logger::logger logger_;
 
-    gfx::material_ptr material_;
+    std::shared_ptr<material> material_;
     data::atlas atlas_;
 };
-
-using atlas_ptr = std::shared_ptr<atlas>;
 
 } // namespace gfx
 } // namespace aeon

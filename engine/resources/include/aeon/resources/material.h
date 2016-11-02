@@ -30,7 +30,7 @@ namespace resources
 class material : public resource
 {
 public:
-    explicit material(resource_wrapper_ptr wrapper, const data::material &material_data);
+    explicit material(const std::shared_ptr<resource_wrapper> &wrapper, const data::material &material_data);
     virtual ~material();
 
     const data::material &get_material_data() const
@@ -38,7 +38,7 @@ public:
         return material_data_;
     }
 
-    material_resource_wrapper_ptr get_material_resource_wrapper()
+    std::shared_ptr<material_resource_wrapper> get_material_resource_wrapper()
     {
         return std::dynamic_pointer_cast<material_resource_wrapper>(get_resource_wrapper());
     }
@@ -47,8 +47,6 @@ private:
     aeon::logger::logger logger_;
     data::material material_data_;
 };
-
-using material_ptr = std::shared_ptr<material>;
 
 } // namespace resources
 } // namespace aeon

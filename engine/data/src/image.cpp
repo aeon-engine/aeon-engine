@@ -20,7 +20,7 @@ namespace aeon
 namespace data
 {
 
-image::image(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
+image::image(std::vector<std::uint8_t> &&buffer, unsigned int width, unsigned int height,
              pixel_format pixelformat /*= pixel_format::rgba*/)
     : buffer_(std::move(buffer))
     , width_(width)
@@ -51,7 +51,7 @@ bool image::has_data() const
     return buffer_.empty();
 }
 
-const common::buffer_u8 &image::get_data() const
+const std::vector<std::uint8_t> &image::get_data() const
 {
     return buffer_;
 }

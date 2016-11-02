@@ -25,19 +25,15 @@ namespace resources
 {
 
 class atlas;
-using atlas_ptr = std::shared_ptr<atlas>;
-
 class atlas_resource_wrapper : public resource_wrapper
 {
 public:
     explicit atlas_resource_wrapper(resource_manager &parent, const std::string &path,
-                                    resource_provider_weak_ptr provider);
+                                    const std::weak_ptr<resource_provider> &provider);
     virtual ~atlas_resource_wrapper() = default;
 
-    atlas_ptr open();
+    std::shared_ptr<atlas> open();
 };
-
-using atlas_resource_wrapper_ptr = std::shared_ptr<atlas_resource_wrapper>;
 
 } // namespace resources
 } // namespace aeon

@@ -33,7 +33,7 @@ public:
     virtual ~gfx_gl_texture_manager() = default;
 
 private:
-    texture_ptr create(const data::image &image_data) override;
+    std::shared_ptr<texture> create(const data::image &image_data) override;
 
     GLint __image_pixelformat_to_gl(data::image::pixel_format format) const;
 

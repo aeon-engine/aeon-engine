@@ -22,14 +22,14 @@ namespace resources
 {
 
 material_resource_wrapper::material_resource_wrapper(resource_manager &parent, const std::string &path,
-                                                     resource_provider_weak_ptr provider)
+                                                     const std::weak_ptr<resource_provider> &provider)
     : resource_wrapper(parent, path, provider)
 {
     if (get_type() != resource_type::material)
         throw resource_type_exception();
 }
 
-material_ptr material_resource_wrapper::open()
+std::shared_ptr<material> material_resource_wrapper::open()
 {
     material_codec &codec = __get_parent().get_codec_manager().get_material_codec();
     return codec.decode(std::dynamic_pointer_cast<material_resource_wrapper>(shared_from_this()));

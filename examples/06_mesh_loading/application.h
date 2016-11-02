@@ -32,8 +32,8 @@ public:
 
 private:
     float timer_;
-    aeon::scene::perspective_camera_ptr camera_;
-    aeon::scene::perspective_camera_ptr camera2_;
-    aeon::scene::scene_node_ptr rotation_node_;
-    aeon::scene::scene_node_ptr wave_node_;
+    std::shared_ptr<aeon::scene::perspective_camera> camera_;
+    std::shared_ptr<aeon::scene::perspective_camera> camera2_;
+    std::shared_ptr<aeon::scene::scene_node> rotation_node_;
+    std::shared_ptr<aeon::scene::scene_node> wave_node_;
 };

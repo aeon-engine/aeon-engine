@@ -52,8 +52,6 @@ private:
     GLint texture0_handle_;
 };
 
-using gfx_gl_shader_ptr = std::shared_ptr<gl::gfx_gl_shader>;
-
 } // namespace gl
 } // namespace gfx
 } // namespace aeon

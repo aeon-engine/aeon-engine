@@ -29,7 +29,7 @@ namespace scene
 class animated_sprite : public sprite
 {
 public:
-    explicit animated_sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, int zorder,
+    explicit animated_sprite(scene_manager *scene_manager, std::shared_ptr<gfx::atlas> atlas, int zorder,
                              const sprite_animation_settings &settings);
 
     virtual ~animated_sprite() = default;
@@ -50,8 +50,6 @@ protected:
 
     std::vector<int> sequence_;
 };
-
-using animated_sprite_ptr = std::shared_ptr<animated_sprite>;
 
 } // namespace scene
 } // namespace aeon

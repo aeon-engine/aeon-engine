@@ -23,7 +23,7 @@ namespace resources
 {
 
 resource_wrapper::resource_wrapper(resource_manager &parent, const std::string &path,
-                                   resource_provider_weak_ptr provider)
+                                   const std::weak_ptr<resource_provider> &provider)
     : logger_(common::logger::get_singleton(), "Resources::ResourceWrapper")
     , parent_(parent)
     , path_(path)
@@ -41,7 +41,7 @@ resource_type resource_wrapper::get_type() const
     return parent_.get_codec_manager().get_resource_type_by_encoding(encoding_);
 }
 
-void resource_wrapper::read_raw(common::buffer_u8 &buffer) const
+void resource_wrapper::read_raw(std::vector<std::uint8_t> &buffer) const
 {
     auto p = provider_.lock();
 

@@ -25,19 +25,15 @@ namespace resources
 {
 
 class image;
-using image_ptr = std::shared_ptr<image>;
-
 class image_resource_wrapper : public resource_wrapper
 {
 public:
     explicit image_resource_wrapper(resource_manager &parent, const std::string &path,
-                                    resource_provider_weak_ptr provider);
+                                    const std::weak_ptr<resource_provider> &provider);
     virtual ~image_resource_wrapper() = default;
 
-    image_ptr open();
+    std::shared_ptr<image> open();
 };
-
-using image_resource_wrapper_ptr = std::shared_ptr<image_resource_wrapper>;
 
 } // namespace resources
 } // namespace aeon

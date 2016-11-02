@@ -38,38 +38,35 @@ application::application()
 void application::main()
 {
     // Load resources
-    aeon::gfx::material_ptr ships_material = get_asset_manager().load_material("/resources/materials/ships.amf");
+    std::shared_ptr<aeon::gfx::material> ships_material = get_asset_manager().load_material("/resources/materials/ships.amf");
 
     // A sprite batch requires an atlas, we can either load one from an atlas file, or just generate one if
     // all the sprites have the same size and are properly aligned within the file.
-    aeon::gfx::atlas_ptr atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
+    std::shared_ptr<aeon::gfx::atlas> atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
 
     // Set up scene
-    aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
-    root_node->translate(400, 300);
+    auto &root_node = scene_manager_.get_root_scene_node();
+    root_node.translate(400, 300);
 
     aeon::data::atlas::region ship1 = atlas->get_region_by_index(0);
     aeon::data::atlas::region ship2 = atlas->get_region_by_index(4);
     aeon::data::atlas::region ship3 = atlas->get_region_by_index(10);
 
-    aeon::scene::sprite_ptr ship1_sprite =
-        scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship1, glm::vec2(64, 64), 0);
-    root_node->attach_scene_object(ship1_sprite);
+    auto ship1_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship1, glm::vec2(64, 64), 0);
+    root_node.attach_scene_object(ship1_sprite);
 
-    ship2_pivot_node_ = root_node->create_child_scene_node();
-    aeon::scene::scene_node_ptr ship2_node = ship2_pivot_node_->create_child_scene_node();
+    ship2_pivot_node_ = root_node.create_child_scene_node();
+    auto ship2_node = ship2_pivot_node_->create_child_scene_node();
     ship2_node->translate(200.0f, 0.0f);
 
-    aeon::scene::sprite_ptr ship2_sprite =
-        scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship2, glm::vec2(64, 64), 1);
+    auto ship2_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship2, glm::vec2(64, 64), 1);
     ship2_node->attach_scene_object(ship2_sprite);
 
     ship3_pivot_node_ = ship2_node->create_child_scene_node();
-    aeon::scene::scene_node_ptr ship3_node = ship3_pivot_node_->create_child_scene_node();
+    auto ship3_node = ship3_pivot_node_->create_child_scene_node();
     ship3_node->translate(100.0f, 0.0f);
 
-    aeon::scene::sprite_ptr ship3_sprite =
-        scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship3, glm::vec2(64, 64), 2);
+    auto ship3_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship3, glm::vec2(64, 64), 2);
     ship3_node->attach_scene_object(ship3_sprite);
 
     device_.run();

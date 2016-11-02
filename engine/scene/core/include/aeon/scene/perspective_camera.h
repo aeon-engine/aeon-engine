@@ -32,7 +32,5 @@ public:
     virtual ~perspective_camera() = default;
 };
 
-using perspective_camera_ptr = std::shared_ptr<perspective_camera>;
-
 } // namespace scene
 } // namespace aeon

@@ -20,7 +20,7 @@ namespace aeon
 namespace resources
 {
 
-material::material(resource_wrapper_ptr wrapper, const data::material &material_data)
+material::material(const std::shared_ptr<resource_wrapper> &wrapper, const data::material &material_data)
     : resource(wrapper)
     , logger_(common::logger::get_singleton(), "Resources::Material")
     , material_data_(material_data)

@@ -16,7 +16,6 @@
 #pragma once
 
 #include <aeon/utility.h>
-#include <aeon/common/buffer.h>
 #include <memory>
 #include <glm/vec2.hpp>
 
@@ -34,7 +33,7 @@ public:
         rgba,
     };
 
-    explicit image(common::buffer_u8 &&buffer, unsigned int width, unsigned int height,
+    explicit image(std::vector<std::uint8_t> &&buffer, unsigned int width, unsigned int height,
                    pixel_format pixelformat = pixel_format::rgba);
 
     ~image() = default;
@@ -44,7 +43,7 @@ public:
 
     bool has_data() const;
 
-    const common::buffer_u8 &get_data() const;
+    const std::vector<std::uint8_t> &get_data() const;
 
     unsigned int get_width() const;
 
@@ -55,13 +54,11 @@ public:
     pixel_format get_pixelformat() const;
 
 private:
-    common::buffer_u8 buffer_;
+    std::vector<std::uint8_t> buffer_;
     unsigned int width_;
     unsigned int height_;
     pixel_format pixel_format_;
 };
-
-using image_ptr = std::shared_ptr<image>;
 
 } // namespace data
 } // namespace aeon

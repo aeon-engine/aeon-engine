@@ -39,20 +39,20 @@ public:
     explicit scene_manager(gfx::device &device);
     virtual ~scene_manager();
 
-    scene_node_ptr get_root_scene_node() const;
+    scene_node &get_root_scene_node() const;
 
     /*!
      * Create a child scene node attached to the root scene node.
      */
-    scene_node_ptr create_child_scene_node() const;
+    std::shared_ptr<scene_node> create_child_scene_node() const;
 
     /*!
      * Create a scene node that is not attached to anything. This scene node must be attached to another node
      * through scene_node::attach_child().
      */
-    scene_node_ptr create_detached_scene_node() const;
+    std::shared_ptr<scene_node> create_detached_scene_node() const;
 
-    void detach_child_scene_node(scene_node_ptr node) const;
+    void detach_child_scene_node(const std::shared_ptr<scene_node> &node) const;
 
     /*!
      * Recursively detach and cleanup all scene nodes and their children from the entire scene.
@@ -74,12 +74,10 @@ protected:
 
     virtual void __prepare_render_queue(camera *cam) = 0;
 
-    scene_node_ptr root_node_;
+    std::shared_ptr<scene_node> root_node_;
     render_queue queue_;
     gfx::device &device_;
 };
-
-using scene_manager_ptr = std::unique_ptr<scene_manager>;
 
 } // namespace scene
 } // namespace aeon

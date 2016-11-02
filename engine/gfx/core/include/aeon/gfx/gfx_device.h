@@ -53,18 +53,18 @@ public:
     virtual void set_viewport(render_target &rt, viewport &vp) = 0;
     virtual void clear_buffer(int buffer_flag) = 0;
 
-    virtual mesh_ptr create_mesh(material_ptr material) = 0;
+    virtual std::unique_ptr<mesh> create_mesh(std::shared_ptr<material> material) = 0;
 
     /*!
      * Get a list of all monitors connected to this system.
      */
-    virtual gfx_monitors get_monitors() = 0;
+    virtual std::vector<std::shared_ptr<gfx_monitor>> get_monitors() = 0;
 
     /*!
      * Create a window. A window can be created on a specific monitor. When no monitor is
      * given, the window appears on the main monitor.
      */
-    virtual gfx_window_ptr create_window(const gfx_window_settings &settings, gfx_monitor_ptr monitor = nullptr) = 0;
+    virtual std::shared_ptr<gfx_window> create_window(const gfx_window_settings &settings, std::shared_ptr<gfx_monitor> monitor = nullptr) = 0;
 
     /*!
      * Enter the engine's main loop. You must first call initialize before calling run.

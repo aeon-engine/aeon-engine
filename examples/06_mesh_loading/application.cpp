@@ -43,7 +43,7 @@ application::application()
 void application::main()
 {
     rotation_node_ = get_scene_manager()->create_child_scene_node();
-    get_scene_manager()->get_root_scene_node()->attach_child(rotation_node_);
+    get_scene_manager()->get_root_scene_node().attach_child(rotation_node_);
 
     rotation_node_->translate(0.0f, -1.5f, -10.0f);
 
@@ -52,7 +52,7 @@ void application::main()
         get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
     rotation_node_->attach_child(wave_node_);
 
-    aeon::scene::scene_node_ptr skydome = get_asset_manager().load_mesh("resources/meshes/skysphere/skydome.dae");
+    auto skydome = get_asset_manager().load_mesh("resources/meshes/skysphere/skydome.dae");
     wave_node_->attach_child(skydome);
     skydome->scale(10.0f);
     skydome->translate(0.0f, -30.0f, 0.0f);

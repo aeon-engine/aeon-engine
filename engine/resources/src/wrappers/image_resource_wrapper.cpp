@@ -22,14 +22,14 @@ namespace resources
 {
 
 image_resource_wrapper::image_resource_wrapper(resource_manager &parent, const std::string &path,
-                                               resource_provider_weak_ptr provider)
+                                               const std::weak_ptr<resource_provider> &provider)
     : resource_wrapper(parent, path, provider)
 {
     if (get_type() != resource_type::image)
         throw resource_type_exception();
 }
 
-image_ptr image_resource_wrapper::open()
+std::shared_ptr<image> image_resource_wrapper::open()
 {
     image_codec &codec = __get_parent().get_codec_manager().get_image_codec(get_encoding());
     return codec.decode(__get_parent(), std::dynamic_pointer_cast<image_resource_wrapper>(shared_from_this()));

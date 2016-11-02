@@ -41,9 +41,7 @@ template <typename T>
 class object_cache : utility::noncopyable
 {
 public:
-    using cached_object_ptr = std::shared_ptr<T>;
-    using cached_object_weak_ptr = std::weak_ptr<T>;
-    using cached_objects = std::map<std::string, cached_object_weak_ptr>;
+    using cached_objects = std::map<std::string, std::weak_ptr<T>>;
 
     /*!
      * Constructor
@@ -64,14 +62,14 @@ public:
      * or a nullptr. If the object was found to be expired, a garbage collection will be triggered to
      * clean up expired weak pointers.
      */
-    cached_object_ptr get_cached_object(const std::string &name)
+    std::shared_ptr<T> get_cached_object(const std::string &name)
     {
         auto result = objects_.find(name);
 
         if (result == objects_.end())
             return nullptr;
 
-        cached_object_weak_ptr object = result->second;
+        std::weak_ptr<T> object = result->second;
 
         if (object.expired())
         {
@@ -87,7 +85,7 @@ public:
      * an object_cache_name_exception is thrown. This method will take a weak pointer of the given shared pointer to
      * store internally.
      */
-    void add_cached_object(const std::string &name, const cached_object_ptr &obj)
+    void add_cached_object(const std::string &name, const std::shared_ptr<T> &obj)
     {
         obj->name_ = name;
 

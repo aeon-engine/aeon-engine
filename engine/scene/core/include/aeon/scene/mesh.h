@@ -28,7 +28,7 @@ namespace scene
 class mesh : public scene_object
 {
 public:
-    explicit mesh(scene_manager *scene_manager, gfx::material_ptr material,
+    explicit mesh(scene_manager *scene_manager, std::shared_ptr<gfx::material> material,
                   const std::vector<data::vertex_data> &vertex_data, const std::vector<std::uint16_t> &index_data);
 
     virtual ~mesh();
@@ -36,10 +36,8 @@ public:
 private:
     void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt) override;
 
-    gfx::mesh_ptr mesh_;
+    std::unique_ptr<gfx::mesh> mesh_;
 };
-
-using mesh_ptr = std::shared_ptr<mesh>;
 
 } // namespace scene
 } // namespace aeon

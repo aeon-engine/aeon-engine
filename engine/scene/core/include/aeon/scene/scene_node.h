@@ -31,9 +31,6 @@ namespace scene
 
 DEFINE_EXCEPTION_OBJECT(scene_transform_space_exception, scene_exception, "Unknown or unsupported transform space.");
 
-class scene_node;
-using scene_node_ptr = std::shared_ptr<scene_node>;
-
 enum class transform_space
 {
     local,
@@ -53,20 +50,20 @@ public:
     /*!
      * Create a new scene node attached to this scene node.
      */
-    scene_node_ptr create_child_scene_node();
+    std::shared_ptr<scene_node> create_child_scene_node();
 
     /*!
      * Attach a scene node to this node. This will automatically detach the given node from it's current parent,
      * if any.
      */
-    void attach_child(scene_node_ptr node);
+    void attach_child(const std::shared_ptr<scene_node> &node);
 
     /*!
      * Detach a scene node. The given scene node will have it's parent set to nullptr.
      * Will result in undefined (dangerous!) behavior if the given scene node was not a child of
      * this node.
      */
-    void detach_child(scene_node_ptr node);
+    void detach_child(const std::shared_ptr<scene_node> &node);
 
     /*!
      * Detach all children scene_nodes that were attached to this one.
@@ -77,12 +74,12 @@ public:
      * Attach an object to this scene node.
      * TODO: Can the same object be attached to multiple scene nodes? What are the implications of this?
      */
-    void attach_scene_object(scene_object_ptr object);
+    void attach_scene_object(const std::shared_ptr<scene_object> &object);
 
     /*!
      * Detach an object from this scene node.
      */
-    void detach_scene_object(scene_object_ptr object);
+    void detach_scene_object(const std::shared_ptr<scene_object> &object);
 
     /*!
      * Detach all objects from this scene node.
@@ -202,7 +199,7 @@ public:
     /*!
      * Get the parent this scene node is attached to. Equals nullptr if this node isn't attached to anything.
      */
-    scene_node_ptr get_parent() const
+    std::shared_ptr<scene_node> get_parent() const
     {
         return parent_;
     }
@@ -223,22 +220,17 @@ public:
     /*!
      * Make a deepcopy of this scene node and all it's children so that it can be attached somewhere else.
      */
-    scene_node_ptr clone();
+    std::shared_ptr<scene_node> clone();
 
     /*!
-     * Begin iterator for c++11 "foreach".
+     * Get a vector of references to all children.
      */
-    std::vector<scene_node_ptr>::const_iterator begin() const;
-
-    /*!
-     * End iterator for c++11 "foreach".
-     */
-    std::vector<scene_node_ptr>::const_iterator end() const;
+    std::vector<std::reference_wrapper<scene_node>> get_children_refs() const;
 
     /*!
      * Get all attached objects to this node
      */
-    std::vector<scene_object_ptr> get_scene_objects() const;
+    const std::vector<std::shared_ptr<scene_object>> &get_scene_objects() const;
 
 private:
     /*!
@@ -250,17 +242,17 @@ private:
     /*!
      * The scene node that this node is attached to, or nullptr if not attached to anything.
      */
-    scene_node_ptr parent_;
+    std::shared_ptr<scene_node> parent_;
 
     /*!
      * All attached scene nodes.
      */
-    std::vector<scene_node_ptr> children_;
+    std::vector<std::shared_ptr<scene_node>> children_;
 
     /*!
      * All attached render objects
      */
-    std::vector<scene_object_ptr> scene_objects_;
+    std::vector<std::shared_ptr<scene_object>> scene_objects_;
 
     /*!
      * The matrix for this node.

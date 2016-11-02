@@ -27,7 +27,7 @@ namespace platform
 class platform_interface
 {
 public:
-    explicit platform_interface(platform_filesystem_interface_ptr filesystem_interface)
+    explicit platform_interface(std::unique_ptr<platform_filesystem_interface> filesystem_interface)
         : filesystem_interface_(std::move(filesystem_interface))
     {
     }
@@ -44,7 +44,7 @@ public:
     }
 
 protected:
-    platform_filesystem_interface_ptr filesystem_interface_;
+    std::unique_ptr<platform_filesystem_interface> filesystem_interface_;
 };
 
 } // namespace platform

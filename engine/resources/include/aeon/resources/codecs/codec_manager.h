@@ -41,7 +41,7 @@ DEFINE_EXCEPTION_OBJECT(codec_manager_codec_mismatch_exception, codec_manager_ex
 
 class codec_manager
 {
-    using codec_map = std::map<resource_encoding, codec_ptr>;
+    using codec_map = std::map<resource_encoding, std::shared_ptr<codec>>;
 
 public:
     codec_manager();

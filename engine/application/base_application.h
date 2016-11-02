@@ -77,7 +77,7 @@ public:
     /*!
      * Get the main window created for this application.
      */
-    gfx::gfx_window_ptr get_main_window() const
+    std::shared_ptr<gfx::gfx_window> get_main_window() const
     {
         return window_;
     }
@@ -145,10 +145,10 @@ private:
     {
         try
         {
-            platform::platform_file_interface_ptr file_interface = platform_.get_filesystem_interface().open_file(
+            auto file_interface = platform_.get_filesystem_interface().open_file(
                 "config.conf", platform::file_open_mode::binary | platform::file_open_mode::read);
 
-            common::buffer_u8 config_file_data;
+            std::vector<std::uint8_t> config_file_data;
             file_interface->read(config_file_data);
 
             config_file_.load(std::move(config_file_data));
@@ -176,7 +176,7 @@ private:
         const int multisample = config_file_.get<int>("multisample", 0);
         const bool double_buffer = config_file_.get<bool>("double_buffer", true);
 
-        gfx::gfx_window_settings settings(width, height, title);
+        auto settings = gfx::gfx_window_settings{width, height, title};
         settings.set_multisample(multisample);
         settings.set_buffer_mode(double_buffer ? gfx::buffer_mode::double_buffer : gfx::buffer_mode::single_buffer);
 
@@ -197,7 +197,7 @@ protected:
     scene_manager_t scene_manager_;
     assets::asset_manager asset_manager_;
 
-    gfx::gfx_window_ptr window_;
+    std::shared_ptr<gfx::gfx_window> window_;
 };
 
 } // namespace aeon

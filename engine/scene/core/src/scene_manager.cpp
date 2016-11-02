@@ -35,22 +35,22 @@ scene_manager::~scene_manager()
     cleanup_scene();
 }
 
-scene_node_ptr scene_manager::get_root_scene_node() const
+scene_node &scene_manager::get_root_scene_node() const
 {
-    return root_node_;
+    return *root_node_;
 }
 
-scene_node_ptr scene_manager::create_child_scene_node() const
+std::shared_ptr<scene_node> scene_manager::create_child_scene_node() const
 {
     return root_node_->create_child_scene_node();
 }
 
-scene_node_ptr scene_manager::create_detached_scene_node() const
+std::shared_ptr<scene_node> scene_manager::create_detached_scene_node() const
 {
-    return scene_node_ptr(new scene_node());
+    return std::shared_ptr<scene_node>(new scene_node());
 }
 
-void scene_manager::detach_child_scene_node(scene_node_ptr node) const
+void scene_manager::detach_child_scene_node(const std::shared_ptr<scene_node> &node) const
 {
     root_node_->detach_child(node);
 }

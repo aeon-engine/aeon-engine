@@ -16,7 +16,6 @@
 #pragma once
 
 #include <aeon/resources/exceptions.h>
-#include <aeon/common/buffer.h>
 #include <aeon/resources/resource_encoding.h>
 #include <aeon/resources/codecs/codec.h>
 #include <aeon/resources/material.h>
@@ -41,13 +40,11 @@ public:
 
     resource_encoding get_codec_type() const override;
 
-    material_ptr decode(material_resource_wrapper_ptr wrapper) const;
+    std::shared_ptr<material> decode(const std::shared_ptr<material_resource_wrapper> &wrapper) const;
 
 private:
     aeon::logger::logger logger_;
 };
-
-using material_codec_ptr = std::unique_ptr<material_codec>;
 
 } // namespace resources
 } // namespace aeon

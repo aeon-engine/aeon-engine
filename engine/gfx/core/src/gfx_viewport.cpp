@@ -20,14 +20,14 @@ namespace aeon
 namespace gfx
 {
 
-viewport::viewport(gfx_camera_ptr camera, int zorder)
+viewport::viewport(std::shared_ptr<gfx_camera> camera, int zorder)
     : has_z_order(zorder)
     , camera_(camera)
     , rectangle_(0.0f, 0.0f, 1.0f, 1.0f)
 {
 }
 
-viewport::viewport(gfx_camera_ptr camera, const common::types::rectangle<float> &rect, int zorder)
+viewport::viewport(std::shared_ptr<gfx_camera> camera, const common::types::rectangle<float> &rect, int zorder)
     : has_z_order(zorder)
     , camera_(camera)
     , rectangle_(rect)
@@ -39,12 +39,12 @@ void viewport::set_rectangle(const common::types::rectangle<float> &rect)
     rectangle_ = rect;
 }
 
-void viewport::set_camera(gfx_camera_ptr camera)
+void viewport::set_camera(std::shared_ptr<gfx_camera> camera)
 {
     camera_ = camera;
 }
 
-gfx_camera_ptr viewport::get_camera() const
+std::shared_ptr<gfx_camera> viewport::get_camera() const
 {
     return camera_;
 }

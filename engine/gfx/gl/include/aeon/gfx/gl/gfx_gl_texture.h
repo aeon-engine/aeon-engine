@@ -43,8 +43,6 @@ private:
     glm::vec2 size_;
 };
 
-using gfx_gl_texture_ptr = std::shared_ptr<gl::gfx_gl_texture>;
-
 } // namespace gl
 } // namespace gfx
 } // namespace aeon

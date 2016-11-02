@@ -25,20 +25,20 @@ namespace resources
 class resource
 {
 public:
-    resource(resource_wrapper_ptr wrapper)
+    resource(const std::shared_ptr<resource_wrapper> &wrapper)
         : wrapper_(wrapper)
     {
     }
 
     virtual ~resource() = default;
 
-    resource_wrapper_ptr get_resource_wrapper() const
+    std::shared_ptr<resource_wrapper> get_resource_wrapper() const
     {
         return wrapper_;
     }
 
 private:
-    resource_wrapper_ptr wrapper_;
+    std::shared_ptr<resource_wrapper> wrapper_;
 };
 
 } // namespace resources

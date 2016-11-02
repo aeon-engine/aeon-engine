@@ -23,7 +23,7 @@ namespace gfx
 namespace gl
 {
 
-gfx::buffer_ptr gfx_gl_buffer_manager::__create_buffer(buffer_type type)
+std::shared_ptr<buffer> gfx_gl_buffer_manager::__create_buffer(buffer_type type)
 {
     return std::make_shared<gfx_gl_buffer>(type);
 }

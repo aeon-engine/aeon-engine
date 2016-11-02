@@ -41,7 +41,5 @@ public:
     void render_scene(gfx::render_target &rt, gfx::viewport &vp, float dt) override;
 };
 
-using camera_ptr = std::shared_ptr<camera>;
-
 } // namespace scene
 } // namespace aeon

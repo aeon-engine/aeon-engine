@@ -31,7 +31,7 @@ public:
     virtual ~gfx_gl_buffer_manager() = default;
 
 private:
-    buffer_ptr __create_buffer(buffer_type type) override;
+    std::shared_ptr<buffer> __create_buffer(buffer_type type) override;
 };
 
 } // namespace gl

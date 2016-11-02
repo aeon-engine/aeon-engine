@@ -18,7 +18,6 @@
 #include <aeon/resources/resource.h>
 #include <aeon/resources/exceptions.h>
 #include <aeon/resources/wrappers/image_resource_wrapper.h>
-#include <aeon/common/buffer.h>
 #include <aeon/common/logger.h>
 #include <aeon/data/image.h>
 #include <memory>
@@ -34,7 +33,7 @@ DEFINE_EXCEPTION_OBJECT(image_data_exception, image_exception, "Image resource d
 class image : public resource
 {
 public:
-    explicit image(resource_wrapper_ptr wrapper, data::image &&image_data);
+    explicit image(const std::shared_ptr<resource_wrapper> &wrapper, data::image &&image_data);
 
     virtual ~image();
 
@@ -43,7 +42,7 @@ public:
         return image_data_;
     }
 
-    image_resource_wrapper_ptr get_image_resource_wrapper() const
+    std::shared_ptr<image_resource_wrapper> get_image_resource_wrapper() const
     {
         return std::dynamic_pointer_cast<image_resource_wrapper>(get_resource_wrapper());
     }
@@ -52,8 +51,6 @@ private:
     aeon::logger::logger logger_;
     data::image image_data_;
 };
-
-using image_ptr = std::shared_ptr<image>;
 
 } // namespace resources
 } // namespace aeon

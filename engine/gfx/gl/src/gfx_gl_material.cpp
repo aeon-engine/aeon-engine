@@ -22,7 +22,7 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_material::gfx_gl_material(const shader_ptr &shader, const material::sampler_map &samplers)
+gfx_gl_material::gfx_gl_material(const std::shared_ptr<shader> &shader, const material::sampler_map &samplers)
     : shader_(std::dynamic_pointer_cast<gfx_gl_shader>(shader))
     , sampler_map_(std::move(__convert_sampler_map_to_gl(samplers)))
     , samplers_(std::move(__generate_sampler_indices(sampler_map_)))

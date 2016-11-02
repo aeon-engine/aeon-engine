@@ -22,7 +22,7 @@ namespace aeon
 namespace scene
 {
 
-void render_queue::add_render_object(const glm::mat4 &matrix, scene_object_ptr object, int group)
+void render_queue::add_render_object(const glm::mat4 &matrix, const std::shared_ptr<scene_object> &object, int group)
 {
     assert(group < render_layer::max);
 

@@ -32,8 +32,8 @@ public:
 private:
     bool on_frame_begin(const float dt) override;
 
-    aeon::scene::orthographic_camera_ptr camera_;
+    std::shared_ptr<aeon::scene::orthographic_camera> camera_;
 
-    aeon::scene::scene_node_ptr ship2_pivot_node_;
-    aeon::scene::scene_node_ptr ship3_pivot_node_;
+    std::shared_ptr<aeon::scene::scene_node> ship2_pivot_node_;
+    std::shared_ptr<aeon::scene::scene_node> ship3_pivot_node_;
 };

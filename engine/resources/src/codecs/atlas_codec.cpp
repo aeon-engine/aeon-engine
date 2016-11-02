@@ -19,7 +19,6 @@
 #include <aeon/resources/resource_manager.h>
 #include <aeon/resources/codecs/atlas_codec.h>
 #include <aeon/resources/wrappers/atlas_resource_wrapper.h>
-#include <aeon/common/buffer.h>
 
 namespace aeon
 {
@@ -36,11 +35,11 @@ resource_encoding atlas_codec::get_codec_type() const
     return resource_encoding::atlas;
 }
 
-atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_ptr wrapper)
+std::shared_ptr<atlas> atlas_codec::decode(resource_manager &parent, const std::shared_ptr<atlas_resource_wrapper> &wrapper)
 {
     AEON_LOG_DEBUG(logger_) << "Decoding atlas resource." << std::endl;
 
-    common::buffer_u8 input;
+    std::vector<std::uint8_t> input;
     wrapper->read_raw(input);
 
     streams::memory_stream stream(std::move(input));
@@ -53,9 +52,8 @@ atlas_ptr atlas_codec::decode(resource_manager &parent, atlas_resource_wrapper_p
         throw atlas_codec_decode_exception();
     }
 
-    material_resource_wrapper_ptr material_res_wrapper =
-        parent.load_material_wrapper(atlas_file.get<std::string>("material", ""));
-    material_ptr material_res = material_res_wrapper->open();
+    auto material_res_wrapper = parent.load_material_wrapper(atlas_file.get<std::string>("material", ""));
+    auto material_res = material_res_wrapper->open();
 
     data::atlas atlas_data;
 

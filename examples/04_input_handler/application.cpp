@@ -49,28 +49,27 @@ application::application()
 void application::main()
 {
     // Load resources
-    aeon::gfx::material_ptr ships_material = get_asset_manager().load_material("/resources/materials/ships.amf");
+    std::shared_ptr<aeon::gfx::material> ships_material = get_asset_manager().load_material("/resources/materials/ships.amf");
 
     // A sprite batch requires an atlas, we can either load one from an atlas file, or just generate one if
     // all the sprites have the same size and are properly aligned within the file.
-    aeon::gfx::atlas_ptr atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
+    std::shared_ptr<aeon::gfx::atlas> atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
 
     // Set up scene
-    aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
+    auto &root_node = scene_manager_.get_root_scene_node();
 
     // Put the ship in the center of the screen by translating the root node
-    root_node->translate(400, 300);
+    root_node.translate(400, 300);
 
     // Get a region from the atlas for the sprite to render. Here we grab the 10th sprite in the texture,
     // which is counted left to right, top to bottom.
     aeon::data::atlas::region region = atlas->get_region_by_index(10);
 
     // Create a sprite. The second parameter is the z-order; used to determine which sprite should be rendered on top
-    aeon::scene::sprite_ptr ship_sprite =
-        scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, glm::vec2(64, 64), 0);
+    auto ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, glm::vec2(64, 64), 0);
 
     // Attach the sprite to the scene
-    root_node->attach_scene_object(ship_sprite);
+    root_node.attach_scene_object(ship_sprite);
 
     // Start the render loop
     device_.run();
@@ -78,15 +77,15 @@ void application::main()
 
 bool application::on_frame_begin(const float dt)
 {
-    aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
+    auto &root_node = scene_manager_.get_root_scene_node();
 
     if (rotate_direction_ == ship_rotate_direction::left)
     {
-        root_node->rotate(-SHIP_ROTATION_SPEED * dt);
+        root_node.rotate(-SHIP_ROTATION_SPEED * dt);
     }
     else if (rotate_direction_ == ship_rotate_direction::right)
     {
-        root_node->rotate(SHIP_ROTATION_SPEED * dt);
+        root_node.rotate(SHIP_ROTATION_SPEED * dt);
     }
 
     if (move_direction_ == ship_move_direction::forward)
@@ -123,7 +122,7 @@ bool application::on_frame_begin(const float dt)
         }
     }
 
-    root_node->translate(0, forward_speed_);
+    root_node.translate(0, forward_speed_);
 
     return true;
 }

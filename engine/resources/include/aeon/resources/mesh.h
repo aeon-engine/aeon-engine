@@ -20,7 +20,6 @@
 #include <aeon/resources/wrappers/mesh_resource_wrapper.h>
 #include <aeon/resources/mesh_node.h>
 #include <aeon/resources/submesh.h>
-#include <aeon/common/buffer.h>
 #include <aeon/common/logger.h>
 #include <string>
 #include <memory>
@@ -34,11 +33,11 @@ namespace resources
 class mesh : public resource
 {
 public:
-    explicit mesh(resource_wrapper_ptr wrapper);
+    explicit mesh(const std::shared_ptr<resource_wrapper> &wrapper);
 
     virtual ~mesh();
 
-    mesh_resource_wrapper_ptr get_mesh_resource_wrapper() const
+    std::shared_ptr<mesh_resource_wrapper> get_mesh_resource_wrapper() const
     {
         return std::dynamic_pointer_cast<mesh_resource_wrapper>(get_resource_wrapper());
     }
@@ -59,11 +58,9 @@ private:
     aeon::logger::logger logger_;
 
     std::vector<std::string> materials_;
-    std::vector<submesh_ptr> submeshes_;
-    mesh_node_ptr root_mesh_node_;
+    std::vector<std::unique_ptr<submesh>> submeshes_;
+    std::unique_ptr<mesh_node> root_mesh_node_;
 };
-
-using mesh_ptr = std::shared_ptr<mesh>;
 
 } // namespace resources
 } // namespace aeon

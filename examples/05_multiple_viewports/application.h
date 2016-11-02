@@ -29,5 +29,5 @@ public:
     void main();
 
 private:
-    aeon::scene::orthographic_camera_ptr camera_;
+    std::shared_ptr<aeon::scene::orthographic_camera> camera_;
 };

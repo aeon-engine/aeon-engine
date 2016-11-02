@@ -41,15 +41,13 @@ public:
 
     resource_encoding get_codec_type() const override;
 
-    atlas_ptr decode(resource_manager &parent, atlas_resource_wrapper_ptr wrapper);
+    std::shared_ptr<atlas> decode(resource_manager &parent, const std::shared_ptr<atlas_resource_wrapper> &wrapper);
 
 private:
     common::types::rectangle<float> __atlas_string_to_data(const std::string &str) const;
 
     aeon::logger::logger logger_;
 };
-
-using atlas_codec_ptr = std::unique_ptr<atlas_codec>;
 
 } // namespace resources
 } // namespace aeon

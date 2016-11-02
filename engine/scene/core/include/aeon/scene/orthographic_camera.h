@@ -37,7 +37,5 @@ public:
     virtual ~orthographic_camera() = default;
 };
 
-using orthographic_camera_ptr = std::shared_ptr<orthographic_camera>;
-
 } // namespace scene
 } // namespace aeon

@@ -16,7 +16,6 @@
 #pragma once
 
 #include <aeon/resources/exceptions.h>
-#include <aeon/common/buffer.h>
 #include <aeon/resources/resource_encoding.h>
 #include <aeon/resources/codecs/codec.h>
 #include <aeon/resources/shader.h>
@@ -40,7 +39,7 @@ public:
 
     resource_encoding get_codec_type() const override;
 
-    shader_ptr decode(resource_manager &parent, shader_resource_wrapper_ptr wrapper);
+    std::shared_ptr<shader> decode(resource_manager &parent, const std::shared_ptr<shader_resource_wrapper> &wrapper);
 
 private:
     enum class shader_decode_state
@@ -52,8 +51,6 @@ private:
 
     aeon::logger::logger logger_;
 };
-
-using shader_codec_ptr = std::unique_ptr<shader_codec>;
 
 } // namespace resources
 } // namespace aeon

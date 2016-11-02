@@ -23,14 +23,14 @@ namespace resources
 {
 
 atlas_resource_wrapper::atlas_resource_wrapper(resource_manager &parent, const std::string &path,
-                                               resource_provider_weak_ptr provider)
+                                               const std::weak_ptr<resource_provider> &provider)
     : resource_wrapper(parent, path, provider)
 {
     if (get_type() != resource_type::atlas)
         throw resource_type_exception();
 }
 
-atlas_ptr atlas_resource_wrapper::open()
+std::shared_ptr<atlas> atlas_resource_wrapper::open()
 {
     atlas_codec &codec = __get_parent().get_codec_manager().get_atlas_codec();
     return codec.decode(__get_parent(), std::dynamic_pointer_cast<atlas_resource_wrapper>(shared_from_this()));

@@ -16,7 +16,6 @@
 #pragma once
 
 #include <aeon/resources/exceptions.h>
-#include <aeon/common/buffer.h>
 #include <aeon/resources/resource_encoding.h>
 #include <aeon/resources/codecs/codec.h>
 #include <aeon/resources/image.h>
@@ -38,10 +37,8 @@ public:
     image_codec() = default;
     virtual ~image_codec() = default;
 
-    virtual image_ptr decode(resource_manager &parent, image_resource_wrapper_ptr wrapper) = 0;
+    virtual std::shared_ptr<image> decode(resource_manager &parent, const std::shared_ptr<image_resource_wrapper> &wrapper) = 0;
 };
-
-using image_codec_ptr = std::unique_ptr<image_codec>;
 
 } // namespace resources
 } // namespace aeon

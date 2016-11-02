@@ -19,7 +19,6 @@
 #include <aeon/resources/resource_manager.h>
 #include <aeon/resources/codecs/shader_codec.h>
 #include <aeon/resources/wrappers/shader_resource_wrapper.h>
-#include <aeon/common/buffer.h>
 
 namespace aeon
 {
@@ -36,13 +35,13 @@ resource_encoding shader_codec::get_codec_type() const
     return resource_encoding::material;
 }
 
-shader_ptr shader_codec::decode(resource_manager & /*parent*/, shader_resource_wrapper_ptr wrapper)
+std::shared_ptr<shader> shader_codec::decode(resource_manager & /*parent*/, const std::shared_ptr<shader_resource_wrapper> &wrapper)
 {
     // TODO: Add error handling for missing segments in the resource file
 
     AEON_LOG_DEBUG(logger_) << "Decoding shader resource." << std::endl;
 
-    common::buffer_u8 input;
+    std::vector<std::uint8_t> input;
     wrapper->read_raw(input);
 
     streams::memory_stream stream(std::move(input));

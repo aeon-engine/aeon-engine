@@ -54,7 +54,7 @@ private:
 
     void on_mouse_button_event(aeon::input::mouse_button button, aeon::input::mouse_button_state button_state) override;
 
-    aeon::scene::orthographic_camera_ptr camera_;
+    std::shared_ptr<aeon::scene::orthographic_camera> camera_;
 
     ship_move_direction move_direction_;
     ship_rotate_direction rotate_direction_;

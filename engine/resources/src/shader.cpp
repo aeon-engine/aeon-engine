@@ -20,7 +20,7 @@ namespace aeon
 namespace resources
 {
 
-shader::shader(resource_wrapper_ptr wrapper, const data::shader &shader_data)
+shader::shader(const std::shared_ptr<resource_wrapper> &wrapper, const data::shader &shader_data)
     : resource(wrapper)
     , logger_(common::logger::get_singleton(), "Resources::Shader")
     , shader_data_(shader_data)

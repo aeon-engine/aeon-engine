@@ -40,13 +40,13 @@ application::application()
 void application::main()
 {
     // Load resources
-    aeon::gfx::material_ptr animation_material =
+    std::shared_ptr<aeon::gfx::material> animation_material =
         get_asset_manager().load_material("/resources/materials/2d_character.amf");
-    aeon::gfx::atlas_ptr atlas = get_asset_manager().create_atlas(animation_material, glm::vec2(32, 32));
+    std::shared_ptr<aeon::gfx::atlas> atlas = get_asset_manager().create_atlas(animation_material, glm::vec2(32, 32));
 
     // Set up scene
-    aeon::scene::scene_node_ptr root_node = scene_manager_.get_root_scene_node();
-    root_node->translate(400, 300);
+    auto &root_node = scene_manager_.get_root_scene_node();
+    root_node.translate(400, 300);
 
     // The parameter given to the animation settings constructor is the size of each frame inside of the sprite sheet
     // This frame size does not need to be a power of 2.
@@ -76,7 +76,7 @@ void application::main()
     animation_settings.set_repeat(aeon::scene::animation_repeat::continuous);
 
     animated_sprite_ = scene_manager_.create_scene_object<aeon::scene::animated_sprite>(atlas, 0, animation_settings);
-    root_node->attach_scene_object(animated_sprite_);
+    root_node.attach_scene_object(animated_sprite_);
 
     device_.run();
 }

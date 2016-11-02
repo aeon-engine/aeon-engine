@@ -1,5 +1,4 @@
 set (AEON_ENGINE_COMMON_SOURCES
-    include/aeon/common/buffer.h
     include/aeon/common/cached_object.h
     include/aeon/common/exception.h
     include/aeon/common/has_z_order.h

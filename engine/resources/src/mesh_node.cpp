@@ -31,8 +31,8 @@ mesh_node::mesh_node(const std::string &name, const glm::mat4 &matrix, const std
 mesh_node &mesh_node::create_child(const std::string &name, const glm::mat4 &matrix,
                                    const std::vector<submesh *> &submeshes)
 {
-    mesh_node_ptr mesh = mesh_node_ptr(new mesh_node(name, matrix, submeshes));
-    mesh_node *mesh_ptr = mesh.get();
+    auto mesh = std::unique_ptr<mesh_node>(new mesh_node(name, matrix, submeshes));
+    auto mesh_ptr = mesh.get();
 
     children_.emplace_back(std::move(mesh));
 

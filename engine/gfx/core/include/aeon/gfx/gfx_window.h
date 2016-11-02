@@ -73,7 +73,5 @@ private:
     std::string title_;
 };
 
-using gfx_window_ptr = std::shared_ptr<gfx_window>;
-
 } // namespace gfx
 } // namespace aeon

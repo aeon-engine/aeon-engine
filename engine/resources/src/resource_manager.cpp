@@ -36,7 +36,7 @@ resource_manager::~resource_manager()
     AEON_LOG_TRACE(logger_) << "Deleted resource manager." << std::endl;
 }
 
-void resource_manager::mount(resource_provider_ptr provider, const std::string &mountpoint /* = "/"*/)
+void resource_manager::mount(const std::shared_ptr<resource_provider> &provider, const std::string &mountpoint /* = "/"*/)
 {
     AEON_LOG_DEBUG(logger_) << "Mounting resource provider on '" << mountpoint << "'." << std::endl;
 
@@ -70,12 +70,12 @@ void resource_manager::unmount(const std::string &mountpoint)
     mount_points_.erase(result);
 }
 
-image_resource_wrapper_ptr resource_manager::load_image_wrapper(const std::string &path)
+std::shared_ptr<image_resource_wrapper> resource_manager::load_image_wrapper(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading image resource wrapper '" << path << "'." << std::endl;
 
     std::string real_path;
-    resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
+    auto best_match_provider = __find_best_match_provider(path, real_path);
 
     if (!best_match_provider)
         return nullptr;
@@ -83,12 +83,12 @@ image_resource_wrapper_ptr resource_manager::load_image_wrapper(const std::strin
     return std::make_shared<image_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-material_resource_wrapper_ptr resource_manager::load_material_wrapper(const std::string &path)
+std::shared_ptr<material_resource_wrapper> resource_manager::load_material_wrapper(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading material resource wrapper '" << path << "'." << std::endl;
 
     std::string real_path;
-    resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
+    auto best_match_provider = __find_best_match_provider(path, real_path);
 
     if (!best_match_provider)
         return nullptr;
@@ -96,12 +96,12 @@ material_resource_wrapper_ptr resource_manager::load_material_wrapper(const std:
     return std::make_shared<material_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-shader_resource_wrapper_ptr resource_manager::load_shader_wrapper(const std::string &path)
+std::shared_ptr<shader_resource_wrapper> resource_manager::load_shader_wrapper(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading shader resource wrapper '" << path << "'." << std::endl;
 
     std::string real_path;
-    resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
+    auto best_match_provider = __find_best_match_provider(path, real_path);
 
     if (!best_match_provider)
         return nullptr;
@@ -109,12 +109,12 @@ shader_resource_wrapper_ptr resource_manager::load_shader_wrapper(const std::str
     return std::make_shared<shader_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-atlas_resource_wrapper_ptr resource_manager::load_atlas_wrapper(const std::string &path)
+std::shared_ptr<atlas_resource_wrapper> resource_manager::load_atlas_wrapper(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading atlas resource wrapper '" << path << "'." << std::endl;
 
     std::string real_path;
-    resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
+    auto best_match_provider = __find_best_match_provider(path, real_path);
 
     if (!best_match_provider)
         return nullptr;
@@ -122,12 +122,12 @@ atlas_resource_wrapper_ptr resource_manager::load_atlas_wrapper(const std::strin
     return std::make_shared<atlas_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-mesh_resource_wrapper_ptr resource_manager::load_mesh_wrapper(const std::string &path)
+std::shared_ptr<mesh_resource_wrapper> resource_manager::load_mesh_wrapper(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading mesh resource wrapper '" << path << "'." << std::endl;
 
     std::string real_path;
-    resource_provider_ptr best_match_provider = __find_best_match_provider(path, real_path);
+    auto best_match_provider = __find_best_match_provider(path, real_path);
 
     if (!best_match_provider)
         return nullptr;
@@ -135,7 +135,7 @@ mesh_resource_wrapper_ptr resource_manager::load_mesh_wrapper(const std::string 
     return std::make_shared<mesh_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-resource_provider_ptr resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)
+std::shared_ptr<resource_provider> resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)
 {
     // TODO: This needs optimization. Too much looping and string manipulation going on.
 
@@ -154,7 +154,7 @@ resource_provider_ptr resource_manager::__find_best_match_provider(const std::st
         actual_path = "/" + path;
 
     std::size_t best_match_length = 0;
-    resource_provider_ptr best_match_provider = nullptr;
+    auto best_match_provider = std::shared_ptr<resource_provider>{ nullptr };
 
     for (auto &mountpoint : mount_points_)
     {

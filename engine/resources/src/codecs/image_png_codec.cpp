@@ -17,7 +17,6 @@
 #include <aeon/streams.h>
 #include <aeon/resources/codecs/image_png_codec.h>
 #include <aeon/resources/wrappers/image_resource_wrapper.h>
-#include <aeon/common/buffer.h>
 #include <png.h>
 
 #define PNG_HEADER_SIGNATURE_SIZE 8
@@ -129,11 +128,11 @@ image_codec_png::image_codec_png()
 {
 }
 
-image_ptr image_codec_png::decode(resource_manager & /*parent*/, image_resource_wrapper_ptr wrapper)
+std::shared_ptr<image> image_codec_png::decode(resource_manager & /*parent*/, const std::shared_ptr<image_resource_wrapper> &wrapper)
 {
     AEON_LOG_DEBUG(logger_) << "Decoding PNG image resource." << std::endl;
 
-    common::buffer_u8 input;
+    std::vector<std::uint8_t> input;
     wrapper->read_raw(input);
 
     aeon::streams::memory_stream stream(std::move(input), aeon::streams::access_mode::read);
@@ -216,7 +215,7 @@ image_ptr image_codec_png::decode(resource_manager & /*parent*/, image_resource_
     // Allocate the image_data as a big block
     size_t bitmap_buff_size = rowbytes * size_t(temp_height) * sizeof(png_byte);
 
-    common::buffer_u8 bitmap_buffer(bitmap_buff_size);
+    std::vector<std::uint8_t> bitmap_buffer(bitmap_buff_size);
 
     // Cast to png_byte since this is what libpng likes as buffer.
     // Just passing the pointer should be fine. But this ensures 100%
@@ -226,7 +225,7 @@ image_ptr image_codec_png::decode(resource_manager & /*parent*/, image_resource_
     // Row_pointers is for pointing to image_data for reading the
     // png with libpng
     size_t rowpointer_buff_size = size_t(temp_height) * sizeof(png_bytep);
-    common::buffer_pu8 rowpointer_buffer(rowpointer_buff_size);
+    std::vector<std::uint8_t*> rowpointer_buffer(rowpointer_buff_size);
 
     // Cast to png_bytep
     png_bytep *row_pointers = static_cast<png_bytep *>(&(rowpointer_buffer)[0]);

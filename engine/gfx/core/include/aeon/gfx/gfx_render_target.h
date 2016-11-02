@@ -40,13 +40,13 @@ public:
      */
     bool handle_frame(float dt);
 
-    viewport_ptr create_viewport(gfx::gfx_camera_ptr camera, int zorder);
+    std::shared_ptr<viewport> create_viewport(std::shared_ptr<gfx_camera> camera, int zorder);
 
-    viewport_ptr create_viewport(gfx::gfx_camera_ptr camera, const common::types::rectangle<float> &rect, int zorder);
+    std::shared_ptr<viewport> create_viewport(std::shared_ptr<gfx_camera> camera, const common::types::rectangle<float> &rect, int zorder);
 
-    void attach_viewport(viewport_ptr vp);
+    void attach_viewport(const std::shared_ptr<viewport> &vp);
 
-    void detach_viewport(viewport_ptr vp);
+    void detach_viewport(const std::shared_ptr<viewport> &vp);
 
     void remove_all_viewports();
 
@@ -74,10 +74,8 @@ private:
     void __sort_viewports_by_zorder();
 
     aeon::logger::logger logger_;
-    std::vector<viewport_ptr> viewports_;
+    std::vector<std::shared_ptr<viewport>> viewports_;
 };
-
-using render_target_ptr = std::shared_ptr<render_target>;
 
 } // namespace gfx
 } // namespace aeon

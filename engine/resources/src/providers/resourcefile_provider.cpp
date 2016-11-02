@@ -35,7 +35,7 @@ std::vector<resource_node> resourcefile_provider::list(const std::string &)
     throw resourcefile_provider_not_implemented_exception();
 }
 
-void resourcefile_provider::read(const std::string &, common::buffer_u8 &)
+void resourcefile_provider::read(const std::string &, std::vector<std::uint8_t> &)
 {
     throw resourcefile_provider_not_implemented_exception();
 }

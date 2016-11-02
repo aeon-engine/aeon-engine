@@ -21,7 +21,7 @@ namespace aeon
 namespace scene
 {
 
-sprite::sprite(scene_manager *scene_manager, gfx::atlas_ptr atlas, const data::atlas::region &region, glm::vec2 size,
+sprite::sprite(scene_manager *scene_manager, std::shared_ptr<gfx::atlas> atlas, const data::atlas::region &region, glm::vec2 size,
                int zorder)
     : scene_object(render_layer::overlay, scene_object_type::sprite, scene_manager)
     , has_z_order(zorder)
@@ -52,7 +52,7 @@ glm::vec2 sprite::get_size() const
     return size_;
 }
 
-gfx::atlas_ptr sprite::get_atlas() const
+std::shared_ptr<gfx::atlas> sprite::get_atlas() const
 {
     return atlas_;
 }

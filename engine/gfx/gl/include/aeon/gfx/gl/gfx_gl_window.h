@@ -71,8 +71,6 @@ private:
     mouse_cursor_mode cursor_mode_;
 };
 
-using gfx_window_ptr = std::shared_ptr<gfx_window>;
-
 } // namespace gl
 } // namespace gfx
 } // namespace aeon

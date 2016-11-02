@@ -35,7 +35,5 @@ public:
     virtual glm::vec2 get_size() const = 0;
 };
 
-using texture_ptr = std::shared_ptr<texture>;
-
 } // namespace gfx
 } // namespace aeon

@@ -19,6 +19,7 @@
 #include <aeon/resources/wrappers/material_resource_wrapper.h>
 #include <aeon/resources/providers/resource_provider.h>
 #include <aeon/resources/exceptions.h>
+#include <aeon/resources/codecs/codec_manager.h>
 #include <aeon/resources/wrappers/resource_wrapper.h>
 #include <aeon/utility.h>
 #include <aeon/resources/codecs/codec_manager.h>
@@ -42,25 +43,22 @@ DEFINE_EXCEPTION_OBJECT(resource_manager_mount_exception, resource_manager_excep
 DEFINE_EXCEPTION_OBJECT(resource_manager_duplicate_mount_exception, resource_manager_mount_exception,
                         "Could not mount resource provider. Duplicate mountpoint given.");
 
-class resource_wrapper;
-using resource_wrapper_ptr = std::shared_ptr<resource_wrapper>;
-
 class resource_manager
 {
-    using mount_points = std::map<std::string, resource_provider_ptr>;
+    using mount_points = std::map<std::string, std::shared_ptr<resource_provider>>;
 
 public:
     explicit resource_manager(platform::platform_interface &platform);
     ~resource_manager();
 
-    void mount(resource_provider_ptr provider, const std::string &mountpoint = "/");
+    void mount(const std::shared_ptr<resource_provider> &provider, const std::string &mountpoint = "/");
     void unmount(const std::string &mountpoint);
 
-    image_resource_wrapper_ptr load_image_wrapper(const std::string &path);
-    material_resource_wrapper_ptr load_material_wrapper(const std::string &path);
-    shader_resource_wrapper_ptr load_shader_wrapper(const std::string &path);
-    atlas_resource_wrapper_ptr load_atlas_wrapper(const std::string &path);
-    mesh_resource_wrapper_ptr load_mesh_wrapper(const std::string &path);
+    std::shared_ptr<image_resource_wrapper> load_image_wrapper(const std::string &path);
+    std::shared_ptr<material_resource_wrapper> load_material_wrapper(const std::string &path);
+    std::shared_ptr<shader_resource_wrapper> load_shader_wrapper(const std::string &path);
+    std::shared_ptr<atlas_resource_wrapper> load_atlas_wrapper(const std::string &path);
+    std::shared_ptr<mesh_resource_wrapper> load_mesh_wrapper(const std::string &path);
 
     platform::platform_interface &get_platform_interface()
     {
@@ -73,7 +71,7 @@ public:
     }
 
 private:
-    resource_provider_ptr __find_best_match_provider(const std::string &path, std::string &provider_path);
+    std::shared_ptr<resource_provider> __find_best_match_provider(const std::string &path, std::string &provider_path);
 
     aeon::logger::logger logger_;
     platform::platform_interface &platform_;
