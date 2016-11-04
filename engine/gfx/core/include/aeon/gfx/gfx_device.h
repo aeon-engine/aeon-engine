@@ -64,7 +64,8 @@ public:
      * Create a window. A window can be created on a specific monitor. When no monitor is
      * given, the window appears on the main monitor.
      */
-    virtual std::shared_ptr<gfx_window> create_window(const gfx_window_settings &settings, std::shared_ptr<gfx_monitor> monitor = nullptr) = 0;
+    virtual std::shared_ptr<gfx_window> create_window(const gfx_window_settings &settings,
+                                                      std::shared_ptr<gfx_monitor> monitor = nullptr) = 0;
 
     /*!
      * Enter the engine's main loop. You must first call initialize before calling run.

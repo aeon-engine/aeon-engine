@@ -36,7 +36,8 @@ application::application()
 void application::main()
 {
     // Load resources
-    std::shared_ptr<aeon::gfx::material> ships_material = get_asset_manager().load_material("/resources/materials/ships.amf");
+    std::shared_ptr<aeon::gfx::material> ships_material =
+        get_asset_manager().load_material("/resources/materials/ships.amf");
 
     // A sprite batch requires an atlas, we can either load one from an atlas file, or just generate one if
     // all the sprites have the same size and are properly aligned within the file.

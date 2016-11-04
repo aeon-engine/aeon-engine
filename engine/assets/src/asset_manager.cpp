@@ -126,7 +126,8 @@ std::shared_ptr<scene::scene_node> asset_manager::load_mesh(const std::string &p
     return scene_node;
 }
 
-std::shared_ptr<gfx::atlas> asset_manager::create_atlas(std::shared_ptr<gfx::material> material, glm::vec2 sprite_size) const
+std::shared_ptr<gfx::atlas> asset_manager::create_atlas(std::shared_ptr<gfx::material> material,
+                                                        glm::vec2 sprite_size) const
 {
     return std::make_shared<gfx::atlas>(material, sprite_size);
 }
@@ -138,7 +139,7 @@ void asset_manager::__convert_mesh_node_to_scene_node(resources::mesh_node &mesh
     for (resources::submesh *submesh : submeshes)
     {
         auto mesh = std::make_shared<scene::mesh>(&scene_manager_, load_material(submesh->get_material()),
-                                                             submesh->get_vertex_data(), submesh->get_index_data());
+                                                  submesh->get_vertex_data(), submesh->get_index_data());
 
         scene_node.attach_scene_object(mesh);
     }

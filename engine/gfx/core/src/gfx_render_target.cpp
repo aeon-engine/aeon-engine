@@ -66,8 +66,8 @@ std::shared_ptr<viewport> render_target::create_viewport(std::shared_ptr<gfx_cam
     return vp;
 }
 
-std::shared_ptr<viewport> render_target::create_viewport(std::shared_ptr<gfx_camera> camera, const common::types::rectangle<float> &rect,
-                                            int zorder)
+std::shared_ptr<viewport> render_target::create_viewport(std::shared_ptr<gfx_camera> camera,
+                                                         const common::types::rectangle<float> &rect, int zorder)
 {
     AEON_LOG_DEBUG(logger_) << "Creating viewport (" << rect << ")." << std::endl;
 
@@ -100,7 +100,9 @@ void render_target::__sort_viewports_by_zorder()
 {
     AEON_LOG_DEBUG(logger_) << "Sorting " << viewports_.size() << " viewport(s)." << std::endl;
     std::sort(viewports_.begin(), viewports_.end(),
-              [](const std::shared_ptr<viewport> &a, const std::shared_ptr<viewport> &b) { return a->get_zorder() < b->get_zorder(); });
+              [](const std::shared_ptr<viewport> &a, const std::shared_ptr<viewport> &b) {
+                  return a->get_zorder() < b->get_zorder();
+              });
 }
 
 } // namespace gfx

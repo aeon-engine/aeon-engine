@@ -37,7 +37,8 @@ public:
     /*!
      * Constructor used by the atlas codec to load an atlas
      */
-    explicit atlas(const std::shared_ptr<resource_wrapper> &wrapper, const std::string &material_path, const data::atlas &data);
+    explicit atlas(const std::shared_ptr<resource_wrapper> &wrapper, const std::string &material_path,
+                   const data::atlas &data);
 
     virtual ~atlas();
 

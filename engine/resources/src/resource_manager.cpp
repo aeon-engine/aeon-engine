@@ -36,7 +36,8 @@ resource_manager::~resource_manager()
     AEON_LOG_TRACE(logger_) << "Deleted resource manager." << std::endl;
 }
 
-void resource_manager::mount(const std::shared_ptr<resource_provider> &provider, const std::string &mountpoint /* = "/"*/)
+void resource_manager::mount(const std::shared_ptr<resource_provider> &provider,
+                             const std::string &mountpoint /* = "/"*/)
 {
     AEON_LOG_DEBUG(logger_) << "Mounting resource provider on '" << mountpoint << "'." << std::endl;
 
@@ -135,7 +136,8 @@ std::shared_ptr<mesh_resource_wrapper> resource_manager::load_mesh_wrapper(const
     return std::make_shared<mesh_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-std::shared_ptr<resource_provider> resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)
+std::shared_ptr<resource_provider> resource_manager::__find_best_match_provider(const std::string &path,
+                                                                                std::string &provider_path)
 {
     // TODO: This needs optimization. Too much looping and string manipulation going on.
 
@@ -154,7 +156,7 @@ std::shared_ptr<resource_provider> resource_manager::__find_best_match_provider(
         actual_path = "/" + path;
 
     std::size_t best_match_length = 0;
-    auto best_match_provider = std::shared_ptr<resource_provider>{ nullptr };
+    auto best_match_provider = std::shared_ptr<resource_provider>{nullptr};
 
     for (auto &mountpoint : mount_points_)
     {

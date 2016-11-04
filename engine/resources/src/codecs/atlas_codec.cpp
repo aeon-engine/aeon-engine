@@ -35,7 +35,8 @@ resource_encoding atlas_codec::get_codec_type() const
     return resource_encoding::atlas;
 }
 
-std::shared_ptr<atlas> atlas_codec::decode(resource_manager &parent, const std::shared_ptr<atlas_resource_wrapper> &wrapper)
+std::shared_ptr<atlas> atlas_codec::decode(resource_manager &parent,
+                                           const std::shared_ptr<atlas_resource_wrapper> &wrapper)
 {
     AEON_LOG_DEBUG(logger_) << "Decoding atlas resource." << std::endl;
 

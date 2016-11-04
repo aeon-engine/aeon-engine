@@ -128,7 +128,8 @@ image_codec_png::image_codec_png()
 {
 }
 
-std::shared_ptr<image> image_codec_png::decode(resource_manager & /*parent*/, const std::shared_ptr<image_resource_wrapper> &wrapper)
+std::shared_ptr<image> image_codec_png::decode(resource_manager & /*parent*/,
+                                               const std::shared_ptr<image_resource_wrapper> &wrapper)
 {
     AEON_LOG_DEBUG(logger_) << "Decoding PNG image resource." << std::endl;
 
@@ -225,7 +226,7 @@ std::shared_ptr<image> image_codec_png::decode(resource_manager & /*parent*/, co
     // Row_pointers is for pointing to image_data for reading the
     // png with libpng
     size_t rowpointer_buff_size = size_t(temp_height) * sizeof(png_bytep);
-    std::vector<std::uint8_t*> rowpointer_buffer(rowpointer_buff_size);
+    std::vector<std::uint8_t *> rowpointer_buffer(rowpointer_buff_size);
 
     // Cast to png_bytep
     png_bytep *row_pointers = static_cast<png_bytep *>(&(rowpointer_buffer)[0]);

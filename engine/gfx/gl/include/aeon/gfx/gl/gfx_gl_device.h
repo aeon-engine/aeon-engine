@@ -50,7 +50,8 @@ public:
 
     std::vector<std::shared_ptr<gfx_monitor>> get_monitors() override;
 
-    std::shared_ptr<gfx_window> create_window(const gfx_window_settings &settings, std::shared_ptr<gfx_monitor> monitor = nullptr) override;
+    std::shared_ptr<gfx_window> create_window(const gfx_window_settings &settings,
+                                              std::shared_ptr<gfx_monitor> monitor = nullptr) override;
 
     void run() override;
     void stop() override;

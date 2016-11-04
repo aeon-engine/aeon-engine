@@ -35,7 +35,8 @@ resource_encoding shader_codec::get_codec_type() const
     return resource_encoding::material;
 }
 
-std::shared_ptr<shader> shader_codec::decode(resource_manager & /*parent*/, const std::shared_ptr<shader_resource_wrapper> &wrapper)
+std::shared_ptr<shader> shader_codec::decode(resource_manager & /*parent*/,
+                                             const std::shared_ptr<shader_resource_wrapper> &wrapper)
 {
     // TODO: Add error handling for missing segments in the resource file
 

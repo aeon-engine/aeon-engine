@@ -72,7 +72,8 @@ std::vector<submesh *> mesh::get_submeshes() const
 mesh_node &mesh::create_root_mesh_node(const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
 {
     assert(root_mesh_node_ == nullptr);
-    root_mesh_node_ = std::unique_ptr<mesh_node>(new mesh_node(get_mesh_resource_wrapper()->get_path(), matrix, submeshes));
+    root_mesh_node_ =
+        std::unique_ptr<mesh_node>(new mesh_node(get_mesh_resource_wrapper()->get_path(), matrix, submeshes));
     return *root_mesh_node_.get();
 }
 

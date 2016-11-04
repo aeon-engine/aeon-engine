@@ -31,7 +31,8 @@ mesh_codec_assimp::mesh_codec_assimp()
 {
 }
 
-std::shared_ptr<mesh> mesh_codec_assimp::decode(resource_manager & /*parent*/, const std::shared_ptr<mesh_resource_wrapper> &wrapper)
+std::shared_ptr<mesh> mesh_codec_assimp::decode(resource_manager & /*parent*/,
+                                                const std::shared_ptr<mesh_resource_wrapper> &wrapper)
 {
     AEON_LOG_DEBUG(logger_) << "Decoding AssImp mesh resource." << std::endl;
 
@@ -39,8 +40,7 @@ std::shared_ptr<mesh> mesh_codec_assimp::decode(resource_manager & /*parent*/, c
     wrapper->read_raw(input);
 
     auto importer = Assimp::Importer{};
-    const auto *scene =
-        importer.ReadFileFromMemory(input.data(), input.size(), aiProcessPreset_TargetRealtime_Quality);
+    const auto *scene = importer.ReadFileFromMemory(input.data(), input.size(), aiProcessPreset_TargetRealtime_Quality);
 
     if (!scene)
     {

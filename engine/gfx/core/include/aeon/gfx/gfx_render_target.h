@@ -42,7 +42,8 @@ public:
 
     std::shared_ptr<viewport> create_viewport(std::shared_ptr<gfx_camera> camera, int zorder);
 
-    std::shared_ptr<viewport> create_viewport(std::shared_ptr<gfx_camera> camera, const common::types::rectangle<float> &rect, int zorder);
+    std::shared_ptr<viewport> create_viewport(std::shared_ptr<gfx_camera> camera,
+                                              const common::types::rectangle<float> &rect, int zorder);
 
     void attach_viewport(const std::shared_ptr<viewport> &vp);
 

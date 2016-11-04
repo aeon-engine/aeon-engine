@@ -143,7 +143,8 @@ std::vector<std::shared_ptr<gfx_monitor>> gfx_gl_device::get_monitors()
     return monitors;
 }
 
-std::shared_ptr<gfx_window> gfx_gl_device::create_window(const gfx_window_settings &settings, std::shared_ptr<gfx_monitor> monitor)
+std::shared_ptr<gfx_window> gfx_gl_device::create_window(const gfx_window_settings &settings,
+                                                         std::shared_ptr<gfx_monitor> monitor)
 {
     if (!initialized_)
     {
@@ -162,7 +163,8 @@ std::shared_ptr<gfx_window> gfx_gl_device::create_window(const gfx_window_settin
         glfw_monitor = m->get_internal_handle();
     }
 
-    std::shared_ptr<gfx_window> window = std::make_shared<gfx_gl_window>(*this, platform_interface_, settings, glfw_monitor);
+    std::shared_ptr<gfx_window> window =
+        std::make_shared<gfx_gl_window>(*this, platform_interface_, settings, glfw_monitor);
 
     // HACK: If there are no render targets yet, this is the first window that is being opened.
     // This means we can initialize opengl here.
@@ -202,7 +204,7 @@ void gfx_gl_device::run()
 
         clear_buffer(gfx::buffer_clear_flag::color_buffer | gfx::buffer_clear_flag::depth_buffer);
 
-        for (std::shared_ptr<render_target>& render_target : render_targets_)
+        for (std::shared_ptr<render_target> &render_target : render_targets_)
         {
             if (!render_target->handle_frame(static_cast<float>(delta_time)))
             {

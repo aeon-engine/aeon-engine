@@ -32,7 +32,8 @@ public:
     image_codec_png();
     virtual ~image_codec_png() = default;
 
-    std::shared_ptr<image> decode(resource_manager &parent, const std::shared_ptr<image_resource_wrapper> &wrapper) override;
+    std::shared_ptr<image> decode(resource_manager &parent,
+                                  const std::shared_ptr<image_resource_wrapper> &wrapper) override;
     resource_encoding get_codec_type() const override;
 
 private:

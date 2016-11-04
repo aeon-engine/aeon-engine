@@ -56,7 +56,8 @@ public:
     void read_raw(std::vector<std::uint8_t> &buffer) const;
 
 protected:
-    explicit resource_wrapper(resource_manager &parent, const std::string &path, const std::weak_ptr<resource_provider> &provider);
+    explicit resource_wrapper(resource_manager &parent, const std::string &path,
+                              const std::weak_ptr<resource_provider> &provider);
 
     resource_manager &__get_parent() const
     {

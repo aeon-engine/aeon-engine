@@ -21,7 +21,8 @@ namespace aeon
 namespace resources
 {
 
-atlas::atlas(const std::shared_ptr<resource_wrapper> &wrapper, const std::string &material_path, const data::atlas &data)
+atlas::atlas(const std::shared_ptr<resource_wrapper> &wrapper, const std::string &material_path,
+             const data::atlas &data)
     : resource(wrapper)
     , logger_(common::logger::get_singleton(), "Resources::Atlas")
     , data_(data)

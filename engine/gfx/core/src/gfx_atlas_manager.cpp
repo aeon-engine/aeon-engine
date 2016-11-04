@@ -26,7 +26,8 @@ gfx_atlas_manager::gfx_atlas_manager()
 {
 }
 
-std::shared_ptr<atlas> gfx_atlas_manager::create(const std::shared_ptr<material> &material, const data::atlas &atlas_data)
+std::shared_ptr<atlas> gfx_atlas_manager::create(const std::shared_ptr<material> &material,
+                                                 const data::atlas &atlas_data)
 {
     return std::make_shared<gfx::atlas>(material, atlas_data);
 }
