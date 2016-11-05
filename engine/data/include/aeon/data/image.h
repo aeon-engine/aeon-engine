@@ -38,8 +38,8 @@ public:
 
     ~image() = default;
 
-    image(image &&other);
-    image &operator=(image &&other);
+    image(image &&other) noexcept;
+    image &operator=(image &&other) noexcept;
 
     bool has_data() const;
 

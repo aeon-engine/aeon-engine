@@ -40,11 +40,11 @@ std::shared_ptr<atlas> atlas_codec::decode(resource_manager &parent,
 {
     AEON_LOG_DEBUG(logger_) << "Decoding atlas resource." << std::endl;
 
-    std::vector<std::uint8_t> input;
+    auto input = std::vector<std::uint8_t>();
     wrapper->read_raw(input);
 
-    streams::memory_stream stream(std::move(input));
-    utility::configfile atlas_file;
+    auto stream = streams::memory_stream(std::move(input));
+    auto atlas_file = utility::configfile();
     atlas_file.load(stream);
 
     if (!atlas_file.has_entry("material"))
@@ -63,7 +63,7 @@ std::shared_ptr<atlas> atlas_codec::decode(resource_manager &parent,
         if (region_entry.first == "material")
             continue;
 
-        common::types::rectangle<float> region_rect = __atlas_string_to_data(region_entry.second);
+        auto region_rect = __atlas_string_to_data(region_entry.second);
 
         atlas_data.push_back({region_entry.first, region_rect.x, region_rect.y, region_rect.width, region_rect.height});
     }
@@ -75,7 +75,7 @@ std::shared_ptr<atlas> atlas_codec::decode(resource_manager &parent,
 
 common::types::rectangle<float> atlas_codec::__atlas_string_to_data(const std::string &str) const
 {
-    std::vector<std::string> items = utility::string::split(str, ',');
+    auto items = utility::string::split(str, ',');
 
     if (items.size() != 4)
     {
@@ -84,10 +84,10 @@ common::types::rectangle<float> atlas_codec::__atlas_string_to_data(const std::s
         throw atlas_codec_decode_exception();
     }
 
-    float left = 0;
-    float right = 0;
-    float top = 0;
-    float bottom = 0;
+    auto left = 0.0f;
+    auto right = 0.0f;
+    auto top = 0.0f;
+    auto bottom = 0.0f;
 
     try
     {

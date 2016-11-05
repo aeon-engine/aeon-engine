@@ -30,7 +30,7 @@ namespace resources
 class shader : public resource
 {
 public:
-    explicit shader(const std::shared_ptr<resource_wrapper> &wrapper, const data::shader &shader_data);
+    explicit shader(const std::shared_ptr<resource_wrapper> &wrapper, data::shader &&shader_data);
     virtual ~shader();
 
     std::shared_ptr<shader_resource_wrapper> get_material_resource_wrapper() const

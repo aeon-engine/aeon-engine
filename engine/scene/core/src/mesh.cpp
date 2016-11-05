@@ -35,7 +35,7 @@ mesh::~mesh()
 {
 }
 
-void mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float)
+void mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, const float)
 {
     mesh_->render(projection, view, model);
 }

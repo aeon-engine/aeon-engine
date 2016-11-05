@@ -21,8 +21,8 @@ namespace aeon
 namespace scene
 {
 
-sprite::sprite(scene_manager *scene_manager, std::shared_ptr<gfx::atlas> atlas, const data::atlas::region &region,
-               glm::vec2 size, int zorder)
+sprite::sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
+               const data::atlas::region &region, const glm::vec2 size, const int zorder)
     : scene_object(render_layer::overlay, scene_object_type::sprite, scene_manager)
     , has_z_order(zorder)
     , size_(size)
@@ -33,16 +33,12 @@ sprite::sprite(scene_manager *scene_manager, std::shared_ptr<gfx::atlas> atlas, 
     __upload_mesh_data();
 }
 
-sprite::~sprite()
-{
-}
-
-void sprite::set_size(glm::vec2 size)
+void sprite::set_size(const glm::vec2 size)
 {
     size_ = size;
 }
 
-void sprite::set_size(float width, float height)
+void sprite::set_size(const float width, const float height)
 {
     size_ = glm::vec2(width, height);
 }
@@ -67,7 +63,7 @@ data::atlas::region sprite::get_atlas_region() const
     return region_;
 }
 
-void sprite::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt)
+void sprite::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, const float dt)
 {
     update(dt);
     mesh_->render(projection, view, model);
@@ -85,8 +81,8 @@ void sprite::__upload_mesh_data() const
 
 void sprite::__generate_and_upload_vertex_data() const
 {
-    glm::vec2 size_2 = size_ * 0.5f;
-    std::vector<data::vertex_data> vertex_data = {
+    auto size_2 = glm::vec2{size_ * 0.5f};
+    auto vertex_data = std::vector<data::vertex_data>{
         // Bottom left
         {glm::vec3{-size_2.x, size_2.y, 0.0f}, glm::vec3{0.0f, 0.0f, 1.0f}, glm::vec3{region_.u1, region_.v2, 0.0f},
          common::types::color{1.0f, 1.0f, 1.0f, 1.0f}},
@@ -108,7 +104,7 @@ void sprite::__generate_and_upload_vertex_data() const
 
 void sprite::__generate_and_upload_index_data() const
 {
-    std::vector<std::uint16_t> index_data = {0, 1, 2, 2, 1, 3};
+    auto index_data = std::vector<std::uint16_t>{0, 1, 2, 2, 1, 3};
     mesh_->upload_index_buffer(index_data, gfx::buffer_usage::static_usage);
 }
 

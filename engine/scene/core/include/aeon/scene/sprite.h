@@ -31,13 +31,13 @@ namespace scene
 class sprite : public scene_object, public common::has_z_order
 {
 public:
-    explicit sprite(scene_manager *scene_manager, std::shared_ptr<gfx::atlas> atlas, const data::atlas::region &region,
-                    glm::vec2 size, int zorder);
+    explicit sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
+                    const data::atlas::region &region, const glm::vec2 size, const int zorder);
 
-    virtual ~sprite();
+    virtual ~sprite() = default;
 
-    void set_size(glm::vec2 size);
-    void set_size(float width, float height);
+    void set_size(const glm::vec2 size);
+    void set_size(const float width, float height);
 
     glm::vec2 get_size() const;
 
@@ -46,7 +46,8 @@ public:
     void set_atlas_region(const data::atlas::region &region);
     data::atlas::region get_atlas_region() const;
 
-    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, float dt) override;
+    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model,
+                const float dt) override;
 
     virtual void update(float /*dt*/);
 

@@ -32,7 +32,7 @@ atlas_resource_wrapper::atlas_resource_wrapper(resource_manager &parent, const s
 
 std::shared_ptr<atlas> atlas_resource_wrapper::open()
 {
-    atlas_codec &codec = __get_parent().get_codec_manager().get_atlas_codec();
+    auto &codec = __get_parent().get_codec_manager().get_atlas_codec();
     return codec.decode(__get_parent(), std::dynamic_pointer_cast<atlas_resource_wrapper>(shared_from_this()));
 }
 

@@ -54,7 +54,7 @@ void animated_sprite::update(float dt)
 {
     frame_time_ += dt;
 
-    bool frame_changed = false;
+    auto frame_changed = false;
 
     while (frame_time_ > settings_.speed_)
     {

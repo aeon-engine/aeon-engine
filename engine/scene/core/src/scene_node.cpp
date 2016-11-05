@@ -91,7 +91,7 @@ void scene_node::recalculate_matrices()
     if (!is_root_ && !parent_)
         return;
 
-    bool parent_dirty = is_root_ ? false : parent_->dirty_;
+    auto parent_dirty = is_root_ ? false : parent_->dirty_;
 
     if (dirty_ || parent_dirty)
         total_matrix_ = parent_matrix_ * matrix_;
@@ -165,7 +165,7 @@ void scene_node::rotate(const glm::quat &quat, const transform_space space)
 
 void scene_node::scale(float x, float y, float z)
 {
-    glm::vec3 scale_vector(x, y, z);
+    auto scale_vector = glm::vec3(x, y, z);
     scale(scale_vector);
 }
 
@@ -176,7 +176,7 @@ void scene_node::scale(const glm::vec3 &vector)
 
 void scene_node::scale(float xyz)
 {
-    glm::vec3 scale_vector(xyz, xyz, xyz);
+    auto scale_vector = glm::vec3(xyz, xyz, xyz);
     scale(scale_vector);
 }
 

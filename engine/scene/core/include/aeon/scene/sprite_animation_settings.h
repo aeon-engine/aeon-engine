@@ -50,23 +50,24 @@ class sprite_animation_settings
     friend class animated_sprite;
 
 public:
-    sprite_animation_settings(glm::vec2 frame_size);
+    sprite_animation_settings(const glm::vec2 frame_size);
     ~sprite_animation_settings() = default;
 
-    void generate_sequence(int index, int frame_offset, int frame_count, animation_sequence_type type);
-    void add_sequence(int index, std::vector<int> seq);
+    void generate_sequence(const int index, const int frame_offset, const int frame_count,
+                           const animation_sequence_type type);
+    void add_sequence(const int index, const std::vector<int> &seq);
 
-    void set_default_sequence(int index);
+    void set_default_sequence(const int index);
 
-    void set_start_condition(animation_start_condition condition);
-    void set_repeat(animation_repeat repeat);
+    void set_start_condition(const animation_start_condition condition);
+    void set_repeat(const animation_repeat repeat);
 
-    void set_speed(float speed);
+    void set_speed(const float speed);
 
 private:
-    void __generate_normal_sequence(int index, int frame_offset, int frame_count);
-    void __generate_reverse_sequence(int index, int frame_offset, int frame_count);
-    void __generate_up_down_sequence(int index, int frame_offset, int frame_count);
+    void __generate_normal_sequence(const int index, const int frame_offset, const int frame_count);
+    void __generate_reverse_sequence(const int index, const int frame_offset, const int frame_count);
+    void __generate_up_down_sequence(const int index, const int frame_offset, const int frame_count);
 
     animation_start_condition start_condition_;
     animation_repeat repeat_;

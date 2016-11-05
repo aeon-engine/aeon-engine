@@ -36,10 +36,10 @@ std::shared_ptr<mesh> mesh_codec_assimp::decode(resource_manager & /*parent*/,
 {
     AEON_LOG_DEBUG(logger_) << "Decoding AssImp mesh resource." << std::endl;
 
-    auto input = std::vector<std::uint8_t>{};
+    auto input = std::vector<std::uint8_t>();
     wrapper->read_raw(input);
 
-    auto importer = Assimp::Importer{};
+    auto importer = Assimp::Importer();
     const auto *scene = importer.ReadFileFromMemory(input.data(), input.size(), aiProcessPreset_TargetRealtime_Quality);
 
     if (!scene)
@@ -66,7 +66,7 @@ void mesh_codec_assimp::__decode_materials(const aiScene *scene, mesh &mesh_ref)
     for (auto i = 0ul; i < scene->mNumMaterials; ++i)
     {
         auto ai_material = scene->mMaterials[i];
-        auto ai_texture_path = aiString{};
+        auto ai_texture_path = aiString();
         if (ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &ai_texture_path) == AI_SUCCESS)
         {
             auto texture_path = ai_texture_path.data;
@@ -87,10 +87,10 @@ void mesh_codec_assimp::__decode_submeshes(const aiScene *scene, mesh &mesh_ref)
     {
         auto ai_submesh = scene->mMeshes[i];
 
-        auto indices = data::index_data_buffer{};
+        auto indices = data::index_data_buffer();
         __read_index_data(ai_submesh, indices);
 
-        auto vertices = data::vertex_data_buffer{};
+        auto vertices = data::vertex_data_buffer();
         __read_vertex_data(ai_submesh, vertices);
 
         auto mesh_name = ai_submesh->mName.C_Str();
@@ -110,7 +110,7 @@ void mesh_codec_assimp::__read_index_data(aiMesh *mesh, data::index_data_buffer 
 
     indices.resize(num_faces * indices_per_face);
 
-    std::uint16_t *indices_ptr = indices.data();
+    auto indices_ptr = indices.data();
 
     unsigned int offset = 0;
     for (auto face = 0ul; face < num_faces; ++face)
@@ -191,7 +191,7 @@ void mesh_codec_assimp::__decode_scene_node(const aiNode *ai_node, mesh &mesh_re
 std::vector<submesh *> mesh_codec_assimp::__decode_submeshes_from_scene_node(const aiNode *ai_node,
                                                                              mesh &mesh_ref) const
 {
-    auto submeshes = std::vector<submesh *>{};
+    auto submeshes = std::vector<submesh *>();
     for (auto i = 0ul; i < ai_node->mNumMeshes; ++i)
     {
         auto mesh_id = ai_node->mMeshes[i];

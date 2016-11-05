@@ -42,20 +42,20 @@ std::shared_ptr<shader> shader_codec::decode(resource_manager & /*parent*/,
 
     AEON_LOG_DEBUG(logger_) << "Decoding shader resource." << std::endl;
 
-    std::vector<std::uint8_t> input;
+    auto input = std::vector<std::uint8_t>();
     wrapper->read_raw(input);
 
-    streams::memory_stream stream(std::move(input));
-    streams::stream_reader<streams::stream> reader(stream);
+    auto stream = streams::memory_stream(std::move(input));
+    auto reader = streams::stream_reader<streams::stream>(stream);
 
-    shader_decode_state state = shader_decode_state::initial;
+    auto state = shader_decode_state::initial;
 
-    std::string vertex_source;
-    std::string fragment_source;
+    auto vertex_source = std::string();
+    auto fragment_source = std::string();
 
     while (!stream.eof())
     {
-        std::string line = reader.read_line();
+        auto line = reader.read_line();
 
         if (line.empty())
             continue;
@@ -77,6 +77,7 @@ std::shared_ptr<shader> shader_codec::decode(resource_manager & /*parent*/,
             AEON_LOG_ERROR(logger_) << "Could not decode shader resource. Unexpected token '['."
                                        "Must be either '[vertex]' or '[fragment]'."
                                     << std::endl;
+
             throw shader_codec_decode_exception();
         }
 
@@ -90,8 +91,8 @@ std::shared_ptr<shader> shader_codec::decode(resource_manager & /*parent*/,
         }
     }
 
-    data::shader shader_data(vertex_source, fragment_source);
-    return std::make_shared<shader>(wrapper, shader_data);
+    auto shader_data = data::shader(vertex_source, fragment_source);
+    return std::make_shared<shader>(wrapper, std::move(shader_data));
 }
 
 } // namespace resources

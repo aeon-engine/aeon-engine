@@ -40,11 +40,11 @@ std::shared_ptr<material> material_codec::decode(const std::shared_ptr<material_
 {
     AEON_LOG_DEBUG(logger_) << "Decoding material resource." << std::endl;
 
-    std::vector<std::uint8_t> input;
+    auto input = std::vector<std::uint8_t>();
     wrapper->read_raw(input);
 
-    streams::memory_stream stream(std::move(input));
-    utility::configfile material_file;
+    auto stream = streams::memory_stream(std::move(input));
+    auto material_file = utility::configfile();
     material_file.load(stream);
 
     if (!material_file.has_entry("texture"))
@@ -54,25 +54,25 @@ std::shared_ptr<material> material_codec::decode(const std::shared_ptr<material_
     }
 
 #ifdef AEON_GFX_GL
-    std::string shader_path = material_file.get<std::string>("shader_gl3", "");
+    auto shader_path = material_file.get<std::string>("shader_gl3", "");
 #else // AEON_GFX_GL
 #ifdef AEON_GFX_GLES2
-    std::string shader_path = material_file.get<std::string>("shader_gles2", "");
+    auto shader_path = material_file.get<std::string>("shader_gles2", "");
 #else // AEON_GFX_GLES2
 #ifdef AEON_GFX_NULL
     // TODO: Handle this better.
-    std::string shader_path = material_file.get<std::string>("shader_gl3", "");
+    auto shader_path = material_file.get<std::string>("shader_gl3", "");
 #else  // AEON_GFX_NULL
-    std::string shader_path = material_file.get<std::string>("shader", "");
+    auto shader_path = material_file.get<std::string>("shader", "");
 #endif // AEON_GFX_NULL
 #endif // AEON_GFX_GLES2
 #endif // AEON_GFX_GL
 
-    data::material::texture_paths textures;
+    auto textures = data::material::texture_paths();
     textures["texture"] = material_file.get<std::string>("texture", "");
-    data::material material_data(shader_path, textures);
+    auto material_data = data::material(shader_path, textures);
 
-    return std::make_shared<resources::material>(wrapper, material_data);
+    return std::make_shared<resources::material>(wrapper, std::move(material_data));
 }
 
 } // namespace resources

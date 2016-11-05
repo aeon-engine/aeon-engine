@@ -16,6 +16,7 @@
 #pragma once
 
 #include <aeon/common/exception.h>
+#include <aeon/utility.h>
 #include <string>
 #include <map>
 
@@ -26,13 +27,26 @@ namespace data
 
 DEFINE_EXCEPTION_OBJECT(material_exception, aeon::common::exception, "Generic Material exception.");
 
-class material
+class material : utility::noncopyable
 {
 public:
     using texture_paths = std::map<std::string, std::string>;
 
     material(const std::string &shader_path, const texture_paths &textures);
     ~material() = default;
+
+    material(material &&other) noexcept
+        : shader_path_(std::move(other.shader_path_))
+        , texture_paths_(std::move(other.texture_paths_))
+    {
+    }
+
+    material &operator=(material &&other) noexcept
+    {
+        shader_path_ = std::move(other.shader_path_);
+        texture_paths_ = std::move(other.texture_paths_);
+        return *this;
+    }
 
     const std::string &get_shader_path() const;
 

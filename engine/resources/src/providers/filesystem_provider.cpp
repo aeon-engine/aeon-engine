@@ -58,20 +58,21 @@ void filesystem_provider::read(const std::string &path, std::vector<std::uint8_t
 {
     AEON_LOG_TRACE(logger_) << "Read file at '" << path << "'." << std::endl;
 
-    std::string p = __get_real_path(base_path_, path);
+    auto real_path = __get_real_path(base_path_, path);
 
     auto &platform = __get_resource_manager()->get_platform_interface();
     auto &filesystem_interface = platform.get_filesystem_interface();
 
-    if (!filesystem_interface.exists(p))
+    if (!filesystem_interface.exists(real_path))
     {
         AEON_LOG_ERROR(logger_) << "Could not read file at '" << path << "'. File does not exist." << std::endl;
         throw filesystem_provider_read_exception();
     }
 
-    auto file = filesystem_interface.open_file(p, platform::file_open_mode::read | platform::file_open_mode::binary);
+    auto file =
+        filesystem_interface.open_file(real_path, platform::file_open_mode::read | platform::file_open_mode::binary);
 
-    std::vector<std::uint8_t> read_buffer;
+    auto read_buffer = std::vector<std::uint8_t>();
     file->read(read_buffer);
     buffer = std::move(read_buffer);
 }

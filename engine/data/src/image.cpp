@@ -29,22 +29,8 @@ image::image(std::vector<std::uint8_t> &&buffer, unsigned int width, unsigned in
 {
 }
 
-image::image(image &&other)
-    : buffer_(std::move(other.buffer_))
-    , width_(std::move(other.width_))
-    , height_(std::move(other.height_))
-    , pixel_format_(std::move(other.pixel_format_))
-{
-}
-
-image &image::operator=(image &&other)
-{
-    buffer_ = std::move(other.buffer_);
-    width_ = std::move(other.width_);
-    height_ = std::move(other.height_);
-    pixel_format_ = std::move(other.pixel_format_);
-    return *this;
-}
+image::image(image &&other) noexcept = default;
+image &image::operator=(image &&other) noexcept = default;
 
 bool image::has_data() const
 {

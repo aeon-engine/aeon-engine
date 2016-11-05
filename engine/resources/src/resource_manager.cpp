@@ -16,6 +16,7 @@
 #include <aeon/resources/resource_manager.h>
 #include <aeon/resources/wrappers/resource_wrapper.h>
 #include <aeon/resources/resource_type.h>
+#include <aeon/utility/literals.h>
 #include <memory>
 #include <string>
 
@@ -75,7 +76,7 @@ std::shared_ptr<image_resource_wrapper> resource_manager::load_image_wrapper(con
 {
     AEON_LOG_DEBUG(logger_) << "Loading image resource wrapper '" << path << "'." << std::endl;
 
-    std::string real_path;
+    auto real_path = std::string();
     auto best_match_provider = __find_best_match_provider(path, real_path);
 
     if (!best_match_provider)
@@ -88,7 +89,7 @@ std::shared_ptr<material_resource_wrapper> resource_manager::load_material_wrapp
 {
     AEON_LOG_DEBUG(logger_) << "Loading material resource wrapper '" << path << "'." << std::endl;
 
-    std::string real_path;
+    auto real_path = std::string();
     auto best_match_provider = __find_best_match_provider(path, real_path);
 
     if (!best_match_provider)
@@ -101,7 +102,7 @@ std::shared_ptr<shader_resource_wrapper> resource_manager::load_shader_wrapper(c
 {
     AEON_LOG_DEBUG(logger_) << "Loading shader resource wrapper '" << path << "'." << std::endl;
 
-    std::string real_path;
+    auto real_path = std::string();
     auto best_match_provider = __find_best_match_provider(path, real_path);
 
     if (!best_match_provider)
@@ -114,7 +115,7 @@ std::shared_ptr<atlas_resource_wrapper> resource_manager::load_atlas_wrapper(con
 {
     AEON_LOG_DEBUG(logger_) << "Loading atlas resource wrapper '" << path << "'." << std::endl;
 
-    std::string real_path;
+    auto real_path = std::string();
     auto best_match_provider = __find_best_match_provider(path, real_path);
 
     if (!best_match_provider)
@@ -127,7 +128,7 @@ std::shared_ptr<mesh_resource_wrapper> resource_manager::load_mesh_wrapper(const
 {
     AEON_LOG_DEBUG(logger_) << "Loading mesh resource wrapper '" << path << "'." << std::endl;
 
-    std::string real_path;
+    auto real_path = std::string();
     auto best_match_provider = __find_best_match_provider(path, real_path);
 
     if (!best_match_provider)
@@ -150,27 +151,30 @@ std::shared_ptr<resource_provider> resource_manager::__find_best_match_provider(
         return nullptr;
     }
 
-    std::string actual_path = path;
+    auto actual_path = path;
 
     if (path[0] != '/')
         actual_path = "/" + path;
 
-    std::size_t best_match_length = 0;
+    auto best_match_length = 0_size_t;
     auto best_match_provider = std::shared_ptr<resource_provider>{nullptr};
 
     for (auto &mountpoint : mount_points_)
     {
-        std::string p = mountpoint.first;
-        std::size_t p_length = p.length();
+        auto provider_mount_path = std::string();
+        auto provider = std::shared_ptr<resource_provider>();
+        std::tie(provider_mount_path, provider) = mountpoint;
+
+        auto provider_mount_path_length = provider_mount_path.length();
 
         // Due to possible mountpoints being inside other mountpoints, the best match provider is the one that
         // has the most in common with the path
-        if (p_length > best_match_length)
+        if (provider_mount_path_length > best_match_length)
         {
-            if (actual_path.compare(0, p_length, p) == 0)
+            if (actual_path.compare(0, provider_mount_path_length, provider_mount_path) == 0)
             {
-                best_match_length = p_length;
-                best_match_provider = mountpoint.second;
+                best_match_length = provider_mount_path_length;
+                best_match_provider = provider;
             }
         }
     }

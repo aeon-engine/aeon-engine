@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <aeon/utility.h>
 #include <string>
 
 namespace aeon
@@ -22,11 +23,14 @@ namespace aeon
 namespace data
 {
 
-class shader
+class shader : utility::noncopyable
 {
 public:
     explicit shader(const std::string &vertex_source, const std::string &fragment_source);
     ~shader() = default;
+
+    shader(shader &&other) noexcept = default;
+    shader &operator=(shader &&other) noexcept = default;
 
     const std::string &get_vertex_source() const;
     const std::string &get_fragment_source() const;

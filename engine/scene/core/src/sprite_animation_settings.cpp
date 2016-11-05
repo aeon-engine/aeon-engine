@@ -20,7 +20,7 @@ namespace aeon
 namespace scene
 {
 
-sprite_animation_settings::sprite_animation_settings(glm::vec2 frame_size)
+sprite_animation_settings::sprite_animation_settings(const glm::vec2 frame_size)
     : start_condition_(animation_start_condition::manual_start)
     , repeat_(animation_repeat::continuous)
     , size_(frame_size)
@@ -29,8 +29,8 @@ sprite_animation_settings::sprite_animation_settings(glm::vec2 frame_size)
 {
 }
 
-void sprite_animation_settings::generate_sequence(int index, int frame_offset, int frame_count,
-                                                  animation_sequence_type type)
+void sprite_animation_settings::generate_sequence(const int index, const int frame_offset, const int frame_count,
+                                                  const animation_sequence_type type)
 {
     switch (type)
     {
@@ -57,56 +57,59 @@ void sprite_animation_settings::generate_sequence(int index, int frame_offset, i
     }
 }
 
-void sprite_animation_settings::add_sequence(int index, std::vector<int> seq)
+void sprite_animation_settings::add_sequence(const int index, const std::vector<int> &seq)
 {
     sequences_[index] = seq;
 }
 
-void sprite_animation_settings::set_default_sequence(int index)
+void sprite_animation_settings::set_default_sequence(const int index)
 {
     default_sequence_ = index;
 }
 
-void sprite_animation_settings::set_start_condition(animation_start_condition condition)
+void sprite_animation_settings::set_start_condition(const animation_start_condition condition)
 {
     start_condition_ = condition;
 }
 
-void sprite_animation_settings::set_repeat(animation_repeat repeat)
+void sprite_animation_settings::set_repeat(const animation_repeat repeat)
 {
     repeat_ = repeat;
 }
 
-void sprite_animation_settings::set_speed(float speed)
+void sprite_animation_settings::set_speed(const float speed)
 {
     speed_ = speed;
 }
 
-void sprite_animation_settings::__generate_normal_sequence(int index, int frame_offset, int frame_count)
+void sprite_animation_settings::__generate_normal_sequence(const int index, const int frame_offset,
+                                                           const int frame_count)
 {
-    std::vector<int> seq;
-    for (int i = 0; i < frame_count; ++i)
+    auto seq = std::vector<int>();
+    for (auto i = 0; i < frame_count; ++i)
         seq.push_back(i + frame_offset);
 
     sequences_[index] = seq;
 }
 
-void sprite_animation_settings::__generate_reverse_sequence(int index, int frame_offset, int frame_count)
+void sprite_animation_settings::__generate_reverse_sequence(const int index, const int frame_offset,
+                                                            const int frame_count)
 {
-    std::vector<int> seq;
-    for (int i = 1; i <= frame_count; ++i)
+    auto seq = std::vector<int>();
+    for (auto i = 1; i <= frame_count; ++i)
         seq.push_back((frame_count - i) + frame_offset);
 
     sequences_[index] = seq;
 }
 
-void sprite_animation_settings::__generate_up_down_sequence(int index, int frame_offset, int frame_count)
+void sprite_animation_settings::__generate_up_down_sequence(const int index, const int frame_offset,
+                                                            const int frame_count)
 {
-    std::vector<int> seq;
-    for (int i = 0; i < frame_count; ++i)
+    auto seq = std::vector<int>();
+    for (auto i = 0; i < frame_count; ++i)
         seq.push_back(i + frame_offset);
 
-    for (int i = frame_count - 2; i != 0; --i)
+    for (auto i = frame_count - 2; i != 0; --i)
         seq.push_back(i + frame_offset);
 
     sequences_[index] = seq;

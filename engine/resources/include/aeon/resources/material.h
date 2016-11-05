@@ -30,7 +30,7 @@ namespace resources
 class material : public resource
 {
 public:
-    explicit material(const std::shared_ptr<resource_wrapper> &wrapper, const data::material &material_data);
+    explicit material(const std::shared_ptr<resource_wrapper> &wrapper, data::material &&material_data);
     virtual ~material();
 
     const data::material &get_material_data() const

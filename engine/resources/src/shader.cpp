@@ -20,10 +20,10 @@ namespace aeon
 namespace resources
 {
 
-shader::shader(const std::shared_ptr<resource_wrapper> &wrapper, const data::shader &shader_data)
+shader::shader(const std::shared_ptr<resource_wrapper> &wrapper, data::shader &&shader_data)
     : resource(wrapper)
     , logger_(common::logger::get_singleton(), "Resources::Shader")
-    , shader_data_(shader_data)
+    , shader_data_(std::move(shader_data))
 {
     AEON_LOG_TRACE(logger_) << "Created shader resource." << std::endl;
 }

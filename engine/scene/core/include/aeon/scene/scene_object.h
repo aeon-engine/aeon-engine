@@ -38,7 +38,7 @@ class scene_object
     friend class scene_node;
 
 public:
-    explicit scene_object(int queue_group, scene_object_type type, scene_manager *scene_manager)
+    explicit scene_object(const int queue_group, const scene_object_type type, scene_manager *scene_manager)
         : queue_group_(queue_group)
         , type_(type)
         , scene_manager_(scene_manager)
@@ -64,7 +64,7 @@ public:
      * used to set up the matrices and/or buffers.
      */
     virtual void render(const glm::mat4x4 & /*projection*/, const glm::mat4x4 & /*view*/, const glm::mat4x4 & /*model*/,
-                        float /*dt*/)
+                        const float /*dt*/)
     {
     }
 
