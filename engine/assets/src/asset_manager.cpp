@@ -82,7 +82,7 @@ std::shared_ptr<gfx::material> asset_manager::load_material(const std::string &p
     auto shader = load_shader(material_data.get_shader_path());
 
     auto texture_paths = material_data.get_texture_paths();
-    gfx::material::sampler_map sampler_map;
+    auto sampler_map = gfx::material::sampler_map();
 
     for (auto &texture_path : texture_paths)
     {
@@ -126,7 +126,7 @@ std::shared_ptr<scene::scene_node> asset_manager::load_mesh(const std::string &p
     return scene_node;
 }
 
-std::shared_ptr<gfx::atlas> asset_manager::create_atlas(std::shared_ptr<gfx::material> material,
+std::shared_ptr<gfx::atlas> asset_manager::create_atlas(const std::shared_ptr<gfx::material> &material,
                                                         glm::vec2 sprite_size) const
 {
     return std::make_shared<gfx::atlas>(material, sprite_size);
@@ -136,7 +136,7 @@ void asset_manager::__convert_mesh_node_to_scene_node(resources::mesh_node &mesh
 {
     auto submeshes = mesh_node.get_submeshes();
 
-    for (resources::submesh *submesh : submeshes)
+    for (auto submesh : submeshes)
     {
         auto mesh = std::make_shared<scene::mesh>(&scene_manager_, load_material(submesh->get_material()),
                                                   submesh->get_vertex_data(), submesh->get_index_data());

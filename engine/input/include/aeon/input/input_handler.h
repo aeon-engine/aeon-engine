@@ -32,11 +32,12 @@ public:
     input_handler() = default;
     virtual ~input_handler() = default;
 
-    void handle_keyboard_key_state_changed_event(keyboard_key key, keyboard_key_state key_state, int modifier);
+    void handle_keyboard_key_state_changed_event(const keyboard_key key, const keyboard_key_state key_state,
+                                                 const int modifier);
 
-    void handle_mouse_move_event(float x, float y);
-    void handle_mouse_button_event(mouse_button button, mouse_button_state button_state);
-    void handle_mouse_scroll_event(float x, float y);
+    void handle_mouse_move_event(const float x, const float y);
+    void handle_mouse_button_event(const mouse_button button, const mouse_button_state button_state);
+    void handle_mouse_scroll_event(const float x, const float y);
 };
 
 } // namespace input

@@ -36,15 +36,5 @@ atlas::~atlas()
     AEON_LOG_TRACE(logger_) << "Deleted atlas resource." << std::endl;
 }
 
-const std::string &atlas::get_material_path() const
-{
-    return material_path_;
-}
-
-const data::atlas &atlas::get_data() const
-{
-    return data_;
-}
-
 } // namespace resources
 } // namespace aeon

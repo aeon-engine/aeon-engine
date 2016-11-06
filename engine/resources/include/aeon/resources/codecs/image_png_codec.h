@@ -32,12 +32,12 @@ public:
     image_codec_png();
     virtual ~image_codec_png() = default;
 
-    std::shared_ptr<image> decode(resource_manager &parent,
-                                  const std::shared_ptr<image_resource_wrapper> &wrapper) override;
-    resource_encoding get_codec_type() const override;
+    auto decode(resource_manager &parent, const std::shared_ptr<image_resource_wrapper> &wrapper) const
+        -> std::shared_ptr<image> override;
+    auto get_codec_type() const -> resource_encoding override;
 
 private:
-    aeon::logger::logger logger_;
+    mutable logger::logger logger_;
 };
 
 } // namespace resources

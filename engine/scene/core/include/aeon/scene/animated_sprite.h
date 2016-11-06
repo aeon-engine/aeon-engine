@@ -37,10 +37,10 @@ public:
     void run();
     void stop();
 
-    void set_animation_sequence(int index);
+    void set_animation_sequence(const int index);
 
 protected:
-    void update(float dt) override;
+    void update(const float dt) override;
 
     sprite_animation_settings settings_;
 

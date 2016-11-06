@@ -37,7 +37,7 @@ public:
 
     virtual ~mesh();
 
-    std::shared_ptr<mesh_resource_wrapper> get_mesh_resource_wrapper() const
+    auto get_mesh_resource_wrapper() const
     {
         return std::dynamic_pointer_cast<mesh_resource_wrapper>(get_resource_wrapper());
     }
@@ -46,13 +46,29 @@ public:
     void create_submesh(const int id, const std::string &name, data::index_data_buffer &&indices,
                         data::vertex_data_buffer &&vertices, const std::string &material);
 
-    std::string &get_material_by_id(const int id);
-    submesh *get_submesh_by_id(const int id);
+    const auto &get_material_by_id(const int id)
+    {
+        return materials_.at(id);
+    }
 
-    std::vector<submesh *> get_submeshes() const;
+    auto get_submesh_by_id(const int id) -> submesh *
+    {
+        for (auto &submesh : submeshes_)
+        {
+            if (submesh->get_id() == id)
+                return submesh.get();
+        }
 
-    mesh_node &create_root_mesh_node(const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);
-    mesh_node &get_root_mesh_node() const;
+        return nullptr;
+    }
+
+    const auto &get_submeshes() const
+    {
+        return submeshes_;
+    }
+
+    auto create_root_mesh_node(const glm::mat4 &matrix, const std::vector<submesh *> &submeshes) -> mesh_node &;
+    auto get_root_mesh_node() const -> mesh_node &;
 
 private:
     aeon::logger::logger logger_;

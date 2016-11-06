@@ -72,7 +72,7 @@ void resource_manager::unmount(const std::string &mountpoint)
     mount_points_.erase(result);
 }
 
-std::shared_ptr<image_resource_wrapper> resource_manager::load_image_wrapper(const std::string &path)
+auto resource_manager::load_image_wrapper(const std::string &path) -> std::shared_ptr<image_resource_wrapper>
 {
     AEON_LOG_DEBUG(logger_) << "Loading image resource wrapper '" << path << "'." << std::endl;
 
@@ -85,7 +85,7 @@ std::shared_ptr<image_resource_wrapper> resource_manager::load_image_wrapper(con
     return std::make_shared<image_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-std::shared_ptr<material_resource_wrapper> resource_manager::load_material_wrapper(const std::string &path)
+auto resource_manager::load_material_wrapper(const std::string &path) -> std::shared_ptr<material_resource_wrapper>
 {
     AEON_LOG_DEBUG(logger_) << "Loading material resource wrapper '" << path << "'." << std::endl;
 
@@ -98,7 +98,7 @@ std::shared_ptr<material_resource_wrapper> resource_manager::load_material_wrapp
     return std::make_shared<material_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-std::shared_ptr<shader_resource_wrapper> resource_manager::load_shader_wrapper(const std::string &path)
+auto resource_manager::load_shader_wrapper(const std::string &path) -> std::shared_ptr<shader_resource_wrapper>
 {
     AEON_LOG_DEBUG(logger_) << "Loading shader resource wrapper '" << path << "'." << std::endl;
 
@@ -111,7 +111,7 @@ std::shared_ptr<shader_resource_wrapper> resource_manager::load_shader_wrapper(c
     return std::make_shared<shader_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-std::shared_ptr<atlas_resource_wrapper> resource_manager::load_atlas_wrapper(const std::string &path)
+auto resource_manager::load_atlas_wrapper(const std::string &path) -> std::shared_ptr<atlas_resource_wrapper>
 {
     AEON_LOG_DEBUG(logger_) << "Loading atlas resource wrapper '" << path << "'." << std::endl;
 
@@ -124,7 +124,7 @@ std::shared_ptr<atlas_resource_wrapper> resource_manager::load_atlas_wrapper(con
     return std::make_shared<atlas_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-std::shared_ptr<mesh_resource_wrapper> resource_manager::load_mesh_wrapper(const std::string &path)
+auto resource_manager::load_mesh_wrapper(const std::string &path) -> std::shared_ptr<mesh_resource_wrapper>
 {
     AEON_LOG_DEBUG(logger_) << "Loading mesh resource wrapper '" << path << "'." << std::endl;
 
@@ -137,8 +137,8 @@ std::shared_ptr<mesh_resource_wrapper> resource_manager::load_mesh_wrapper(const
     return std::make_shared<mesh_resource_wrapper>(*this, real_path, best_match_provider);
 }
 
-std::shared_ptr<resource_provider> resource_manager::__find_best_match_provider(const std::string &path,
-                                                                                std::string &provider_path)
+auto resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path)
+    -> std::shared_ptr<resource_provider>
 {
     // TODO: This needs optimization. Too much looping and string manipulation going on.
 

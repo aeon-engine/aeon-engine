@@ -33,18 +33,18 @@ public:
     explicit material(const std::shared_ptr<resource_wrapper> &wrapper, data::material &&material_data);
     virtual ~material();
 
-    const data::material &get_material_data() const
+    const auto &get_material_data() const
     {
         return material_data_;
     }
 
-    std::shared_ptr<material_resource_wrapper> get_material_resource_wrapper()
+    auto get_material_resource_wrapper() const
     {
         return std::dynamic_pointer_cast<material_resource_wrapper>(get_resource_wrapper());
     }
 
 private:
-    aeon::logger::logger logger_;
+    logger::logger logger_;
     data::material material_data_;
 };
 

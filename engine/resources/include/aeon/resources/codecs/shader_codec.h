@@ -37,9 +37,10 @@ public:
     shader_codec();
     virtual ~shader_codec() = default;
 
-    resource_encoding get_codec_type() const override;
+    auto get_codec_type() const -> resource_encoding override;
 
-    std::shared_ptr<shader> decode(resource_manager &parent, const std::shared_ptr<shader_resource_wrapper> &wrapper);
+    auto decode(resource_manager &parent, const std::shared_ptr<shader_resource_wrapper> &wrapper) const
+        -> std::shared_ptr<shader>;
 
 private:
     enum class shader_decode_state
@@ -49,7 +50,7 @@ private:
         parsing_fragment
     };
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 };
 
 } // namespace resources

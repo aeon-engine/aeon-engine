@@ -29,7 +29,7 @@ mesh_resource_wrapper::mesh_resource_wrapper(resource_manager &parent, const std
         throw resource_type_exception();
 }
 
-std::shared_ptr<mesh> mesh_resource_wrapper::open()
+auto mesh_resource_wrapper::open() -> std::shared_ptr<mesh>
 {
     auto &codec = __get_parent().get_codec_manager().get_mesh_codec(get_encoding());
     return codec.decode(__get_parent(), std::dynamic_pointer_cast<mesh_resource_wrapper>(shared_from_this()));

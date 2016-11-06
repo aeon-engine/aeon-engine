@@ -37,8 +37,8 @@ public:
     image_codec() = default;
     virtual ~image_codec() = default;
 
-    virtual std::shared_ptr<image> decode(resource_manager &parent,
-                                          const std::shared_ptr<image_resource_wrapper> &wrapper) = 0;
+    virtual auto decode(resource_manager &parent, const std::shared_ptr<image_resource_wrapper> &wrapper) const
+        -> std::shared_ptr<image> = 0;
 };
 
 } // namespace resources

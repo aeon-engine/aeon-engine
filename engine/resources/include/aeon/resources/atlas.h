@@ -42,10 +42,17 @@ public:
 
     virtual ~atlas();
 
-    const std::string &get_material_path() const;
-    const data::atlas &get_data() const;
+    const auto &get_material_path() const
+    {
+        return material_path_;
+    }
 
-    std::shared_ptr<atlas_resource_wrapper> get_atlas_resource_wrapper() const
+    const auto &get_data() const
+    {
+        return data_;
+    }
+
+    auto get_atlas_resource_wrapper() const
     {
         return std::dynamic_pointer_cast<atlas_resource_wrapper>(get_resource_wrapper());
     }

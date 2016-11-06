@@ -32,19 +32,19 @@ public:
     explicit gfx_camera();
     virtual ~gfx_camera() = default;
 
-    virtual void render_scene(render_target &rt, viewport &vp, float dt) = 0;
+    virtual void render_scene(render_target &rt, viewport &vp, const float dt) = 0;
 
-    glm::mat4 get_projection_matrix() const
+    const auto &get_projection_matrix() const
     {
         return projection_matrix_;
     }
 
-    glm::mat4 get_view_matrix() const
+    const auto &get_view_matrix() const
     {
         return view_matrix_;
     }
 
-    glm::mat4 get_camera_matrix() const
+    const auto &get_camera_matrix() const
     {
         return projection_matrix_ * view_matrix_;
     }

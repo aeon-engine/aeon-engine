@@ -60,16 +60,16 @@ public:
 
     virtual ~resource_provider() = default;
 
-    virtual bool exists(const std::string &path) = 0;
+    virtual auto exists(const std::string &path) const -> bool = 0;
 
-    virtual std::vector<resource_node> list(const std::string &path) = 0;
+    virtual auto list(const std::string &path) const -> std::vector<resource_node> = 0;
 
     virtual void read(const std::string &path, std::vector<std::uint8_t> &buffer) = 0;
 
-    virtual resource_encoding get_encoding(const std::string &path) const = 0;
+    virtual auto get_encoding(const std::string &path) const -> resource_encoding = 0;
 
 protected:
-    resource_manager *__get_resource_manager() const
+    auto __get_resource_manager() const
     {
         return manager_;
     }

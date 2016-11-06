@@ -45,13 +45,20 @@ public:
      * The groups are sorted in descending order, meaning higher numbers will get rendered first,
      * due to front to back rendering. Default groups are defined in render_layer::render_layer_enum.
      */
-    void add_render_object(const glm::mat4 &matrix, const std::shared_ptr<scene_object> &object, int group);
+    void add_render_object(const glm::mat4 &matrix, const std::shared_ptr<scene_object> &object, const int group);
     void clear_render_objects();
 
     void sort();
 
-    render_queue_vector::const_iterator begin() const;
-    render_queue_vector::const_iterator end() const;
+    auto begin() const
+    {
+        return objects_.cbegin();
+    }
+
+    auto end() const
+    {
+        return objects_.cend();
+    }
 
 private:
     render_queue_vector objects_;

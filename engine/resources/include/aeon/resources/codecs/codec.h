@@ -34,7 +34,7 @@ public:
     codec() = default;
     virtual ~codec() = default;
 
-    virtual resource_encoding get_codec_type() const = 0;
+    virtual auto get_codec_type() const -> resource_encoding = 0;
 };
 
 } // namespace resources

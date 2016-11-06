@@ -19,7 +19,6 @@ set (AEON_ENGINE_RESOURCES_SOURCES
     src/mesh_node.cpp
     src/resource_manager.cpp
     src/shader.cpp
-    src/submesh.cpp
 )
 
 source_group(resources FILES ${AEON_ENGINE_RESOURCES_SOURCES})

@@ -32,7 +32,7 @@ public:
                                    const std::weak_ptr<resource_provider> &provider);
     virtual ~mesh_resource_wrapper() = default;
 
-    std::shared_ptr<mesh> open();
+    auto open() -> std::shared_ptr<mesh>;
 };
 
 } // namespace resources

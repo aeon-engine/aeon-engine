@@ -131,7 +131,7 @@ public:
      * Get a pointer to the main logger backend. Logging through this backend
      * will log to the console log.
      */
-    aeon::logger::logger &get_logger()
+    logger::logger &get_logger()
     {
         return logger_;
     }
@@ -148,7 +148,7 @@ private:
             auto file_interface = platform_.get_filesystem_interface().open_file(
                 "config.conf", platform::file_open_mode::binary | platform::file_open_mode::read);
 
-            std::vector<std::uint8_t> config_file_data;
+            auto config_file_data = std::vector<std::uint8_t>();
             file_interface->read(config_file_data);
 
             config_file_.load(std::move(config_file_data));
@@ -171,10 +171,10 @@ private:
      */
     void __create_window(const int default_width, const int default_height, const std::string &title)
     {
-        const int width = config_file_.get<int>("window_width", default_width);
-        const int height = config_file_.get<int>("window_height", default_height);
-        const int multisample = config_file_.get<int>("multisample", 0);
-        const bool double_buffer = config_file_.get<bool>("double_buffer", true);
+        const auto width = config_file_.get<int>("window_width", default_width);
+        const auto height = config_file_.get<int>("window_height", default_height);
+        const auto multisample = config_file_.get<int>("multisample", 0);
+        const auto double_buffer = config_file_.get<bool>("double_buffer", true);
 
         auto settings = gfx::gfx_window_settings{width, height, title};
         settings.set_multisample(multisample);
@@ -185,7 +185,7 @@ private:
 
 protected:
     common::logger logger_backend_;
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 
     utility::configfile config_file_;
 

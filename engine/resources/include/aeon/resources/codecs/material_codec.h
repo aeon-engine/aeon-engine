@@ -38,12 +38,12 @@ public:
     material_codec();
     virtual ~material_codec() = default;
 
-    resource_encoding get_codec_type() const override;
+    auto get_codec_type() const -> resource_encoding override;
 
-    std::shared_ptr<material> decode(const std::shared_ptr<material_resource_wrapper> &wrapper) const;
+    auto decode(const std::shared_ptr<material_resource_wrapper> &wrapper) const -> std::shared_ptr<material>;
 
 private:
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 };
 
 } // namespace resources

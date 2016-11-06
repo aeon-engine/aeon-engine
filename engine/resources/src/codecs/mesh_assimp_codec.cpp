@@ -31,8 +31,8 @@ mesh_codec_assimp::mesh_codec_assimp()
 {
 }
 
-std::shared_ptr<mesh> mesh_codec_assimp::decode(resource_manager & /*parent*/,
-                                                const std::shared_ptr<mesh_resource_wrapper> &wrapper)
+auto mesh_codec_assimp::decode(resource_manager & /*parent*/,
+                               const std::shared_ptr<mesh_resource_wrapper> &wrapper) const -> std::shared_ptr<mesh>
 {
     AEON_LOG_DEBUG(logger_) << "Decoding AssImp mesh resource." << std::endl;
 
@@ -56,7 +56,7 @@ std::shared_ptr<mesh> mesh_codec_assimp::decode(resource_manager & /*parent*/,
     return mesh_data;
 }
 
-resource_encoding mesh_codec_assimp::get_codec_type() const
+auto mesh_codec_assimp::get_codec_type() const -> resource_encoding
 {
     return resource_encoding::mesh_assimp;
 }
@@ -135,7 +135,7 @@ void mesh_codec_assimp::__read_index_data(aiMesh *mesh, data::index_data_buffer 
     }
 }
 
-void mesh_codec_assimp::__read_vertex_data(aiMesh *mesh, data::vertex_data_buffer &vertices) const
+void mesh_codec_assimp::__read_vertex_data(const aiMesh *mesh, data::vertex_data_buffer &vertices) const
 {
     assert(mesh->mVertices != nullptr);
 
@@ -188,8 +188,8 @@ void mesh_codec_assimp::__decode_scene_node(const aiNode *ai_node, mesh &mesh_re
     }
 }
 
-std::vector<submesh *> mesh_codec_assimp::__decode_submeshes_from_scene_node(const aiNode *ai_node,
-                                                                             mesh &mesh_ref) const
+auto mesh_codec_assimp::__decode_submeshes_from_scene_node(const aiNode *ai_node, mesh &mesh_ref) const
+    -> std::vector<submesh *>
 {
     auto submeshes = std::vector<submesh *>();
     for (auto i = 0ul; i < ai_node->mNumMeshes; ++i)
@@ -209,18 +209,18 @@ std::vector<submesh *> mesh_codec_assimp::__decode_submeshes_from_scene_node(con
     return submeshes;
 }
 
-glm::vec3 mesh_codec_assimp::__convert_to_glm_vec3(const aiVector3D &vector) const
+auto mesh_codec_assimp::__convert_to_glm_vec3(const aiVector3D &vector) const -> glm::vec3
 {
     return glm::vec3(vector.x, vector.y, vector.z);
 }
 
-glm::mat4 mesh_codec_assimp::__convert_to_glm_mat4(const aiMatrix4x4 &matrix) const
+auto mesh_codec_assimp::__convert_to_glm_mat4(const aiMatrix4x4 &matrix) const -> glm::mat4
 {
     return glm::mat4(matrix.a1, matrix.b1, matrix.c1, matrix.d1, matrix.a2, matrix.b2, matrix.c2, matrix.d2, matrix.a3,
                      matrix.b3, matrix.c3, matrix.d3, matrix.a4, matrix.b4, matrix.c4, matrix.d4);
 }
 
-common::types::color mesh_codec_assimp::__convert_to_color(const aiColor4D &color) const
+auto mesh_codec_assimp::__convert_to_color(const aiColor4D &color) const -> common::types::color
 {
     return common::types::color(color.r, color.g, color.b, color.a);
 }

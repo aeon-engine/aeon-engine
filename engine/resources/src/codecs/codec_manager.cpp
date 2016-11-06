@@ -28,7 +28,7 @@ codec_manager::codec_manager()
     __register_codecs();
 }
 
-codec &codec_manager::get_codec(resource_encoding encoding)
+auto codec_manager::get_codec(const resource_encoding encoding) const -> codec &
 {
     auto result = codecs_.find(encoding);
 
@@ -38,7 +38,7 @@ codec &codec_manager::get_codec(resource_encoding encoding)
     return *(result->second);
 }
 
-image_codec &codec_manager::get_image_codec(resource_encoding encoding)
+auto codec_manager::get_image_codec(const resource_encoding encoding) const -> image_codec &
 {
     if (get_resource_type_by_encoding(encoding) != resource_type::image)
     {
@@ -49,22 +49,22 @@ image_codec &codec_manager::get_image_codec(resource_encoding encoding)
     return dynamic_cast<image_codec &>(get_codec(encoding));
 }
 
-material_codec &codec_manager::get_material_codec()
+auto codec_manager::get_material_codec() const -> material_codec &
 {
     return dynamic_cast<material_codec &>(get_codec(resource_encoding::material));
 }
 
-shader_codec &codec_manager::get_shader_codec()
+auto codec_manager::get_shader_codec() const -> shader_codec &
 {
     return dynamic_cast<shader_codec &>(get_codec(resource_encoding::shader));
 }
 
-atlas_codec &codec_manager::get_atlas_codec()
+auto codec_manager::get_atlas_codec() const -> atlas_codec &
 {
     return dynamic_cast<atlas_codec &>(get_codec(resource_encoding::atlas));
 }
 
-mesh_codec &codec_manager::get_mesh_codec(resource_encoding encoding)
+auto codec_manager::get_mesh_codec(const resource_encoding encoding) const -> mesh_codec &
 {
     if (get_resource_type_by_encoding(encoding) != resource_type::mesh)
     {
@@ -75,7 +75,7 @@ mesh_codec &codec_manager::get_mesh_codec(resource_encoding encoding)
     return dynamic_cast<mesh_codec &>(get_codec(encoding));
 }
 
-resource_type codec_manager::get_resource_type_by_encoding(resource_encoding encoding) const
+auto codec_manager::get_resource_type_by_encoding(const resource_encoding encoding) const -> resource_type
 {
     switch (encoding)
     {

@@ -41,27 +41,27 @@ public:
     mesh_codec_assimp();
     virtual ~mesh_codec_assimp() = default;
 
-    std::shared_ptr<mesh> decode(resource_manager &parent,
-                                 const std::shared_ptr<mesh_resource_wrapper> &wrapper) override;
-    resource_encoding get_codec_type() const override;
+    auto decode(resource_manager &parent, const std::shared_ptr<mesh_resource_wrapper> &wrapper) const
+        -> std::shared_ptr<mesh> override;
+    auto get_codec_type() const -> resource_encoding override;
 
 private:
     void __decode_materials(const aiScene *scene, mesh &mesh_ref) const;
     void __decode_submeshes(const aiScene *scene, mesh &mesh_ref) const;
     void __read_index_data(aiMesh *mesh, data::index_data_buffer &indices) const;
-    void __read_vertex_data(aiMesh *mesh, data::vertex_data_buffer &vertices) const;
+    void __read_vertex_data(const aiMesh *mesh, data::vertex_data_buffer &vertices) const;
 
     void __decode_scene(const aiScene *scene, mesh &mesh_ref) const;
     void __decode_scene_node(const aiNode *ai_node, mesh &mesh_ref, mesh_node &node) const;
 
-    std::vector<submesh *> __decode_submeshes_from_scene_node(const aiNode *ai_node, mesh &mesh_ref) const;
+    auto __decode_submeshes_from_scene_node(const aiNode *ai_node, mesh &mesh_ref) const -> std::vector<submesh *>;
 
-    glm::vec3 __convert_to_glm_vec3(const aiVector3D &vector) const;
-    glm::mat4 __convert_to_glm_mat4(const aiMatrix4x4 &matrix) const;
+    auto __convert_to_glm_vec3(const aiVector3D &vector) const -> glm::vec3;
+    auto __convert_to_glm_mat4(const aiMatrix4x4 &matrix) const -> glm::mat4;
 
-    common::types::color __convert_to_color(const aiColor4D &color) const;
+    auto __convert_to_color(const aiColor4D &color) const -> common::types::color;
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 };
 
 } // namespace resources

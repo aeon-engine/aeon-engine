@@ -39,18 +39,21 @@ public:
     explicit scene_manager(gfx::device &device);
     virtual ~scene_manager();
 
-    scene_node &get_root_scene_node() const;
+    auto &get_root_scene_node() const
+    {
+        return *root_node_;
+    }
 
     /*!
      * Create a child scene node attached to the root scene node.
      */
-    std::shared_ptr<scene_node> create_child_scene_node() const;
+    auto create_child_scene_node() const -> std::shared_ptr<scene_node>;
 
     /*!
      * Create a scene node that is not attached to anything. This scene node must be attached to another node
      * through scene_node::attach_child().
      */
-    std::shared_ptr<scene_node> create_detached_scene_node() const;
+    auto create_detached_scene_node() const -> std::shared_ptr<scene_node>;
 
     void detach_child_scene_node(const std::shared_ptr<scene_node> &node) const;
 
@@ -60,17 +63,20 @@ public:
     void cleanup_scene() const;
 
     template <typename T, class... U>
-    std::shared_ptr<T> create_scene_object(U &&... u)
+    auto create_scene_object(U &&... u)
     {
         static_assert(std::is_base_of<scene_object, T>::value, "T must be derived from scene_object.");
 
         return std::make_shared<T>(this, std::forward<U>(u)...);
     }
 
-    gfx::device &get_device() const;
+    auto &get_device() const
+    {
+        return device_;
+    }
 
 protected:
-    virtual void __render_scene(camera &cam, gfx::render_target &rt, gfx::viewport &vp, float dt);
+    virtual void __render_scene(camera &cam, gfx::render_target &rt, gfx::viewport &vp, const float dt);
 
     virtual void __prepare_render_queue(camera *cam) = 0;
 

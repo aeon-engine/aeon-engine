@@ -34,8 +34,8 @@ public:
      * the modifiers in keyboard_modifier_key.
      * \see keyboard_modifier_key::keyboard_modifier_key_enum
      */
-    virtual void on_keyboard_key_state_changed_event(keyboard_key /*key*/, keyboard_key_state /*key_state*/,
-                                                     int /*modifier*/)
+    virtual void on_keyboard_key_state_changed_event(const keyboard_key /*key*/, const keyboard_key_state /*key_state*/,
+                                                     const int /*modifier*/)
     {
     }
 
@@ -43,21 +43,21 @@ public:
      * Called whenever the mouse is moved. If mouse capturing is turned on, these values will keep
      * increasing/decreasing on movement.
      */
-    virtual void on_mouse_move_event(float /*x*/, float /*y*/)
+    virtual void on_mouse_move_event(const float /*x*/, const float /*y*/)
     {
     }
 
     /*!
      * Called whenever the state of a mouse button changes.
      */
-    virtual void on_mouse_button_event(mouse_button /*button*/, mouse_button_state /*button_state*/)
+    virtual void on_mouse_button_event(const mouse_button /*button*/, const mouse_button_state /*button_state*/)
     {
     }
 
     /*!
      * Called whenever the mouse is scrolled.
      */
-    virtual void on_mouse_scroll_event(float /*x*/, float /*y*/)
+    virtual void on_mouse_scroll_event(const float /*x*/, const float /*y*/)
     {
     }
 };

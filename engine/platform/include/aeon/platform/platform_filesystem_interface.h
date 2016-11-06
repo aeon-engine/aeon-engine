@@ -45,7 +45,7 @@ public:
     class file_entry
     {
     public:
-        explicit file_entry(const std::string &name_, file_type type_)
+        explicit file_entry(const std::string &name_, const file_type type_)
             : name(name_)
             , type(type_)
         {
@@ -55,14 +55,13 @@ public:
         file_type type;
     };
 
-    using files = std::vector<file_entry>;
-
     platform_filesystem_interface() = default;
     virtual ~platform_filesystem_interface() = default;
 
-    virtual std::shared_ptr<platform_file_interface> open_file(const std::string &path, const int openmode) = 0;
-    virtual bool exists(const std::string &path) = 0;
-    virtual files list(const std::string &path) = 0;
+    virtual auto open_file(const std::string &path, const int openmode) const
+        -> std::shared_ptr<platform_file_interface> = 0;
+    virtual auto exists(const std::string &path) const -> bool = 0;
+    virtual auto list(const std::string &path) const -> std::vector<file_entry> = 0;
 };
 
 } // namespace platform

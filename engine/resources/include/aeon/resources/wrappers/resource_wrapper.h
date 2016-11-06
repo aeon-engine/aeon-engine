@@ -41,14 +41,14 @@ class resource_wrapper : public std::enable_shared_from_this<resource_wrapper>
 public:
     virtual ~resource_wrapper() = default;
 
-    resource_type get_type() const;
+    auto get_type() const -> resource_type;
 
-    resource_encoding get_encoding() const
+    auto get_encoding() const
     {
         return encoding_;
     }
 
-    const std::string &get_path() const
+    const auto &get_path() const
     {
         return path_;
     }
@@ -59,12 +59,12 @@ protected:
     explicit resource_wrapper(resource_manager &parent, const std::string &path,
                               const std::weak_ptr<resource_provider> &provider);
 
-    resource_manager &__get_parent() const
+    auto &__get_parent() const
     {
         return parent_;
     }
 
-    std::weak_ptr<resource_provider> __get_provider() const
+    auto __get_provider() const
     {
         return provider_;
     }

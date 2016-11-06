@@ -100,7 +100,8 @@ public:
      *                    top to bottom.
      * \return A gfx atlas
      */
-    std::shared_ptr<gfx::atlas> create_atlas(std::shared_ptr<gfx::material> material, glm::vec2 sprite_size) const;
+    std::shared_ptr<gfx::atlas> create_atlas(const std::shared_ptr<gfx::material> &material,
+                                             const glm::vec2 sprite_size) const;
 
 private:
     void __convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node);

@@ -133,8 +133,8 @@ image_codec_png::image_codec_png()
 {
 }
 
-std::shared_ptr<image> image_codec_png::decode(resource_manager & /*parent*/,
-                                               const std::shared_ptr<image_resource_wrapper> &wrapper)
+auto image_codec_png::decode(resource_manager & /*parent*/,
+                             const std::shared_ptr<image_resource_wrapper> &wrapper) const -> std::shared_ptr<image>
 {
     AEON_LOG_DEBUG(logger_) << "Decoding PNG image resource." << std::endl;
 
@@ -254,7 +254,7 @@ std::shared_ptr<image> image_codec_png::decode(resource_manager & /*parent*/,
     return std::make_shared<image>(wrapper, std::move(img));
 }
 
-resource_encoding image_codec_png::get_codec_type() const
+auto image_codec_png::get_codec_type() const -> resource_encoding
 {
     return resource_encoding::image_png;
 }

@@ -44,13 +44,13 @@ void animated_sprite::stop()
     running_ = false;
 }
 
-void animated_sprite::set_animation_sequence(int index)
+void animated_sprite::set_animation_sequence(const int index)
 {
     current_frame_index_ = 0;
     sequence_ = settings_.sequences_.at(index);
 }
 
-void animated_sprite::update(float dt)
+void animated_sprite::update(const float dt)
 {
     frame_time_ += dt;
 

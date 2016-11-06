@@ -28,16 +28,41 @@ class submesh
 {
 public:
     explicit submesh(const int id, const std::string &name, data::index_data_buffer &&indices,
-                     data::vertex_data_buffer &&vertices, const std::string &material);
+                     data::vertex_data_buffer &&vertices, const std::string &material)
+        : id_(id)
+        , name_(name)
+        , indices_(std::move(indices))
+        , vertices_(std::move(vertices))
+        , material_(material)
+    {
+    }
+
     ~submesh() = default;
 
-    int get_id() const;
-    std::string get_name() const;
+    auto get_id() const
+    {
+        return id_;
+    }
 
-    const data::index_data_buffer &get_index_data() const;
-    const data::vertex_data_buffer &get_vertex_data() const;
+    const auto &get_name() const
+    {
+        return name_;
+    }
 
-    const std::string &get_material() const;
+    const auto &get_index_data() const
+    {
+        return indices_;
+    }
+
+    const auto &get_vertex_data() const
+    {
+        return vertices_;
+    }
+
+    const auto &get_material() const
+    {
+        return material_;
+    }
 
 private:
     int id_;

@@ -47,17 +47,17 @@ public:
     virtual ~platform_file_interface() = default;
 
     virtual void read(std::vector<std::uint8_t> &buffer) = 0;
-    virtual void read(std::vector<std::uint8_t> &buffer, int size) = 0;
+    virtual void read(std::vector<std::uint8_t> &buffer, const int size) = 0;
 
     virtual void write(std::vector<std::uint8_t> &buffer) = 0;
-    virtual void write(std::vector<std::uint8_t> &buffer, int size) = 0;
+    virtual void write(std::vector<std::uint8_t> &buffer, const int size) = 0;
 
-    virtual void seek_read(seek_direction direction, int offset) = 0;
-    virtual void seek_write(seek_direction direction, int offset) = 0;
+    virtual void seek_read(seek_direction direction, const int offset) = 0;
+    virtual void seek_write(seek_direction direction, const int offset) = 0;
 
-    virtual int get_size() = 0;
+    virtual auto get_size() const -> int = 0;
 
-    const std::string &get_path() const
+    const auto &get_path() const
     {
         return path_;
     }

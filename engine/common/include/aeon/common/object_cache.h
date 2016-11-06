@@ -69,7 +69,7 @@ public:
         if (result == objects_.end())
             return nullptr;
 
-        std::weak_ptr<T> object = result->second;
+        auto object = result->second;
 
         if (object.expired())
         {

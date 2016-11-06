@@ -32,7 +32,7 @@ public:
 
     virtual ~resource() = default;
 
-    std::shared_ptr<resource_wrapper> get_resource_wrapper() const
+    const auto &get_resource_wrapper() const
     {
         return wrapper_;
     }

@@ -30,8 +30,8 @@ platform_filesystem_interface::platform_filesystem_interface()
 {
 }
 
-std::shared_ptr<platform::platform_file_interface> platform_filesystem_interface::open_file(const std::string &path,
-                                                                                            const int openmode)
+auto platform_filesystem_interface::open_file(const std::string &path, const int openmode) const
+    -> std::shared_ptr<platform::platform_file_interface>
 {
     AEON_LOG_DEBUG(logger_) << "Opening filesystem file: " << path << " (Mode: " << openmode << ")" << std::endl;
 
@@ -39,7 +39,7 @@ std::shared_ptr<platform::platform_file_interface> platform_filesystem_interface
     return std::make_shared<platform::generic::platform_file_interface>(path, openmode);
 }
 
-bool platform_filesystem_interface::exists(const std::string &path)
+auto platform_filesystem_interface::exists(const std::string &path) const -> bool
 {
     bool exists = filesystem::exists(path);
 
@@ -49,7 +49,7 @@ bool platform_filesystem_interface::exists(const std::string &path)
     return exists;
 }
 
-platform_filesystem_interface::files platform_filesystem_interface::list(const std::string & /*path*/)
+auto platform_filesystem_interface::list(const std::string & /*path*/) const -> std::vector<file_entry>
 {
     AEON_LOG_FATAL(logger_) << "Called filesystem list which is not implemented." << std::endl;
     throw std::runtime_error("Not yet implemented.");

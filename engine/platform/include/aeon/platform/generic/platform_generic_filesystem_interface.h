@@ -35,12 +35,13 @@ public:
     platform_filesystem_interface();
     virtual ~platform_filesystem_interface() = default;
 
-    std::shared_ptr<platform::platform_file_interface> open_file(const std::string &path, const int openmode) override;
-    bool exists(const std::string &path) override;
-    files list(const std::string &path) override;
+    auto open_file(const std::string &path, const int openmode) const
+        -> std::shared_ptr<platform::platform_file_interface> override;
+    auto exists(const std::string &path) const -> bool override;
+    auto list(const std::string &path) const -> std::vector<file_entry> override;
 
 private:
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 };
 
 } // namespace generic

@@ -17,6 +17,7 @@
 
 #include <aeon/platform/platform_filesystem_interface.h>
 #include <aeon/common/exception.h>
+#include <aeon/utility.h>
 #include <memory>
 
 namespace aeon
@@ -24,7 +25,7 @@ namespace aeon
 namespace platform
 {
 
-class platform_interface
+class platform_interface : utility::noncopyable
 {
 public:
     explicit platform_interface(std::unique_ptr<platform_filesystem_interface> filesystem_interface)
@@ -37,7 +38,7 @@ public:
     /*!
      * Get the subsystem for filesystem interaction for this platform.
      */
-    platform_filesystem_interface &get_filesystem_interface() const
+    auto &get_filesystem_interface() const
     {
         platform_filesystem_interface *filesystem_interface = filesystem_interface_.get();
         return *filesystem_interface;

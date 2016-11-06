@@ -48,12 +48,12 @@ public:
 
     virtual ~scene_object() = default;
 
-    scene_object_type get_type() const
+    auto get_type() const
     {
         return type_;
     }
 
-    int get_queue_group() const
+    auto get_queue_group() const
     {
         return queue_group_;
     }
@@ -72,7 +72,7 @@ public:
      * Get the calculated matrix from the scene node. If this object is not attached
      * to any scene node, an identity matrix will be returned.
      */
-    glm::mat4 get_scene_matrix() const;
+    auto get_scene_matrix() const -> glm::mat4;
 
 protected:
     void __set_scene_node(scene_node *node)

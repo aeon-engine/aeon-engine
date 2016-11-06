@@ -32,7 +32,7 @@ public:
                                     const std::weak_ptr<resource_provider> &provider);
     virtual ~image_resource_wrapper() = default;
 
-    std::shared_ptr<image> open();
+    auto open() -> std::shared_ptr<image>;
 };
 
 } // namespace resources

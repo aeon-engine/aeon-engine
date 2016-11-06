@@ -44,12 +44,12 @@ public:
     virtual ~filesystem_provider();
 
 private:
-    bool exists(const std::string &path) override;
-    std::vector<resource_node> list(const std::string &path) override;
+    auto exists(const std::string &path) const -> bool override;
+    auto list(const std::string &path) const -> std::vector<resource_node> override;
     void read(const std::string &path, std::vector<std::uint8_t> &buffer) override;
-    resource_encoding get_encoding(const std::string &path) const override;
+    auto get_encoding(const std::string &path) const -> resource_encoding override;
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 
     std::string base_path_;
 };

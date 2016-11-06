@@ -32,7 +32,7 @@ public:
                                     const std::weak_ptr<resource_provider> &provider);
     virtual ~atlas_resource_wrapper() = default;
 
-    std::shared_ptr<atlas> open();
+    auto open() -> std::shared_ptr<atlas>;
 };
 
 } // namespace resources

@@ -47,19 +47,19 @@ public:
     codec_manager();
     ~codec_manager() = default;
 
-    codec &get_codec(resource_encoding encoding);
-    image_codec &get_image_codec(resource_encoding encoding);
-    material_codec &get_material_codec();
-    shader_codec &get_shader_codec();
-    atlas_codec &get_atlas_codec();
-    mesh_codec &get_mesh_codec(resource_encoding encoding);
+    auto get_codec(const resource_encoding encoding) const -> codec &;
+    auto get_image_codec(const resource_encoding encoding) const -> image_codec &;
+    auto get_material_codec() const -> material_codec &;
+    auto get_shader_codec() const -> shader_codec &;
+    auto get_atlas_codec() const -> atlas_codec &;
+    auto get_mesh_codec(const resource_encoding encoding) const -> mesh_codec &;
 
-    resource_type get_resource_type_by_encoding(resource_encoding encoding) const;
+    auto get_resource_type_by_encoding(const resource_encoding encoding) const -> resource_type;
 
 private:
     void __register_codecs();
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
     codec_map codecs_;
 };
 

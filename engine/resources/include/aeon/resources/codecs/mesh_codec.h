@@ -35,8 +35,8 @@ public:
     mesh_codec() = default;
     virtual ~mesh_codec() = default;
 
-    virtual std::shared_ptr<mesh> decode(resource_manager &parent,
-                                         const std::shared_ptr<mesh_resource_wrapper> &wrapper) = 0;
+    virtual auto decode(resource_manager &parent, const std::shared_ptr<mesh_resource_wrapper> &wrapper) const
+        -> std::shared_ptr<mesh> = 0;
 };
 
 } // namespace resources

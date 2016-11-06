@@ -28,8 +28,8 @@ mesh_node::mesh_node(const std::string &name, const glm::mat4 &matrix, const std
 {
 }
 
-mesh_node &mesh_node::create_child(const std::string &name, const glm::mat4 &matrix,
-                                   const std::vector<submesh *> &submeshes)
+auto mesh_node::create_child(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
+    -> mesh_node &
 {
     auto mesh = std::unique_ptr<mesh_node>(new mesh_node(name, matrix, submeshes));
     auto mesh_ptr = mesh.get();
@@ -37,21 +37,6 @@ mesh_node &mesh_node::create_child(const std::string &name, const glm::mat4 &mat
     children_.emplace_back(std::move(mesh));
 
     return *mesh_ptr;
-}
-
-std::vector<mesh_node *> mesh_node::get_children() const
-{
-    return utility::container::unique_ptr_to_raw_ptr(children_);
-}
-
-std::vector<submesh *> mesh_node::get_submeshes() const
-{
-    return submeshes_;
-}
-
-const glm::mat4 &mesh_node::get_matrix() const
-{
-    return matrix_;
 }
 
 } // namespace resources

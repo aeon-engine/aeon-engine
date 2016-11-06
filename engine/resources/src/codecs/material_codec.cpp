@@ -31,12 +31,13 @@ material_codec::material_codec()
 {
 }
 
-resource_encoding material_codec::get_codec_type() const
+auto material_codec::get_codec_type() const -> resource_encoding
 {
     return resource_encoding::material;
 }
 
-std::shared_ptr<material> material_codec::decode(const std::shared_ptr<material_resource_wrapper> &wrapper) const
+auto material_codec::decode(const std::shared_ptr<material_resource_wrapper> &wrapper) const
+    -> std::shared_ptr<material>
 {
     AEON_LOG_DEBUG(logger_) << "Decoding material resource." << std::endl;
 

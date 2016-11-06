@@ -33,27 +33,27 @@ namespace generic
 class platform_file_interface : public platform::platform_file_interface
 {
 public:
-    explicit platform_file_interface(const std::string &path, int openmode);
+    explicit platform_file_interface(const std::string &path, const int openmode);
     virtual ~platform_file_interface() override;
 
     void read(std::vector<std::uint8_t> &buffer) override;
-    void read(std::vector<std::uint8_t> &buffer, int size) override;
+    void read(std::vector<std::uint8_t> &buffer, const int size) override;
 
     void write(std::vector<std::uint8_t> &buffer) override;
-    void write(std::vector<std::uint8_t> &buffer, int size) override;
+    void write(std::vector<std::uint8_t> &buffer, const int size) override;
 
-    void seek_read(seek_direction direction, int offset) override;
-    void seek_write(seek_direction direction, int offset) override;
+    void seek_read(seek_direction direction, const int offset) override;
+    void seek_write(seek_direction direction, const int offset) override;
 
-    int get_size() override;
+    auto get_size() const -> int override;
 
 private:
-    int __open_mode_to_stream_open_mode(const int openmode) const;
-    streams::file_mode __open_mode_to_stream_file_mode(const int openmode) const;
+    auto __open_mode_to_stream_open_mode(const int openmode) const -> int;
+    auto __open_mode_to_stream_file_mode(const int openmode) const -> streams::file_mode;
 
-    streams::stream::seek_direction __to_streams_seek_direction(seek_direction direction) const;
+    auto __to_streams_seek_direction(const seek_direction direction) const -> streams::stream::seek_direction;
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 
     streams::file_stream_ptr stream_;
 };

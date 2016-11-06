@@ -21,7 +21,7 @@ namespace aeon
 namespace scene
 {
 
-glm::mat4 scene_object::get_scene_matrix() const
+auto scene_object::get_scene_matrix() const -> glm::mat4
 {
     if (!scene_node_)
         return glm::mat4(1.0f);

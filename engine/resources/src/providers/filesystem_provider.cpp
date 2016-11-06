@@ -41,14 +41,14 @@ filesystem_provider::~filesystem_provider()
     AEON_LOG_TRACE(logger_) << "Deleted Filesystem Provider for base path: '" << base_path_ << "'." << std::endl;
 }
 
-bool filesystem_provider::exists(const std::string &path)
+auto filesystem_provider::exists(const std::string &path) const -> bool
 {
     auto &platform = __get_resource_manager()->get_platform_interface();
     auto &filesystem_interface = platform.get_filesystem_interface();
     return filesystem_interface.exists(__get_real_path(base_path_, path));
 }
 
-std::vector<resource_node> filesystem_provider::list(const std::string & /*path*/)
+auto filesystem_provider::list(const std::string & /*path*/) const -> std::vector<resource_node>
 {
     AEON_LOG_ERROR(logger_) << "List method is not implemented yet." << std::endl;
     throw std::runtime_error("Not yet implemented.");
@@ -77,7 +77,7 @@ void filesystem_provider::read(const std::string &path, std::vector<std::uint8_t
     buffer = std::move(read_buffer);
 }
 
-resource_encoding filesystem_provider::get_encoding(const std::string &path) const
+auto filesystem_provider::get_encoding(const std::string &path) const -> resource_encoding
 {
     auto offset = path.find_last_of('.');
 

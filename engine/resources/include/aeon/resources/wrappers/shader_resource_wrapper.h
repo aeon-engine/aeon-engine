@@ -32,7 +32,7 @@ public:
                                      const std::weak_ptr<resource_provider> &provider);
     virtual ~shader_resource_wrapper() = default;
 
-    std::shared_ptr<shader> open();
+    auto open() -> std::shared_ptr<shader>;
 };
 
 } // namespace resources

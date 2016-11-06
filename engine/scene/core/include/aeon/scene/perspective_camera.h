@@ -26,9 +26,10 @@ namespace scene
 class perspective_camera : public camera
 {
 public:
-    explicit perspective_camera(scene_manager *scene_manager, float fov_y, float aspect_ratio, float near, float far);
-    explicit perspective_camera(scene_manager *scene_manager, float fov, float width, float height, float near,
-                                float far);
+    explicit perspective_camera(scene_manager *scene_manager, const float fov_y, const float aspect_ratio,
+                                const float near, const float far);
+    explicit perspective_camera(scene_manager *scene_manager, const float fov, const float width, const float height,
+                                const float near, const float far);
     virtual ~perspective_camera() = default;
 };
 

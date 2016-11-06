@@ -54,24 +54,25 @@ public:
     void mount(const std::shared_ptr<resource_provider> &provider, const std::string &mountpoint = "/");
     void unmount(const std::string &mountpoint);
 
-    std::shared_ptr<image_resource_wrapper> load_image_wrapper(const std::string &path);
-    std::shared_ptr<material_resource_wrapper> load_material_wrapper(const std::string &path);
-    std::shared_ptr<shader_resource_wrapper> load_shader_wrapper(const std::string &path);
-    std::shared_ptr<atlas_resource_wrapper> load_atlas_wrapper(const std::string &path);
-    std::shared_ptr<mesh_resource_wrapper> load_mesh_wrapper(const std::string &path);
+    auto load_image_wrapper(const std::string &path) -> std::shared_ptr<image_resource_wrapper>;
+    auto load_material_wrapper(const std::string &path) -> std::shared_ptr<material_resource_wrapper>;
+    auto load_shader_wrapper(const std::string &path) -> std::shared_ptr<shader_resource_wrapper>;
+    auto load_atlas_wrapper(const std::string &path) -> std::shared_ptr<atlas_resource_wrapper>;
+    auto load_mesh_wrapper(const std::string &path) -> std::shared_ptr<mesh_resource_wrapper>;
 
-    platform::platform_interface &get_platform_interface()
+    auto &get_platform_interface()
     {
         return platform_;
     }
 
-    codec_manager &get_codec_manager()
+    auto &get_codec_manager()
     {
         return codec_manager_;
     }
 
 private:
-    std::shared_ptr<resource_provider> __find_best_match_provider(const std::string &path, std::string &provider_path);
+    auto __find_best_match_provider(const std::string &path, std::string &provider_path)
+        -> std::shared_ptr<resource_provider>;
 
     aeon::logger::logger logger_;
     platform::platform_interface &platform_;

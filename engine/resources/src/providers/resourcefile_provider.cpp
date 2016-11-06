@@ -25,12 +25,12 @@ resourcefile_provider::resourcefile_provider(const std::string &base_path)
 {
 }
 
-bool resourcefile_provider::exists(const std::string &)
+auto resourcefile_provider::exists(const std::string &) const -> bool
 {
     throw resourcefile_provider_not_implemented_exception();
 }
 
-std::vector<resource_node> resourcefile_provider::list(const std::string &)
+auto resourcefile_provider::list(const std::string &) const -> std::vector<resource_node>
 {
     throw resourcefile_provider_not_implemented_exception();
 }
@@ -40,7 +40,7 @@ void resourcefile_provider::read(const std::string &, std::vector<std::uint8_t> 
     throw resourcefile_provider_not_implemented_exception();
 }
 
-resource_encoding resourcefile_provider::get_encoding(const std::string &) const
+auto resourcefile_provider::get_encoding(const std::string &) const -> resource_encoding
 {
     throw resourcefile_provider_not_implemented_exception();
 }

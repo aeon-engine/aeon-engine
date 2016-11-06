@@ -29,7 +29,7 @@ material_resource_wrapper::material_resource_wrapper(resource_manager &parent, c
         throw resource_type_exception();
 }
 
-std::shared_ptr<material> material_resource_wrapper::open()
+auto material_resource_wrapper::open() -> std::shared_ptr<material>
 {
     auto &codec = __get_parent().get_codec_manager().get_material_codec();
     return codec.decode(std::dynamic_pointer_cast<material_resource_wrapper>(shared_from_this()));

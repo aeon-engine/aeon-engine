@@ -33,43 +33,13 @@ sprite::sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &
     __upload_mesh_data();
 }
 
-void sprite::set_size(const glm::vec2 size)
-{
-    size_ = size;
-}
-
-void sprite::set_size(const float width, const float height)
-{
-    size_ = glm::vec2(width, height);
-}
-
-glm::vec2 sprite::get_size() const
-{
-    return size_;
-}
-
-std::shared_ptr<gfx::atlas> sprite::get_atlas() const
-{
-    return atlas_;
-}
-
-void sprite::set_atlas_region(const data::atlas::region &region)
-{
-    region_ = region;
-}
-
-data::atlas::region sprite::get_atlas_region() const
-{
-    return region_;
-}
-
 void sprite::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, const float dt)
 {
     update(dt);
     mesh_->render(projection, view, model);
 }
 
-void sprite::update(float)
+void sprite::update(const float)
 {
 }
 

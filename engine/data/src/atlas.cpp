@@ -45,7 +45,7 @@ const atlas::region &atlas::at(const int index) const
 
 const atlas::region &atlas::at(const std::string &name) const
 {
-    for (const atlas::region &region : regions_)
+    for (const auto &region : regions_)
     {
         if (region.name == name)
             return region;

@@ -38,7 +38,7 @@ public:
     explicit camera(scene_manager *scene_manager);
     virtual ~camera() = default;
 
-    void render_scene(gfx::render_target &rt, gfx::viewport &vp, float dt) override;
+    void render_scene(gfx::render_target &rt, gfx::viewport &vp, const float dt) override;
 };
 
 } // namespace scene

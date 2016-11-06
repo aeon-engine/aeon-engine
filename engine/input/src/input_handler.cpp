@@ -20,8 +20,8 @@ namespace aeon
 namespace input
 {
 
-void input_handler::handle_keyboard_key_state_changed_event(keyboard_key key, keyboard_key_state key_state,
-                                                            int modifier)
+void input_handler::handle_keyboard_key_state_changed_event(const keyboard_key key, const keyboard_key_state key_state,
+                                                            const int modifier)
 {
     for (auto listener : listeners_)
     {
@@ -29,7 +29,7 @@ void input_handler::handle_keyboard_key_state_changed_event(keyboard_key key, ke
     }
 }
 
-void input_handler::handle_mouse_move_event(float x, float y)
+void input_handler::handle_mouse_move_event(const float x, const float y)
 {
     for (auto listener : listeners_)
     {
@@ -37,7 +37,7 @@ void input_handler::handle_mouse_move_event(float x, float y)
     }
 }
 
-void input_handler::handle_mouse_button_event(mouse_button button, mouse_button_state button_state)
+void input_handler::handle_mouse_button_event(const mouse_button button, const mouse_button_state button_state)
 {
     for (auto listener : listeners_)
     {
@@ -45,7 +45,7 @@ void input_handler::handle_mouse_button_event(mouse_button button, mouse_button_
     }
 }
 
-void input_handler::handle_mouse_scroll_event(float x, float y)
+void input_handler::handle_mouse_scroll_event(const float x, const float y)
 {
     for (auto listener : listeners_)
     {

@@ -28,7 +28,7 @@ scene_node::scene_node()
 {
 }
 
-std::shared_ptr<scene_node> scene_node::create_child_scene_node()
+auto scene_node::create_child_scene_node() -> std::shared_ptr<scene_node>
 {
     auto node = std::shared_ptr<scene_node>(new scene_node());
     attach_child(node);
@@ -119,7 +119,7 @@ void scene_node::set_matrix(const glm::mat4 &matrix)
     dirty_ = true;
 }
 
-void scene_node::translate(float x, float y, float z /* = 0 */)
+void scene_node::translate(const float x, const float y, const float z /* = 0 */)
 {
     matrix_ = glm::translate(matrix_, glm::vec3(x, y, z));
     dirty_ = true;
@@ -131,7 +131,7 @@ void scene_node::translate(const glm::vec3 &vector)
     dirty_ = true;
 }
 
-void scene_node::rotate(float x, float y, float z, const transform_space space)
+void scene_node::rotate(const float x, const float y, const float z, const transform_space space)
 {
     rotate(glm::quat(glm::vec3(x, y, z)), space);
 }
@@ -141,7 +141,7 @@ void scene_node::rotate(const glm::vec3 &vector, const transform_space space)
     rotate(glm::quat(vector), space);
 }
 
-void scene_node::rotate(float angle, const transform_space space)
+void scene_node::rotate(const float angle, const transform_space space)
 {
     rotate(glm::quat(glm::vec3(0.0f, 0.0f, angle)), space);
 }
@@ -163,7 +163,7 @@ void scene_node::rotate(const glm::quat &quat, const transform_space space)
     dirty_ = true;
 }
 
-void scene_node::scale(float x, float y, float z)
+void scene_node::scale(const float x, const float y, const float z)
 {
     auto scale_vector = glm::vec3(x, y, z);
     scale(scale_vector);
@@ -174,7 +174,7 @@ void scene_node::scale(const glm::vec3 &vector)
     matrix_ = glm::scale(matrix_, vector);
 }
 
-void scene_node::scale(float xyz)
+void scene_node::scale(const float xyz)
 {
     auto scale_vector = glm::vec3(xyz, xyz, xyz);
     scale(scale_vector);
@@ -200,11 +200,6 @@ std::vector<std::reference_wrapper<scene_node>> scene_node::get_children_refs() 
     return children;
 }
 
-const std::vector<std::shared_ptr<scene_object>> &scene_node::get_scene_objects() const
-{
-    return scene_objects_;
-}
-
 void scene_node::cleanup_children()
 {
     for (auto &node : children_)
@@ -216,7 +211,7 @@ void scene_node::cleanup_children()
     detach_all_children();
 }
 
-std::shared_ptr<scene_node> scene_node::clone()
+auto scene_node::clone() -> std::shared_ptr<scene_node>
 {
     auto node_copy = std::shared_ptr<scene_node>(new scene_node());
     node_copy->scene_objects_ = scene_objects_;

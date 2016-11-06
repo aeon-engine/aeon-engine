@@ -34,11 +34,23 @@ class mesh_node : public utility::noncopyable
 public:
     ~mesh_node() = default;
 
-    mesh_node &create_child(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);
-    std::vector<mesh_node *> get_children() const;
-    std::vector<submesh *> get_submeshes() const;
+    auto create_child(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
+        -> mesh_node &;
 
-    const glm::mat4 &get_matrix() const;
+    auto get_children() const
+    {
+        return utility::container::unique_ptr_to_raw_ptr(children_);
+    }
+
+    const auto &get_submeshes() const
+    {
+        return submeshes_;
+    }
+
+    const auto &get_matrix() const
+    {
+        return matrix_;
+    }
 
 private:
     explicit mesh_node(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);

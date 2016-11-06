@@ -14,7 +14,6 @@
  */
 
 #include <aeon/resources/mesh.h>
-#include <aeon/utility.h>
 
 namespace aeon
 {
@@ -45,31 +44,10 @@ void mesh::create_submesh(const int id, const std::string &name, data::index_dat
                           data::vertex_data_buffer &&vertices, const std::string &material)
 {
     submeshes_.emplace_back(
-        std::move(std::unique_ptr<submesh>(new submesh(id, name, std::move(indices), std::move(vertices), material))));
+        std::move(std::make_unique<submesh>(id, name, std::move(indices), std::move(vertices), material)));
 }
 
-std::string &mesh::get_material_by_id(const int id)
-{
-    return materials_.at(id);
-}
-
-submesh *mesh::get_submesh_by_id(const int id)
-{
-    for (auto &submesh : submeshes_)
-    {
-        if (submesh->get_id() == id)
-            return submesh.get();
-    }
-
-    return nullptr;
-}
-
-std::vector<submesh *> mesh::get_submeshes() const
-{
-    return utility::container::unique_ptr_to_raw_ptr(submeshes_);
-}
-
-mesh_node &mesh::create_root_mesh_node(const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
+auto mesh::create_root_mesh_node(const glm::mat4 &matrix, const std::vector<submesh *> &submeshes) -> mesh_node &
 {
     assert(root_mesh_node_ == nullptr);
     root_mesh_node_ =
@@ -77,7 +55,7 @@ mesh_node &mesh::create_root_mesh_node(const glm::mat4 &matrix, const std::vecto
     return *root_mesh_node_.get();
 }
 
-mesh_node &mesh::get_root_mesh_node() const
+auto mesh::get_root_mesh_node() const -> mesh_node &
 {
     assert(root_mesh_node_ != nullptr);
     return *root_mesh_node_.get();

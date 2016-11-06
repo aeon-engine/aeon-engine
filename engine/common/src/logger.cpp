@@ -23,7 +23,7 @@ namespace common
 {
 
 logger::logger()
-    : aeon::logger::simple_sink_backend(aeon::logger::log_level::trace)
+    : logger::simple_sink_backend(aeon::logger::log_level::trace)
     , stream_sink_(io_stream_)
 {
     add_sink(&stream_sink_);

@@ -50,7 +50,7 @@ public:
     /*!
      * Create a new scene node attached to this scene node.
      */
-    std::shared_ptr<scene_node> create_child_scene_node();
+    auto create_child_scene_node() -> std::shared_ptr<scene_node>;
 
     /*!
      * Attach a scene node to this node. This will automatically detach the given node from it's current parent,
@@ -109,7 +109,7 @@ public:
      * Translate the internal matrix.
      * Sets the dirty flag.
      */
-    void translate(float x, float y, float z = 0);
+    void translate(const float x, const float y, const float z = 0);
 
     /*!
      * Translate the internal matrix.
@@ -121,7 +121,7 @@ public:
      * Rotate the internal matrix. Angles are in radians.
      * Sets the dirty flag.
      */
-    void rotate(float x, float y, float z, const transform_space space = transform_space::local);
+    void rotate(const float x, const float y, const float z, const transform_space space = transform_space::local);
 
     /*!
      * Rotate the internal matrix. Angles given in the vector are in radians.
@@ -135,7 +135,7 @@ public:
      * orthographic views.
      * Sets the dirty flag.
      */
-    void rotate(float angle, const transform_space space = transform_space::local);
+    void rotate(const float angle, const transform_space space = transform_space::local);
 
     /*!
      * Rotate the internal matrix through a quaternion. The transform space determines how the rotation is applied.
@@ -147,7 +147,7 @@ public:
      * Scale the internal matrix.
      * Sets the dirty flag.
      */
-    void scale(float x, float y, float z);
+    void scale(const float x, const float y, const float z);
 
     /*!
      * Scale the internal matrix.
@@ -159,7 +159,7 @@ public:
      * Scale the internal matrix uniformly across all axis.
      * Sets the dirty flag.
      */
-    void scale(float xyz);
+    void scale(const float xyz);
 
     /*!
      * Multiply the internal matrix with another matrix.
@@ -171,7 +171,7 @@ public:
      * Get the internal matrix of this scene node. This matrix is not multiplied with any parent nodes; use
      * get_total_matrix() for that.
      */
-    const glm::mat4 &get_matrix() const
+    const auto &get_matrix() const
     {
         return matrix_;
     }
@@ -181,7 +181,7 @@ public:
      * If this node is flagged is dirty (see: is_dirty()), this value may be incorrect. Use recalculate_matrices() if
      * you want to be sure of a correct value;
      */
-    const glm::mat4 &get_total_matrix() const
+    const auto &get_total_matrix() const
     {
         return total_matrix_;
     }
@@ -191,7 +191,7 @@ public:
      * If this node is flagged is dirty (see: is_dirty()), this value may be incorrect. Use recalculate_matrices() if
      * you want to be sure of a correct value;
      */
-    glm::vec4 get_center_point() const
+    auto get_center_point() const
     {
         return total_matrix_ * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
     }
@@ -199,7 +199,7 @@ public:
     /*!
      * Get the parent this scene node is attached to. Equals nullptr if this node isn't attached to anything.
      */
-    std::shared_ptr<scene_node> get_parent() const
+    auto get_parent() const
     {
         return parent_;
     }
@@ -207,7 +207,7 @@ public:
     /*!
      * Returns true if this scene node was modified in any way since the last call to recalculate_matrices.
      */
-    bool is_dirty() const
+    auto is_dirty() const
     {
         return dirty_;
     }
@@ -220,7 +220,7 @@ public:
     /*!
      * Make a deepcopy of this scene node and all it's children so that it can be attached somewhere else.
      */
-    std::shared_ptr<scene_node> clone();
+    auto clone() -> std::shared_ptr<scene_node>;
 
     /*!
      * Get a vector of references to all children.
@@ -230,7 +230,10 @@ public:
     /*!
      * Get all attached objects to this node
      */
-    const std::vector<std::shared_ptr<scene_object>> &get_scene_objects() const;
+    const auto &get_scene_objects() const
+    {
+        return scene_objects_;
+    }
 
 private:
     /*!

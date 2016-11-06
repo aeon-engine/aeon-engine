@@ -33,18 +33,18 @@ public:
     explicit shader(const std::shared_ptr<resource_wrapper> &wrapper, data::shader &&shader_data);
     virtual ~shader();
 
-    std::shared_ptr<shader_resource_wrapper> get_material_resource_wrapper() const
+    auto get_material_resource_wrapper() const
     {
         return std::dynamic_pointer_cast<shader_resource_wrapper>(get_resource_wrapper());
     }
 
-    const data::shader &get_data() const
+    const auto &get_data() const
     {
         return shader_data_;
     }
 
 private:
-    aeon::logger::logger logger_;
+    logger::logger logger_;
     data::shader shader_data_;
 };
 

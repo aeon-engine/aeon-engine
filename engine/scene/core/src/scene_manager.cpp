@@ -35,17 +35,12 @@ scene_manager::~scene_manager()
     cleanup_scene();
 }
 
-scene_node &scene_manager::get_root_scene_node() const
-{
-    return *root_node_;
-}
-
-std::shared_ptr<scene_node> scene_manager::create_child_scene_node() const
+auto scene_manager::create_child_scene_node() const -> std::shared_ptr<scene_node>
 {
     return root_node_->create_child_scene_node();
 }
 
-std::shared_ptr<scene_node> scene_manager::create_detached_scene_node() const
+auto scene_manager::create_detached_scene_node() const -> std::shared_ptr<scene_node>
 {
     return std::shared_ptr<scene_node>(new scene_node());
 }
@@ -60,12 +55,7 @@ void scene_manager::cleanup_scene() const
     root_node_->cleanup_children();
 }
 
-gfx::device &scene_manager::get_device() const
-{
-    return device_;
-}
-
-void scene_manager::__render_scene(camera &cam, gfx::render_target &rt, gfx::viewport &vp, float dt)
+void scene_manager::__render_scene(camera &cam, gfx::render_target &rt, gfx::viewport &vp, const float dt)
 {
     device_.set_viewport(rt, vp);
     device_.clear_buffer(gfx::buffer_clear_flag::depth_buffer);

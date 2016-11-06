@@ -37,18 +37,18 @@ public:
 
     virtual ~image();
 
-    const data::image &get_data() const
+    const auto &get_data() const
     {
         return image_data_;
     }
 
-    std::shared_ptr<image_resource_wrapper> get_image_resource_wrapper() const
+    auto get_image_resource_wrapper() const
     {
         return std::dynamic_pointer_cast<image_resource_wrapper>(get_resource_wrapper());
     }
 
 private:
-    aeon::logger::logger logger_;
+    logger::logger logger_;
     data::image image_data_;
 };
 

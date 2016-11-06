@@ -30,16 +30,15 @@ shader_codec::shader_codec()
 {
 }
 
-resource_encoding shader_codec::get_codec_type() const
+auto shader_codec::get_codec_type() const -> resource_encoding
 {
     return resource_encoding::material;
 }
 
-std::shared_ptr<shader> shader_codec::decode(resource_manager & /*parent*/,
-                                             const std::shared_ptr<shader_resource_wrapper> &wrapper)
+auto shader_codec::decode(resource_manager & /*parent*/, const std::shared_ptr<shader_resource_wrapper> &wrapper) const
+    -> std::shared_ptr<shader>
 {
     // TODO: Add error handling for missing segments in the resource file
-
     AEON_LOG_DEBUG(logger_) << "Decoding shader resource." << std::endl;
 
     auto input = std::vector<std::uint8_t>();

@@ -30,13 +30,13 @@ atlas_codec::atlas_codec()
 {
 }
 
-resource_encoding atlas_codec::get_codec_type() const
+auto atlas_codec::get_codec_type() const -> resource_encoding
 {
     return resource_encoding::atlas;
 }
 
-std::shared_ptr<atlas> atlas_codec::decode(resource_manager &parent,
-                                           const std::shared_ptr<atlas_resource_wrapper> &wrapper)
+auto atlas_codec::decode(resource_manager &parent, const std::shared_ptr<atlas_resource_wrapper> &wrapper) const
+    -> std::shared_ptr<atlas>
 {
     AEON_LOG_DEBUG(logger_) << "Decoding atlas resource." << std::endl;
 
@@ -73,7 +73,7 @@ std::shared_ptr<atlas> atlas_codec::decode(resource_manager &parent,
     return std::make_shared<resources::atlas>(wrapper, material_res_wrapper->get_path(), atlas_data);
 }
 
-common::types::rectangle<float> atlas_codec::__atlas_string_to_data(const std::string &str) const
+auto atlas_codec::__atlas_string_to_data(const std::string &str) const -> common::types::rectangle<float>
 {
     auto items = utility::string::split(str, ',');
 

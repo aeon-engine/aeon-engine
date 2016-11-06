@@ -36,20 +36,40 @@ public:
 
     virtual ~sprite() = default;
 
-    void set_size(const glm::vec2 size);
-    void set_size(const float width, float height);
+    void set_size(const glm::vec2 size)
+    {
+        size_ = size;
+    }
 
-    glm::vec2 get_size() const;
+    void set_size(const float width, const float height)
+    {
+        size_ = glm::vec2(width, height);
+    }
 
-    std::shared_ptr<gfx::atlas> get_atlas() const;
+    auto get_size() const
+    {
+        return size_;
+    }
 
-    void set_atlas_region(const data::atlas::region &region);
-    data::atlas::region get_atlas_region() const;
+    const auto &get_atlas() const
+    {
+        return atlas_;
+    }
+
+    void set_atlas_region(const data::atlas::region &region)
+    {
+        region_ = region;
+    }
+
+    const auto &get_atlas_region() const
+    {
+        return region_;
+    }
 
     void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model,
                 const float dt) override;
 
-    virtual void update(float /*dt*/);
+    virtual void update(const float /*dt*/);
 
 protected:
     void __upload_mesh_data() const;
