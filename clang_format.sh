@@ -8,3 +8,4 @@ function format {
 
 format $(PWD)/engine
 format $(PWD)/examples
+format $(PWD)/dep/libaeon

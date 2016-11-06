@@ -62,7 +62,7 @@ public:
      * or a nullptr. If the object was found to be expired, a garbage collection will be triggered to
      * clean up expired weak pointers.
      */
-    std::shared_ptr<T> get_cached_object(const std::string &name)
+    auto get_cached_object(const std::string &name) -> std::shared_ptr<T>
     {
         auto result = objects_.find(name);
 

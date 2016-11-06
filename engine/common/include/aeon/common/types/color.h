@@ -114,7 +114,7 @@ color convert_to_rgb(const color_hsv &c);
 color_yuv convert_to_yuv(const color &c);
 
 /*!
-* Convert HSV to RGB.
+* Convert RGB to HSV.
 */
 color_hsv convert_to_hsv(const color &c);
 

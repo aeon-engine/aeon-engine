@@ -60,7 +60,7 @@ public:
     /*!
      * Get the z-order for this object.
      */
-    int get_zorder() const
+    auto get_zorder() const
     {
         return zorder_;
     }

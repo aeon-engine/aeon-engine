@@ -53,7 +53,7 @@ public:
      * Get the cached name of this object. Usually this is a file name or path.
      * \return The cached name of this object.
      */
-    const std::string &get_cached_name() const
+    const auto &get_cached_name() const
     {
         return name_;
     }
