@@ -23,13 +23,12 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_window::gfx_gl_window(gfx_gl_device &device, platform::platform_interface &interface,
-                             const gfx_window_settings &settings, GLFWmonitor *monitor)
+gfx_gl_window::gfx_gl_window(gfx_gl_device &device, platform::platform_interface &, const gfx_window_settings &settings,
+                             GLFWmonitor *monitor)
     : gfx_window(settings)
     , logger_(common::logger::get_singleton(), "Gfx::GL::Window")
     , window_(nullptr)
     , device_(device)
-    , interface_(interface)
     , cursor_mode_(mouse_cursor_mode::normal)
 {
     AEON_LOG_DEBUG(logger_) << "Creating OpenGL 3.3 core profile context with forward compatibility." << std::endl;

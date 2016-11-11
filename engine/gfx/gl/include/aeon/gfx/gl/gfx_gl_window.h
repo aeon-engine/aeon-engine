@@ -36,8 +36,8 @@ class gfx_gl_device;
 class gfx_gl_window : public gfx_window
 {
 public:
-    explicit gfx_gl_window(gfx_gl_device &device, platform::platform_interface &interface,
-                           const gfx_window_settings &settings, GLFWmonitor *monitor);
+    explicit gfx_gl_window(gfx_gl_device &device, platform::platform_interface &, const gfx_window_settings &settings,
+                           GLFWmonitor *monitor);
     ~gfx_gl_window() override;
 
     void make_current() override;
@@ -67,7 +67,6 @@ private:
 
     GLFWwindow *window_;
     gfx_gl_device &device_;
-    platform::platform_interface &interface_;
     mouse_cursor_mode cursor_mode_;
 };
 

@@ -17,7 +17,6 @@
 
 #include <aeon/gfx/gfx_camera.h>
 #include <aeon/scene/scene_object.h>
-#include <glm/mat4x4.hpp>
 #include <memory>
 
 namespace aeon

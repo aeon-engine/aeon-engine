@@ -43,8 +43,7 @@ void mesh::add_material(const std::string &name)
 void mesh::create_submesh(const int id, const std::string &name, data::index_data_buffer &&indices,
                           data::vertex_data_buffer &&vertices, const std::string &material)
 {
-    submeshes_.emplace_back(
-        std::move(std::make_unique<submesh>(id, name, std::move(indices), std::move(vertices), material)));
+    submeshes_.emplace_back(std::make_unique<submesh>(id, name, std::move(indices), std::move(vertices), material));
 }
 
 auto mesh::create_root_mesh_node(const glm::mat4 &matrix, const std::vector<submesh *> &submeshes) -> mesh_node &

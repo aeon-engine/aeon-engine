@@ -62,6 +62,11 @@ public:
         return path_;
     }
 
+    auto get_open_mode() const
+    {
+        return openmode_;
+    }
+
 protected:
     explicit platform_file_interface(const std::string &path, const int openmode)
         : openmode_(openmode)

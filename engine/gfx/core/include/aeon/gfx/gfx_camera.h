@@ -44,7 +44,7 @@ public:
         return view_matrix_;
     }
 
-    const auto &get_camera_matrix() const
+    auto get_camera_matrix() const
     {
         return projection_matrix_ * view_matrix_;
     }
