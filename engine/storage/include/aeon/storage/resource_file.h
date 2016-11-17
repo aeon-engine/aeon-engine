@@ -16,6 +16,7 @@
 #pragma once
 
 #include <aeon/platform/platform_file_interface.h>
+#include <aeon/storage/resource_file_directory.h>
 #include <string>
 #include <memory>
 
@@ -37,6 +38,8 @@ public:
     explicit resource_file(const std::string &filename, platform::platform_filesystem_interface &filesystem_interface);
     ~resource_file();
 
+    resource_file_directory &get_root_directory();
+
 private:
     void __open_existing_file();
     void __open_new_file();
@@ -46,6 +49,8 @@ private:
     std::string filename_;
     platform::platform_filesystem_interface &filesystem_interface_;
     std::unique_ptr<platform::platform_file_interface> file_interface_;
+
+    resource_file_directory root_directory_;
 };
 
 } // namespace storage

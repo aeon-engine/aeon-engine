@@ -15,38 +15,41 @@
 
 #pragma once
 
+#include <aeon/storage/resource_file_chunk.h>
 #include <string>
+#include <vector>
+#include <memory>
 
 namespace aeon
 {
 namespace storage
 {
 
-class resource_file_directory;
-
-class resource_file_chunk
+class resource_file_directory
 {
 public:
-    resource_file_chunk(resource_file_directory &parent, const std::string &name, const std::uint64_t id);
-    ~resource_file_chunk();
+    resource_file_directory(resource_file_directory *parent, const std::string &name, const std::uint64_t id);
+    ~resource_file_directory() = default;
 
     auto get_name() const -> const std::string &;
     void set_name(const std::string &name);
 
-    auto get_parent() const -> resource_file_directory &;
+    auto get_id() const -> std::uint64_t;
+
+    auto get_subdirectories() const -> const std::vector<std::unique_ptr<resource_file_directory>> &;
+    auto get_file_chunks() const -> const std::vector<std::unique_ptr<resource_file_chunk>> &;
+
+    auto get_directory(const std::string &name) -> resource_file_directory *;
+    auto get_file_chunk(const std::string &name) -> resource_file_chunk *;
 
 private:
-    resource_file_directory &parent_;
+    resource_file_directory *parent_;
 
     std::string name_;
     std::uint64_t id_;
-    std::uint64_t name_offset_;
-    std::uint32_t type_id_;
-    std::uint32_t flags_;
-    std::uint64_t offset_;
-    std::uint64_t reserved_size_;
-    std::uint64_t compressed_size_;
-    std::uint64_t actual_size_;
+
+    std::vector<std::unique_ptr<resource_file_directory>> directories_;
+    std::vector<std::unique_ptr<resource_file_chunk>> file_chunks_;
 };
 
 } // namespace storage

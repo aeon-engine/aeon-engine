@@ -41,6 +41,8 @@ resource_file_index_chunk[file_count]
 resource_file::resource_file(const std::string &filename, platform::platform_filesystem_interface &filesystem_interface)
     : filename_(filename)
     , filesystem_interface_(filesystem_interface)
+    , file_interface_(nullptr)
+    //, root_directory_(
 {
     if (filesystem_interface.exists(filename))
         __open_existing_file();
@@ -49,6 +51,11 @@ resource_file::resource_file(const std::string &filename, platform::platform_fil
 }
 
 resource_file::~resource_file() = default;
+
+resource_file_directory &resource_file::get_root_directory()
+{
+    return root_directory_;
+}
 
 void resource_file::__open_existing_file()
 {
