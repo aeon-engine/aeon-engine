@@ -36,12 +36,12 @@ void gfx_gl_monitor::set_gramma(float gamma)
 
 gamma_ramp gfx_gl_monitor::get_gamma_ramp()
 {
-    const GLFWgammaramp *ramp = glfwGetGammaRamp(monitor_);
-    gamma_ramp r;
+    const auto *ramp = glfwGetGammaRamp(monitor_);
+    auto r = gamma_ramp();
 
     for (unsigned int i = 0; i < ramp->size; ++i)
     {
-        r.push_back(gamma_ramp_data(ramp->red[i], ramp->green[i], ramp->blue[i]));
+        r.push_back({ramp->red[i], ramp->green[i], ramp->blue[i]});
     }
 
     return r;
@@ -49,11 +49,11 @@ gamma_ramp gfx_gl_monitor::get_gamma_ramp()
 
 void gfx_gl_monitor::set_gamma_ramp(gamma_ramp ramp)
 {
-    GLFWgammaramp r;
-    r.size = static_cast<unsigned int>(ramp.size());
+    auto r = GLFWgammaramp{};
     r.red = new unsigned short[r.size];
     r.green = new unsigned short[r.size];
     r.blue = new unsigned short[r.size];
+    r.size = static_cast<unsigned int>(ramp.size());
 
     for (unsigned int i = 0; i < r.size; ++i)
     {
@@ -71,22 +71,22 @@ void gfx_gl_monitor::set_gamma_ramp(gamma_ramp ramp)
 
 video_mode gfx_gl_monitor::get_video_mode()
 {
-    const GLFWvidmode *vidmode = glfwGetVideoMode(monitor_);
+    const auto *vidmode = glfwGetVideoMode(monitor_);
 
-    return video_mode(vidmode->width, vidmode->height, vidmode->redBits, vidmode->greenBits, vidmode->blueBits,
-                      vidmode->refreshRate);
+    return {vidmode->width,     vidmode->height,   vidmode->redBits,
+            vidmode->greenBits, vidmode->blueBits, vidmode->refreshRate};
 }
 
 video_modes gfx_gl_monitor::get_video_modes()
 {
     int count;
-    const GLFWvidmode *vidmodes = glfwGetVideoModes(monitor_, &count);
+    const auto *vidmodes = glfwGetVideoModes(monitor_, &count);
 
-    video_modes modes;
+    auto modes = video_modes{};
     for (int i = 0; i < count; ++i)
     {
-        modes.push_back(video_mode(vidmodes[i].width, vidmodes[i].height, vidmodes[i].redBits, vidmodes[i].greenBits,
-                                   vidmodes[i].blueBits, vidmodes[i].refreshRate));
+        modes.push_back({vidmodes[i].width, vidmodes[i].height, vidmodes[i].redBits, vidmodes[i].greenBits,
+                         vidmodes[i].blueBits, vidmodes[i].refreshRate});
     }
 
     return modes;

@@ -69,7 +69,7 @@ void gfx_gl_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
     AEON_CHECK_GL_ERROR();
 }
 
-void gfx_gl_mesh::__check_vao()
+void gfx_gl_mesh::__check_vao() const
 {
     if (index_buffer_->has_data() && vertex_buffer_->has_data() && vao_)
     {

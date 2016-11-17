@@ -26,7 +26,7 @@ namespace gfx
 class video_mode
 {
 public:
-    explicit video_mode(int w, int h, int r, int g, int b, int rr)
+    video_mode(int w, int h, int r, int g, int b, int rr)
         : width(w)
         , height(h)
         , red_bits(r)
@@ -49,7 +49,7 @@ using video_modes = std::vector<video_mode>;
 class gamma_ramp_data
 {
 public:
-    explicit gamma_ramp_data(int r, int g, int b)
+    gamma_ramp_data(int r, int g, int b)
         : red(r)
         , green(g)
         , blue(b)

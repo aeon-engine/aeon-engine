@@ -42,7 +42,7 @@ public:
     void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) override;
 
 private:
-    void __check_vao();
+    void __check_vao() const;
     void __create_and_setup_vao();
 
     aeon::logger::logger logger_;
