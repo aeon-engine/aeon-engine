@@ -28,7 +28,9 @@ namespace storage
 AEON_PACK_STRUCT_PUSH(1)
 struct resource_file_index_chunk
 {
-    std::uint8_t name[AEON_RESOURCE_FILE_CHUNK_NAME_MAX_LEN];
+    std::uint64_t id;
+    std::uint64_t parent_id;
+    std::uint64_t name_offset;
     std::uint32_t type_id;
     std::uint32_t flags;
     std::uint64_t offset;

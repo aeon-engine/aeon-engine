@@ -36,7 +36,7 @@ public:
     virtual ~platform_filesystem_interface() = default;
 
     auto open_file(const std::string &path, const int openmode) const
-        -> std::shared_ptr<platform::platform_file_interface> override;
+        -> std::unique_ptr<platform::platform_file_interface> override;
     auto exists(const std::string &path) const -> bool override;
     auto list(const std::string &path) const -> std::vector<file_entry> override;
 

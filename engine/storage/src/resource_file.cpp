@@ -28,8 +28,9 @@ namespace storage
 Resource file format
 
 Header
-Data
-resource_file_index_chunk[
+Data (RESOURCE_FILE_DEFAULT_RESERVE_ALIGNMENT aligned)
+resource_file_index_chunk[file_count]
+
 
 */
 
@@ -46,6 +47,8 @@ resource_file::resource_file(const std::string &filename, platform::platform_fil
     else
         __open_new_file();
 }
+
+resource_file::~resource_file() = default;
 
 void resource_file::__open_existing_file()
 {

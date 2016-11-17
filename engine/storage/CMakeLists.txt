@@ -1,7 +1,9 @@
 set (AEON_ENGINE_STORAGE_SOURCES
     include/aeon/storage/resource_file.h
     include/aeon/storage/resource_file_structs.h
+    include/aeon/storage/resource_file_chunk.h
     src/resource_file.cpp
+    src/resource_file_chunk.cpp
 )
 
 source_group(storage FILES ${AEON_ENGINE_STORAGE_SOURCES})

@@ -59,7 +59,7 @@ public:
     virtual ~platform_filesystem_interface() = default;
 
     virtual auto open_file(const std::string &path, const int openmode) const
-        -> std::shared_ptr<platform_file_interface> = 0;
+        -> std::unique_ptr<platform_file_interface> = 0;
     virtual auto exists(const std::string &path) const -> bool = 0;
     virtual auto list(const std::string &path) const -> std::vector<file_entry> = 0;
 };

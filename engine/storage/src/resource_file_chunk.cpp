@@ -13,17 +13,25 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gtest/gtest.h>
-#include <aeon/platform.h>
-#include <aeon/storage/resource_file.h>
-#include <aeon/storage/resource_file_structs.h>
+#include <aeon/storage/resource_file_chunk.h>
 
-AEON_IGNORE_VS_WARNING(4189)
-
-using namespace aeon;
-
-TEST(test_resource_file, test_resource_file_sanity_check)
+namespace aeon
 {
-    ASSERT_EQ(64, sizeof(storage::resource_file_index_chunk));
-    ASSERT_EQ(64, sizeof(storage::resource_file_header));
+namespace storage
+{
+
+resource_file_chunk::resource_file_chunk()
+    : name_()
+    , type_id_(0)
+    , flags_(0)
+    , offset_(0)
+    , reserved_size_(0)
+    , compressed_size_(0)
+    , actual_size_(0)
+{
 }
+
+resource_file_chunk::~resource_file_chunk() = default;
+
+} // namespace storage
+} // namespace aeon

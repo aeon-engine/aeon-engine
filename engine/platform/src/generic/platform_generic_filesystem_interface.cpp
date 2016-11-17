@@ -31,12 +31,12 @@ platform_filesystem_interface::platform_filesystem_interface()
 }
 
 auto platform_filesystem_interface::open_file(const std::string &path, const int openmode) const
-    -> std::shared_ptr<platform::platform_file_interface>
+    -> std::unique_ptr<platform::platform_file_interface>
 {
     AEON_LOG_DEBUG(logger_) << "Opening filesystem file: " << path << " (Mode: " << openmode << ")" << std::endl;
 
     // Note: we can't use make_shared due to private constructor.
-    return std::make_shared<platform::generic::platform_file_interface>(path, openmode);
+    return std::make_unique<platform::generic::platform_file_interface>(path, openmode);
 }
 
 auto platform_filesystem_interface::exists(const std::string &path) const -> bool

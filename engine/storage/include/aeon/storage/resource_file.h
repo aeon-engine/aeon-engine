@@ -17,7 +17,6 @@
 
 #include <aeon/platform/platform_file_interface.h>
 #include <string>
-#include <cstdint>
 #include <memory>
 
 namespace aeon
@@ -32,16 +31,11 @@ class platform_file_interface;
 namespace storage
 {
 
-class resource_file_chunk
-{
-public:
-};
-
 class resource_file
 {
 public:
     explicit resource_file(const std::string &filename, platform::platform_filesystem_interface &filesystem_interface);
-    ~resource_file() = default;
+    ~resource_file();
 
 private:
     void __open_existing_file();
@@ -51,7 +45,7 @@ private:
 
     std::string filename_;
     platform::platform_filesystem_interface &filesystem_interface_;
-    std::shared_ptr<platform::platform_file_interface> file_interface_;
+    std::unique_ptr<platform::platform_file_interface> file_interface_;
 };
 
 } // namespace storage
