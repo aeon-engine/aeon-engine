@@ -2,6 +2,7 @@
 *.log
 .clang-format
 bin/imgui.ini
+build_deploy
 
 # OSX
 .DS_Store
