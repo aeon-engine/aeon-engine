@@ -59,8 +59,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE TYPE INTERNAL FORCE)
 
-set(CMAKE_DEBUG_POSTFIX "_d")
-
 set(CMAKE_CXX_STANDARD 17)
 
 ################################################################################
