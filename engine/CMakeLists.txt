@@ -98,8 +98,9 @@ install(
 )
 
 install(
-    DIRECTORY ${CMAKE_BINARY_DIR}/
+    FILES
+        ${CMAKE_BINARY_DIR}/build_config.h
+        ${CMAKE_BINARY_DIR}/buildinfo.h
     DESTINATION include
-    FILES_MATCHING PATTERN "*.h"
 )
 
