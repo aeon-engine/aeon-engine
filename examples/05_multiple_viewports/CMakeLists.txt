@@ -15,3 +15,10 @@ set_target_properties(
 )
 
 set_working_dir(example_05_multiple_viewports "${CMAKE_SOURCE_DIR}/bin")
+
+install(
+    TARGETS example_05_multiple_viewports
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)

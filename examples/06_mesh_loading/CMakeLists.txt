@@ -15,3 +15,10 @@ set_target_properties(
 )
 
 set_working_dir(example_06_mesh_loading "${CMAKE_SOURCE_DIR}/bin")
+
+install(
+    TARGETS example_06_mesh_loading
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)

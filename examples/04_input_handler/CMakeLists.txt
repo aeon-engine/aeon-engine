@@ -15,3 +15,10 @@ set_target_properties(
 )
 
 set_working_dir(example_04_input_handler "${CMAKE_SOURCE_DIR}/bin")
+
+install(
+    TARGETS example_04_input_handler
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)

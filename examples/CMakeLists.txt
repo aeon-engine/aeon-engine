@@ -5,3 +5,7 @@ add_subdirectory(04_input_handler)
 add_subdirectory(05_multiple_viewports)
 add_subdirectory(06_mesh_loading)
 
+install(
+    DIRECTORY ${CMAKE_SOURCE_DIR}/bin/
+    DESTINATION bin
+)

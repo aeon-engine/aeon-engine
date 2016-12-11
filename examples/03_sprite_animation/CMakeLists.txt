@@ -15,3 +15,10 @@ set_target_properties(
 )
 
 set_working_dir(example_03_sprite_animation "${CMAKE_SOURCE_DIR}/bin")
+
+install(
+    TARGETS example_03_sprite_animation
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)

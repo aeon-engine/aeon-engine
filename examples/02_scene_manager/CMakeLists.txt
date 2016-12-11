@@ -15,3 +15,10 @@ set_target_properties(
 )
 
 set_working_dir(example_02_scene_manager "${CMAKE_SOURCE_DIR}/bin")
+
+install(
+    TARGETS example_02_scene_manager
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
