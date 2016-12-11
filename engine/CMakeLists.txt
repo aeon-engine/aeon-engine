@@ -104,3 +104,8 @@ install(
     DESTINATION include
 )
 
+install(
+    FILES
+        ${CMAKE_SOURCE_DIR}/dep/cmake/FindAeonEngine.cmake
+    DESTINATION cmake
+)
