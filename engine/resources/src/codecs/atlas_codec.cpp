@@ -65,7 +65,9 @@ auto atlas_codec::decode(resource_manager &parent, const std::shared_ptr<atlas_r
 
         auto region_rect = __atlas_string_to_data(region_entry.second);
 
-        atlas_data.push_back({region_entry.first, region_rect.x, region_rect.y, region_rect.width, region_rect.height});
+        // TODO: work out the region sizes in pixels
+        atlas_data.push_back(
+            {region_entry.first, region_rect.x, region_rect.y, region_rect.width, region_rect.height, 0, 0});
     }
 
     AEON_LOG_DEBUG(logger_) << "Found " << atlas_data.size() << " regions in atlas resource." << std::endl;

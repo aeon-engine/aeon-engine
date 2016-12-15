@@ -46,12 +46,14 @@ public:
          * Constructor for a nameless region. These can only be accessed by index.
          * Rectangle coordinates are in UV space.
          */
-        region(const float u1_, const float v1_, const float u2_, const float v2_)
+        region(const float u1, const float v1, const float u2, const float v2, const float width, const float height)
             : name()
-            , u1(u1_)
-            , v1(v1_)
-            , u2(u2_)
-            , v2(v2_)
+            , u1(u1)
+            , v1(v1)
+            , u2(u2)
+            , v2(v2)
+            , width(width)
+            , height(height)
         {
         }
 
@@ -59,12 +61,15 @@ public:
          * Constructor for a named region. These can be accessed by name or index.
          * Rectangle coordinates are in UV space.
          */
-        region(const std::string &name_, const float u1_, const float v1_, const float u2_, const float v2_)
-            : name(name_)
-            , u1(u1_)
-            , v1(v1_)
-            , u2(u2_)
-            , v2(v2_)
+        region(const std::string &name, const float u1, const float v1, const float u2, const float v2,
+               const float width, const float height)
+            : name(name)
+            , u1(u1)
+            , v1(v1)
+            , u2(u2)
+            , v2(v2)
+            , width(width)
+            , height(height)
         {
         }
 
@@ -76,6 +81,7 @@ public:
         std::string name;
         float u1, v1;
         float u2, v2;
+        float width, height;
     };
 
     /*!

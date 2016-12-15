@@ -75,7 +75,7 @@ void atlas::__calculate_atlas_regions(glm::vec2 sprite_size)
             float top = static_cast<float>(top_offset) / static_cast<float>(full_size.y);
             float bottom = static_cast<float>(top_offset + sprite_size.y) / static_cast<float>(full_size.y);
 
-            atlas_.push_back({left, top, right, bottom});
+            atlas_.push_back({left, top, right, bottom, sprite_size.x, sprite_size.y});
         }
     }
 }
