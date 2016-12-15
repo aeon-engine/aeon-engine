@@ -40,9 +40,8 @@ application::application()
 void application::main()
 {
     // Load resources
-    std::shared_ptr<aeon::gfx::material> animation_material =
-        get_asset_manager().load_material("/resources/materials/2d_character.amf");
-    std::shared_ptr<aeon::gfx::atlas> atlas = get_asset_manager().create_atlas(animation_material, glm::vec2(32, 32));
+    auto animation_material = get_asset_manager().load_material("/resources/materials/2d_character.amf");
+    auto atlas = get_asset_manager().create_atlas(animation_material, glm::vec2(32, 32));
 
     // Set up scene
     auto &root_node = scene_manager_.get_root_scene_node();
@@ -50,7 +49,7 @@ void application::main()
 
     // The parameter given to the animation settings constructor is the size of each frame inside of the sprite sheet
     // This frame size does not need to be a power of 2.
-    aeon::scene::sprite_animation_settings animation_settings(glm::vec2(32, 32));
+    auto animation_settings = aeon::scene::sprite_animation_settings(glm::vec2(32, 32));
 
     // Sequences can be generated so that different animations can be played easily. The first parameter is a handle
     // that can be any number as long as it's unique to that animation. In this example we used an enum to give each

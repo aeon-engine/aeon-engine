@@ -43,12 +43,11 @@ application::application()
 void application::main()
 {
     // Load resources
-    std::shared_ptr<aeon::gfx::material> ships_material =
-        get_asset_manager().load_material("/resources/materials/ships.amf");
+    auto ships_material = get_asset_manager().load_material("/resources/materials/ships.amf");
 
     // A sprite batch requires an atlas, we can either load one from an atlas file, or just generate one if
     // all the sprites have the same size and are properly aligned within the file.
-    std::shared_ptr<aeon::gfx::atlas> atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
+    auto atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
 
     // Set up scene
     auto &root_node = scene_manager_.get_root_scene_node();
@@ -58,7 +57,7 @@ void application::main()
 
     // Get a region from the atlas for the sprite to render. Here we grab the 10th sprite in the texture,
     // which is counted left to right, top to bottom.
-    aeon::data::atlas::region region = atlas->get_region_by_index(10);
+    auto region = atlas->get_region_by_index(10);
 
     // Create a sprite. The second parameter is the z-order; used to determine which sprite should be rendered on top
     auto ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, glm::vec2(64, 64), 0);
