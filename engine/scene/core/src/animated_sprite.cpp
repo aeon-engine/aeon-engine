@@ -22,9 +22,9 @@ namespace scene
 {
 
 animated_sprite::animated_sprite(scene_manager *scene_manager, std::shared_ptr<gfx::atlas> atlas, int zorder,
-                                 const sprite_animation_settings &settings)
+                                 sprite_animation_settings &settings)
     : sprite(scene_manager, atlas, atlas->get_region_by_index(0), settings.size_, zorder)
-    , settings_(settings)
+    , settings_(std::move(settings))
     , frame_time_(0.0f)
     , current_frame_index_(0)
     , running_(false)

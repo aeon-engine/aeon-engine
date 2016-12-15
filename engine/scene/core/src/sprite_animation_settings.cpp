@@ -29,6 +29,29 @@ sprite_animation_settings::sprite_animation_settings(const glm::vec2 frame_size)
 {
 }
 
+sprite_animation_settings::sprite_animation_settings(sprite_animation_settings &&other) noexcept
+    : start_condition_(std::move(other.start_condition_))
+    , repeat_(std::move(other.repeat_))
+    , size_(std::move(other.size_))
+    , speed_(std::move(other.speed_))
+    , default_sequence_(std::move(other.default_sequence_))
+{
+}
+
+sprite_animation_settings &sprite_animation_settings::operator=(sprite_animation_settings &&other) noexcept
+{
+    start_condition_ = std::move(other.start_condition_);
+
+    repeat_ = std::move(other.repeat_);
+    size_ = std::move(other.size_);
+    speed_ = std::move(other.speed_);
+
+    sequences_ = std::move(other.sequences_);
+    default_sequence_ = std::move(other.default_sequence_);
+
+    return *this;
+}
+
 void sprite_animation_settings::generate_sequence(const int index, const int frame_offset, const int frame_count,
                                                   const animation_sequence_type type)
 {

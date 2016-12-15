@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <aeon/utility.h>
 #include <aeon/scene/sprite.h>
 #include <aeon/common/types/rectangle.h>
 #include <map>
@@ -45,13 +46,16 @@ enum class animation_sequence_type
     up_down
 };
 
-class sprite_animation_settings
+class sprite_animation_settings : utility::noncopyable
 {
     friend class animated_sprite;
 
 public:
     sprite_animation_settings(const glm::vec2 frame_size);
     ~sprite_animation_settings() = default;
+
+    sprite_animation_settings(sprite_animation_settings &&other) noexcept;
+    sprite_animation_settings &operator=(sprite_animation_settings &&other) noexcept;
 
     void generate_sequence(const int index, const int frame_offset, const int frame_count,
                            const animation_sequence_type type);

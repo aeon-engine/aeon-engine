@@ -30,7 +30,7 @@ class animated_sprite : public sprite
 {
 public:
     explicit animated_sprite(scene_manager *scene_manager, std::shared_ptr<gfx::atlas> atlas, int zorder,
-                             const sprite_animation_settings &settings);
+                             sprite_animation_settings &settings);
 
     virtual ~animated_sprite() = default;
 
