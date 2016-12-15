@@ -59,7 +59,12 @@ if (MSVC)
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D _HAS_ITERATOR_DEBUGGING=0")
     endif ()
 
-    option(AEON_ENABLE_MSVC_MP_BUILD "Use the /MP flag in Visual Studio to use multiple processes per cpp file." ON)
+    set(_AEON_ENABLE_MSVC_DEFAULT ON)
+    if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+        set(_AEON_ENABLE_MSVC_DEFAULT OFF)
+    endif ()
+
+    option(AEON_ENABLE_MSVC_MP_BUILD "Use the /MP flag in Visual Studio to use multiple processes per cpp file." ${_AEON_ENABLE_MSVC_DEFAULT})
     if (AEON_ENABLE_MSVC_MP_BUILD)
         message (STATUS "Using Visual Studio /MP flag.")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
