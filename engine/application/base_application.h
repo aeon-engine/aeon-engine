@@ -128,12 +128,19 @@ public:
     }
 
     /*!
-     * Get a pointer to the main logger backend. Logging through this backend
-     * will log to the console log.
+     * Get a reference to the main logger. Logging through this object will log to the console log.
      */
-    logger::logger &get_logger()
+    auto &get_logger()
     {
         return logger_;
+    }
+
+    /*!
+     * Get a reference to the main logger backend. This allows for selecting the log level.
+     */
+    auto &get_logger_backend()
+    {
+        return logger_backend_;
     }
 
 private:

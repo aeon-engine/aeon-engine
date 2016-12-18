@@ -23,6 +23,11 @@ application::application()
     : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
                                                                   "Example 1 - Basic Sprite")
 {
+    // Set the log level to show only warnings and higher importance messages.
+    // During initialization the engine may still print out debug or trace messages
+    // depending on build settings.
+    get_logger_backend().set_log_level(aeon::logger::log_level::warning);
+
     // Init resources
     get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
 
