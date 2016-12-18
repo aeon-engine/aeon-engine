@@ -30,7 +30,7 @@ namespace gfx
 
 DEFINE_EXCEPTION_OBJECT(atlas_exception, aeon::common::exception, "Generic Atlas exception.");
 
-class atlas : public common::cached_object
+class atlas : public common::cached_object, public std::enable_shared_from_this<atlas>
 {
     friend class gfx_atlas_manager;
 

@@ -59,8 +59,8 @@ void application::main()
     // which is counted left to right, top to bottom.
     auto region = atlas->get_region_by_index(10);
 
-    // Create a sprite. The second parameter is the z-order; used to determine which sprite should be rendered on top
-    auto ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, glm::vec2(64, 64), 0);
+    // Create a sprite. The last parameter is the z-order; used to determine which sprite should be rendered on top
+    auto ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, 0);
 
     // Attach the sprite to the scene
     root_node.attach_scene_object(ship_sprite);

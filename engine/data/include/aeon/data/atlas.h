@@ -78,6 +78,15 @@ public:
          */
         ~region() = default;
 
+        /*!
+         * Get the size of the atlas region in pixels.
+         * If the atlas was loaded from file, it will return 0, 0.
+         */
+        auto get_size() const
+        {
+            return glm::vec2{ width, height };
+        }
+
         std::string name;
         float u1, v1;
         float u2, v2;

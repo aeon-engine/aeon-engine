@@ -32,6 +32,9 @@ class sprite : public scene_object, public common::has_z_order
 {
 public:
     explicit sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
+                    const data::atlas::region &region, const int zorder);
+
+    explicit sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
                     const data::atlas::region &region, const glm::vec2 size, const int zorder);
 
     virtual ~sprite() = default;
