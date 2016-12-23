@@ -34,6 +34,7 @@ sprite_animation_settings::sprite_animation_settings(sprite_animation_settings &
     , repeat_(std::move(other.repeat_))
     , size_(std::move(other.size_))
     , speed_(std::move(other.speed_))
+    , sequences_(std::move(other.sequences_))
     , default_sequence_(std::move(other.default_sequence_))
 {
 }
