@@ -39,6 +39,46 @@ sprite::sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &
     __upload_mesh_data();
 }
 
+auto sprite::get_axis_aligned_bounding_box() const -> common::types::rectangle<float>
+{
+    auto size_2 = glm::vec2{size_ * 0.5f};
+    auto position = get_scene_matrix() * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+
+    glm::vec2 data[] = {// Bottom left
+                        glm::vec2{-size_2.x + position.x, size_2.y + position.y},
+
+                        // Bottom right
+                        glm::vec2{size_2.x + position.x, size_2.y + position.y},
+
+                        // Top left
+                        glm::vec2{-size_2.x + position.x, -size_2.y + position.y},
+
+                        // Top right
+                        glm::vec2{size_2.x + position.x, -size_2.y + position.y}};
+
+    auto min_x = data[0].x;
+    auto max_x = data[0].x;
+    auto min_y = data[0].y;
+    auto max_y = data[0].y;
+
+    for (auto &d : data)
+    {
+        if (d.x < min_x)
+            min_x = d.x;
+
+        if (d.y < min_y)
+            min_y = d.y;
+
+        if (d.x > max_x)
+            max_x = d.x;
+
+        if (d.y > max_y)
+            max_y = d.y;
+    }
+
+    return common::types::rectangle<float>{min_x, min_y, max_x, max_y};
+}
+
 void sprite::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, const float dt)
 {
     update(dt);

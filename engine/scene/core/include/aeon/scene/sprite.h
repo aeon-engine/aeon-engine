@@ -16,6 +16,7 @@
 #pragma once
 
 #include <aeon/common/has_z_order.h>
+#include <aeon/common/types/rectangle.h>
 #include <aeon/scene/scene_object.h>
 #include <aeon/data/atlas.h>
 #include <aeon/gfx/gfx_atlas.h>
@@ -68,6 +69,12 @@ public:
     {
         return region_;
     }
+
+    /*!
+     * Get the axis aligned bounding box for this sprite. This can be used for rudimentary
+     * collision detection.
+     */
+    auto get_axis_aligned_bounding_box() const -> common::types::rectangle<float>;
 
     void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model,
                 const float dt) override;
