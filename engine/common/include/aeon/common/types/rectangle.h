@@ -18,7 +18,6 @@
 #include <typeinfo>
 #include <glm/vec2.hpp>
 #include <iostream>
-#include <cmath>
 
 namespace aeon
 {
@@ -39,21 +38,21 @@ public:
      * The begin and end template types are default constructed
      */
     rectangle()
-        : x()
-        , y()
-        , width()
-        , height()
+        : left_()
+        , top_()
+        , right_()
+        , bottom_()
     {
     }
 
     /*!
      * Constructor
      */
-    rectangle(T x_, T y_, T width_, T height_)
-        : x(x_)
-        , y(y_)
-        , width(width_)
-        , height(height_)
+    rectangle(const T left, const T top, const T right, const T bottom)
+        : left_(left)
+        , top_(top)
+        , right_(right)
+        , bottom_(bottom)
     {
     }
 
@@ -65,10 +64,10 @@ public:
      */
     template <typename U>
     explicit rectangle(const rectangle<U> &other)
-        : x(static_cast<T>(other.x))
-        , y(static_cast<T>(other.y))
-        , width(static_cast<T>(other.width))
-        , height(static_cast<T>(other.height))
+        : left_(static_cast<T>(other.left()))
+        , top_(static_cast<T>(other.top()))
+        , right_(static_cast<T>(other.right()))
+        , bottom_(static_cast<T>(other.bottom()))
     {
     }
 
@@ -79,7 +78,7 @@ public:
      */
     auto is_empty() const
     {
-        return width == T() || height == T();
+        return width() == T() || height() == T();
     }
 
     /*!
@@ -90,13 +89,44 @@ public:
     template <typename U>
     auto size() const
     {
-        return glm::vec2(width, height);
+        return glm::vec2(width(), height());
     }
 
-    T x;
-    T y;
-    T width;
-    T height;
+    auto left() const
+    {
+        return left_;
+    }
+
+    auto top() const
+    {
+        return top_;
+    }
+
+    auto right() const
+    {
+        return right_;
+    }
+
+    auto bottom() const
+    {
+        return bottom_;
+    }
+
+    auto width() const
+    {
+        return right_ - left_;
+    }
+
+    auto height() const
+    {
+        return bottom_ - top_;
+    }
+
+private:
+    T left_;
+    T top_;
+    T right_;
+    T bottom_;
 };
 
 /*!
@@ -105,7 +135,8 @@ public:
 template <typename T>
 inline bool operator==(const rectangle<T> &lhs, const rectangle<T> &rhs)
 {
-    return lhs.x == rhs.x && lhs.y == rhs.y && lhs.width == rhs.width && lhs.height == rhs.height;
+    return lhs.left() == rhs.left() && lhs.top() == rhs.top() && lhs.right() == rhs.right() &&
+           lhs.bottom() == rhs.bottom();
 }
 
 /*!
@@ -124,8 +155,8 @@ inline bool operator!=(const rectangle<T> &lhs, const rectangle<T> &rhs)
 template <typename T>
 inline std::ostream &operator<<(std::ostream &os, const rectangle<T> &rect)
 {
-    return os << "rectangle<" << typeid(T).name() << ">(" << rect.x << "," << rect.y << "," << rect.width << ","
-              << rect.height << ")";
+    return os << "rectangle<" << typeid(T).name() << ">(" << rect.left() << "," << rect.top() << "," << rect.right()
+              << "," << rect.bottom() << ")";
 }
 
 } // namespace types

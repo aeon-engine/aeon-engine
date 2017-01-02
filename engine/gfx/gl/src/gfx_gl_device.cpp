@@ -75,15 +75,15 @@ void gfx_gl_device::set_viewport(render_target &rt, viewport &vp)
 {
     common::types::rectangle<float> vp_rel_rect = vp.get_rectangle();
     glm::vec2 framebuffer_size = rt.get_framebuffer_size();
-    common::types::rectangle<int> vp_abs_rect = {static_cast<int>(vp_rel_rect.x * framebuffer_size.x),
-                                                 static_cast<int>(vp_rel_rect.y * framebuffer_size.y),
-                                                 static_cast<int>(vp_rel_rect.width * framebuffer_size.x),
-                                                 static_cast<int>(vp_rel_rect.height * framebuffer_size.y)};
+    common::types::rectangle<int> vp_abs_rect = {static_cast<int>(vp_rel_rect.left() * framebuffer_size.x),
+                                                 static_cast<int>(vp_rel_rect.top() * framebuffer_size.y),
+                                                 static_cast<int>(vp_rel_rect.right() * framebuffer_size.x),
+                                                 static_cast<int>(vp_rel_rect.bottom() * framebuffer_size.y)};
 
-    glViewport(vp_abs_rect.x, vp_abs_rect.y, vp_abs_rect.width, vp_abs_rect.height);
+    glViewport(vp_abs_rect.left(), vp_abs_rect.top(), vp_abs_rect.right(), vp_abs_rect.bottom());
     AEON_CHECK_GL_ERROR();
 
-    glScissor(vp_abs_rect.x, vp_abs_rect.y, vp_abs_rect.width, vp_abs_rect.height);
+    glScissor(vp_abs_rect.left(), vp_abs_rect.top(), vp_abs_rect.right(), vp_abs_rect.bottom());
     AEON_CHECK_GL_ERROR();
 }
 
@@ -230,8 +230,8 @@ input::input_handler &gfx_gl_device::get_input_handler()
 
 void gfx_gl_device::set_scissor(const common::types::rectangle<float> &scissor) const
 {
-    glScissor(static_cast<GLsizei>(scissor.x), static_cast<GLsizei>(scissor.y), static_cast<GLsizei>(scissor.width),
-              static_cast<GLsizei>(scissor.height));
+    glScissor(static_cast<GLsizei>(scissor.left()), static_cast<GLsizei>(scissor.top()),
+              static_cast<GLsizei>(scissor.width()), static_cast<GLsizei>(scissor.height()));
     AEON_CHECK_GL_ERROR();
 }
 

@@ -84,7 +84,7 @@ public:
          */
         auto get_size() const
         {
-            return glm::vec2{ width, height };
+            return glm::vec2{width, height};
         }
 
         std::string name;

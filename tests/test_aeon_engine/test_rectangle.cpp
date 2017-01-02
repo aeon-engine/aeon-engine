@@ -25,60 +25,60 @@ TEST(test_rectangle, test_rectangle_default_createint)
 {
     common::types::rectangle<int> test;
 
-    EXPECT_EQ(test.x, 0);
-    EXPECT_EQ(test.y, 0);
-    EXPECT_EQ(test.width, 0);
-    EXPECT_EQ(test.height, 0);
+    EXPECT_EQ(test.left(), 0);
+    EXPECT_EQ(test.top(), 0);
+    EXPECT_EQ(test.right(), 0);
+    EXPECT_EQ(test.bottom(), 0);
 }
 
 TEST(test_rectangle, test_rectangle_default_create_float)
 {
     common::types::rectangle<float> test;
 
-    EXPECT_EQ(test.x, 0);
-    EXPECT_EQ(test.y, 0);
-    EXPECT_EQ(test.width, 0);
-    EXPECT_EQ(test.height, 0);
+    EXPECT_EQ(test.left(), 0);
+    EXPECT_EQ(test.top(), 0);
+    EXPECT_EQ(test.right(), 0);
+    EXPECT_EQ(test.bottom(), 0);
 }
 
 TEST(test_rectangle, test_rectangle_default_create_double)
 {
     common::types::rectangle<double> test;
 
-    EXPECT_EQ(test.x, 0);
-    EXPECT_EQ(test.y, 0);
-    EXPECT_EQ(test.width, 0);
-    EXPECT_EQ(test.height, 0);
+    EXPECT_EQ(test.left(), 0);
+    EXPECT_EQ(test.top(), 0);
+    EXPECT_EQ(test.right(), 0);
+    EXPECT_EQ(test.bottom(), 0);
 }
 
 TEST(test_rectangle, test_rectangle_create_int)
 {
     common::types::rectangle<int> test(1, 2, 3, 4);
 
-    EXPECT_EQ(test.x, 1);
-    EXPECT_EQ(test.y, 2);
-    EXPECT_EQ(test.width, 3);
-    EXPECT_EQ(test.height, 4);
+    EXPECT_EQ(test.left(), 1);
+    EXPECT_EQ(test.top(), 2);
+    EXPECT_EQ(test.right(), 3);
+    EXPECT_EQ(test.bottom(), 4);
 }
 
 TEST(test_rectangle, test_rectangle_create_float)
 {
     common::types::rectangle<float> test(1.1f, 2.2f, 3.3f, 4.4f);
 
-    EXPECT_EQ(test.x, 1.1f);
-    EXPECT_EQ(test.y, 2.2f);
-    EXPECT_EQ(test.width, 3.3f);
-    EXPECT_EQ(test.height, 4.4f);
+    EXPECT_EQ(test.left(), 1.1f);
+    EXPECT_EQ(test.top(), 2.2f);
+    EXPECT_EQ(test.right(), 3.3f);
+    EXPECT_EQ(test.bottom(), 4.4f);
 }
 
 TEST(test_rectangle, test_rectangle_create_double)
 {
     common::types::rectangle<double> test(1.1, 2.2, 3.3, 4.4);
 
-    EXPECT_EQ(test.x, 1.1);
-    EXPECT_EQ(test.y, 2.2);
-    EXPECT_EQ(test.width, 3.3);
-    EXPECT_EQ(test.height, 4.4);
+    EXPECT_EQ(test.left(), 1.1);
+    EXPECT_EQ(test.top(), 2.2);
+    EXPECT_EQ(test.right(), 3.3);
+    EXPECT_EQ(test.bottom(), 4.4);
 }
 
 TEST(test_rectangle, test_rectangle_is_empty_int)
@@ -150,10 +150,10 @@ TEST(test_rectangle, test_rectangle_copy_constructor)
     common::types::rectangle<float> test(10.0f, 20.0f, 30.0f, 40.0f);
     common::types::rectangle<int> test2(test);
 
-    EXPECT_EQ(test2.x, 10);
-    EXPECT_EQ(test2.y, 20);
-    EXPECT_EQ(test2.width, 30);
-    EXPECT_EQ(test2.height, 40);
+    EXPECT_EQ(test2.left(), 10);
+    EXPECT_EQ(test2.top(), 20);
+    EXPECT_EQ(test2.right(), 30);
+    EXPECT_EQ(test2.bottom(), 40);
 }
 
 TEST(test_rectangle, test_rectangle_int_equals)
