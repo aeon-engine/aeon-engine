@@ -14,7 +14,7 @@ All Rights Reserved.
 
 ROBIN DEGEN; CONFIDENTIAL
 
-2012 - 2016 Robin Degen
+2012 - 2017 Robin Degen
 All Rights Reserved.
 
 NOTICE:  All information contained herein is, and remains the property of
@@ -72,7 +72,7 @@ below, the text below will always apply above everything else.
 	/*
 	 * ROBIN DEGEN; CONFIDENTIAL
 	 *
-	 * 2012 - 2016 Robin Degen
+	 * 2012 - 2017 Robin Degen
 	 * All Rights Reserved.
 	 *
 	 * NOTICE:  All information contained herein is, and remains the property of
