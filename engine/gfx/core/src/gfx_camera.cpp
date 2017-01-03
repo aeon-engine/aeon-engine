@@ -22,13 +22,7 @@ namespace gfx
 
 gfx_camera::gfx_camera()
     : projection_matrix_(1.0f)
-    , view_matrix_(1.0f)
 {
-}
-
-void gfx_camera::reset_view()
-{
-    view_matrix_ = glm::mat4(1.0f);
 }
 
 } // namespace gfx

@@ -42,20 +42,28 @@ application::application()
 
 void application::main()
 {
+    auto camera1_node = get_scene_manager()->create_child_scene_node();
+    camera1_node->attach_scene_object(camera_);
+    camera1_node->set_position(0.0f, 0.0f, 10.0f);
+
+    auto camera2_node = get_scene_manager()->create_child_scene_node();
+    camera2_node->attach_scene_object(camera2_);
+    camera2_node->set_position(0.0f, 0.0f, -10.0f);
+    camera2_node->rotate(glm::vec3(0.0f, glm::pi<float>(), 0.0f));
+
     rotation_node_ = get_scene_manager()->create_child_scene_node();
     get_scene_manager()->get_root_scene_node().attach_child(rotation_node_);
 
-    rotation_node_->translate(0.0f, -1.5f, -10.0f);
-
     // Load resources
-    wave_node_ =
+    auto female_warrior =
         get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
-    rotation_node_->attach_child(wave_node_);
+    rotation_node_->attach_child(female_warrior);
+    rotation_node_->set_position(2.0f, 0.0f, 0.0f);
 
     auto skydome = get_asset_manager().load_mesh("resources/meshes/skysphere/skydome.dae");
-    wave_node_->attach_child(skydome);
+    skydome->set_position(0.0f, -30.0f, 0.0f);
     skydome->scale(10.0f);
-    skydome->translate(0.0f, -30.0f, 0.0f);
+    get_scene_manager()->get_root_scene_node().attach_child(skydome);
 
     // Start the render loop
     device_.run();
@@ -63,11 +71,6 @@ void application::main()
 
 bool application::on_frame_begin(const float dt)
 {
-    rotation_node_->rotate(0.0f, -0.005f * dt, 0.0f);
-
-    timer_ += dt;
-    wave_node_->set_identity();
-    wave_node_->translate(0.0f, 0.0f, sin(timer_ * 0.1f) * 4.0f);
-    wave_node_->rotate(sin(timer_ * 0.1f) * 0.001f, 0.0f, 0.0f);
+    rotation_node_->rotate(0.0f, -0.5f * dt, 0.0f);
     return true;
 }

@@ -66,7 +66,8 @@ void scene_manager::__render_scene(camera &cam, gfx::render_target &rt, gfx::vie
 
     for (auto &render_object : queue_)
     {
-        render_object.object->render(cam.get_projection_matrix(), cam.get_view_matrix(), render_object.matrix, dt);
+        render_object.object->render(cam.get_projection_matrix(), glm::inverse(cam.get_scene_matrix()),
+                                     render_object.matrix, dt);
     }
 }
 

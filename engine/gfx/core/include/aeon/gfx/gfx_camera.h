@@ -39,21 +39,8 @@ public:
         return projection_matrix_;
     }
 
-    const auto &get_view_matrix() const
-    {
-        return view_matrix_;
-    }
-
-    auto get_camera_matrix() const
-    {
-        return projection_matrix_ * view_matrix_;
-    }
-
-    void reset_view();
-
 protected:
     glm::mat4 projection_matrix_;
-    glm::mat4 view_matrix_;
 };
 
 } // namespace gfx

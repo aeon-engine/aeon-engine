@@ -55,21 +55,20 @@ void application::main()
     // all the sprites have the same size and are properly aligned within the file.
     auto atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
 
-    // Set up scene
-    auto &root_node = scene_manager_.get_root_scene_node();
-
-    // Put the ship in the center of the screen by translating the root node
-    root_node.translate(400, 300);
-
     // Get a region from the atlas for the sprite to render. Here we grab the 10th sprite in the texture,
     // which is counted left to right, top to bottom.
     auto region = atlas->get_region_by_index(10);
+
+    ship_node_ = scene_manager_.get_root_scene_node().create_child_scene_node();
+
+    // Put the ship in the center of the screen
+    ship_node_->translate(400, 300);
 
     // Create a sprite. The last parameter is the z-order; used to determine which sprite should be rendered on top
     auto ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, 0);
 
     // Attach the sprite to the scene
-    root_node.attach_scene_object(ship_sprite);
+    ship_node_->attach_scene_object(ship_sprite);
 
     // Start the render loop
     device_.run();
@@ -77,15 +76,13 @@ void application::main()
 
 bool application::on_frame_begin(const float dt)
 {
-    auto &root_node = scene_manager_.get_root_scene_node();
-
     if (rotate_direction_ == ship_rotate_direction::left)
     {
-        root_node.rotate(-SHIP_ROTATION_SPEED * dt);
+        ship_node_->rotate(-SHIP_ROTATION_SPEED * dt);
     }
     else if (rotate_direction_ == ship_rotate_direction::right)
     {
-        root_node.rotate(SHIP_ROTATION_SPEED * dt);
+        ship_node_->rotate(SHIP_ROTATION_SPEED * dt);
     }
 
     if (move_direction_ == ship_move_direction::forward)
@@ -122,7 +119,7 @@ bool application::on_frame_begin(const float dt)
         }
     }
 
-    root_node.translate(0, forward_speed_);
+    ship_node_->translate(0, forward_speed_);
 
     return true;
 }

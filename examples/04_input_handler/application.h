@@ -61,4 +61,5 @@ private:
     ship_move_direction move_direction_;
     ship_rotate_direction rotate_direction_;
     float forward_speed_;
+    std::shared_ptr<aeon::scene::scene_node> ship_node_;
 };
