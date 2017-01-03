@@ -9,6 +9,7 @@ set (AEON_ENGINE_SCENE_CORE_SOURCES
     include/aeon/scene/render_queue.h
     include/aeon/scene/scene_manager.h
     include/aeon/scene/scene_node.h
+    include/aeon/scene/movable_object.h
     include/aeon/scene/scene_object.h
     include/aeon/scene/sprite.h
     include/aeon/scene/sprite_animation_settings.h
@@ -20,6 +21,7 @@ set (AEON_ENGINE_SCENE_CORE_SOURCES
     src/render_queue.cpp
     src/scene_manager.cpp
     src/scene_node.cpp
+    src/movable_object.cpp
     src/scene_object.cpp
     src/sprite.cpp
     src/sprite_animation_settings.cpp

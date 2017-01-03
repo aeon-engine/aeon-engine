@@ -17,6 +17,7 @@
 
 #include <aeon/scene/scene_object.h>
 #include <aeon/scene/exceptions.h>
+#include <aeon/scene/movable_object.h>
 #include <aeon/utility.h>
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
@@ -29,15 +30,7 @@ namespace aeon
 namespace scene
 {
 
-DEFINE_EXCEPTION_OBJECT(scene_transform_space_exception, scene_exception, "Unknown or unsupported transform space.");
-
-enum class transform_space
-{
-    local,
-    parent
-};
-
-class scene_node : public std::enable_shared_from_this<scene_node>, public utility::noncopyable
+class scene_node : public std::enable_shared_from_this<scene_node>, public movable_object, public utility::noncopyable
 {
     friend class scene_manager;
 
@@ -94,89 +87,6 @@ public:
     void recalculate_matrices();
 
     /*!
-     * Set the internal matrix to an identity matrix.
-     * Sets the dirty flag.
-     */
-    void set_identity();
-
-    /*!
-     * Set the internal matrix.
-     * Sets the dirty flag.
-     */
-    void set_matrix(const glm::mat4 &matrix);
-
-    /*!
-     * Translate the internal matrix.
-     * Sets the dirty flag.
-     */
-    void translate(const float x, const float y, const float z = 0);
-
-    /*!
-     * Translate the internal matrix.
-     * Sets the dirty flag.
-     */
-    void translate(const glm::vec3 &vector);
-
-    /*!
-     * Rotate the internal matrix. Angles are in radians.
-     * Sets the dirty flag.
-     */
-    void rotate(const float x, const float y, const float z, const transform_space space = transform_space::local);
-
-    /*!
-     * Rotate the internal matrix. Angles given in the vector are in radians.
-     * Sets the dirty flag.
-     */
-    void rotate(const glm::vec3 &vector, const transform_space space = transform_space::local);
-
-    /*!
-     * Rotate the internal matrix over the Z axis. The given angle must be in radians.
-     * This method is intended for rotating 2D objects such as sprites, as it only really makes sense for
-     * orthographic views.
-     * Sets the dirty flag.
-     */
-    void rotate(const float angle, const transform_space space = transform_space::local);
-
-    /*!
-     * Rotate the internal matrix through a quaternion. The transform space determines how the rotation is applied.
-     * Sets the dirty flag.
-     */
-    void rotate(const glm::quat &quat, const transform_space space = transform_space::local);
-
-    /*!
-     * Scale the internal matrix.
-     * Sets the dirty flag.
-     */
-    void scale(const float x, const float y, const float z);
-
-    /*!
-     * Scale the internal matrix.
-     * Sets the dirty flag.
-     */
-    void scale(const glm::vec3 &vector);
-
-    /*!
-     * Scale the internal matrix uniformly across all axis.
-     * Sets the dirty flag.
-     */
-    void scale(const float xyz);
-
-    /*!
-     * Multiply the internal matrix with another matrix.
-     * Sets the dirty flag.
-     */
-    void multiply(const glm::mat4 &matrix);
-
-    /*!
-     * Get the internal matrix of this scene node. This matrix is not multiplied with any parent nodes; use
-     * get_total_matrix() for that.
-     */
-    const auto &get_matrix() const
-    {
-        return matrix_;
-    }
-
-    /*!
      * Get the calculated matrix, which are all the matrix multiplications of everything up until the root node.
      * If this node is flagged is dirty (see: is_dirty()), this value may be incorrect. Use recalculate_matrices() if
      * you want to be sure of a correct value;
@@ -202,14 +112,6 @@ public:
     auto get_parent() const
     {
         return parent_;
-    }
-
-    /*!
-     * Returns true if this scene node was modified in any way since the last call to recalculate_matrices.
-     */
-    auto is_dirty() const
-    {
-        return dirty_;
     }
 
     /*!
@@ -258,11 +160,6 @@ private:
     std::vector<std::shared_ptr<scene_object>> scene_objects_;
 
     /*!
-     * The matrix for this node.
-     */
-    glm::mat4 matrix_;
-
-    /*!
      * The precalculated matrix multiplications of everything up until the root node.
      */
     glm::mat4 parent_matrix_;
@@ -271,11 +168,6 @@ private:
      * The calculated matrix for this node (matrix_ * parent_matrix_)
      */
     glm::mat4 total_matrix_;
-
-    /*!
-     * True if this node has changed in any way. This means things need to be recalculated.
-     */
-    bool dirty_;
 
     /*!
      * True if this is the root node
