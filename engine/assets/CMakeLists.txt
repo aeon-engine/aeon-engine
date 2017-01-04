@@ -3,7 +3,7 @@ set (AEON_ENGINE_ASSET_SOURCES
     src/asset_manager.cpp
 )
 
-source_group(gfx\\assets FILES ${AEON_ENGINE_ASSET_SOURCES})
+source_group(assets FILES ${AEON_ENGINE_ASSET_SOURCES})
 
 add_library(aeon_engine_assets STATIC
     ${AEON_ENGINE_ASSET_SOURCES}
