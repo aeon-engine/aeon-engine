@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1">
+    <root name="./engine"/>
+    <includedir>
+        <dir name="engine/application/"/>
+        <dir name="engine/assets/include/"/>
+        <dir name="engine/common/include/"/>
+        <dir name="engine/data/include/"/>
+        <dir name="engine/gfx/core/include/"/>
+        <dir name="engine/gfx/gl/include/"/>
+        <dir name="engine/gfx/gl_common/include/"/>
+        <dir name="engine/input/include/"/>
+        <dir name="engine/platform/include/"/>
+        <dir name="engine/resources/include/"/>
+        <dir name="engine/scene/basic_scene_manager/include/"/>
+        <dir name="engine/scene/core/include/"/>
+        <dir name="engine/storage/include/"/>
+        <dir name="dep/libaeon/src/"/>
+    </includedir>
+</project>
