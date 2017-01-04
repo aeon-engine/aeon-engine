@@ -54,6 +54,7 @@ Changelog
   - Fixed multiple viewports being broken.
   - Fixed example 3 crashing due to invalid animation sequence.
   - Fixed boken camera behaviour in 3d.
+  - Fixed returning a temporary object (reference to stack object).
 
 #### Infra
   - Add support for Visual Studio 2017 (RC).
@@ -107,6 +108,7 @@ Changelog
   - Input example game "broken" after behaviour change in scene nodes.
   - GLES 2 device broke after major refactor and needs fixing.
   - On (ubuntu) linux the build fails in building GLEW when glu dev (libglu1-mesa-dev is missing) but cmake doesn't check for this up front.
+  - On one test on ubuntu linux, the ship from the input example moved too fast.
 
 ### Version 0.1
   - Initial alpha release of the Aeon Engine that supports only 2D games.
