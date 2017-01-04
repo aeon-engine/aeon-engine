@@ -54,3 +54,7 @@
 	path = dep/assimp
 	url = ../../libraries/assimp.git
 	branch = submodule
+[submodule "dep/json11"]
+	path = dep/json11
+	url = ../../libraries/json11.git
+	branch = submodule

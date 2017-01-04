@@ -85,6 +85,7 @@ target_link_libraries(aeon_engine_resources
     assimp
     png_static
     freetype
+    json11
 )
 
 target_include_directories(aeon_engine_resources
