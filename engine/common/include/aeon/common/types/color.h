@@ -30,11 +30,11 @@ namespace types
 class color_yuv
 {
 public:
-    explicit color_yuv(float y_, float u_, float v_, float a_ = 1.0f)
-        : y(y_)
-        , u(u_)
-        , v(v_)
-        , a(a_)
+    explicit color_yuv(const float y, const float u, const float v, const float a = 1.0f)
+        : y(y)
+        , u(u)
+        , v(v)
+        , a(a)
     {
     }
 
@@ -52,11 +52,11 @@ public:
 class color_hsv
 {
 public:
-    explicit color_hsv(float h_, float s_, float v_, float a_ = 1.0f)
-        : h(h_)
-        , s(s_)
-        , v(v_)
-        , a(a_)
+    explicit color_hsv(const float h, const float s, const float v, const float a = 1.0f)
+        : h(h)
+        , s(s)
+        , v(v)
+        , a(a)
     {
     }
 
@@ -82,7 +82,7 @@ public:
     {
     }
 
-    explicit color(float red, float green, float blue, float alpha = 1.0f)
+    explicit color(const float red, const float green, const float blue, const float alpha = 1.0f)
         : r(red)
         , g(green)
         , b(blue)
@@ -101,29 +101,29 @@ public:
 /*!
  * Convert YUV to RGB.
  */
-color convert_to_rgb(const color_yuv &c);
+auto convert_to_rgb(const color_yuv &c) -> color;
 
 /*!
  * Convert HSV to RGB.
  */
-color convert_to_rgb(const color_hsv &c);
+auto convert_to_rgb(const color_hsv &c) -> color;
 
 /*!
  * Convert RGB to YUV
  */
-color_yuv convert_to_yuv(const color &c);
+auto convert_to_yuv(const color &c) -> color_yuv;
 
 /*!
 * Convert RGB to HSV.
 */
-color_hsv convert_to_hsv(const color &c);
+auto convert_to_hsv(const color &c) -> color_hsv;
 
 /*!
  * Stream operator overload for rectangle. This allows rectangle to be used with std streams
  * like std::cout and std::stringstream.
  */
 template <typename T>
-inline std::ostream &operator<<(std::ostream &os, const color &c)
+inline auto &operator<<(std::ostream &os, const color &c)
 {
     return os << "color(" << c.r << "," << c.g << "," << c.b << "," << c.a << ")";
 }

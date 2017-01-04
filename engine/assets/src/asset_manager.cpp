@@ -33,7 +33,7 @@ asset_manager::asset_manager(resources::resource_manager &resource_manager, scen
 {
 }
 
-std::shared_ptr<gfx::texture> asset_manager::load_texture(const std::string &path)
+auto asset_manager::load_texture(const std::string &path) -> std::shared_ptr<gfx::texture>
 {
     AEON_LOG_DEBUG(logger_) << "Loading texture '" << path << "'." << std::endl;
 
@@ -49,7 +49,7 @@ std::shared_ptr<gfx::texture> asset_manager::load_texture(const std::string &pat
     return texture;
 }
 
-std::shared_ptr<gfx::shader> asset_manager::load_shader(const std::string &path)
+auto asset_manager::load_shader(const std::string &path) -> std::shared_ptr<gfx::shader>
 {
     AEON_LOG_DEBUG(logger_) << "Loading shader '" << path << "'." << std::endl;
 
@@ -65,7 +65,7 @@ std::shared_ptr<gfx::shader> asset_manager::load_shader(const std::string &path)
     return shader;
 }
 
-std::shared_ptr<gfx::material> asset_manager::load_material(const std::string &path)
+auto asset_manager::load_material(const std::string &path) -> std::shared_ptr<gfx::material>
 {
     AEON_LOG_DEBUG(logger_) << "Loading material '" << path << "'." << std::endl;
 
@@ -95,7 +95,7 @@ std::shared_ptr<gfx::material> asset_manager::load_material(const std::string &p
     return material;
 }
 
-std::shared_ptr<gfx::atlas> asset_manager::load_atlas(const std::string &path)
+auto asset_manager::load_atlas(const std::string &path) -> std::shared_ptr<gfx::atlas>
 {
     AEON_LOG_DEBUG(logger_) << "Loading atlas '" << path << "'." << std::endl;
 
@@ -112,7 +112,7 @@ std::shared_ptr<gfx::atlas> asset_manager::load_atlas(const std::string &path)
     return atlas;
 }
 
-std::shared_ptr<scene::scene_node> asset_manager::load_mesh(const std::string &path)
+auto asset_manager::load_mesh(const std::string &path) -> std::shared_ptr<scene::scene_node>
 {
     AEON_LOG_DEBUG(logger_) << "Loading mesh '" << path << "'." << std::endl;
 
@@ -127,8 +127,8 @@ std::shared_ptr<scene::scene_node> asset_manager::load_mesh(const std::string &p
     return scene_node;
 }
 
-std::shared_ptr<gfx::atlas> asset_manager::create_atlas(const std::shared_ptr<gfx::material> &material,
-                                                        glm::vec2 sprite_size) const
+auto asset_manager::create_atlas(const std::shared_ptr<gfx::material> &material, glm::vec2 sprite_size) const
+    -> std::shared_ptr<gfx::atlas>
 {
     return std::make_shared<gfx::atlas>(material, sprite_size);
 }

@@ -77,7 +77,7 @@ public:
     /*!
      * Get the main window created for this application.
      */
-    std::shared_ptr<gfx::gfx_window> get_main_window() const
+    auto get_main_window() const
     {
         return window_;
     }
@@ -85,7 +85,7 @@ public:
     /*!
      * Get a pointer to the scene manager.
      */
-    scene_manager_t *get_scene_manager()
+    auto get_scene_manager()
     {
         return &scene_manager_;
     }
@@ -94,7 +94,7 @@ public:
      * Get a pointer to the resource manager. The resource manager can be used
      * for loading raw data like images.
      */
-    resources::resource_manager *get_resource_manager()
+    auto get_resource_manager()
     {
         return &resource_manager_;
     }
@@ -103,7 +103,7 @@ public:
      * Get a reference to the asset manager. The asset manager can be used for
      * loading raw data into usable assets like textures.
      */
-    assets::asset_manager &get_asset_manager()
+    auto &get_asset_manager()
     {
         return asset_manager_;
     }
@@ -113,7 +113,7 @@ public:
      * used to perform all sorts of generic platform specific operations, like
      * file IO.
      */
-    platform::platform_interface *get_platform_interface()
+    auto get_platform_interface()
     {
         return &platform_;
     }
@@ -122,7 +122,7 @@ public:
      * Get a reference to the input handler. The input handler can be used for
      * handling generic keyboard, mouse, touch and joystick events.
      */
-    input::input_handler &get_input_handler()
+    auto &get_input_handler()
     {
         return input_handler_;
     }

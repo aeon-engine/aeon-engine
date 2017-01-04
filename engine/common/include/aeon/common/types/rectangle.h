@@ -133,7 +133,7 @@ private:
  * Equals operator overload for rectangle.
  */
 template <typename T>
-inline bool operator==(const rectangle<T> &lhs, const rectangle<T> &rhs)
+inline auto operator==(const rectangle<T> &lhs, const rectangle<T> &rhs)
 {
     return lhs.left() == rhs.left() && lhs.top() == rhs.top() && lhs.right() == rhs.right() &&
            lhs.bottom() == rhs.bottom();
@@ -143,7 +143,7 @@ inline bool operator==(const rectangle<T> &lhs, const rectangle<T> &rhs)
  * Not-Equals operator overload for rectangle.
  */
 template <typename T>
-inline bool operator!=(const rectangle<T> &lhs, const rectangle<T> &rhs)
+inline auto operator!=(const rectangle<T> &lhs, const rectangle<T> &rhs)
 {
     return !(lhs == rhs);
 }
@@ -153,7 +153,7 @@ inline bool operator!=(const rectangle<T> &lhs, const rectangle<T> &rhs)
  * like std::cout and std::stringstream.
  */
 template <typename T>
-inline std::ostream &operator<<(std::ostream &os, const rectangle<T> &rect)
+inline auto &operator<<(std::ostream &os, const rectangle<T> &rect)
 {
     return os << "rectangle<" << typeid(T).name() << ">(" << rect.left() << "," << rect.top() << "," << rect.right()
               << "," << rect.bottom() << ")";

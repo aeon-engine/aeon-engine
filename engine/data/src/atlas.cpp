@@ -20,7 +20,7 @@ namespace aeon
 namespace data
 {
 
-atlas::atlas(const atlas::regions &regions)
+atlas::atlas(const std::vector<atlas::region> &regions)
     : regions_(regions)
 {
 }
@@ -30,12 +30,12 @@ void atlas::push_back(const atlas::region &region)
     regions_.push_back(region);
 }
 
-const atlas::regions &atlas::get_regions() const
+auto atlas::get_regions() const -> const std::vector<region> &
 {
     return regions_;
 }
 
-const atlas::region &atlas::at(const unsigned int index) const
+auto atlas::at(const unsigned int index) const -> const atlas::region &
 {
     if (index >= regions_.size())
         throw atlas_exception();
@@ -43,7 +43,7 @@ const atlas::region &atlas::at(const unsigned int index) const
     return regions_.at(index);
 }
 
-const atlas::region &atlas::at(const std::string &name) const
+auto atlas::at(const std::string &name) const -> const atlas::region &
 {
     for (const auto &region : regions_)
     {
@@ -54,7 +54,7 @@ const atlas::region &atlas::at(const std::string &name) const
     throw atlas_exception();
 }
 
-std::size_t atlas::size() const
+auto atlas::size() const -> std::size_t
 {
     return regions_.size();
 }

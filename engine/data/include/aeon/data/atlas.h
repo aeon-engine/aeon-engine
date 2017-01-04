@@ -46,7 +46,8 @@ public:
          * Constructor for a nameless region. These can only be accessed by index.
          * Rectangle coordinates are in UV space.
          */
-        region(const float u1, const float v1, const float u2, const float v2, const float width, const float height)
+        explicit region(const float u1, const float v1, const float u2, const float v2, const float width,
+                        const float height)
             : name()
             , u1(u1)
             , v1(v1)
@@ -61,8 +62,8 @@ public:
          * Constructor for a named region. These can be accessed by name or index.
          * Rectangle coordinates are in UV space.
          */
-        region(const std::string &name, const float u1, const float v1, const float u2, const float v2,
-               const float width, const float height)
+        explicit region(const std::string &name, const float u1, const float v1, const float u2, const float v2,
+                        const float width, const float height)
             : name(name)
             , u1(u1)
             , v1(v1)
@@ -94,11 +95,6 @@ public:
     };
 
     /*!
-     * Vector of atlas regions.
-     */
-    using regions = std::vector<region>;
-
-    /*!
      * Constructor for an empty atlas (regions can be added later through push_back).
      */
     atlas() = default;
@@ -107,7 +103,7 @@ public:
      * Constructor for adding regions up front. This is usually used when loading an atlas.
      * New regions can still be added through push_back.
      */
-    explicit atlas(const regions &regions);
+    explicit atlas(const std::vector<region> &regions);
 
     /*!
      * Destructor
@@ -122,25 +118,25 @@ public:
     /*!
      * Get all regions in this atlas.
      */
-    const regions &get_regions() const;
+    auto get_regions() const -> const std::vector<region> &;
 
     /*!
      * Get a region at a certain index. Will throw an exception if this region can not be found.
      */
-    const region &at(const unsigned int index) const;
+    auto at(const unsigned int index) const -> const region &;
 
     /*!
      * Get a region by name. Will throw an exception if this region can not be found.
      */
-    const region &at(const std::string &name) const;
+    auto at(const std::string &name) const -> const region &;
 
     /*!
      * Get the amount of regions in this atlas.
      */
-    std::size_t size() const;
+    auto size() const -> std::size_t;
 
 private:
-    regions regions_;
+    std::vector<region> regions_;
 };
 
 } // namespace data

@@ -58,7 +58,7 @@ public:
      * \param path The path to the image file.
      * \return A gfx texture
      */
-    std::shared_ptr<gfx::texture> load_texture(const std::string &path);
+    auto load_texture(const std::string &path) -> std::shared_ptr<gfx::texture>;
 
     /*!
      * Load a shader from a given shader file. Make sure the given file extension has a registed codec in the
@@ -66,7 +66,7 @@ public:
      * \param path The path to the shader file.
      * \return A gfx shader
      */
-    std::shared_ptr<gfx::shader> load_shader(const std::string &path);
+    auto load_shader(const std::string &path) -> std::shared_ptr<gfx::shader>;
 
     /*!
      * Load a material from a given material file. Make sure the given file extension has a registed codec in the
@@ -74,7 +74,7 @@ public:
      * \param path The path to the material file.
      * \return A gfx material
      */
-    std::shared_ptr<gfx::material> load_material(const std::string &path);
+    auto load_material(const std::string &path) -> std::shared_ptr<gfx::material>;
 
     /*!
      * Load an atlas from a given atlas file. Make sure the given file extension has a registed codec in the
@@ -82,7 +82,7 @@ public:
      * \param path The path to the atlas file.
      * \return A gfx atlas
      */
-    std::shared_ptr<gfx::atlas> load_atlas(const std::string &path);
+    auto load_atlas(const std::string &path) -> std::shared_ptr<gfx::atlas>;
 
     /*!
      * Load a mesh from a given mesh file. Make sure the given file extension has a registed codec in the
@@ -90,7 +90,7 @@ public:
      * \param path The path to the mesh file.
      * \return A scene node of the root of the mesh scene.
      */
-    std::shared_ptr<scene::scene_node> load_mesh(const std::string &path);
+    auto load_mesh(const std::string &path) -> std::shared_ptr<scene::scene_node>;
 
     /*!
      * Generate an atlas based on the given parameters. The atlas will index
@@ -100,8 +100,8 @@ public:
      *                    top to bottom.
      * \return A gfx atlas
      */
-    std::shared_ptr<gfx::atlas> create_atlas(const std::shared_ptr<gfx::material> &material,
-                                             const glm::vec2 sprite_size) const;
+    auto create_atlas(const std::shared_ptr<gfx::material> &material, const glm::vec2 sprite_size) const
+        -> std::shared_ptr<gfx::atlas>;
 
 private:
     void __convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node);
