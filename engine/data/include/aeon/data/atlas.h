@@ -127,7 +127,7 @@ public:
     /*!
      * Get a region at a certain index. Will throw an exception if this region can not be found.
      */
-    const region &at(const int index) const;
+    const region &at(const unsigned int index) const;
 
     /*!
      * Get a region by name. Will throw an exception if this region can not be found.

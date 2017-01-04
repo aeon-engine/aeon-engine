@@ -35,7 +35,7 @@ const atlas::regions &atlas::get_regions() const
     return regions_;
 }
 
-const atlas::region &atlas::at(const int index) const
+const atlas::region &atlas::at(const unsigned int index) const
 {
     if (index >= regions_.size())
         throw atlas_exception();
