@@ -12,7 +12,6 @@ set (AEON_ENGINE_RESOURCES_SOURCES
     include/aeon/resources/shader.h
     include/aeon/resources/submesh.h
     src/atlas.cpp
-    src/codecs
     src/image.cpp
     src/material.cpp
     src/mesh.cpp
