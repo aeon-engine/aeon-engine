@@ -4,10 +4,12 @@ set (AEON_ENGINE_DATA_SOURCES
     include/aeon/data/material.h
     include/aeon/data/mesh.h
     include/aeon/data/shader.h
+    include/aeon/data/sampler.h
     src/atlas.cpp
     src/image.cpp
     src/material.cpp
     src/shader.cpp
+    src/sampler.cpp
 )
 
 source_group(data FILES ${AEON_ENGINE_DATA_SOURCES})

@@ -22,7 +22,8 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_material::gfx_gl_material(const std::shared_ptr<shader> &shader, const material::sampler_map &samplers)
+gfx_gl_material::gfx_gl_material(const std::shared_ptr<shader> &shader,
+                                 const std::map<std::string, std::shared_ptr<texture>> &samplers)
     : shader_(std::dynamic_pointer_cast<gfx_gl_shader>(shader))
     , sampler_map_(__convert_sampler_map_to_gl(samplers))
     , samplers_(__generate_sampler_indices(sampler_map_))
@@ -51,10 +52,10 @@ gfx::texture *gfx_gl_material::get_sampler(const std::string &name) const
     return result->second.get();
 }
 
-gfx_gl_material::gl_sampler_map
-gfx_gl_material::__convert_sampler_map_to_gl(const material::sampler_map &samplers) const
+auto gfx_gl_material::__convert_sampler_map_to_gl(const std::map<std::string, std::shared_ptr<texture>> &samplers) const
+    -> std::map<std::string, std::shared_ptr<gfx_gl_texture>>
 {
-    gfx_gl_material::gl_sampler_map gl_samplers;
+    auto gl_samplers = std::map<std::string, std::shared_ptr<gfx_gl_texture>>();
 
     for (auto &sampler : samplers)
     {
@@ -64,13 +65,13 @@ gfx_gl_material::__convert_sampler_map_to_gl(const material::sampler_map &sample
     return gl_samplers;
 }
 
-gfx_gl_material::gl_samplers
-gfx_gl_material::__generate_sampler_indices(const gfx_gl_material::gl_sampler_map &samplers) const
+auto gfx_gl_material::__generate_sampler_indices(
+    const std::map<std::string, std::shared_ptr<gfx_gl_texture>> &samplers) const -> std::vector<gfx_gl_texture *>
 {
-    gfx_gl_material::gl_samplers gl_samplers;
+    auto gl_samplers = std::vector<gfx_gl_texture *>();
 
     // TODO: Sampler index info should be generated based on the shader and the material definition.
-    gl_samplers.push_back(samplers.at("texture").get());
+    gl_samplers.push_back(samplers.at("texture0").get());
 
     return gl_samplers;
 }

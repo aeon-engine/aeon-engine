@@ -58,7 +58,7 @@ void atlas::__calculate_atlas_regions(glm::vec2 sprite_size)
     AEON_LOG_TRACE(logger_) << "Calculating atlas UV map regions." << std::endl;
 
     // TODO: find a better way for this...
-    glm::vec2 full_size = material_->get_sampler("texture")->get_size();
+    glm::vec2 full_size = material_->get_sampler("texture0")->get_size();
 
     int sprites_per_row = static_cast<int>(full_size.x / sprite_size.x);
     int sprites_per_column = static_cast<int>(full_size.y / sprite_size.y);

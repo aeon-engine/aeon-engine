@@ -33,8 +33,6 @@ class texture;
 class material : public common::cached_object
 {
 public:
-    using sampler_map = std::map<std::string, std::shared_ptr<texture>>;
-
     material() = default;
     virtual ~material() = default;
 

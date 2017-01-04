@@ -16,6 +16,7 @@
 #pragma once
 
 #include <aeon/common/exception.h>
+#include <aeon/data/sampler.h>
 #include <aeon/utility.h>
 #include <string>
 #include <map>
@@ -30,32 +31,25 @@ DEFINE_EXCEPTION_OBJECT(material_exception, aeon::common::exception, "Generic Ma
 class material : utility::noncopyable
 {
 public:
-    using texture_paths = std::map<std::string, std::string>;
-
-    material(const std::string &shader_path, const texture_paths &textures);
+    material() = default;
     ~material() = default;
 
-    material(material &&other) noexcept
-        : shader_path_(std::move(other.shader_path_))
-        , texture_paths_(std::move(other.texture_paths_))
-    {
-    }
+    material(material &&other) noexcept;
+    auto operator=(material &&other) noexcept -> material &;
 
-    material &operator=(material &&other) noexcept
-    {
-        shader_path_ = std::move(other.shader_path_);
-        texture_paths_ = std::move(other.texture_paths_);
-        return *this;
-    }
+    void set_shader_path(const std::string &path);
 
-    const std::string &get_shader_path() const;
+    auto get_shader_path() const -> const std::string &;
 
-    const std::string &get_texture_path_by_name(const std::string &name) const;
-    const texture_paths &get_texture_paths() const;
+    void add_sampler(const sampler &sampler);
+
+    auto get_sampler_by_name(const std::string &name) const -> sampler;
+
+    auto get_samplers() const -> const std::map<std::string, sampler> &;
 
 private:
     std::string shader_path_;
-    texture_paths texture_paths_;
+    std::map<std::string, sampler> samplers_;
 };
 
 } // namespace data

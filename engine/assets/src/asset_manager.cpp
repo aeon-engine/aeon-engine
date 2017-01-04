@@ -81,12 +81,13 @@ std::shared_ptr<gfx::material> asset_manager::load_material(const std::string &p
 
     auto shader = load_shader(material_data.get_shader_path());
 
-    auto texture_paths = material_data.get_texture_paths();
-    auto sampler_map = gfx::material::sampler_map();
+    auto samplers = material_data.get_samplers();
+    auto sampler_map = std::map<std::string, std::shared_ptr<gfx::texture>>();
 
-    for (auto &texture_path : texture_paths)
+    for (auto &sampler : samplers)
     {
-        sampler_map[texture_path.first] = load_texture(texture_path.second);
+        auto &sampler_obj = sampler.second;
+        sampler_map[sampler_obj.get_name()] = load_texture(sampler_obj.get_path());
     }
 
     auto material = device_.get_material_manager().create(shader, sampler_map);

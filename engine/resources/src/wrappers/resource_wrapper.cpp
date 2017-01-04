@@ -54,5 +54,13 @@ void resource_wrapper::read_raw(std::vector<std::uint8_t> &buffer) const
     p->read(path_, buffer);
 }
 
+void resource_wrapper::read_raw(std::string &buffer) const
+{
+    auto input = std::vector<std::uint8_t>();
+    read_raw(input);
+
+    buffer = std::string(input.begin(), input.end());
+}
+
 } // namespace resources
 } // namespace aeon

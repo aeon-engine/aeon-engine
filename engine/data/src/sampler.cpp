@@ -13,30 +13,28 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <aeon/data/material.h>
-#include <aeon/gfx/gfx_material.h>
-#include <aeon/gfx/gfx_shader.h>
-#include <aeon/gfx/gfx_texture.h>
-
-#include <memory>
-#include <string>
+#include <aeon/data/sampler.h>
 
 namespace aeon
 {
-namespace gfx
+namespace data
 {
 
-class material_manager
+sampler::sampler(const std::string &name, const std::string &path)
+    : name_(name)
+    , path_(path)
 {
-public:
-    material_manager() = default;
-    virtual ~material_manager() = default;
+}
 
-    virtual std::shared_ptr<material> create(const std::shared_ptr<shader> &shader,
-                                             const std::map<std::string, std::shared_ptr<texture>> &samplers) = 0;
-};
+auto sampler::get_name() const -> const std::string &
+{
+    return name_;
+}
 
-} // namespace gfx
+auto sampler::get_path() const -> const std::string &
+{
+    return path_;
+}
+
+} // namespace data
 } // namespace aeon

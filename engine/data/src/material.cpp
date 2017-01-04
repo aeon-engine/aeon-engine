@@ -20,30 +20,47 @@ namespace aeon
 namespace data
 {
 
-material::material(const std::string &shader_path, const material::texture_paths &textures)
-    : shader_path_(shader_path)
-    , texture_paths_(textures)
+material::material(material &&other) noexcept
+    : shader_path_(std::move(other.shader_path_))
+    , samplers_(std::move(other.samplers_))
 {
 }
 
-const std::string &material::get_shader_path() const
+auto material::operator=(material &&other) noexcept -> material &
+{
+    shader_path_ = std::move(other.shader_path_);
+    samplers_ = std::move(other.samplers_);
+    return *this;
+}
+
+void material::set_shader_path(const std::string &path)
+{
+    shader_path_ = path;
+}
+
+auto material::get_shader_path() const -> const std::string &
 {
     return shader_path_;
 }
 
-const std::string &material::get_texture_path_by_name(const std::string &name) const
+void material::add_sampler(const sampler &sampler)
 {
-    auto itr = texture_paths_.find(name);
-
-    if (itr == texture_paths_.end())
-        throw material_exception();
-
-    return itr->second;
+    samplers_[sampler.get_name()] = sampler;
 }
 
-const material::texture_paths &material::get_texture_paths() const
+auto material::get_sampler_by_name(const std::string &name) const -> sampler
 {
-    return texture_paths_;
+    auto result = samplers_.find(name);
+
+    if (result == samplers_.end())
+        throw material_exception();
+
+    return result->second;
+}
+
+auto material::get_samplers() const -> const std::map<std::string, sampler> &
+{
+    return samplers_;
 }
 
 } // namespace data

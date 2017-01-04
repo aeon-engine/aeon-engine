@@ -34,22 +34,22 @@ class gfx_gl_material : public gfx::material
     void bind() override;
 
 public:
-    explicit gfx_gl_material(const std::shared_ptr<shader> &shader, const material::sampler_map &samplers);
+    explicit gfx_gl_material(const std::shared_ptr<shader> &shader,
+                             const std::map<std::string, std::shared_ptr<texture>> &samplers);
     virtual ~gfx_gl_material() = default;
 
     gfx::shader *get_shader() const override;
     gfx::texture *get_sampler(const std::string &name) const override;
 
 protected:
-    using gl_sampler_map = std::map<std::string, std::shared_ptr<gfx_gl_texture>>;
-    using gl_samplers = std::vector<gfx_gl_texture *>;
-
-    gl_sampler_map __convert_sampler_map_to_gl(const material::sampler_map &samplers) const;
-    gl_samplers __generate_sampler_indices(const gl_sampler_map &samplers) const;
+    auto __convert_sampler_map_to_gl(const std::map<std::string, std::shared_ptr<texture>> &samplers) const
+        -> std::map<std::string, std::shared_ptr<gfx_gl_texture>>;
+    auto __generate_sampler_indices(const std::map<std::string, std::shared_ptr<gfx_gl_texture>> &samplers) const
+        -> std::vector<gfx_gl_texture *>;
 
     std::shared_ptr<gfx_gl_shader> shader_;
-    gl_sampler_map sampler_map_;
-    gl_samplers samplers_;
+    std::map<std::string, std::shared_ptr<gfx_gl_texture>> sampler_map_;
+    std::vector<gfx_gl_texture *> samplers_;
 };
 
 } // namespace gl

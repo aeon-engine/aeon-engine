@@ -15,28 +15,34 @@
 
 #pragma once
 
-#include <aeon/data/material.h>
-#include <aeon/gfx/gfx_material.h>
-#include <aeon/gfx/gfx_shader.h>
-#include <aeon/gfx/gfx_texture.h>
-
-#include <memory>
 #include <string>
 
 namespace aeon
 {
-namespace gfx
+namespace data
 {
 
-class material_manager
+class sampler
 {
 public:
-    material_manager() = default;
-    virtual ~material_manager() = default;
+    sampler() = default;
+    sampler(const std::string &name, const std::string &path);
+    ~sampler() = default;
 
-    virtual std::shared_ptr<material> create(const std::shared_ptr<shader> &shader,
-                                             const std::map<std::string, std::shared_ptr<texture>> &samplers) = 0;
+    sampler(const sampler &other) = default;
+    sampler &operator=(const sampler &other) = default;
+
+    sampler(sampler &&other) noexcept = default;
+    sampler &operator=(sampler &&other) noexcept = default;
+
+    auto get_name() const -> const std::string &;
+
+    auto get_path() const -> const std::string &;
+
+private:
+    std::string name_;
+    std::string path_;
 };
 
-} // namespace gfx
+} // namespace data
 } // namespace aeon
