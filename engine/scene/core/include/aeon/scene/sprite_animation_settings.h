@@ -51,7 +51,7 @@ class sprite_animation_settings : utility::noncopyable
     friend class animated_sprite;
 
 public:
-    sprite_animation_settings(const glm::vec2 frame_size);
+    explicit sprite_animation_settings(const glm::vec2 frame_size);
     ~sprite_animation_settings() = default;
 
     sprite_animation_settings(sprite_animation_settings &&other) noexcept;
