@@ -82,6 +82,8 @@ Changelog
   - Added deployment script for windows and added FindAeonEngine.cmake to the install target.
   - Added preliminairy support for the Clang compiler toolset in Visual Studio.
   - Added initial cpp check project file.
+  - Fixed "src/codecs" folder being added as source file to the resource subsystem.
+  - Fixed assets being in a source group called "gfx".
 
 #### Other
   - Added incremental deploy script so that the whole engine doesn't need rebuilding for small changes.
