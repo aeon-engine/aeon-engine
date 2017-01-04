@@ -41,6 +41,9 @@ public:
     void set_model_matrix(const glm::mat4 &matrix) override;
     void set_view_matrix(const glm::mat4 &matrix) override;
 
+    auto get_sampler_handle_by_name(const std::string &name) const -> GLint;
+    void bind_sampler(const GLint handle, const int bind_point) const;
+
 private:
     aeon::logger::logger logger_;
 
@@ -49,7 +52,6 @@ private:
     GLint projection_matrix_handle_;
     GLint model_matrix_handle_;
     GLint view_matrix_handle_;
-    GLint texture0_handle_;
 };
 
 } // namespace gl

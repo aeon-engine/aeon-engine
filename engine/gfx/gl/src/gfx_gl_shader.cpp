@@ -30,7 +30,6 @@ gfx_gl_shader::gfx_gl_shader()
     , projection_matrix_handle_(0)
     , model_matrix_handle_(0)
     , view_matrix_handle_(0)
-    , texture0_handle_(0)
 {
 }
 
@@ -62,6 +61,20 @@ void gfx_gl_shader::set_model_matrix(const glm::mat4 &matrix)
 void gfx_gl_shader::set_view_matrix(const glm::mat4 &matrix)
 {
     glUniformMatrix4fv(view_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
+    AEON_CHECK_GL_ERROR();
+}
+
+auto gfx_gl_shader::get_sampler_handle_by_name(const std::string &name) const -> GLint
+{
+    auto handle = glGetUniformLocation(handle_, name.c_str());
+    AEON_CHECK_GL_ERROR();
+
+    return handle;
+}
+
+void gfx_gl_shader::bind_sampler(const GLint handle, const int bind_point) const
+{
+    glUniform1i(handle, bind_point);
     AEON_CHECK_GL_ERROR();
 }
 

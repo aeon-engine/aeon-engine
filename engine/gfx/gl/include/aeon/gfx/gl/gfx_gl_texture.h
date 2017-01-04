@@ -37,6 +37,8 @@ public:
     void bind() const;
     glm::vec2 get_size() const override;
 
+    void set_texture_bind_point(const int bind_point) const;
+
 private:
     aeon::logger::logger logger_;
     GLuint handle_;

@@ -52,14 +52,10 @@ std::shared_ptr<shader> gfx_gl_shader_manager::create(const data::shader &shader
     s->view_matrix_handle_ = glGetUniformLocation(program, "view_matrix");
     AEON_CHECK_GL_ERROR();
 
-    s->texture0_handle_ = glGetUniformLocation(program, "texture0");
-    AEON_CHECK_GL_ERROR();
-
     AEON_LOG_TRACE(logger_) << "Uniform locations\n"
                             << "Projection Matrix: " << s->projection_matrix_handle_ << "\n"
                             << "Model Matrix: " << s->model_matrix_handle_ << "\n"
-                            << "View Matrix: " << s->view_matrix_handle_ << "\n"
-                            << "Texture0: " << s->texture0_handle_ << std::endl;
+                            << "View Matrix: " << s->view_matrix_handle_ << std::endl;
 
     return s;
 }

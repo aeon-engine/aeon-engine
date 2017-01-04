@@ -40,9 +40,6 @@ gfx_gl_texture::~gfx_gl_texture()
 
 void gfx_gl_texture::bind() const
 {
-    glActiveTexture(GL_TEXTURE0);
-    AEON_CHECK_GL_ERROR();
-
     glBindTexture(GL_TEXTURE_2D, handle_);
     AEON_CHECK_GL_ERROR();
 }
@@ -50,6 +47,12 @@ void gfx_gl_texture::bind() const
 glm::vec2 gfx_gl_texture::get_size() const
 {
     return size_;
+}
+
+void gfx_gl_texture::set_texture_bind_point(const int bind_point) const
+{
+    glActiveTexture(GL_TEXTURE0 + bind_point);
+    AEON_CHECK_GL_ERROR();
 }
 
 } // namespace gl

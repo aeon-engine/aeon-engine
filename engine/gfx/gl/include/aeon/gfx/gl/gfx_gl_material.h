@@ -27,6 +27,30 @@ namespace gfx
 namespace gl
 {
 
+class gfx_gl_texture_handle_pair
+{
+public:
+    explicit gfx_gl_texture_handle_pair(const GLint handle, gfx_gl_texture *texture)
+        : handle_(handle)
+        , texture_(texture)
+    {
+    }
+
+    auto get_handle() const
+    {
+        return handle_;
+    }
+
+    auto get_texture() const
+    {
+        return texture_;
+    }
+
+private:
+    GLint handle_;
+    gfx_gl_texture *texture_;
+};
+
 class gfx_gl_material : public gfx::material
 {
     friend class gfx_gl_material_manager;
@@ -45,11 +69,11 @@ protected:
     auto __convert_sampler_map_to_gl(const std::map<std::string, std::shared_ptr<texture>> &samplers) const
         -> std::map<std::string, std::shared_ptr<gfx_gl_texture>>;
     auto __generate_sampler_indices(const std::map<std::string, std::shared_ptr<gfx_gl_texture>> &samplers) const
-        -> std::vector<gfx_gl_texture *>;
+        -> std::vector<gfx_gl_texture_handle_pair>;
 
     std::shared_ptr<gfx_gl_shader> shader_;
     std::map<std::string, std::shared_ptr<gfx_gl_texture>> sampler_map_;
-    std::vector<gfx_gl_texture *> samplers_;
+    std::vector<gfx_gl_texture_handle_pair> samplers_;
 };
 
 } // namespace gl

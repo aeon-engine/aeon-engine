@@ -32,9 +32,17 @@ gfx_gl_material::gfx_gl_material(const std::shared_ptr<shader> &shader,
 
 void gfx_gl_material::bind()
 {
-    // TODO: bind all samplers
     shader_->bind();
-    samplers_[0]->bind();
+
+    int bind_point = 0;
+    for (auto &sampler : samplers_)
+    {
+        auto texture = sampler.get_texture();
+        texture->set_texture_bind_point(bind_point);
+        texture->bind();
+        shader_->bind_sampler(sampler.get_handle(), bind_point);
+        ++bind_point;
+    }
 }
 
 gfx::shader *gfx_gl_material::get_shader() const
@@ -65,13 +73,20 @@ auto gfx_gl_material::__convert_sampler_map_to_gl(const std::map<std::string, st
     return gl_samplers;
 }
 
-auto gfx_gl_material::__generate_sampler_indices(
-    const std::map<std::string, std::shared_ptr<gfx_gl_texture>> &samplers) const -> std::vector<gfx_gl_texture *>
+auto gfx_gl_material::__generate_sampler_indices(const std::map<std::string, std::shared_ptr<gfx_gl_texture>> &samplers)
+    const -> std::vector<gfx_gl_texture_handle_pair>
 {
-    auto gl_samplers = std::vector<gfx_gl_texture *>();
+    auto gl_samplers = std::vector<gfx_gl_texture_handle_pair>();
 
-    // TODO: Sampler index info should be generated based on the shader and the material definition.
-    gl_samplers.push_back(samplers.at("texture0").get());
+    for (auto &sampler : samplers)
+    {
+        auto sampler_name = sampler.first;
+        auto gl_texture_ptr = sampler.second.get();
+
+        auto sampler_handle = shader_->get_sampler_handle_by_name(sampler_name);
+
+        gl_samplers.push_back(gfx_gl_texture_handle_pair(sampler_handle, gl_texture_ptr));
+    }
 
     return gl_samplers;
 }
