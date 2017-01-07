@@ -90,7 +90,8 @@ void gfx_gl_mesh::__create_and_setup_vao()
         vertex_attribute{3, sizeof(data::vertex_data), offsetof(data::vertex_data, normal)},
         vertex_attribute{3, sizeof(data::vertex_data), offsetof(data::vertex_data, uvw)},
         vertex_attribute{4, sizeof(data::vertex_data), offsetof(data::vertex_data, color)},
-    };
+        vertex_attribute{3, sizeof(data::vertex_data), offsetof(data::vertex_data, tangent)},
+        vertex_attribute{3, sizeof(data::vertex_data), offsetof(data::vertex_data, bitangent)}};
 
     vao_ = std::make_unique<gfx_gl_vertex_array_object>(attributes);
 }

@@ -144,6 +144,12 @@ void mesh_codec_assimp::__read_vertex_data(const aiMesh *mesh, data::vertex_data
 
     auto vertex_data_ptr = vertices.data();
 
+    if (!mesh->HasTangentsAndBitangents())
+    {
+        AEON_LOG_WARNING(logger_) << "Mesh has no tangents and bitangents. Normal mapping may not work properly."
+                                  << std::endl;
+    }
+
     // Interleave the data for the GPU
     for (auto i = 0ul; i < num_vertices; ++i)
     {
@@ -161,6 +167,12 @@ void mesh_codec_assimp::__read_vertex_data(const aiMesh *mesh, data::vertex_data
 
         if (mesh->mColors[0])
             data.color = __convert_to_color(mesh->mColors[0][i]);
+
+        if (mesh->HasTangentsAndBitangents())
+        {
+            data.tangent = __convert_to_glm_vec3(mesh->mTangents[i]);
+            data.bitangent = __convert_to_glm_vec3(mesh->mBitangents[i]);
+        }
     }
 }
 
