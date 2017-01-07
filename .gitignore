@@ -17,6 +17,7 @@ build
 # Windows
 vs_build
 opengl32.dll
+.vs
 
 # Clion
 .idea
