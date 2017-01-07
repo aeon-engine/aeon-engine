@@ -30,6 +30,8 @@ animated_sprite::animated_sprite(scene_manager *scene_manager, const std::shared
     , running_(false)
     , sequence_(settings_.sequences_.at(settings_.default_sequence_))
 {
+    region_ = atlas_->get_region_by_index(sequence_.at(current_frame_index_));
+
     if (settings_.start_condition_ == animation_start_condition::auto_start)
         running_ = true;
 }
