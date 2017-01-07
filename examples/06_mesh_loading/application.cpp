@@ -31,11 +31,11 @@ application::application()
 
     // Set up the scene
     camera_ =
-        std::make_shared<aeon::scene::perspective_camera>(get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+        std::make_shared<aeon::scene::perspective_camera>(get_scene_manager(), 70.0f, 1280.0f / 720.0f, 0.1f, 1000.0f);
     window_->create_viewport(camera_, 0);
 
     camera2_ =
-        std::make_shared<aeon::scene::perspective_camera>(get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+        std::make_shared<aeon::scene::perspective_camera>(get_scene_manager(), 70.0f, 1280.0f / 720.0f, 0.1f, 1000.0f);
     aeon::common::types::rectangle<float> smaller_viewport_rect(0.1f, 0.1f, 0.3f, 0.3f);
     window_->create_viewport(camera2_, smaller_viewport_rect, 1);
 }
