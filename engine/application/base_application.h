@@ -143,6 +143,15 @@ public:
         return logger_backend_;
     }
 
+    /*!
+     * Get a reference to the selected graphics device. This should only be used by advanced users, and is
+     * not intended for regular engine use.
+     */
+    auto &get_gfx_device()
+    {
+        return device_;
+    }
+
 private:
     /*!
      * Try to load the config.conf file. Will log an error to the console if it could not be loaded or parsed.
