@@ -6,6 +6,15 @@ Changelog
 
 ### Version 0.2
 
+#### Contributors
+
+Special thanks to the following contributors and testers for this release.
+
+  - Joe 'Phalanx' da Silva
+  - Steven 'captnoord' Hoving
+  - Violet Steenhoff
+
+
 #### Features
   - Added support for 3D games.
   - Implemented (3D) mesh loading through the open asset import library.
