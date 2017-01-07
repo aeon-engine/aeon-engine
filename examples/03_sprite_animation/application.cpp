@@ -40,7 +40,7 @@ application::application()
 void application::main()
 {
     // Load resources
-    auto animation_material = get_asset_manager().load_material("/resources/materials/2d_character.amf");
+    auto animation_material = get_asset_manager().load_material("/resources/materials/valheim.amf");
     auto atlas = get_asset_manager().create_atlas(animation_material, glm::vec2(32, 32));
 
     // Set up scene
@@ -49,7 +49,7 @@ void application::main()
 
     // The parameter given to the animation settings constructor is the size of each frame inside of the sprite sheet
     // This frame size does not need to be a power of 2.
-    auto animation_settings = aeon::scene::sprite_animation_settings(glm::vec2(32, 32));
+    auto animation_settings = aeon::scene::sprite_animation_settings(glm::vec2(128, 128));
 
     // Sequences can be generated so that different animations can be played easily. The first parameter is a handle
     // that can be any number as long as it's unique to that animation. In this example we used an enum to give each
@@ -60,10 +60,10 @@ void application::main()
     // bottom.
     // The final parameter determines how the sequence of frames should be played, for example normally (1234),
     // reversed (4321), or back and forth (123432).
-    animation_settings.generate_sequence(move_south, 0, 3, aeon::scene::animation_sequence_type::up_down);
-    animation_settings.generate_sequence(move_west, 12, 3, aeon::scene::animation_sequence_type::up_down);
-    animation_settings.generate_sequence(move_east, 24, 3, aeon::scene::animation_sequence_type::up_down);
-    animation_settings.generate_sequence(move_north, 36, 3, aeon::scene::animation_sequence_type::up_down);
+    animation_settings.generate_sequence(move_south, 3, 3, aeon::scene::animation_sequence_type::up_down);
+    animation_settings.generate_sequence(move_west, 15, 3, aeon::scene::animation_sequence_type::up_down);
+    animation_settings.generate_sequence(move_east, 27, 3, aeon::scene::animation_sequence_type::up_down);
+    animation_settings.generate_sequence(move_north, 39, 3, aeon::scene::animation_sequence_type::up_down);
 
     // Set up the animation so that automaticly starts playing right away.
     animation_settings.set_start_condition(aeon::scene::animation_start_condition::auto_start);
