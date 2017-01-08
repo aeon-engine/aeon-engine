@@ -206,12 +206,15 @@ auto image_codec_png::decode(resource_manager & /*parent*/,
     {
         case PNG_COLOR_TYPE_RGB:
             pixel_format = data::image::pixel_format::rgb;
+            AEON_LOG_DEBUG(logger_) << "Loading image as RGB." << std::endl;
             break;
         case PNG_COLOR_TYPE_RGB_ALPHA:
             pixel_format = data::image::pixel_format::rgba;
+            AEON_LOG_DEBUG(logger_) << "Loading image as RGBA." << std::endl;
             break;
         default:
-            AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Invalid or unsupported pixel format." << std::endl;
+            AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Invalid or unsupported pixel format: " << color_type
+                                    << std::endl;
             throw codec_png_decode_exception();
     }
 
