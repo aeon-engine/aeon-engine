@@ -58,7 +58,10 @@ void application::main()
     auto female_warrior =
         get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
     rotation_node_->attach_child(female_warrior);
-    rotation_node_->set_position(2.0f, 0.0f, 0.0f);
+
+    // Get a pointer to the staff submesh from the mesh.
+    staff_node_ = female_warrior->find_child_by_name("SUN Onlin7");
+    staff_node_->set_position(0.5f, 0.0f, 0.0f);
 
     auto skydome = get_asset_manager().load_mesh("resources/meshes/skysphere/skydome.dae");
     skydome->set_position(0.0f, -30.0f, 0.0f);
@@ -71,6 +74,7 @@ void application::main()
 
 bool application::on_frame_begin(const float dt)
 {
-    rotation_node_->rotate(0.0f, -0.5f * dt, 0.0f);
+    rotation_node_->rotate(0.0f, -0.1f * dt, 0.0f);
+    staff_node_->rotate(-0.3f * dt, 0.0f, 0.0f);
     return true;
 }
