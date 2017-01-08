@@ -19,6 +19,7 @@
 #include <aeon/resources/resource_manager.h>
 #include <aeon/resources/codecs/material_codec.h>
 #include <aeon/resources/wrappers/material_resource_wrapper.h>
+#include <aeon/serialization/serialization.h>
 #include <build_config.h>
 #include <json11.hpp>
 
@@ -27,88 +28,29 @@ namespace aeon
 namespace resources
 {
 
-class material_file_deserializer
+static auto convert_material_file_data(const serialization::material &material_file_data) -> data::material
 {
-public:
-    explicit material_file_deserializer(const logger::logger &logger, json11::Json &json, data::material &material_data)
-        : logger_(logger)
-        , json_(json)
-        , material_data_(material_data)
-    {
-        __parse_shaders();
-        __parse_samplers();
-    }
-
-    ~material_file_deserializer() = default;
-
-private:
-    void __parse_shaders() const
-    {
-        auto &shaders = json_["shaders"];
-
-        if (!shaders.is_object())
-        {
-            AEON_LOG_ERROR(logger_) << "'Shaders' entry missing from material file." << std::endl;
-            throw material_codec_decode_exception();
-        }
+    data::material material;
 
 #ifdef AEON_GFX_GL
-        auto shader_path = shaders["gl3"].string_value();
+    auto shader_path = material_file_data.shaders.at("gl3");
 #else // AEON_GFX_GL
 #ifdef AEON_GFX_GLES2
-        shader_path_ = shaders["gles2"].string_value();
+    shader_path_ = material_file_data.shaders.at("gles2");
 #else
-        static_assert(false, "Invalid or unsupported gfx subsystem selected.");
+    static_assert(false, "Invalid or unsupported gfx subsystem selected.");
 #endif // AEON_GFX_GLES2
 #endif // AEON_GFX_GL
 
-        if (shader_path.empty())
-        {
-            AEON_LOG_ERROR(logger_) << "Shader path was empty." << std::endl;
-            throw material_codec_decode_exception();
-        }
+    material.set_shader_path(shader_path);
 
-        material_data_.set_shader_path(shader_path);
-    }
-
-    void __parse_samplers() const
+    for (auto &sampler : material_file_data.samplers)
     {
-        auto &samplers = json_["samplers"];
-
-        if (!samplers.is_array())
-        {
-            AEON_LOG_ERROR(logger_) << "'Samplers' entry missing or incorrect in material file." << std::endl;
-            throw material_codec_decode_exception();
-        }
-
-        auto &sampler_array = samplers.array_items();
-
-        for (auto &sampler : sampler_array)
-        {
-            auto &name_object = sampler["name"];
-
-            if (!name_object.is_string())
-            {
-                AEON_LOG_ERROR(logger_) << "Sampler name entry missing or incorrect in material file." << std::endl;
-                throw material_codec_decode_exception();
-            }
-
-            auto &path_object = sampler["path"];
-
-            if (!path_object.is_string())
-            {
-                AEON_LOG_ERROR(logger_) << "Sampler path entry missing or incorrect in material file." << std::endl;
-                throw material_codec_decode_exception();
-            }
-
-            material_data_.add_sampler(data::sampler(name_object.string_value(), path_object.string_value()));
-        }
+        material.add_sampler(data::sampler(sampler->name, sampler->path));
     }
 
-    const logger::logger &logger_;
-    json11::Json &json_;
-    data::material &material_data_;
-};
+    return material;
+}
 
 material_codec::material_codec()
     : logger_(common::logger::get_singleton(), "Resources::MaterialCodec")
@@ -137,8 +79,8 @@ auto material_codec::decode(const std::shared_ptr<material_resource_wrapper> &wr
         throw material_codec_decode_exception();
     }
 
-    auto material_data = data::material();
-    auto material_file_data = material_file_deserializer(logger_, json, material_data);
+    serialization::material material_file_data(json);
+    auto material_data = convert_material_file_data(material_file_data);
 
     return std::make_shared<resources::material>(wrapper, std::move(material_data));
 }

@@ -80,6 +80,7 @@ target_link_libraries(aeon_engine_resources
     aeon_engine_common
     aeon_engine_data
     aeon_engine_platform
+    aeon_engine_serialization
     aeon
     glm
     assimp
