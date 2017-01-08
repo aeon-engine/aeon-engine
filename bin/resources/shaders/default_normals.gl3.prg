@@ -65,6 +65,12 @@ uniform sampler2D normal0;
 
 void main()
 {
+    vec4 diffuseMaterial = texture(texture0, frag_uvw);
+    if(diffuseMaterial.a == 0.0)
+    {
+        discard;
+    }
+
     vec3 texturenormal_tangentspace = 2.0 * texture(normal0, frag_uvw).rgb - 1.0;
     texturenormal_tangentspace = normalize(texturenormal_tangentspace);
 
@@ -74,7 +80,6 @@ void main()
 
     if (lamber_factor > 0.0)
     {
-        vec4 diffuseMaterial = texture(texture0, frag_uvw);
         vec4 diffuseLight  = vec4(0.0);
 
         vec4 specularMaterial = vec4(1.0);
