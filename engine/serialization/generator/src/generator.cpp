@@ -104,7 +104,8 @@ auto generator::__generate_base_header_code() const -> std::string
 
 #include <aeon/utility.h>
 #include <aeon/common/types/color.h>
-#include <glm/vec4.hpp>
+#include <glm/vec3.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <json11.hpp>
 #include <memory>
 #include <map>
@@ -184,6 +185,12 @@ auto generator::__generate_cpp_code_for_member_deserialization_by_type(const std
     if (member_type == "color")
         return __generate_cpp_code_for_member_deserialization_color(name);
 
+    if (member_type == "vec3")
+        return __generate_cpp_code_for_member_deserialization_vec3(name);
+
+    if (member_type == "quaternion")
+        return __generate_cpp_code_for_member_deserialization_quaternion(name);
+
     return __generate_cpp_code_for_member_deserialization_subtype(name, member_type);
 }
 
@@ -227,6 +234,43 @@ auto generator::__generate_cpp_code_for_member_deserialization_color(const std::
     if (!%member_name%_array_items.empty())
     {
         %member_name% = aeon::common::types::color(
+            static_cast<float>(%member_name%_array_items[0].number_value()),
+            static_cast<float>(%member_name%_array_items[1].number_value()),
+            static_cast<float>(%member_name%_array_items[2].number_value()),
+            static_cast<float>(%member_name%_array_items[3].number_value()));
+    }
+)code";
+
+    utility::string::replace(code, "%member_name%", name);
+    return code;
+}
+
+auto generator::__generate_cpp_code_for_member_deserialization_vec3(const std::string &name) const -> std::string
+{
+    std::string code = R"code(
+    auto %member_name%_array_items = json["%member_name%"].array_items();
+
+    if (!%member_name%_array_items.empty())
+    {
+        %member_name% = glm::vec3(
+            static_cast<float>(%member_name%_array_items[0].number_value()),
+            static_cast<float>(%member_name%_array_items[1].number_value()),
+            static_cast<float>(%member_name%_array_items[2].number_value()));
+    }
+)code";
+
+    utility::string::replace(code, "%member_name%", name);
+    return code;
+}
+
+auto generator::__generate_cpp_code_for_member_deserialization_quaternion(const std::string &name) const -> std::string
+{
+    std::string code = R"code(
+    auto %member_name%_array_items = json["%member_name%"].array_items();
+
+    if (!%member_name%_array_items.empty())
+    {
+        %member_name% = glm::quat(
             static_cast<float>(%member_name%_array_items[0].number_value()),
             static_cast<float>(%member_name%_array_items[1].number_value()),
             static_cast<float>(%member_name%_array_items[2].number_value()),
@@ -464,6 +508,12 @@ auto generator::__convert_object_member_type_to_cpp_type(const std::string &memb
     if (member_type == "color")
         return "aeon::utility::optional<aeon::common::types::color>";
 
+    if (member_type == "vec3")
+        return "glm::vec3";
+
+    if (member_type == "quaternion")
+        return "glm::quat";
+
     if (member_type == "kvstring")
         throw std::runtime_error("A kvstring (key value pair) can only be used as array.");
 
@@ -486,6 +536,12 @@ auto generator::__convert_object_member_array_type_to_cpp_type(const std::string
 
     if (member_type == "kvstring")
         return "std::map<std::string, std::string>";
+
+    if (member_type == "vec3")
+        throw std::runtime_error("A vec3 can only be used outside of an array.");
+
+    if (member_type == "quaternion")
+        throw std::runtime_error("A quaternion can only be used outside of an array.");
 
     return "std::vector<std::unique_ptr<" + member_type + ">>";
 }

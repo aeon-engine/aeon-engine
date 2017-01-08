@@ -46,6 +46,8 @@ private:
     auto __generate_cpp_code_for_member_deserialization_float(const std::string &name) const -> std::string;
     auto __generate_cpp_code_for_member_deserialization_string(const std::string &name) const -> std::string;
     auto __generate_cpp_code_for_member_deserialization_color(const std::string &name) const -> std::string;
+    auto __generate_cpp_code_for_member_deserialization_vec3(const std::string &name) const -> std::string;
+    auto __generate_cpp_code_for_member_deserialization_quaternion(const std::string &name) const -> std::string;
     auto __generate_cpp_code_for_member_deserialization_subtype(const std::string &name,
                                                                 const std::string &subtype) const -> std::string;
 
