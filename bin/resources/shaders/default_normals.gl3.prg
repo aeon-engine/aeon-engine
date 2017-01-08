@@ -62,6 +62,7 @@ in vec3 halfVec;
 
 uniform sampler2D texture0;
 uniform sampler2D normal0;
+uniform sampler2D specular0;
 
 void main()
 {
@@ -88,8 +89,7 @@ void main()
 
         diffuseLight = vec4(0.7, 0.7, 0.7, 1.0); // gl_LightSource[0].diffuse;
 
-        // In doom3, specular value comes from a texture
-        specularMaterial = vec4(1.0, 1.0, 1.0, 1.0);
+        specularMaterial = texture(specular0, frag_uvw);
         specularLight = vec4(0.8, 0.8, 0.8, 1.0); // gl_LightSource[0].specular;
         shininess = pow(max(dot(halfVec, texturenormal_tangentspace), 0.0), 2.0);
 
