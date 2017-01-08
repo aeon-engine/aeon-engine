@@ -1,0 +1,11 @@
+{
+    "name": "sampler",
+    "members": {
+        "name": {
+            "type": "string"
+        },
+        "path": {
+            "type": "string"
+        }
+    }
+}

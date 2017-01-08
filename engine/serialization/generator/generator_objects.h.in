@@ -1,0 +1,35 @@
+/*
+ * ROBIN DEGEN; CONFIDENTIAL
+ *
+ * 2012 - 2017 Robin Degen
+ * All Rights Reserved.
+ *
+ * NOTICE:  All information contained herein is, and remains the property of
+ * Robin Degen and its suppliers, if any. The intellectual and technical
+ * concepts contained herein are proprietary to Robin Degen and its suppliers
+ * and may be covered by U.S. and Foreign Patents, patents in process, and are
+ * protected by trade secret or copyright law. Dissemination of this
+ * information or reproduction of this material is strictly forbidden unless
+ * prior written permission is obtained from Robin Degen.
+ */
+
+#pragma once
+
+/*!
+ * NOTE: This is a generated file. Change the configuration through cmake.
+ */
+
+/*!
+ * Full path to the objects that should be processed by the generator.
+ */
+#define AEON_ENGINE_SERIALIZATION_GENERATOR_DATA_PATH "@AEON_ENGINE_SERIALIZATION_GENERATOR_DATA_PATH@"
+
+/*!
+ * Files that should be processed by the generator, seperated by ;.
+ */
+#define AEON_ENGINE_SERIALIZATION_GENERATOR_DATA "@AEON_ENGINE_SERIALIZATION_GENERATOR_DATA@"
+
+/*!
+ * Destination path of where the generated cpp and header files should end up.
+ */
+#define AEON_ENGINE_SERIALIZATION_GENERATOR_DESTINATION "@AEON_ENGINE_SERIALIZATION_GENERATOR_DESTINATION@"

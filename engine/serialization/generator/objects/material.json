@@ -1,0 +1,28 @@
+{
+    "name": "material",
+    "members": {
+        "shaders": {
+            "type": "kvstring",
+            "array": true
+        },
+        "samplers": {
+            "type": "sampler",
+            "array": true
+        },
+        "ambient": {
+            "type": "color"
+        },
+        "diffuse": {
+            "type": "color"
+        },
+        "specular": {
+            "type": "color"
+        },
+        "emission": {
+            "type": "color"
+        },
+        "shininess": {
+            "type": "int"
+        }
+    }
+}

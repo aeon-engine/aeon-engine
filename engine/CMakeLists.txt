@@ -3,6 +3,7 @@ include(Buildinfo)
 
 generate_build_info_header(${CMAKE_BINARY_DIR}/buildinfo.h)
 
+add_subdirectory(serialization)
 add_subdirectory(common)
 add_subdirectory(data)
 add_subdirectory(platform)
