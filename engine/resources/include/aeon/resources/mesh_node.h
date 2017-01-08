@@ -37,6 +37,16 @@ public:
     auto create_child(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
         -> mesh_node &;
 
+    const auto &get_name() const
+    {
+        return name_;
+    }
+
+    const auto &get_matrix() const
+    {
+        return matrix_;
+    }
+
     auto get_children() const
     {
         return utility::container::unique_ptr_to_raw_ptr(children_);
@@ -45,11 +55,6 @@ public:
     const auto &get_submeshes() const
     {
         return submeshes_;
-    }
-
-    const auto &get_matrix() const
-    {
-        return matrix_;
     }
 
 private:
