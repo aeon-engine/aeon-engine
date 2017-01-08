@@ -30,6 +30,12 @@ namespace aeon
 namespace scene
 {
 
+enum find_method
+{
+    single,
+    recursive
+};
+
 class scene_node : public std::enable_shared_from_this<scene_node>, public movable_object, public utility::noncopyable
 {
     friend class scene_manager;
@@ -43,7 +49,7 @@ public:
     /*!
      * Create a new scene node attached to this scene node.
      */
-    auto create_child_scene_node() -> std::shared_ptr<scene_node>;
+    auto create_child_scene_node(const std::string &name = "") -> std::shared_ptr<scene_node>;
 
     /*!
      * Attach a scene node to this node. This will automatically detach the given node from it's current parent,
@@ -127,7 +133,7 @@ public:
     /*!
      * Get a vector of references to all children.
      */
-    std::vector<std::reference_wrapper<scene_node>> get_children_refs() const;
+    auto get_children_refs() const -> std::vector<std::reference_wrapper<scene_node>>;
 
     /*!
      * Get all attached objects to this node
@@ -137,12 +143,28 @@ public:
         return scene_objects_;
     }
 
+    /*!
+     * Get the name of this scene node. This could be an empty string if no name was given on creation.
+     */
+    const auto &get_name() const
+    {
+        return name_;
+    }
+
+    /*!
+     * Find a scene node by name. This method will return the first scene node that matches the given name.
+     * The given name should not be an empty string.
+     * The find method can be single (only search within this scene node) or resursive (also search the
+     * children of this node; default).
+     */
+    auto find_child_by_name(const std::string &name, const find_method method = find_method::recursive) const -> scene_node *;
+
 private:
     /*!
      * Construtor
      * A scene node is marked as dirty by default.
      */
-    scene_node();
+    explicit scene_node(const std::string &name = "");
 
     /*!
      * The scene node that this node is attached to, or nullptr if not attached to anything.
@@ -173,6 +195,11 @@ private:
      * True if this is the root node
      */
     bool is_root_;
+
+    /*!
+     * The name of this scene node (can be empty)
+     */
+    std::string name_;
 };
 
 } // namespace scene

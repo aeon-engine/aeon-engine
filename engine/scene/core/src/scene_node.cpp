@@ -21,15 +21,16 @@ namespace aeon
 namespace scene
 {
 
-scene_node::scene_node()
+scene_node::scene_node(const std::string &name)
     : movable_object()
     , is_root_(false)
+    , name_(name)
 {
 }
 
-auto scene_node::create_child_scene_node() -> std::shared_ptr<scene_node>
+auto scene_node::create_child_scene_node(const std::string &name) -> std::shared_ptr<scene_node>
 {
-    auto node = std::shared_ptr<scene_node>(new scene_node());
+    auto node = std::shared_ptr<scene_node>(new scene_node(name));
     attach_child(node);
     return node;
 }
@@ -106,7 +107,7 @@ void scene_node::recalculate_matrices()
     dirty_ = false;
 }
 
-std::vector<std::reference_wrapper<scene_node>> scene_node::get_children_refs() const
+auto scene_node::get_children_refs() const -> std::vector<std::reference_wrapper<scene_node>>
 {
     // TODO: This method should be optimized with a cache. This will speed up the render
     // loop considerably since it doesn't need to recreate this vector each time.
@@ -147,6 +148,31 @@ auto scene_node::clone() -> std::shared_ptr<scene_node>
     }
 
     return node_copy;
+}
+
+auto scene_node::find_child_by_name(const std::string &name, const find_method method) const -> scene_node *
+{
+    for (auto &node : children_)
+    {
+        if (node->get_name() == name)
+        {
+            return node.get();
+        }
+    }
+
+    if (method == find_method::recursive)
+    {
+        // This loop should be seperate since we want to search in order of depth.
+        for (auto &node : children_)
+        {
+            auto result = node->find_child_by_name(name, method);
+
+            if (result != nullptr)
+                return result;
+        }
+    }
+
+    return nullptr;
 }
 
 } // namespace scene

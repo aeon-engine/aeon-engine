@@ -47,13 +47,13 @@ public:
     /*!
      * Create a child scene node attached to the root scene node.
      */
-    auto create_child_scene_node() const -> std::shared_ptr<scene_node>;
+    auto create_child_scene_node(const std::string &name = "") const -> std::shared_ptr<scene_node>;
 
     /*!
      * Create a scene node that is not attached to anything. This scene node must be attached to another node
      * through scene_node::attach_child().
      */
-    auto create_detached_scene_node() const -> std::shared_ptr<scene_node>;
+    auto create_detached_scene_node(const std::string &name = "") const -> std::shared_ptr<scene_node>;
 
     void detach_child_scene_node(const std::shared_ptr<scene_node> &node) const;
 
