@@ -38,7 +38,7 @@ target_include_directories(aeon_engine_serialization_generator
 
 set_target_properties(
     aeon_engine_serialization_generator PROPERTIES
-    FOLDER engine
+    FOLDER engine/serialization
 )
 
 add_custom_target(aeon_engine_serialization_generator_runner
@@ -48,7 +48,7 @@ add_custom_target(aeon_engine_serialization_generator_runner
 
 set_target_properties(
     aeon_engine_serialization_generator_runner PROPERTIES
-    FOLDER engine
+    FOLDER engine/serialization
 )
 
 add_dependencies(aeon_engine_serialization_generator_runner aeon_engine_serialization_generator)

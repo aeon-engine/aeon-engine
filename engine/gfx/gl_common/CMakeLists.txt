@@ -24,7 +24,7 @@ target_include_directories(aeon_engine_gfx_gl_common
 set_target_properties(
     aeon_engine_gfx_gl_common PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-    FOLDER engine
+    FOLDER engine/gfx
 )
 
 install(

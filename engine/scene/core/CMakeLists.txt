@@ -46,7 +46,7 @@ target_include_directories(aeon_engine_scene_core
 set_target_properties(
     aeon_engine_scene_core PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-    FOLDER engine
+    FOLDER engine/scene
 )
 
 install(
