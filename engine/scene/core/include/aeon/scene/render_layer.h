@@ -27,6 +27,7 @@ struct render_layer
         special = 0, // Special layer used for non renderable objects like camera's and sound.
         overlay = 10,
         world_geometry = 50,
+        world_geometry_alpha = 51,
         sky = 100,
         max = 255 // The highest render layer group.
     };

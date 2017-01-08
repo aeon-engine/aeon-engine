@@ -36,6 +36,7 @@ public:
 
     void bind() const;
     glm::vec2 get_size() const override;
+    data::image::pixel_format get_pixel_format() const override;
 
     void set_texture_bind_point(const int bind_point) const;
 
@@ -43,6 +44,7 @@ private:
     aeon::logger::logger logger_;
     GLuint handle_;
     glm::vec2 size_;
+    data::image::pixel_format pixel_format_;
 };
 
 } // namespace gl

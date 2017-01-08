@@ -27,7 +27,16 @@ gfx_gl_material::gfx_gl_material(const std::shared_ptr<shader> &shader,
     : shader_(std::dynamic_pointer_cast<gfx_gl_shader>(shader))
     , sampler_map_(__convert_sampler_map_to_gl(samplers))
     , samplers_(__generate_sampler_indices(sampler_map_))
+    , sampler_has_alpha_(false)
 {
+    for (auto &sampler : samplers)
+    {
+        if (sampler.second->get_pixel_format() == data::image::pixel_format::rgba)
+        {
+            sampler_has_alpha_ = true;
+            break;
+        }
+    }
 }
 
 void gfx_gl_material::bind()
@@ -58,6 +67,11 @@ gfx::texture *gfx_gl_material::get_sampler(const std::string &name) const
         throw gfx_material_exception();
 
     return result->second.get();
+}
+
+bool gfx_gl_material::sampler_has_alpha() const
+{
+    return sampler_has_alpha_;
 }
 
 auto gfx_gl_material::__convert_sampler_map_to_gl(const std::map<std::string, std::shared_ptr<texture>> &samplers) const

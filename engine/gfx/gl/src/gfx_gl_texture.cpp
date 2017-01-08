@@ -28,6 +28,7 @@ gfx_gl_texture::gfx_gl_texture()
     , logger_(common::logger::get_singleton(), "Gfx::GL::Texture")
     , handle_(0)
     , size_(0)
+    , pixel_format_(data::image::pixel_format::rgb)
 {
 }
 
@@ -47,6 +48,11 @@ void gfx_gl_texture::bind() const
 glm::vec2 gfx_gl_texture::get_size() const
 {
     return size_;
+}
+
+data::image::pixel_format gfx_gl_texture::get_pixel_format() const
+{
+    return pixel_format_;
 }
 
 void gfx_gl_texture::set_texture_bind_point(const int bind_point) const

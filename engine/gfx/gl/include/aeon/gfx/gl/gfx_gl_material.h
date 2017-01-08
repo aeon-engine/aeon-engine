@@ -65,6 +65,8 @@ public:
     gfx::shader *get_shader() const override;
     gfx::texture *get_sampler(const std::string &name) const override;
 
+    bool sampler_has_alpha() const override;
+
 protected:
     auto __convert_sampler_map_to_gl(const std::map<std::string, std::shared_ptr<texture>> &samplers) const
         -> std::map<std::string, std::shared_ptr<gfx_gl_texture>>;
@@ -74,6 +76,7 @@ protected:
     std::shared_ptr<gfx_gl_shader> shader_;
     std::map<std::string, std::shared_ptr<gfx_gl_texture>> sampler_map_;
     std::vector<gfx_gl_texture_handle_pair> samplers_;
+    bool sampler_has_alpha_;
 };
 
 } // namespace gl

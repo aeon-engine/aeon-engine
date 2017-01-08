@@ -33,6 +33,7 @@ public:
     virtual ~texture() = default;
 
     virtual glm::vec2 get_size() const = 0;
+    virtual data::image::pixel_format get_pixel_format() const = 0;
 };
 
 } // namespace gfx
