@@ -1,0 +1,9 @@
+{
+    "name": "world",
+    "members": {
+        "children": {
+            "type": "world_node",
+            "array": true
+        }
+    }
+}

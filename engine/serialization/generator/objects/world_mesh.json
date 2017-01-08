@@ -1,0 +1,8 @@
+{
+    "name": "world_mesh",
+    "members": {
+        "path": {
+            "type": "string"
+        }
+    }
+}
