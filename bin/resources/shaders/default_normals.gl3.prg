@@ -69,19 +69,19 @@ void main()
     texturenormal_tangentspace = normalize(texturenormal_tangentspace);
 
     float lamber_factor = max(dot(lightsource0_vector, texturenormal_tangentspace), 0.0);
-    vec4 diffuseMaterial = vec4(0.0);
-    vec4 diffuseLight  = vec4(0.0);
-
-    vec4 specularMaterial = vec4(1.0);
-    vec4 specularLight = vec4(1.0);
-    float shininess = 0;
 
     vec4 ambientLight = vec4(0.06, 0.06, 0.06, 1.0); //gl_LightSource[0].ambient;
 
     if (lamber_factor > 0.0)
     {
-        diffuseMaterial = texture(texture0, frag_uvw);
-        diffuseLight = vec4(0.5, 0.5, 0.5, 1.0); // gl_LightSource[0].diffuse;
+        vec4 diffuseMaterial = texture(texture0, frag_uvw);
+        vec4 diffuseLight  = vec4(0.0);
+
+        vec4 specularMaterial = vec4(1.0);
+        vec4 specularLight = vec4(1.0);
+        float shininess = 0;
+
+        diffuseLight = vec4(0.7, 0.7, 0.7, 1.0); // gl_LightSource[0].diffuse;
 
         // In doom3, specular value comes from a texture
         specularMaterial = vec4(1.0, 1.0, 1.0, 1.0);
@@ -93,4 +93,5 @@ void main()
     }
 
     output_color += ambientLight;
+    output_color.a = texture(texture0, frag_uvw).a;
 }
