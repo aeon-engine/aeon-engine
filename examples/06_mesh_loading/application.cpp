@@ -44,11 +44,11 @@ void application::main()
 {
     auto camera1_node = get_scene_manager()->create_child_scene_node();
     camera1_node->attach_scene_object(camera_);
-    camera1_node->set_position(0.0f, 0.0f, 10.0f);
+    camera1_node->set_position(0.0f, 0.0f, 6.0f);
 
     auto camera2_node = get_scene_manager()->create_child_scene_node();
     camera2_node->attach_scene_object(camera2_);
-    camera2_node->set_position(0.0f, 0.0f, -10.0f);
+    camera2_node->set_position(0.0f, 0.0f, -6.0f);
     camera2_node->rotate(glm::vec3(0.0f, glm::pi<float>(), 0.0f));
 
     rotation_node_ = get_scene_manager()->create_child_scene_node();
