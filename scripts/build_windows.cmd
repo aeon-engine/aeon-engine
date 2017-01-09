@@ -1,15 +1,36 @@
+@rem Cleanup
+git clean -dfx
+
+if errorlevel 1 (
+    exit /b 1
+)
+
+git submodule foreach git clean -dfx
+
+if errorlevel 1 (
+    exit /b 1
+)
+
+git reset --hard
+
+if errorlevel 1 (
+    exit /b 1
+)
+
+git submodule foreach git reset --hard
+
+if errorlevel 1 (
+    exit /b 1
+)
+
+@rem Update
 git submodule update --init
 
 if errorlevel 1 (
     exit /b 1
 )
 
-if exist ci_build (
-    rd /s /q ci_build
-    if errorlevel 1 (
-        exit /b 1
-    )
-)
+@rem Build
 
 mkdir ci_build
 
@@ -40,4 +61,3 @@ ctest -C Debug --verbose
 if errorlevel 1 (
     exit /b 1
 )
-
