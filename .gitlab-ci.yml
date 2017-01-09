@@ -3,6 +3,11 @@ osx:
     - osx
   script:
     - source scripts/build_osx.sh
+linux:
+  tags:
+    - linux
+  script:
+    - source scripts/build_linux.sh
 windows:
   tags:
     - windows
