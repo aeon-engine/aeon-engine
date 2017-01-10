@@ -157,7 +157,8 @@ public:
      * The find method can be single (only search within this scene node) or resursive (also search the
      * children of this node; default).
      */
-    auto find_child_by_name(const std::string &name, const find_method method = find_method::recursive) const -> scene_node *;
+    auto find_child_by_name(const std::string &name, const find_method method = find_method::recursive) const
+        -> scene_node *;
 
 private:
     /*!

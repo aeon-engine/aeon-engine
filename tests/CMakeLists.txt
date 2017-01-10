@@ -5,7 +5,8 @@ add_unit_test_suite(
     SOURCES
         test_render_queue.cpp
         test_rectangle.cpp
-		test_resource_file.cpp
+        test_resource_file.cpp
+        test_serializers.cpp
     LIBRARIES aeon_engine
     FOLDER engine/tests
 )

@@ -1,0 +1,13 @@
+{
+    "name": "perspective_camera",
+    "base": "world_object",
+    "members": {
+        "fov": "float",
+        "fov_y": "float",
+        "aspect_ratio": "float",
+        "width": "float",
+        "height": "float",
+        "near": "float",
+        "far": "float"
+    }
+}

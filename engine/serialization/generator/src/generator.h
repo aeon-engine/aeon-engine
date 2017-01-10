@@ -15,9 +15,13 @@
 
 #pragma once
 
+#include <vector>
 #include <map>
 #include <string>
+#include <memory>
 #include <object.h>
+#include <code_generator.h>
+#include <subtype_code_generator.h>
 
 namespace aeon
 {
@@ -27,10 +31,10 @@ namespace serialization
 class generator
 {
 public:
-    generator() = default;
+    generator();
     ~generator() = default;
 
-    void generate_code(const std::map<std::string, object> &objects) const;
+    void generate_code(const std::vector<object> &objects) const;
 
 private:
     auto __generate_base_code() const -> std::string;
@@ -38,41 +42,29 @@ private:
 
     void __generate_code_for_object(const object &obj, std::string &cpp_code, std::string &header_code) const;
     auto __generate_cpp_code_for_object(const object &obj) const -> std::string;
+
     auto __generate_cpp_code_for_member_deserialization(const object &obj) const -> std::string;
+    auto __generate_cpp_deserialize_by_type(const object_member &object_member) const -> std::string;
 
-    auto __generate_cpp_code_for_member_deserialization_by_type(const std::string &member_type,
-                                                                const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_int(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_float(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_string(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_color(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_vec3(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_quaternion(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_subtype(const std::string &name,
-                                                                const std::string &subtype) const -> std::string;
+    auto __generate_cpp_code_for_member_serialization(const object &obj) const -> std::string;
+    auto __generate_cpp_serialize_by_type(const object_member &object_member) const -> std::string;
 
-    auto __generate_cpp_code_for_member_deserialization_by_array_type(const std::string &member_type,
-                                                                      const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_int_array(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_float_array(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_string_array(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_color_array(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_kvstring_array(const std::string &name) const -> std::string;
-    auto __generate_cpp_code_for_member_deserialization_subtype_array(const std::string &name,
-                                                                      const std::string &subtype) const -> std::string;
-
-    auto __generate_forward_declare_code(const std::map<std::string, object> &objects) const -> std::string;
+    auto __generate_additional_include_code() const -> std::string;
+    auto __generate_forward_declare_code(const std::vector<object> &objects) const -> std::string;
 
     auto __generate_header_code_for_object(const object &obj) const -> std::string;
     auto __generate_header_member_code_for_object(const object &obj) const -> std::string;
 
-    auto __convert_object_member_type_to_cpp_type(const std::string &member_type) const -> std::string;
-    auto __convert_object_member_array_type_to_cpp_type(const std::string &member_type) const -> std::string;
+    auto __convert_object_member_type_to_cpp_type(const object_member &object_member) const -> std::string;
+    auto __convert_object_member_array_type_to_cpp_type(const object_member &object_member) const -> std::string;
 
     void __write_cpp_code_if_changed(const std::string &code) const;
     void __write_header_code_if_changed(const std::string &code) const;
 
     auto __file_contents_equal(const std::string &path, const std::string &content) const -> bool;
+
+    std::map<std::string, std::unique_ptr<code_generator>> code_generators_;
+    subtype_code_generator subtype_code_generator_;
 };
 
 } // namespace serialization

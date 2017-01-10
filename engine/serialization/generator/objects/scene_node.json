@@ -1,0 +1,11 @@
+{
+    "name": "scene_node",
+    "members": {
+        "name": "string",
+        "position": "vec3",
+        "rotation": "quaternion",
+        "scale": "vec3",
+        "children": ["scene_node"],
+        "objects": ["world_object"]
+    }
+}

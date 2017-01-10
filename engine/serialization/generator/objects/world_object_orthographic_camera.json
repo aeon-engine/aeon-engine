@@ -1,0 +1,12 @@
+{
+    "name": "orthographic_camera",
+    "base": "world_object",
+    "members": {
+        "left": "float",
+        "right": "float",
+        "bottom": "float",
+        "top": "float",
+        "near": "float",
+        "far": "float"
+    }
+}

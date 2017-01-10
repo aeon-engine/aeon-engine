@@ -1,0 +1,10 @@
+{
+    "name": "point_light",
+    "base": "world_object",
+    "members": {
+        "color": "color",
+        "constant_attenuation": "float",
+        "linear_attenuation": "float",
+        "exponential_attenuation": "float"
+    }
+}

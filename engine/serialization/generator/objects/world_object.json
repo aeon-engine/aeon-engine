@@ -1,23 +1,6 @@
 {
     "name": "world_object",
     "members": {
-        "type": {
-            "type": "string"
-        },
-        "position": {
-            "type": "vec3"
-        },
-        "rotation": {
-            "type": "quaternion"
-        },
-        "scale": {
-            "type": "vec3"
-        },
-        "mesh_data": {
-            "type": "world_mesh"
-        },
-        "perspective_camera_data": {
-            "type": "world_perspective_camera"
-        }
+        "name": "string"
     }
 }
