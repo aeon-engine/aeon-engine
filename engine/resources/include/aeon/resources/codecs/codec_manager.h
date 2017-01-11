@@ -25,6 +25,7 @@
 #include <aeon/resources/codecs/shader_codec.h>
 #include <aeon/resources/codecs/atlas_codec.h>
 #include <aeon/resources/codecs/mesh_codec.h>
+#include <aeon/resources/codecs/world_codec.h>
 #include <aeon/common/logger.h>
 #include <map>
 
@@ -53,6 +54,7 @@ public:
     auto get_shader_codec() const -> shader_codec &;
     auto get_atlas_codec() const -> atlas_codec &;
     auto get_mesh_codec(const resource_encoding encoding) const -> mesh_codec &;
+    auto get_world_codec() const -> world_codec &;
 
     auto get_resource_type_by_encoding(const resource_encoding encoding) const -> resource_type;
 

@@ -75,6 +75,11 @@ auto codec_manager::get_mesh_codec(const resource_encoding encoding) const -> me
     return dynamic_cast<mesh_codec &>(get_codec(encoding));
 }
 
+auto codec_manager::get_world_codec() const -> world_codec &
+{
+    return dynamic_cast<world_codec &>(get_codec(resource_encoding::world));
+}
+
 auto codec_manager::get_resource_type_by_encoding(const resource_encoding encoding) const -> resource_type
 {
     switch (encoding)
@@ -89,6 +94,8 @@ auto codec_manager::get_resource_type_by_encoding(const resource_encoding encodi
             return resource_type::image;
         case resource_encoding::mesh_assimp:
             return resource_type::mesh;
+        case resource_encoding::world:
+            return resource_type::world;
         case resource_encoding::unknown:
         default:
         {
@@ -105,6 +112,7 @@ void codec_manager::__register_codecs()
     codecs_[resource_encoding::image_png] = std::make_unique<image_codec_png>();
     codecs_[resource_encoding::atlas] = std::make_unique<atlas_codec>();
     codecs_[resource_encoding::mesh_assimp] = std::make_unique<mesh_codec_assimp>();
+    codecs_[resource_encoding::world] = std::make_unique<world_codec>();
 
     AEON_LOG_DEBUG(logger_) << "Registered " << codecs_.size() << " codecs." << std::endl;
 }

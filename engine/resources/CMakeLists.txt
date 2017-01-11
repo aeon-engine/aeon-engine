@@ -11,6 +11,7 @@ set (AEON_ENGINE_RESOURCES_SOURCES
     include/aeon/resources/resource_type.h
     include/aeon/resources/shader.h
     include/aeon/resources/submesh.h
+    include/aeon/resources/world.h
     src/atlas.cpp
     src/image.cpp
     src/material.cpp
@@ -18,6 +19,7 @@ set (AEON_ENGINE_RESOURCES_SOURCES
     src/mesh_node.cpp
     src/resource_manager.cpp
     src/shader.cpp
+    src/world.cpp
 )
 
 source_group(resources FILES ${AEON_ENGINE_RESOURCES_SOURCES})
@@ -39,12 +41,14 @@ set (AEON_ENGINE_RESOURCE_WRAPPER_SOURCES
     include/aeon/resources/wrappers/mesh_resource_wrapper.h
     include/aeon/resources/wrappers/resource_wrapper.h
     include/aeon/resources/wrappers/shader_resource_wrapper.h
+    include/aeon/resources/wrappers/world_resource_wrapper.h
     src/wrappers/atlas_resource_wrapper.cpp
     src/wrappers/image_resource_wrapper.cpp
     src/wrappers/material_resource_wrapper.cpp
     src/wrappers/mesh_resource_wrapper.cpp
     src/wrappers/resource_wrapper.cpp
     src/wrappers/shader_resource_wrapper.cpp
+    src/wrappers/world_resource_wrapper.cpp
 )
 
 source_group(resources\\wrappers FILES ${AEON_ENGINE_RESOURCE_WRAPPER_SOURCES})
@@ -59,12 +63,14 @@ set (AEON_ENGINE_RESOURCE_CODEC_SOURCES
     include/aeon/resources/codecs/mesh_assimp_codec.h
     include/aeon/resources/codecs/mesh_codec.h
     include/aeon/resources/codecs/shader_codec.h
+    include/aeon/resources/codecs/world_codec.h
     src/codecs/atlas_codec.cpp
     src/codecs/codec_manager.cpp
     src/codecs/image_png_codec.cpp
     src/codecs/material_codec.cpp
     src/codecs/mesh_assimp_codec.cpp
     src/codecs/shader_codec.cpp
+    src/codecs/world_codec.cpp
 )
 
 source_group(resources\\codecs FILES ${AEON_ENGINE_RESOURCE_CODEC_SOURCES})

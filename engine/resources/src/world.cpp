@@ -13,23 +13,25 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
+#include <aeon/resources/world.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+world::world(const std::shared_ptr<resource_wrapper> &wrapper, serialization::world &&world_data)
+    : resource(wrapper)
+    , logger_(common::logger::get_singleton(), "Resources::World")
+    , world_data_(std::move(world_data))
 {
-    unknown,
-    material,
-    shader,
-    atlas,
-    image_png,
-    mesh_assimp,
-    world
-};
+    AEON_LOG_TRACE(logger_) << "Created world resource." << std::endl;
+}
+
+world::~world()
+{
+    AEON_LOG_TRACE(logger_) << "Deleted world resource." << std::endl;
+}
 
 } // namespace resources
 } // namespace aeon

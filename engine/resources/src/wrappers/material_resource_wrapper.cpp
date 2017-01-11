@@ -13,7 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <aeon/resources/wrappers/image_resource_wrapper.h>
+#include <aeon/resources/wrappers/material_resource_wrapper.h>
 #include <aeon/resources/resource_manager.h>
 
 namespace aeon

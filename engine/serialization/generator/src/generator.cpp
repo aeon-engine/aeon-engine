@@ -323,6 +323,9 @@ struct %object_name% %object_derives%
     explicit %object_name%(const json11::Json &json);
     virtual ~%object_name%() = default;
 
+    %object_name%(%object_name% &&) noexcept = default;
+    %object_name% &operator=(%object_name% &&) = default;
+
     virtual auto get_typename() const -> std::string;
 
     virtual auto to_json() const -> json11::Json;

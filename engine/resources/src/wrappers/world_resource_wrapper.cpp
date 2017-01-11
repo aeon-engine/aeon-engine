@@ -13,23 +13,27 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
+#include <aeon/resources/wrappers/world_resource_wrapper.h>
+#include <aeon/resources/resource_manager.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+world_resource_wrapper::world_resource_wrapper(resource_manager &parent, const std::string &path,
+                                               const std::weak_ptr<resource_provider> &provider)
+    : resource_wrapper(parent, path, provider)
 {
-    unknown,
-    material,
-    shader,
-    atlas,
-    image_png,
-    mesh_assimp,
-    world
-};
+    if (get_type() != resource_type::world)
+        throw resource_type_exception();
+}
+
+auto world_resource_wrapper::open() -> std::shared_ptr<world>
+{
+    auto &codec = __get_parent().get_codec_manager().get_world_codec();
+    return codec.decode(std::dynamic_pointer_cast<world_resource_wrapper>(shared_from_this()));
+}
 
 } // namespace resources
 } // namespace aeon

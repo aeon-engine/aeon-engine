@@ -15,20 +15,24 @@
 
 #pragma once
 
+#include <aeon/resources/wrappers/resource_wrapper.h>
+#include <memory>
+#include <string>
+
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+class world;
+class world_resource_wrapper : public resource_wrapper
 {
-    unknown,
-    material,
-    shader,
-    atlas,
-    image_png,
-    mesh_assimp,
-    world
+public:
+    explicit world_resource_wrapper(resource_manager &parent, const std::string &path,
+                                    const std::weak_ptr<resource_provider> &provider);
+    virtual ~world_resource_wrapper() = default;
+
+    auto open() -> std::shared_ptr<world>;
 };
 
 } // namespace resources
