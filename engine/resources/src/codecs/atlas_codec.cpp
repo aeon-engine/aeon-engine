@@ -53,7 +53,8 @@ auto atlas_codec::decode(resource_manager &parent, const std::shared_ptr<atlas_r
         throw atlas_codec_decode_exception();
     }
 
-    auto material_res_wrapper = parent.load_material_wrapper(atlas_file.get<std::string>("material", ""));
+    auto material_res_wrapper =
+        parent.load_resource_wrapper<material_resource_wrapper>(atlas_file.get<std::string>("material", ""));
     auto material_res = material_res_wrapper->open();
 
     data::atlas atlas_data;

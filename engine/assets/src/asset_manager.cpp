@@ -42,7 +42,7 @@ auto asset_manager::load_texture(const std::string &path) -> std::shared_ptr<gfx
     if (result)
         return result;
 
-    auto image_resource = resource_manager_.load_image_wrapper(path);
+    auto image_resource = resource_manager_.load_resource_wrapper<resources::image_resource_wrapper>(path);
     auto image_resource_data = image_resource->open();
     auto texture = device_.get_texture_manager().create(image_resource_data->get_data());
     texture_cache_.add_cached_object(path, texture);
@@ -58,7 +58,7 @@ auto asset_manager::load_shader(const std::string &path) -> std::shared_ptr<gfx:
     if (result)
         return result;
 
-    auto shader_resource = resource_manager_.load_shader_wrapper(path);
+    auto shader_resource = resource_manager_.load_resource_wrapper<resources::shader_resource_wrapper>(path);
     auto shader_resource_data = shader_resource->open();
     auto shader = device_.get_shader_manager().create(shader_resource_data->get_data());
     shader_cache_.add_cached_object(path, shader);
@@ -74,7 +74,7 @@ auto asset_manager::load_material(const std::string &path) -> std::shared_ptr<gf
     if (result)
         return result;
 
-    auto material_resource = resource_manager_.load_material_wrapper(path);
+    auto material_resource = resource_manager_.load_resource_wrapper<resources::material_resource_wrapper>(path);
     auto material_resource_data = material_resource->open();
 
     auto &material_data = material_resource_data->get_material_data();
@@ -104,7 +104,7 @@ auto asset_manager::load_atlas(const std::string &path) -> std::shared_ptr<gfx::
     if (result)
         return result;
 
-    auto atlas_resource = resource_manager_.load_atlas_wrapper(path);
+    auto atlas_resource = resource_manager_.load_resource_wrapper<resources::atlas_resource_wrapper>(path);
     auto atlas_resource_data = atlas_resource->open();
     auto material = load_material(atlas_resource_data->get_material_path());
     auto atlas = device_.get_atlas_manager().create(material, atlas_resource_data->get_data());
@@ -116,7 +116,7 @@ auto asset_manager::load_mesh(const std::string &path) -> std::shared_ptr<scene:
 {
     AEON_LOG_DEBUG(logger_) << "Loading mesh '" << path << "'." << std::endl;
 
-    auto mesh_resource = resource_manager_.load_mesh_wrapper(path);
+    auto mesh_resource = resource_manager_.load_resource_wrapper<resources::mesh_resource_wrapper>(path);
     auto mesh = mesh_resource->open();
 
     auto &mesh_root_node = mesh->get_root_mesh_node();

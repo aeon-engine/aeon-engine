@@ -54,11 +54,19 @@ public:
     void mount(const std::shared_ptr<resource_provider> &provider, const std::string &mountpoint = "/");
     void unmount(const std::string &mountpoint);
 
-    auto load_image_wrapper(const std::string &path) -> std::shared_ptr<image_resource_wrapper>;
-    auto load_material_wrapper(const std::string &path) -> std::shared_ptr<material_resource_wrapper>;
-    auto load_shader_wrapper(const std::string &path) -> std::shared_ptr<shader_resource_wrapper>;
-    auto load_atlas_wrapper(const std::string &path) -> std::shared_ptr<atlas_resource_wrapper>;
-    auto load_mesh_wrapper(const std::string &path) -> std::shared_ptr<mesh_resource_wrapper>;
+    template <typename T>
+    auto load_resource_wrapper(const std::string &path)
+    {
+        AEON_LOG_DEBUG(logger_) << "Loading resource wrapper '" << path << "'." << std::endl;
+
+        auto real_path = std::string();
+        auto best_match_provider = __find_best_match_provider(path, real_path);
+
+        if (!best_match_provider)
+            return std::shared_ptr<T>();
+
+        return std::make_shared<T>(*this, real_path, best_match_provider);
+    }
 
     auto &get_platform_interface()
     {
@@ -71,7 +79,7 @@ public:
     }
 
 private:
-    auto __find_best_match_provider(const std::string &path, std::string &provider_path)
+    auto __find_best_match_provider(const std::string &path, std::string &provider_path) const
         -> std::shared_ptr<resource_provider>;
 
     aeon::logger::logger logger_;
