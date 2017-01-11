@@ -22,14 +22,14 @@ namespace scene
 {
 
 sprite::sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
-               const data::atlas::region &region, const int zorder)
-    : sprite(scene_manager, atlas, region, region.get_size(), zorder)
+               const data::atlas::region &region, const int zorder, const std::string &name)
+    : sprite(scene_manager, atlas, region, region.get_size(), zorder, name)
 {
 }
 
 sprite::sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
-               const data::atlas::region &region, const glm::vec2 size, const int zorder)
-    : scene_object(render_layer::overlay, scene_object_type::sprite, scene_manager)
+               const data::atlas::region &region, const glm::vec2 size, const int zorder, const std::string &name)
+    : scene_object(name, render_layer::overlay, scene_object_type::sprite, scene_manager)
     , has_z_order(zorder)
     , size_(size)
     , atlas_(atlas)

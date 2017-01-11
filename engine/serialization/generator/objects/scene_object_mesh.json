@@ -1,6 +1,6 @@
 {
     "name": "mesh",
-    "base": "world_object",
+    "base": "scene_object",
     "members": {
         "path": "string"
     }

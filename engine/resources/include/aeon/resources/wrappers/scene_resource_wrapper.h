@@ -15,36 +15,24 @@
 
 #pragma once
 
-#include <aeon/resources/resource.h>
-#include <aeon/resources/wrappers/world_resource_wrapper.h>
-#include <aeon/serialization/serialization.h>
-#include <aeon/common/logger.h>
+#include <aeon/resources/wrappers/resource_wrapper.h>
 #include <memory>
+#include <string>
 
 namespace aeon
 {
 namespace resources
 {
 
-class world : public resource
+class scene;
+class scene_resource_wrapper : public resource_wrapper
 {
 public:
-    explicit world(const std::shared_ptr<resource_wrapper> &wrapper, serialization::world &&world_data);
-    virtual ~world();
+    explicit scene_resource_wrapper(resource_manager &parent, const std::string &path,
+                                    const std::weak_ptr<resource_provider> &provider);
+    virtual ~scene_resource_wrapper() = default;
 
-    const auto &get_material_data() const
-    {
-        return world_data_;
-    }
-
-    auto get_material_resource_wrapper() const
-    {
-        return std::dynamic_pointer_cast<world_resource_wrapper>(get_resource_wrapper());
-    }
-
-private:
-    logger::logger logger_;
-    serialization::world world_data_;
+    auto open() -> std::shared_ptr<scene>;
 };
 
 } // namespace resources

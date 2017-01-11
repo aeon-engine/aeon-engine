@@ -57,35 +57,38 @@ bool render_target::handle_frame(float dt)
     return true;
 }
 
-std::shared_ptr<viewport> render_target::create_viewport(std::shared_ptr<gfx_camera> camera, int zorder)
+std::shared_ptr<viewport> render_target::create_viewport(std::shared_ptr<gfx_camera> camera, const std::string &name,
+                                                         int zorder)
 {
-    AEON_LOG_DEBUG(logger_) << "Creating full-screen viewport." << std::endl;
+    AEON_LOG_DEBUG(logger_) << "Creating full-screen viewport '" << name << "'." << std::endl;
 
-    std::shared_ptr<viewport> vp = std::make_shared<viewport>(camera, zorder);
+    std::shared_ptr<viewport> vp = std::make_shared<viewport>(camera, name, zorder);
     attach_viewport(vp);
     return vp;
 }
 
 std::shared_ptr<viewport> render_target::create_viewport(std::shared_ptr<gfx_camera> camera,
-                                                         const common::types::rectangle<float> &rect, int zorder)
+                                                         const common::types::rectangle<float> &rect,
+                                                         const std::string &name, int zorder)
 {
-    AEON_LOG_DEBUG(logger_) << "Creating viewport (" << rect << ")." << std::endl;
+    AEON_LOG_DEBUG(logger_) << "Creating viewport '" << name << "' (" << rect << ")." << std::endl;
 
-    std::shared_ptr<viewport> vp = std::make_shared<viewport>(camera, rect, zorder);
+    std::shared_ptr<viewport> vp = std::make_shared<viewport>(camera, rect, name, zorder);
     attach_viewport(vp);
     return vp;
 }
 
 void render_target::attach_viewport(const std::shared_ptr<viewport> &vp)
 {
-    AEON_LOG_DEBUG(logger_) << "Attaching viewport (" << vp->get_rectangle() << ")." << std::endl;
+    AEON_LOG_DEBUG(logger_) << "Attaching viewport '" << vp->get_name() << "'(" << vp->get_rectangle() << ")."
+                            << std::endl;
     viewports_.push_back(vp);
     __sort_viewports_by_zorder();
 }
 
 void render_target::detach_viewport(const std::shared_ptr<viewport> &vp)
 {
-    AEON_LOG_DEBUG(logger_) << "Detaching viewport." << std::endl;
+    AEON_LOG_DEBUG(logger_) << "Detaching viewport '" << vp->get_name() << "'." << std::endl;
     viewports_.erase(std::remove(viewports_.begin(), viewports_.end(), vp), viewports_.end());
     __sort_viewports_by_zorder();
 }

@@ -27,9 +27,10 @@ class perspective_camera : public camera
 {
 public:
     explicit perspective_camera(scene_manager *scene_manager, const float fov_y, const float aspect_ratio,
-                                const float near, const float far);
+                                const float near, const float far, const std::string &name = "");
     explicit perspective_camera(scene_manager *scene_manager, const float fov, const float width, const float height,
-                                const float near, const float far);
+                                const float near, const float far, const std::string &name = "");
+
     virtual ~perspective_camera() = default;
 };
 

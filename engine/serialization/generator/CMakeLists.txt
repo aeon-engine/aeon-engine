@@ -43,6 +43,8 @@ set(AEON_ENGINE_SERIALIZATION_GENERATOR_CODE_GENERATOR_SOURCES
     src/code_generators/code_generator_vec3.h
     src/code_generators/code_generator_quaternion.cpp
     src/code_generators/code_generator_quaternion.h
+    src/code_generators/code_generator_rectangle.cpp
+    src/code_generators/code_generator_rectangle.h
 )
 
 source_group(serialization\\code_generators FILES ${AEON_ENGINE_SERIALIZATION_GENERATOR_CODE_GENERATOR_SOURCES})

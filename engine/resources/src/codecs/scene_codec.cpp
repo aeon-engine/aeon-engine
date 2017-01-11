@@ -17,8 +17,8 @@
 #include <aeon/streams.h>
 #include <aeon/utility.h>
 #include <aeon/resources/resource_manager.h>
-#include <aeon/resources/codecs/world_codec.h>
-#include <aeon/resources/wrappers/world_resource_wrapper.h>
+#include <aeon/resources/codecs/scene_codec.h>
+#include <aeon/resources/wrappers/scene_resource_wrapper.h>
 #include <aeon/serialization/serialization.h>
 #include <json11.hpp>
 
@@ -27,19 +27,19 @@ namespace aeon
 namespace resources
 {
 
-world_codec::world_codec()
-    : logger_(common::logger::get_singleton(), "Resources::WorldCodec")
+scene_codec::scene_codec()
+    : logger_(common::logger::get_singleton(), "Resources::SceneCodec")
 {
 }
 
-auto world_codec::get_codec_type() const -> resource_encoding
+auto scene_codec::get_codec_type() const -> resource_encoding
 {
-    return resource_encoding::world;
+    return resource_encoding::scene;
 }
 
-auto world_codec::decode(const std::shared_ptr<world_resource_wrapper> &wrapper) const -> std::shared_ptr<world>
+auto scene_codec::decode(const std::shared_ptr<scene_resource_wrapper> &wrapper) const -> std::shared_ptr<scene>
 {
-    AEON_LOG_DEBUG(logger_) << "Decoding world resource." << std::endl;
+    AEON_LOG_DEBUG(logger_) << "Decoding scene resource." << std::endl;
 
     auto input = std::string();
     wrapper->read_raw(input);
@@ -49,13 +49,13 @@ auto world_codec::decode(const std::shared_ptr<world_resource_wrapper> &wrapper)
 
     if (!error_string.empty())
     {
-        AEON_LOG_ERROR(logger_) << "Parse error while decoding world. Message was: " << error_string << std::endl;
+        AEON_LOG_ERROR(logger_) << "Parse error while decoding scene. Message was: " << error_string << std::endl;
         throw material_codec_decode_exception();
     }
 
-    serialization::world world_file_data(json);
+    serialization::scene scene_file_data(json);
 
-    return std::make_shared<resources::world>(wrapper, std::move(world_file_data));
+    return std::make_shared<resources::scene>(wrapper, std::move(scene_file_data));
 }
 
 } // namespace resources

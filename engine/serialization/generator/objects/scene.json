@@ -1,0 +1,7 @@
+{
+    "name": "scene",
+    "members": {
+        "root": "scene_node",
+        "viewports": ["viewport"]
+    }
+}

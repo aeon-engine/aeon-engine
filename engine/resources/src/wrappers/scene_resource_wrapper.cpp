@@ -13,24 +13,26 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <aeon/resources/world.h>
+#include <aeon/resources/wrappers/scene_resource_wrapper.h>
+#include <aeon/resources/resource_manager.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-world::world(const std::shared_ptr<resource_wrapper> &wrapper, serialization::world &&world_data)
-    : resource(wrapper)
-    , logger_(common::logger::get_singleton(), "Resources::World")
-    , world_data_(std::move(world_data))
+scene_resource_wrapper::scene_resource_wrapper(resource_manager &parent, const std::string &path,
+                                               const std::weak_ptr<resource_provider> &provider)
+    : resource_wrapper(parent, path, provider)
 {
-    AEON_LOG_TRACE(logger_) << "Created world resource." << std::endl;
+    if (get_type() != resource_type::scene)
+        throw resource_type_exception();
 }
 
-world::~world()
+auto scene_resource_wrapper::open() -> std::shared_ptr<scene>
 {
-    AEON_LOG_TRACE(logger_) << "Deleted world resource." << std::endl;
+    auto &codec = __get_parent().get_codec_manager().get_scene_codec();
+    return codec.decode(std::dynamic_pointer_cast<scene_resource_wrapper>(shared_from_this()));
 }
 
 } // namespace resources

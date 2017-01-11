@@ -93,6 +93,14 @@ public:
     auto load_mesh(const std::string &path) -> std::shared_ptr<scene::scene_node>;
 
     /*!
+     * Load a scene from a given file. Make sure the given file extension has a registed codec in the
+     * codec manager. This will load the whole scene and all it's contents into a tree of scene nodes.
+     * \param path The path to the scene file.
+     * \return A scene node of the root of the scene.
+     */
+    auto load_scene(const std::string &path) -> std::shared_ptr<scene::scene_node>;
+
+    /*!
      * Generate an atlas based on the given parameters. The atlas will index
      * sprites from the left top to the right bottom.
      * \param material The material to be used for the atlas
@@ -105,6 +113,7 @@ public:
 
 private:
     void __convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node);
+    void __convert_scene_data_to_scene_node(serialization::scene_node &scene_data, scene::scene_node &scene_node);
 
     aeon::logger::logger logger_;
     resources::resource_manager &resource_manager_;

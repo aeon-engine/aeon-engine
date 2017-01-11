@@ -21,9 +21,9 @@ namespace aeon
 namespace scene
 {
 
-camera::camera(scene_manager *scene_manager)
+camera::camera(const std::string &name, scene_manager *scene_manager)
     : gfx::gfx_camera()
-    , scene_object(render_layer::overlay, scene_object_type::spatial, scene_manager)
+    , scene_object(name, render_layer::overlay, scene_object_type::spatial, scene_manager)
 {
 }
 

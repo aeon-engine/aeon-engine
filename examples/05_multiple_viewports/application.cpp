@@ -33,11 +33,11 @@ application::application()
 
     // Create the left viewport
     aeon::common::types::rectangle<float> viewport_rect_left(0.0f, 0.0f, 0.5f, 1.0f);
-    window_->create_viewport(camera_, viewport_rect_left, 0);
+    window_->create_viewport(camera_, viewport_rect_left, "viewport1", 0);
 
     // Create the right viewport
     aeon::common::types::rectangle<float> viewport_rect_right(0.5f, 0.0f, 0.5f, 1.0f);
-    window_->create_viewport(camera_, viewport_rect_right, 0);
+    window_->create_viewport(camera_, viewport_rect_right, "viewport2", 0);
 }
 
 void application::main()

@@ -1,6 +1,6 @@
 {
     "name": "orthographic_camera",
-    "base": "world_object",
+    "base": "scene_object",
     "members": {
         "left": "float",
         "right": "float",

@@ -30,7 +30,7 @@ enum class resource_type
     material,
     atlas,
     mesh,
-    world
+    scene
 };
 
 } // namespace resources

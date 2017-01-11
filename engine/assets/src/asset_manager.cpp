@@ -16,6 +16,7 @@
 #include <aeon/assets/asset_manager.h>
 #include <aeon/scene/mesh.h>
 #include <build_config.h>
+#include "aeon/scene/perspective_camera.h"
 
 namespace aeon
 {
@@ -134,6 +135,21 @@ auto asset_manager::load_mesh(const std::string &path) -> std::shared_ptr<scene:
     return scene_node;
 }
 
+auto asset_manager::load_scene(const std::string &path) -> std::shared_ptr<scene::scene_node>
+{
+    AEON_LOG_DEBUG(logger_) << "Loading scene '" << path << "'." << std::endl;
+
+    auto scene_resource = resource_manager_.load_resource_wrapper<resources::scene_resource_wrapper>(path);
+    auto scene = scene_resource->open();
+
+    auto &scene_data = scene->get_scene_data();
+    auto scene_node = scene_manager_.create_detached_scene_node(scene_data.root->name);
+
+    __convert_scene_data_to_scene_node(*scene_data.root, *scene_node);
+
+    return scene_node;
+}
+
 auto asset_manager::create_atlas(const std::shared_ptr<gfx::material> &material, glm::vec2 sprite_size) const
     -> std::shared_ptr<gfx::atlas>
 {
@@ -158,6 +174,51 @@ void asset_manager::__convert_mesh_node_to_scene_node(resources::mesh_node &mesh
         auto scene_node_child = scene_node.create_child_scene_node(mesh_node_child->get_name());
         scene_node_child->set_matrix(mesh_node_child->get_matrix());
         __convert_mesh_node_to_scene_node(*mesh_node_child, *scene_node_child);
+    }
+}
+
+void asset_manager::__convert_scene_data_to_scene_node(serialization::scene_node &scene_data,
+                                                       scene::scene_node &scene_node)
+{
+    auto &scene_subnodes = scene_data.children;
+    for (auto &scene_subnode : scene_subnodes)
+    {
+        auto subnode = scene_node.create_child_scene_node(scene_subnode->name);
+        __convert_scene_data_to_scene_node(*scene_subnode, *subnode);
+    }
+
+    scene_node.set_position(scene_data.position);
+    scene_node.set_rotation(scene_data.rotation);
+    scene_node.set_scale(scene_data.scale);
+
+    auto &scene_objects = scene_data.objects;
+    for (auto &scene_object : scene_objects)
+    {
+        if (scene_object->get_typename() == "mesh")
+        {
+            auto mesh_object = static_cast<serialization::mesh *>(scene_object.get());
+            scene_node.attach_child(load_mesh(mesh_object->path));
+        }
+        else if (scene_object->get_typename() == "perspective_camera")
+        {
+            auto perspective_cam_object = static_cast<serialization::perspective_camera *>(scene_object.get());
+
+            if (perspective_cam_object->fov.has_value())
+            {
+                auto camera = std::make_shared<aeon::scene::perspective_camera>(
+                    &scene_manager_, perspective_cam_object->fov, perspective_cam_object->width,
+                    perspective_cam_object->height, perspective_cam_object->near, perspective_cam_object->far,
+                    perspective_cam_object->name);
+                scene_node.attach_scene_object(camera);
+            }
+            else
+            {
+                auto camera = std::make_shared<aeon::scene::perspective_camera>(
+                    &scene_manager_, perspective_cam_object->fov_y, perspective_cam_object->aspect_ratio,
+                    perspective_cam_object->near, perspective_cam_object->far, perspective_cam_object->name);
+                scene_node.attach_scene_object(camera);
+            }
+        }
     }
 }
 

@@ -28,7 +28,7 @@ enum class resource_encoding
     atlas,
     image_png,
     mesh_assimp,
-    world
+    scene
 };
 
 } // namespace resources

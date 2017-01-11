@@ -27,6 +27,7 @@
 #include <code_generators/code_generator_quaternion.h>
 #include <code_generators/code_generator_string.h>
 #include <code_generators/code_generator_vec3.h>
+#include <code_generators/code_generator_rectangle.h>
 
 #define register_code_generator(type)                                                                                  \
     {                                                                                                                  \
@@ -49,6 +50,7 @@ generator::generator()
     register_code_generator(code_generator_quaternion);
     register_code_generator(code_generator_string);
     register_code_generator(code_generator_vec3);
+    register_code_generator(code_generator_rectangle);
 }
 
 void generator::generate_code(const std::vector<object> &objects) const

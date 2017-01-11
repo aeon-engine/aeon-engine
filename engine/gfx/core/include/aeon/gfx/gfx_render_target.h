@@ -40,10 +40,11 @@ public:
      */
     bool handle_frame(float dt);
 
-    std::shared_ptr<viewport> create_viewport(std::shared_ptr<gfx_camera> camera, int zorder);
+    std::shared_ptr<viewport> create_viewport(std::shared_ptr<gfx_camera> camera, const std::string &name, int zorder);
 
     std::shared_ptr<viewport> create_viewport(std::shared_ptr<gfx_camera> camera,
-                                              const common::types::rectangle<float> &rect, int zorder);
+                                              const common::types::rectangle<float> &rect, const std::string &name,
+                                              int zorder);
 
     void attach_viewport(const std::shared_ptr<viewport> &vp);
 

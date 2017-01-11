@@ -34,7 +34,7 @@ namespace scene
 class camera : public gfx::gfx_camera, public scene_object
 {
 public:
-    explicit camera(scene_manager *scene_manager);
+    explicit camera(const std::string &name, scene_manager *scene_manager);
     virtual ~camera() = default;
 
     void render_scene(gfx::render_target &rt, gfx::viewport &vp, const float dt) override;

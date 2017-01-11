@@ -1,6 +1,6 @@
 {
     "name": "point_light",
-    "base": "world_object",
+    "base": "scene_object",
     "members": {
         "color": "color",
         "constant_attenuation": "float",

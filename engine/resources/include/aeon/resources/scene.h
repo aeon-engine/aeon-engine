@@ -13,27 +13,39 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <aeon/resources/wrappers/world_resource_wrapper.h>
-#include <aeon/resources/resource_manager.h>
+#pragma once
+
+#include <aeon/resources/resource.h>
+#include <aeon/resources/wrappers/scene_resource_wrapper.h>
+#include <aeon/serialization/serialization.h>
+#include <aeon/common/logger.h>
+#include <memory>
 
 namespace aeon
 {
 namespace resources
 {
 
-world_resource_wrapper::world_resource_wrapper(resource_manager &parent, const std::string &path,
-                                               const std::weak_ptr<resource_provider> &provider)
-    : resource_wrapper(parent, path, provider)
+class scene : public resource
 {
-    if (get_type() != resource_type::world)
-        throw resource_type_exception();
-}
+public:
+    explicit scene(const std::shared_ptr<resource_wrapper> &wrapper, serialization::scene &&scene_data);
+    virtual ~scene();
 
-auto world_resource_wrapper::open() -> std::shared_ptr<world>
-{
-    auto &codec = __get_parent().get_codec_manager().get_world_codec();
-    return codec.decode(std::dynamic_pointer_cast<world_resource_wrapper>(shared_from_this()));
-}
+    const auto &get_scene_data() const
+    {
+        return scene_data_;
+    }
+
+    auto get_scene_resource_wrapper() const
+    {
+        return std::dynamic_pointer_cast<scene_resource_wrapper>(get_resource_wrapper());
+    }
+
+private:
+    logger::logger logger_;
+    serialization::scene scene_data_;
+};
 
 } // namespace resources
 } // namespace aeon

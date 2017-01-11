@@ -22,15 +22,15 @@ namespace scene
 {
 
 perspective_camera::perspective_camera(scene_manager *scene_manager, const float fov_y, const float aspect_ratio,
-                                       const float near, const float far)
-    : camera(scene_manager)
+                                       const float near, const float far, const std::string &name)
+    : camera(name, scene_manager)
 {
     projection_matrix_ = glm::perspective(glm::radians(fov_y), aspect_ratio, near, far);
 }
 
 perspective_camera::perspective_camera(scene_manager *scene_manager, const float fov, const float width,
-                                       const float height, const float near, const float far)
-    : camera(scene_manager)
+                                       const float height, const float near, const float far, const std::string &name)
+    : camera(name, scene_manager)
 {
     projection_matrix_ = glm::perspectiveFov(fov, width, height, near, far);
 }

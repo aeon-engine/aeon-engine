@@ -175,5 +175,31 @@ auto scene_node::find_child_by_name(const std::string &name, const find_method m
     return nullptr;
 }
 
+auto scene_node::__find_scene_object_by_name(const std::string &name, const find_method method) const
+    -> std::shared_ptr<scene_object>
+{
+    for (auto &object : scene_objects_)
+    {
+        if (object->get_name() == name)
+        {
+            return object;
+        }
+    }
+
+    if (method == find_method::recursive)
+    {
+        // This loop should be seperate since we want to search in order of depth.
+        for (auto &node : children_)
+        {
+            auto result = node->__find_scene_object_by_name(name, method);
+
+            if (result != nullptr)
+                return result;
+        }
+    }
+
+    return nullptr;
+}
+
 } // namespace scene
 } // namespace aeon

@@ -1,0 +1,9 @@
+{
+    "name": "viewport",
+    "members": {
+        "name": "string",
+        "rectangle": "rectangle",
+        "zorder": "int",
+        "camera": "string"
+    }
+}

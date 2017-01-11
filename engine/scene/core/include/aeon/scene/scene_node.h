@@ -160,12 +160,32 @@ public:
     auto find_child_by_name(const std::string &name, const find_method method = find_method::recursive) const
         -> scene_node *;
 
+    /*!
+     * Find a scene object by name. This method will return the first scene object that matches the given name.
+     * The given name should not be an empty string.
+     * The find method can be single (only search within this scene node) or resursive (also search the
+     * children of this node; default).
+     */
+    template <typename T>
+    auto find_scene_object_by_name(const std::string &name, const find_method method = find_method::recursive) const
+        -> std::shared_ptr<T>
+    {
+        return std::dynamic_pointer_cast<T>(__find_scene_object_by_name(name, method));
+    }
+
 private:
     /*!
      * Construtor
      * A scene node is marked as dirty by default.
      */
     explicit scene_node(const std::string &name = "");
+
+    /*!
+     * Internal non-template version of find scene object. The public interface version will perform a dynamic
+     * pointer cast on the given scene object.
+     */
+    auto __find_scene_object_by_name(const std::string &name, const find_method method = find_method::recursive) const
+        -> std::shared_ptr<scene_object>;
 
     /*!
      * The scene node that this node is attached to, or nullptr if not attached to anything.

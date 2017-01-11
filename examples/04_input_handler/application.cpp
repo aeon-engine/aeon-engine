@@ -41,7 +41,7 @@ application::application()
     camera_ =
         std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
-    window_->create_viewport(camera_, 0);
+    window_->create_viewport(camera_, "viewport1", 0);
 
     get_input_handler().attach_listener(this);
 }

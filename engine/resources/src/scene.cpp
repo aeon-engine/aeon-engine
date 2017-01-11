@@ -13,27 +13,25 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <aeon/resources/wrappers/resource_wrapper.h>
-#include <memory>
-#include <string>
+#include <aeon/resources/scene.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class world;
-class world_resource_wrapper : public resource_wrapper
+scene::scene(const std::shared_ptr<resource_wrapper> &wrapper, serialization::scene &&scene_data)
+    : resource(wrapper)
+    , logger_(common::logger::get_singleton(), "Resources::Scene")
+    , scene_data_(std::move(scene_data))
 {
-public:
-    explicit world_resource_wrapper(resource_manager &parent, const std::string &path,
-                                    const std::weak_ptr<resource_provider> &provider);
-    virtual ~world_resource_wrapper() = default;
+    AEON_LOG_TRACE(logger_) << "Created scene resource." << std::endl;
+}
 
-    auto open() -> std::shared_ptr<world>;
-};
+scene::~scene()
+{
+    AEON_LOG_TRACE(logger_) << "Deleted scene resource." << std::endl;
+}
 
 } // namespace resources
 } // namespace aeon

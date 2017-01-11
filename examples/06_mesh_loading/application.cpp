@@ -28,45 +28,26 @@ application::application()
 
     // Attach this class as a frame listener
     get_main_window()->attach_listener(this);
-
-    // Set up the scene
-    camera_ =
-        std::make_shared<aeon::scene::perspective_camera>(get_scene_manager(), 70.0f, 1280.0f / 720.0f, 0.1f, 1000.0f);
-    window_->create_viewport(camera_, 0);
-
-    camera2_ =
-        std::make_shared<aeon::scene::perspective_camera>(get_scene_manager(), 70.0f, 1280.0f / 720.0f, 0.1f, 1000.0f);
-    aeon::common::types::rectangle<float> smaller_viewport_rect(0.1f, 0.1f, 0.3f, 0.3f);
-    window_->create_viewport(camera2_, smaller_viewport_rect, 1);
 }
 
 void application::main()
 {
-    auto camera1_node = get_scene_manager()->create_child_scene_node();
-    camera1_node->attach_scene_object(camera_);
-    camera1_node->set_position(0.0f, 0.0f, 6.0f);
+    auto &root_node = get_scene_manager()->get_root_scene_node();
 
-    auto camera2_node = get_scene_manager()->create_child_scene_node();
-    camera2_node->attach_scene_object(camera2_);
-    camera2_node->set_position(0.0f, 0.0f, -6.0f);
-    camera2_node->rotate(glm::vec3(0.0f, glm::pi<float>(), 0.0f));
+    auto world = get_asset_manager().load_scene("/resources/scenes/testworld.asc");
+    root_node.attach_child(world);
 
-    rotation_node_ = get_scene_manager()->create_child_scene_node();
-    get_scene_manager()->get_root_scene_node().attach_child(rotation_node_);
+    camera_ = world->find_scene_object_by_name<aeon::scene::perspective_camera>("camera1");
+    window_->create_viewport(camera_, "viewport1", 0);
 
-    // Load resources
-    auto female_warrior =
-        get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
-    rotation_node_->attach_child(female_warrior);
+    camera2_ = world->find_scene_object_by_name<aeon::scene::perspective_camera>("camera2");
+    aeon::common::types::rectangle<float> smaller_viewport_rect(0.1f, 0.1f, 0.3f, 0.3f);
+    window_->create_viewport(camera2_, smaller_viewport_rect, "viewport2", 1);
 
-    // Get a pointer to the staff submesh from the mesh.
-    staff_node_ = female_warrior->find_child_by_name("SUN Onlin7");
+    rotation_node_ = root_node.find_child_by_name("rotation_node");
+
+    staff_node_ = root_node.find_child_by_name("SUN Onlin7");
     staff_node_->set_position(0.5f, 0.0f, 0.0f);
-
-    auto skydome = get_asset_manager().load_mesh("resources/meshes/skysphere/skydome.dae");
-    skydome->set_position(0.0f, -30.0f, 0.0f);
-    skydome->scale(10.0f);
-    get_scene_manager()->get_root_scene_node().attach_child(skydome);
 
     // Start the render loop
     device_.run();

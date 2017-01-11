@@ -18,6 +18,7 @@
 #include <memory>
 #include <aeon/scene/render_layer.h>
 #include <glm/mat4x4.hpp>
+#include <string>
 
 namespace aeon
 {
@@ -38,11 +39,13 @@ class scene_object
     friend class scene_node;
 
 public:
-    explicit scene_object(const int queue_group, const scene_object_type type, scene_manager *scene_manager)
+    explicit scene_object(const std::string &name, const int queue_group, const scene_object_type type,
+                          scene_manager *scene_manager)
         : queue_group_(queue_group)
         , type_(type)
         , scene_manager_(scene_manager)
         , scene_node_(nullptr)
+        , name_(name)
     {
     }
 
@@ -56,6 +59,11 @@ public:
     auto get_queue_group() const
     {
         return queue_group_;
+    }
+
+    auto get_name() const
+    {
+        return name_;
     }
 
     /*!
@@ -84,6 +92,7 @@ protected:
     scene_object_type type_;
     scene_manager *scene_manager_;
     scene_node *scene_node_;
+    std::string name_;
 };
 
 } // namespace scene

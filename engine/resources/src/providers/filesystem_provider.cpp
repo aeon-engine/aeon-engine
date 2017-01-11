@@ -91,6 +91,8 @@ auto filesystem_provider::get_encoding(const std::string &path) const -> resourc
 
     if (extension == "amf")
         return resource_encoding::material;
+    if (extension == "asc")
+        return resource_encoding::scene;
     if (extension == "prg")
         return resource_encoding::shader;
     if (extension == "ata")
