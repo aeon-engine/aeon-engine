@@ -6,6 +6,7 @@ git reset --hard
 git submodule foreach git reset --hard
 
 # Update
+git submodule sync
 git submodule update --init
 
 # Build

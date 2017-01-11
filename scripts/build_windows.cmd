@@ -5,10 +5,10 @@ git reset --hard || exit /b 1
 git submodule foreach git reset --hard || exit /b 1
 
 @rem Update
+git submodule sync || exit /b 1
 git submodule update --init || exit /b 1
 
 @rem Build
-
 mkdir ci_build || exit /b 1
 cd ci_build || exit /b 1
 
