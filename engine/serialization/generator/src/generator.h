@@ -55,6 +55,9 @@ private:
     auto __generate_header_code_for_object(const object &obj) const -> std::string;
     auto __generate_header_member_code_for_object(const object &obj) const -> std::string;
 
+    auto __generate_move_construct_code_for_object(const object &obj) const -> std::string;
+    auto __generate_move_assignment_code_for_object(const object &obj) const -> std::string;
+
     auto __convert_object_member_type_to_cpp_type(const object_member &object_member) const -> std::string;
     auto __convert_object_member_array_type_to_cpp_type(const object_member &object_member) const -> std::string;
 

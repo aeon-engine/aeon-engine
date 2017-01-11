@@ -15,6 +15,7 @@
 
 #include <aeon/assets/asset_manager.h>
 #include <aeon/scene/mesh.h>
+#include <build_config.h>
 
 namespace aeon
 {
@@ -79,15 +80,21 @@ auto asset_manager::load_material(const std::string &path) -> std::shared_ptr<gf
 
     auto &material_data = material_resource_data->get_material_data();
 
-    auto shader = load_shader(material_data.get_shader_path());
+#ifdef AEON_GFX_GL
+    auto shader = load_shader(material_data.shaders.at("gl3"));
+#else // AEON_GFX_GL
+#ifdef AEON_GFX_GLES2
+    auto shader = load_shader(material_data.shaders.at("gles2"));
+#else
+    static_assert(false, "Invalid or unsupported gfx subsystem selected.");
+#endif // AEON_GFX_GLES2
+#endif // AEON_GFX_GL
 
-    auto samplers = material_data.get_samplers();
     auto sampler_map = std::map<std::string, std::shared_ptr<gfx::texture>>();
 
-    for (auto &sampler : samplers)
+    for (auto &sampler : material_data.samplers)
     {
-        auto &sampler_obj = sampler.second;
-        sampler_map[sampler_obj.get_name()] = load_texture(sampler_obj.get_path());
+        sampler_map[sampler->name] = load_texture(sampler->path);
     }
 
     auto material = device_.get_material_manager().create(shader, sampler_map);

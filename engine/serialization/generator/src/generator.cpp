@@ -166,6 +166,17 @@ auto generator::__generate_cpp_code_for_object(const object &obj) const -> std::
     %deserialize_members_code%
 }
 
+%object_name%::%object_name%(%object_name% &&other) noexcept
+    : %move_construct_code%
+{
+}
+
+%object_name% &%object_name%::operator=(%object_name% &&other) noexcept
+{
+    %move_assign_code%
+    return *this;
+}
+
 auto %object_name%::get_typename() const -> std::string
 {
     return "%object_name%";
@@ -185,6 +196,9 @@ auto %object_name%::to_json() const -> json11::Json
     utility::string::replace(code, "%object_name%", obj.get_name());
     utility::string::replace(code, "%deserialize_members_code%", __generate_cpp_code_for_member_deserialization(obj));
     utility::string::replace(code, "%serialize_members_code%", __generate_cpp_code_for_member_serialization(obj));
+
+    utility::string::replace(code, "%move_construct_code%", __generate_move_construct_code_for_object(obj));
+    utility::string::replace(code, "%move_assign_code%", __generate_move_assignment_code_for_object(obj));
 
     return code;
 }
@@ -323,8 +337,8 @@ struct %object_name% %object_derives%
     explicit %object_name%(const json11::Json &json);
     virtual ~%object_name%() = default;
 
-    %object_name%(%object_name% &&) noexcept = default;
-    %object_name% &operator=(%object_name% &&) = default;
+    %object_name%(%object_name% &&other) noexcept;
+    %object_name% &operator=(%object_name% &&other) noexcept;
 
     virtual auto get_typename() const -> std::string;
 
@@ -360,6 +374,32 @@ auto generator::__generate_header_member_code_for_object(const object &obj) cons
 
         code += "    " + cpp_type + " " + object_member.get_name() + ";\n";
     }
+    return code;
+}
+
+auto generator::__generate_move_construct_code_for_object(const object &obj) const -> std::string
+{
+    auto code = std::string();
+
+    for (auto &object : obj.get_members())
+    {
+        code += object.second.get_name() + "(std::move(other." + object.second.get_name() + "))\n,";
+    }
+
+    code.erase(code.size() - 1);
+
+    return code;
+}
+
+auto generator::__generate_move_assignment_code_for_object(const object &obj) const -> std::string
+{
+    auto code = std::string();
+
+    for (auto &object : obj.get_members())
+    {
+        code += object.second.get_name() + " = std::move(other." + object.second.get_name() + ");\n";
+    }
+
     return code;
 }
 

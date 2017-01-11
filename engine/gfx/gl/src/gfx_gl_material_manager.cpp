@@ -16,8 +16,6 @@
 #include <aeon/gfx/gl/gfx_gl_material_manager.h>
 #include <aeon/gfx/gl/gfx_gl_material.h>
 #include <aeon/gfx/gl/gfx_gl_device.h>
-#include <aeon/data/material.h>
-#include <GL/glew.h>
 
 namespace aeon
 {

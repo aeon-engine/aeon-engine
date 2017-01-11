@@ -18,7 +18,7 @@
 #include <aeon/resources/resource.h>
 #include <aeon/resources/exceptions.h>
 #include <aeon/resources/wrappers/material_resource_wrapper.h>
-#include <aeon/data/material.h>
+#include <aeon/serialization/serialization.h>
 #include <aeon/common/logger.h>
 #include <memory>
 
@@ -30,7 +30,7 @@ namespace resources
 class material : public resource
 {
 public:
-    explicit material(const std::shared_ptr<resource_wrapper> &wrapper, data::material &&material_data);
+    explicit material(const std::shared_ptr<resource_wrapper> &wrapper, serialization::material &&material_data);
     virtual ~material();
 
     const auto &get_material_data() const
@@ -45,7 +45,7 @@ public:
 
 private:
     logger::logger logger_;
-    data::material material_data_;
+    serialization::material material_data_;
 };
 
 } // namespace resources

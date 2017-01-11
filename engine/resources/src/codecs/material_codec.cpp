@@ -28,30 +28,6 @@ namespace aeon
 namespace resources
 {
 
-static auto convert_material_file_data(const serialization::material &material_file_data) -> data::material
-{
-    data::material material;
-
-#ifdef AEON_GFX_GL
-    auto shader_path = material_file_data.shaders.at("gl3");
-#else // AEON_GFX_GL
-#ifdef AEON_GFX_GLES2
-    shader_path_ = material_file_data.shaders.at("gles2");
-#else
-    static_assert(false, "Invalid or unsupported gfx subsystem selected.");
-#endif // AEON_GFX_GLES2
-#endif // AEON_GFX_GL
-
-    material.set_shader_path(shader_path);
-
-    for (auto &sampler : material_file_data.samplers)
-    {
-        material.add_sampler(data::sampler(sampler->name, sampler->path));
-    }
-
-    return material;
-}
-
 material_codec::material_codec()
     : logger_(common::logger::get_singleton(), "Resources::MaterialCodec")
 {
@@ -80,9 +56,7 @@ auto material_codec::decode(const std::shared_ptr<material_resource_wrapper> &wr
     }
 
     serialization::material material_file_data(json);
-    auto material_data = convert_material_file_data(material_file_data);
-
-    return std::make_shared<resources::material>(wrapper, std::move(material_data));
+    return std::make_shared<resources::material>(wrapper, std::move(material_file_data));
 }
 
 } // namespace resources
