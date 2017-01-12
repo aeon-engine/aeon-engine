@@ -99,6 +99,8 @@ auto filesystem_provider::get_encoding(const std::string &path) const -> resourc
         return resource_encoding::atlas;
     if (extension == "png")
         return resource_encoding::image_png;
+    if (extension == "dds")
+        return resource_encoding::image_dds;
     if (extension == "3ds" || extension == "ase" || extension == "dae")
         // Assimp supports more formats, but these should be the most common ones. More extensions could be added later.
         return resource_encoding::mesh_assimp;

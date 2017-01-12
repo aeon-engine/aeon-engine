@@ -20,12 +20,13 @@ namespace aeon
 namespace data
 {
 
-image::image(std::vector<std::uint8_t> &&buffer, unsigned int width, unsigned int height,
-             pixel_format pixelformat /*= pixel_format::rgba*/)
+image::image(std::vector<std::uint8_t> &&buffer, const unsigned int width, const unsigned int height,
+             pixel_format pixelformat, const unsigned int mipmap_count)
     : buffer_(std::move(buffer))
     , width_(width)
     , height_(height)
     , pixel_format_(pixelformat)
+    , mipmap_count_(mipmap_count)
 {
 }
 
@@ -60,6 +61,11 @@ glm::vec2 image::get_size() const
 image::pixel_format image::get_pixelformat() const
 {
     return pixel_format_;
+}
+
+unsigned int image::get_mipmap_count() const
+{
+    return mipmap_count_;
 }
 
 } // namespace data

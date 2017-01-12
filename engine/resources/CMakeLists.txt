@@ -59,6 +59,7 @@ set (AEON_ENGINE_RESOURCE_CODEC_SOURCES
     include/aeon/resources/codecs/codec_manager.h
     include/aeon/resources/codecs/image_codec.h
     include/aeon/resources/codecs/image_png_codec.h
+    include/aeon/resources/codecs/image_dds_codec.h
     include/aeon/resources/codecs/material_codec.h
     include/aeon/resources/codecs/mesh_assimp_codec.h
     include/aeon/resources/codecs/mesh_codec.h
@@ -67,6 +68,7 @@ set (AEON_ENGINE_RESOURCE_CODEC_SOURCES
     src/codecs/atlas_codec.cpp
     src/codecs/codec_manager.cpp
     src/codecs/image_png_codec.cpp
+    src/codecs/image_dds_codec.cpp
     src/codecs/material_codec.cpp
     src/codecs/mesh_assimp_codec.cpp
     src/codecs/shader_codec.cpp

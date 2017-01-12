@@ -15,6 +15,7 @@
 
 #include <aeon/resources/codecs/codec_manager.h>
 #include <aeon/resources/codecs/image_png_codec.h>
+#include <aeon/resources/codecs/image_dds_codec.h>
 #include <aeon/resources/codecs/mesh_assimp_codec.h>
 
 namespace aeon
@@ -92,6 +93,8 @@ auto codec_manager::get_resource_type_by_encoding(const resource_encoding encodi
             return resource_type::atlas;
         case resource_encoding::image_png:
             return resource_type::image;
+        case resource_encoding::image_dds:
+            return resource_type::image;
         case resource_encoding::mesh_assimp:
             return resource_type::mesh;
         case resource_encoding::scene:
@@ -110,6 +113,7 @@ void codec_manager::__register_codecs()
     codecs_[resource_encoding::material] = std::make_unique<material_codec>();
     codecs_[resource_encoding::shader] = std::make_unique<shader_codec>();
     codecs_[resource_encoding::image_png] = std::make_unique<image_codec_png>();
+    codecs_[resource_encoding::image_dds] = std::make_unique<image_codec_dds>();
     codecs_[resource_encoding::atlas] = std::make_unique<atlas_codec>();
     codecs_[resource_encoding::mesh_assimp] = std::make_unique<mesh_codec_assimp>();
     codecs_[resource_encoding::scene] = std::make_unique<scene_codec>();

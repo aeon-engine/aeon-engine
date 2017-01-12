@@ -31,10 +31,13 @@ public:
     {
         rgb,
         rgba,
+        dxt1,
+        dxt3,
+        dxt5
     };
 
-    explicit image(std::vector<std::uint8_t> &&buffer, unsigned int width, unsigned int height,
-                   pixel_format pixelformat = pixel_format::rgba);
+    explicit image(std::vector<std::uint8_t> &&buffer, const unsigned int width, const unsigned int height,
+                   pixel_format pixelformat = pixel_format::rgba, const unsigned int mipmap_count = 0);
 
     ~image() = default;
 
@@ -53,11 +56,14 @@ public:
 
     pixel_format get_pixelformat() const;
 
+    unsigned int get_mipmap_count() const;
+
 private:
     std::vector<std::uint8_t> buffer_;
     unsigned int width_;
     unsigned int height_;
     pixel_format pixel_format_;
+    unsigned int mipmap_count_;
 };
 
 } // namespace data

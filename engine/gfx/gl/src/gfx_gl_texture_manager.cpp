@@ -47,15 +47,58 @@ std::shared_ptr<texture> gfx_gl_texture_manager::create(const data::image &image
     GLint pixelformat = __image_pixelformat_to_gl(image_data.get_pixelformat());
     GLsizei width = image_data.get_width();
     GLsizei height = image_data.get_height();
-    glTexImage2D(GL_TEXTURE_2D, 0, pixelformat, width, height, 0, pixelformat, GL_UNSIGNED_BYTE,
-                 image_data.get_data().data());
+
+    switch (image_data.get_pixelformat())
+    {
+        case data::image::pixel_format::rgb:
+        case data::image::pixel_format::rgba:
+        {
+            if (image_data.get_mipmap_count() != 0)
+                AEON_LOG_WARNING(logger_) << "Mipmapping for RGB(A) images is currently not supported." << std::endl;
+
+            glTexImage2D(GL_TEXTURE_2D, 0, pixelformat, width, height, 0, pixelformat, GL_UNSIGNED_BYTE,
+                         image_data.get_data().data());
+            break;
+        }
+        case data::image::pixel_format::dxt1:
+        case data::image::pixel_format::dxt3:
+        case data::image::pixel_format::dxt5:
+        {
+            unsigned int block_size = (image_data.get_pixelformat() == data::image::pixel_format::dxt1) ? 8 : 16;
+            unsigned int offset = 0;
+
+            for (unsigned int level = 0; level < image_data.get_mipmap_count() && (width || height); ++level)
+            {
+                unsigned int size = ((width + 3) / 4) * ((height + 3) / 4) * block_size;
+                glCompressedTexImage2D(GL_TEXTURE_2D, level, pixelformat, width, height, 0, size,
+                                       image_data.get_data().data() + offset);
+
+                offset += size;
+                width = std::max(width / 2, 1);
+                height = std::max(height / 2, 1);
+            }
+            break;
+        }
+    }
+
     AEON_CHECK_GL_ERROR();
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    AEON_CHECK_GL_ERROR();
+    if (image_data.get_mipmap_count() == 0)
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        AEON_CHECK_GL_ERROR();
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    AEON_CHECK_GL_ERROR();
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        AEON_CHECK_GL_ERROR();
+    }
+    else
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+        AEON_CHECK_GL_ERROR();
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+        AEON_CHECK_GL_ERROR();
+    }
 
     t->handle_ = handle;
     t->size_ = glm::vec2(width, height);
@@ -72,6 +115,12 @@ GLint gfx_gl_texture_manager::__image_pixelformat_to_gl(data::image::pixel_forma
             return GL_RGB;
         case data::image::pixel_format::rgba:
             return GL_RGBA;
+        case data::image::pixel_format::dxt1:
+            return GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+        case data::image::pixel_format::dxt3:
+            return GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+        case data::image::pixel_format::dxt5:
+            return GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
         default:
         {
             AEON_LOG_WARNING(logger_) << "Unknown or invalid image pixel format, assuming RGBA. (This is a bug!)"

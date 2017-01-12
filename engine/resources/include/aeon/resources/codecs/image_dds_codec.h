@@ -15,21 +15,29 @@
 
 #pragma once
 
+#include <aeon/resources/exceptions.h>
+#include <aeon/resources/codecs/image_codec.h>
+#include <aeon/common/logger.h>
+
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+DEFINE_EXCEPTION_OBJECT(codec_dds_decode_exception, codec_decode_exception, "Error while decoding DDS image resource.");
+
+class image_codec_dds : public image_codec
 {
-    unknown,
-    material,
-    shader,
-    atlas,
-    image_png,
-    image_dds,
-    mesh_assimp,
-    scene
+public:
+    image_codec_dds();
+    virtual ~image_codec_dds() = default;
+
+    auto decode(resource_manager &parent, const std::shared_ptr<image_resource_wrapper> &wrapper) const
+        -> std::shared_ptr<image> override;
+    auto get_codec_type() const -> resource_encoding override;
+
+private:
+    mutable logger::logger logger_;
 };
 
 } // namespace resources
