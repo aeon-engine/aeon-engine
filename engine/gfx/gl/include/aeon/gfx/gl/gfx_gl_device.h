@@ -60,7 +60,7 @@ public:
 
     void set_scissor(const common::types::rectangle<float> &scissor) const;
 
-private:
+protected:
     void __initialize_glfw() const;
     void __create_managers();
     void __setup_opengl() const;
