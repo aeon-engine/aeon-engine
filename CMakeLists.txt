@@ -13,6 +13,8 @@ set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE TYPE INTERNAL FORCE)
 
 set(CMAKE_DEBUG_POSTFIX "_d")
 
+set(CMAKE_CXX_STANDARD 14)
+
 ################################################################################
 
 include(CTest)
