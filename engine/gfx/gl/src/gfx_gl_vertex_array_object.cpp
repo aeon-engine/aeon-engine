@@ -23,10 +23,47 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_vertex_array_object::gfx_gl_vertex_array_object(const vertex_attributes &attributes)
+gfx_gl_vertex_array_object::gfx_gl_vertex_array_object(const vertex_attributes &attributes,
+                                                       std::shared_ptr<buffer> vertex_buffer,
+                                                       std::shared_ptr<buffer> index_buffer)
     : logger_(common::logger::get_singleton(), "Gfx::GL::VertexArrayObject")
     , handle_(0)
+    , attributes_(attributes)
+    , vertex_buffer_(vertex_buffer)
+    , index_buffer_(index_buffer)
 {
+    __create_vao();
+}
+
+gfx_gl_vertex_array_object::~gfx_gl_vertex_array_object()
+{
+    AEON_LOG_TRACE(logger_) << "Deleting Vertex Array Object (GL handle: " << handle_ << ")." << std::endl;
+    glDeleteVertexArrays(1, &handle_);
+    AEON_CHECK_GL_ERROR();
+}
+
+void gfx_gl_vertex_array_object::bind()
+{
+    if (!__is_valid())
+    {
+        AEON_LOG_TRACE(logger_) << "VAO not valid for this context, generating." << std::endl;
+        __create_vao();
+    }
+
+    glBindVertexArray(handle_);
+    AEON_CHECK_GL_ERROR();
+}
+
+bool gfx_gl_vertex_array_object::__is_valid() const
+{
+    return glIsVertexArray(handle_) == GL_TRUE;
+}
+
+void gfx_gl_vertex_array_object::__create_vao()
+{
+    vertex_buffer_->bind();
+    index_buffer_->bind();
+
     glGenVertexArrays(1, &handle_);
     AEON_CHECK_GL_ERROR();
 
@@ -36,7 +73,7 @@ gfx_gl_vertex_array_object::gfx_gl_vertex_array_object(const vertex_attributes &
     AEON_CHECK_GL_ERROR();
 
     int attrib_index = 0;
-    for (auto attribute : attributes)
+    for (auto attribute : attributes_)
     {
         glEnableVertexAttribArray(attrib_index);
         AEON_CHECK_GL_ERROR();
@@ -47,19 +84,6 @@ gfx_gl_vertex_array_object::gfx_gl_vertex_array_object(const vertex_attributes &
 
         ++attrib_index;
     }
-}
-
-gfx_gl_vertex_array_object::~gfx_gl_vertex_array_object()
-{
-    AEON_LOG_TRACE(logger_) << "Deleting Vertex Array Object (GL handle: " << handle_ << ")." << std::endl;
-    glDeleteVertexArrays(1, &handle_);
-    AEON_CHECK_GL_ERROR();
-}
-
-void gfx_gl_vertex_array_object::bind() const
-{
-    glBindVertexArray(handle_);
-    AEON_CHECK_GL_ERROR();
 }
 
 } // namespace gl

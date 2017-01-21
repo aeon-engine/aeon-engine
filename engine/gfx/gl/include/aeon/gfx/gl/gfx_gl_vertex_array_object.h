@@ -17,6 +17,7 @@
 
 #include <aeon/gfx/gfx_texture.h>
 #include <aeon/common/logger.h>
+#include <aeon/gfx/gfx_buffer.h>
 #include <GL/glew.h>
 #include <vector>
 
@@ -46,14 +47,21 @@ using vertex_attributes = std::vector<vertex_attribute>;
 class gfx_gl_vertex_array_object
 {
 public:
-    explicit gfx_gl_vertex_array_object(const vertex_attributes &attributes);
+    explicit gfx_gl_vertex_array_object(const vertex_attributes &attributes, std::shared_ptr<buffer> vertex_buffer,
+                                        std::shared_ptr<buffer> index_buffer);
     ~gfx_gl_vertex_array_object();
 
-    void bind() const;
+    void bind();
 
 private:
+    bool __is_valid() const;
+    void __create_vao();
+
     aeon::logger::logger logger_;
     GLuint handle_;
+    vertex_attributes attributes_;
+    std::shared_ptr<buffer> vertex_buffer_;
+    std::shared_ptr<buffer> index_buffer_;
 };
 
 } // namespace gl
