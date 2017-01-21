@@ -118,19 +118,10 @@ void mesh_codec_assimp::__read_index_data(aiMesh *mesh, data::index_data_buffer 
         auto &ai_face = mesh->mFaces[face];
         assert(ai_face.mNumIndices == indices_per_face);
 
-        for (auto index = 0ul; index < indices_per_face; ++index)
+        for (auto index = 0ul; index < ai_face.mNumIndices; ++index)
         {
             auto index_val = ai_face.mIndices[index];
-
-            // We only support 16-bit meshes currently.
-            if (index_val >= 0xFFFF)
-            {
-                AEON_LOG_ERROR(logger_) << "Index out of range. Only 16-bit indices are currently supported."
-                                        << std::endl;
-                throw assimp_codec_decode_exception();
-            }
-
-            indices_ptr[offset++] = static_cast<unsigned short>(index_val);
+            indices_ptr[offset++] = static_cast<unsigned int>(index_val);
         }
     }
 }

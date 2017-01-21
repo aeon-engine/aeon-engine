@@ -45,10 +45,10 @@ void gfx_gl_mesh::upload_vertex_buffer(const std::vector<data::vertex_data> &ver
     __check_vao();
 }
 
-void gfx_gl_mesh::upload_index_buffer(const std::vector<std::uint16_t> &index_data, const gfx::buffer_usage usage)
+void gfx_gl_mesh::upload_index_buffer(const std::vector<std::uint32_t> &index_data, const gfx::buffer_usage usage)
 {
     element_count_ = static_cast<GLuint>(index_data.size());
-    index_buffer_->set_data(static_cast<int>(element_count_ * sizeof(uint16_t)), index_data.data(), usage);
+    index_buffer_->set_data(static_cast<int>(element_count_ * sizeof(uint32_t)), index_data.data(), usage);
 
     __check_vao();
 }
@@ -65,7 +65,7 @@ void gfx_gl_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
 
     vao_->bind();
 
-    glDrawElements(GL_TRIANGLES, element_count_, GL_UNSIGNED_SHORT, nullptr);
+    glDrawElements(GL_TRIANGLES, element_count_, GL_UNSIGNED_INT, nullptr);
     AEON_CHECK_GL_ERROR();
 }
 

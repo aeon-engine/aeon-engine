@@ -37,7 +37,7 @@ public:
 
     virtual void upload_vertex_buffer(const std::vector<data::vertex_data> &vertex_data,
                                       const gfx::buffer_usage usage) = 0;
-    virtual void upload_index_buffer(const std::vector<std::uint16_t> &index_data, const gfx::buffer_usage usage) = 0;
+    virtual void upload_index_buffer(const std::vector<std::uint32_t> &index_data, const gfx::buffer_usage usage) = 0;
 
     virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) = 0;
 

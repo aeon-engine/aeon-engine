@@ -120,7 +120,7 @@ void sprite::__generate_and_upload_vertex_data() const
 
 void sprite::__generate_and_upload_index_data() const
 {
-    auto index_data = std::vector<std::uint16_t>{0, 1, 2, 2, 1, 3};
+    auto index_data = std::vector<std::uint32_t>{0, 1, 2, 2, 1, 3};
     mesh_->upload_index_buffer(index_data, gfx::buffer_usage::static_usage);
 }
 

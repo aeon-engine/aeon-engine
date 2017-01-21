@@ -36,7 +36,7 @@ struct vertex_data
     glm::vec3 bitangent;
 } AEON_PACK_STRUCT_POP(1);
 
-using index_data_buffer = std::vector<std::uint16_t>;
+using index_data_buffer = std::vector<std::uint32_t>;
 using vertex_data_buffer = std::vector<vertex_data>;
 
 } // namespace data

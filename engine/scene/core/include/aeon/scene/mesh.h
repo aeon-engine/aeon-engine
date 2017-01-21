@@ -29,7 +29,7 @@ class mesh : public scene_object
 {
 public:
     explicit mesh(scene_manager *scene_manager, const std::shared_ptr<gfx::material> &material,
-                  const std::vector<data::vertex_data> &vertex_data, const std::vector<std::uint16_t> &index_data,
+                  const std::vector<data::vertex_data> &vertex_data, const std::vector<std::uint32_t> &index_data,
                   const std::string &name = "");
 
     virtual ~mesh();
