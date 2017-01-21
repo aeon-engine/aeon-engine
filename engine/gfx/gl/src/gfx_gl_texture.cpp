@@ -41,6 +41,7 @@ gfx_gl_texture::~gfx_gl_texture()
 
 void gfx_gl_texture::bind() const
 {
+    assert(glIsTexture(handle_) == GL_TRUE);
     glBindTexture(GL_TEXTURE_2D, handle_);
     AEON_CHECK_GL_ERROR();
 }
