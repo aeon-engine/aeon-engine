@@ -50,9 +50,10 @@ void scene_manager::detach_child_scene_node(const std::shared_ptr<scene_node> &n
     root_node_->detach_child(node);
 }
 
-void scene_manager::cleanup_scene() const
+void scene_manager::cleanup_scene()
 {
     root_node_->cleanup_children();
+    queue_.clear_render_objects();
 }
 
 void scene_manager::__render_scene(camera &cam, gfx::render_target &rt, gfx::viewport &vp, const float dt)

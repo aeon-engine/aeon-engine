@@ -60,7 +60,7 @@ public:
     /*!
      * Recursively detach and cleanup all scene nodes and their children from the entire scene.
      */
-    void cleanup_scene() const;
+    void cleanup_scene();
 
     template <typename T, class... U>
     auto create_scene_object(U &&... u)
