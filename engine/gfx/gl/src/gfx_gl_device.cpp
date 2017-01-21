@@ -281,6 +281,9 @@ void gfx_gl_device::__setup_opengl() const
 
     glCullFace(GL_BACK);
     AEON_CHECK_GL_ERROR();
+
+    glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+    AEON_CHECK_GL_ERROR();
 }
 
 void gfx_gl_device::__initialize_glew() const
