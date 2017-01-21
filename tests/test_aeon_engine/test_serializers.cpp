@@ -41,8 +41,8 @@ TEST(test_serializers, test_serializers_scene)
     auto camera1 = std::make_unique<serialization::perspective_camera>();
     camera1->fov_y = 70.0f;
     camera1->aspect_ratio = 1280.0f / 720.0f;
-    camera1->near = 0.1f;
-    camera1->far = 1000.0f;
+    camera1->near_value = 0.1f;
+    camera1->far_value = 1000.0f;
     camera1->name = "camera1";
 
     camera1_node->objects.push_back(std::move(camera1));
@@ -57,8 +57,8 @@ TEST(test_serializers, test_serializers_scene)
     auto camera2 = std::make_unique<serialization::perspective_camera>();
     camera2->fov_y = 70.0f;
     camera2->aspect_ratio = 1280.0f / 720.0f;
-    camera2->near = 0.1f;
-    camera2->far = 1000.0f;
+    camera2->near_value = 0.1f;
+    camera2->far_value = 1000.0f;
     camera2->name = "camera2";
 
     camera2_node->objects.push_back(std::move(camera2));

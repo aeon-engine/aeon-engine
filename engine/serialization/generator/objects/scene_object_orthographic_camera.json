@@ -6,7 +6,7 @@
         "right": "float",
         "bottom": "float",
         "top": "float",
-        "near": "float",
-        "far": "float"
+        "near_value": "float",
+        "far_value": "float"
     }
 }

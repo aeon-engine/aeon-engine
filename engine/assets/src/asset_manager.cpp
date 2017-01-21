@@ -207,15 +207,16 @@ void asset_manager::__convert_scene_data_to_scene_node(serialization::scene_node
             {
                 auto camera = std::make_shared<aeon::scene::perspective_camera>(
                     &scene_manager_, perspective_cam_object->fov, perspective_cam_object->width,
-                    perspective_cam_object->height, perspective_cam_object->near, perspective_cam_object->far,
-                    perspective_cam_object->name);
+                    perspective_cam_object->height, perspective_cam_object->near_value,
+                    perspective_cam_object->far_value, perspective_cam_object->name);
                 scene_node.attach_scene_object(camera);
             }
             else
             {
                 auto camera = std::make_shared<aeon::scene::perspective_camera>(
                     &scene_manager_, perspective_cam_object->fov_y, perspective_cam_object->aspect_ratio,
-                    perspective_cam_object->near, perspective_cam_object->far, perspective_cam_object->name);
+                    perspective_cam_object->near_value, perspective_cam_object->far_value,
+                    perspective_cam_object->name);
                 scene_node.attach_scene_object(camera);
             }
         }

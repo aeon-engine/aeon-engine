@@ -7,7 +7,7 @@
         "aspect_ratio": "float",
         "width": "float",
         "height": "float",
-        "near": "float",
-        "far": "float"
+        "near_value": "float",
+        "far_value": "float"
     }
 }
