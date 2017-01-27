@@ -51,8 +51,26 @@ source_group(widgets FILES ${AEON_EDITOR_WIDGET_SOURCES} ${AEON_EDITOR_WIDGET_MO
 
 ################################################################################
 
+set(AEON_EDITOR_RESOURCE_BROWSER_SOURCES
+    resource_browser/resource_browser_view.cpp
+)
+
+set(AEON_EDITOR_RESOURCE_BROWSER_MOC_SOURCES
+    resource_browser/resource_browser_view.h
+)
+
+qt5_wrap_cpp(AEON_EDITOR_RESOURCE_BROWSER_MOC_FILES
+    ${AEON_EDITOR_RESOURCE_BROWSER_MOC_SOURCES}
+)
+
+source_group(resource_browser FILES ${AEON_EDITOR_RESOURCE_BROWSER_SOURCES} ${AEON_EDITOR_RESOURCE_BROWSER_MOC_SOURCES})
+
+################################################################################
+
 set(AEON_EDITOR_UI_SOURCES
     ui/frm_mainwindow.ui
+    ui/editorview.ui
+    ui/resource_browser.ui
 )
 
 source_group(ui FILES ${AEON_EDITOR_UI_SOURCES})
@@ -85,6 +103,10 @@ add_executable(aeon_editor WIN32 MACOSX_BUNDLE
     ${AEON_EDITOR_WIDGET_SOURCES}
     ${AEON_EDITOR_WIDGET_MOC_SOURCES}
     ${AEON_EDITOR_WIDGET_MOC_FILES}
+
+    ${AEON_EDITOR_RESOURCE_BROWSER_SOURCES}
+    ${AEON_EDITOR_RESOURCE_BROWSER_MOC_SOURCES}
+    ${AEON_EDITOR_RESOURCE_BROWSER_MOC_FILES}
 
     ${AEON_EDITOR_UI_HEADERS}
     ${AEON_EDITOR_RESOURCES_RCC}

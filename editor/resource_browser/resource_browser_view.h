@@ -15,13 +15,12 @@
 
 #pragma once
 
-#include <QtWidgets/QMainWindow>
-#include <aeon/scene/perspective_camera.h>
-#include <array>
+#include <QtWidgets/QDialog>
+#include <memory>
 
 namespace Ui
 {
-    class MainWindow;
+    class frm_resource_editor_view;
 }
 
 namespace aeon
@@ -29,27 +28,16 @@ namespace aeon
 namespace editor
 {
 
-class editor_view;
-class application;
-class frm_mainwindow_view : public QMainWindow
+class resource_browser_view : public QDialog
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    frm_mainwindow_view(application &app);
-    virtual ~frm_mainwindow_view();
-
-private Q_SLOTS:
-    void on_asset_browser_clicked(bool checked);
+    resource_browser_view(QWidget *parent = nullptr);
+    ~resource_browser_view() override;
 
 private:
-    std::unique_ptr<Ui::MainWindow> ui_;
-    application &application_;
-
-    std::shared_ptr<scene::camera> camera_;
-    int count;
-
-    editor_view *editor_view_;
+    std::unique_ptr<Ui::frm_resource_editor_view> ui_;
 };
 
 } // namespace editor

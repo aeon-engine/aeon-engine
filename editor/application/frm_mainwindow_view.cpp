@@ -17,6 +17,7 @@
 #include <frm_mainwindow_view.h>
 #include <ui_frm_mainwindow.h>
 #include <widgets/editor_view.h>
+#include <resource_browser/resource_browser_view.h>
 #include <application.h>
 #include <QSplitter>
 
@@ -35,6 +36,14 @@ frm_mainwindow_view::frm_mainwindow_view(application &app)
     editor_view_ = new editor_view(this);
     setCentralWidget(editor_view_);
     editor_view_->makeCurrent();
+
+    connect(ui_->actionAsset_Browser, &QAction::triggered, this, &frm_mainwindow_view::on_asset_browser_clicked);
+}
+
+void frm_mainwindow_view::on_asset_browser_clicked(bool checked)
+{
+    resource_browser_view rb_view(this);
+    rb_view.exec();
 }
 
 frm_mainwindow_view::~frm_mainwindow_view() = default;
