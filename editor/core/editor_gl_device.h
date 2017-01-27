@@ -17,7 +17,6 @@
 
 #include <aeon/common/logger.h>
 #include <aeon/gfx/gl/gfx_gl_device.h>
-#include <editor_view.h>
 
 namespace aeon
 {

@@ -15,12 +15,8 @@
 
 #pragma once
 
+#include <aeon/common/logger.h>
 #include <aeon/utility.h>
-#include <editor_gl_device.h>
-#include <aeon/resources/resource_manager.h>
-#include <aeon/scene/basic_scene_manager/basic_scene_manager.h>
-#include <aeon/assets/asset_manager.h>
-#include <aeon/input/input_handler.h>
 #include <QtWidgets/QApplication>
 #include <frm_mainwindow_view.h>
 
@@ -37,11 +33,6 @@ public:
 
     int exec();
 
-    editor_gl_device &get_device();
-    resources::resource_manager &get_resource_manager();
-    scene::scene_manager &get_scene_manager();
-    assets::asset_manager &get_asset_manager();
-
 private:
     void apply_stylesheet();
 
@@ -50,13 +41,6 @@ private:
     common::logger logger_backend_;
     aeon::logger::logger logger_;
 
-    platform::platform_interface platform_;
-    input::input_handler input_handler_;
-    editor_gl_device device_;
-
-    resources::resource_manager resource_manager_;
-    scene::basic_scene_manager scene_manager_;
-    assets::asset_manager asset_manager_;
     frm_mainwindow_view mainwindow_;
 };
 

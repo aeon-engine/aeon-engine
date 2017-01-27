@@ -39,16 +39,11 @@ public:
     frm_mainwindow_view(application &app);
     virtual ~frm_mainwindow_view();
 
-    void handle_gl_init();
-
 private:
-    void closeEvent(QCloseEvent *event) override;
-
     std::unique_ptr<Ui::MainWindow> ui_;
     application &application_;
 
     std::shared_ptr<scene::camera> camera_;
-    bool gl_initialized_;
     int count;
 
     editor_view *editor_view_;

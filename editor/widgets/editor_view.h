@@ -15,8 +15,15 @@
 
 #pragma once
 
-#include <QtWidgets/QOpenGLWidget>
+#include <core/editor_gl_device.h>
+
 #include <aeon/gfx/gfx_render_target.h>
+#include <aeon/resources/resource_manager.h>
+#include <aeon/scene/basic_scene_manager/basic_scene_manager.h>
+#include <aeon/assets/asset_manager.h>
+#include <aeon/input/input_handler.h>
+
+#include <QtWidgets/QOpenGLWidget>
 #include <QElapsedTimer>
 
 namespace aeon
@@ -37,6 +44,8 @@ public:
     glm::vec2 get_framebuffer_size() const override;
 
 private:
+    void __initialize_engine();
+
     bool __on_frame_start(float dt) override;
     bool __on_frame_end(float dt) override;
 
@@ -44,9 +53,21 @@ private:
     void resizeGL(int w, int h) override;
     void paintGL() override;
 
+    void closeEvent(QCloseEvent *event) override;
+
     QElapsedTimer timer_;
     glm::vec2 context_size_;
     frm_mainwindow_view *main_window_;
+
+    platform::platform_interface platform_;
+    input::input_handler input_handler_;
+    editor_gl_device device_;
+
+    resources::resource_manager resource_manager_;
+    scene::basic_scene_manager scene_manager_;
+    assets::asset_manager asset_manager_;
+
+    bool gl_initialized_;
 };
 
 } // namespace editor

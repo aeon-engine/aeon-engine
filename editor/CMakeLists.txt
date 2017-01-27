@@ -11,22 +11,43 @@ set(AEON_EDITOR_APPLICATION_SOURCES
     application/main.cpp
     application/application.cpp
     application/application.h
-    application/editor_gl_device.cpp
-    application/editor_gl_device.h
     application/frm_mainwindow_view.cpp
-    application/editor_view.cpp
 )
 
-set(AEON_EDITOR_MOC_SOURCES
+set(AEON_EDITOR_APPLICATION_MOC_SOURCES
     application/frm_mainwindow_view.h
-    application/editor_view.h
 )
 
-qt5_wrap_cpp(AEON_EDITOR_MOC_FILES
-    ${AEON_EDITOR_MOC_SOURCES}
+qt5_wrap_cpp(AEON_EDITOR_APPLICATION_MOC_FILES
+    ${AEON_EDITOR_APPLICATION_MOC_SOURCES}
 )
 
-source_group(application FILES ${AEON_EDITOR_APPLICATION_SOURCES} ${AEON_EDITOR_MOC_SOURCES})
+source_group(application FILES ${AEON_EDITOR_APPLICATION_SOURCES} ${AEON_EDITOR_APPLICATION_MOC_SOURCES})
+
+################################################################################
+
+set(AEON_EDITOR_CORE_SOURCES
+    core/editor_gl_device.cpp
+    core/editor_gl_device.h
+)
+
+source_group(core FILES ${AEON_EDITOR_CORE_SOURCES})
+
+################################################################################
+
+set(AEON_EDITOR_WIDGET_SOURCES
+    widgets/editor_view.cpp
+)
+
+set(AEON_EDITOR_WIDGET_MOC_SOURCES
+    widgets/editor_view.h
+)
+
+qt5_wrap_cpp(AEON_EDITOR_WIDGET_MOC_FILES
+    ${AEON_EDITOR_WIDGET_MOC_SOURCES}
+)
+
+source_group(widgets FILES ${AEON_EDITOR_WIDGET_SOURCES} ${AEON_EDITOR_WIDGET_MOC_SOURCES})
 
 ################################################################################
 
@@ -56,8 +77,15 @@ source_group(generated FILES ${AEON_EDITOR_UI_HEADERS})
 
 add_executable(aeon_editor WIN32 MACOSX_BUNDLE
     ${AEON_EDITOR_APPLICATION_SOURCES}
-    ${AEON_EDITOR_MOC_FILES}
-    ${AEON_EDITOR_MOC_SOURCES}
+    ${AEON_EDITOR_APPLICATION_MOC_SOURCES}
+    ${AEON_EDITOR_APPLICATION_MOC_FILES}
+
+    ${AEON_EDITOR_CORE_SOURCES}
+
+    ${AEON_EDITOR_WIDGET_SOURCES}
+    ${AEON_EDITOR_WIDGET_MOC_SOURCES}
+    ${AEON_EDITOR_WIDGET_MOC_FILES}
+
     ${AEON_EDITOR_UI_HEADERS}
     ${AEON_EDITOR_RESOURCES_RCC}
 )
@@ -76,6 +104,7 @@ target_link_libraries(aeon_editor
 target_include_directories(aeon_editor
     PRIVATE
         application
+        ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_BINARY_DIR}
 )
 

@@ -14,8 +14,12 @@
  */
 
 #include <GL/glew.h>
-#include <editor_view.h>
+#include <aeon/platform/generic/platform_generic_filesystem_interface.h>
+#include <aeon/resources/providers/filesystem_provider.h>
+#include <widgets/editor_view.h>
 #include <frm_mainwindow_view.h>
+#include <QCloseEvent>
+#include <memory>
 
 namespace aeon
 {
@@ -27,6 +31,13 @@ editor_view::editor_view(frm_mainwindow_view *main_window, QWidget *parent)
     , timer_()
     , context_size_(0, 0)
     , main_window_(main_window)
+    , platform_(std::make_unique<platform::generic::platform_filesystem_interface>())
+    , input_handler_()
+    , device_(platform_, input_handler_)
+    , resource_manager_(platform_)
+    , scene_manager_(device_)
+    , asset_manager_(resource_manager_, scene_manager_)
+    , gl_initialized_(false)
 {
     timer_.start();
 }
@@ -41,6 +52,38 @@ void editor_view::make_current()
 glm::vec2 editor_view::get_framebuffer_size() const
 {
     return context_size_;
+}
+
+void editor_view::__initialize_engine()
+{
+    if (gl_initialized_)
+        return;
+
+    make_current();
+
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK)
+    {
+        throw std::runtime_error("Glew init fail.");
+    }
+
+    device_.initialize_editor();
+
+    resource_manager_.mount(std::make_shared<resources::filesystem_provider>("."), "/");
+
+    auto camera =
+        std::make_shared<scene::perspective_camera>(&scene_manager_, 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+
+    create_viewport(camera, "view1", 0);
+
+#if 0
+    auto &root_scene_node = scene_manager_.get_root_scene_node();
+    auto mesh_node = asset_manager_.load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
+    mesh_node->translate(0.0f, -1.5f, -10.0f);
+    root_scene_node.attach_child(mesh_node);
+#endif
+
+    gl_initialized_ = true;
 }
 
 bool editor_view::__on_frame_start(float)
@@ -61,8 +104,7 @@ void editor_view::initializeGL()
 void editor_view::resizeGL(int width, int height)
 {
     context_size_ = glm::vec2(width * devicePixelRatioF(), height * devicePixelRatioF());
-    make_current();
-    main_window_->handle_gl_init();
+    __initialize_engine();
 }
 
 void editor_view::paintGL()
@@ -74,6 +116,13 @@ void editor_view::paintGL()
     timer_.restart();
 
     update();
+}
+
+void editor_view::closeEvent(QCloseEvent *event)
+{
+    scene_manager_.cleanup_scene();
+    device_.stop();
+    event->accept();
 }
 
 } // namespace editor

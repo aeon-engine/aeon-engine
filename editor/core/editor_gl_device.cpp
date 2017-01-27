@@ -13,8 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <editor_gl_device.h>
-#include <memory>
+#include <core/editor_gl_device.h>
 
 namespace aeon
 {
@@ -34,7 +33,6 @@ void editor_gl_device::initialize_editor()
     __setup_opengl();
     __initialize_glew();
 }
-
 
 } // namespace editor
 } // namespace aeon

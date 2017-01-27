@@ -16,12 +16,9 @@
 #include <GL/glew.h>
 #include <frm_mainwindow_view.h>
 #include <ui_frm_mainwindow.h>
-#include <editor_view.h>
+#include <widgets/editor_view.h>
 #include <application.h>
 #include <QSplitter>
-#include <QCloseEvent>
-#include <aeon/resources/providers/filesystem_provider.h>
-#include <editor_gl_device.h>
 
 namespace aeon
 {
@@ -32,7 +29,6 @@ frm_mainwindow_view::frm_mainwindow_view(application &app)
     : QMainWindow(nullptr)
     , ui_(std::make_unique<Ui::MainWindow>())
     , application_(app)
-    , gl_initialized_(false)
     , count(0)
 {
     ui_->setupUi(this);
@@ -42,41 +38,6 @@ frm_mainwindow_view::frm_mainwindow_view(application &app)
 }
 
 frm_mainwindow_view::~frm_mainwindow_view() = default;
-
-void frm_mainwindow_view::handle_gl_init()
-{
-    if (gl_initialized_)
-        return;
-
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK)
-    {
-        throw std::runtime_error("Glew init fail.");
-    }
-
-    application_.get_device().initialize_editor();
-
-    application_.get_resource_manager().mount(std::make_shared<resources::filesystem_provider>("."), "/");
-
-    camera_ =
-        std::make_shared<scene::perspective_camera>(&application_.get_scene_manager(), 45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
-
-    editor_view_->create_viewport(camera_, "view1", 0);
-
-    auto &root_scene_node = application_.get_scene_manager().get_root_scene_node();
-    auto mesh_node = application_.get_asset_manager().load_mesh("/resources/meshes/elementalist-warrior-female-character-f/x-elemetal.dae");
-    mesh_node->translate(0.0f, -1.5f, -10.0f);
-    root_scene_node.attach_child(mesh_node);
-
-    gl_initialized_ = true;
-}
-
-void frm_mainwindow_view::closeEvent(QCloseEvent *event)
-{
-    application_.get_scene_manager().cleanup_scene();
-    application_.get_device().stop();
-    event->accept();
-}
 
 } // namespace editor
 } // namespace aeon

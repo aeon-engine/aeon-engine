@@ -13,7 +13,6 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <aeon/platform/generic/platform_generic_filesystem_interface.h>
 #include <application.h>
 #include <QFile>
 
@@ -26,12 +25,6 @@ application::application(int argc, char *argv[])
     : qt_application_(argc, argv)
     , logger_backend_()
     , logger_(common::logger::get_singleton(), "AeonEditor")
-    , platform_(std::make_unique<platform::generic::platform_filesystem_interface>())
-    , input_handler_()
-    , device_(platform_, input_handler_)
-    , resource_manager_(platform_)
-    , scene_manager_(device_)
-    , asset_manager_(resource_manager_, scene_manager_)
     , mainwindow_(*this)
 {
     apply_stylesheet();
@@ -49,26 +42,6 @@ void application::apply_stylesheet()
     sheet.open(QFile::ReadOnly);
     QString styleSheet = sheet.readAll();
     qt_application_.setStyleSheet(styleSheet);
-}
-
-editor_gl_device &application::get_device()
-{
-    return device_;
-}
-
-resources::resource_manager &application::get_resource_manager()
-{
-    return resource_manager_;
-}
-
-scene::scene_manager &application::get_scene_manager()
-{
-    return scene_manager_;
-}
-
-assets::asset_manager & application::get_asset_manager()
-{
-    return asset_manager_;
 }
 
 } // namespace editor
