@@ -21,3 +21,4 @@ opengl32.dll
 
 # Clion
 .idea
+cmake-build-*

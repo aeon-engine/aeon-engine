@@ -58,3 +58,7 @@
 	path = dep/json11
 	url = ../../libraries/json11.git
 	branch = submodule
+[submodule "dep/hdf5"]
+	path = dep/hdf5
+	url = ../../libraries/hdf5.git
+	branch = submodule
