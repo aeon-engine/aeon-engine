@@ -16,15 +16,15 @@
 #include <application.h>
 #include <QApplication>
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+//#define WIN32_LEAN_AND_MEAN
+//#include <windows.h>
 #include <QtGui/QSurfaceFormat>
 
 int main(int argc, char *argv[])
 {
-    AllocConsole();
-    freopen("CONOUT$", "wt", stdout);
-    SetConsoleTitle("Debug Console");
+    //AllocConsole();
+    //freopen("CONOUT$", "wt", stdout);
+    //SetConsoleTitle("Debug Console");
 
     QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL, true);
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts, true);
