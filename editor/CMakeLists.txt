@@ -93,6 +93,15 @@ source_group(generated FILES ${AEON_EDITOR_UI_HEADERS})
 
 ################################################################################
 
+set (AEON_ADDITIONAL_RESOURCES "")
+if (APPLE)
+    set(AEON_EDITOR_OSX_ICON_NAME aeon.icns)
+    set(AEON_EDITOR_OSX_ICON ${CMAKE_CURRENT_SOURCE_DIR}/resources/icon/${AEON_EDITOR_OSX_ICON_NAME})
+    set(MACOSX_BUNDLE_ICON_FILE ${AEON_EDITOR_OSX_ICON_NAME})
+    set_source_files_properties(${AEON_EDITOR_OSX_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    list(APPEND AEON_ADDITIONAL_RESOURCES ${AEON_EDITOR_OSX_ICON})
+endif ()
+
 add_executable(aeon_editor WIN32 MACOSX_BUNDLE
     ${AEON_EDITOR_APPLICATION_SOURCES}
     ${AEON_EDITOR_APPLICATION_MOC_SOURCES}
@@ -110,6 +119,7 @@ add_executable(aeon_editor WIN32 MACOSX_BUNDLE
 
     ${AEON_EDITOR_UI_HEADERS}
     ${AEON_EDITOR_RESOURCES_RCC}
+    ${AEON_ADDITIONAL_RESOURCES}
 )
 
 target_link_libraries(aeon_editor
