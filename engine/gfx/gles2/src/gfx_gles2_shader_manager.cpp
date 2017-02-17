@@ -13,10 +13,10 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gles2/gfx_gles2_shader_manager.h>
-#include <gfx/gles2/gfx_gles2_shader.h>
-#include <gfx/gl_common/check_gl_error.h>
+#include <aeon/gfx/gles2/gfx_gles2_shader_manager.h>
+#include <aeon/gfx/gles2/gfx_gles2_shader.h>
 #include <iostream>
+#include <aeon/gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {
@@ -30,14 +30,14 @@ gfx_gles2_shader_manager::gfx_gles2_shader_manager()
 {
 }
 
-shader_ptr gfx_gles2_shader_manager::__load(resources::shader_ptr shader)
+std::shared_ptr<shader> gfx_gles2_shader_manager::create(const data::shader &shader_data)
 {
-    GLuint vertexshader = __load_gl_shader(shader->get_vertex_source(), GL_VERTEX_SHADER);
-    GLuint fragmentshader = __load_gl_shader(shader->get_fragment_source(), GL_FRAGMENT_SHADER);
+    GLuint vertexshader = __load_gl_shader(shader_data.get_vertex_source(), GL_VERTEX_SHADER);
+    GLuint fragmentshader = __load_gl_shader(shader_data.get_fragment_source(), GL_FRAGMENT_SHADER);
 
     GLuint program = __link_gl_program(vertexshader, fragmentshader);
 
-    gfx_gles2_shader_ptr s = std::make_shared<gfx_gles2_shader>();
+    std::shared_ptr<gfx_gles2_shader> s = std::make_shared<gfx_gles2_shader>();
 
     s->handle_ = program;
     s->projection_matrix_handle_ = glGetUniformLocation(program, "projection_matrix");
@@ -49,22 +49,19 @@ shader_ptr gfx_gles2_shader_manager::__load(resources::shader_ptr shader)
     s->view_matrix_handle_ = glGetUniformLocation(program, "view_matrix");
     AEON_CHECK_GL_ERROR();
 
-    s->texture0_handle_ = glGetUniformLocation(program, "texture0");
-    AEON_CHECK_GL_ERROR();
-
     AEON_LOG_TRACE(logger_) << "Uniform locations\n"
                             << "Projection Matrix: " << s->projection_matrix_handle_ << "\n"
                             << "Model Matrix: " << s->model_matrix_handle_ << "\n"
-                            << "View Matrix: " << s->view_matrix_handle_ << "\n"
-                            << "Texture0: " << s->texture0_handle_ << std::endl;
+                            << "View Matrix: " << s->view_matrix_handle_ << std::endl;
 
     return s;
 }
 
-GLuint gfx_gles2_shader_manager::__load_gl_shader(const std::string &source, GLenum type)
+GLuint gfx_gles2_shader_manager::__load_gl_shader(const std::string &source, GLenum type) const
 {
     // Create the shader object
     GLuint shader = glCreateShader(type);
+    AEON_CHECK_GL_ERROR();
 
     if (shader == 0)
     {
@@ -91,6 +88,7 @@ GLuint gfx_gles2_shader_manager::__load_gl_shader(const std::string &source, GLe
     {
         GLint info_len = 0;
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_len);
+        AEON_CHECK_GL_ERROR();
 
         if (info_len > 1)
         {
@@ -113,7 +111,7 @@ GLuint gfx_gles2_shader_manager::__load_gl_shader(const std::string &source, GLe
     return shader;
 }
 
-GLuint gfx_gles2_shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentshader)
+GLuint gfx_gles2_shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentshader) const
 {
     GLuint program = glCreateProgram();
     AEON_CHECK_GL_ERROR();
@@ -128,6 +126,7 @@ GLuint gfx_gles2_shader_manager::__link_gl_program(GLuint vertexshader, GLuint f
 
     glAttachShader(program, vertexshader);
     AEON_CHECK_GL_ERROR();
+
     glAttachShader(program, fragmentshader);
     AEON_CHECK_GL_ERROR();
 
@@ -138,6 +137,10 @@ GLuint gfx_gles2_shader_manager::__link_gl_program(GLuint vertexshader, GLuint f
     glBindAttribLocation(program, 2, "in_uvw");
     AEON_CHECK_GL_ERROR();
     glBindAttribLocation(program, 3, "in_color");
+    AEON_CHECK_GL_ERROR();
+    glBindAttribLocation(program, 4, "in_tangent");
+    AEON_CHECK_GL_ERROR();
+    glBindAttribLocation(program, 5, "in_bitangent");
     AEON_CHECK_GL_ERROR();
 
     glLinkProgram(program);

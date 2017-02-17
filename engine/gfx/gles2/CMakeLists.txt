@@ -5,6 +5,7 @@ set (AEON_ENGINE_GFX_GLES2_SOURCES
     include/aeon/gfx/gles2/gfx_gles2_material.h
     include/aeon/gfx/gles2/gfx_gles2_material_manager.h
     include/aeon/gfx/gles2/gfx_gles2_mesh.h
+    include/aeon/gfx/gles2/gfx_gles2_rpi_window.h
     include/aeon/gfx/gles2/gfx_gles2_shader.h
     include/aeon/gfx/gles2/gfx_gles2_shader_manager.h
     include/aeon/gfx/gles2/gfx_gles2_texture.h
@@ -15,6 +16,7 @@ set (AEON_ENGINE_GFX_GLES2_SOURCES
     src/gfx_gles2_material.cpp
     src/gfx_gles2_material_manager.cpp
     src/gfx_gles2_mesh.cpp
+    src/gfx_gles2_rpi_window.cpp
     src/gfx_gles2_shader.cpp
     src/gfx_gles2_shader_manager.cpp
     src/gfx_gles2_texture.cpp
@@ -30,6 +32,7 @@ add_library(aeon_engine_gfx_gles2 STATIC
 target_link_libraries(aeon_engine_gfx_gles2
     aeon_engine_gfx_core
     aeon_engine_gfx_gl_common
+    aeon_engine_input
     aeon
     glm
 )
@@ -38,6 +41,12 @@ target_include_directories(aeon_engine_gfx_gles2
     PUBLIC include
     PRIVATE ${CMAKE_BINARY_DIR}
 )
+
+if (AEON_PLATFORM_RPI)
+    target_link_libraries(aeon_engine_gfx_gles2
+        RaspberryPiSdk
+    )
+endif ()
 
 set_target_properties(
     aeon_engine_gfx_gles2 PROPERTIES

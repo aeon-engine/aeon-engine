@@ -13,10 +13,10 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gles2/gfx_gles2_texture_manager.h>
-#include <gfx/gles2/gfx_gles2_texture.h>
-#include <resources/image.h>
-#include <gfx/gl_common/check_gl_error.h>
+#include <aeon/gfx/gles2/gfx_gles2_texture_manager.h>
+#include <aeon/gfx/gles2/gfx_gles2_texture.h>
+#include <aeon/data/image.h>
+#include <aeon/gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {
@@ -30,9 +30,9 @@ gfx_gles2_texture_manager::gfx_gles2_texture_manager()
 {
 }
 
-texture_ptr gfx_gles2_texture_manager::__load(resources::image_ptr image)
+std::shared_ptr<texture> gfx_gles2_texture_manager::create(const data::image &image_data)
 {
-    gfx_gles2_texture_ptr t = std::make_shared<gfx_gles2_texture>(image);
+    std::shared_ptr<gfx_gles2_texture> t = std::make_shared<gfx_gles2_texture>();
 
     GLuint handle = 0;
     glGenTextures(1, &handle);
@@ -43,27 +43,57 @@ texture_ptr gfx_gles2_texture_manager::__load(resources::image_ptr image)
     glBindTexture(GL_TEXTURE_2D, handle);
     AEON_CHECK_GL_ERROR();
 
-    const data::image &image_data = image->get_data();
     GLint pixelformat = __image_pixelformat_to_gl(image_data.get_pixelformat());
     GLsizei width = image_data.get_width();
     GLsizei height = image_data.get_height();
-    glTexImage2D(GL_TEXTURE_2D, 0, pixelformat, width, height, 0, pixelformat, GL_UNSIGNED_BYTE,
-                 image_data.get_data().data());
+
+    switch (image_data.get_pixelformat())
+    {
+        case data::image::pixel_format::rgb:
+        case data::image::pixel_format::rgba:
+        {
+            if (image_data.get_mipmap_count() != 0)
+                AEON_LOG_WARNING(logger_) << "Mipmapping for RGB(A) images is currently not supported." << std::endl;
+
+            glTexImage2D(GL_TEXTURE_2D, 0, pixelformat, width, height, 0, pixelformat, GL_UNSIGNED_BYTE,
+                         image_data.get_data().data());
+            break;
+        }
+        case data::image::pixel_format::dxt1:
+        case data::image::pixel_format::dxt3:
+        case data::image::pixel_format::dxt5:
+        {
+            throw std::runtime_error("DXT textures currently not supported.");
+        }
+    }
+
     AEON_CHECK_GL_ERROR();
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    AEON_CHECK_GL_ERROR();
+    if (image_data.get_mipmap_count() == 0)
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        AEON_CHECK_GL_ERROR();
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    AEON_CHECK_GL_ERROR();
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        AEON_CHECK_GL_ERROR();
+    }
+    else
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+        AEON_CHECK_GL_ERROR();
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+        AEON_CHECK_GL_ERROR();
+    }
 
     t->handle_ = handle;
     t->size_ = glm::vec2(width, height);
+    t->pixel_format_ = image_data.get_pixelformat();
 
     return t;
 }
 
-GLint gfx_gles2_texture_manager::__image_pixelformat_to_gl(data::image::pixel_format format)
+GLint gfx_gles2_texture_manager::__image_pixelformat_to_gl(data::image::pixel_format format) const
 {
     switch (format)
     {
@@ -71,6 +101,9 @@ GLint gfx_gles2_texture_manager::__image_pixelformat_to_gl(data::image::pixel_fo
             return GL_RGB;
         case data::image::pixel_format::rgba:
             return GL_RGBA;
+        case data::image::pixel_format::dxt1:
+        case data::image::pixel_format::dxt3:
+        case data::image::pixel_format::dxt5:
         default:
         {
             AEON_LOG_WARNING(logger_) << "Unknown or invalid image pixel format, assuming RGBA. (This is a bug!)"

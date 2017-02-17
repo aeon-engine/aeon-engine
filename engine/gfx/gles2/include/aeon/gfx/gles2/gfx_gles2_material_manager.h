@@ -15,8 +15,7 @@
 
 #pragma once
 
-#include <gfx/gfx_resource_manager.h>
-#include <resources/material.h>
+#include <aeon/gfx/gfx_material_manager.h>
 
 namespace aeon
 {
@@ -25,17 +24,15 @@ namespace gfx
 namespace gles2
 {
 
-class gfx_gles2_device;
 class gfx_gles2_material_manager : public gfx::material_manager
 {
 public:
-    explicit gfx_gles2_material_manager(gfx_gles2_device &dev);
+    explicit gfx_gles2_material_manager() = default;
     virtual ~gfx_gles2_material_manager() = default;
 
 private:
-    gfx::material_ptr __load(resources::material_ptr material) override;
-
-    gfx_gles2_device &device_;
+    std::shared_ptr<material> create(const std::shared_ptr<shader> &shader,
+                                     const std::map<std::string, std::shared_ptr<texture>> &samplers) override;
 };
 
 } // namespace gles2

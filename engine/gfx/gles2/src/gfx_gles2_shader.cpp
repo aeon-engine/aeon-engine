@@ -13,9 +13,9 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gles2/gfx_gles2_shader.h>
+#include <aeon/gfx/gles2/gfx_gles2_shader.h>
 #include <glm/gtc/type_ptr.hpp>
-#include <gfx/gl_common/check_gl_error.h>
+#include <aeon/gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {
@@ -25,12 +25,11 @@ namespace gles2
 {
 
 gfx_gles2_shader::gfx_gles2_shader()
-    : logger_(common::logger::get_singleton(), "Gfx::GLES2::Shader")
+    : logger_(common::logger::get_singleton(), "Gfx::GL::Shader")
     , handle_(0)
     , projection_matrix_handle_(0)
     , model_matrix_handle_(0)
     , view_matrix_handle_(0)
-    , texture0_handle_(0)
 {
 }
 
@@ -65,9 +64,18 @@ void gfx_gles2_shader::set_view_matrix(const glm::mat4 &matrix)
     AEON_CHECK_GL_ERROR();
 }
 
-GLint gfx_gles2_shader::get_texture0_handle() const
+auto gfx_gles2_shader::get_sampler_handle_by_name(const std::string &name) const -> GLint
 {
-    return texture0_handle_;
+    auto handle = glGetUniformLocation(handle_, name.c_str());
+    AEON_CHECK_GL_ERROR();
+
+    return handle;
+}
+
+void gfx_gles2_shader::bind_sampler(const GLint handle, const int bind_point) const
+{
+    glUniform1i(handle, bind_point);
+    AEON_CHECK_GL_ERROR();
 }
 
 } // namespace gles2

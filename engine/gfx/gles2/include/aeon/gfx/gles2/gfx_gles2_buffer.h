@@ -15,9 +15,9 @@
 
 #pragma once
 
-#include <gfx/gfx_buffer.h>
-#include <common/exception.h>
-#include <common/logger.h>
+#include <aeon/gfx/gfx_buffer.h>
+#include <aeon/common/exception.h>
+#include <aeon/common/logger.h>
 #include <GLES2/gl2.h>
 #include <memory>
 
@@ -28,7 +28,7 @@ namespace gfx
 namespace gles2
 {
 
-DEFINE_EXCEPTION_OBJECT(gfx_gles2_buffer_exception, aeon::common::exception, "Gles2 Buffer error");
+DEFINE_EXCEPTION_OBJECT(gfx_gles2_buffer_exception, aeon::common::exception, "GLES2 Buffer error");
 
 class gfx_gles2_buffer : public gfx::buffer
 {
@@ -46,13 +46,11 @@ private:
     GLenum __buffer_type_as_gl_enum() const;
     GLenum __buffer_usage_as_gl_enum(buffer_usage usage) const;
 
-    mutable aeon::logger::logger logger_;
+    aeon::logger::logger logger_;
 
     GLuint handle_;
     bool has_data_;
 };
-
-using gfx_gles2_buffer_ptr = std::shared_ptr<gfx_gles2_buffer>;
 
 } // namespace gles2
 } // namespace gfx

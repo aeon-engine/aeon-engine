@@ -7,6 +7,8 @@ attribute vec3 in_position;
 attribute vec3 in_normal;
 attribute vec3 in_uvw;
 attribute vec4 in_color;
+attribute vec3 in_tangent;
+attribute vec3 in_bitangent;
  
 varying vec3 frag_uvw;
 

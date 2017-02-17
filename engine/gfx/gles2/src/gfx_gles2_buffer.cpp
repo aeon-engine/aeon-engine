@@ -13,8 +13,8 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <gfx/gles2/gfx_gles2_buffer.h>
-#include <gfx/gl_common/check_gl_error.h>
+#include <aeon/gfx/gles2/gfx_gles2_buffer.h>
+#include <aeon/gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {

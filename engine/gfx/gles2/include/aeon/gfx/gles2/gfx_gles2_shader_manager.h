@@ -15,10 +15,10 @@
 
 #pragma once
 
-#include <gfx/gfx_resource_manager.h>
+#include <aeon/gfx/gfx_shader_manager.h>
+#include <aeon/common/logger.h>
+#include <aeon/common/exception.h>
 #include <GLES2/gl2.h>
-#include <common/logger.h>
-#include <common/exception.h>
 
 namespace aeon
 {
@@ -27,9 +27,9 @@ namespace gfx
 namespace gles2
 {
 
-DEFINE_EXCEPTION_OBJECT(gfx_gles2_shader_exception, aeon::common::exception, "GLES2 shader exception.");
+DEFINE_EXCEPTION_OBJECT(gfx_gles2_shader_exception, aeon::common::exception, "GLES 2 shader exception.");
 DEFINE_EXCEPTION_OBJECT(gfx_gles2_shader_compile_exception, gfx_gles2_shader_exception,
-                        "GLES2 shader compilation exception.");
+                        "GLES 2 shader compilation exception.");
 
 class gfx_gles2_shader_manager : public gfx::shader_manager
 {
@@ -38,10 +38,10 @@ public:
     virtual ~gfx_gles2_shader_manager() = default;
 
 private:
-    shader_ptr __load(resources::shader_ptr shader) override;
+    std::shared_ptr<shader> create(const data::shader &shader_data) override;
 
-    GLuint __load_gl_shader(const std::string &source, GLenum type);
-    GLuint __link_gl_program(GLuint vertexshader, GLuint fragmentshader);
+    GLuint __load_gl_shader(const std::string &source, GLenum type) const;
+    GLuint __link_gl_program(GLuint vertexshader, GLuint fragmentshader) const;
 
     aeon::logger::logger logger_;
 };

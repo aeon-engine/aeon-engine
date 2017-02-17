@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include <gfx/gfx_buffer_manager.h>
+#include <aeon/gfx/gfx_buffer_manager.h>
 
 namespace aeon
 {
@@ -31,7 +31,7 @@ public:
     virtual ~gfx_gles2_buffer_manager() = default;
 
 private:
-    buffer_ptr __create_buffer(buffer_type type) override;
+    std::shared_ptr<buffer> __create_buffer(buffer_type type) override;
 };
 
 } // namespace gles2

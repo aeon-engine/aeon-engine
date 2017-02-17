@@ -13,13 +13,28 @@ target_link_libraries(aeon_engine_gfx_gl_common
     aeon_engine_common
     aeon_engine_gfx_core
     aeon
-    glew_s
 )
 
 target_include_directories(aeon_engine_gfx_gl_common
     PUBLIC include
     PRIVATE ${CMAKE_BINARY_DIR}
 )
+
+if (AEON_GFX_GL)
+    target_link_libraries(aeon_engine_gfx_gl_common
+        glew_s
+    )
+endif ()
+
+if (AEON_PLATFORM_RPI)
+    target_include_directories(aeon_engine_gfx_gl_common
+        PRIVATE ${RASPBERRY_PI_INCLUDE_PATHS}
+    )
+
+    target_link_libraries(aeon_engine_gfx_gl_common
+        ${RASPBERRY_PI_LIBRARIES}
+    )
+endif ()
 
 set_target_properties(
     aeon_engine_gfx_gl_common PROPERTIES

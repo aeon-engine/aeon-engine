@@ -13,9 +13,7 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#include <aeon/gfx/gles2/gfx_gles2_material_manager.h>
-#include <aeon/gfx/gles2/gfx_gles2_material.h>
-#include <aeon/gfx/gles2/gfx_gles2_device.h>
+#include <aeon/gfx/gles2/gfx_gles2_monitor.h>
 
 namespace aeon
 {
@@ -24,11 +22,32 @@ namespace gfx
 namespace gles2
 {
 
-std::shared_ptr<material>
-gfx_gles2_material_manager::create(const std::shared_ptr<shader> &shader,
-                                   const std::map<std::string, std::shared_ptr<texture>> &samplers)
+gfx_gles2_monitor::gfx_gles2_monitor(int width, int height, int x, int y, bool primary, const std::string &name)
+    : gfx_monitor(width, height, x, y, primary, name)
 {
-    return std::make_shared<gfx_gles2_material>(shader, samplers);
+}
+
+void gfx_gles2_monitor::set_gramma(float)
+{
+}
+
+gamma_ramp gfx_gles2_monitor::get_gamma_ramp()
+{
+    return gamma_ramp();
+}
+
+void gfx_gles2_monitor::set_gamma_ramp(gamma_ramp)
+{
+}
+
+video_mode gfx_gles2_monitor::get_video_mode()
+{
+    throw std::runtime_error("not implemented.");
+}
+
+video_modes gfx_gles2_monitor::get_video_modes()
+{
+    throw std::runtime_error("not implemented.");
 }
 
 } // namespace gles2

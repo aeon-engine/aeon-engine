@@ -15,9 +15,9 @@
 
 #pragma once
 
+#include <aeon/gfx/gfx_shader.h>
+#include <aeon/common/logger.h>
 #include <GLES2/gl2.h>
-#include <gfx/gfx_shader.h>
-#include <common/logger.h>
 #include <memory>
 
 namespace aeon
@@ -41,7 +41,8 @@ public:
     void set_model_matrix(const glm::mat4 &matrix) override;
     void set_view_matrix(const glm::mat4 &matrix) override;
 
-    GLint get_texture0_handle() const;
+    auto get_sampler_handle_by_name(const std::string &name) const -> GLint;
+    void bind_sampler(const GLint handle, const int bind_point) const;
 
 private:
     aeon::logger::logger logger_;
@@ -51,10 +52,7 @@ private:
     GLint projection_matrix_handle_;
     GLint model_matrix_handle_;
     GLint view_matrix_handle_;
-    GLint texture0_handle_;
 };
-
-using gfx_gles2_shader_ptr = std::shared_ptr<gfx_gles2_shader>;
 
 } // namespace gles2
 } // namespace gfx

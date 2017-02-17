@@ -111,15 +111,27 @@ endif ()
 # Platform options
 ################################################################################
 set(AEON_PLATFORM_NAME_GLFW "GLFW")
+set(AEON_PLATFORM_NAME_RPI "RPI")
 
 set(AEON_PLATFORM_GLFW OFF)
+set(AEON_PLATFORM_RPI OFF)
 
 set(AEON_PLATFORM ${AEON_PLATFORM_NAME_GLFW} CACHE STRING "Platform backend")
-set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW})
+set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW} ${AEON_PLATFORM_NAME_RPI})
 
 if (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_GLFW)
     message (STATUS "Using GLFW as platform.")
     set(AEON_PLATFORM_GLFW ON)
+elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_RPI)
+    message (STATUS "Using RPI as platform.")
+    set(AEON_PLATFORM_RPI ON)
+    find_package(RaspberryPiSDK COMPONENTS
+        EGL
+        GLESv2
+        vcos
+        vchiq_arm
+        bcm_host
+    )
 else ()
     message (FATAL_ERROR "No valid platform was selected.")
 endif ()

@@ -15,10 +15,9 @@
 
 #pragma once
 
-#include <GLES2/gl2.h>
-#include <gfx/gfx_material.h>
-#include <gfx/gles2/gfx_gles2_shader.h>
-#include <gfx/gles2/gfx_gles2_texture.h>
+#include <aeon/gfx/gfx_material.h>
+#include <aeon/gfx/gles2/gfx_gles2_shader.h>
+#include <aeon/gfx/gles2/gfx_gles2_texture.h>
 
 namespace aeon
 {
@@ -27,6 +26,30 @@ namespace gfx
 namespace gles2
 {
 
+class gfx_gles2_texture_handle_pair
+{
+public:
+    explicit gfx_gles2_texture_handle_pair(const GLint handle, gfx_gles2_texture *texture)
+        : handle_(handle)
+        , texture_(texture)
+    {
+    }
+
+    auto get_handle() const
+    {
+        return handle_;
+    }
+
+    auto get_texture() const
+    {
+        return texture_;
+    }
+
+private:
+    GLint handle_;
+    gfx_gles2_texture *texture_;
+};
+
 class gfx_gles2_material : public gfx::material
 {
     friend class gfx_gles2_material_manager;
@@ -34,18 +57,26 @@ class gfx_gles2_material : public gfx::material
     void bind() override;
 
 public:
-    gfx_gles2_material() = default;
-    ~gfx_gles2_material() = default;
+    explicit gfx_gles2_material(const std::shared_ptr<shader> &shader,
+                             const std::map<std::string, std::shared_ptr<texture>> &samplers);
+    virtual ~gfx_gles2_material() = default;
 
     gfx::shader *get_shader() const override;
-    gfx::texture *get_texture() const override;
+    gfx::texture *get_sampler(const std::string &name) const override;
+
+    bool sampler_has_alpha() const override;
 
 protected:
-    gfx_gles2_shader_ptr shader_;
-    gfx_gles2_texture_ptr texture_;
-};
+    auto __convert_sampler_map_to_gl(const std::map<std::string, std::shared_ptr<texture>> &samplers) const
+        -> std::map<std::string, std::shared_ptr<gfx_gles2_texture>>;
+    auto __generate_sampler_indices(const std::map<std::string, std::shared_ptr<gfx_gles2_texture>> &samplers) const
+        -> std::vector<gfx_gles2_texture_handle_pair>;
 
-using gfx_gles2_material_ptr = std::shared_ptr<gfx_gles2_material>;
+    std::shared_ptr<gfx_gles2_shader> shader_;
+    std::map<std::string, std::shared_ptr<gfx_gles2_texture>> sampler_map_;
+    std::vector<gfx_gles2_texture_handle_pair> samplers_;
+    bool sampler_has_alpha_;
+};
 
 } // namespace gles2
 } // namespace gfx

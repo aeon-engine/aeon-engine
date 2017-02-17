@@ -14,20 +14,30 @@
  */
 
 #pragma once
+#include <aeon/gfx/gfx_monitor.h>
 
-#include <build_config.h>
+namespace aeon
+{
+namespace gfx
+{
+namespace gles2
+{
 
-#ifdef AEON_GFX_GL
-#include <aeon/gfx/gl/gfx_gl_device.h>
-using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
-#endif // AEON_GFX_GL
+class gfx_gles2_monitor : public gfx_monitor
+{
+public:
+    gfx_gles2_monitor(int width, int height, int x, int y, bool primary, const std::string &name);
+    virtual ~gfx_gles2_monitor() = default;
 
-#ifdef AEON_GFX_GLES2
-#include <aeon/gfx/gles2/gfx_gles2_device.h>
-using selected_gfx_device = aeon::gfx::gles2::gfx_gles2_device;
-#endif // AEON_GFX_GLES2
+    void set_gramma(float gamma) override;
 
-#ifdef AEON_GFX_NULL
-#include <gfx/null/gfx_null_device.h>
-using selected_gfx_device = aeon::gfx::null::gfx_null_device;
-#endif // AEON_GFX_NULL
+    gamma_ramp get_gamma_ramp() override;
+    void set_gamma_ramp(gamma_ramp ramp) override;
+
+    video_mode get_video_mode() override;
+    video_modes get_video_modes() override;
+};
+
+} // namespace gles2
+} // namespace gfx
+} // namespace aeon
