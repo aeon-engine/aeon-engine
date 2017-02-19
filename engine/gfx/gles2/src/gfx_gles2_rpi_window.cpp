@@ -150,10 +150,12 @@ void gfx_gles2_rpi_window::__create_native_window()
     DISPMANX_DISPLAY_HANDLE_T dispman_display = vc_dispmanx_display_open(0); /* LCD */
     DISPMANX_UPDATE_HANDLE_T dispman_update = vc_dispmanx_update_start(0);
 
+    VC_DISPMANX_ALPHA_T alpha = { DISPMANX_FLAGS_ALPHA_FIXED_ALL_PIXELS, 255, 0 };
+
     DISPMANX_ELEMENT_HANDLE_T dispman_element =
         vc_dispmanx_element_add(dispman_update, dispman_display, 0,     /* layer */
                                 &dst_rect, 0,                           /* src */
-                                &src_rect, DISPMANX_PROTECTION_NONE, 0, /* alpha */
+                                &src_rect, DISPMANX_PROTECTION_NONE, &alpha, /* alpha */
                                 0,                                      /* clamp */
                                 (DISPMANX_TRANSFORM_T)0                 /* transform */
                                 );
