@@ -25,7 +25,7 @@ namespace gles2
 
 gfx_gles2_texture::gfx_gles2_texture()
     : gfx::texture()
-    , logger_(common::logger::get_singleton(), "Gfx::GLES2::Texture")
+    , logger_(common::logger::get_singleton(), "Gfx::Gles2::Texture")
     , handle_(0)
     , size_(0)
     , pixel_format_(data::image::pixel_format::rgb)

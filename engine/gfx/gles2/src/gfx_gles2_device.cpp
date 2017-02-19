@@ -37,7 +37,7 @@ namespace gles2
 
 gfx_gles2_device::gfx_gles2_device(platform::platform_interface &platform, input::input_handler &input_handler)
     : gfx::device(platform)
-    , logger_(common::logger::get_singleton(), "Gfx::GLES2::Device")
+    , logger_(common::logger::get_singleton(), "Gfx::Gles2::Device")
     , input_handler_(input_handler)
     , render_targets_()
     , running_(false)

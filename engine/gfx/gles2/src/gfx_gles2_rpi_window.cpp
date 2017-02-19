@@ -42,7 +42,7 @@ namespace gles2
 gfx_gles2_rpi_window::gfx_gles2_rpi_window(gfx_gles2_device &device, platform::platform_interface &,
                                            const gfx_window_settings &settings)
     : gfx_window(settings)
-    , logger_(common::logger::get_singleton(), "Gfx::GLES2::Window")
+    , logger_(common::logger::get_singleton(), "Gfx::Gles2::Window")
     , device_(device)
 {
     AEON_LOG_DEBUG(logger_) << "Creating GLES 2 context with forward compatibility." << std::endl;
@@ -65,8 +65,21 @@ void gfx_gles2_rpi_window::make_current()
 
 glm::vec2 gfx_gles2_rpi_window::get_framebuffer_size() const
 {
-    // TODO: Get the proper framebuffer size.
-    return glm::vec2(1920, 1080);
+    // TODO: This can be done better.
+    if (framebuffer_size_.x == 0.0f && framebuffer_size_.y == 0.0f)
+    {
+        std::uint32_t display_width;
+        std::uint32_t display_height;
+
+        // create an EGL window surface, passing context width/height
+        if (graphics_get_display_size(0 /* LCD */, &display_width, &display_height) < 0)
+            throw std::runtime_error("Could not get display size.");
+
+        framebuffer_size_.x = static_cast<float>(display_width);
+        framebuffer_size_.y = static_cast<float>(display_height);
+    }
+
+    return framebuffer_size_;
 }
 
 void gfx_gles2_rpi_window::set_mouse_cursor_mode(const mouse_cursor_mode)
@@ -128,12 +141,9 @@ void gfx_gles2_rpi_window::__create_window()
 
 void gfx_gles2_rpi_window::__create_native_window()
 {
-    std::uint32_t display_width;
-    std::uint32_t display_height;
-
-    // create an EGL window surface, passing context width/height
-    if (graphics_get_display_size(0 /* LCD */, &display_width, &display_height) < 0)
-        throw std::runtime_error("Could not get display size.");
+    auto framebuffer_size = get_framebuffer_size();
+    uint32_t display_width = static_cast<int>(framebuffer_size.x);
+    uint32_t display_height = static_cast<int>(framebuffer_size.y);
 
     VC_RECT_T dst_rect;
     dst_rect.x = 0;

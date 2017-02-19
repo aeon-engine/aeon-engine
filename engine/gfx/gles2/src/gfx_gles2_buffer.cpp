@@ -25,7 +25,7 @@ namespace gles2
 
 gfx_gles2_buffer::gfx_gles2_buffer(buffer_type type)
     : gfx::buffer(type)
-    , logger_(common::logger::get_singleton(), "Gfx::GLES2::Buffer")
+    , logger_(common::logger::get_singleton(), "Gfx::Gles2::Buffer")
     , handle_(0)
     , has_data_(false)
 {

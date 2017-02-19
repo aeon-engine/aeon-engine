@@ -27,7 +27,7 @@ namespace gles2
 
 gfx_gles2_mesh::gfx_gles2_mesh(gfx_gles2_device *device, std::shared_ptr<material> material)
     : gfx::mesh()
-    , logger_(common::logger::get_singleton(), "Gfx::GL::Mesh")
+    , logger_(common::logger::get_singleton(), "Gfx::Gles2::Mesh")
     , material_(material)
     , vertex_buffer_(device->get_buffer_manager().create_buffer(buffer_type::array))
     , index_buffer_(device->get_buffer_manager().create_buffer(buffer_type::element_array))

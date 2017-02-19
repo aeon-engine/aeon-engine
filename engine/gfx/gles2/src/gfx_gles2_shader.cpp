@@ -25,7 +25,7 @@ namespace gles2
 {
 
 gfx_gles2_shader::gfx_gles2_shader()
-    : logger_(common::logger::get_singleton(), "Gfx::GL::Shader")
+    : logger_(common::logger::get_singleton(), "Gfx::Gles2::Shader")
     , handle_(0)
     , projection_matrix_handle_(0)
     , model_matrix_handle_(0)

@@ -1,6 +1,7 @@
 {
     "shaders": {
-        "gl3": "/resources/shaders/default_normals.gl3.prg"
+        "gl3": "/resources/shaders/default_normals.gl3.prg",
+        "gles2": "/resources/shaders/default.gles2.prg"
     },
     "samplers": [{
         "name": "texture0",

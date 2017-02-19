@@ -26,7 +26,7 @@ namespace gles2
 {
 
 gfx_gles2_texture_manager::gfx_gles2_texture_manager()
-    : logger_(common::logger::get_singleton(), "Gfx::GLES2::TextureManager")
+    : logger_(common::logger::get_singleton(), "Gfx::Gles2::TextureManager")
 {
 }
 

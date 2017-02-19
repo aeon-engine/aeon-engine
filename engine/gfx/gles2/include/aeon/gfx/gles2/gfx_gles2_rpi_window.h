@@ -60,6 +60,8 @@ private:
 
     gfx_gles2_device &device_;
 
+    mutable glm::vec2 framebuffer_size_;
+
     EGL_DISPMANX_WINDOW_T window_;
     EGLDisplay display_;
     EGLContext context_;
