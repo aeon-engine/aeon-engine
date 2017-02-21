@@ -7,52 +7,38 @@ The changelog can be found [here](CHANGELOG.md). This changelog describes high
 level changes made to the engine between release versions. For more detailed
 information please refer to the GIT commit log.
 
-Copyright notice
+Compiling
 --------------
-All code in this repository is confidential.
-All Rights Reserved.
 
-ROBIN DEGEN; CONFIDENTIAL
-
-2012 - 2017 Robin Degen
-All Rights Reserved.
-
-NOTICE:  All information contained herein is, and remains the property of
-Robin Degen and its suppliers, if any. The intellectual and technical
-concepts contained herein are proprietary to Robin Degen and its suppliers
-and may be covered by U.S. and Foreign Patents, patents in process, and are
-protected by trade secret or copyright law. Dissemination of this
-information or reproduction of this material is strictly forbidden unless
-prior written permission is obtained from Robin Degen.
+The Aeon Engine uses CMake for it's build system. Other than CMake, no additional
+knowledge should be required to get up and running. There are various "bootstrap"
+scripts in the root of the archive for convenience for getting up and running
+quickly.
 
 Libraries
 --------------
 Currently Aeon uses the following libraries:
 
-- libAeon
-- Glew
+- libAeon (general purpose C++14 library)
+- Open Asset Import Library
+- GLEW
 - GLFW
 - GLM
+- Google Test
+- Json11
 - libpng
 - zlib
 - Google Test
 
-All dependencies are added as git submodules. No external libraries should be required
-in order to build; other then standard compiler or OS provided libraries.
-
-Compiling
---------------
-
-- Clone this repository recursively.
-- Run either bootstrap.sh (osx/linux) or bootstrap.cmd (windows)
-- Build from the created build folder (build or vs_build)
-- ???
-- Profit!
+All dependencies are included in this repository for convenience.
+No external libraries should be required in order to build;
+other then standard compiler or OS/distribution provided libraries like OpenGL.
 
 Code style
 --------------
 A detailed description of code style is yet to be written. Please follow the 
-style as established in the existing code. When in doubt, ask Robin Degen.
+style as established in the existing code. When in doubt, ask the project's
+maintainer: Robin Degen.
 
 In short:
 
@@ -65,21 +51,29 @@ In short:
 The following comment MUST be at the top of all source files, and must be kept
 up to date with the version as written in this readme file.
 
-NOTICE:
-If any file has this comment missing or of it is different from what is written 
-below, the text below will always apply above everything else.
+License
+--------------
+The Aeon Library is released under the MIT license.
 
-	/*
-	 * ROBIN DEGEN; CONFIDENTIAL
-	 *
-	 * 2012 - 2017 Robin Degen
-	 * All Rights Reserved.
-	 *
-	 * NOTICE:  All information contained herein is, and remains the property of
-	 * Robin Degen and its suppliers, if any. The intellectual and technical
-	 * concepts contained herein are proprietary to Robin Degen and its suppliers
-	 * and may be covered by U.S. and Foreign Patents, patents in process, and are
-	 * protected by trade secret or copyright law. Dissemination of this
-	 * information or reproduction of this material is strictly forbidden unless
-	 * prior written permission is obtained from Robin Degen.
-	 */
+Copyright (c) 2012-2017 Robin Degen
+
+ Permission is hereby granted, free of charge, to any person
+ obtaining a copy of this software and associated documentation
+ files (the "Software"), to deal in the Software without
+ restriction, including without limitation the rights to use,
+ copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following
+ conditions:
+
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ OTHER DEALINGS IN THE SOFTWARE.
