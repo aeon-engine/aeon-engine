@@ -1,0 +1,18 @@
+osx:
+  tags:
+    - osx
+  script:
+    - export BUILD_DIR=ci_build
+    - mkdir $BUILD_DIR
+    - cd $BUILD_DIR
+    - cmake -DCMAKE_INSTALL_PREFIX=install ../
+    - cmake --build . --target install --config Debug
+
+windows:
+  tags:
+    - windows
+  script:
+    - mkdir ci_build
+    - cd ci_build
+    - cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX=install ../
+    - cmake --build . --target install --config Debug
