@@ -24,7 +24,7 @@
 cmake_minimum_required(VERSION 3.3.0)
 project(AeonEngine)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
 
 include(CompilerFlags)
 
@@ -156,7 +156,8 @@ option(AEON_ENABLE_GL_ERROR_CHECKS "Check and log all OpenGL 3 and GLES 2 errors
 
 ################################################################################
 
-add_subdirectory(dep)
+add_subdirectory(libaeon)
+add_subdirectory(external)
 add_subdirectory(engine)
 add_subdirectory(examples)
 add_subdirectory(tests)

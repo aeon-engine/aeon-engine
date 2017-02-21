@@ -50,8 +50,9 @@ endif ()
 
 if (NOT MSVC AND NOT CYGWIN)
     message("Not on Visual Studio. Setting flags:")
-    message(" - C++1y support")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y")
+    message(" - fvisibility=hidden")
+    message(" - fvisibility-inlines-hidden")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden")
 endif ()
 
 if (NOT CMAKE_CXX_COMPILER_ID)

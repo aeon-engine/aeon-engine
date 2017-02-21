@@ -771,7 +771,7 @@ set_target_properties(assimp PROPERTIES FOLDER "External/assimp")
 TARGET_LINK_LIBRARIES(assimp zlibstatic ${OPENDDL_PARSER_LIBRARIES} )
 
 target_include_directories(assimp
-    PUBLIC ${CMAKE_BINARY_DIR}/dep
+    PUBLIC ${CMAKE_BINARY_DIR}/external
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include
 )
 
