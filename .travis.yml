@@ -1,0 +1,55 @@
+language: cpp
+
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+      dist: trusty
+      sudo: required
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+            - mesa-common-dev
+            - libgl1-mesa-dev
+            - libxrandr-dev
+            - libxinerama-dev
+            - libxcursor-dev
+            - libglu1-mesa-dev
+      env: COMPILER=g++-5
+    - os: linux
+      compiler: clang
+      dist: trusty
+      sudo: required
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
+            - mesa-common-dev
+            - libgl1-mesa-dev
+            - libxrandr-dev
+            - libxinerama-dev
+            - libxcursor-dev
+            - libglu1-mesa-dev
+          packages:
+            - clang-3.7
+      env: COMPILER=clang++-3.7
+    - os: osx
+      osx_image: xcode8.2
+      compiler: clang++
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq       ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y cmake ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]];   then export COMPILER=clang++       ; fi
+
+script:
+  - mkdir build
+  - cd build
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]];   then cmake .. && make ; fi
+  - ctest -C Debug --verbose
+
