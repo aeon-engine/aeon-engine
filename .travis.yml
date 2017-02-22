@@ -30,16 +30,16 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.7
+            - llvm-toolchain-precise-3.9
           packages:
-            - clang-3.7
+            - clang-3.9
             - mesa-common-dev
             - libgl1-mesa-dev
             - libxrandr-dev
             - libxinerama-dev
             - libxcursor-dev
             - libglu1-mesa-dev
-      env: COMPILER=clang++-3.7
+      env: COMPILER=clang++-3.9
     - os: osx
       osx_image: xcode8.2
       compiler: clang++
