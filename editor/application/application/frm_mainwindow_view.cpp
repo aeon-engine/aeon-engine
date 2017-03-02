@@ -16,10 +16,12 @@
 #include <GL/glew.h>
 #include <frm_mainwindow_view.h>
 #include <ui_frm_mainwindow.h>
-#include <widgets/editor_view.h>
-#include <resource_browser/resource_browser_view.h>
 #include <application.h>
 #include <QSplitter>
+#include <QLayout>
+#include <QPushButton>
+
+#include <aeon/editor_widgets/resource_manager_toolbar.h>
 
 namespace aeon
 {
@@ -30,20 +32,28 @@ frm_mainwindow_view::frm_mainwindow_view(application &app)
     : QMainWindow(nullptr)
     , ui_(std::make_unique<Ui::MainWindow>())
     , application_(app)
-    , count(0)
 {
     ui_->setupUi(this);
-    editor_view_ = new editor_view(this);
-    setCentralWidget(editor_view_);
-    editor_view_->makeCurrent();
+
+    auto toolbar = ui_->toolBar;
+    auto toolbar_2 = ui_->toolBar_2;
+
+    auto widget = new widgets::resource_manager_toolbar();
+    //auto widget = new QPushButton();
+
+    //auto action = ui_->toolBar->actions().at(0);
+    //widget->setMinimumSize(100, 60);
+    auto action2 = toolbar_2->addWidget(widget);
+    action2->setVisible(true);
+    //widget->setVisible(true);
+
+    //ui_->toolbar_->
 
     connect(ui_->actionAsset_Browser, &QAction::triggered, this, &frm_mainwindow_view::on_asset_browser_clicked);
 }
 
 void frm_mainwindow_view::on_asset_browser_clicked(bool checked)
 {
-    resource_browser_view rb_view(this);
-    rb_view.exec();
 }
 
 frm_mainwindow_view::~frm_mainwindow_view() = default;

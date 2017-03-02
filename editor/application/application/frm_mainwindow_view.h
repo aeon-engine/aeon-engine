@@ -29,7 +29,6 @@ namespace aeon
 namespace editor
 {
 
-class editor_view;
 class application;
 class frm_mainwindow_view : public QMainWindow
 {
@@ -46,10 +45,6 @@ private:
     std::unique_ptr<Ui::MainWindow> ui_;
     application &application_;
 
-    std::shared_ptr<scene::camera> camera_;
-    int count;
-
-    editor_view *editor_view_;
 };
 
 } // namespace editor

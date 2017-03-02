@@ -1,0 +1,9 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/aeon_editor_widgets/style">
+    <file alias="stylesheet">style.qss</file>
+  </qresource>
+  <qresource prefix="/aeon_editor_widgets/widgets">
+    <file alias="toolbar_icon">widget_icon_toolbar.png</file>
+  </qresource>
+</RCC>

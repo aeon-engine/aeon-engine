@@ -13,25 +13,36 @@
  * prior written permission is obtained from Robin Degen.
  */
 
-#pragma once
-
-#include <aeon/common/logger.h>
-#include <aeon/gfx/gl/gfx_gl_device.h>
+#include <application.h>
+#include <QFile>
 
 namespace aeon
 {
 namespace editor
 {
 
-class editor_gl_device : public gfx::gl::gfx_gl_device
+application::application(int argc, char *argv[])
+    : qt_application_(argc, argv)
+    , logger_backend_()
+    , logger_(common::logger::get_singleton(), "AeonEditor")
+    , mainwindow_(*this)
 {
-public:
-    editor_gl_device(platform::platform_interface &platform, input::input_handler &input_handler);
-    virtual ~editor_gl_device() override;
+    apply_stylesheet();
+}
 
-    void initialize_editor();
+int application::exec()
+{
+    mainwindow_.show();
+    return qt_application_.exec();
+}
 
-};
+void application::apply_stylesheet()
+{
+    /*QFile sheet(":/style/stylesheet");
+    sheet.open(QFile::ReadOnly);
+    QString styleSheet = sheet.readAll();
+    qt_application_.setStyleSheet(styleSheet);*/
+}
 
 } // namespace editor
 } // namespace aeon
