@@ -9,7 +9,6 @@ endif ()
 ################################################################################
 
 set(AEON_EDITOR_WIDGETS_SOURCES
-    src/editor_widget.cpp
     include/aeon/editor_widgets/editor_widget.h
 
     src/resource_manager_toolbar.cpp

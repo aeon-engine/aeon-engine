@@ -1,9 +1,13 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-  <qresource prefix="/aeon_editor_widgets/style">
+  <qresource prefix="/aeon_editor_widgets">
     <file alias="stylesheet">style.qss</file>
   </qresource>
-  <qresource prefix="/aeon_editor_widgets/widgets">
+  <qresource prefix="/aeon_editor_widgets/creator_icons">
     <file alias="toolbar_icon">widget_icon_toolbar.png</file>
+  </qresource>
+  <qresource prefix="/aeon_editor_widgets/icons">
+    <file alias="create_new">icons/create_new.png</file>
+    <file alias="open">icons/open.png</file>
   </qresource>
 </RCC>

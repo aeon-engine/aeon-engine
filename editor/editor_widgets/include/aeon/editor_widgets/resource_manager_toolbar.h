@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <QFrame>
 #include <memory>
 #include <aeon/editor_widgets/editor_widget.h>
 #include <aeon_editor_widgets_export.h>
@@ -41,12 +42,12 @@ namespace editor
 namespace widgets
 {
 
-class AEON_EDITOR_WIDGETS_EXPORT resource_manager_toolbar : public editor_widget
+class AEON_EDITOR_WIDGETS_EXPORT resource_manager_toolbar : public editor_widget<QFrame>
 {
 Q_OBJECT
 
 public:
-    resource_manager_toolbar(QWidget *parent = nullptr);
+    explicit resource_manager_toolbar(QWidget *parent = nullptr);
     ~resource_manager_toolbar() override;
 
 private:

@@ -1,20 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DockWidget</class>
- <widget class="QDockWidget" name="DockWidget">
+ <class>resource_editor</class>
+ <widget class="QDockWidget" name="resource_editor">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>756</width>
-    <height>352</height>
+    <width>843</width>
+    <height>488</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DockWidget</string>
+   <string>Resource Editor</string>
   </property>
-  <widget class="QWidget" name="dockWidgetContents"/>
+  <widget class="QWidget" name="dockWidgetContents">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="aeon::editor::widgets::resource_manager_toolbar" name="resource_manager_toolbar">
+      <property name="text" stdset="0">
+       <string>ResourceManagerToolbar</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QTreeView" name="treeView"/>
+      <widget class="QListView" name="listView"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>aeon::editor::widgets::resource_manager_toolbar</class>
+   <extends>QFrame</extends>
+   <header>aeon/editor_widgets/resource_manager_toolbar.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

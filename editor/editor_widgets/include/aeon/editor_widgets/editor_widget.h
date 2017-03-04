@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <QFrame>
+#include <QFile>
 #include <aeon_editor_widgets_export.h>
 
 namespace Ui
@@ -40,16 +40,26 @@ namespace editor
 namespace widgets
 {
 
-class AEON_EDITOR_WIDGETS_EXPORT editor_widget : public QFrame
+template <typename T>
+class editor_widget : public T
 {
-Q_OBJECT
-
 public:
-    editor_widget(QWidget *parent = nullptr);
-    virtual ~editor_widget() override;
+    explicit editor_widget(QWidget *parent = nullptr)
+        : T(parent)
+    {
+        __apply_custom_stylesheet();
+    }
+
+    virtual ~editor_widget() = default;
 
 private:
-    void __apply_custom_stylesheet();
+    void __apply_custom_stylesheet()
+    {
+        QFile sheet(":/aeon_editor_widgets/stylesheet");
+        sheet.open(QFile::ReadOnly);
+        auto styleSheet = sheet.readAll();
+        this->setStyleSheet(styleSheet);
+    }
 };
 
 } // namespace widgets

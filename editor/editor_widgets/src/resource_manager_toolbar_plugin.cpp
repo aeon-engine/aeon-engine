@@ -58,7 +58,7 @@ bool resource_manager_toolbar_plugin::isInitialized() const
 
 QIcon resource_manager_toolbar_plugin::icon() const
 {
-    return QIcon(":/aeon_editor_widgets/widgets/toolbar_icon");
+    return QIcon(":/aeon_editor_widgets/creator_icons/toolbar_icon");
 }
 
 QString resource_manager_toolbar_plugin::domXml() const
