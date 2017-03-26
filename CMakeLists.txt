@@ -24,7 +24,24 @@
 cmake_minimum_required(VERSION 3.2.0)
 project(AeonEngine)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
+set(AEON_CMAKE_INFRA_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
+
+################################################################################
+
+# Perform a sanity check on submodules; and inform the user if they are missing.
+file(GLOB RESULT "${AEON_CMAKE_INFRA_PATH}/*.cmake")
+list(LENGTH RESULT RES_LEN)
+if(RES_LEN EQUAL 0)
+    message ("Could not find Aeon Cmake infra.")
+    message ("The most likely cause is that you forgot to download and checkout the git submodules.")
+    message ("Please run the following command in the root of the repository and try again:")
+    message ("git submodule update --init")
+    message (FATAL_ERROR "Aborting due to missing Cmake infra.")
+endif()
+
+################################################################################
+
+set(CMAKE_MODULE_PATH "${AEON_CMAKE_INFRA_PATH};${CMAKE_MODULE_PATH}")
 
 include(CompilerFlags)
 
