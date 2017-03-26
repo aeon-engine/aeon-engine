@@ -116,7 +116,6 @@ target_link_libraries(aeon_engine_resources
     glm
     assimp
     png_static
-    freetype
     json11
 )
 

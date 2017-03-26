@@ -56,19 +56,9 @@ message(STATUS "+---------------------------------------------------------------
 add_subdirectory(glm)
 
 message(STATUS "+------------------------------------------------------------------------------+")
-message(STATUS "| Freetype2                                                                    |")
-message(STATUS "+------------------------------------------------------------------------------+")
-add_subdirectory(freetype2)
-
-message(STATUS "+------------------------------------------------------------------------------+")
 message(STATUS "| Open Asset Import Library                                                    |")
 message(STATUS "+------------------------------------------------------------------------------+")
 add_subdirectory(assimp)
-
-message(STATUS "+------------------------------------------------------------------------------+")
-message(STATUS "| std::asio                                                                    |")
-message(STATUS "+------------------------------------------------------------------------------+")
-add_subdirectory(std_asio)
 
 message(STATUS "+------------------------------------------------------------------------------+")
 message(STATUS "| json11                                                                       |")
@@ -78,7 +68,8 @@ add_subdirectory(json11)
 message(STATUS "+------------------------------------------------------------------------------+")
 message(STATUS "| Aeon                                                                         |")
 message(STATUS "+------------------------------------------------------------------------------+")
-add_subdirectory(libaeon)
+add_subdirectory(libaeon/src)
+add_subdirectory(libaeon/tests)
 
 message(STATUS "+------------------------------------------------------------------------------+")
 message(STATUS "| Finished submodules                                                          |")
