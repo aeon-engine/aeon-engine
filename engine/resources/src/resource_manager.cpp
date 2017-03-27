@@ -35,9 +35,9 @@ namespace aeon
 namespace resources
 {
 
-resource_manager::resource_manager(platform::platform_interface &platform)
+resource_manager::resource_manager(io::io_interface &io)
     : logger_(common::logger::get_singleton(), "Resources::ResourceManager")
-    , platform_(platform)
+    , io_(io)
 {
     AEON_LOG_TRACE(logger_) << "Created resource manager." << std::endl;
 }

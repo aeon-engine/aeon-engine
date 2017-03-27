@@ -25,28 +25,28 @@
 
 #pragma once
 
-#include <aeon/platform/platform_file_interface.h>
-#include <aeon/platform/platform_filesystem_interface.h>
-#include <aeon/platform/platform_file_open_mode.h>
+#include <aeon/io/io_file_interface.h>
+#include <aeon/io/io_filesystem_interface.h>
+#include <aeon/io/io_file_open_mode.h>
 #include <aeon/common/logger.h>
 #include <string>
 #include <vector>
 
 namespace aeon
 {
-namespace platform
+namespace io
 {
 namespace generic
 {
 
-class platform_filesystem_interface : public platform::platform_filesystem_interface
+class io_filesystem_interface : public io::io_filesystem_interface
 {
 public:
-    platform_filesystem_interface();
-    virtual ~platform_filesystem_interface() = default;
+    io_filesystem_interface();
+    virtual ~io_filesystem_interface() = default;
 
     auto open_file(const std::string &path, const int openmode) const
-        -> std::shared_ptr<platform::platform_file_interface> override;
+        -> std::shared_ptr<io::io_file_interface> override;
     auto exists(const std::string &path) const -> bool override;
     auto list(const std::string &path) const -> std::vector<file_entry> override;
 
@@ -55,5 +55,5 @@ private:
 };
 
 } // namespace generic
-} // namespace platform
+} // namespace io
 } // namespace aeon

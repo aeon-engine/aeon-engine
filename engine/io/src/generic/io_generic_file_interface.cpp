@@ -23,18 +23,18 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/platform/generic/platform_generic_file_interface.h>
+#include <aeon/io/generic/io_generic_file_interface.h>
 
 namespace aeon
 {
-namespace platform
+namespace io
 {
 namespace generic
 {
 
-platform_file_interface::platform_file_interface(const std::string &path, const int openmode)
-    : platform::platform_file_interface(path, openmode)
-    , logger_(common::logger::get_singleton(), "Platform::Generic::Filesystem")
+io_file_interface::io_file_interface(const std::string &path, const int openmode)
+    : io::io_file_interface(path, openmode)
+    , logger_(common::logger::get_singleton(), "io::Generic::Filesystem")
     , stream_(nullptr)
 {
     AEON_LOG_DEBUG(logger_) << "Opening file " << path << " with file stream." << std::endl;
@@ -47,21 +47,21 @@ platform_file_interface::platform_file_interface(const std::string &path, const 
     }
     catch (streams::file_stream_exception &)
     {
-        throw platform_file_open_exception();
+        throw io_file_open_exception();
     }
 }
 
-platform_file_interface::~platform_file_interface()
+io_file_interface::~io_file_interface()
 {
     AEON_LOG_DEBUG(logger_) << "Closing file " << stream_->get_filename() << "." << std::endl;
 }
 
-void platform_file_interface::read(std::vector<std::uint8_t> &buffer)
+void io_file_interface::read(std::vector<std::uint8_t> &buffer)
 {
     read(buffer, static_cast<int>(stream_->size()));
 }
 
-void platform_file_interface::read(std::vector<std::uint8_t> &buffer, const int size)
+void io_file_interface::read(std::vector<std::uint8_t> &buffer, const int size)
 {
     AEON_LOG_TRACE(logger_) << "Reading " << size << " bytes from " << stream_->get_filename() << "." << std::endl;
 
@@ -70,7 +70,7 @@ void platform_file_interface::read(std::vector<std::uint8_t> &buffer, const int 
     buffer.resize(read_size);
 }
 
-void platform_file_interface::write(std::vector<std::uint8_t> &buffer)
+void io_file_interface::write(std::vector<std::uint8_t> &buffer)
 {
     AEON_LOG_TRACE(logger_) << "Writing " << stream_->size() << " bytes to " << stream_->get_filename() << "."
                             << std::endl;
@@ -78,29 +78,29 @@ void platform_file_interface::write(std::vector<std::uint8_t> &buffer)
     stream_->write(buffer.data(), buffer.size());
 }
 
-void platform_file_interface::write(std::vector<std::uint8_t> &buffer, const int size)
+void io_file_interface::write(std::vector<std::uint8_t> &buffer, const int size)
 {
     AEON_LOG_TRACE(logger_) << "Writing " << size << " bytes to " << stream_->get_filename() << "." << std::endl;
 
     stream_->write(buffer.data(), size);
 }
 
-void platform_file_interface::seek_read(seek_direction direction, const int offset)
+void io_file_interface::seek_read(seek_direction direction, const int offset)
 {
     stream_->seek(offset, __to_streams_seek_direction(direction));
 }
 
-void platform_file_interface::seek_write(seek_direction direction, const int offset)
+void io_file_interface::seek_write(seek_direction direction, const int offset)
 {
     stream_->seekw(offset, __to_streams_seek_direction(direction));
 }
 
-auto platform_file_interface::get_size() const -> int
+auto io_file_interface::get_size() const -> int
 {
     return static_cast<int>(stream_->size());
 }
 
-auto platform_file_interface::__open_mode_to_stream_open_mode(const int openmode) const -> int
+auto io_file_interface::__open_mode_to_stream_open_mode(const int openmode) const -> int
 {
     int access_mode = 0;
     access_mode |= (openmode & file_open_mode::read) ? aeon::streams::access_mode::read : 0;
@@ -109,12 +109,12 @@ auto platform_file_interface::__open_mode_to_stream_open_mode(const int openmode
     return access_mode;
 }
 
-auto platform_file_interface::__open_mode_to_stream_file_mode(const int openmode) const -> streams::file_mode
+auto io_file_interface::__open_mode_to_stream_file_mode(const int openmode) const -> streams::file_mode
 {
     return (openmode & file_open_mode::binary) ? streams::file_mode::binary : streams::file_mode::text;
 }
 
-auto platform_file_interface::__to_streams_seek_direction(const seek_direction direction) const
+auto io_file_interface::__to_streams_seek_direction(const seek_direction direction) const
     -> streams::stream::seek_direction
 {
     switch (direction)
@@ -130,5 +130,5 @@ auto platform_file_interface::__to_streams_seek_direction(const seek_direction d
 }
 
 } // namespace generic
-} // namespace platform
+} // namespace io
 } // namespace aeon

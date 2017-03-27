@@ -33,7 +33,7 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_window::gfx_gl_window(gfx_gl_device &device, platform::platform_interface &, const gfx_window_settings &settings,
+gfx_gl_window::gfx_gl_window(gfx_gl_device &device, io::io_interface &, const gfx_window_settings &settings,
                              GLFWmonitor *monitor)
     : gfx_window(settings)
     , logger_(common::logger::get_singleton(), "Gfx::GL::Window")

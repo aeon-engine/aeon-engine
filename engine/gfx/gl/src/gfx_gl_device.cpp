@@ -44,8 +44,8 @@ namespace gfx
 namespace gl
 {
 
-gfx_gl_device::gfx_gl_device(platform::platform_interface &platform, input::input_handler &input_handler)
-    : gfx::device(platform)
+gfx_gl_device::gfx_gl_device(io::io_interface &io, input::input_handler &input_handler)
+    : gfx::device(io)
     , logger_(common::logger::get_singleton(), "Gfx::GL::Device")
     , input_handler_(input_handler)
     , render_targets_()
@@ -173,8 +173,7 @@ std::shared_ptr<gfx_window> gfx_gl_device::create_window(const gfx_window_settin
         glfw_monitor = m->get_internal_handle();
     }
 
-    std::shared_ptr<gfx_window> window =
-        std::make_shared<gfx_gl_window>(*this, platform_interface_, settings, glfw_monitor);
+    std::shared_ptr<gfx_window> window = std::make_shared<gfx_gl_window>(*this, io_, settings, glfw_monitor);
 
     // HACK: If there are no render targets yet, this is the first window that is being opened.
     // This means we can initialize opengl here.

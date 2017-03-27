@@ -34,7 +34,7 @@
 #include <aeon/gfx/gfx_window.h>
 #include <aeon/gfx/gfx_monitor.h>
 #include <aeon/gfx/gfx_viewport.h>
-#include <aeon/platform/platform_interface.h>
+#include <aeon/io/io_interface.h>
 #include <aeon/common/types/color.h>
 #include <memory>
 
@@ -54,7 +54,7 @@ class render_target;
 class device
 {
 public:
-    explicit device(platform::platform_interface &platform);
+    explicit device(io::io_interface &io);
     virtual ~device() = default;
 
     void initialize();
@@ -113,15 +113,15 @@ public:
         return *atlas_manager_;
     }
 
-    platform::platform_interface &get_platform_interface()
+    io::io_interface &get_io_interface()
     {
-        return platform_interface_;
+        return io_;
     }
 
 protected:
     virtual void __initialize_impl() = 0;
 
-    platform::platform_interface &platform_interface_;
+    io::io_interface &io_;
     bool initialized_;
     std::unique_ptr<texture_manager> texture_manager_;
     std::unique_ptr<shader_manager> shader_manager_;

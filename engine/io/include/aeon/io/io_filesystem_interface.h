@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include <aeon/platform/platform_file_interface.h>
-#include <aeon/platform/platform_file_open_mode.h>
+#include <aeon/io/io_file_interface.h>
+#include <aeon/io/io_file_open_mode.h>
 #include <aeon/common/exception.h>
 #include <string>
 #include <memory>
@@ -34,16 +34,16 @@
 
 namespace aeon
 {
-namespace platform
+namespace io
 {
 
-DEFINE_EXCEPTION_OBJECT(platform_filesystem_interface_exception, aeon::common::exception,
-                        "Generic platform filesystem interface exception.");
+DEFINE_EXCEPTION_OBJECT(io_filesystem_interface_exception, aeon::common::exception,
+                        "Generic IO filesystem interface exception.");
 
-DEFINE_EXCEPTION_OBJECT(platform_filesystem_interface_list_exception, platform_filesystem_interface_exception,
-                        "Platform filesystem interface list exception. Given path is not a directory.");
+DEFINE_EXCEPTION_OBJECT(io_filesystem_interface_list_exception, io_filesystem_interface_exception,
+                        "IO filesystem interface list exception. Given path is not a directory.");
 
-class platform_filesystem_interface
+class io_filesystem_interface
 {
 public:
     enum class file_type
@@ -65,14 +65,13 @@ public:
         file_type type;
     };
 
-    platform_filesystem_interface() = default;
-    virtual ~platform_filesystem_interface() = default;
+    io_filesystem_interface() = default;
+    virtual ~io_filesystem_interface() = default;
 
-    virtual auto open_file(const std::string &path, const int openmode) const
-        -> std::shared_ptr<platform_file_interface> = 0;
+    virtual auto open_file(const std::string &path, const int openmode) const -> std::shared_ptr<io_file_interface> = 0;
     virtual auto exists(const std::string &path) const -> bool = 0;
     virtual auto list(const std::string &path) const -> std::vector<file_entry> = 0;
 };
 
-} // namespace platform
+} // namespace io
 } // namespace aeon

@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include <aeon/platform/platform_file_open_mode.h>
-#include <aeon/platform/platform_file_interface.h>
+#include <aeon/io/io_file_open_mode.h>
+#include <aeon/io/io_file_interface.h>
 #include <aeon/streams.h>
 #include <aeon/common/logger.h>
 #include <memory>
@@ -34,17 +34,17 @@
 
 namespace aeon
 {
-namespace platform
+namespace io
 {
 namespace generic
 {
 
 // TODO: Exception handling for whole class
-class platform_file_interface : public platform::platform_file_interface
+class io_file_interface : public io::io_file_interface
 {
 public:
-    explicit platform_file_interface(const std::string &path, const int openmode);
-    virtual ~platform_file_interface() override;
+    explicit io_file_interface(const std::string &path, const int openmode);
+    virtual ~io_file_interface() override;
 
     void read(std::vector<std::uint8_t> &buffer) override;
     void read(std::vector<std::uint8_t> &buffer, const int size) override;
@@ -69,5 +69,5 @@ private:
 };
 
 } // namespace generic
-} // namespace platform
+} // namespace io
 } // namespace aeon

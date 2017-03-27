@@ -33,7 +33,7 @@
 #include <aeon/resources/wrappers/resource_wrapper.h>
 #include <aeon/utility.h>
 #include <aeon/resources/codecs/codec_manager.h>
-#include <aeon/platform/platform_interface.h>
+#include <aeon/io/io_interface.h>
 #include <aeon/resources/wrappers/atlas_resource_wrapper.h>
 #include <aeon/resources/wrappers/mesh_resource_wrapper.h>
 #include <aeon/resources/atlas.h>
@@ -58,7 +58,7 @@ class resource_manager
     using mount_points = std::map<std::string, std::shared_ptr<resource_provider>>;
 
 public:
-    explicit resource_manager(platform::platform_interface &platform);
+    explicit resource_manager(io::io_interface &io);
     ~resource_manager();
 
     void mount(const std::shared_ptr<resource_provider> &provider, const std::string &mountpoint = "/");
@@ -78,9 +78,9 @@ public:
         return std::make_shared<T>(*this, real_path, best_match_provider);
     }
 
-    auto &get_platform_interface()
+    auto &get_io_interface()
     {
-        return platform_;
+        return io_;
     }
 
     auto &get_codec_manager()
@@ -93,7 +93,7 @@ private:
         -> std::shared_ptr<resource_provider>;
 
     aeon::logger::logger logger_;
-    platform::platform_interface &platform_;
+    io::io_interface &io_;
     mount_points mount_points_;
     codec_manager codec_manager_;
 };

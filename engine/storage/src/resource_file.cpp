@@ -23,7 +23,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/platform/platform_filesystem_interface.h>
+#include <aeon/io/io_filesystem_interface.h>
 #include <aeon/storage/resource_file.h>
 #include <aeon/platform.h>
 #include <string.h>
@@ -62,7 +62,7 @@ struct resource_file_header
     std::uint8_t reserved[50]; // Pad to 64 bytes. Can be used in the future.
 } AEON_PACK_STRUCT_POP(1);
 
-resource_file::resource_file(const std::string &filename, platform::platform_filesystem_interface &filesystem_interface)
+resource_file::resource_file(const std::string &filename, io::io_filesystem_interface &filesystem_interface)
     : filename_(filename)
     , filesystem_interface_(filesystem_interface)
 {
@@ -74,14 +74,13 @@ resource_file::resource_file(const std::string &filename, platform::platform_fil
 
 void resource_file::__open_existing_file()
 {
-    file_interface_ =
-        filesystem_interface_.open_file(filename_, platform::file_open_mode::read | platform::file_open_mode::binary);
+    file_interface_ = filesystem_interface_.open_file(filename_, io::file_open_mode::read | io::file_open_mode::binary);
 }
 
 void resource_file::__open_new_file()
 {
     file_interface_ =
-        filesystem_interface_.open_file(filename_, platform::file_open_mode::write | platform::file_open_mode::binary);
+        filesystem_interface_.open_file(filename_, io::file_open_mode::write | io::file_open_mode::binary);
 
     __write_file_header();
 }

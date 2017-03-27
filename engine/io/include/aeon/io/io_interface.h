@@ -25,14 +25,38 @@
 
 #pragma once
 
+#include <aeon/io/io_filesystem_interface.h>
 #include <aeon/common/exception.h>
+#include <aeon/utility.h>
+#include <memory>
 
 namespace aeon
 {
-namespace platform
+namespace io
 {
 
-DEFINE_EXCEPTION_OBJECT(platform_exception, aeon::common::exception, "Generic platform exception.");
+class io_interface : utility::noncopyable
+{
+public:
+    explicit io_interface(std::unique_ptr<io_filesystem_interface> filesystem_interface)
+        : filesystem_interface_(std::move(filesystem_interface))
+    {
+    }
 
-} // namespace platform
+    virtual ~io_interface() = default;
+
+    /*!
+     * Get the subsystem for filesystem interaction.
+     */
+    auto &get_filesystem_interface() const
+    {
+        io_filesystem_interface *filesystem_interface = filesystem_interface_.get();
+        return *filesystem_interface;
+    }
+
+protected:
+    std::unique_ptr<io_filesystem_interface> filesystem_interface_;
+};
+
+} // namespace io
 } // namespace aeon

@@ -46,7 +46,7 @@ class gfx_gl_device : public gfx::device
 public:
     using render_targets = std::vector<std::shared_ptr<render_target>>;
 
-    explicit gfx_gl_device(platform::platform_interface &platform, input::input_handler &input_handler);
+    explicit gfx_gl_device(io::io_interface &io, input::input_handler &input_handler);
     virtual ~gfx_gl_device();
 
     void __initialize_impl() override;

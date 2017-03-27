@@ -33,7 +33,7 @@ add_library(aeon_engine_storage STATIC
 )
 
 target_link_libraries(aeon_engine_storage
-    aeon_engine_platform
+    aeon_engine_io
     aeon
 )
 

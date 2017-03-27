@@ -23,10 +23,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/platform/platform_filesystem_interface.h>
+#include <aeon/io/io_filesystem_interface.h>
 #include <aeon/resources/providers/filesystem_provider.h>
 #include <aeon/resources/resource_manager.h>
-#include <aeon/platform/platform_interface.h>
+#include <aeon/io/io_interface.h>
 
 namespace aeon
 {
@@ -53,8 +53,8 @@ filesystem_provider::~filesystem_provider()
 
 auto filesystem_provider::exists(const std::string &path) const -> bool
 {
-    auto &platform = __get_resource_manager()->get_platform_interface();
-    auto &filesystem_interface = platform.get_filesystem_interface();
+    auto &io = __get_resource_manager()->get_io_interface();
+    auto &filesystem_interface = io.get_filesystem_interface();
     return filesystem_interface.exists(__get_real_path(base_path_, path));
 }
 
@@ -70,8 +70,8 @@ void filesystem_provider::read(const std::string &path, std::vector<std::uint8_t
 
     auto real_path = __get_real_path(base_path_, path);
 
-    auto &platform = __get_resource_manager()->get_platform_interface();
-    auto &filesystem_interface = platform.get_filesystem_interface();
+    auto &io = __get_resource_manager()->get_io_interface();
+    auto &filesystem_interface = io.get_filesystem_interface();
 
     if (!filesystem_interface.exists(real_path))
     {
@@ -79,8 +79,7 @@ void filesystem_provider::read(const std::string &path, std::vector<std::uint8_t
         throw filesystem_provider_read_exception();
     }
 
-    auto file =
-        filesystem_interface.open_file(real_path, platform::file_open_mode::read | platform::file_open_mode::binary);
+    auto file = filesystem_interface.open_file(real_path, io::file_open_mode::read | io::file_open_mode::binary);
 
     auto read_buffer = std::vector<std::uint8_t>();
     file->read(read_buffer);

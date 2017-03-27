@@ -23,7 +23,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/platform/platform_file_interface.h>
+#include <aeon/io/io_file_interface.h>
 #include <string>
 #include <cstdint>
 #include <memory>
@@ -31,11 +31,11 @@
 namespace aeon
 {
 
-namespace platform
+namespace io
 {
-class platform_filesystem_interface;
-class platform_file_interface;
-} // namespace platform
+class io_filesystem_interface;
+class io_file_interface;
+} // namespace io
 
 namespace storage
 {
@@ -48,7 +48,7 @@ public:
 class resource_file
 {
 public:
-    explicit resource_file(const std::string &filename, platform::platform_filesystem_interface &filesystem_interface);
+    explicit resource_file(const std::string &filename, io::io_filesystem_interface &filesystem_interface);
     ~resource_file() = default;
 
 private:
@@ -58,8 +58,8 @@ private:
     void __write_file_header();
 
     std::string filename_;
-    platform::platform_filesystem_interface &filesystem_interface_;
-    std::shared_ptr<platform::platform_file_interface> file_interface_;
+    io::io_filesystem_interface &filesystem_interface_;
+    std::shared_ptr<io::io_file_interface> file_interface_;
 };
 
 } // namespace storage

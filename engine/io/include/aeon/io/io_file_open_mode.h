@@ -27,7 +27,7 @@
 
 namespace aeon
 {
-namespace platform
+namespace io
 {
 
 enum file_open_mode
@@ -39,5 +39,5 @@ enum file_open_mode
     truncate = 0x08
 };
 
-} // namespace platform
+} // namespace io
 } // namespace aeon

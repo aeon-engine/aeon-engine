@@ -26,7 +26,7 @@
 #pragma once
 #include <aeon/gfx/gfx_window.h>
 #include <aeon/gfx/gfx_exception.h>
-#include <aeon/platform/platform_interface.h>
+#include <aeon/io/io_interface.h>
 #include <aeon/common/logger.h>
 #include <GLFW/glfw3.h>
 #include <memory>
@@ -46,7 +46,7 @@ class gfx_gl_device;
 class gfx_gl_window : public gfx_window
 {
 public:
-    explicit gfx_gl_window(gfx_gl_device &device, platform::platform_interface &, const gfx_window_settings &settings,
+    explicit gfx_gl_window(gfx_gl_device &device, io::io_interface &, const gfx_window_settings &settings,
                            GLFWmonitor *monitor);
     ~gfx_gl_window() override;
 

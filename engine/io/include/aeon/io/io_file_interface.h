@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include <aeon/platform/platform_file_open_mode.h>
-#include <aeon/platform/platform_exception.h>
+#include <aeon/io/io_file_open_mode.h>
+#include <aeon/io/io_exception.h>
 #include <memory>
 #include <string>
 #include <cstdint>
@@ -34,17 +34,17 @@
 
 namespace aeon
 {
-namespace platform
+namespace io
 {
 
-DEFINE_EXCEPTION_OBJECT(platform_file_exception, platform_exception, "File I/O error.");
-DEFINE_EXCEPTION_OBJECT(platform_file_open_exception, platform_file_exception, "Error while opening file.");
-DEFINE_EXCEPTION_OBJECT(platform_file_read_exception, platform_file_exception, "Error while reading file.");
-DEFINE_EXCEPTION_OBJECT(platform_file_write_exception, platform_file_exception, "Error while writing to file.");
+DEFINE_EXCEPTION_OBJECT(io_file_exception, io_exception, "File I/O error.");
+DEFINE_EXCEPTION_OBJECT(io_file_open_exception, io_file_exception, "Error while opening file.");
+DEFINE_EXCEPTION_OBJECT(io_file_read_exception, io_file_exception, "Error while reading file.");
+DEFINE_EXCEPTION_OBJECT(io_file_write_exception, io_file_exception, "Error while writing to file.");
 
-class platform_file_interface
+class io_file_interface
 {
-    friend class platform_filesystem_interface;
+    friend class io_filesystem_interface;
 
 public:
     enum class seek_direction
@@ -54,7 +54,7 @@ public:
         end,
     };
 
-    virtual ~platform_file_interface() = default;
+    virtual ~io_file_interface() = default;
 
     virtual void read(std::vector<std::uint8_t> &buffer) = 0;
     virtual void read(std::vector<std::uint8_t> &buffer, const int size) = 0;
@@ -78,7 +78,7 @@ public:
     }
 
 protected:
-    explicit platform_file_interface(const std::string &path, const int openmode)
+    explicit io_file_interface(const std::string &path, const int openmode)
         : openmode_(openmode)
         , path_(path)
     {
@@ -89,5 +89,5 @@ private:
     std::string path_;
 };
 
-} // namespace platform
+} // namespace io
 } // namespace aeon

@@ -27,9 +27,9 @@
 #include <aeon/resources/resource_manager.h>
 #include <aeon/assets/asset_manager.h>
 #include <aeon/gfx/gfx_window.h>
-#include <aeon/platform/platform_filesystem_interface.h>
-#include <aeon/platform/platform_file_interface.h>
-#include <aeon/platform/generic/platform_generic_filesystem_interface.h>
+#include <aeon/io/io_filesystem_interface.h>
+#include <aeon/io/io_file_interface.h>
+#include <aeon/io/generic/io_generic_filesystem_interface.h>
 #include <aeon/input/input_handler.h>
 #include <aeon/common/logger.h>
 #include <aeon/utility.h>
@@ -61,10 +61,10 @@ public:
         : logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
         , config_file_()
-        , platform_(std::make_unique<platform::generic::platform_filesystem_interface>())
+        , io_(std::make_unique<io::generic::io_filesystem_interface>())
         , input_handler_()
-        , device_(platform_, input_handler_)
-        , resource_manager_(platform_)
+        , device_(io_, input_handler_)
+        , resource_manager_(io_)
         , scene_manager_(device_)
         , asset_manager_(resource_manager_, scene_manager_)
         , window_(nullptr)
@@ -119,13 +119,13 @@ public:
     }
 
     /*!
-     * Get a pointer to the platform interface. The platform interface can be
+     * Get a pointer to the io interface. The platform interface can be
      * used to perform all sorts of generic platform specific operations, like
      * file IO.
      */
-    auto get_platform_interface()
+    auto get_io_interface()
     {
-        return &platform_;
+        return &io_;
     }
 
     /*!
@@ -171,8 +171,8 @@ private:
     {
         try
         {
-            auto file_interface = platform_.get_filesystem_interface().open_file(
-                "config.conf", platform::file_open_mode::binary | platform::file_open_mode::read);
+            auto file_interface = io_.get_filesystem_interface().open_file("config.conf", io::file_open_mode::binary |
+                                                                                              io::file_open_mode::read);
 
             auto config_file_data = std::vector<std::uint8_t>();
             file_interface->read(config_file_data);
@@ -183,7 +183,7 @@ private:
         {
             AEON_LOG_ERROR(logger_) << "Error while parsing config file." << std::endl;
         }
-        catch (platform::platform_file_exception &)
+        catch (io::io_file_exception &)
         {
             AEON_LOG_ERROR(logger_) << "Error while reading config file." << std::endl;
         }
@@ -215,7 +215,7 @@ protected:
 
     utility::configfile config_file_;
 
-    platform::platform_interface platform_;
+    io::io_interface io_;
     input::input_handler input_handler_;
     device_t device_;
 

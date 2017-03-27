@@ -30,8 +30,8 @@ namespace aeon
 namespace gfx
 {
 
-device::device(platform::platform_interface &platform)
-    : platform_interface_(platform)
+device::device(io::io_interface &io)
+    : io_(io)
     , initialized_(false)
 {
 }
