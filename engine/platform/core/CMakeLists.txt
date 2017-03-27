@@ -21,58 +21,42 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-set (AEON_ENGINE_GFX_GL_SOURCES
-    include/aeon/gfx/gl/gfx_gl_buffer.h
-    include/aeon/gfx/gl/gfx_gl_buffer_manager.h
-    include/aeon/gfx/gl/gfx_gl_device.h
-    include/aeon/gfx/gl/gfx_gl_material.h
-    include/aeon/gfx/gl/gfx_gl_material_manager.h
-    include/aeon/gfx/gl/gfx_gl_mesh.h
-    include/aeon/gfx/gl/gfx_gl_shader.h
-    include/aeon/gfx/gl/gfx_gl_shader_manager.h
-    include/aeon/gfx/gl/gfx_gl_texture.h
-    include/aeon/gfx/gl/gfx_gl_texture_manager.h
-    include/aeon/gfx/gl/gfx_gl_vertex_array_object.h
-    src/gfx_gl_buffer.cpp
-    src/gfx_gl_buffer_manager.cpp
-    src/gfx_gl_device.cpp
-    src/gfx_gl_material.cpp
-    src/gfx_gl_material_manager.cpp
-    src/gfx_gl_mesh.cpp
-    src/gfx_gl_shader.cpp
-    src/gfx_gl_shader_manager.cpp
-    src/gfx_gl_texture.cpp
-    src/gfx_gl_texture_manager.cpp
-    src/gfx_gl_vertex_array_object.cpp
+set (AEON_ENGINE_PLATFORM_CORE_SOURCES
+    include/aeon/platform/platform_manager.h
+    include/aeon/platform/platform_monitor.h
+    include/aeon/platform/platform_window.h
+    include/aeon/platform/platform_window_settings.h
+    src/platform_manager.cpp
+    src/platform_monitor.cpp
+    src/platform_window.cpp
+    src/platform_window_settings.cpp
 )
 
-source_group(gfx\\gl FILES ${AEON_ENGINE_GFX_GL_SOURCES})
+source_group(platform\\core FILES ${AEON_ENGINE_PLATFORM_CORE_SOURCES})
 
-add_library(aeon_engine_gfx_gl STATIC
-    ${AEON_ENGINE_GFX_GL_SOURCES}
+add_library(aeon_engine_platform_core STATIC
+    ${AEON_ENGINE_PLATFORM_CORE_SOURCES}
 )
 
-target_link_libraries(aeon_engine_gfx_gl
+target_link_libraries(aeon_engine_platform_core
     aeon_engine_gfx_core
-    aeon_engine_gfx_gl_common
-    glew_s
+    aeon_engine_input
     aeon
     glm
 )
 
-target_include_directories(aeon_engine_gfx_gl
+target_include_directories(aeon_engine_platform_core
     PUBLIC include
-    PRIVATE ${CMAKE_BINARY_DIR}
 )
 
 set_target_properties(
-    aeon_engine_gfx_gl PROPERTIES
+    aeon_engine_platform_core PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-    FOLDER engine/gfx
+    FOLDER engine/platform
 )
 
 install(
-    TARGETS aeon_engine_gfx_gl
+    TARGETS aeon_engine_platform_core
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib

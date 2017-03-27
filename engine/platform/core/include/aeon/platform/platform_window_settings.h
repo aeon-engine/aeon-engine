@@ -25,63 +25,47 @@
 
 #pragma once
 
-#include <aeon/gfx/gfx_window_settings.h>
-#include <aeon/gfx/gfx_render_target.h>
-#include <glm/vec2.hpp>
 #include <string>
-#include <memory>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
 
-/*!
- * Enum that describes the behaviour of the mouse cursor in relation to the render window.
- */
-enum mouse_cursor_mode
+enum class buffer_mode
 {
-    normal,  // Normal cursor
-    capture, // Capture the cursor (infinite mouse movements)
-    hidden,  // Normal cursor, but hidden when moved over the window
+    single_buffer,
+    double_buffer
 };
 
-class gfx_window : public render_target
+class window_settings
 {
 public:
-    explicit gfx_window(const gfx_window_settings &settings)
-        : width_(settings.get_width())
-        , height_(settings.get_height())
-        , title_(settings.get_title())
-    {
-    }
+    window_settings(const int width, const int height, const std::string &title);
+    ~window_settings() = default;
 
-    virtual ~gfx_window() = default;
+    auto get_width() const -> int;
 
-    glm::vec2 get_size() const
-    {
-        return glm::vec2(width_, height_);
-    }
+    auto get_height() const -> int;
 
-    void get_size(int &width, int &height) const
-    {
-        width = width_;
-        height = height_;
-    }
+    auto get_title() const -> const std::string &;
 
-    const std::string &get_title() const
-    {
-        return title_;
-    }
+    void set_multisample(const unsigned int samples);
 
-    virtual void set_mouse_cursor_mode(const mouse_cursor_mode mode) = 0;
-    virtual mouse_cursor_mode get_mouse_cursor_mode() const = 0;
+    auto get_multisample() const -> int;
+
+    void set_buffer_mode(const buffer_mode mode);
+
+    auto get_buffer_mode() const -> buffer_mode;
 
 private:
     int width_;
     int height_;
     std::string title_;
+
+    unsigned int multisample_;
+    buffer_mode buffer_mode_;
 };
 
-} // namespace gfx
+} // namespace platform
 } // namespace aeon

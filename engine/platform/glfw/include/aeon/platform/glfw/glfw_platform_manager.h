@@ -25,35 +25,42 @@
 
 #pragma once
 
-#include <build_config.h>
-#include <application/base_application.h>
-#include <aeon/resources/providers/filesystem_provider.h>
-#include <application/gfx_types.h>
+#include <aeon/platform/platform_manager.h>
+#include <aeon/platform/glfw/glfw_platform_monitor.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {
+namespace platform
+{
+namespace glfw
+{
 
-/*!
- * Base class for universal desktop games with a single render window.
- */
-template <typename scene_manager_t>
-class desktop_application : public base_application<selected_gfx_device, selected_platform, scene_manager_t>
+class glfw_platform_manager : public platform_manager
 {
 public:
-    /*!
-     * Constructor
-     * \see base_application::base_application
-     */
-    explicit desktop_application(const int default_width, const int default_height, const std::string &window_title)
-        : base_application<selected_gfx_device, selected_platform, scene_manager_t>(default_width, default_height,
-                                                                                    window_title)
-    {
-    }
+    explicit glfw_platform_manager(input::input_handler &input_handler, gfx::device &device);
+    virtual ~glfw_platform_manager();
 
-    /*!
-     * Destructor
-     */
-    virtual ~desktop_application() = default;
+    void run() override;
+
+    void stop() override;
+
+    auto get_monitors() -> std::vector<monitor *> override;
+
+    auto create_window(const window_settings &settings, monitor *monitor = nullptr) -> std::shared_ptr<window> override;
+
+private:
+    void __initialize_glfw() const;
+
+    aeon::logger::logger logger_;
+    bool initialized_;
+
+    std::vector<std::unique_ptr<glfw_monitor>> monitors_;
+    bool running_;
+    double previous_time_;
 };
 
+} // namespace glfw
+} // namespace platform
 } // namespace aeon

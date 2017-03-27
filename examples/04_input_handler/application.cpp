@@ -81,7 +81,7 @@ void application::main()
     ship_node_->attach_scene_object(ship_sprite);
 
     // Start the render loop
-    device_.run();
+    platform_.run();
 }
 
 bool application::on_frame_begin(const float dt)
@@ -143,7 +143,7 @@ void application::on_keyboard_key_state_changed_event(const aeon::input::keyboar
 
     if (key == aeon::input::keyboard_key::key_escape && key_state == aeon::input::keyboard_key_state::pressed)
     {
-        device_.stop();
+        platform_.stop();
     }
 
     if (key == aeon::input::keyboard_key::key_up)

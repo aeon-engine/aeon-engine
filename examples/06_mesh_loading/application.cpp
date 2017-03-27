@@ -60,7 +60,7 @@ void application::main()
     staff_node_->set_position(0.5f, 0.0f, 0.0f);
 
     // Start the render loop
-    device_.run();
+    platform_.run();
 }
 
 bool application::on_frame_begin(const float dt)

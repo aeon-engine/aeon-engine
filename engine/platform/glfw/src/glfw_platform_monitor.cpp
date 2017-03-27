@@ -23,28 +23,28 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/gfx/gl/gfx_gl_monitor.h>
+#include <aeon/platform/glfw/glfw_platform_monitor.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
-namespace gl
+namespace glfw
 {
 
-gfx_gl_monitor::gfx_gl_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary,
-                               const std::string &name)
-    : gfx_monitor(width, height, x, y, primary, name)
+glfw_monitor::glfw_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary,
+                           const std::string &name)
+    : monitor(width, height, x, y, primary, name)
     , monitor_(monitor)
 {
 }
 
-void gfx_gl_monitor::set_gramma(float gamma)
+void glfw_monitor::set_gramma(float gamma)
 {
     glfwSetGamma(monitor_, gamma);
 }
 
-gamma_ramp gfx_gl_monitor::get_gamma_ramp()
+auto glfw_monitor::get_gamma_ramp() -> gamma_ramp
 {
     const auto *ramp = glfwGetGammaRamp(monitor_);
     auto r = gamma_ramp();
@@ -57,7 +57,7 @@ gamma_ramp gfx_gl_monitor::get_gamma_ramp()
     return r;
 }
 
-void gfx_gl_monitor::set_gamma_ramp(gamma_ramp ramp)
+void glfw_monitor::set_gamma_ramp(gamma_ramp ramp)
 {
     auto r = GLFWgammaramp{};
     r.red = new unsigned short[r.size];
@@ -79,7 +79,7 @@ void gfx_gl_monitor::set_gamma_ramp(gamma_ramp ramp)
     delete[] r.blue;
 }
 
-video_mode gfx_gl_monitor::get_video_mode()
+auto glfw_monitor::get_video_mode() -> video_mode
 {
     const auto *vidmode = glfwGetVideoMode(monitor_);
 
@@ -87,7 +87,7 @@ video_mode gfx_gl_monitor::get_video_mode()
             vidmode->greenBits, vidmode->blueBits, vidmode->refreshRate};
 }
 
-video_modes gfx_gl_monitor::get_video_modes()
+auto glfw_monitor::get_video_modes() -> video_modes
 {
     int count;
     const auto *vidmodes = glfwGetVideoModes(monitor_, &count);
@@ -102,6 +102,6 @@ video_modes gfx_gl_monitor::get_video_modes()
     return modes;
 }
 
-} // namespace gl
-} // namespace gfx
+} // namespace glfw
+} // namespace platform
 } // namespace aeon

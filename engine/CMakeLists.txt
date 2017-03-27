@@ -36,6 +36,7 @@ add_subdirectory(gfx)
 add_subdirectory(scene)
 add_subdirectory(assets)
 add_subdirectory(input)
+add_subdirectory(platform)
 
 ################################################################################
 
@@ -70,6 +71,7 @@ target_link_libraries(aeon_engine
     aeon_engine_basic_scene_manager
     aeon_engine_assets
     aeon_engine_input
+    aeon_engine_platform_core
     aeon
     glm
     ${OPENGL_LIBRARIES}
@@ -90,6 +92,12 @@ if (AEON_GFX_GLES2)
     target_link_libraries(aeon_engine
         aeon_engine_gfx_gl_common
         aeon_engine_gfx_gles2
+    )
+endif ()
+
+if (AEON_PLATFORM_GLFW)
+    target_link_libraries(aeon_engine
+        aeon_engine_platform_glfw
     )
 endif ()
 

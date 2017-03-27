@@ -27,7 +27,6 @@
 
 #include <aeon/gfx/gfx_device.h>
 #include <aeon/gfx/gfx_render_target.h>
-#include <aeon/input/input_handler.h>
 #include <aeon/common/exception.h>
 #include <aeon/common/logger.h>
 
@@ -46,7 +45,7 @@ class gfx_gl_device : public gfx::device
 public:
     using render_targets = std::vector<std::shared_ptr<render_target>>;
 
-    explicit gfx_gl_device(io::io_interface &io, input::input_handler &input_handler);
+    explicit gfx_gl_device(io::io_interface &io);
     virtual ~gfx_gl_device();
 
     void __initialize_impl() override;
@@ -58,30 +57,20 @@ public:
 
     std::unique_ptr<mesh> create_mesh(std::shared_ptr<material> material) override;
 
-    std::vector<std::shared_ptr<gfx_monitor>> get_monitors() override;
+    void add_render_target(std::shared_ptr<render_target> target) override;
 
-    std::shared_ptr<gfx_window> create_window(const gfx_window_settings &settings,
-                                              std::shared_ptr<gfx_monitor> monitor = nullptr) override;
+    auto render(float dt) -> bool override;
 
-    void run() override;
-    void stop() override;
-
-    input::input_handler &get_input_handler();
-
-    void set_scissor(const common::types::rectangle<float> &scissor) const;
+    void set_scissor(const common::types::rectangle<float> &scissor) const override;
 
 private:
-    void __initialize_glfw() const;
     void __create_managers();
     void __setup_opengl() const;
     void __initialize_glew() const;
     void __report_and_squash_glew_errors() const;
 
     aeon::logger::logger logger_;
-    input::input_handler &input_handler_;
     render_targets render_targets_;
-    bool running_;
-    double previous_time_;
 };
 
 } // namespace gl

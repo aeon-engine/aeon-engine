@@ -23,22 +23,21 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/gfx/gl/gfx_gl_window.h>
-#include <aeon/gfx/gl/gfx_gl_device.h>
+#include <aeon/platform/glfw/glfw_platform_window.h>
+#include <aeon/platform/glfw/glfw_platform_manager.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
-namespace gl
+namespace glfw
 {
 
-gfx_gl_window::gfx_gl_window(gfx_gl_device &device, io::io_interface &, const gfx_window_settings &settings,
-                             GLFWmonitor *monitor)
-    : gfx_window(settings)
-    , logger_(common::logger::get_singleton(), "Gfx::GL::Window")
+glfw_window::glfw_window(glfw_platform_manager &platform_manager, const window_settings &settings, GLFWmonitor *monitor)
+    : window(settings)
+    , logger_(common::logger::get_singleton(), "Platform::GLFW::Window")
     , window_(nullptr)
-    , device_(device)
+    , platform_manager_(platform_manager)
     , cursor_mode_(mouse_cursor_mode::normal)
 {
     AEON_LOG_DEBUG(logger_) << "Creating OpenGL 3.3 core profile context with forward compatibility." << std::endl;
@@ -61,10 +60,10 @@ gfx_gl_window::gfx_gl_window(gfx_gl_device &device, io::io_interface &, const gf
 
     AEON_LOG_DEBUG(logger_) << "Setting GLFW callbacks" << std::endl;
 
-    glfwSetKeyCallback(window_, &gfx_gl_window::__static_keyboard_key_handler);
-    glfwSetCursorPosCallback(window_, &gfx_gl_window::__static_mouse_move_handler);
-    glfwSetMouseButtonCallback(window_, &gfx_gl_window::__static_mouse_button_handler);
-    glfwSetScrollCallback(window_, &gfx_gl_window::__static_mouse_scroll_handler);
+    glfwSetKeyCallback(window_, &glfw_window::__static_keyboard_key_handler);
+    glfwSetCursorPosCallback(window_, &glfw_window::__static_mouse_move_handler);
+    glfwSetMouseButtonCallback(window_, &glfw_window::__static_mouse_button_handler);
+    glfwSetScrollCallback(window_, &glfw_window::__static_mouse_scroll_handler);
 
     AEON_LOG_DEBUG(logger_) << "Calling glfwMakeContextCurrent" << std::endl;
 
@@ -75,7 +74,7 @@ gfx_gl_window::gfx_gl_window(gfx_gl_device &device, io::io_interface &, const gf
     glfwSwapInterval(1);
 }
 
-gfx_gl_window::~gfx_gl_window()
+glfw_window::~glfw_window()
 {
     if (window_)
     {
@@ -88,19 +87,19 @@ gfx_gl_window::~gfx_gl_window()
     }
 }
 
-void gfx_gl_window::make_current()
+void glfw_window::make_current()
 {
     glfwMakeContextCurrent(window_);
 }
 
-glm::vec2 gfx_gl_window::get_framebuffer_size() const
+auto glfw_window::get_framebuffer_size() const -> glm::vec2
 {
     int width, height;
     glfwGetFramebufferSize(window_, &width, &height);
     return glm::vec2(width, height);
 }
 
-void gfx_gl_window::set_mouse_cursor_mode(const mouse_cursor_mode mode)
+void glfw_window::set_mouse_cursor_mode(const mouse_cursor_mode mode)
 {
     int glfw_cursor_mode = GLFW_CURSOR_NORMAL;
 
@@ -116,31 +115,31 @@ void gfx_gl_window::set_mouse_cursor_mode(const mouse_cursor_mode mode)
             glfw_cursor_mode = GLFW_CURSOR_HIDDEN;
             break;
         default:
-            throw gfx_gl_cursor_mode_exception();
+            throw platform_exception();
     }
 
     glfwSetInputMode(window_, GLFW_CURSOR, glfw_cursor_mode);
     cursor_mode_ = mode;
 }
 
-mouse_cursor_mode gfx_gl_window::get_mouse_cursor_mode() const
+auto glfw_window::get_mouse_cursor_mode() const -> mouse_cursor_mode
 {
     return cursor_mode_;
 }
 
-GLFWwindow *gfx_gl_window::get_glfw_window_ptr() const
+auto glfw_window::get_glfw_window_ptr() const -> GLFWwindow *
 {
     return window_;
 }
 
-void gfx_gl_window::__reset_scissor() const
+void glfw_window::__reset_scissor() const
 {
     glm::vec2 framebuffer_size = get_framebuffer_size();
     common::types::rectangle<float> rect(0.0f, 0.0f, framebuffer_size.x, framebuffer_size.y);
-    device_.set_scissor(rect);
+    platform_manager_.get_device().set_scissor(rect);
 }
 
-bool gfx_gl_window::__on_frame_start(float /*dt*/)
+auto glfw_window::__on_frame_start(float /*dt*/) -> bool
 {
     make_current();
 
@@ -150,7 +149,7 @@ bool gfx_gl_window::__on_frame_start(float /*dt*/)
     return true;
 }
 
-bool gfx_gl_window::__on_frame_end(float /*dt*/)
+auto glfw_window::__on_frame_end(float /*dt*/) -> bool
 {
     __reset_scissor();
 
@@ -159,35 +158,36 @@ bool gfx_gl_window::__on_frame_end(float /*dt*/)
     return true;
 }
 
-void gfx_gl_window::__static_keyboard_key_handler(GLFWwindow *window, int key, int /*scancode*/, int action, int mods)
+void glfw_window::__static_keyboard_key_handler(GLFWwindow *window, int key, int /*scancode*/, int action, int mods)
 {
-    gfx_gl_window *window_ptr = static_cast<gfx_gl_window *>(glfwGetWindowUserPointer(window));
-    window_ptr->device_.get_input_handler().handle_keyboard_key_state_changed_event(
+    glfw_window *window_ptr = static_cast<glfw_window *>(glfwGetWindowUserPointer(window));
+    window_ptr->get_platform_manager().get_input_handler().handle_keyboard_key_state_changed_event(
         static_cast<input::keyboard_key>(key),
         action == GLFW_RELEASE ? input::keyboard_key_state::released : input::keyboard_key_state::pressed, mods);
 }
 
-void gfx_gl_window::__static_mouse_move_handler(GLFWwindow *window, double x, double y)
+void glfw_window::__static_mouse_move_handler(GLFWwindow *window, double x, double y)
 {
-    gfx_gl_window *window_ptr = static_cast<gfx_gl_window *>(glfwGetWindowUserPointer(window));
-    window_ptr->device_.get_input_handler().handle_mouse_move_event(static_cast<float>(x), static_cast<float>(y));
+    glfw_window *window_ptr = static_cast<glfw_window *>(glfwGetWindowUserPointer(window));
+    window_ptr->get_platform_manager().get_input_handler().handle_mouse_move_event(static_cast<float>(x),
+                                                                                   static_cast<float>(y));
 }
 
-void gfx_gl_window::__static_mouse_button_handler(GLFWwindow *window, int button, int action, int /*mods*/)
+void glfw_window::__static_mouse_button_handler(GLFWwindow *window, int button, int action, int /*mods*/)
 {
-    gfx_gl_window *window_ptr = static_cast<gfx_gl_window *>(glfwGetWindowUserPointer(window));
-    window_ptr->device_.get_input_handler().handle_mouse_button_event(
+    glfw_window *window_ptr = static_cast<glfw_window *>(glfwGetWindowUserPointer(window));
+    window_ptr->get_platform_manager().get_input_handler().handle_mouse_button_event(
         static_cast<input::mouse_button>(button),
         action == GLFW_RELEASE ? input::mouse_button_state::released : input::mouse_button_state::pressed);
 }
 
-void gfx_gl_window::__static_mouse_scroll_handler(GLFWwindow *window, double xoffset, double yoffset)
+void glfw_window::__static_mouse_scroll_handler(GLFWwindow *window, double xoffset, double yoffset)
 {
-    gfx_gl_window *window_ptr = static_cast<gfx_gl_window *>(glfwGetWindowUserPointer(window));
-    window_ptr->device_.get_input_handler().handle_mouse_scroll_event(static_cast<float>(xoffset),
-                                                                      static_cast<float>(yoffset));
+    glfw_window *window_ptr = static_cast<glfw_window *>(glfwGetWindowUserPointer(window));
+    window_ptr->get_platform_manager().get_input_handler().handle_mouse_scroll_event(static_cast<float>(xoffset),
+                                                                                     static_cast<float>(yoffset));
 }
 
-} // namespace gl
-} // namespace gfx
+} // namespace glfw
+} // namespace platform
 } // namespace aeon

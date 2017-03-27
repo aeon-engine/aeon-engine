@@ -87,7 +87,7 @@ void application::main()
     animated_sprite_ = scene_manager_.create_scene_object<aeon::scene::animated_sprite>(atlas, 0, animation_settings);
     root_node.attach_scene_object(animated_sprite_);
 
-    device_.run();
+    platform_.run();
 }
 
 bool application::on_frame_begin(const float dt)

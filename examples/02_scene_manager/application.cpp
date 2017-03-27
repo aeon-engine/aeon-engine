@@ -81,7 +81,7 @@ void application::main()
     auto ship3_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship3, glm::vec2(32, 32), 2);
     ship3_node->attach_scene_object(ship3_sprite);
 
-    device_.run();
+    platform_.run();
 }
 
 bool application::on_frame_begin(const float dt)

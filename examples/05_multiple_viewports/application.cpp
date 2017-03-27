@@ -76,5 +76,5 @@ void application::main()
     root_node.attach_scene_object(ship_sprite);
 
     // Start the render loop
-    device_.run();
+    platform_.run();
 }

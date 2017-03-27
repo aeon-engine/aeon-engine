@@ -23,37 +23,61 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <build_config.h>
-#include <application/base_application.h>
-#include <aeon/resources/providers/filesystem_provider.h>
-#include <application/gfx_types.h>
+#include <aeon/platform/platform_monitor.h>
 
 namespace aeon
 {
-
-/*!
- * Base class for universal desktop games with a single render window.
- */
-template <typename scene_manager_t>
-class desktop_application : public base_application<selected_gfx_device, selected_platform, scene_manager_t>
+namespace platform
 {
-public:
-    /*!
-     * Constructor
-     * \see base_application::base_application
-     */
-    explicit desktop_application(const int default_width, const int default_height, const std::string &window_title)
-        : base_application<selected_gfx_device, selected_platform, scene_manager_t>(default_width, default_height,
-                                                                                    window_title)
-    {
-    }
 
-    /*!
-     * Destructor
-     */
-    virtual ~desktop_application() = default;
-};
+video_mode::video_mode(int w, int h, int r, int g, int b, int rr)
+    : width(w)
+    , height(h)
+    , red_bits(r)
+    , green_bits(g)
+    , blue_bits(b)
+    , refresh_rate(rr)
+{
+}
 
+gamma_ramp_data::gamma_ramp_data(int r, int g, int b)
+    : red(r)
+    , green(g)
+    , blue(b)
+{
+}
+
+monitor::monitor(int width, int height, int x, int y, bool primary, const std::string &name)
+    : physical_width_(width)
+    , physical_height_(height)
+    , x_(x)
+    , y_(y)
+    , primary_(primary)
+    , name_(name)
+{
+}
+
+void monitor::get_physical_dimensions(int &width, int &height) const
+{
+    width = physical_width_;
+    height = physical_height_;
+}
+
+void monitor::get_position(int &x, int &y) const
+{
+    x = x_;
+    y = y_;
+}
+
+auto monitor::is_primary() const -> bool
+{
+    return primary_;
+}
+
+auto monitor::get_name() const -> const std::string &
+{
+    return name_;
+}
+
+} // namespace platform
 } // namespace aeon

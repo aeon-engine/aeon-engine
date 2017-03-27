@@ -33,15 +33,12 @@ set (AEON_ENGINE_GFX_CORE_SOURCES
     include/aeon/gfx/gfx_material.h
     include/aeon/gfx/gfx_material_manager.h
     include/aeon/gfx/gfx_mesh.h
-    include/aeon/gfx/gfx_monitor.h
     include/aeon/gfx/gfx_render_target.h
     include/aeon/gfx/gfx_shader.h
     include/aeon/gfx/gfx_shader_manager.h
     include/aeon/gfx/gfx_texture.h
     include/aeon/gfx/gfx_texture_manager.h
     include/aeon/gfx/gfx_viewport.h
-    include/aeon/gfx/gfx_window.h
-    include/aeon/gfx/gfx_window_settings.h
     src/gfx_atlas.cpp
     src/gfx_atlas_manager.cpp
     src/gfx_buffer.cpp

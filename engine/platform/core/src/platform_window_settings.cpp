@@ -23,78 +23,56 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <string>
+#include <aeon/platform/platform_window_settings.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
 
-enum class buffer_mode
+window_settings::window_settings(const int width, const int height, const std::string &title)
+    : width_(width)
+    , height_(height)
+    , title_(title)
+    , multisample_(0)
+    , buffer_mode_(buffer_mode::double_buffer)
 {
-    single_buffer,
-    double_buffer
-};
+}
 
-class gfx_window_settings
+auto window_settings::get_width() const -> int
 {
-public:
-    gfx_window_settings(const int width, const int height, const std::string &title)
-        : width_(width)
-        , height_(height)
-        , title_(title)
-        , multisample_(0)
-        , buffer_mode_(buffer_mode::double_buffer)
-    {
-    }
+    return width_;
+}
 
-    ~gfx_window_settings() = default;
+auto window_settings::get_height() const -> int
+{
+    return height_;
+}
 
-    int get_width() const
-    {
-        return width_;
-    }
+auto window_settings::get_title() const -> const std::string &
+{
+    return title_;
+}
 
-    int get_height() const
-    {
-        return height_;
-    }
+void window_settings::set_multisample(const unsigned samples)
+{
+    multisample_ = samples;
+}
 
-    const std::string &get_title() const
-    {
-        return title_;
-    }
+auto window_settings::get_multisample() const -> int
+{
+    return multisample_;
+}
 
-    void set_multisample(const unsigned int samples)
-    {
-        multisample_ = samples;
-    }
+void window_settings::set_buffer_mode(const buffer_mode mode)
+{
+    buffer_mode_ = mode;
+}
 
-    int get_multisample() const
-    {
-        return multisample_;
-    }
+auto window_settings::get_buffer_mode() const -> buffer_mode
+{
+    return buffer_mode_;
+}
 
-    void set_buffer_mode(const buffer_mode mode)
-    {
-        buffer_mode_ = mode;
-    }
-
-    buffer_mode get_buffer_mode() const
-    {
-        return buffer_mode_;
-    }
-
-private:
-    int width_;
-    int height_;
-    std::string title_;
-
-    unsigned int multisample_;
-    buffer_mode buffer_mode_;
-};
-
-} // namespace gfx
+} // namespace platform
 } // namespace aeon

@@ -26,7 +26,7 @@
 #pragma once
 #include <aeon/resources/resource_manager.h>
 #include <aeon/assets/asset_manager.h>
-#include <aeon/gfx/gfx_window.h>
+#include <aeon/platform/platform_window.h>
 #include <aeon/io/io_filesystem_interface.h>
 #include <aeon/io/io_file_interface.h>
 #include <aeon/io/generic/io_generic_filesystem_interface.h>
@@ -45,7 +45,7 @@ namespace aeon
  * It's possible to use the engine without using this class. In that case all core
  * components (like platform, gfx, resource manager, etc.) must be initialized manually.
  */
-template <typename device_t, typename scene_manager_t>
+template <typename device_t, typename platform_t, typename scene_manager_t>
 class base_application
 {
 public:
@@ -63,7 +63,8 @@ public:
         , config_file_()
         , io_(std::make_unique<io::generic::io_filesystem_interface>())
         , input_handler_()
-        , device_(io_, input_handler_)
+        , device_(io_)
+        , platform_(input_handler_, device_)
         , resource_manager_(io_)
         , scene_manager_(device_)
         , asset_manager_(resource_manager_, scene_manager_)
@@ -202,11 +203,12 @@ private:
         const auto multisample = config_file_.get<int>("multisample", 0);
         const auto double_buffer = config_file_.get<bool>("double_buffer", true);
 
-        auto settings = gfx::gfx_window_settings{width, height, title};
+        auto settings = platform::window_settings{width, height, title};
         settings.set_multisample(multisample);
-        settings.set_buffer_mode(double_buffer ? gfx::buffer_mode::double_buffer : gfx::buffer_mode::single_buffer);
+        settings.set_buffer_mode(double_buffer ? platform::buffer_mode::double_buffer
+                                               : platform::buffer_mode::single_buffer);
 
-        window_ = device_.create_window(settings);
+        window_ = platform_.create_window(settings);
     }
 
 protected:
@@ -218,12 +220,13 @@ protected:
     io::io_interface io_;
     input::input_handler input_handler_;
     device_t device_;
+    platform_t platform_;
 
     resources::resource_manager resource_manager_;
     scene_manager_t scene_manager_;
     assets::asset_manager asset_manager_;
 
-    std::shared_ptr<gfx::gfx_window> window_;
+    std::shared_ptr<platform::window> window_;
 };
 
 } // namespace aeon

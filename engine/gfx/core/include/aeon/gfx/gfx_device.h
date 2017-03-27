@@ -31,8 +31,6 @@
 #include <aeon/gfx/gfx_atlas_manager.h>
 #include <aeon/gfx/gfx_buffer_manager.h>
 #include <aeon/gfx/gfx_mesh.h>
-#include <aeon/gfx/gfx_window.h>
-#include <aeon/gfx/gfx_monitor.h>
 #include <aeon/gfx/gfx_viewport.h>
 #include <aeon/io/io_interface.h>
 #include <aeon/common/types/color.h>
@@ -66,27 +64,13 @@ public:
     virtual std::unique_ptr<mesh> create_mesh(std::shared_ptr<material> material) = 0;
 
     /*!
-     * Get a list of all monitors connected to this system.
+     * Add a render target, like a window to this device.
      */
-    virtual std::vector<std::shared_ptr<gfx_monitor>> get_monitors() = 0;
+    virtual void add_render_target(std::shared_ptr<render_target> target) = 0;
 
-    /*!
-     * Create a window. A window can be created on a specific monitor. When no monitor is
-     * given, the window appears on the main monitor.
-     */
-    virtual std::shared_ptr<gfx_window> create_window(const gfx_window_settings &settings,
-                                                      std::shared_ptr<gfx_monitor> monitor = nullptr) = 0;
+    virtual auto render(float dt) -> bool = 0;
 
-    /*!
-     * Enter the engine's main loop. You must first call initialize before calling run.
-     * This function will not return until stop() is called.
-     */
-    virtual void run() = 0;
-
-    /*!
-     * Stop the mainloop. Has no effect if run hasn't been called.
-     */
-    virtual void stop() = 0;
+    virtual void set_scissor(const common::types::rectangle<float> &scissor) const = 0;
 
     texture_manager &get_texture_manager()
     {

@@ -24,8 +24,7 @@
  */
 
 #pragma once
-#include <aeon/gfx/gfx_window.h>
-#include <aeon/gfx/gfx_exception.h>
+#include <aeon/platform/platform_window.h>
 #include <aeon/io/io_interface.h>
 #include <aeon/common/logger.h>
 #include <GLFW/glfw3.h>
@@ -33,32 +32,29 @@
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
-namespace gl
+namespace glfw
 {
 
-DEFINE_EXCEPTION_OBJECT(gfx_gl_cursor_mode_exception, gfx_exception,
-                        "Unknown or invalid mouse cursor mode given to GLFW.");
+class glfw_platform_manager;
 
-class gfx_gl_device;
-
-class gfx_gl_window : public gfx_window
+class glfw_window : public window
 {
 public:
-    explicit gfx_gl_window(gfx_gl_device &device, io::io_interface &, const gfx_window_settings &settings,
-                           GLFWmonitor *monitor);
-    ~gfx_gl_window() override;
+    explicit glfw_window(glfw_platform_manager &platform_manager, const window_settings &settings,
+                         GLFWmonitor *monitor);
+    ~glfw_window() override;
 
     void make_current() override;
 
-    glm::vec2 get_framebuffer_size() const override;
+    auto get_framebuffer_size() const -> glm::vec2 override;
 
     void set_mouse_cursor_mode(const mouse_cursor_mode mode) override;
 
-    mouse_cursor_mode get_mouse_cursor_mode() const override;
+    auto get_mouse_cursor_mode() const -> mouse_cursor_mode override;
 
-    GLFWwindow *get_glfw_window_ptr() const;
+    auto get_glfw_window_ptr() const -> GLFWwindow *;
 
 private:
     void __reset_scissor() const;
@@ -73,13 +69,18 @@ private:
     static void __static_mouse_button_handler(GLFWwindow *window, int button, int action, int mods);
     static void __static_mouse_scroll_handler(GLFWwindow *window, double xoffset, double yoffset);
 
+    auto &get_platform_manager() const
+    {
+        return platform_manager_;
+    }
+
     aeon::logger::logger logger_;
 
     GLFWwindow *window_;
-    gfx_gl_device &device_;
+    glfw_platform_manager &platform_manager_;
     mouse_cursor_mode cursor_mode_;
 };
 
-} // namespace gl
-} // namespace gfx
+} // namespace glfw
+} // namespace platform
 } // namespace aeon

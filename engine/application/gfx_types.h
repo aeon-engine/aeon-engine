@@ -41,3 +41,10 @@ using selected_gfx_device = aeon::gfx::gles2::gfx_gles2_device;
 #include <gfx/null/gfx_null_device.h>
 using selected_gfx_device = aeon::gfx::null::gfx_null_device;
 #endif // AEON_GFX_NULL
+
+///////////////////////////////////////////////////////////////////////////////
+
+#ifdef AEON_PLATFORM_GLFW
+#include <aeon/platform/glfw/glfw_platform_manager.h>
+using selected_platform = aeon::platform::glfw::glfw_platform_manager;
+#endif // AEON_PLATFORM_GLFW

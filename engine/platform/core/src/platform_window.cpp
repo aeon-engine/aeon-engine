@@ -23,37 +23,34 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <build_config.h>
-#include <application/base_application.h>
-#include <aeon/resources/providers/filesystem_provider.h>
-#include <application/gfx_types.h>
+#include <aeon/platform/platform_window.h>
 
 namespace aeon
 {
-
-/*!
- * Base class for universal desktop games with a single render window.
- */
-template <typename scene_manager_t>
-class desktop_application : public base_application<selected_gfx_device, selected_platform, scene_manager_t>
+namespace platform
 {
-public:
-    /*!
-     * Constructor
-     * \see base_application::base_application
-     */
-    explicit desktop_application(const int default_width, const int default_height, const std::string &window_title)
-        : base_application<selected_gfx_device, selected_platform, scene_manager_t>(default_width, default_height,
-                                                                                    window_title)
-    {
-    }
+window::window(const window_settings &settings)
+    : width_(settings.get_width())
+    , height_(settings.get_height())
+    , title_(settings.get_title())
+{
+}
 
-    /*!
-     * Destructor
-     */
-    virtual ~desktop_application() = default;
-};
+auto window::get_size() const -> glm::vec2
+{
+    return glm::vec2(width_, height_);
+}
 
+void window::get_size(int &width, int &height) const
+{
+    width = width_;
+    height = height_;
+}
+
+auto window::get_title() const -> const std::string &
+{
+    return title_;
+}
+
+} // namespace platform
 } // namespace aeon

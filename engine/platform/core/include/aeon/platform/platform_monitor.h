@@ -24,27 +24,19 @@
  */
 
 #pragma once
+
 #include <string>
 #include <vector>
-#include <memory>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
 
 class video_mode
 {
 public:
-    video_mode(int w, int h, int r, int g, int b, int rr)
-        : width(w)
-        , height(h)
-        , red_bits(r)
-        , green_bits(g)
-        , blue_bits(b)
-        , refresh_rate(rr)
-    {
-    }
+    video_mode(int w, int h, int r, int g, int b, int rr);
 
     int width;
     int height;
@@ -59,12 +51,7 @@ using video_modes = std::vector<video_mode>;
 class gamma_ramp_data
 {
 public:
-    gamma_ramp_data(int r, int g, int b)
-        : red(r)
-        , green(g)
-        , blue(b)
-    {
-    }
+    gamma_ramp_data(int r, int g, int b);
 
     int red;
     int green;
@@ -73,20 +60,11 @@ public:
 
 using gamma_ramp = std::vector<gamma_ramp_data>;
 
-class gfx_monitor
+class monitor
 {
 public:
-    explicit gfx_monitor(int width, int height, int x, int y, bool primary, const std::string &name)
-        : physical_width_(width)
-        , physical_height_(height)
-        , x_(x)
-        , y_(y)
-        , primary_(primary)
-        , name_(name)
-    {
-    }
-
-    virtual ~gfx_monitor() = default;
+    explicit monitor(int width, int height, int x, int y, bool primary, const std::string &name);
+    virtual ~monitor() = default;
 
     virtual void set_gramma(float gamma) = 0;
 
@@ -101,29 +79,18 @@ public:
      * EDID data, or may be calculated based on DPI. This size is not guaranteerd to
      * be accurate. On certain platforms this may always be 0.
      */
-    void get_physical_dimensions(int &width, int &height) const
-    {
-        width = physical_width_;
-        height = physical_height_;
-    }
+    void get_physical_dimensions(int &width, int &height) const;
 
     /*!
      * Returns the position, in screen coordinates, of the upper-left corner of the
      * monitor. On certain platforms this may always be 0.
      */
-    void get_position(int &x, int &y) const
-    {
-        x = x_;
-        y = y_;
-    }
+    void get_position(int &x, int &y) const;
 
     /*!
      * Returns true of this is the primary monitor.
      */
-    bool is_primary() const
-    {
-        return primary_;
-    }
+    auto is_primary() const -> bool;
 
     /*!
      * Returns the name of the monitor, which usually consists of the make and model.
@@ -131,10 +98,7 @@ public:
      * at all on some platforms. Do not use for anything other than usability purposes
      * (like configuration screens for the end-user).
      */
-    const std::string &get_name() const
-    {
-        return name_;
-    }
+    auto get_name() const -> const std::string &;
 
 private:
     int physical_width_;
@@ -145,5 +109,5 @@ private:
     std::string name_;
 };
 
-} // namespace gfx
+} // namespace platform
 } // namespace aeon

@@ -24,31 +24,32 @@
  */
 
 #pragma once
-#include <aeon/gfx/gfx_monitor.h>
+
+#include <aeon/platform/platform_monitor.h>
 #include <GLFW/glfw3.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
-namespace gl
+namespace glfw
 {
 
-class gfx_gl_monitor : public gfx_monitor
+class glfw_monitor : public monitor
 {
 public:
-    gfx_gl_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary, const std::string &name);
-    virtual ~gfx_gl_monitor() = default;
+    glfw_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary, const std::string &name);
+    virtual ~glfw_monitor() = default;
 
     void set_gramma(float gamma) override;
 
-    gamma_ramp get_gamma_ramp() override;
+    auto get_gamma_ramp() -> gamma_ramp override;
     void set_gamma_ramp(gamma_ramp ramp) override;
 
-    video_mode get_video_mode() override;
-    video_modes get_video_modes() override;
+    auto get_video_mode() -> video_mode override;
+    auto get_video_modes() -> video_modes override;
 
-    GLFWmonitor *get_internal_handle() const
+    auto get_internal_handle() -> GLFWmonitor *const
     {
         return monitor_;
     }
@@ -57,6 +58,6 @@ private:
     GLFWmonitor *monitor_;
 };
 
-} // namespace gl
-} // namespace gfx
+} // namespace glfw
+} // namespace platform
 } // namespace aeon
