@@ -25,31 +25,30 @@
 
 #pragma once
 
-#include <build_config.h>
+#include <aeon/platform/platform_monitor.h>
 
-#ifdef AEON_GFX_GL
-#include <aeon/gfx/gl/gfx_gl_device.h>
-using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
-#endif // AEON_GFX_GL
+namespace aeon
+{
+namespace platform
+{
+namespace sdl
+{
 
-#ifdef AEON_GFX_GLES2
-#include <gfx/gles2/gfx_gles2_device.h>
-using selected_gfx_device = aeon::gfx::gles2::gfx_gles2_device;
-#endif // AEON_GFX_GLES2
+class sdl_monitor : public monitor
+{
+public:
+    sdl_monitor() = default;
+    virtual ~sdl_monitor() = default;
 
-#ifdef AEON_GFX_NULL
-#include <gfx/null/gfx_null_device.h>
-using selected_gfx_device = aeon::gfx::null::gfx_null_device;
-#endif // AEON_GFX_NULL
+    void set_gramma(float gamma) override;
 
-///////////////////////////////////////////////////////////////////////////////
+    auto get_gamma_ramp() -> gamma_ramp override;
+    void set_gamma_ramp(gamma_ramp ramp) override;
 
-#ifdef AEON_PLATFORM_GLFW
-#include <aeon/platform/glfw/glfw_platform_manager.h>
-using selected_platform = aeon::platform::glfw::glfw_platform_manager;
-#endif // AEON_PLATFORM_GLFW
+    auto get_video_mode() -> video_mode override;
+    auto get_video_modes() -> video_modes override;
+};
 
-#ifdef AEON_PLATFORM_SDL
-#include <aeon/platform/sdl/sdl_platform_manager.h>
-using selected_platform = aeon::platform::sdl::sdl_platform_manager;
-#endif // AEON_PLATFORM_SDL
+} // namespace sdl
+} // namespace platform
+} // namespace aeon

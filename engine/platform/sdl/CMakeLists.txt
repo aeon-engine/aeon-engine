@@ -21,12 +21,47 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-add_subdirectory(core)
+set (AEON_ENGINE_PLATFORM_SDL_SOURCES
+    include/aeon/platform/sdl/sdl_platform_monitor.h
+    include/aeon/platform/sdl/sdl_platform_window.h
+    include/aeon/platform/sdl/sdl_platform_manager.h
+    src/sdl_platform_monitor.cpp
+    src/sdl_platform_window.cpp
+    src/sdl_platform_manager.cpp
+)
 
-if (AEON_PLATFORM_GLFW)
-    add_subdirectory(glfw)
-endif ()
+source_group(platform\\sdl FILES ${AEON_ENGINE_PLATFORM_SDL_SOURCES})
 
-if (AEON_PLATFORM_SDL)
-    add_subdirectory(sdl)
-endif ()
+add_library(aeon_engine_platform_sdl STATIC
+    ${AEON_ENGINE_PLATFORM_SDL_SOURCES}
+)
+
+target_link_libraries(aeon_engine_platform_sdl
+    aeon_engine_platform_core
+    aeon
+    SDL2-static
+    glm
+)
+
+target_include_directories(aeon_engine_platform_sdl
+    PUBLIC include
+)
+
+set_target_properties(
+    aeon_engine_platform_sdl PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    FOLDER engine/platform
+)
+
+install(
+    TARGETS aeon_engine_platform_sdl
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
+
+install(
+    DIRECTORY include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+)

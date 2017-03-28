@@ -25,31 +25,41 @@
 
 #pragma once
 
-#include <build_config.h>
+#include <aeon/platform/platform_manager.h>
+#include <aeon/common/logger.h>
 
-#ifdef AEON_GFX_GL
-#include <aeon/gfx/gl/gfx_gl_device.h>
-using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
-#endif // AEON_GFX_GL
+namespace aeon
+{
+namespace platform
+{
+namespace sdl
+{
 
-#ifdef AEON_GFX_GLES2
-#include <gfx/gles2/gfx_gles2_device.h>
-using selected_gfx_device = aeon::gfx::gles2::gfx_gles2_device;
-#endif // AEON_GFX_GLES2
+class sdl_platform_manager : public platform_manager
+{
+public:
+    explicit sdl_platform_manager(input::input_handler &input_handler, gfx::device &device);
+    virtual ~sdl_platform_manager();
 
-#ifdef AEON_GFX_NULL
-#include <gfx/null/gfx_null_device.h>
-using selected_gfx_device = aeon::gfx::null::gfx_null_device;
-#endif // AEON_GFX_NULL
+    void run() override;
 
-///////////////////////////////////////////////////////////////////////////////
+    void stop() override;
 
-#ifdef AEON_PLATFORM_GLFW
-#include <aeon/platform/glfw/glfw_platform_manager.h>
-using selected_platform = aeon::platform::glfw::glfw_platform_manager;
-#endif // AEON_PLATFORM_GLFW
+    auto get_monitors() -> std::vector<monitor *> override;
 
-#ifdef AEON_PLATFORM_SDL
-#include <aeon/platform/sdl/sdl_platform_manager.h>
-using selected_platform = aeon::platform::sdl::sdl_platform_manager;
-#endif // AEON_PLATFORM_SDL
+    auto create_window(const window_settings &settings, monitor *monitor = nullptr) -> std::shared_ptr<window> override;
+
+private:
+    void __initialize_sdl() const;
+    auto __handle_events() const -> bool;
+
+    aeon::logger::logger logger_;
+    bool initialized_;
+
+    bool running_;
+    std::uint64_t previous_time_;
+};
+
+} // namespace sdl
+} // namespace platform
+} // namespace aeon

@@ -50,6 +50,11 @@
 #cmakedefine AEON_PLATFORM_GLFW
 
 /*!
+ * Define if SDL should be used as platform.
+ */
+#cmakedefine AEON_PLATFORM_SDL
+
+/*!
  * Define if Raspberry Pi should be used as platform.
  */
 #cmakedefine AEON_PLATFORM_RPI

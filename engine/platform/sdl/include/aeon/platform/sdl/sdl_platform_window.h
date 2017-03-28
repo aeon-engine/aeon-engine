@@ -24,32 +24,55 @@
  */
 
 #pragma once
+#include <aeon/platform/platform_window.h>
+#include <aeon/io/io_interface.h>
+#include <aeon/common/logger.h>
+#include <memory>
 
-#include <build_config.h>
+#include <SDL.h>
 
-#ifdef AEON_GFX_GL
-#include <aeon/gfx/gl/gfx_gl_device.h>
-using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
-#endif // AEON_GFX_GL
+namespace aeon
+{
+namespace platform
+{
+namespace sdl
+{
 
-#ifdef AEON_GFX_GLES2
-#include <gfx/gles2/gfx_gles2_device.h>
-using selected_gfx_device = aeon::gfx::gles2::gfx_gles2_device;
-#endif // AEON_GFX_GLES2
+class sdl_platform_manager;
 
-#ifdef AEON_GFX_NULL
-#include <gfx/null/gfx_null_device.h>
-using selected_gfx_device = aeon::gfx::null::gfx_null_device;
-#endif // AEON_GFX_NULL
+class sdl_window : public window
+{
+public:
+    explicit sdl_window(sdl_platform_manager &platform_manager, const window_settings &settings);
+    ~sdl_window() override;
 
-///////////////////////////////////////////////////////////////////////////////
+    void make_current() override;
 
-#ifdef AEON_PLATFORM_GLFW
-#include <aeon/platform/glfw/glfw_platform_manager.h>
-using selected_platform = aeon::platform::glfw::glfw_platform_manager;
-#endif // AEON_PLATFORM_GLFW
+    auto get_framebuffer_size() const -> glm::vec2 override;
 
-#ifdef AEON_PLATFORM_SDL
-#include <aeon/platform/sdl/sdl_platform_manager.h>
-using selected_platform = aeon::platform::sdl::sdl_platform_manager;
-#endif // AEON_PLATFORM_SDL
+    void set_mouse_cursor_mode(const mouse_cursor_mode mode) override;
+
+    auto get_mouse_cursor_mode() const -> mouse_cursor_mode override;
+
+private:
+    void __reset_scissor() const;
+
+    bool __on_frame_start(float dt) override;
+
+    bool __on_frame_end(float dt) override;
+
+    auto &get_platform_manager() const
+    {
+        return platform_manager_;
+    }
+
+    aeon::logger::logger logger_;
+    SDL_Window *window_;
+    SDL_GLContext context_;
+    sdl_platform_manager &platform_manager_;
+    mouse_cursor_mode cursor_mode_;
+};
+
+} // namespace sdl
+} // namespace platform
+} // namespace aeon

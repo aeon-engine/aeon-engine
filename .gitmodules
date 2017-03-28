@@ -38,3 +38,7 @@
 	path = dep/json11
 	url = ../json11.git
 	branch = submodule
+[submodule "dep/sdl"]
+	path = dep/sdl
+	url = ../sdl.git
+	branch = submodule

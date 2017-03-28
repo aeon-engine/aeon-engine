@@ -22,7 +22,7 @@ Currently Aeon uses the following libraries:
 - libAeon (general purpose C++14 library)
 - Open Asset Import Library
 - GLEW
-- GLFW
+- GLFW or SDL2 (depending on build configuration)
 - GLM
 - Google Test
 - Json11

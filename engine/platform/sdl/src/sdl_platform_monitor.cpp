@@ -23,33 +23,46 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+#include <aeon/platform/sdl/sdl_platform_monitor.h>
+#include <aeon/platform/platform_manager.h>
 
-#include <build_config.h>
+namespace aeon
+{
+namespace platform
+{
+namespace sdl
+{
 
-#ifdef AEON_GFX_GL
-#include <aeon/gfx/gl/gfx_gl_device.h>
-using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
-#endif // AEON_GFX_GL
+void sdl_monitor::set_gramma(float /*gamma*/)
+{
+    // TODO: Implement for SDL.
+    throw platform_exception();
+}
 
-#ifdef AEON_GFX_GLES2
-#include <gfx/gles2/gfx_gles2_device.h>
-using selected_gfx_device = aeon::gfx::gles2::gfx_gles2_device;
-#endif // AEON_GFX_GLES2
+auto sdl_monitor::get_gamma_ramp() -> gamma_ramp
+{
+    // TODO: Implement for SDL.
+    throw platform_exception();
+}
 
-#ifdef AEON_GFX_NULL
-#include <gfx/null/gfx_null_device.h>
-using selected_gfx_device = aeon::gfx::null::gfx_null_device;
-#endif // AEON_GFX_NULL
+void sdl_monitor::set_gamma_ramp(gamma_ramp /*ramp*/)
+{
+    // TODO: Implement for SDL.
+    throw platform_exception();
+}
 
-///////////////////////////////////////////////////////////////////////////////
+auto sdl_monitor::get_video_mode() -> video_mode
+{
+    // TODO: Implement for SDL.
+    throw platform_exception();
+}
 
-#ifdef AEON_PLATFORM_GLFW
-#include <aeon/platform/glfw/glfw_platform_manager.h>
-using selected_platform = aeon::platform::glfw::glfw_platform_manager;
-#endif // AEON_PLATFORM_GLFW
+auto sdl_monitor::get_video_modes() -> video_modes
+{
+    // TODO: Implement for SDL.
+    throw platform_exception();
+}
 
-#ifdef AEON_PLATFORM_SDL
-#include <aeon/platform/sdl/sdl_platform_manager.h>
-using selected_platform = aeon::platform::sdl::sdl_platform_manager;
-#endif // AEON_PLATFORM_SDL
+} // namespace sdl
+} // namespace platform
+} // namespace aeon

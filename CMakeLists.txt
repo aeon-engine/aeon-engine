@@ -150,15 +150,20 @@ endif ()
 # Platform options
 ################################################################################
 set(AEON_PLATFORM_NAME_GLFW "GLFW")
+set(AEON_PLATFORM_NAME_SDL "SDL")
 
 set(AEON_PLATFORM_GLFW OFF)
+set(AEON_PLATFORM_SDL OFF)
 
 set(AEON_PLATFORM ${AEON_PLATFORM_NAME_GLFW} CACHE STRING "Platform backend")
-set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW})
+set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW} ${AEON_PLATFORM_NAME_SDL})
 
 if (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_GLFW)
     message (STATUS "Using GLFW as platform.")
     set(AEON_PLATFORM_GLFW ON)
+elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_SDL)
+    message (STATUS "Using SDL as platform.")
+    set(AEON_PLATFORM_SDL ON)
 else ()
     message (FATAL_ERROR "No valid platform was selected.")
 endif ()
