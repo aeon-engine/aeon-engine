@@ -38,11 +38,11 @@ public:
     frame_listener() = default;
     virtual ~frame_listener() = default;
 
-    virtual bool on_frame_begin(const float /*dt*/)
+    virtual auto on_frame_begin(const float /*dt*/) -> bool
     {
         return true;
     }
-    virtual bool on_frame_end(const float /*dt*/)
+    virtual auto on_frame_end(const float /*dt*/) -> bool
     {
         return true;
     }

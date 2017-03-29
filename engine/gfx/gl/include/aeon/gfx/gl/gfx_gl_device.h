@@ -55,7 +55,7 @@ public:
 
     void clear_buffer(int buffer_flag) override;
 
-    std::unique_ptr<mesh> create_mesh(std::shared_ptr<material> material) override;
+    auto create_mesh(std::shared_ptr<material> material) -> std::unique_ptr<mesh> override;
 
     void add_render_target(std::shared_ptr<render_target> target) override;
 

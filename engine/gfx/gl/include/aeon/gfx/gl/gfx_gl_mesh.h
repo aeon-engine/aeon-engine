@@ -51,7 +51,7 @@ public:
 
     void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) override;
 
-    bool has_alpha() const override;
+    auto has_alpha() const -> bool override;
 
 private:
     void __check_vao() const;

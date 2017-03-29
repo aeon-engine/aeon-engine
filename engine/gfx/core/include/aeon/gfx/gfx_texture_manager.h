@@ -41,7 +41,7 @@ public:
     texture_manager() = default;
     virtual ~texture_manager() = default;
 
-    virtual std::shared_ptr<texture> create(const data::image &image_data) = 0;
+    virtual auto create(const data::image &image_data) -> std::shared_ptr<texture> = 0;
 };
 
 } // namespace gfx

@@ -56,12 +56,12 @@ void gfx_gl_texture::bind() const
     AEON_CHECK_GL_ERROR();
 }
 
-glm::vec2 gfx_gl_texture::get_size() const
+auto gfx_gl_texture::get_size() const -> glm::vec2
 {
     return size_;
 }
 
-data::image::pixel_format gfx_gl_texture::get_pixel_format() const
+auto gfx_gl_texture::get_pixel_format() const -> data::image::pixel_format
 {
     return pixel_format_;
 }

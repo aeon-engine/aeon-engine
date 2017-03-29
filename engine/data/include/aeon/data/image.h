@@ -54,19 +54,19 @@ public:
     image(image &&other) noexcept;
     image &operator=(image &&other) noexcept;
 
-    bool has_data() const;
+    auto has_data() const -> bool;
 
-    const std::vector<std::uint8_t> &get_data() const;
+    auto get_data() const -> const std::vector<std::uint8_t> &;
 
-    unsigned int get_width() const;
+    auto get_width() const -> unsigned int;
 
-    unsigned int get_height() const;
+    auto get_height() const -> unsigned int;
 
-    glm::vec2 get_size() const;
+    auto get_size() const -> glm::vec2;
 
-    pixel_format get_pixelformat() const;
+    auto get_pixelformat() const -> pixel_format;
 
-    unsigned int get_mipmap_count() const;
+    auto get_mipmap_count() const -> unsigned int;
 
 private:
     std::vector<std::uint8_t> buffer_;

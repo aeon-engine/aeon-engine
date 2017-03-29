@@ -48,13 +48,13 @@ public:
      * Internal function to handle the renderig of a frame. This is called by
      * the platform interface that this render target is attached to.
      */
-    bool handle_frame(float dt);
+    auto handle_frame(float dt) -> bool;
 
-    std::shared_ptr<viewport> create_viewport(std::shared_ptr<gfx_camera> camera, const std::string &name, int zorder);
+    auto create_viewport(std::shared_ptr<gfx_camera> camera, const std::string &name, int zorder)
+        -> std::shared_ptr<viewport>;
 
-    std::shared_ptr<viewport> create_viewport(std::shared_ptr<gfx_camera> camera,
-                                              const common::types::rectangle<float> &rect, const std::string &name,
-                                              int zorder);
+    auto create_viewport(std::shared_ptr<gfx_camera> camera, const common::types::rectangle<float> &rect,
+                         const std::string &name, int zorder) -> std::shared_ptr<viewport>;
 
     void attach_viewport(const std::shared_ptr<viewport> &vp);
 
@@ -75,12 +75,12 @@ public:
     /*!
      * Get the size of the render framebuffer.
      */
-    virtual glm::vec2 get_framebuffer_size() const = 0;
+    virtual auto get_framebuffer_size() const -> glm::vec2 = 0;
 
 protected:
-    virtual bool __on_frame_start(float dt) = 0;
+    virtual auto __on_frame_start(float dt) -> bool = 0;
 
-    virtual bool __on_frame_end(float dt) = 0;
+    virtual auto __on_frame_end(float dt) -> bool = 0;
 
 private:
     void __sort_viewports_by_zorder();

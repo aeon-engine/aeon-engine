@@ -36,7 +36,7 @@ render_target::render_target()
 {
 }
 
-bool render_target::handle_frame(float dt)
+auto render_target::handle_frame(float dt) -> bool
 {
     if (!__on_frame_start(dt))
         return false;
@@ -67,8 +67,8 @@ bool render_target::handle_frame(float dt)
     return true;
 }
 
-std::shared_ptr<viewport> render_target::create_viewport(std::shared_ptr<gfx_camera> camera, const std::string &name,
-                                                         int zorder)
+auto render_target::create_viewport(std::shared_ptr<gfx_camera> camera, const std::string &name, int zorder)
+    -> std::shared_ptr<viewport>
 {
     AEON_LOG_DEBUG(logger_) << "Creating full-screen viewport '" << name << "'." << std::endl;
 
@@ -77,9 +77,8 @@ std::shared_ptr<viewport> render_target::create_viewport(std::shared_ptr<gfx_cam
     return vp;
 }
 
-std::shared_ptr<viewport> render_target::create_viewport(std::shared_ptr<gfx_camera> camera,
-                                                         const common::types::rectangle<float> &rect,
-                                                         const std::string &name, int zorder)
+auto render_target::create_viewport(std::shared_ptr<gfx_camera> camera, const common::types::rectangle<float> &rect,
+                                    const std::string &name, int zorder) -> std::shared_ptr<viewport>
 {
     AEON_LOG_DEBUG(logger_) << "Creating viewport '" << name << "' (" << rect << ")." << std::endl;
 

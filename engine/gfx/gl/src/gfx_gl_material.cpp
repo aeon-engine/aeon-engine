@@ -53,7 +53,7 @@ void gfx_gl_material::bind()
 {
     shader_->bind();
 
-    int bind_point = 0;
+    auto bind_point = 0;
     for (auto &sampler : samplers_)
     {
         auto texture = sampler.get_texture();
@@ -64,12 +64,12 @@ void gfx_gl_material::bind()
     }
 }
 
-gfx::shader *gfx_gl_material::get_shader() const
+auto gfx_gl_material::get_shader() const -> gfx::shader *
 {
     return shader_.get();
 }
 
-gfx::texture *gfx_gl_material::get_sampler(const std::string &name) const
+auto gfx_gl_material::get_sampler(const std::string &name) const -> gfx::texture *
 {
     auto result = sampler_map_.find(name);
 
@@ -79,7 +79,7 @@ gfx::texture *gfx_gl_material::get_sampler(const std::string &name) const
     return result->second.get();
 }
 
-bool gfx_gl_material::sampler_has_alpha() const
+auto gfx_gl_material::sampler_has_alpha() const -> bool
 {
     return sampler_has_alpha_;
 }

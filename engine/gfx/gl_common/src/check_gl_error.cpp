@@ -44,10 +44,10 @@ namespace gl_common
 #ifdef AEON_ENABLE_GL_ERROR_CHECKS
 void check_gl_error(const char *file, int line)
 {
-    int count = 0;
+    auto count = 0;
     aeon::logger::logger logger(common::logger::get_singleton(), "Gfx::GL::Debug");
 
-    GLenum result = glGetError();
+    auto result = glGetError();
     while (result != GL_NO_ERROR)
     {
         if (++count >= 100)
@@ -56,7 +56,7 @@ void check_gl_error(const char *file, int line)
             break;
         }
 
-        std::string error_message;
+        auto error_message = std::string();
         switch (result)
         {
             case GL_INVALID_ENUM:

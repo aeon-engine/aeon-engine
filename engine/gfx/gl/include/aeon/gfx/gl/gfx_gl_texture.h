@@ -45,8 +45,8 @@ public:
     ~gfx_gl_texture() override;
 
     void bind() const;
-    glm::vec2 get_size() const override;
-    data::image::pixel_format get_pixel_format() const override;
+    auto get_size() const -> glm::vec2 override;
+    auto get_pixel_format() const -> data::image::pixel_format override;
 
     void set_texture_bind_point(const int bind_point) const;
 

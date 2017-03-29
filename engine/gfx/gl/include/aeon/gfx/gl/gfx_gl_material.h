@@ -72,8 +72,8 @@ public:
                              const std::map<std::string, std::shared_ptr<texture>> &samplers);
     virtual ~gfx_gl_material() = default;
 
-    gfx::shader *get_shader() const override;
-    gfx::texture *get_sampler(const std::string &name) const override;
+    auto get_shader() const -> gfx::shader * override;
+    auto get_sampler(const std::string &name) const -> gfx::texture * override;
 
     bool sampler_has_alpha() const override;
 

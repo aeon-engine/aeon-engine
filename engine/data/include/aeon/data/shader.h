@@ -42,8 +42,8 @@ public:
     shader(shader &&other) noexcept = default;
     shader &operator=(shader &&other) noexcept = default;
 
-    const std::string &get_vertex_source() const;
-    const std::string &get_fragment_source() const;
+    auto get_vertex_source() const -> const std::string &;
+    auto get_fragment_source() const -> const std::string &;
 
 private:
     std::string vertex_source_;

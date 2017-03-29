@@ -41,7 +41,7 @@ public:
     shader_manager() = default;
     virtual ~shader_manager() = default;
 
-    virtual std::shared_ptr<shader> create(const data::shader &shader_data) = 0;
+    virtual auto create(const data::shader &shader_data) -> std::shared_ptr<shader> = 0;
 };
 
 } // namespace gfx

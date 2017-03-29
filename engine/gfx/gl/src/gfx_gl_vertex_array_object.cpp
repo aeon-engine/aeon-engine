@@ -64,7 +64,7 @@ void gfx_gl_vertex_array_object::bind()
     AEON_CHECK_GL_ERROR();
 }
 
-bool gfx_gl_vertex_array_object::__is_valid() const
+auto gfx_gl_vertex_array_object::__is_valid() const -> bool
 {
     return glIsVertexArray(handle_) == GL_TRUE;
 }

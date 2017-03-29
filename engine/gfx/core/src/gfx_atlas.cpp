@@ -46,21 +46,21 @@ atlas::atlas(const std::shared_ptr<material> &material, glm::vec2 sprite_size)
     __calculate_atlas_regions(sprite_size);
 }
 
-std::shared_ptr<material> atlas::get_material() const
-{
-    return material_;
-}
-
-data::atlas::region atlas::get_region_by_index(int index)
+auto atlas::get_region_by_index(int index) const -> data::atlas::region
 {
     AEON_LOG_TRACE(logger_) << "Getting region index " << index << "." << std::endl;
     return atlas_.at(index);
 }
 
-data::atlas::region atlas::get_region_by_name(const std::string &name)
+auto atlas::get_region_by_name(const std::string &name) const -> data::atlas::region
 {
     AEON_LOG_TRACE(logger_) << "Getting region " << name << "." << std::endl;
     return atlas_.at(name);
+}
+
+auto atlas::get_material() const -> std::shared_ptr<material>
+{
+    return material_;
 }
 
 void atlas::__calculate_atlas_regions(glm::vec2 sprite_size)

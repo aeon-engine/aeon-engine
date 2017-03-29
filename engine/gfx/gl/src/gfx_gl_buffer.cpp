@@ -72,12 +72,12 @@ void gfx_gl_buffer::bind()
     AEON_CHECK_GL_ERROR();
 }
 
-bool gfx_gl_buffer::has_data() const
+auto gfx_gl_buffer::has_data() const -> bool
 {
     return has_data_;
 }
 
-GLenum gfx_gl_buffer::__buffer_type_as_gl_enum() const
+auto gfx_gl_buffer::__buffer_type_as_gl_enum() const -> GLenum
 {
     switch (type_)
     {
@@ -93,7 +93,7 @@ GLenum gfx_gl_buffer::__buffer_type_as_gl_enum() const
     }
 }
 
-GLenum gfx_gl_buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const
+auto gfx_gl_buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const -> GLenum
 {
     switch (usage)
     {

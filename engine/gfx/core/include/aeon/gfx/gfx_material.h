@@ -48,13 +48,13 @@ public:
 
     virtual void bind() = 0;
 
-    virtual shader *get_shader() const = 0;
-    virtual texture *get_sampler(const std::string &name) const = 0;
+    virtual auto get_shader() const -> shader * = 0;
+    virtual auto get_sampler(const std::string &name) const -> texture * = 0;
 
     /*!
      * Returns true if any of the samplers in this material has an alpha channel.
      */
-    virtual bool sampler_has_alpha() const = 0;
+    virtual auto sampler_has_alpha() const -> bool = 0;
 };
 
 } // namespace gfx

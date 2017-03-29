@@ -99,7 +99,7 @@ void gfx_gl_device::clear_buffer(int buffer_flag)
     AEON_CHECK_GL_ERROR();
 }
 
-std::unique_ptr<mesh> gfx_gl_device::create_mesh(std::shared_ptr<material> material)
+auto gfx_gl_device::create_mesh(std::shared_ptr<material> material) -> std::unique_ptr<mesh>
 {
     return std::make_unique<gfx_gl_mesh>(this, material);
 }

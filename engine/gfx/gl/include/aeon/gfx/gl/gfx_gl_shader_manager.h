@@ -48,10 +48,10 @@ public:
     virtual ~gfx_gl_shader_manager() = default;
 
 private:
-    std::shared_ptr<shader> create(const data::shader &shader_data) override;
+    auto create(const data::shader &shader_data) -> std::shared_ptr<shader> override;
 
-    GLuint __load_gl_shader(const std::string &source, GLenum type) const;
-    GLuint __link_gl_program(GLuint vertexshader, GLuint fragmentshader) const;
+    auto __load_gl_shader(const std::string &source, GLenum type) const -> GLuint;
+    auto __link_gl_program(GLuint vertexshader, GLuint fragmentshader) const -> GLuint;
 
     aeon::logger::logger logger_;
 };

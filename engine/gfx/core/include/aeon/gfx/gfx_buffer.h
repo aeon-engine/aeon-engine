@@ -51,13 +51,13 @@ public:
     explicit buffer(buffer_type type);
     virtual ~buffer() = default;
 
-    buffer_type get_type() const;
+    auto get_type() const -> buffer_type;
 
     virtual void set_data(int size, const void *data, buffer_usage usage) = 0;
 
     virtual void bind() = 0;
 
-    virtual bool has_data() const = 0;
+    virtual auto has_data() const -> bool = 0;
 
 protected:
     buffer_type type_;

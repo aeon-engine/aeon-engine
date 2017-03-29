@@ -41,7 +41,8 @@ public:
     gfx_atlas_manager();
     virtual ~gfx_atlas_manager() = default;
 
-    std::shared_ptr<gfx::atlas> create(const std::shared_ptr<material> &material, const data::atlas &atlas_data);
+    auto create(const std::shared_ptr<material> &material, const data::atlas &atlas_data) const
+        -> std::shared_ptr<gfx::atlas>;
 
 private:
     aeon::logger::logger logger_;

@@ -43,8 +43,9 @@ public:
     material_manager() = default;
     virtual ~material_manager() = default;
 
-    virtual std::shared_ptr<material> create(const std::shared_ptr<shader> &shader,
-                                             const std::map<std::string, std::shared_ptr<texture>> &samplers) = 0;
+    virtual auto create(const std::shared_ptr<shader> &shader,
+                        const std::map<std::string, std::shared_ptr<texture>> &samplers)
+        -> std::shared_ptr<material> = 0;
 };
 
 } // namespace gfx

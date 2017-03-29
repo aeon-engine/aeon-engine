@@ -30,7 +30,7 @@ namespace aeon
 namespace gfx
 {
 
-std::shared_ptr<buffer> buffer_manager::create_buffer(buffer_type type)
+auto buffer_manager::create_buffer(buffer_type type) -> std::shared_ptr<buffer>
 {
     return __create_buffer(type);
 }

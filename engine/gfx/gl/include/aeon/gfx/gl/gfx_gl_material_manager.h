@@ -41,8 +41,8 @@ public:
     virtual ~gfx_gl_material_manager() = default;
 
 private:
-    std::shared_ptr<material> create(const std::shared_ptr<shader> &shader,
-                                     const std::map<std::string, std::shared_ptr<texture>> &samplers) override;
+    auto create(const std::shared_ptr<shader> &shader, const std::map<std::string, std::shared_ptr<texture>> &samplers)
+        -> std::shared_ptr<material> override;
 };
 
 } // namespace gl

@@ -204,7 +204,7 @@ public:
     /*!
      * Get the rotation of this object as euler angles.
      */
-    const auto get_rotation_euler() const
+    auto get_rotation_euler() const
     {
         return glm::axis(rotation_);
     }

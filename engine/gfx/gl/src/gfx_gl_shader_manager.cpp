@@ -40,7 +40,7 @@ gfx_gl_shader_manager::gfx_gl_shader_manager()
 {
 }
 
-std::shared_ptr<shader> gfx_gl_shader_manager::create(const data::shader &shader_data)
+auto gfx_gl_shader_manager::create(const data::shader &shader_data) -> std::shared_ptr<shader>
 {
     GLuint vertexshader = __load_gl_shader(shader_data.get_vertex_source(), GL_VERTEX_SHADER);
     GLuint fragmentshader = __load_gl_shader(shader_data.get_fragment_source(), GL_FRAGMENT_SHADER);
@@ -70,7 +70,7 @@ std::shared_ptr<shader> gfx_gl_shader_manager::create(const data::shader &shader
     return s;
 }
 
-GLuint gfx_gl_shader_manager::__load_gl_shader(const std::string &source, GLenum type) const
+auto gfx_gl_shader_manager::__load_gl_shader(const std::string &source, GLenum type) const -> GLuint
 {
     // Create the shader object
     GLuint shader = glCreateShader(type);
@@ -124,7 +124,7 @@ GLuint gfx_gl_shader_manager::__load_gl_shader(const std::string &source, GLenum
     return shader;
 }
 
-GLuint gfx_gl_shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentshader) const
+auto gfx_gl_shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragmentshader) const -> GLuint
 {
     GLuint program = glCreateProgram();
     AEON_CHECK_GL_ERROR();

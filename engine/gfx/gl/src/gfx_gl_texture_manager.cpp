@@ -41,9 +41,9 @@ gfx_gl_texture_manager::gfx_gl_texture_manager()
 {
 }
 
-std::shared_ptr<texture> gfx_gl_texture_manager::create(const data::image &image_data)
+auto gfx_gl_texture_manager::create(const data::image &image_data) -> std::shared_ptr<texture>
 {
-    std::shared_ptr<gfx_gl_texture> t = std::make_shared<gfx_gl_texture>();
+    auto t = std::make_shared<gfx_gl_texture>();
 
     GLuint handle = 0;
     glGenTextures(1, &handle);
@@ -54,9 +54,9 @@ std::shared_ptr<texture> gfx_gl_texture_manager::create(const data::image &image
     glBindTexture(GL_TEXTURE_2D, handle);
     AEON_CHECK_GL_ERROR();
 
-    GLint pixelformat = __image_pixelformat_to_gl(image_data.get_pixelformat());
-    GLsizei width = image_data.get_width();
-    GLsizei height = image_data.get_height();
+    auto pixelformat = __image_pixelformat_to_gl(image_data.get_pixelformat());
+    auto width = image_data.get_width();
+    auto height = image_data.get_height();
 
     switch (image_data.get_pixelformat())
     {
@@ -74,18 +74,18 @@ std::shared_ptr<texture> gfx_gl_texture_manager::create(const data::image &image
         case data::image::pixel_format::dxt3:
         case data::image::pixel_format::dxt5:
         {
-            unsigned int block_size = (image_data.get_pixelformat() == data::image::pixel_format::dxt1) ? 8 : 16;
-            unsigned int offset = 0;
+            auto block_size = (image_data.get_pixelformat() == data::image::pixel_format::dxt1) ? 8 : 16;
+            auto offset = 0;
 
             for (unsigned int level = 0; level < image_data.get_mipmap_count() && (width || height); ++level)
             {
-                unsigned int size = ((width + 3) / 4) * ((height + 3) / 4) * block_size;
+                auto size = ((width + 3) / 4) * ((height + 3) / 4) * block_size;
                 glCompressedTexImage2D(GL_TEXTURE_2D, level, pixelformat, width, height, 0, size,
                                        image_data.get_data().data() + offset);
 
                 offset += size;
-                width = std::max(width / 2, 1);
-                height = std::max(height / 2, 1);
+                width = std::max(width / 2, 1u);
+                height = std::max(height / 2, 1u);
             }
             break;
         }
@@ -117,7 +117,7 @@ std::shared_ptr<texture> gfx_gl_texture_manager::create(const data::image &image
     return t;
 }
 
-GLint gfx_gl_texture_manager::__image_pixelformat_to_gl(data::image::pixel_format format) const
+auto gfx_gl_texture_manager::__image_pixelformat_to_gl(data::image::pixel_format format) const -> GLint
 {
     switch (format)
     {

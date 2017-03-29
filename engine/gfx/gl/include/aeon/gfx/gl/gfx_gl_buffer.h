@@ -50,11 +50,11 @@ public:
 
     void bind() override;
 
-    bool has_data() const override;
+    auto has_data() const -> bool override;
 
 private:
-    GLenum __buffer_type_as_gl_enum() const;
-    GLenum __buffer_usage_as_gl_enum(buffer_usage usage) const;
+    auto __buffer_type_as_gl_enum() const -> GLenum;
+    auto __buffer_usage_as_gl_enum(buffer_usage usage) const -> GLenum;
 
     aeon::logger::logger logger_;
 

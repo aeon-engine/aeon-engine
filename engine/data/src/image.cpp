@@ -43,37 +43,37 @@ image::image(std::vector<std::uint8_t> &&buffer, const unsigned int width, const
 image::image(image &&other) noexcept = default;
 image &image::operator=(image &&other) noexcept = default;
 
-bool image::has_data() const
+auto image::has_data() const -> bool
 {
     return buffer_.empty();
 }
 
-const std::vector<std::uint8_t> &image::get_data() const
+auto image::get_data() const -> const std::vector<std::uint8_t> &
 {
     return buffer_;
 }
 
-unsigned int image::get_width() const
+auto image::get_width() const -> unsigned int
 {
     return width_;
 }
 
-unsigned int image::get_height() const
+auto image::get_height() const -> unsigned int
 {
     return height_;
 }
 
-glm::vec2 image::get_size() const
+auto image::get_size() const -> glm::vec2
 {
     return glm::vec2(width_, height_);
 }
 
-image::pixel_format image::get_pixelformat() const
+auto image::get_pixelformat() const -> image::pixel_format
 {
     return pixel_format_;
 }
 
-unsigned int image::get_mipmap_count() const
+auto image::get_mipmap_count() const -> unsigned int
 {
     return mipmap_count_;
 }

@@ -64,7 +64,7 @@ public:
     void bind();
 
 private:
-    bool __is_valid() const;
+    auto __is_valid() const -> bool;
     void __create_vao();
 
     aeon::logger::logger logger_;

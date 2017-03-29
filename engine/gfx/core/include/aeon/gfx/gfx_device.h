@@ -72,32 +72,32 @@ public:
 
     virtual void set_scissor(const common::types::rectangle<float> &scissor) const = 0;
 
-    texture_manager &get_texture_manager()
+    auto &get_texture_manager() const
     {
         return *texture_manager_;
     }
 
-    shader_manager &get_shader_manager()
+    auto &get_shader_manager() const
     {
         return *shader_manager_;
     }
 
-    material_manager &get_material_manager()
+    auto &get_material_manager() const
     {
         return *material_manager_;
     }
 
-    buffer_manager &get_buffer_manager()
+    auto &get_buffer_manager() const
     {
         return *buffer_manager_;
     }
 
-    gfx_atlas_manager &get_atlas_manager()
+    auto &get_atlas_manager() const
     {
         return *atlas_manager_;
     }
 
-    io::io_interface &get_io_interface()
+    auto &get_io_interface() const
     {
         return io_;
     }

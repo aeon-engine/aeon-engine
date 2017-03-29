@@ -36,12 +36,12 @@ shader::shader(const std::string &vertex_source, const std::string &fragment_sou
 {
 }
 
-const std::string &shader::get_vertex_source() const
+auto shader::get_vertex_source() const -> const std::string &
 {
     return vertex_source_;
 }
 
-const std::string &shader::get_fragment_source() const
+auto shader::get_fragment_source() const -> const std::string &
 {
     return fragment_source_;
 }

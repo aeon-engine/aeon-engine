@@ -79,7 +79,7 @@ void gfx_gl_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view,
     AEON_CHECK_GL_ERROR();
 }
 
-bool gfx_gl_mesh::has_alpha() const
+auto gfx_gl_mesh::has_alpha() const -> bool
 {
     return material_->sampler_has_alpha();
 }

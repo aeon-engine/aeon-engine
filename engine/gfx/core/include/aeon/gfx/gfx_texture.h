@@ -42,8 +42,8 @@ public:
     explicit texture() = default;
     virtual ~texture() = default;
 
-    virtual glm::vec2 get_size() const = 0;
-    virtual data::image::pixel_format get_pixel_format() const = 0;
+    virtual auto get_size() const -> glm::vec2 = 0;
+    virtual auto get_pixel_format() const -> data::image::pixel_format = 0;
 };
 
 } // namespace gfx

@@ -54,7 +54,7 @@ public:
     /*!
      * Returns true of the material used for this mesh has an alpha channel.
      */
-    virtual bool has_alpha() const = 0;
+    virtual auto has_alpha() const -> bool = 0;
 };
 
 } // namespace gfx

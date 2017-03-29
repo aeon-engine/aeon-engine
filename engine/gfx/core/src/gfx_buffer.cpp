@@ -35,7 +35,7 @@ buffer::buffer(buffer_type type)
 {
 }
 
-buffer_type buffer::get_type() const
+auto buffer::get_type() const -> buffer_type
 {
     return type_;
 }

@@ -43,9 +43,9 @@ public:
     virtual ~gfx_gl_texture_manager() = default;
 
 private:
-    std::shared_ptr<texture> create(const data::image &image_data) override;
+    auto create(const data::image &image_data) -> std::shared_ptr<texture> override;
 
-    GLint __image_pixelformat_to_gl(data::image::pixel_format format) const;
+    auto __image_pixelformat_to_gl(data::image::pixel_format format) const -> GLint;
 
     aeon::logger::logger logger_;
 };

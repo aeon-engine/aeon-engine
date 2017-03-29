@@ -49,10 +49,10 @@ public:
     explicit atlas(const std::shared_ptr<material> &material, glm::vec2 sprite_size);
     virtual ~atlas() = default;
 
-    data::atlas::region get_region_by_index(int index);
-    data::atlas::region get_region_by_name(const std::string &name);
+    auto get_region_by_index(int index) const -> data::atlas::region;
+    auto get_region_by_name(const std::string &name) const -> data::atlas::region;
 
-    std::shared_ptr<material> get_material() const;
+    auto get_material() const -> std::shared_ptr<material>;
 
 private:
     void __calculate_atlas_regions(glm::vec2 sprite_size);
