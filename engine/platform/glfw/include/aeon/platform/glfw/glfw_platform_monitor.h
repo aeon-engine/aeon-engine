@@ -38,7 +38,7 @@ namespace glfw
 class glfw_monitor : public monitor
 {
 public:
-    glfw_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary, const std::string &name);
+    glfw_monitor(GLFWmonitor *m, int width, int height, int x, int y, bool primary, const std::string &name);
     virtual ~glfw_monitor() = default;
 
     void set_gramma(float gamma) override;

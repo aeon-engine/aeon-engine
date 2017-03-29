@@ -32,10 +32,10 @@ namespace platform
 namespace glfw
 {
 
-glfw_monitor::glfw_monitor(GLFWmonitor *monitor, int width, int height, int x, int y, bool primary,
+glfw_monitor::glfw_monitor(GLFWmonitor *m, int width, int height, int x, int y, bool primary,
                            const std::string &name)
     : monitor(width, height, x, y, primary, name)
-    , monitor_(monitor)
+    , monitor_(m)
 {
 }
 
