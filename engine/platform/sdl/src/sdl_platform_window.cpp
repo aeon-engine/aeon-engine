@@ -59,7 +59,7 @@ sdl_window::sdl_window(sdl_platform_manager &platform_manager, const window_sett
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
     window_ = SDL_CreateWindow(settings.get_title().c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        settings.get_width(), settings.get_height(), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+                               settings.get_width(), settings.get_height(), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
     if (!window_)
     {

@@ -143,10 +143,12 @@ auto sdl_platform_manager::__handle_events() const -> bool
                 // TODO: Keyboard key numbers don't match those from GLFW, which means input doesn't work properly.
                 auto &key_event = event.key;
                 auto &keysym = key_event.keysym;
-                auto keystate = (event.type == SDL_KEYDOWN) ? input::keyboard_key_state::pressed : input::keyboard_key_state::released;
+                auto keystate = (event.type == SDL_KEYDOWN) ? input::keyboard_key_state::pressed
+                                                            : input::keyboard_key_state::released;
                 get_input_handler().handle_keyboard_key_state_changed_event(
                     static_cast<input::keyboard_key>(keysym.sym), keystate, keysym.mod);
-            } break;
+            }
+            break;
 
             // TODO: Mouse input.
 
