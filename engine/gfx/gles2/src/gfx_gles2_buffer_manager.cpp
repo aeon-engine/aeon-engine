@@ -23,8 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <gfx/gles2/gfx_gles2_buffer_manager.h>
-#include <gfx/gles2/gfx_gles2_buffer.h>
+#include <aeon/gfx/gles2/gfx_gles2_buffer_manager.h>
+#include <aeon/gfx/gles2/gfx_gles2_buffer.h>
 
 namespace aeon
 {
@@ -33,9 +33,9 @@ namespace gfx
 namespace gles2
 {
 
-gfx::buffer_ptr gfx_gles2_buffer_manager::__create_buffer(buffer_type type)
+auto gfx_gles2_buffer_manager::__create_buffer(buffer_type type) -> std::shared_ptr<buffer>
 {
-    return std::make_shared<gles2::gfx_gles2_buffer>(type);
+    return std::make_shared<gfx_gles2_buffer>(type);
 }
 
 } // namespace gles2

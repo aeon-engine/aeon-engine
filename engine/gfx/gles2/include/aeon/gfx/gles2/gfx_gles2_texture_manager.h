@@ -25,9 +25,8 @@
 
 #pragma once
 
-#include <gfx/gfx_resource_manager.h>
-#include <resources/image.h>
-#include <common/logger.h>
+#include <aeon/gfx/gfx_texture_manager.h>
+#include <aeon/common/logger.h>
 #include <GLES2/gl2.h>
 
 namespace aeon
@@ -44,9 +43,9 @@ public:
     virtual ~gfx_gles2_texture_manager() = default;
 
 private:
-    texture_ptr __load(resources::image_ptr image) override;
+    auto create(const data::image &image_data) -> std::shared_ptr<texture> override;
 
-    GLint __image_pixelformat_to_gl(data::image::pixel_format format);
+    auto __image_pixelformat_to_gl(data::image::pixel_format format) const -> GLint;
 
     aeon::logger::logger logger_;
 };

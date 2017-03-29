@@ -53,6 +53,7 @@ add_library(aeon_engine_gfx_gles2 STATIC
 target_link_libraries(aeon_engine_gfx_gles2
     aeon_engine_gfx_core
     aeon_engine_gfx_gl_common
+    aeon_engine_input
     aeon
     glm
 )
@@ -61,6 +62,13 @@ target_include_directories(aeon_engine_gfx_gles2
     PUBLIC include
     PRIVATE ${CMAKE_BINARY_DIR}
 )
+
+if (AEON_PLATFORM_RPI)
+    # Required for the gles 2 headers and library.
+    target_link_libraries(aeon_engine_gfx_gles2
+        RaspberryPiSdk
+    )
+endif ()
 
 set_target_properties(
     aeon_engine_gfx_gles2 PROPERTIES

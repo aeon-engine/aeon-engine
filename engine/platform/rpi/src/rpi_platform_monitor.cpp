@@ -23,28 +23,46 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <aeon/gfx/gfx_material_manager.h>
+#include <aeon/platform/rpi/rpi_platform_monitor.h>
+#include <aeon/platform/platform_manager.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
-namespace gles2
+namespace rpi
 {
 
-class gfx_gles2_material_manager : public gfx::material_manager
+void rpi_monitor::set_gramma(float /*gamma*/)
 {
-public:
-    explicit gfx_gles2_material_manager() = default;
-    virtual ~gfx_gles2_material_manager() = default;
+    // TODO: Implement for SDL.
+    throw platform_exception();
+}
 
-private:
-    auto create(const std::shared_ptr<shader> &shader, const std::map<std::string, std::shared_ptr<texture>> &samplers)
-        -> std::shared_ptr<material> override;
-};
+auto rpi_monitor::get_gamma_ramp() -> gamma_ramp
+{
+    // TODO: Implement for SDL.
+    throw platform_exception();
+}
 
-} // namespace gles2
-} // namespace gfx
+void rpi_monitor::set_gamma_ramp(gamma_ramp /*ramp*/)
+{
+    // TODO: Implement for SDL.
+    throw platform_exception();
+}
+
+auto rpi_monitor::get_video_mode() -> video_mode
+{
+    // TODO: Implement for SDL.
+    throw platform_exception();
+}
+
+auto rpi_monitor::get_video_modes() -> video_modes
+{
+    // TODO: Implement for SDL.
+    throw platform_exception();
+}
+
+} // namespace rpi
+} // namespace platform
 } // namespace aeon

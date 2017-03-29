@@ -23,8 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <gfx/gles2/gfx_gles2_buffer.h>
-#include <gfx/gl_common/check_gl_error.h>
+#include <aeon/gfx/gles2/gfx_gles2_buffer.h>
+#include <aeon/gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {
@@ -35,7 +35,7 @@ namespace gles2
 
 gfx_gles2_buffer::gfx_gles2_buffer(buffer_type type)
     : gfx::buffer(type)
-    , logger_(common::logger::get_singleton(), "Gfx::GLES2::Buffer")
+    , logger_(common::logger::get_singleton(), "Gfx::Gles2::Buffer")
     , handle_(0)
     , has_data_(false)
 {
@@ -72,12 +72,12 @@ void gfx_gles2_buffer::bind()
     AEON_CHECK_GL_ERROR();
 }
 
-bool gfx_gles2_buffer::has_data() const
+auto gfx_gles2_buffer::has_data() const -> bool
 {
     return has_data_;
 }
 
-GLenum gfx_gles2_buffer::__buffer_type_as_gl_enum() const
+auto gfx_gles2_buffer::__buffer_type_as_gl_enum() const -> GLenum
 {
     switch (type_)
     {
@@ -93,7 +93,7 @@ GLenum gfx_gles2_buffer::__buffer_type_as_gl_enum() const
     }
 }
 
-GLenum gfx_gles2_buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const
+auto gfx_gles2_buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const -> GLenum
 {
     switch (usage)
     {

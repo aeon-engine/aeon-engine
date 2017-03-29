@@ -23,7 +23,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <gfx/gles2/gfx_gles2_material.h>
+#include <aeon/gfx/gles2/gfx_gles2_material.h>
 
 namespace aeon
 {
@@ -32,20 +32,88 @@ namespace gfx
 namespace gles2
 {
 
+gfx_gles2_material::gfx_gles2_material(const std::shared_ptr<shader> &shader,
+                                       const std::map<std::string, std::shared_ptr<texture>> &samplers)
+    : shader_(std::dynamic_pointer_cast<gfx_gles2_shader>(shader))
+    , sampler_map_(__convert_sampler_map_to_gl(samplers))
+    , samplers_(__generate_sampler_indices(sampler_map_))
+    , sampler_has_alpha_(false)
+{
+    for (auto &sampler : samplers)
+    {
+        if (sampler.second->get_pixel_format() == data::image::pixel_format::rgba)
+        {
+            sampler_has_alpha_ = true;
+            break;
+        }
+    }
+}
+
 void gfx_gles2_material::bind()
 {
     shader_->bind();
-    texture_->bind(*shader_);
+
+    int bind_point = 0;
+    for (auto &sampler : samplers_)
+    {
+        auto texture = sampler.get_texture();
+        texture->set_texture_bind_point(bind_point);
+        texture->bind();
+        shader_->bind_sampler(sampler.get_handle(), bind_point);
+        ++bind_point;
+    }
 }
 
-gfx::shader *gfx_gles2_material::get_shader() const
+auto gfx_gles2_material::get_shader() const -> gfx::shader *
 {
     return shader_.get();
 }
 
-gfx::texture *gfx_gles2_material::get_texture() const
+auto gfx_gles2_material::get_sampler(const std::string &name) const -> gfx::texture *
 {
-    return texture_.get();
+    auto result = sampler_map_.find(name);
+
+    if (result == sampler_map_.end())
+        throw gfx_material_exception();
+
+    return result->second.get();
+}
+
+bool gfx_gles2_material::sampler_has_alpha() const
+{
+    return sampler_has_alpha_;
+}
+
+auto gfx_gles2_material::__convert_sampler_map_to_gl(const std::map<std::string, std::shared_ptr<texture>> &samplers)
+    const -> std::map<std::string, std::shared_ptr<gfx_gles2_texture>>
+{
+    auto gl_samplers = std::map<std::string, std::shared_ptr<gfx_gles2_texture>>();
+
+    for (auto &sampler : samplers)
+    {
+        gl_samplers[sampler.first] = std::dynamic_pointer_cast<gfx_gles2_texture>(sampler.second);
+    }
+
+    return gl_samplers;
+}
+
+auto gfx_gles2_material::__generate_sampler_indices(
+    const std::map<std::string, std::shared_ptr<gfx_gles2_texture>> &samplers) const
+    -> std::vector<gfx_gles2_texture_handle_pair>
+{
+    auto gl_samplers = std::vector<gfx_gles2_texture_handle_pair>();
+
+    for (auto &sampler : samplers)
+    {
+        auto sampler_name = sampler.first;
+        auto gl_texture_ptr = sampler.second.get();
+
+        auto sampler_handle = shader_->get_sampler_handle_by_name(sampler_name);
+
+        gl_samplers.push_back(gfx_gles2_texture_handle_pair(sampler_handle, gl_texture_ptr));
+    }
+
+    return gl_samplers;
 }
 
 } // namespace gles2

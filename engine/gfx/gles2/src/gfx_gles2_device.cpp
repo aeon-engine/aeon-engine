@@ -23,15 +23,16 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <gfx/gles2/gfx_gles2_texture_manager.h>
-#include <gfx/gles2/gfx_gles2_shader_manager.h>
-#include <gfx/gles2/gfx_gles2_material_manager.h>
-#include <gfx/gles2/gfx_gles2_buffer_manager.h>
-#include <gfx/gles2/gfx_gles2_device.h>
-#include <gfx/gles2/gfx_gles2_mesh.h>
-#include <gfx/gl_common/check_gl_error.h>
-#include <GLES2/gl2.h>
+#include <aeon/gfx/gles2/gfx_gles2_texture_manager.h>
+#include <aeon/gfx/gles2/gfx_gles2_shader_manager.h>
+#include <aeon/gfx/gles2/gfx_gles2_material_manager.h>
+#include <aeon/gfx/gles2/gfx_gles2_buffer_manager.h>
+#include <aeon/gfx/gles2/gfx_gles2_device.h>
+#include <aeon/gfx/gles2/gfx_gles2_mesh.h>
 #include <memory>
+#include <aeon/gfx/gl_common/check_gl_error.h>
+
+#include <GLES2/gl2.h>
 
 namespace aeon
 {
@@ -40,10 +41,14 @@ namespace gfx
 namespace gles2
 {
 
-gfx_gles2_device::gfx_gles2_device()
-    : logger_(common::logger::get_singleton(), "Gfx::GLES2::Device")
+gfx_gles2_device::gfx_gles2_device(io::io_interface &io)
+    : gfx::device(io)
+    , logger_(common::logger::get_singleton(), "Gfx::Gles2::Device")
+    , render_targets_()
 {
 }
+
+gfx_gles2_device::~gfx_gles2_device() = default;
 
 void gfx_gles2_device::__initialize_impl()
 {
@@ -52,20 +57,8 @@ void gfx_gles2_device::__initialize_impl()
     if (initialized_)
     {
         AEON_LOG_FATAL(logger_) << "Initialize called while already initialized." << std::endl;
-        throw gfx_gles2_initialized_exception();
+        throw gles2_initialized_exception();
     }
-
-    texture_manager_ = std::make_unique<gfx_gles2_texture_manager>();
-    shader_manager_ = std::make_unique<gfx_gles2_shader_manager>();
-    material_manager_ = std::make_unique<gfx_gles2_material_manager>(*this);
-    buffer_manager_ = std::make_unique<gfx_gles2_buffer_manager>();
-    atlas_manager_ = std::make_unique<gfx_atlas_manager>();
-
-    glEnable(GL_BLEND);
-    AEON_CHECK_GL_ERROR();
-
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    AEON_CHECK_GL_ERROR();
 
     initialized_ = true;
 }
@@ -76,10 +69,19 @@ void gfx_gles2_device::set_clear_color(const common::types::color &c)
     AEON_CHECK_GL_ERROR();
 }
 
-void gfx_gles2_device::set_viewport(scene::viewport *vp)
+void gfx_gles2_device::set_viewport(render_target &rt, viewport &vp)
 {
-    common::types::rectangle<int> rect = common::types::rectangle<int>(vp->get_rectangle());
-    glViewport(rect.x, rect.y, rect.width, rect.height);
+    common::types::rectangle<float> vp_rel_rect = vp.get_rectangle();
+    glm::vec2 framebuffer_size = rt.get_framebuffer_size();
+    common::types::rectangle<int> vp_abs_rect = {static_cast<int>(vp_rel_rect.left() * framebuffer_size.x),
+                                                 static_cast<int>(vp_rel_rect.top() * framebuffer_size.y),
+                                                 static_cast<int>(vp_rel_rect.right() * framebuffer_size.x),
+                                                 static_cast<int>(vp_rel_rect.bottom() * framebuffer_size.y)};
+
+    glViewport(vp_abs_rect.left(), vp_abs_rect.top(), vp_abs_rect.right(), vp_abs_rect.bottom());
+    AEON_CHECK_GL_ERROR();
+
+    glScissor(vp_abs_rect.left(), vp_abs_rect.top(), vp_abs_rect.right(), vp_abs_rect.bottom());
     AEON_CHECK_GL_ERROR();
 }
 
@@ -97,9 +99,80 @@ void gfx_gles2_device::clear_buffer(int buffer_flag)
     AEON_CHECK_GL_ERROR();
 }
 
-mesh_ptr gfx_gles2_device::create_mesh(material_ptr material)
+auto gfx_gles2_device::create_mesh(std::shared_ptr<material> material) -> std::unique_ptr<mesh>
 {
     return std::make_unique<gfx_gles2_mesh>(this, material);
+}
+
+void gfx_gles2_device::add_render_target(std::shared_ptr<render_target> target)
+{
+    // HACK: If there are no render targets yet, this is the first window that is being opened.
+    // This means we can initialize opengl here.
+    if (render_targets_.empty())
+    {
+        __create_managers();
+        __setup_opengl();
+    }
+
+    render_targets_.push_back(target);
+}
+
+auto gfx_gles2_device::render(float dt) -> bool
+{
+    clear_buffer(gfx::buffer_clear_flag::color_buffer | gfx::buffer_clear_flag::depth_buffer);
+
+    for (auto &render_target : render_targets_)
+    {
+        if (!render_target->handle_frame(dt))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void gfx_gles2_device::set_scissor(const common::types::rectangle<float> &scissor) const
+{
+    glScissor(static_cast<GLsizei>(scissor.left()), static_cast<GLsizei>(scissor.top()),
+              static_cast<GLsizei>(scissor.width()), static_cast<GLsizei>(scissor.height()));
+    AEON_CHECK_GL_ERROR();
+}
+
+void gfx_gles2_device::__create_managers()
+{
+    texture_manager_ = std::make_unique<gfx_gles2_texture_manager>();
+    shader_manager_ = std::make_unique<gfx_gles2_shader_manager>();
+    material_manager_ = std::make_unique<gfx_gles2_material_manager>();
+    buffer_manager_ = std::make_unique<gfx_gles2_buffer_manager>();
+    atlas_manager_ = std::make_unique<gfx_atlas_manager>();
+}
+
+void gfx_gles2_device::__setup_opengl() const
+{
+    glEnable(GL_DEPTH_TEST);
+    AEON_CHECK_GL_ERROR();
+
+    glDepthFunc(GL_LESS);
+    AEON_CHECK_GL_ERROR();
+
+    glEnable(GL_BLEND);
+    AEON_CHECK_GL_ERROR();
+
+    glEnable(GL_SCISSOR_TEST);
+    AEON_CHECK_GL_ERROR();
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    AEON_CHECK_GL_ERROR();
+
+    glEnable(GL_CULL_FACE);
+    AEON_CHECK_GL_ERROR();
+
+    glCullFace(GL_BACK);
+    AEON_CHECK_GL_ERROR();
+
+    glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+    AEON_CHECK_GL_ERROR();
 }
 
 } // namespace gles2

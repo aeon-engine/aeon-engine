@@ -25,26 +25,30 @@
 
 #pragma once
 
-#include <aeon/gfx/gfx_material_manager.h>
+#include <aeon/platform/platform_monitor.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
-namespace gles2
+namespace rpi
 {
 
-class gfx_gles2_material_manager : public gfx::material_manager
+class rpi_monitor : public monitor
 {
 public:
-    explicit gfx_gles2_material_manager() = default;
-    virtual ~gfx_gles2_material_manager() = default;
+    rpi_monitor() = default;
+    virtual ~rpi_monitor() = default;
 
-private:
-    auto create(const std::shared_ptr<shader> &shader, const std::map<std::string, std::shared_ptr<texture>> &samplers)
-        -> std::shared_ptr<material> override;
+    void set_gramma(float gamma) override;
+
+    auto get_gamma_ramp() -> gamma_ramp override;
+    void set_gamma_ramp(gamma_ramp ramp) override;
+
+    auto get_video_mode() -> video_mode override;
+    auto get_video_modes() -> video_modes override;
 };
 
-} // namespace gles2
-} // namespace gfx
+} // namespace rpi
+} // namespace platform
 } // namespace aeon

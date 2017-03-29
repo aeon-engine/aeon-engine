@@ -107,6 +107,12 @@ if (AEON_PLATFORM_SDL)
     )
 endif ()
 
+if (AEON_PLATFORM_RPI)
+    target_link_libraries(aeon_engine
+        aeon_engine_platform_rpi
+    )
+endif ()
+
 set_target_properties(
     aeon_engine PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"

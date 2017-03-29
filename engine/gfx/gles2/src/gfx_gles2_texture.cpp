@@ -23,9 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <gfx/gles2/gfx_gles2_texture.h>
-#include <gfx/gles2/gfx_gles2_shader.h>
-#include <gfx/gl_common/check_gl_error.h>
+#include <aeon/gfx/gles2/gfx_gles2_texture.h>
+#include <aeon/gfx/gl_common/check_gl_error.h>
 
 namespace aeon
 {
@@ -34,10 +33,12 @@ namespace gfx
 namespace gles2
 {
 
-gfx_gles2_texture::gfx_gles2_texture(resources::image_ptr image)
-    : gfx::texture(image)
-    , logger_(common::logger::get_singleton(), "Gfx::GLES2::Texture")
+gfx_gles2_texture::gfx_gles2_texture()
+    : gfx::texture()
+    , logger_(common::logger::get_singleton(), "Gfx::Gles2::Texture")
     , handle_(0)
+    , size_(0)
+    , pixel_format_(data::image::pixel_format::rgb)
 {
 }
 
@@ -48,15 +49,26 @@ gfx_gles2_texture::~gfx_gles2_texture()
     AEON_CHECK_GL_ERROR();
 }
 
-void gfx_gles2_texture::bind(gfx_gles2_shader &s) const
+void gfx_gles2_texture::bind() const
 {
-    glActiveTexture(GL_TEXTURE0);
-    AEON_CHECK_GL_ERROR();
-
+    assert(glIsTexture(handle_) == GL_TRUE);
     glBindTexture(GL_TEXTURE_2D, handle_);
     AEON_CHECK_GL_ERROR();
+}
 
-    glUniform1i(s.get_texture0_handle(), 0);
+auto gfx_gles2_texture::get_size() const -> glm::vec2
+{
+    return size_;
+}
+
+auto gfx_gles2_texture::get_pixel_format() const -> data::image::pixel_format
+{
+    return pixel_format_;
+}
+
+void gfx_gles2_texture::set_texture_bind_point(const int bind_point) const
+{
+    glActiveTexture(GL_TEXTURE0 + bind_point);
     AEON_CHECK_GL_ERROR();
 }
 

@@ -25,26 +25,40 @@
 
 #pragma once
 
-#include <aeon/gfx/gfx_material_manager.h>
+#include <aeon/platform/platform_manager.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
-namespace gles2
+namespace rpi
 {
 
-class gfx_gles2_material_manager : public gfx::material_manager
+class rpi_platform_manager : public platform_manager
 {
 public:
-    explicit gfx_gles2_material_manager() = default;
-    virtual ~gfx_gles2_material_manager() = default;
+    explicit rpi_platform_manager(input::input_handler &input_handler, gfx::device &device);
+    virtual ~rpi_platform_manager();
+
+    void run() override;
+
+    void stop() override;
+
+    auto get_monitors() -> std::vector<monitor *> override;
+
+    auto create_window(const window_settings &settings, monitor *monitor = nullptr) -> std::shared_ptr<window> override;
 
 private:
-    auto create(const std::shared_ptr<shader> &shader, const std::map<std::string, std::shared_ptr<texture>> &samplers)
-        -> std::shared_ptr<material> override;
+    void __initialize_rpi() const;
+
+    aeon::logger::logger logger_;
+    bool initialized_;
+
+    bool running_;
+    double previous_time_;
 };
 
-} // namespace gles2
-} // namespace gfx
+} // namespace rpi
+} // namespace platform
 } // namespace aeon

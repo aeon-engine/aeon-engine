@@ -25,10 +25,10 @@
 
 #pragma once
 
-#include <gfx/gfx_mesh.h>
-#include <gfx/gles2/gfx_gles2_buffer.h>
-#include <gfx/gfx_material.h>
-#include <common/logger.h>
+#include <aeon/gfx/gfx_mesh.h>
+#include <aeon/gfx/gles2/gfx_gles2_buffer.h>
+#include <aeon/gfx/gfx_material.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {
@@ -41,22 +41,27 @@ class gfx_gles2_device;
 class gfx_gles2_mesh : public gfx::mesh
 {
 public:
-    explicit gfx_gles2_mesh(gfx_gles2_device *device, gfx::material_ptr material);
+    explicit gfx_gles2_mesh(gfx_gles2_device *device, std::shared_ptr<material> material);
     virtual ~gfx_gles2_mesh() = default;
 
     void upload_vertex_buffer(const std::vector<data::vertex_data> &vertex_data,
                               const gfx::buffer_usage usage) override;
-    void upload_index_buffer(const std::vector<std::uint16_t> &index_data, const gfx::buffer_usage usage) override;
+    void upload_index_buffer(const std::vector<std::uint32_t> &index_data, const gfx::buffer_usage usage) override;
 
     void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) override;
 
+    auto has_alpha() const -> bool override;
+
 private:
+    void __check_vao() const;
+    void __create_and_setup_vao();
+
     aeon::logger::logger logger_;
 
-    gfx::material_ptr material_;
+    std::shared_ptr<material> material_;
 
-    gfx::buffer_ptr vertex_buffer_;
-    gfx::buffer_ptr index_buffer_;
+    std::shared_ptr<buffer> vertex_buffer_;
+    std::shared_ptr<buffer> index_buffer_;
     GLuint element_count_;
 };
 

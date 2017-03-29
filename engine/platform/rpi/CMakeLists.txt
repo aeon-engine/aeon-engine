@@ -21,16 +21,47 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-add_subdirectory(core)
+set (AEON_ENGINE_PLATFORM_RPI_SOURCES
+    include/aeon/platform/rpi/rpi_platform_monitor.h
+    include/aeon/platform/rpi/rpi_platform_window.h
+    include/aeon/platform/rpi/rpi_platform_manager.h
+    src/rpi_platform_monitor.cpp
+    src/rpi_platform_window.cpp
+    src/rpi_platform_manager.cpp
+)
 
-if (AEON_PLATFORM_GLFW)
-    add_subdirectory(glfw)
-endif ()
+source_group(platform\\rpi FILES ${AEON_ENGINE_PLATFORM_RPI_SOURCES})
 
-if (AEON_PLATFORM_SDL)
-    add_subdirectory(sdl)
-endif ()
+add_library(aeon_engine_platform_rpi STATIC
+    ${AEON_ENGINE_PLATFORM_RPI_SOURCES}
+)
 
-if (AEON_PLATFORM_RPI)
-    add_subdirectory(rpi)
-endif ()
+target_link_libraries(aeon_engine_platform_rpi
+    aeon_engine_platform_core
+    aeon
+    RaspberryPiSdk
+    glm
+)
+
+target_include_directories(aeon_engine_platform_rpi
+    PUBLIC include
+)
+
+set_target_properties(
+    aeon_engine_platform_rpi PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    FOLDER engine/platform
+)
+
+install(
+    TARGETS aeon_engine_platform_rpi
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
+
+install(
+    DIRECTORY include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+)

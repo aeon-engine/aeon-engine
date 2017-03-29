@@ -6,6 +6,7 @@ build_deploy
 
 # OSX
 .DS_Store
+._.DS_Store
 xcode_build
 
 # Vim

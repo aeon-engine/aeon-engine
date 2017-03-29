@@ -23,11 +23,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <gfx/gles2/gfx_gles2_material_manager.h>
-#include <gfx/gles2/gfx_gles2_material.h>
-#include <gfx/gles2/gfx_gles2_device.h>
-#include <resources/material.h>
-#include <GLES2/gl2.h>
+#include <aeon/gfx/gles2/gfx_gles2_material_manager.h>
+#include <aeon/gfx/gles2/gfx_gles2_material.h>
+#include <aeon/gfx/gles2/gfx_gles2_device.h>
 
 namespace aeon
 {
@@ -36,25 +34,11 @@ namespace gfx
 namespace gles2
 {
 
-gfx_gles2_material_manager::gfx_gles2_material_manager(gfx_gles2_device &dev)
-    : device_(dev)
+auto gfx_gles2_material_manager::create(const std::shared_ptr<shader> &shader,
+                                        const std::map<std::string, std::shared_ptr<texture>> &samplers)
+    -> std::shared_ptr<material>
 {
-}
-
-material_ptr gfx_gles2_material_manager::__load(resources::material_ptr mat)
-{
-    gfx::texture_manager &texture_mgr = device_.get_texture_manager();
-    gfx::shader_manager &shader_mgr = device_.get_shader_manager();
-
-    gfx_gles2_material_ptr m = std::make_shared<gfx_gles2_material>();
-
-    resources::image_ptr texture_image = mat->get_texture();
-    m->texture_ = std::dynamic_pointer_cast<gfx_gles2_texture>(texture_mgr.load(texture_image));
-
-    resources::shader_ptr shader_res = mat->get_shader();
-    m->shader_ = std::dynamic_pointer_cast<gfx_gles2_shader>(shader_mgr.load(shader_res));
-
-    return m;
+    return std::make_shared<gfx_gles2_material>(shader, samplers);
 }
 
 } // namespace gles2

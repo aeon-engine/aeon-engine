@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include <gfx/gfx_texture.h>
-#include <common/logger.h>
+#include <aeon/gfx/gfx_texture.h>
+#include <aeon/common/logger.h>
 #include <GLES2/gl2.h>
 
 namespace aeon
@@ -36,23 +36,26 @@ namespace gfx
 namespace gles2
 {
 
-class gfx_gles2_shader;
 class gfx_gles2_texture : public gfx::texture
 {
     friend class gfx_gles2_texture_manager;
 
 public:
-    explicit gfx_gles2_texture(resources::image_ptr image);
+    explicit gfx_gles2_texture();
     ~gfx_gles2_texture() override;
 
-    void bind(gfx_gles2_shader &s) const;
+    void bind() const;
+    auto get_size() const -> glm::vec2 override;
+    auto get_pixel_format() const -> data::image::pixel_format override;
+
+    void set_texture_bind_point(const int bind_point) const;
 
 private:
     aeon::logger::logger logger_;
     GLuint handle_;
+    glm::vec2 size_;
+    data::image::pixel_format pixel_format_;
 };
-
-using gfx_gles2_texture_ptr = std::shared_ptr<gles2::gfx_gles2_texture>;
 
 } // namespace gles2
 } // namespace gfx

@@ -33,7 +33,7 @@ using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
 #endif // AEON_GFX_GL
 
 #ifdef AEON_GFX_GLES2
-#include <gfx/gles2/gfx_gles2_device.h>
+#include <aeon/gfx/gles2/gfx_gles2_device.h>
 using selected_gfx_device = aeon::gfx::gles2::gfx_gles2_device;
 #endif // AEON_GFX_GLES2
 
@@ -53,3 +53,9 @@ using selected_platform = aeon::platform::glfw::glfw_platform_manager;
 #include <aeon/platform/sdl/sdl_platform_manager.h>
 using selected_platform = aeon::platform::sdl::sdl_platform_manager;
 #endif // AEON_PLATFORM_SDL
+
+#ifdef AEON_PLATFORM_RPI
+#include <aeon/platform/rpi/rpi_platform_manager.h>
+using selected_platform = aeon::platform::rpi::rpi_platform_manager;
+#endif // AEON_PLATFORM_RPI
+

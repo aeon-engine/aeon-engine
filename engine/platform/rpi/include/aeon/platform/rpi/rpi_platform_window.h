@@ -24,38 +24,64 @@
  */
 
 #pragma once
-
-#include <aeon/gfx/gfx_shader_manager.h>
+#include <aeon/platform/platform_window.h>
+#include <aeon/io/io_interface.h>
 #include <aeon/common/logger.h>
-#include <aeon/common/exception.h>
-#include <GLES2/gl2.h>
+#include <memory>
+
+#include <EGL/egl.h>
 
 namespace aeon
 {
-namespace gfx
+namespace platform
 {
-namespace gles2
+namespace rpi
 {
 
-DEFINE_EXCEPTION_OBJECT(gfx_gles2_shader_exception, aeon::common::exception, "GLES 2 shader exception.");
-DEFINE_EXCEPTION_OBJECT(gfx_gles2_shader_compile_exception, gfx_gles2_shader_exception,
-                        "GLES 2 shader compilation exception.");
+class rpi_platform_manager;
 
-class gfx_gles2_shader_manager : public gfx::shader_manager
+class rpi_window : public window
 {
 public:
-    gfx_gles2_shader_manager();
-    virtual ~gfx_gles2_shader_manager() = default;
+    explicit rpi_window(rpi_platform_manager &platform_manager, const window_settings &settings);
+    ~rpi_window() override;
+
+    void make_current() override;
+
+    auto get_framebuffer_size() const -> glm::vec2 override;
+
+    void set_mouse_cursor_mode(const mouse_cursor_mode mode) override;
+
+    auto get_mouse_cursor_mode() const -> mouse_cursor_mode override;
 
 private:
-    auto create(const data::shader &shader_data) -> std::shared_ptr<shader> override;
+    void __reset_scissor() const;
 
-    auto __load_gl_shader(const std::string &source, GLenum type) const -> GLuint;
-    auto __link_gl_program(GLuint vertexshader, GLuint fragmentshader) const -> GLuint;
+    bool __on_frame_start(float dt) override;
+
+    bool __on_frame_end(float dt) override;
+
+    void __create_window();
+    void __create_native_window();
+    void __create_egl_context(EGLint attribList[]);
+
+    auto &get_platform_manager() const
+    {
+        return platform_manager_;
+    }
 
     aeon::logger::logger logger_;
+
+    mutable glm::vec2 framebuffer_size_;
+    EGL_DISPMANX_WINDOW_T window_;
+    EGLDisplay display_;
+    EGLContext context_;
+    EGLSurface surface_;
+
+    rpi_platform_manager &platform_manager_;
+    mouse_cursor_mode cursor_mode_;
 };
 
-} // namespace gles2
-} // namespace gfx
+} // namespace rpi
+} // namespace platform
 } // namespace aeon
