@@ -49,7 +49,10 @@ public:
     virtual void bind() = 0;
 
     virtual auto get_shader() const -> shader * = 0;
+
     virtual auto get_sampler(const std::string &name) const -> texture * = 0;
+
+    virtual auto get_sampler_by_index(const int index) const -> texture * = 0;
 
     /*!
      * Returns true if any of the samplers in this material has an alpha channel.
