@@ -43,14 +43,9 @@ namespace resources
 class mesh : public resource
 {
 public:
-    explicit mesh(const std::shared_ptr<resource_wrapper> &wrapper);
+    explicit mesh(const std::string &name);
 
     virtual ~mesh();
-
-    auto get_mesh_resource_wrapper() const
-    {
-        return std::dynamic_pointer_cast<mesh_resource_wrapper>(get_resource_wrapper());
-    }
 
     void add_material(const std::string &name);
     void create_submesh(const int id, const std::string &name, data::index_data_buffer &&indices,
@@ -83,6 +78,7 @@ public:
 private:
     aeon::logger::logger logger_;
 
+    std::string name_;
     std::vector<std::string> materials_;
     std::vector<std::unique_ptr<submesh>> submeshes_;
     std::unique_ptr<mesh_node> root_mesh_node_;

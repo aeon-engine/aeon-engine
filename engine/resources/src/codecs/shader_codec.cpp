@@ -101,7 +101,7 @@ auto shader_codec::decode(resource_manager & /*parent*/, const std::shared_ptr<s
     }
 
     auto shader_data = data::shader(vertex_source, fragment_source);
-    return std::make_shared<shader>(wrapper, std::move(shader_data));
+    return std::make_shared<shader>(std::move(shader_data));
 }
 
 } // namespace resources

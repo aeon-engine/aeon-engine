@@ -30,9 +30,10 @@ namespace aeon
 namespace resources
 {
 
-mesh::mesh(const std::shared_ptr<resource_wrapper> &wrapper)
-    : resource(wrapper)
+mesh::mesh(const std::string &name)
+    : resource()
     , logger_(common::logger::get_singleton(), "Resources::Mesh")
+    , name_(name)
     , materials_()
     , submeshes_()
     , root_mesh_node_(nullptr)
@@ -59,8 +60,7 @@ void mesh::create_submesh(const int id, const std::string &name, data::index_dat
 auto mesh::create_root_mesh_node(const glm::mat4 &matrix, const std::vector<submesh *> &submeshes) -> mesh_node &
 {
     assert(root_mesh_node_ == nullptr);
-    root_mesh_node_ =
-        std::unique_ptr<mesh_node>(new mesh_node(get_mesh_resource_wrapper()->get_path(), matrix, submeshes));
+    root_mesh_node_ = std::make_unique<mesh_node>(name_, matrix, submeshes);
     return *root_mesh_node_.get();
 }
 

@@ -58,4 +58,3 @@ using selected_platform = aeon::platform::sdl::sdl_platform_manager;
 #include <aeon/platform/rpi/rpi_platform_manager.h>
 using selected_platform = aeon::platform::rpi::rpi_platform_manager;
 #endif // AEON_PLATFORM_RPI
-

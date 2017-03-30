@@ -158,7 +158,7 @@ auto image_codec_dds::decode(resource_manager & /*parent*/,
         data::image(std::move(image_data_buffer), header.width, header.height, pixel_format, header.mipmap_count);
 
     // Create the image object
-    return std::make_shared<image>(wrapper, std::move(img));
+    return std::make_shared<image>(std::move(img));
 }
 
 auto image_codec_dds::get_codec_type() const -> resource_encoding

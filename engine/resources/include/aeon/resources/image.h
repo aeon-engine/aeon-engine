@@ -43,18 +43,13 @@ DEFINE_EXCEPTION_OBJECT(image_data_exception, image_exception, "Image resource d
 class image : public resource
 {
 public:
-    explicit image(const std::shared_ptr<resource_wrapper> &wrapper, data::image &&image_data);
+    explicit image(data::image &&image_data);
 
     virtual ~image();
 
     const auto &get_data() const
     {
         return image_data_;
-    }
-
-    auto get_image_resource_wrapper() const
-    {
-        return std::dynamic_pointer_cast<image_resource_wrapper>(get_resource_wrapper());
     }
 
 private:

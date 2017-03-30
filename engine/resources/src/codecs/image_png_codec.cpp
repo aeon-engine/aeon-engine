@@ -264,7 +264,7 @@ auto image_codec_png::decode(resource_manager & /*parent*/,
     auto img = data::image(std::move(bitmap_buffer), temp_width, temp_height, pixel_format);
 
     // Create the image object
-    return std::make_shared<image>(wrapper, std::move(img));
+    return std::make_shared<image>(std::move(img));
 }
 
 auto image_codec_png::get_codec_type() const -> resource_encoding
