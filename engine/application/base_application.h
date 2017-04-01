@@ -172,8 +172,8 @@ private:
     {
         try
         {
-            auto file_interface = io_.get_filesystem_interface().open_file("config.conf", io::file_open_mode::binary |
-                                                                                              io::file_open_mode::read);
+            auto file_interface = io_.get_filesystem_interface().open_file(
+                "config.conf", io::file_open_mode::binary | io::file_open_mode::read);
 
             auto config_file_data = std::vector<std::uint8_t>();
             file_interface->read(config_file_data);

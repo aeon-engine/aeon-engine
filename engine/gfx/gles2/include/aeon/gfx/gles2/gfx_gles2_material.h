@@ -73,7 +73,7 @@ public:
 
     auto get_shader() const -> gfx::shader * override;
     auto get_sampler(const std::string &name) const -> gfx::texture * override;
-    auto get_sampler_by_index(const int index) const->gfx::texture * override;
+    auto get_sampler_by_index(const int index) const -> gfx::texture * override;
 
     auto sampler_has_alpha() const -> bool override;
 
