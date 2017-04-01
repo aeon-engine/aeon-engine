@@ -39,17 +39,12 @@ namespace resources
 class scene : public resource
 {
 public:
-    explicit scene(const std::shared_ptr<resource_wrapper> &wrapper, serialization::scene &&scene_data);
+    explicit scene(serialization::scene &&scene_data);
     virtual ~scene();
 
     const auto &get_scene_data() const
     {
         return scene_data_;
-    }
-
-    auto get_scene_resource_wrapper() const
-    {
-        return std::dynamic_pointer_cast<scene_resource_wrapper>(get_resource_wrapper());
     }
 
 private:

@@ -30,8 +30,8 @@ namespace aeon
 namespace resources
 {
 
-image::image(const std::shared_ptr<resource_wrapper> &wrapper, data::image &&image_data)
-    : resource(wrapper)
+image::image(data::image &&image_data)
+    : resource()
     , logger_(common::logger::get_singleton(), "Resources::Image")
     , image_data_(std::move(image_data))
 {

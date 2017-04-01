@@ -40,17 +40,12 @@ namespace resources
 class material : public resource
 {
 public:
-    explicit material(const std::shared_ptr<resource_wrapper> &wrapper, serialization::material &&material_data);
+    explicit material(serialization::material &&material_data);
     virtual ~material();
 
     const auto &get_material_data() const
     {
         return material_data_;
-    }
-
-    auto get_material_resource_wrapper() const
-    {
-        return std::dynamic_pointer_cast<material_resource_wrapper>(get_resource_wrapper());
     }
 
 private:

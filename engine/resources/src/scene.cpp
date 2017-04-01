@@ -30,8 +30,8 @@ namespace aeon
 namespace resources
 {
 
-scene::scene(const std::shared_ptr<resource_wrapper> &wrapper, serialization::scene &&scene_data)
-    : resource(wrapper)
+scene::scene(serialization::scene &&scene_data)
+    : resource()
     , logger_(common::logger::get_singleton(), "Resources::Scene")
     , scene_data_(std::move(scene_data))
 {

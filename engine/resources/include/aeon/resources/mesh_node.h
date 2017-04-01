@@ -39,9 +39,8 @@ namespace resources
 
 class mesh_node : public utility::noncopyable
 {
-    friend class mesh;
-
 public:
+    explicit mesh_node(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);
     ~mesh_node() = default;
 
     auto create_child(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
@@ -68,8 +67,6 @@ public:
     }
 
 private:
-    explicit mesh_node(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);
-
     std::string name_;
     glm::mat4 matrix_;
     std::vector<std::unique_ptr<mesh_node>> children_;

@@ -65,7 +65,7 @@ auto scene_codec::decode(const std::shared_ptr<scene_resource_wrapper> &wrapper)
 
     serialization::scene scene_file_data(json);
 
-    return std::make_shared<resources::scene>(wrapper, std::move(scene_file_data));
+    return std::make_shared<resources::scene>(std::move(scene_file_data));
 }
 
 } // namespace resources

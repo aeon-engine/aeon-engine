@@ -58,7 +58,8 @@ auto mesh_codec_assimp::decode(resource_manager & /*parent*/,
         throw assimp_codec_decode_exception();
     }
 
-    auto mesh_data = std::make_shared<mesh>(wrapper);
+    // TODO: The path is not a good name for the mesh.
+    auto mesh_data = std::make_shared<mesh>(wrapper->get_path());
     __decode_materials(scene, *mesh_data);
     __decode_submeshes(scene, *mesh_data);
     __decode_scene(scene, *mesh_data);

@@ -25,30 +25,18 @@
 
 #pragma once
 
-#include <aeon/resources/wrappers/resource_wrapper.h>
+#include <aeon/utility.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class resource
+class resource : public utility::noncopyable
 {
 public:
-    resource(const std::shared_ptr<resource_wrapper> &wrapper)
-        : wrapper_(wrapper)
-    {
-    }
-
+    resource() = default;
     virtual ~resource() = default;
-
-    const auto &get_resource_wrapper() const
-    {
-        return wrapper_;
-    }
-
-private:
-    std::shared_ptr<resource_wrapper> wrapper_;
 };
 
 } // namespace resources

@@ -83,7 +83,7 @@ auto atlas_codec::decode(resource_manager &parent, const std::shared_ptr<atlas_r
 
     AEON_LOG_DEBUG(logger_) << "Found " << atlas_data.size() << " regions in atlas resource." << std::endl;
 
-    return std::make_shared<resources::atlas>(wrapper, material_res_wrapper->get_path(), atlas_data);
+    return std::make_shared<resources::atlas>(material_res_wrapper->get_path(), atlas_data);
 }
 
 auto atlas_codec::__atlas_string_to_data(const std::string &str) const -> common::types::rectangle<float>

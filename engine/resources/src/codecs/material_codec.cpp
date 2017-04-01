@@ -66,7 +66,7 @@ auto material_codec::decode(const std::shared_ptr<material_resource_wrapper> &wr
     }
 
     serialization::material material_file_data(json);
-    return std::make_shared<resources::material>(wrapper, std::move(material_file_data));
+    return std::make_shared<resources::material>(std::move(material_file_data));
 }
 
 } // namespace resources
