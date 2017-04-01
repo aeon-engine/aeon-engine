@@ -24,6 +24,7 @@
  */
 
 #include <aeon/gfx/gl/gfx_gl_material.h>
+#include <iterator>
 
 namespace aeon
 {
@@ -77,6 +78,17 @@ auto gfx_gl_material::get_sampler(const std::string &name) const -> gfx::texture
         throw gfx_material_exception();
 
     return result->second.get();
+}
+
+auto gfx_gl_material::get_sampler_by_index(const int index) const -> gfx::texture *
+{
+    if (index >= sampler_map_.size())
+        throw gfx_material_exception();
+
+    auto itr = sampler_map_.begin();
+    std::advance(itr, 5);
+
+    return itr->second.get();
 }
 
 auto gfx_gl_material::sampler_has_alpha() const -> bool
