@@ -80,7 +80,9 @@ endif ()
 
 ################################################################################
 
-if (APPLE)
+option(AEON_TARGET_IOS "Build for iOS" OFF)
+
+if (APPLE AND NOT AEON_TARGET_IOS)
     message(STATUS "Building on Apple. Finding Frameworks.")
     find_library(COCOA_LIBRARY Cocoa)
     find_library(IOKIT_LIBRARY IOKit)
@@ -90,6 +92,23 @@ if (APPLE)
     message(STATUS "Cocoa: ${COCOA_LIBRARY}")
     message(STATUS "IOKit: ${IOKIT_LIBRARY}")
     message(STATUS "CoreVideo: ${COREVIDEO_LIBRARY}")
+endif ()
+
+if (AEON_TARGET_IOS)
+    message(STATUS "Building for iOS.")
+
+    set(XCODE_ATTRIBUTE_SDKROOT iphoneos)
+    set(CMAKE_OSX_SYSROOT iphoneos)
+    # TODO: use find_library for these.....
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Foundation -framework CoreGraphics -framework QuartzCore -framework UIKit -framework OpenGLES")
+    set(XCODE_ATTRIBUTE_GCC_UNROLL_LOOPS "YES")
+    set(XCODE_ATTRIBUTE_LLVM_VECTORIZE_LOOPS "YES")
+    set(XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer")
+    set(XCODE_ATTRIBUTE_GCC_PRECOMPILE_PREFIX_HEADER "YES")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "nl.robindegen.aeon.\${PRODUCT_NAME:rfc1034identifier}")
+    set(CMAKE_OSX_ARCHITECTURES "$(ARCHS_UNIVERSAL_IPHONE_OS)")
+    set(CMAKE_MACOSX_BUNDLE YES)
+    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO")
 endif ()
 
 if (MSVC)
@@ -128,6 +147,10 @@ set(AEON_GFX_RENDERER ${AEON_GFX_RENDERER_NAME_OPENGL3_3} CACHE STRING "GFX Rend
 set_property(CACHE AEON_GFX_RENDERER PROPERTY STRINGS ${AEON_GFX_RENDERER_NAME_OPENGL3_3} ${AEON_GFX_RENDERER_NAME_GLES2} ${AEON_GFX_RENDERER_NAME_NULL})
 
 if (AEON_GFX_RENDERER STREQUAL AEON_GFX_RENDERER_NAME_OPENGL3_3)
+    if (AEON_TARGET_IOS)
+        message(FATAL_ERROR "OpenGL 3.3 can not be used in combination with iOS.")
+    endif ()
+
     message(STATUS "Using OpenGL as graphics renderer.")
 
     find_package(OpenGL REQUIRED)
@@ -161,6 +184,10 @@ set(AEON_PLATFORM ${AEON_PLATFORM_NAME_GLFW} CACHE STRING "Platform backend")
 set_property(CACHE AEON_PLATFORM PROPERTY STRINGS ${AEON_PLATFORM_NAME_GLFW} ${AEON_PLATFORM_NAME_SDL} ${AEON_PLATFORM_NAME_RPI})
 
 if (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_GLFW)
+    if (AEON_TARGET_IOS)
+        message(FATAL_ERROR "GLFW can not be used in combination with iOS.")
+    endif ()
+
     message (STATUS "Using GLFW as platform.")
     set(AEON_PLATFORM_GLFW ON)
 elseif (AEON_PLATFORM STREQUAL AEON_PLATFORM_NAME_SDL)

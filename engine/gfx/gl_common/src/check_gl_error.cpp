@@ -25,14 +25,21 @@
 
 #include <aeon/gfx/gl_common/check_gl_error.h>
 #include <aeon/common/logger.h>
+#include <aeon/platform.h>
 
-#ifdef AEON_GFX_GL
+#if (defined(AEON_GFX_GL))
 #include <GL/glew.h>
-#endif
+#endif // (defined(AEON_GFX_GL))
 
-#ifdef AEON_GFX_GLES2
+#if (defined(AEON_GFX_GLES2))
+#if (defined(AEON_PLATFORM_RPI))
 #include <GLES2/gl2.h>
-#endif
+#endif // (defined(AEON_PLATFORM_RPI))
+
+#if (defined(AEON_PLATFORM_OS_OSX) || defined(AEON_PLATFORM_OS_IOS))
+#include <OpenGLES/AEGL.h>
+#endif // (defined(AEON_PLATFORM_OS_OSX) || defined(AEON_PLATFORM_OS_IOS))
+#endif // (defined(AEON_GFX_GLES2))
 
 namespace aeon
 {

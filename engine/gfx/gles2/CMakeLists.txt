@@ -70,6 +70,12 @@ if (AEON_PLATFORM_RPI)
     )
 endif ()
 
+if (APPLE)
+    target_link_libraries(aeon_engine_gfx_gles2
+        ${OPENGLES_LIBRARY}
+    )
+endif ()
+
 set_target_properties(
     aeon_engine_gfx_gles2 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"

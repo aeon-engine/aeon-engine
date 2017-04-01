@@ -70,6 +70,11 @@
 #cmakedefine AEON_PLATFORM_NULL
 
 /*!
+ * Define if we are building for IOS.
+ */
+#cmakedefine AEON_TARGET_IOS
+
+/*!
  * Define if OpenGL and GLES error checking should be enabled.
  * Warning: This is very slow, only use for debugging purposes.
  */
