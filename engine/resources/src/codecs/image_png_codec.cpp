@@ -76,15 +76,7 @@ public:
 
     ~png_read_structs()
     {
-        // TODO: What happens if png_create_read_struct fails?
-        // Can we call png_destroy_read_struct with null pointers?
-        // This is unclear in the PNG documentation and examples.
-        // Does this mean we leak memory in that case?
-        if (png_ptr_ && info_ptr_ && end_info_)
-        {
-            png_destroy_read_struct(&png_ptr_, &info_ptr_, &end_info_);
-        }
-
+        png_destroy_read_struct(&png_ptr_, &info_ptr_, &end_info_);
         png_ptr_ = nullptr;
         info_ptr_ = nullptr;
         end_info_ = nullptr;
