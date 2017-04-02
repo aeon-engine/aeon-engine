@@ -49,10 +49,8 @@ source_group(resources FILES ${AEON_ENGINE_RESOURCES_SOURCES})
 
 set (AEON_ENGINE_RESOURCE_PROVIDER_SOURCES
     include/aeon/resources/providers/filesystem_provider.h
-    include/aeon/resources/providers/resourcefile_provider.h
     include/aeon/resources/providers/resource_provider.h
     src/providers/filesystem_provider.cpp
-    src/providers/resourcefile_provider.cpp
 )
 
 source_group(resources\\providers FILES ${AEON_ENGINE_RESOURCE_PROVIDER_SOURCES})
