@@ -74,7 +74,7 @@ private:
         return platform_manager_;
     }
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 
     GLFWwindow *window_;
     glfw_platform_manager &platform_manager_;

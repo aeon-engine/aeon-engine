@@ -26,9 +26,9 @@
 #pragma once
 
 #include <aeon/gfx/gfx_shader_manager.h>
-#include <GL/glew.h>
-#include <aeon/common/logger.h>
+#include <aeon/logger/logger.h>
 #include <aeon/common/exception.h>
+#include <GL/glew.h>
 
 namespace aeon
 {
@@ -53,7 +53,7 @@ private:
     auto __load_gl_shader(const std::string &source, GLenum type) const -> GLuint;
     auto __link_gl_program(GLuint vertexshader, GLuint fragmentshader) const -> GLuint;
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 };
 
 } // namespace gl

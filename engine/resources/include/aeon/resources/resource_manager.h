@@ -31,7 +31,6 @@
 #include <aeon/resources/exceptions.h>
 #include <aeon/resources/codecs/codec_manager.h>
 #include <aeon/resources/wrappers/resource_wrapper.h>
-#include <aeon/utility.h>
 #include <aeon/resources/codecs/codec_manager.h>
 #include <aeon/io/io_interface.h>
 #include <aeon/resources/wrappers/atlas_resource_wrapper.h>

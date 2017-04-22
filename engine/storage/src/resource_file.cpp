@@ -25,7 +25,7 @@
 
 #include <aeon/io/io_filesystem_interface.h>
 #include <aeon/storage/resource_file.h>
-#include <aeon/platform.h>
+#include <aeon/common/compilers.h>
 #include <string.h>
 #include <cstdint>
 

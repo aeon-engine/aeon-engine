@@ -54,7 +54,6 @@ target_link_libraries(aeon_engine_gfx_gles2
     aeon_engine_gfx_core
     aeon_engine_gfx_gl_common
     aeon_engine_input
-    aeon
     glm
 )
 

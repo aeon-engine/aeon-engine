@@ -25,9 +25,10 @@
 
 #pragma once
 
+#include <aeon/logger/logger.h>
 #include <aeon/io/io_file_open_mode.h>
 #include <aeon/io/io_file_interface.h>
-#include <aeon/streams.h>
+#include <aeon/streams/file_stream.h>
 #include <aeon/common/logger.h>
 #include <memory>
 #include <string>
@@ -65,7 +66,7 @@ private:
 
     logger::logger logger_;
 
-    streams::file_stream_ptr stream_;
+    std::shared_ptr<streams::file_stream> stream_;
 };
 
 } // namespace generic

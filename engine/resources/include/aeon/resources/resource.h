@@ -25,14 +25,14 @@
 
 #pragma once
 
-#include <aeon/utility.h>
+#include <aeon/common/noncopyable.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class resource : public utility::noncopyable
+class resource : public common::noncopyable
 {
 public:
     resource() = default;

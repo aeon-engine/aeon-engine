@@ -25,19 +25,20 @@
 
 #pragma once
 
+#include <aeon/resources/submesh.h>
+#include <aeon/utility/container.h>
+#include <aeon/common/noncopyable.h>
+#include <glm/mat4x4.hpp>
 #include <string>
 #include <vector>
 #include <memory>
-#include <glm/mat4x4.hpp>
-#include <aeon/resources/submesh.h>
-#include <aeon/utility.h>
 
 namespace aeon
 {
 namespace resources
 {
 
-class mesh_node : public utility::noncopyable
+class mesh_node : public common::noncopyable
 {
 public:
     explicit mesh_node(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);

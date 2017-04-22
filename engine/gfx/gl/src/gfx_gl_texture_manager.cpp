@@ -25,9 +25,10 @@
 
 #include <aeon/gfx/gl/gfx_gl_texture_manager.h>
 #include <aeon/gfx/gl/gfx_gl_texture.h>
+#include <aeon/gfx/gl_common/check_gl_error.h>
 #include <aeon/data/image.h>
 #include <GL/glew.h>
-#include <aeon/gfx/gl_common/check_gl_error.h>
+#include <algorithm>
 
 namespace aeon
 {

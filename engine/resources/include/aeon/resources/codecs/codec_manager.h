@@ -26,7 +26,6 @@
 #pragma once
 
 #include <aeon/resources/exceptions.h>
-#include <aeon/utility.h>
 #include <aeon/resources/resource_encoding.h>
 #include <aeon/resources/resource_type.h>
 #include <aeon/resources/codecs/codec.h>

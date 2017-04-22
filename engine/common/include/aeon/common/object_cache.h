@@ -25,11 +25,13 @@
 
 #pragma once
 
-#include <type_traits>
+#include <aeon/utility/container.h>
 #include <aeon/common/exception.h>
 #include <aeon/common/cached_object.h>
-#include <aeon/utility.h>
+#include <aeon/common/noncopyable.h>
 #include <map>
+#include <type_traits>
+#include <memory>
 
 namespace aeon
 {
@@ -48,7 +50,7 @@ DEFINE_EXCEPTION_OBJECT(object_cache_name_exception, object_cache_exception,
  * This class does not take ownership of the cached objects, as it merely stores weak pointers.
  */
 template <typename T>
-class object_cache : utility::noncopyable
+class object_cache : common::noncopyable
 {
 public:
     using cached_objects = std::map<std::string, std::weak_ptr<T>>;

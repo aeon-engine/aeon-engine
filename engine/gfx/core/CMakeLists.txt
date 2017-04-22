@@ -60,7 +60,7 @@ target_link_libraries(aeon_engine_gfx_core
     aeon_engine_common
     aeon_engine_data
     aeon_engine_resources
-    aeon
+    aeon_logger
     glm
 )
 

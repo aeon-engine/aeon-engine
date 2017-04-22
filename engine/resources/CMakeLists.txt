@@ -110,7 +110,9 @@ target_link_libraries(aeon_engine_resources
     aeon_engine_data
     aeon_engine_io
     aeon_engine_serialization
-    aeon
+    aeon_common
+    aeon_logger
+    aeon_utility
     glm
     assimp
     png_static

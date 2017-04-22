@@ -23,11 +23,13 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/platform.h>
-#include <aeon/streams.h>
 #include <aeon/resources/codecs/image_png_codec.h>
 #include <aeon/resources/wrappers/image_resource_wrapper.h>
+#include <aeon/streams/memory_stream.h>
+#include <aeon/common/noncopyable.h>
+#include <aeon/common/compilers.h>
 #include <png.h>
+#include <array>
 
 #define PNG_HEADER_SIGNATURE_SIZE 8
 
@@ -37,7 +39,7 @@ namespace resources
 {
 
 // RAII wrapper for png_destroy_read_struct
-class png_read_structs : public utility::noncopyable
+class png_read_structs : public common::noncopyable
 {
 public:
     explicit png_read_structs(logger::logger &logger)

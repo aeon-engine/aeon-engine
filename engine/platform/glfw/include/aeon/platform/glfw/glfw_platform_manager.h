@@ -27,7 +27,7 @@
 
 #include <aeon/platform/platform_manager.h>
 #include <aeon/platform/glfw/glfw_platform_monitor.h>
-#include <aeon/common/logger.h>
+#include <aeon/logger/logger.h>
 
 namespace aeon
 {
@@ -53,7 +53,7 @@ public:
 private:
     void __initialize_glfw() const;
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
     bool initialized_;
 
     std::vector<std::unique_ptr<glfw_monitor>> monitors_;

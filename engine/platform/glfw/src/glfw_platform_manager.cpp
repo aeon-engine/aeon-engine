@@ -27,7 +27,6 @@
 #include <aeon/platform/glfw/glfw_platform_window.h>
 #include <aeon/platform/platform_window_settings.h>
 #include <GLFW/glfw3.h>
-#include <aeon/utility.h>
 
 namespace aeon
 {

@@ -38,7 +38,8 @@ target_link_libraries(aeon_engine_assets
     aeon_engine_resources
     aeon_engine_gfx_core
     aeon_engine_scene_core
-    aeon
+    aeon_utility
+    aeon_logger
 )
 
 target_include_directories(aeon_engine_assets

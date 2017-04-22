@@ -25,6 +25,7 @@
 
 #include <aeon/gfx/gl_common/check_gl_error.h>
 #include <aeon/common/logger.h>
+#include <aeon/logger/logger.h>
 
 #ifdef AEON_GFX_GL
 #include <GL/glew.h>
@@ -45,7 +46,7 @@ namespace gl_common
 void check_gl_error(const char *file, int line)
 {
     auto count = 0;
-    aeon::logger::logger logger(common::logger::get_singleton(), "Gfx::GL::Debug");
+    logger::logger logger(common::logger::get_singleton(), "Gfx::GL::Debug");
 
     auto result = glGetError();
     while (result != GL_NO_ERROR)

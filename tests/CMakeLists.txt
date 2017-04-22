@@ -30,6 +30,6 @@ add_unit_test_suite(
         test_rectangle.cpp
         test_resource_file.cpp
         test_serializers.cpp
-    LIBRARIES aeon_engine
+    LIBRARIES aeon_engine aeon_common aeon_streams
     FOLDER engine/tests
 )

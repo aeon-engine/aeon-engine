@@ -24,7 +24,8 @@
  */
 
 #include <subtype_code_generator.h>
-#include <aeon/utility.h>
+#include <aeon/common/string.h>
+#include <cassert>
 
 namespace aeon
 {
@@ -42,8 +43,8 @@ auto subtype_code_generator::generate_cpp_deserialize(const object_member &objec
         %member_name% = std::make_unique<%subtype_name%>(json["%member_name%"]);
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
-    utility::string::replace(code, "%subtype_name%", object_member.get_type());
+    common::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%subtype_name%", object_member.get_type());
     return code;
 }
 
@@ -64,8 +65,8 @@ auto subtype_code_generator::generate_cpp_deserialize_array(const object_member 
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
-    utility::string::replace(code, "%subtype_name%", object_member.get_type());
+    common::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%subtype_name%", object_member.get_type());
     return code;
 }
 
@@ -90,7 +91,7 @@ auto subtype_code_generator::generate_cpp_deserialize_baseclass_array(const obje
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
 
     std::string code2 = R"code(
             if (%member_name%_subclass_typename == "%subclass_name%")
@@ -104,12 +105,12 @@ auto subtype_code_generator::generate_cpp_deserialize_baseclass_array(const obje
     for (auto &subclass : object_member.get_subclasses())
     {
         auto append_factory_code = code2;
-        utility::string::replace(append_factory_code, "%member_name%", object_member.get_name());
-        utility::string::replace(append_factory_code, "%subclass_name%", subclass);
+        common::string::replace(append_factory_code, "%member_name%", object_member.get_name());
+        common::string::replace(append_factory_code, "%subclass_name%", subclass);
         factory_code += append_factory_code;
     }
 
-    utility::string::replace(code, "%factory_code%", factory_code);
+    common::string::replace(code, "%factory_code%", factory_code);
 
     return code;
 }
@@ -123,7 +124,7 @@ auto subtype_code_generator::generate_cpp_serialize(const object_member &object_
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -142,7 +143,7 @@ auto subtype_code_generator::generate_cpp_serialize_array(const object_member &o
     json_obj["%member_name%"] = %member_name%_item_array;
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -165,7 +166,7 @@ auto subtype_code_generator::generate_cpp_serialize_baseclass_array(const object
     json_obj["%member_name%"] = %member_name%_item_array;
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 

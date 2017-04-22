@@ -25,8 +25,8 @@
 
 #include <parser.h>
 #include <generator_objects.h>
-#include <aeon/utility.h>
-#include <aeon/streams.h>
+#include <aeon/streams/file_stream.h>
+#include <aeon/common/string.h>
 #include <iostream>
 #include <stdexcept>
 
@@ -37,7 +37,7 @@ namespace serialization
 
 auto parser::parse_object_files() const -> std::vector<object>
 {
-    auto object_paths = utility::string::split(AEON_ENGINE_SERIALIZATION_GENERATOR_DATA, ';');
+    auto object_paths = common::string::split(AEON_ENGINE_SERIALIZATION_GENERATOR_DATA, ';');
 
     auto objects = std::vector<object>();
     for (auto &object : object_paths)

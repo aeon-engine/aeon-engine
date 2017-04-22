@@ -24,7 +24,7 @@
  */
 
 #include <code_generators/code_generator_float.h>
-#include <aeon/utility.h>
+#include <aeon/common/string.h>
 #include <string>
 
 namespace aeon
@@ -44,7 +44,7 @@ auto code_generator_float::generate_required_header_includes() const -> std::set
 
 auto code_generator_float::generate_cpp_type_name() const -> std::string
 {
-    return "aeon::utility::optional<float>";
+    return "aeon::common::optional<float>";
 }
 
 auto code_generator_float::generate_cpp_array_type_name() const -> std::string
@@ -59,7 +59,7 @@ auto code_generator_float::generate_deserialization_code(const object_member &ob
         %member_name% = static_cast<float>(json["%member_name%"].number_value());
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -78,7 +78,7 @@ auto code_generator_float::generate_array_deserialization_code(const object_memb
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -91,7 +91,7 @@ auto code_generator_float::generate_serialization_code(const object_member &obje
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -101,7 +101,7 @@ auto code_generator_float::generate_array_serialization_code(const object_member
     json_obj["%member_name%"] = json11::Json::array { %member_name% };
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 

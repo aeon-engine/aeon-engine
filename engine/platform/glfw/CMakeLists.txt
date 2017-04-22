@@ -38,7 +38,7 @@ add_library(aeon_engine_platform_glfw STATIC
 
 target_link_libraries(aeon_engine_platform_glfw
     aeon_engine_platform_core
-    aeon
+    aeon_logger
     glfw
     glm
 )

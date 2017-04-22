@@ -26,7 +26,7 @@
 #include <aeon/resources/resource_manager.h>
 #include <aeon/resources/wrappers/resource_wrapper.h>
 #include <aeon/resources/resource_type.h>
-#include <aeon/utility/literals.h>
+#include <aeon/common/literals.h>
 #include <memory>
 #include <string>
 

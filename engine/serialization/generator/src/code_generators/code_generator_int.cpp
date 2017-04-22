@@ -24,7 +24,7 @@
  */
 
 #include <code_generators/code_generator_int.h>
-#include <aeon/utility.h>
+#include <aeon/common/string.h>
 #include <string>
 
 namespace aeon
@@ -44,7 +44,7 @@ auto code_generator_int::generate_required_header_includes() const -> std::set<s
 
 auto code_generator_int::generate_cpp_type_name() const -> std::string
 {
-    return "aeon::utility::optional<int>";
+    return "aeon::common::optional<int>";
 }
 
 auto code_generator_int::generate_cpp_array_type_name() const -> std::string
@@ -59,7 +59,7 @@ auto code_generator_int::generate_deserialization_code(const object_member &obje
         %member_name% = json["%member_name%"].int_value();
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -77,7 +77,7 @@ auto code_generator_int::generate_array_deserialization_code(const object_member
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -90,7 +90,7 @@ auto code_generator_int::generate_serialization_code(const object_member &object
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -100,7 +100,7 @@ auto code_generator_int::generate_array_serialization_code(const object_member &
     json_obj["%member_name%"] = json11::Json::array { %member_name% };
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 

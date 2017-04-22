@@ -24,7 +24,7 @@
  */
 
 #include <code_generators/code_generator_rectangle.h>
-#include <aeon/utility.h>
+#include <aeon/common/string.h>
 #include <string>
 #include <stdexcept>
 
@@ -45,7 +45,7 @@ auto code_generator_rectangle::generate_required_header_includes() const -> std:
 
 auto code_generator_rectangle::generate_cpp_type_name() const -> std::string
 {
-    return "aeon::utility::optional<aeon::common::types::rectangle<float>>";
+    return "aeon::common::optional<aeon::common::types::rectangle<float>>";
 }
 
 auto code_generator_rectangle::generate_cpp_array_type_name() const -> std::string
@@ -68,7 +68,7 @@ auto code_generator_rectangle::generate_deserialization_code(const object_member
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -86,7 +86,7 @@ auto code_generator_rectangle::generate_serialization_code(const object_member &
         json_obj["%member_name%"] = json11::Json::array { %member_name%_value.left(), %member_name%_value.top(), %member_name%_value.right(), %member_name%_value.bottom() };
     }
 )code";
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 

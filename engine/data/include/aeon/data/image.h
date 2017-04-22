@@ -25,16 +25,18 @@
 
 #pragma once
 
-#include <aeon/utility.h>
-#include <memory>
+#include <aeon/common/noncopyable.h>
 #include <glm/vec2.hpp>
+#include <memory>
+#include <vector>
+#include <cstdint>
 
 namespace aeon
 {
 namespace data
 {
 
-class image : utility::noncopyable
+class image : common::noncopyable
 {
 public:
     enum class pixel_format

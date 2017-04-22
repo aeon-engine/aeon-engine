@@ -25,10 +25,10 @@
 
 #pragma once
 
+#include <aeon/logger/logger.h>
 #include <aeon/resources/providers/resource_provider.h>
 #include <aeon/resources/resource_encoding.h>
 #include <aeon/resources/exceptions.h>
-#include <aeon/common/logger.h>
 #include <vector>
 #include <string>
 

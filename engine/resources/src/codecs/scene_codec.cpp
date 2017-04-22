@@ -23,9 +23,6 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/platform.h>
-#include <aeon/streams.h>
-#include <aeon/utility.h>
 #include <aeon/resources/resource_manager.h>
 #include <aeon/resources/codecs/scene_codec.h>
 #include <aeon/resources/wrappers/scene_resource_wrapper.h>

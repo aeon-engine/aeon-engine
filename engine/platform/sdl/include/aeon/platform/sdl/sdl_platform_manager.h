@@ -26,7 +26,7 @@
 #pragma once
 
 #include <aeon/platform/platform_manager.h>
-#include <aeon/common/logger.h>
+#include <aeon/logger/logger.h>
 
 namespace aeon
 {
@@ -53,7 +53,7 @@ private:
     void __initialize_sdl() const;
     auto __handle_events() const -> bool;
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
     bool initialized_;
 
     bool running_;

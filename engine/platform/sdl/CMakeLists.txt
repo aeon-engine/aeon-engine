@@ -38,8 +38,8 @@ add_library(aeon_engine_platform_sdl STATIC
 
 target_link_libraries(aeon_engine_platform_sdl
     aeon_engine_platform_core
-    aeon
     SDL2-static
+    aeon_logger
     glm
 )
 

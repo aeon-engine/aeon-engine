@@ -26,7 +26,7 @@
 #pragma once
 #include <aeon/platform/platform_window.h>
 #include <aeon/io/io_interface.h>
-#include <aeon/common/logger.h>
+#include <aeon/logger/logger.h>
 #include <memory>
 
 #include <SDL.h>
@@ -66,7 +66,7 @@ private:
         return platform_manager_;
     }
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
     SDL_Window *window_;
     SDL_GLContext context_;
     sdl_platform_manager &platform_manager_;

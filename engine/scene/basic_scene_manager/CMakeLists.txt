@@ -34,7 +34,6 @@ add_library(aeon_engine_basic_scene_manager STATIC
 
 target_link_libraries(aeon_engine_basic_scene_manager
     aeon_engine_scene_core
-    aeon
 )
 
 target_include_directories(aeon_engine_basic_scene_manager

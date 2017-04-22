@@ -27,7 +27,7 @@
 
 #include <aeon/gfx/gfx_buffer.h>
 #include <aeon/common/exception.h>
-#include <aeon/common/logger.h>
+#include <aeon/logger/logger.h>
 #include <GL/glew.h>
 #include <memory>
 
@@ -56,7 +56,7 @@ private:
     auto __buffer_type_as_gl_enum() const -> GLenum;
     auto __buffer_usage_as_gl_enum(buffer_usage usage) const -> GLenum;
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 
     GLuint handle_;
     bool has_data_;

@@ -25,9 +25,9 @@
 
 #pragma once
 
-#include <aeon/utility.h>
 #include <aeon/scene/sprite.h>
 #include <aeon/common/types/rectangle.h>
+#include <aeon/common/noncopyable.h>
 #include <map>
 #include <vector>
 #include <memory>
@@ -56,7 +56,7 @@ enum class animation_sequence_type
     up_down
 };
 
-class sprite_animation_settings : utility::noncopyable
+class sprite_animation_settings : common::noncopyable
 {
     friend class animated_sprite;
 

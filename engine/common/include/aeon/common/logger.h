@@ -25,9 +25,10 @@
 
 #pragma once
 
-#include <aeon/logger.h>
-#include <aeon/utility.h>
-#include <aeon/streams.h>
+#include <aeon/logger/simple_sink_backend.h>
+#include <aeon/logger/io_stream_sink.h>
+#include <aeon/common/singleton.h>
+#include <aeon/streams/io_stream.h>
 
 namespace aeon
 {
@@ -37,7 +38,7 @@ namespace common
 /*!
  * This class is the main aeon engine logger. Every subsystem will log through this class.
  */
-class logger : public aeon::logger::simple_sink_backend, public utility::singleton<logger>
+class logger : public aeon::logger::simple_sink_backend, public common::singleton<logger>
 {
 public:
     /*!

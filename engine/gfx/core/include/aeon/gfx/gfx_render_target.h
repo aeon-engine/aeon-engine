@@ -25,11 +25,11 @@
 
 #pragma once
 
-#include <aeon/utility.h>
 #include <aeon/gfx/gfx_frame_listener.h>
 #include <aeon/gfx/gfx_viewport.h>
 #include <aeon/gfx/gfx_camera.h>
-#include <aeon/common/logger.h>
+#include <aeon/logger/logger.h>
+#include <aeon/utility/listener_subject.h>
 #include <memory>
 #include <vector>
 
@@ -85,7 +85,7 @@ protected:
 private:
     void __sort_viewports_by_zorder();
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
     std::vector<std::shared_ptr<viewport>> viewports_;
 };
 

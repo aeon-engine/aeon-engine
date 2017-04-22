@@ -35,7 +35,7 @@ add_library(aeon_engine_gfx_gl_common STATIC
 target_link_libraries(aeon_engine_gfx_gl_common
     aeon_engine_common
     aeon_engine_gfx_core
-    aeon
+    aeon_logger
 )
 
 target_include_directories(aeon_engine_gfx_gl_common

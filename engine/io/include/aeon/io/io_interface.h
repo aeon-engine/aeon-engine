@@ -27,7 +27,7 @@
 
 #include <aeon/io/io_filesystem_interface.h>
 #include <aeon/common/exception.h>
-#include <aeon/utility.h>
+#include <aeon/common/noncopyable.h>
 #include <memory>
 
 namespace aeon
@@ -35,7 +35,7 @@ namespace aeon
 namespace io
 {
 
-class io_interface : utility::noncopyable
+class io_interface : common::noncopyable
 {
 public:
     explicit io_interface(std::unique_ptr<io_filesystem_interface> filesystem_interface)

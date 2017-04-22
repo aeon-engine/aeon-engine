@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <aeon/utility.h>
+#include <aeon/common/noncopyable.h>
 #include <string>
 
 namespace aeon
@@ -33,7 +33,7 @@ namespace aeon
 namespace data
 {
 
-class shader : utility::noncopyable
+class shader : common::noncopyable
 {
 public:
     explicit shader(const std::string &vertex_source, const std::string &fragment_source);

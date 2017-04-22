@@ -36,7 +36,7 @@ add_library(aeon_engine_input STATIC
 )
 
 target_link_libraries(aeon_engine_input
-    aeon
+    aeon_utility
 )
 
 target_include_directories(aeon_engine_input

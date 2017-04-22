@@ -23,12 +23,12 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/platform.h>
-#include <aeon/streams.h>
-#include <aeon/utility.h>
 #include <aeon/resources/resource_manager.h>
 #include <aeon/resources/codecs/atlas_codec.h>
 #include <aeon/resources/wrappers/atlas_resource_wrapper.h>
+#include <aeon/utility/configfile.h>
+#include <aeon/streams/memory_stream.h>
+#include <aeon/common/string.h>
 
 namespace aeon
 {
@@ -88,7 +88,7 @@ auto atlas_codec::decode(resource_manager &parent, const std::shared_ptr<atlas_r
 
 auto atlas_codec::__atlas_string_to_data(const std::string &str) const -> common::types::rectangle<float>
 {
-    auto items = utility::string::split(str, ',');
+    auto items = common::string::split(str, ',');
 
     if (items.size() != 4)
     {

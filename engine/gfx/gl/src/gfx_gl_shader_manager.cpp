@@ -25,8 +25,9 @@
 
 #include <aeon/gfx/gl/gfx_gl_shader_manager.h>
 #include <aeon/gfx/gl/gfx_gl_shader.h>
-#include <iostream>
 #include <aeon/gfx/gl_common/check_gl_error.h>
+#include <aeon/common/logger.h>
+#include <iostream>
 
 namespace aeon
 {

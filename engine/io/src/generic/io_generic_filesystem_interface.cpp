@@ -25,8 +25,7 @@
 
 #include <aeon/io/generic/io_generic_filesystem_interface.h>
 #include <aeon/io/generic/io_generic_file_interface.h>
-#include <aeon/filesystem.h>
-#include <aeon/utility.h>
+#include <aeon/filesystem/filesystem.h>
 
 namespace aeon
 {

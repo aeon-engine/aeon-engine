@@ -59,7 +59,7 @@ add_library(aeon_engine_scene_core STATIC
 target_link_libraries(aeon_engine_scene_core
     aeon_engine_common
     aeon_engine_gfx_core
-    aeon
+    aeon_common
 )
 
 target_include_directories(aeon_engine_scene_core

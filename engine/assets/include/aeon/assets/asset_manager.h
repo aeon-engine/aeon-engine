@@ -34,6 +34,7 @@
 #include <aeon/scene/scene_manager.h>
 #include <aeon/scene/scene_node.h>
 #include <aeon/common/object_cache.h>
+#include <aeon/common/noncopyable.h>
 
 namespace aeon
 {
@@ -47,7 +48,7 @@ namespace assets
  * on top of the resource manager to prevent a circular dependency between the resource manager and the serveral
  * subsystems like gfx and audio.
  */
-class asset_manager : utility::noncopyable
+class asset_manager : common::noncopyable
 {
 public:
     /*!

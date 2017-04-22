@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <aeon/logger/logger.h>
 #include <aeon/resources/exceptions.h>
 #include <aeon/resources/resource_type.h>
 #include <aeon/resources/resource_encoding.h>
@@ -82,7 +83,7 @@ protected:
     }
 
 private:
-    aeon::logger::logger logger_;
+    logger::logger logger_;
     resource_manager &parent_;
     std::string path_;
     std::weak_ptr<resource_provider> provider_;

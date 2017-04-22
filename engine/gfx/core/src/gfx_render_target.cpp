@@ -24,6 +24,7 @@
  */
 
 #include <aeon/gfx/gfx_render_target.h>
+#include <aeon/common/logger.h>
 #include <algorithm>
 
 namespace aeon

@@ -72,7 +72,6 @@ target_link_libraries(aeon_engine
     aeon_engine_assets
     aeon_engine_input
     aeon_engine_platform_core
-    aeon
     glm
     ${OPENGL_LIBRARIES}
 )

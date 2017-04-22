@@ -24,7 +24,7 @@
  */
 
 #include <code_generators/code_generator_vec3.h>
-#include <aeon/utility.h>
+#include <aeon/common/string.h>
 #include <string>
 #include <stdexcept>
 
@@ -45,7 +45,7 @@ auto code_generator_vec3::generate_required_header_includes() const -> std::set<
 
 auto code_generator_vec3::generate_cpp_type_name() const -> std::string
 {
-    return "aeon::utility::optional<glm::vec3>";
+    return "aeon::common::optional<glm::vec3>";
 }
 
 auto code_generator_vec3::generate_cpp_array_type_name() const -> std::string
@@ -67,7 +67,7 @@ auto code_generator_vec3::generate_deserialization_code(const object_member &obj
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -86,7 +86,7 @@ auto code_generator_vec3::generate_serialization_code(const object_member &objec
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 

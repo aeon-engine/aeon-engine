@@ -46,7 +46,9 @@ add_library(aeon_engine_io STATIC
 )
 
 target_link_libraries(aeon_engine_io
-    aeon
+    aeon_streams
+    aeon_logger
+    aeon_filesystem
     aeon_engine_common
 )
 

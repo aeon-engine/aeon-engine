@@ -76,7 +76,6 @@ message(STATUS "+---------------------------------------------------------------
 message(STATUS "| Aeon                                                                         |")
 message(STATUS "+------------------------------------------------------------------------------+")
 add_subdirectory(libaeon/src)
-add_subdirectory(libaeon/tests)
 
 message(STATUS "+------------------------------------------------------------------------------+")
 message(STATUS "| Finished submodules                                                          |")

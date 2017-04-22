@@ -24,7 +24,7 @@
  */
 
 #include <code_generators/code_generator_kvstring.h>
-#include <aeon/utility.h>
+#include <aeon/common/string.h>
 #include <string>
 #include <stdexcept>
 
@@ -74,7 +74,7 @@ auto code_generator_kvstring::generate_array_deserialization_code(const object_m
     }
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 
@@ -95,7 +95,7 @@ auto code_generator_kvstring::generate_array_serialization_code(const object_mem
     json_obj["%member_name%"] = json11::Json::array { %member_name%_item_obj };
 )code";
 
-    utility::string::replace(code, "%member_name%", object_member.get_name());
+    common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
 

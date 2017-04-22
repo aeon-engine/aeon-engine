@@ -24,8 +24,9 @@
  */
 
 #include <aeon/gfx/gl/gfx_gl_shader.h>
-#include <glm/gtc/type_ptr.hpp>
 #include <aeon/gfx/gl_common/check_gl_error.h>
+#include <aeon/common/logger.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace aeon
 {

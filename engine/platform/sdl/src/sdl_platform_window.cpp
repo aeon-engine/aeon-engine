@@ -25,6 +25,7 @@
 
 #include <aeon/platform/sdl/sdl_platform_window.h>
 #include <aeon/platform/sdl/sdl_platform_manager.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {

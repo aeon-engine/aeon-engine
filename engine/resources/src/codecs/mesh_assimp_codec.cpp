@@ -23,7 +23,6 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/streams.h>
 #include <aeon/resources/codecs/mesh_assimp_codec.h>
 #include <aeon/resources/wrappers/mesh_resource_wrapper.h>
 #include <assimp/Importer.hpp>

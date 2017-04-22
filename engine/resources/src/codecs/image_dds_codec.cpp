@@ -23,11 +23,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/platform.h>
-#include <aeon/streams.h>
 #include <aeon/resources/codecs/image_dds_codec.h>
 #include <aeon/resources/wrappers/image_resource_wrapper.h>
-#include <aeon/platform.h>
+#include <aeon/streams/memory_stream.h>
+#include <aeon/common/compilers.h>
 
 namespace aeon
 {

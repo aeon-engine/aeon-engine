@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <aeon/logger/logger.h>
 #include <aeon/io/io_file_interface.h>
 #include <aeon/io/io_filesystem_interface.h>
 #include <aeon/io/io_file_open_mode.h>

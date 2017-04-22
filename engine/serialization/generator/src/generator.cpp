@@ -24,12 +24,7 @@
  */
 
 #include <generator.h>
-#include <aeon/utility.h>
-#include <aeon/streams.h>
-#include <aeon/filesystem.h>
 #include <generator_objects.h>
-#include <set>
-
 #include <code_generators/code_generator_color.h>
 #include <code_generators/code_generator_float.h>
 #include <code_generators/code_generator_int.h>
@@ -38,6 +33,13 @@
 #include <code_generators/code_generator_string.h>
 #include <code_generators/code_generator_vec3.h>
 #include <code_generators/code_generator_rectangle.h>
+
+#include <aeon/streams/file_stream.h>
+#include <aeon/filesystem/filesystem.h>
+#include <aeon/common/string.h>
+
+#include <set>
+#include <iostream>
 
 #define register_code_generator(type)                                                                                  \
     {                                                                                                                  \
@@ -79,13 +81,13 @@ void generator::generate_code(const std::vector<object> &objects) const
     }
 
     auto cpp_code = __generate_base_code();
-    utility::string::replace(cpp_code, "%body%", cpp_body_code);
+    common::string::replace(cpp_code, "%body%", cpp_body_code);
     __write_cpp_code_if_changed(cpp_code);
 
     auto header_code = __generate_base_header_code();
-    utility::string::replace(header_code, "%additional_includes%", __generate_additional_include_code());
-    utility::string::replace(header_code, "%forward_declare%", __generate_forward_declare_code(objects));
-    utility::string::replace(header_code, "%body%", header_body_code);
+    common::string::replace(header_code, "%additional_includes%", __generate_additional_include_code());
+    common::string::replace(header_code, "%forward_declare%", __generate_forward_declare_code(objects));
+    common::string::replace(header_code, "%body%", header_body_code);
     __write_header_code_if_changed(header_code);
 }
 
@@ -162,7 +164,7 @@ auto generator::__generate_base_header_code() const -> std::string
 
 #pragma once
 
-#include <aeon/utility.h>
+#include <aeon/common/optional.h>
 #include <json11.hpp>
 #include <memory>
 
@@ -221,16 +223,16 @@ auto %object_name%::to_json() const -> json11::Json
 )code";
 
     if (!obj.has_base_class())
-        utility::string::replace(code, "%object_initializer_list%", "");
+        common::string::replace(code, "%object_initializer_list%", "");
     else
-        utility::string::replace(code, "%object_initializer_list%", ": " + obj.get_base_class() + "(json)");
+        common::string::replace(code, "%object_initializer_list%", ": " + obj.get_base_class() + "(json)");
 
-    utility::string::replace(code, "%object_name%", obj.get_name());
-    utility::string::replace(code, "%deserialize_members_code%", __generate_cpp_code_for_member_deserialization(obj));
-    utility::string::replace(code, "%serialize_members_code%", __generate_cpp_code_for_member_serialization(obj));
+    common::string::replace(code, "%object_name%", obj.get_name());
+    common::string::replace(code, "%deserialize_members_code%", __generate_cpp_code_for_member_deserialization(obj));
+    common::string::replace(code, "%serialize_members_code%", __generate_cpp_code_for_member_serialization(obj));
 
-    utility::string::replace(code, "%move_construct_code%", __generate_move_construct_code_for_object(obj));
-    utility::string::replace(code, "%move_assign_code%", __generate_move_assignment_code_for_object(obj));
+    common::string::replace(code, "%move_construct_code%", __generate_move_construct_code_for_object(obj));
+    common::string::replace(code, "%move_assign_code%", __generate_move_assignment_code_for_object(obj));
 
     return code;
 }
@@ -284,12 +286,12 @@ auto generator::__generate_cpp_code_for_member_serialization(const object &obj) 
     json11::Json::object json_obj = %base_class_name%::to_json().object_items();
 )code";
 
-        utility::string::replace(base_class_code, "%base_class_name%", obj.get_base_class());
-        utility::string::replace(code, "%pre_serialize_code%", base_class_code);
+        common::string::replace(base_class_code, "%base_class_name%", obj.get_base_class());
+        common::string::replace(code, "%pre_serialize_code%", base_class_code);
     }
     else
     {
-        utility::string::replace(code, "%pre_serialize_code%", "json11::Json::object json_obj;");
+        common::string::replace(code, "%pre_serialize_code%", "json11::Json::object json_obj;");
     }
 
     auto serialize_code = std::string();
@@ -298,7 +300,7 @@ auto generator::__generate_cpp_code_for_member_serialization(const object &obj) 
         serialize_code += __generate_cpp_serialize_by_type(member.second);
     }
 
-    utility::string::replace(code, "%serialize_code%", serialize_code);
+    common::string::replace(code, "%serialize_code%", serialize_code);
 
     return code;
 }
@@ -381,12 +383,12 @@ struct %object_name% %object_derives%
 )code";
 
     if (!obj.has_base_class())
-        utility::string::replace(code, "%object_derives%", "");
+        common::string::replace(code, "%object_derives%", "");
     else
-        utility::string::replace(code, "%object_derives%", ": public " + obj.get_base_class());
+        common::string::replace(code, "%object_derives%", ": public " + obj.get_base_class());
 
-    utility::string::replace(code, "%object_name%", obj.get_name());
-    utility::string::replace(code, "%object_members%", member_code);
+    common::string::replace(code, "%object_name%", obj.get_name());
+    common::string::replace(code, "%object_members%", member_code);
 
     return code;
 }

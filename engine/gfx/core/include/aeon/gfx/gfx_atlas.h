@@ -25,11 +25,11 @@
 
 #pragma once
 
-#include <aeon/common/cached_object.h>
-#include <aeon/common/exception.h>
-#include <aeon/common/logger.h>
 #include <aeon/gfx/gfx_material.h>
 #include <aeon/data/atlas.h>
+#include <aeon/logger/logger.h>
+#include <aeon/common/cached_object.h>
+#include <aeon/common/exception.h>
 #include <glm/vec2.hpp>
 #include <memory>
 
@@ -57,7 +57,7 @@ public:
 private:
     void __calculate_atlas_regions(glm::vec2 sprite_size);
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 
     std::shared_ptr<material> material_;
     data::atlas atlas_;

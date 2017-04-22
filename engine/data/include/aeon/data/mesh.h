@@ -25,9 +25,9 @@
 
 #pragma once
 
-#include <glm/vec3.hpp>
 #include <aeon/common/types/color.h>
-#include <aeon/platform.h>
+#include <aeon/common/compilers.h>
+#include <glm/vec3.hpp>
 #include <vector>
 
 namespace aeon

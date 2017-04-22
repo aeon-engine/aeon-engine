@@ -27,7 +27,7 @@
 
 #include <GL/glew.h>
 #include <aeon/gfx/gfx_shader.h>
-#include <aeon/common/logger.h>
+#include <aeon/logger/logger.h>
 #include <memory>
 
 namespace aeon
@@ -55,7 +55,7 @@ public:
     void bind_sampler(const GLint handle, const int bind_point) const;
 
 private:
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 
     GLuint handle_;
 

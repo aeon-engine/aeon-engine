@@ -28,7 +28,7 @@
 #include <aeon/scene/scene_object.h>
 #include <aeon/scene/exceptions.h>
 #include <aeon/scene/movable_object.h>
-#include <aeon/utility.h>
+#include <aeon/common/noncopyable.h>
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -46,7 +46,7 @@ enum find_method
     recursive
 };
 
-class scene_node : public std::enable_shared_from_this<scene_node>, public movable_object, public utility::noncopyable
+class scene_node : public std::enable_shared_from_this<scene_node>, public movable_object, public common::noncopyable
 {
     friend class scene_manager;
 

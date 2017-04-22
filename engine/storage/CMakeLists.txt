@@ -34,7 +34,7 @@ add_library(aeon_engine_storage STATIC
 
 target_link_libraries(aeon_engine_storage
     aeon_engine_io
-    aeon
+    aeon_common
 )
 
 target_include_directories(aeon_engine_storage

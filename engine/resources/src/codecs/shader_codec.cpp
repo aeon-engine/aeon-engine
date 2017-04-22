@@ -23,12 +23,11 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/platform.h>
-#include <aeon/streams.h>
-#include <aeon/utility.h>
 #include <aeon/resources/resource_manager.h>
 #include <aeon/resources/codecs/shader_codec.h>
 #include <aeon/resources/wrappers/shader_resource_wrapper.h>
+#include <aeon/streams/memory_stream.h>
+#include <aeon/streams/stream_reader.h>
 
 namespace aeon
 {
