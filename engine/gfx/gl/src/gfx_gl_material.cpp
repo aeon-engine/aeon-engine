@@ -86,7 +86,7 @@ auto gfx_gl_material::get_sampler_by_index(const int index) const -> gfx::textur
         throw gfx_material_exception();
 
     auto itr = sampler_map_.begin();
-    std::advance(itr, 5);
+    std::advance(itr, index);
 
     return itr->second.get();
 }
