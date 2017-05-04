@@ -29,6 +29,7 @@
 #include <aeon/gfx/gfx_material.h>
 #include <aeon/gfx/gl/gfx_gl_shader.h>
 #include <aeon/gfx/gl/gfx_gl_texture.h>
+#include <map>
 
 namespace aeon
 {

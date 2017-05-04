@@ -34,7 +34,8 @@ application::application()
     , timer_(0.0f)
 {
     // Init resources
-    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
+    get_resource_manager()->mount(
+        std::make_unique<aeon::resources::filesystem_collection_provider>(get_io_interface(), "."), "/");
 
     // Attach this class as a frame listener
     get_main_window()->attach_listener(this);

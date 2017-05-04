@@ -32,6 +32,7 @@ add_subdirectory(data)
 add_subdirectory(io)
 add_subdirectory(storage)
 add_subdirectory(resources)
+add_subdirectory(codecs)
 add_subdirectory(gfx)
 add_subdirectory(scene)
 add_subdirectory(assets)
@@ -72,6 +73,14 @@ target_link_libraries(aeon_engine
     aeon_engine_assets
     aeon_engine_input
     aeon_engine_platform_core
+    aeon_engine_codecs
+    aeon_engine_codec_amf
+    aeon_engine_codec_asc
+    aeon_engine_codec_assimp
+    aeon_engine_codec_ata
+    aeon_engine_codec_dds
+    aeon_engine_codec_png
+    aeon_engine_codec_prg
     glm
     ${OPENGL_LIBRARIES}
 )

@@ -24,6 +24,7 @@
  */
 
 #include <aeon/resources/mesh.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {

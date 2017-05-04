@@ -26,11 +26,9 @@
 #pragma once
 
 #include <aeon/resources/resource.h>
-#include <aeon/resources/exceptions.h>
-#include <aeon/resources/wrappers/mesh_resource_wrapper.h>
 #include <aeon/resources/mesh_node.h>
 #include <aeon/resources/submesh.h>
-#include <aeon/common/logger.h>
+#include <aeon/logger/logger.h>
 #include <string>
 #include <memory>
 #include <vector>
@@ -76,7 +74,7 @@ public:
     auto get_root_mesh_node() const -> mesh_node &;
 
 private:
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 
     std::string name_;
     std::vector<std::string> materials_;

@@ -43,32 +43,32 @@ DEFINE_EXCEPTION_OBJECT(io_filesystem_interface_exception, aeon::common::excepti
 DEFINE_EXCEPTION_OBJECT(io_filesystem_interface_list_exception, io_filesystem_interface_exception,
                         "IO filesystem interface list exception. Given path is not a directory.");
 
+enum class file_type
+{
+    file,
+    directory
+};
+
+class file_entry
+{
+public:
+    explicit file_entry(const std::string &name_, const file_type type_)
+        : name(name_)
+        , type(type_)
+    {
+    }
+
+    std::string name;
+    file_type type;
+};
+
 class io_filesystem_interface
 {
 public:
-    enum class file_type
-    {
-        file,
-        directory
-    };
-
-    class file_entry
-    {
-    public:
-        explicit file_entry(const std::string &name_, const file_type type_)
-            : name(name_)
-            , type(type_)
-        {
-        }
-
-        std::string name;
-        file_type type;
-    };
-
     io_filesystem_interface() = default;
     virtual ~io_filesystem_interface() = default;
 
-    virtual auto open_file(const std::string &path, const int openmode) const -> std::shared_ptr<io_file_interface> = 0;
+    virtual auto open_file(const std::string &path, const int openmode) const -> std::unique_ptr<io_file_interface> = 0;
     virtual auto exists(const std::string &path) const -> bool = 0;
     virtual auto list(const std::string &path) const -> std::vector<file_entry> = 0;
 };

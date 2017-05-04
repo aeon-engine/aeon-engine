@@ -23,99 +23,59 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/io/io_filesystem_interface.h>
 #include <aeon/resources/providers/filesystem_provider.h>
-#include <aeon/resources/resource_manager.h>
-#include <aeon/io/io_interface.h>
 
 namespace aeon
 {
 namespace resources
 {
-
-static std::string __get_real_path(const std::string &base, const std::string &path)
+filesystem_provider::filesystem_provider(const resource_info &info,
+                                         std::unique_ptr<io::io_file_interface> &&file_interface)
+    : file_interface_(std::move(file_interface))
+    , info_(info)
 {
-    return base + "/" + path;
 }
 
-filesystem_provider::filesystem_provider(const std::string &base_path)
-    : resource_provider()
-    , logger_(common::logger::get_singleton(), "Resources::FilesystemProvider")
-    , base_path_(base_path)
+filesystem_provider::~filesystem_provider() = default;
+
+void filesystem_provider::read(std::vector<std::uint8_t> &buffer)
 {
-    AEON_LOG_TRACE(logger_) << "Created Filesystem Provider for base path: '" << base_path << "'." << std::endl;
+    file_interface_->read(buffer);
 }
 
-filesystem_provider::~filesystem_provider()
+void filesystem_provider::read(std::vector<std::uint8_t> &buffer, const int size)
 {
-    AEON_LOG_TRACE(logger_) << "Deleted Filesystem Provider for base path: '" << base_path_ << "'." << std::endl;
+    file_interface_->read(buffer, size);
 }
 
-auto filesystem_provider::exists(const std::string &path) const -> bool
+void filesystem_provider::write(std::vector<std::uint8_t> &buffer)
 {
-    auto &io = __get_resource_manager()->get_io_interface();
-    auto &filesystem_interface = io.get_filesystem_interface();
-    return filesystem_interface.exists(__get_real_path(base_path_, path));
+    file_interface_->write(buffer);
 }
 
-auto filesystem_provider::list(const std::string & /*path*/) const -> std::vector<resource_node>
+void filesystem_provider::write(std::vector<std::uint8_t> &buffer, const int size)
 {
-    AEON_LOG_ERROR(logger_) << "List method is not implemented yet." << std::endl;
-    throw std::runtime_error("Not yet implemented.");
+    file_interface_->write(buffer, size);
 }
 
-void filesystem_provider::read(const std::string &path, std::vector<std::uint8_t> &buffer)
+void filesystem_provider::seek_read(io::io_file_interface::seek_direction direction, const int offset)
 {
-    AEON_LOG_TRACE(logger_) << "Read file at '" << path << "'." << std::endl;
-
-    auto real_path = __get_real_path(base_path_, path);
-
-    auto &io = __get_resource_manager()->get_io_interface();
-    auto &filesystem_interface = io.get_filesystem_interface();
-
-    if (!filesystem_interface.exists(real_path))
-    {
-        AEON_LOG_ERROR(logger_) << "Could not read file at '" << path << "'. File does not exist." << std::endl;
-        throw filesystem_provider_read_exception();
-    }
-
-    auto file = filesystem_interface.open_file(real_path, io::file_open_mode::read | io::file_open_mode::binary);
-
-    auto read_buffer = std::vector<std::uint8_t>();
-    file->read(read_buffer);
-    buffer = std::move(read_buffer);
+    file_interface_->seek_read(direction, offset);
 }
 
-auto filesystem_provider::get_encoding(const std::string &path) const -> resource_encoding
+void filesystem_provider::seek_write(io::io_file_interface::seek_direction direction, const int offset)
 {
-    auto offset = path.find_last_of('.');
+    file_interface_->seek_write(direction, offset);
+}
 
-    if (offset == std::string::npos)
-    {
-        AEON_LOG_ERROR(logger_) << "Could not determine resource encoding from file extension." << std::endl;
-        throw filesystem_provider_type_exception();
-    }
+auto filesystem_provider::get_size() const -> int
+{
+    return file_interface_->get_size();
+}
 
-    auto extension = path.substr(offset + 1);
-
-    if (extension == "amf")
-        return resource_encoding::material;
-    if (extension == "asc")
-        return resource_encoding::scene;
-    if (extension == "prg")
-        return resource_encoding::shader;
-    if (extension == "ata")
-        return resource_encoding::atlas;
-    if (extension == "png")
-        return resource_encoding::image_png;
-    if (extension == "dds")
-        return resource_encoding::image_dds;
-    if (extension == "3ds" || extension == "ase" || extension == "dae")
-        // Assimp supports more formats, but these should be the most common ones. More extensions could be added later.
-        return resource_encoding::mesh_assimp;
-
-    AEON_LOG_ERROR(logger_) << "Unknown or unsupported file extension: '" << extension << "'." << std::endl;
-    throw filesystem_provider_type_exception();
+auto filesystem_provider::get_info() const -> resource_info
+{
+    return info_;
 }
 
 } // namespace resources

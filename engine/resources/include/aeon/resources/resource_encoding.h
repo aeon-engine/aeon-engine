@@ -25,22 +25,65 @@
 
 #pragma once
 
+#include <string>
+
 namespace aeon
 {
 namespace resources
 {
 
-enum class resource_encoding
+class resource_encoding
 {
-    unknown,
-    material,
-    shader,
-    atlas,
-    image_png,
-    image_dds,
-    mesh_assimp,
-    scene
+public:
+    resource_encoding(const std::string &name);
+    ~resource_encoding() = default;
+
+    auto get_name() const;
+
+    auto operator==(const resource_encoding &other) const;
+    auto operator!=(const resource_encoding &other) const;
+
+    auto operator<(const resource_encoding &other) const;
+    auto operator>(const resource_encoding &other) const;
+
+private:
+    std::string name_;
 };
+
+inline resource_encoding::resource_encoding(const std::string &name)
+    : name_(name)
+{
+}
+
+inline auto resource_encoding::get_name() const
+{
+    return name_;
+}
+
+inline auto resource_encoding::operator==(const resource_encoding &other) const
+{
+    return name_ == other.name_;
+}
+
+inline auto resource_encoding::operator!=(const resource_encoding &other) const
+{
+    return !(*this == other);
+}
+
+inline auto resource_encoding::operator<(const resource_encoding &other) const
+{
+    return name_ < other.name_;
+}
+
+inline auto resource_encoding::operator>(const resource_encoding &other) const
+{
+    return name_ > other.name_;
+}
+
+inline auto &operator<<(std::ostream &os, const resource_encoding &encoding)
+{
+    return os << encoding.get_name();
+}
 
 } // namespace resources
 } // namespace aeon

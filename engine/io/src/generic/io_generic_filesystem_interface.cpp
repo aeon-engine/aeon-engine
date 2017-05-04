@@ -40,10 +40,10 @@ io_generic_filesystem_interface::io_generic_filesystem_interface()
 }
 
 auto io_generic_filesystem_interface::open_file(const std::string &path, const int openmode) const
-    -> std::shared_ptr<io_file_interface>
+    -> std::unique_ptr<io_file_interface>
 {
     AEON_LOG_DEBUG(logger_) << "Opening filesystem file: " << path << " (Mode: " << openmode << ")" << std::endl;
-    return std::make_shared<io_generic_file_interface>(path, openmode);
+    return std::make_unique<io_generic_file_interface>(path, openmode);
 }
 
 auto io_generic_filesystem_interface::exists(const std::string &path) const -> bool

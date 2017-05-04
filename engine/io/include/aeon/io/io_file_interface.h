@@ -27,7 +27,7 @@
 
 #include <aeon/io/io_file_open_mode.h>
 #include <aeon/io/io_exception.h>
-#include <memory>
+#include <aeon/common/noncopyable.h>
 #include <string>
 #include <cstdint>
 #include <vector>
@@ -42,10 +42,8 @@ DEFINE_EXCEPTION_OBJECT(io_file_open_exception, io_file_exception, "Error while 
 DEFINE_EXCEPTION_OBJECT(io_file_read_exception, io_file_exception, "Error while reading file.");
 DEFINE_EXCEPTION_OBJECT(io_file_write_exception, io_file_exception, "Error while writing to file.");
 
-class io_file_interface
+class io_file_interface : common::noncopyable
 {
-    friend class io_filesystem_interface;
-
 public:
     enum class seek_direction
     {
@@ -67,27 +65,33 @@ public:
 
     virtual auto get_size() const -> int = 0;
 
-    const auto &get_path() const
-    {
-        return path_;
-    }
+    const auto &get_path() const;
 
-    auto get_open_mode() const
-    {
-        return openmode_;
-    }
+    auto get_open_mode() const;
 
 protected:
-    explicit io_file_interface(const std::string &path, const int openmode)
-        : openmode_(openmode)
-        , path_(path)
-    {
-    }
+    explicit io_file_interface(const std::string &path, const int openmode);
 
 private:
     int openmode_;
     std::string path_;
 };
+
+inline const auto &io_file_interface::get_path() const
+{
+    return path_;
+}
+
+inline auto io_file_interface::get_open_mode() const
+{
+    return openmode_;
+}
+
+inline io_file_interface::io_file_interface(const std::string &path, const int openmode)
+    : openmode_(openmode)
+    , path_(path)
+{
+}
 
 } // namespace io
 } // namespace aeon

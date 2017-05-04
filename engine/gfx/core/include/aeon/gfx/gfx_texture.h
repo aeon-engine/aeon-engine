@@ -25,11 +25,9 @@
 
 #pragma once
 
-#include <aeon/resources/wrappers/image_resource_wrapper.h>
 #include <aeon/resources/image.h>
 #include <aeon/common/cached_object.h>
 #include <glm/vec2.hpp>
-#include <memory>
 
 namespace aeon
 {

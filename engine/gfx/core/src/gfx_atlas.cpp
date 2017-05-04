@@ -25,6 +25,7 @@
 
 #include <aeon/gfx/gfx_atlas.h>
 #include <aeon/gfx/gfx_texture.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {

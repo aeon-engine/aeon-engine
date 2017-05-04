@@ -27,8 +27,10 @@
 
 #include <aeon/logger/logger.h>
 #include <aeon/resources/providers/resource_provider.h>
+#include <aeon/resources/providers/resource_info.h>
 #include <aeon/resources/resource_encoding.h>
 #include <aeon/resources/exceptions.h>
+#include <aeon/io/io_interface.h>
 #include <vector>
 #include <string>
 
@@ -37,31 +39,24 @@ namespace aeon
 namespace resources
 {
 
-DEFINE_EXCEPTION_OBJECT(filesystem_provider_exception, resource_provider_exception, "Filesystem Provider exception.");
-DEFINE_EXCEPTION_OBJECT(filesystem_provider_list_exception, filesystem_provider_exception,
-                        "Filesystem Provider list exception. Can not list given path.");
-DEFINE_EXCEPTION_OBJECT(
-    filesystem_provider_read_exception, filesystem_provider_exception,
-    "Filesystem Provider read exception. Can not read given path. Path does not exist or is unreadable.");
-DEFINE_EXCEPTION_OBJECT(
-    filesystem_provider_type_exception, filesystem_provider_exception,
-    "Filesystem Provider type exception. Can not figure out the type of the resource. File has no extension.");
-
 class filesystem_provider : public resource_provider
 {
 public:
-    explicit filesystem_provider(const std::string &base_path);
+    explicit filesystem_provider(const resource_info &info, std::unique_ptr<io::io_file_interface> &&file_interface);
     virtual ~filesystem_provider();
 
 private:
-    auto exists(const std::string &path) const -> bool override;
-    auto list(const std::string &path) const -> std::vector<resource_node> override;
-    void read(const std::string &path, std::vector<std::uint8_t> &buffer) override;
-    auto get_encoding(const std::string &path) const -> resource_encoding override;
+    void read(std::vector<std::uint8_t> &buffer) override;
+    void read(std::vector<std::uint8_t> &buffer, const int size) override;
+    void write(std::vector<std::uint8_t> &buffer) override;
+    void write(std::vector<std::uint8_t> &buffer, const int size) override;
+    void seek_read(io::io_file_interface::seek_direction direction, const int offset) override;
+    void seek_write(io::io_file_interface::seek_direction direction, const int offset) override;
+    auto get_size() const -> int override;
+    auto get_info() const -> resource_info override;
 
-    logger::logger logger_;
-
-    std::string base_path_;
+    std::unique_ptr<io::io_file_interface> file_interface_;
+    resource_info info_;
 };
 
 } // namespace resources

@@ -38,7 +38,7 @@ namespace aeon
 namespace gfx
 {
 
-DEFINE_EXCEPTION_OBJECT(atlas_exception, aeon::common::exception, "Generic Atlas exception.");
+DEFINE_EXCEPTION_OBJECT(atlas_exception, common::exception, "Generic Atlas exception.");
 
 class atlas : public common::cached_object, public std::enable_shared_from_this<atlas>
 {

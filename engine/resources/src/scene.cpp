@@ -24,6 +24,7 @@
  */
 
 #include <aeon/resources/scene.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {

@@ -26,11 +26,8 @@
 #pragma once
 
 #include <aeon/resources/resource.h>
-#include <aeon/resources/exceptions.h>
-#include <aeon/resources/wrappers/material_resource_wrapper.h>
 #include <aeon/serialization/serialization.h>
-#include <aeon/common/logger.h>
-#include <memory>
+#include <aeon/logger/logger.h>
 
 namespace aeon
 {

@@ -39,7 +39,8 @@ application::application()
     get_logger_backend().set_log_level(aeon::logger::log_level::warning);
 
     // Init resources
-    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
+    get_resource_manager()->mount(
+        std::make_unique<aeon::resources::filesystem_collection_provider>(get_io_interface(), "."), "/");
 
     // Set up the scene
     camera_ =

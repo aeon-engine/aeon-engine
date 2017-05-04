@@ -26,19 +26,13 @@
 #pragma once
 
 #include <aeon/resources/resource.h>
-#include <aeon/resources/exceptions.h>
-#include <aeon/resources/wrappers/image_resource_wrapper.h>
-#include <aeon/common/logger.h>
 #include <aeon/data/image.h>
-#include <memory>
+#include <aeon/logger/logger.h>
 
 namespace aeon
 {
 namespace resources
 {
-
-DEFINE_EXCEPTION_OBJECT(image_exception, resource_exception, "Image resource exception.");
-DEFINE_EXCEPTION_OBJECT(image_data_exception, image_exception, "Image resource data exception.");
 
 class image : public resource
 {

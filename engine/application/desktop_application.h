@@ -27,7 +27,7 @@
 
 #include <build_config.h>
 #include <application/base_application.h>
-#include <aeon/resources/providers/filesystem_provider.h>
+#include <aeon/resources/providers/filesystem_collection_provider.h>
 #include <application/gfx_types.h>
 
 namespace aeon

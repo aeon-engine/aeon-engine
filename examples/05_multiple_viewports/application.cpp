@@ -34,7 +34,8 @@ application::application()
                                                                   "Example 5 - Multiple Viewports")
 {
     // Init resources
-    get_resource_manager()->mount(std::make_shared<aeon::resources::filesystem_provider>("."), "/");
+    get_resource_manager()->mount(
+        std::make_unique<aeon::resources::filesystem_collection_provider>(get_io_interface(), "."), "/");
 
     // Set up the scene. Because we are splitting the scene vertically, the camera only has half the window to
     // render to. This is why we divide the width by 2. If this is not done, the aspect ratio will look really strange.

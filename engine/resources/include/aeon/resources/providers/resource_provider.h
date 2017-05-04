@@ -25,11 +25,12 @@
 
 #pragma once
 
-#include <aeon/resources/resource_encoding.h>
+#include <aeon/resources/providers/resource_info.h>
+#include <aeon/io/io_file_interface.h>
 #include <aeon/resources/exceptions.h>
+#include <aeon/common/noncopyable.h>
 #include <vector>
-#include <string>
-#include <memory>
+#include <cstdint>
 
 namespace aeon
 {
@@ -38,54 +39,24 @@ namespace resources
 
 DEFINE_EXCEPTION_OBJECT(resource_provider_exception, resource_exception, "Generic Resource Provider exception.");
 
-enum class resource_node_type
-{
-    file,
-    directory
-};
-
-class resource_node
+class resource_provider : public common::noncopyable
 {
 public:
-    explicit resource_node(const std::string &name_, resource_node_type type_)
-        : name(name_)
-        , type(type_)
-    {
-    }
-
-    std::string name;
-    resource_node_type type;
-};
-
-class resource_manager;
-class resource_provider
-{
-    friend class resource_manager;
-
-public:
-    resource_provider()
-        : manager_(nullptr)
-    {
-    }
-
+    resource_provider() = default;
     virtual ~resource_provider() = default;
 
-    virtual auto exists(const std::string &path) const -> bool = 0;
+    virtual void read(std::vector<std::uint8_t> &buffer) = 0;
+    virtual void read(std::vector<std::uint8_t> &buffer, const int size) = 0;
 
-    virtual auto list(const std::string &path) const -> std::vector<resource_node> = 0;
+    virtual void write(std::vector<std::uint8_t> &buffer) = 0;
+    virtual void write(std::vector<std::uint8_t> &buffer, const int size) = 0;
 
-    virtual void read(const std::string &path, std::vector<std::uint8_t> &buffer) = 0;
+    virtual void seek_read(io::io_file_interface::seek_direction direction, const int offset) = 0;
+    virtual void seek_write(io::io_file_interface::seek_direction direction, const int offset) = 0;
 
-    virtual auto get_encoding(const std::string &path) const -> resource_encoding = 0;
+    virtual auto get_size() const -> int = 0;
 
-protected:
-    auto __get_resource_manager() const
-    {
-        return manager_;
-    }
-
-private:
-    resource_manager *manager_;
+    virtual auto get_info() const -> resource_info = 0;
 };
 
 } // namespace resources

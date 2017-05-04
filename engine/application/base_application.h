@@ -24,6 +24,16 @@
  */
 
 #pragma once
+
+#include <aeon/codecs/codec_manager.h>
+#include <aeon/codecs/basic_codec.h>
+#include <aeon/codecs/amf_codec.h>
+#include <aeon/codecs/asc_codec.h>
+#include <aeon/codecs/assimp_codec.h>
+#include <aeon/codecs/ata_codec.h>
+#include <aeon/codecs/dds_codec.h>
+#include <aeon/codecs/png_codec.h>
+#include <aeon/codecs/prg_codec.h>
 #include <aeon/resources/resource_manager.h>
 #include <aeon/assets/asset_manager.h>
 #include <aeon/platform/platform_window.h>
@@ -67,11 +77,14 @@ public:
         , platform_(input_handler_, device_)
         , resource_manager_(io_)
         , scene_manager_(device_)
-        , asset_manager_(resource_manager_, scene_manager_)
+        , codec_manager_()
+        , asset_manager_(codec_manager_, resource_manager_, scene_manager_)
         , window_(nullptr)
     {
         AEON_LOG_MESSAGE(logger_) << "Initializing Aeon Engine (" << buildinfo::full_version << ", "
                                   << buildinfo::build_date << ")." << std::endl;
+
+        __register_codecs();
 
         // Init opengl
         device_.initialize();
@@ -124,9 +137,9 @@ public:
      * used to perform all sorts of generic platform specific operations, like
      * file IO.
      */
-    auto get_io_interface()
+    auto &get_io_interface()
     {
-        return &io_;
+        return io_;
     }
 
     /*!
@@ -211,6 +224,25 @@ private:
         window_ = platform_.create_window(settings);
     }
 
+    void __register_codecs()
+    {
+        // TODO: This should be handled by some kind of (static?) plugin manager.
+        codec_manager_.register_codec(std::make_unique<codecs::basic_codec_factory<codecs::material_codec_amf>>(
+            resources::resource_encoding("amf")));
+        codec_manager_.register_codec(std::make_unique<codecs::basic_codec_factory<codecs::scene_codec_asc>>(
+            resources::resource_encoding("asc")));
+        codec_manager_.register_codec(std::make_unique<codecs::basic_codec_factory<codecs::mesh_codec_assimp>>(
+            resources::resource_encoding("dae")));
+        codec_manager_.register_codec(std::make_unique<codecs::basic_codec_factory<codecs::atlas_codec_ata>>(
+            resources::resource_encoding("ata")));
+        codec_manager_.register_codec(std::make_unique<codecs::basic_codec_factory<codecs::image_codec_dds>>(
+            resources::resource_encoding("dds")));
+        codec_manager_.register_codec(std::make_unique<codecs::basic_codec_factory<codecs::image_codec_png>>(
+            resources::resource_encoding("png")));
+        codec_manager_.register_codec(std::make_unique<codecs::basic_codec_factory<codecs::shader_codec_prg>>(
+            resources::resource_encoding("prg")));
+    }
+
 protected:
     common::logger logger_backend_;
     logger::logger logger_;
@@ -224,6 +256,7 @@ protected:
 
     resources::resource_manager resource_manager_;
     scene_manager_t scene_manager_;
+    codecs::codec_manager codec_manager_;
     assets::asset_manager asset_manager_;
 
     std::shared_ptr<platform::window> window_;

@@ -31,6 +31,7 @@
 
 #include <memory>
 #include <string>
+#include <map>
 
 namespace aeon
 {

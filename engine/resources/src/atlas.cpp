@@ -24,7 +24,7 @@
  */
 
 #include <aeon/resources/atlas.h>
-#include <cassert>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {

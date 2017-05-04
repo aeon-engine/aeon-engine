@@ -24,6 +24,7 @@
  */
 
 #include <aeon/resources/shader.h>
+#include <aeon/common/logger.h>
 
 namespace aeon
 {

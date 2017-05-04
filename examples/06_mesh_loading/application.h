@@ -26,7 +26,6 @@
 #pragma once
 
 #include <application/desktop_application.h>
-#include <aeon/resources/wrappers/image_resource_wrapper.h>
 #include <aeon/scene/basic_scene_manager/basic_scene_manager.h>
 #include <aeon/scene/perspective_camera.h>
 

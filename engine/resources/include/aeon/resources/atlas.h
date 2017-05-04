@@ -26,15 +26,9 @@
 #pragma once
 
 #include <aeon/resources/resource.h>
-#include <aeon/resources/exceptions.h>
-#include <aeon/resources/wrappers/atlas_resource_wrapper.h>
 #include <aeon/data/atlas.h>
-#include <aeon/common/logger.h>
-#include <map>
-#include <vector>
+#include <aeon/logger/logger.h>
 #include <string>
-#include <memory>
-#include <glm/vec2.hpp>
 
 namespace aeon
 {
@@ -62,7 +56,7 @@ public:
     }
 
 private:
-    aeon::logger::logger logger_;
+    logger::logger logger_;
 
     data::atlas data_;
     std::string material_path_;

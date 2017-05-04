@@ -27,19 +27,18 @@
 
 #include <aeon/common/cached_object.h>
 #include <aeon/common/exception.h>
-#include <memory>
 #include <string>
-#include <map>
 
 namespace aeon
 {
 namespace gfx
 {
 
-DEFINE_EXCEPTION_OBJECT(gfx_material_exception, aeon::common::exception, "Material exception.");
+DEFINE_EXCEPTION_OBJECT(gfx_material_exception, common::exception, "Material exception.");
 
 class shader;
 class texture;
+
 class material : public common::cached_object
 {
 public:

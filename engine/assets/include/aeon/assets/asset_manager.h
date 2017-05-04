@@ -25,7 +25,10 @@
 
 #pragma once
 
+#include <aeon/codecs/codec_manager.h>
 #include <aeon/resources/resource_manager.h>
+#include <aeon/resources/mesh_node.h>
+#include <aeon/serialization/serialization.h>
 #include <aeon/gfx/gfx_device.h>
 #include <aeon/gfx/gfx_shader.h>
 #include <aeon/gfx/gfx_texture.h>
@@ -56,7 +59,8 @@ public:
      * \param resource_manager A reference to the resource manager
      * \param scene_manager A reference to the scene manager
      */
-    explicit asset_manager(resources::resource_manager &resource_manager, scene::scene_manager &scene_manager);
+    explicit asset_manager(codecs::codec_manager &codec_manager, resources::resource_manager &resource_manager,
+                           scene::scene_manager &scene_manager);
 
     /*!
      * Destructor
@@ -126,7 +130,8 @@ private:
     void __convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node);
     void __convert_scene_data_to_scene_node(serialization::scene_node &scene_data, scene::scene_node &scene_node);
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
+    codecs::codec_manager &codec_manager_;
     resources::resource_manager &resource_manager_;
     scene::scene_manager &scene_manager_;
     gfx::device &device_;
