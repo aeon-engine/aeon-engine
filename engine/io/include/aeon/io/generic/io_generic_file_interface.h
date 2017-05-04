@@ -41,11 +41,11 @@ namespace generic
 {
 
 // TODO: Exception handling for whole class
-class io_file_interface : public io::io_file_interface
+class io_generic_file_interface : public io::io_file_interface
 {
 public:
-    explicit io_file_interface(const std::string &path, const int openmode);
-    virtual ~io_file_interface() override;
+    explicit io_generic_file_interface(const std::string &path, const int openmode);
+    virtual ~io_generic_file_interface() override;
 
     void read(std::vector<std::uint8_t> &buffer) override;
     void read(std::vector<std::uint8_t> &buffer, const int size) override;

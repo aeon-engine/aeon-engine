@@ -50,8 +50,7 @@ public:
      */
     auto &get_filesystem_interface() const
     {
-        io_filesystem_interface *filesystem_interface = filesystem_interface_.get();
-        return *filesystem_interface;
+        return *filesystem_interface_;
     }
 
 protected:

@@ -61,7 +61,7 @@ public:
         : logger_backend_()
         , logger_(common::logger::get_singleton(), "Application")
         , config_file_()
-        , io_(std::make_unique<io::generic::io_filesystem_interface>())
+        , io_(std::make_unique<io::generic::io_generic_filesystem_interface>())
         , input_handler_()
         , device_(io_)
         , platform_(input_handler_, device_)

@@ -34,21 +34,19 @@ namespace io
 namespace generic
 {
 
-io_filesystem_interface::io_filesystem_interface()
+io_generic_filesystem_interface::io_generic_filesystem_interface()
     : logger_(common::logger::get_singleton(), "io::Generic::Filesystem")
 {
 }
 
-auto io_filesystem_interface::open_file(const std::string &path, const int openmode) const
-    -> std::shared_ptr<io::io_file_interface>
+auto io_generic_filesystem_interface::open_file(const std::string &path, const int openmode) const
+    -> std::shared_ptr<io_file_interface>
 {
     AEON_LOG_DEBUG(logger_) << "Opening filesystem file: " << path << " (Mode: " << openmode << ")" << std::endl;
-
-    // Note: we can't use make_shared due to private constructor.
-    return std::make_shared<io::generic::io_file_interface>(path, openmode);
+    return std::make_shared<io_generic_file_interface>(path, openmode);
 }
 
-auto io_filesystem_interface::exists(const std::string &path) const -> bool
+auto io_generic_filesystem_interface::exists(const std::string &path) const -> bool
 {
     bool exists = filesystem::exists(path);
 
@@ -58,8 +56,9 @@ auto io_filesystem_interface::exists(const std::string &path) const -> bool
     return exists;
 }
 
-auto io_filesystem_interface::list(const std::string & /*path*/) const -> std::vector<file_entry>
+auto io_generic_filesystem_interface::list(const std::string & /*path*/) const -> std::vector<file_entry>
 {
+    // TODO: Implement filesystem list.
     AEON_LOG_FATAL(logger_) << "Called filesystem list which is not implemented." << std::endl;
     throw std::runtime_error("Not yet implemented.");
 }
