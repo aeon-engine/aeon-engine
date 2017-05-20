@@ -48,10 +48,6 @@ class io_file_interface : public streams::stream
 public:
     io_file_interface() = default;
     virtual ~io_file_interface() = default;
-
-    // const auto &get_path() const;
-
-    // auto get_open_mode() const;
 };
 
 } // namespace io
