@@ -49,9 +49,9 @@ public:
     io_file_interface() = default;
     virtual ~io_file_interface() = default;
 
-    //const auto &get_path() const;
+    // const auto &get_path() const;
 
-    //auto get_open_mode() const;
+    // auto get_open_mode() const;
 };
 
 } // namespace io

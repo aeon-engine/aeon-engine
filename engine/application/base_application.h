@@ -186,7 +186,7 @@ private:
         try
         {
             auto file_interface = io_.get_filesystem_interface().open_file("config.conf", io::file_open_mode::binary |
-                                                                                          io::file_open_mode::read);
+                                                                                              io::file_open_mode::read);
             config_file_.load(*file_interface);
         }
         catch (utility::configfile_exception &)

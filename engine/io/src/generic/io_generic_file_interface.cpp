@@ -65,7 +65,7 @@ std::size_t io_generic_file_interface::read(std::uint8_t *data, std::size_t size
 std::size_t io_generic_file_interface::write(const std::uint8_t *data, std::size_t size)
 {
     AEON_LOG_TRACE(logger_) << "Writing " << stream_->size() << " bytes to " << stream_->get_filename() << "."
-        << std::endl;
+                            << std::endl;
     return stream_->write(data, size);
 }
 
