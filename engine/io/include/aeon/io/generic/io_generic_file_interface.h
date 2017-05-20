@@ -66,7 +66,7 @@ private:
 
     logger::logger logger_;
 
-    std::shared_ptr<streams::file_stream> stream_;
+    std::unique_ptr<streams::file_stream> stream_;
 };
 
 } // namespace generic

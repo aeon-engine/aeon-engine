@@ -43,7 +43,7 @@ io_generic_file_interface::io_generic_file_interface(const std::string &path, co
     {
         int access_mode = __open_mode_to_stream_open_mode(openmode);
         streams::file_mode file_mode = __open_mode_to_stream_file_mode(openmode);
-        stream_ = std::make_shared<streams::file_stream>(path, access_mode, file_mode);
+        stream_ = std::make_unique<streams::file_stream>(path, access_mode, file_mode);
     }
     catch (streams::file_stream_exception &)
     {
