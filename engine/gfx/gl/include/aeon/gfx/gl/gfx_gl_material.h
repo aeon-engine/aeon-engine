@@ -30,6 +30,7 @@
 #include <aeon/gfx/gl/gfx_gl_shader.h>
 #include <aeon/gfx/gl/gfx_gl_texture.h>
 #include <map>
+#include <memory>
 
 namespace aeon
 {

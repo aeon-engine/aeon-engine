@@ -29,7 +29,9 @@
 #include <aeon/io/io_file_interface.h>
 #include <aeon/resources/exceptions.h>
 #include <aeon/common/noncopyable.h>
+#include <aeon/streams/stream.h>
 #include <vector>
+#include <string>
 #include <cstdint>
 
 namespace aeon
@@ -39,22 +41,11 @@ namespace resources
 
 DEFINE_EXCEPTION_OBJECT(resource_provider_exception, resource_exception, "Generic Resource Provider exception.");
 
-class resource_provider : public common::noncopyable
+class resource_provider : public streams::stream
 {
 public:
-    resource_provider() = default;
-    virtual ~resource_provider() = default;
-
-    virtual void read(std::vector<std::uint8_t> &buffer) = 0;
-    virtual void read(std::vector<std::uint8_t> &buffer, const int size) = 0;
-
-    virtual void write(std::vector<std::uint8_t> &buffer) = 0;
-    virtual void write(std::vector<std::uint8_t> &buffer, const int size) = 0;
-
-    virtual void seek_read(io::io_file_interface::seek_direction direction, const int offset) = 0;
-    virtual void seek_write(io::io_file_interface::seek_direction direction, const int offset) = 0;
-
-    virtual auto get_size() const -> int = 0;
+    resource_provider();
+    virtual ~resource_provider();
 
     virtual auto get_info() const -> resource_info = 0;
 };

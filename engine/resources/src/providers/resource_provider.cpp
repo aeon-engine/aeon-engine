@@ -23,38 +23,16 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <aeon/gfx/gfx_buffer.h>
-#include <aeon/common/exception.h>
-#include <aeon/data/mesh.h>
-#include <glm/mat4x4.hpp>
-#include <vector>
+#include <aeon/resources/providers/resource_provider.h>
 
 namespace aeon
 {
-namespace gfx
+namespace resources
 {
 
-DEFINE_EXCEPTION_OBJECT(gfx_mesh_exception, aeon::common::exception, "Mesh exception.");
+resource_provider::resource_provider() = default;
 
-class mesh
-{
-public:
-    mesh() = default;
-    virtual ~mesh() = default;
+resource_provider::~resource_provider() = default;
 
-    virtual void upload_vertex_buffer(const std::vector<data::vertex_data> &vertex_data,
-                                      const gfx::buffer_usage usage) = 0;
-    virtual void upload_index_buffer(const std::vector<std::uint32_t> &index_data, const gfx::buffer_usage usage) = 0;
-
-    virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) = 0;
-
-    /*!
-     * Returns true of the material used for this mesh has an alpha channel.
-     */
-    virtual auto has_alpha() const -> bool = 0;
-};
-
-} // namespace gfx
+} // namespace resources
 } // namespace aeon

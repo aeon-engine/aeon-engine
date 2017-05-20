@@ -72,19 +72,14 @@ auto image_codec_png::decode(const std::unique_ptr<resources::resource_provider>
 {
     AEON_LOG_DEBUG(logger_) << "Decoding PNG image." << std::endl;
 
-    auto input = std::vector<std::uint8_t>();
-    provider->read(input);
-
-    auto stream = streams::memory_stream(std::move(input), aeon::streams::access_mode::read);
-
     // Check our stream
-    if (!stream.good())
+    if (!provider->good())
     {
         AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Bad stream." << std::endl;
         throw codec_png_decode_exception();
     }
 
-    auto size = stream.size();
+    auto size = provider->size();
 
     if (size == 0)
     {
@@ -94,7 +89,7 @@ auto image_codec_png::decode(const std::unique_ptr<resources::resource_provider>
 
     // Read the header
     auto png_header = std::array<png_byte, PNG_HEADER_SIGNATURE_SIZE>();
-    stream.read(png_header.data(), PNG_HEADER_SIGNATURE_SIZE);
+    provider->read(png_header.data(), PNG_HEADER_SIGNATURE_SIZE);
 
     // Check the header
     if (png_sig_cmp(png_header.data(), 0, PNG_HEADER_SIGNATURE_SIZE))
@@ -116,7 +111,7 @@ auto image_codec_png::decode(const std::unique_ptr<resources::resource_provider>
 
     // Init png reading. We will be using a read function, as we can't read
     // from a file.
-    png_set_read_fn(png_structs.png_ptr(), &stream, __png_read_callback);
+    png_set_read_fn(png_structs.png_ptr(), provider.get(), __png_read_callback);
 
     // Let libpng know we already read the signature
     png_set_sig_bytes(png_structs.png_ptr(), PNG_HEADER_SIGNATURE_SIZE);

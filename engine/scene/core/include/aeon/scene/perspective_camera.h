@@ -26,7 +26,6 @@
 #pragma once
 
 #include <aeon/scene/camera.h>
-#include <memory>
 
 namespace aeon
 {

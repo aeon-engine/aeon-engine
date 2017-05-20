@@ -29,7 +29,6 @@
 #include <aeon/common/exception.h>
 #include <aeon/logger/logger.h>
 #include <GL/glew.h>
-#include <memory>
 
 namespace aeon
 {

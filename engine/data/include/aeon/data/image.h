@@ -27,7 +27,6 @@
 
 #include <aeon/common/noncopyable.h>
 #include <glm/vec2.hpp>
-#include <memory>
 #include <vector>
 #include <cstdint>
 

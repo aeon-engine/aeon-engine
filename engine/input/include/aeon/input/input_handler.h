@@ -29,7 +29,6 @@
 #include <aeon/input/input_keyboard_keys.h>
 #include <aeon/input/input_mouse_buttons.h>
 #include <aeon/input/input_listener.h>
-#include <memory>
 
 namespace aeon
 {

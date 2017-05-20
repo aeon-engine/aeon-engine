@@ -54,6 +54,7 @@ set (AEON_ENGINE_RESOURCE_PROVIDER_SOURCES
     src/providers/filesystem_collection_provider.cpp
     include/aeon/resources/providers/filesystem_provider.h
     src/providers/filesystem_provider.cpp
+    src/providers/resource_provider.cpp
 )
 
 source_group(resources\\providers FILES ${AEON_ENGINE_RESOURCE_PROVIDER_SOURCES})

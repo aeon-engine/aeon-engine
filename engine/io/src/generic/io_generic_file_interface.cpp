@@ -33,7 +33,7 @@ namespace generic
 {
 
 io_generic_file_interface::io_generic_file_interface(const std::string &path, const int openmode)
-    : io::io_file_interface(path, openmode)
+    : io::io_file_interface()
     , logger_(common::logger::get_singleton(), "io::Generic::Filesystem")
     , stream_(nullptr)
 {
@@ -56,56 +56,70 @@ io_generic_file_interface::~io_generic_file_interface()
     AEON_LOG_DEBUG(logger_) << "Closing file " << stream_->get_filename() << "." << std::endl;
 }
 
-void io_generic_file_interface::read(std::vector<std::uint8_t> &buffer)
-{
-    read(buffer, static_cast<int>(stream_->size()));
-}
-
-void io_generic_file_interface::read(std::vector<std::uint8_t> &buffer, const int size)
+std::size_t io_generic_file_interface::read(std::uint8_t *data, std::size_t size)
 {
     AEON_LOG_TRACE(logger_) << "Reading " << size << " bytes from " << stream_->get_filename() << "." << std::endl;
-
-    buffer.resize(size);
-    std::size_t read_size = stream_->read(buffer.data(), size);
-    buffer.resize(read_size);
+    return stream_->read(data, size);
 }
 
-void io_generic_file_interface::write(std::vector<std::uint8_t> &buffer)
+std::size_t io_generic_file_interface::write(const std::uint8_t *data, std::size_t size)
 {
     AEON_LOG_TRACE(logger_) << "Writing " << stream_->size() << " bytes to " << stream_->get_filename() << "."
-                            << std::endl;
-
-    stream_->write(buffer.data(), buffer.size());
+        << std::endl;
+    return stream_->write(data, size);
 }
 
-void io_generic_file_interface::write(std::vector<std::uint8_t> &buffer, const int size)
+bool io_generic_file_interface::peek(std::uint8_t &data, std::ptrdiff_t offset)
 {
-    AEON_LOG_TRACE(logger_) << "Writing " << size << " bytes to " << stream_->get_filename() << "." << std::endl;
-
-    stream_->write(buffer.data(), size);
+    return stream_->peek(data, offset);
 }
 
-void io_generic_file_interface::seek_read(seek_direction direction, const int offset)
+bool io_generic_file_interface::seek(std::ptrdiff_t pos, seek_direction direction)
 {
-    stream_->seek(offset, __to_streams_seek_direction(direction));
+    return stream_->seek(pos, direction);
 }
 
-void io_generic_file_interface::seek_write(seek_direction direction, const int offset)
+bool io_generic_file_interface::seekw(std::ptrdiff_t pos, seek_direction direction)
 {
-    stream_->seekw(offset, __to_streams_seek_direction(direction));
+    return stream_->seekw(pos, direction);
 }
 
-auto io_generic_file_interface::get_size() const -> int
+std::size_t io_generic_file_interface::tell()
 {
-    return static_cast<int>(stream_->size());
+    return stream_->tell();
+}
+
+std::size_t io_generic_file_interface::tellw()
+{
+    return stream_->tellw();
+}
+
+bool io_generic_file_interface::eof() const
+{
+    return stream_->eof();
+}
+
+std::size_t io_generic_file_interface::size() const
+{
+    return stream_->size();
+}
+
+void io_generic_file_interface::flush()
+{
+    stream_->flush();
+}
+
+bool io_generic_file_interface::good() const
+{
+    return stream_->good();
 }
 
 auto io_generic_file_interface::__open_mode_to_stream_open_mode(const int openmode) const -> int
 {
     int access_mode = 0;
-    access_mode |= (openmode & file_open_mode::read) ? aeon::streams::access_mode::read : 0;
-    access_mode |= (openmode & file_open_mode::write) ? aeon::streams::access_mode::write : 0;
-    access_mode |= (openmode & file_open_mode::truncate) ? aeon::streams::access_mode::truncate : 0;
+    access_mode |= (openmode & file_open_mode::read) ? streams::access_mode::read : 0;
+    access_mode |= (openmode & file_open_mode::write) ? streams::access_mode::write : 0;
+    access_mode |= (openmode & file_open_mode::truncate) ? streams::access_mode::truncate : 0;
     return access_mode;
 }
 

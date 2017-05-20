@@ -29,7 +29,6 @@
 #include <aeon/gfx/gfx_render_target.h>
 #include <glm/vec2.hpp>
 #include <string>
-#include <memory>
 
 namespace aeon
 {

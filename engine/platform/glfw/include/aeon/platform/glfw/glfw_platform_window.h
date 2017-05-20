@@ -28,7 +28,6 @@
 #include <aeon/io/io_interface.h>
 #include <aeon/common/logger.h>
 #include <GLFW/glfw3.h>
-#include <memory>
 
 namespace aeon
 {

@@ -25,10 +25,9 @@
 
 #pragma once
 
-#include <GL/glew.h>
 #include <aeon/gfx/gfx_shader.h>
 #include <aeon/logger/logger.h>
-#include <memory>
+#include <GL/glew.h>
 
 namespace aeon
 {

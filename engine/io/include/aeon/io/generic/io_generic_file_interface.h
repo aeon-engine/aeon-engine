@@ -31,6 +31,7 @@
 #include <aeon/streams/file_stream.h>
 #include <aeon/common/logger.h>
 #include <memory>
+#include <cstdint>
 #include <string>
 
 namespace aeon
@@ -47,16 +48,17 @@ public:
     explicit io_generic_file_interface(const std::string &path, const int openmode);
     virtual ~io_generic_file_interface() override;
 
-    void read(std::vector<std::uint8_t> &buffer) override;
-    void read(std::vector<std::uint8_t> &buffer, const int size) override;
-
-    void write(std::vector<std::uint8_t> &buffer) override;
-    void write(std::vector<std::uint8_t> &buffer, const int size) override;
-
-    void seek_read(seek_direction direction, const int offset) override;
-    void seek_write(seek_direction direction, const int offset) override;
-
-    auto get_size() const -> int override;
+    std::size_t read(std::uint8_t *data, std::size_t size) override;
+    std::size_t write(const std::uint8_t *data, std::size_t size) override;
+    bool peek(std::uint8_t &data, std::ptrdiff_t offset) override;
+    bool seek(std::ptrdiff_t pos, seek_direction direction) override;
+    bool seekw(std::ptrdiff_t pos, seek_direction direction) override;
+    std::size_t tell() override;
+    std::size_t tellw() override;
+    bool eof() const override;
+    std::size_t size() const override;
+    void flush() override;
+    bool good() const override;
 
 private:
     auto __open_mode_to_stream_open_mode(const int openmode) const -> int;

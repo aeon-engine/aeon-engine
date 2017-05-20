@@ -38,39 +38,59 @@ filesystem_provider::filesystem_provider(const resource_info &info,
 
 filesystem_provider::~filesystem_provider() = default;
 
-void filesystem_provider::read(std::vector<std::uint8_t> &buffer)
+std::size_t filesystem_provider::read(std::uint8_t *data, std::size_t size)
 {
-    file_interface_->read(buffer);
+    return file_interface_->read(data, size);
 }
 
-void filesystem_provider::read(std::vector<std::uint8_t> &buffer, const int size)
+std::size_t filesystem_provider::write(const std::uint8_t *data, std::size_t size)
 {
-    file_interface_->read(buffer, size);
+    return file_interface_->write(data, size);
 }
 
-void filesystem_provider::write(std::vector<std::uint8_t> &buffer)
+bool filesystem_provider::peek(std::uint8_t &data, std::ptrdiff_t offset)
 {
-    file_interface_->write(buffer);
+    return file_interface_->peek(data, offset);
 }
 
-void filesystem_provider::write(std::vector<std::uint8_t> &buffer, const int size)
+bool filesystem_provider::seek(std::ptrdiff_t pos, seek_direction direction)
 {
-    file_interface_->write(buffer, size);
+    return file_interface_->seek(pos, direction);
 }
 
-void filesystem_provider::seek_read(io::io_file_interface::seek_direction direction, const int offset)
+bool filesystem_provider::seekw(std::ptrdiff_t pos, seek_direction direction)
 {
-    file_interface_->seek_read(direction, offset);
+    return file_interface_->seekw(pos, direction);
 }
 
-void filesystem_provider::seek_write(io::io_file_interface::seek_direction direction, const int offset)
+std::size_t filesystem_provider::tell()
 {
-    file_interface_->seek_write(direction, offset);
+    return file_interface_->tell();
 }
 
-auto filesystem_provider::get_size() const -> int
+std::size_t filesystem_provider::tellw()
 {
-    return file_interface_->get_size();
+    return file_interface_->tellw();
+}
+
+bool filesystem_provider::eof() const
+{
+    return file_interface_->eof();
+}
+
+std::size_t filesystem_provider::size() const
+{
+    return file_interface_->size();
+}
+
+void filesystem_provider::flush()
+{
+    file_interface_->flush();
+}
+
+bool filesystem_provider::good() const
+{
+    return file_interface_->good();
 }
 
 auto filesystem_provider::get_info() const -> resource_info

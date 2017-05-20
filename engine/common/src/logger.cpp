@@ -33,7 +33,7 @@ namespace common
 {
 
 logger::logger()
-    : logger::simple_sink_backend(aeon::logger::log_level::trace)
+    : logger::simple_sink_backend(aeon::logger::log_level::message)
     , stream_sink_(io_stream_)
 {
     add_sink(&stream_sink_);

@@ -27,6 +27,7 @@
 
 #include <aeon/io/io_file_open_mode.h>
 #include <aeon/io/io_exception.h>
+#include <aeon/streams/stream.h>
 #include <aeon/common/noncopyable.h>
 #include <string>
 #include <cstdint>
@@ -42,56 +43,16 @@ DEFINE_EXCEPTION_OBJECT(io_file_open_exception, io_file_exception, "Error while 
 DEFINE_EXCEPTION_OBJECT(io_file_read_exception, io_file_exception, "Error while reading file.");
 DEFINE_EXCEPTION_OBJECT(io_file_write_exception, io_file_exception, "Error while writing to file.");
 
-class io_file_interface : common::noncopyable
+class io_file_interface : public streams::stream
 {
 public:
-    enum class seek_direction
-    {
-        begin,
-        current,
-        end,
-    };
-
+    io_file_interface() = default;
     virtual ~io_file_interface() = default;
 
-    virtual void read(std::vector<std::uint8_t> &buffer) = 0;
-    virtual void read(std::vector<std::uint8_t> &buffer, const int size) = 0;
+    //const auto &get_path() const;
 
-    virtual void write(std::vector<std::uint8_t> &buffer) = 0;
-    virtual void write(std::vector<std::uint8_t> &buffer, const int size) = 0;
-
-    virtual void seek_read(seek_direction direction, const int offset) = 0;
-    virtual void seek_write(seek_direction direction, const int offset) = 0;
-
-    virtual auto get_size() const -> int = 0;
-
-    const auto &get_path() const;
-
-    auto get_open_mode() const;
-
-protected:
-    explicit io_file_interface(const std::string &path, const int openmode);
-
-private:
-    int openmode_;
-    std::string path_;
+    //auto get_open_mode() const;
 };
-
-inline const auto &io_file_interface::get_path() const
-{
-    return path_;
-}
-
-inline auto io_file_interface::get_open_mode() const
-{
-    return openmode_;
-}
-
-inline io_file_interface::io_file_interface(const std::string &path, const int openmode)
-    : openmode_(openmode)
-    , path_(path)
-{
-}
 
 } // namespace io
 } // namespace aeon

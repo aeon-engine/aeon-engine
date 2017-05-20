@@ -29,10 +29,9 @@
 #include <aeon/gfx/gl/gfx_gl_buffer_manager.h>
 #include <aeon/gfx/gl/gfx_gl_device.h>
 #include <aeon/gfx/gl/gfx_gl_mesh.h>
-#include <memory>
 #include <aeon/gfx/gl_common/check_gl_error.h>
-
 #include <GL/glew.h>
+#include <memory>
 
 namespace aeon
 {

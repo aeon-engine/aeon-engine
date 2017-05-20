@@ -27,7 +27,6 @@
 
 #include <aeon/data/mesh.h>
 #include <string>
-#include <memory>
 
 namespace aeon
 {

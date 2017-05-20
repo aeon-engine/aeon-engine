@@ -27,7 +27,6 @@
 
 #include <aeon/gfx/gfx_camera.h>
 #include <aeon/scene/scene_object.h>
-#include <memory>
 
 namespace aeon
 {

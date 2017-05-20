@@ -46,12 +46,8 @@ auto atlas_codec_ata::decode(const std::unique_ptr<resources::resource_provider>
 {
     AEON_LOG_DEBUG(logger_) << "Decoding atlas resource." << std::endl;
 
-    auto input = std::vector<std::uint8_t>();
-    provider->read(input);
-
-    auto stream = streams::memory_stream(std::move(input));
     auto atlas_file = utility::configfile();
-    atlas_file.load(stream);
+    atlas_file.load(*provider);
 
     if (!atlas_file.has_entry("material"))
     {

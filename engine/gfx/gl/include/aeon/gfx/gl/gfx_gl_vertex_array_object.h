@@ -30,6 +30,7 @@
 #include <aeon/gfx/gfx_buffer.h>
 #include <GL/glew.h>
 #include <vector>
+#include <memory>
 
 namespace aeon
 {
@@ -67,7 +68,7 @@ private:
     auto __is_valid() const -> bool;
     void __create_vao();
 
-    aeon::logger::logger logger_;
+    logger::logger logger_;
     GLuint handle_;
     vertex_attributes attributes_;
     std::shared_ptr<buffer> vertex_buffer_;

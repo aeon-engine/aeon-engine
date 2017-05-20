@@ -46,8 +46,7 @@ auto mesh_codec_assimp::decode(const std::unique_ptr<resources::resource_provide
 {
     AEON_LOG_DEBUG(logger_) << "Decoding AssImp mesh resource." << std::endl;
 
-    auto input = std::vector<std::uint8_t>();
-    provider->read(input);
+    auto input = provider->read_to_vector();
 
     auto importer = Assimp::Importer();
     const auto *scene = importer.ReadFileFromMemory(input.data(), input.size(), aiProcessPreset_TargetRealtime_Quality);

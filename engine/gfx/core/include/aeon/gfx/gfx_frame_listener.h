@@ -25,8 +25,6 @@
 
 #pragma once
 
-#include <memory>
-
 namespace aeon
 {
 namespace gfx

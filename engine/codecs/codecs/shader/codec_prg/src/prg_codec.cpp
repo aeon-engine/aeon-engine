@@ -46,18 +46,14 @@ auto shader_codec_prg::decode(const std::unique_ptr<resources::resource_provider
     // TODO: Add error handling for missing segments in the resource file
     AEON_LOG_DEBUG(logger_) << "Decoding shader resource." << std::endl;
 
-    auto input = std::vector<std::uint8_t>();
-    provider->read(input);
-
-    auto stream = streams::memory_stream(std::move(input));
-    auto reader = streams::stream_reader<streams::stream>(stream);
+    auto reader = streams::stream_reader<streams::stream>(*provider);
 
     auto state = shader_decode_state::initial;
 
     auto vertex_source = std::string();
     auto fragment_source = std::string();
 
-    while (!stream.eof())
+    while (!provider->eof())
     {
         auto line = reader.read_line();
 

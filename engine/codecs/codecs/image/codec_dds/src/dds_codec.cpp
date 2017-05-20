@@ -85,19 +85,14 @@ auto image_codec_dds::decode(const std::unique_ptr<resources::resource_provider>
 {
     AEON_LOG_DEBUG(logger_) << "Decoding DDS image." << std::endl;
 
-    auto input = std::vector<std::uint8_t>();
-    provider->read(input);
-
-    auto stream = streams::memory_stream(std::move(input), aeon::streams::access_mode::read);
-
     // Check our stream
-    if (!stream.good())
+    if (!provider->good())
     {
         AEON_LOG_ERROR(logger_) << "Could not decode DDS image. Bad stream." << std::endl;
         throw codec_dds_decode_exception();
     }
 
-    auto size = stream.size();
+    auto size = provider->size();
 
     if (size == 0)
     {
@@ -106,7 +101,7 @@ auto image_codec_dds::decode(const std::unique_ptr<resources::resource_provider>
     }
 
     char filecode[4];
-    stream.read(reinterpret_cast<std::uint8_t *>(filecode), 4);
+    provider->read(reinterpret_cast<std::uint8_t *>(filecode), 4);
 
     if (strncmp(filecode, "DDS ", 4) != 0)
     {
@@ -117,7 +112,7 @@ auto image_codec_dds::decode(const std::unique_ptr<resources::resource_provider>
     static_assert(sizeof(dds_header) == 124, "DDS Header must be 124 bytes. Check compiler byte alignment.");
 
     dds_header header;
-    if (stream.read(reinterpret_cast<std::uint8_t *>(&header), sizeof(dds_header)) != sizeof(dds_header))
+    if (provider->read(reinterpret_cast<std::uint8_t *>(&header), sizeof(dds_header)) != sizeof(dds_header))
     {
         AEON_LOG_ERROR(logger_) << "Could not decode DDS image. Could not read header." << std::endl;
         throw codec_dds_decode_exception();
@@ -128,7 +123,7 @@ auto image_codec_dds::decode(const std::unique_ptr<resources::resource_provider>
     auto image_data_size = ((header.width + 3) / 4) * ((header.height + 3) / 4) * (block_size);
     auto image_data_buffer = std::vector<std::uint8_t>(image_data_size);
 
-    if (stream.read(image_data_buffer.data(), image_data_size) != image_data_size)
+    if (provider->read(image_data_buffer.data(), image_data_size) != image_data_size)
     {
         AEON_LOG_ERROR(logger_) << "Could not decode DDS image. Could not read all image data." << std::endl;
         throw codec_dds_decode_exception();
