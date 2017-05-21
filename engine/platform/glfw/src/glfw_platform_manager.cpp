@@ -35,9 +35,11 @@ namespace platform
 namespace glfw
 {
 
+const auto PLATFORM_MANAGER_LOGGER_NAME = "Platform::GLFW::Manager";
+
 glfw_platform_manager::glfw_platform_manager(input::input_handler &input_handler, gfx::device &device)
     : platform_manager(input_handler, device)
-    , logger_(common::logger::get_singleton(), "Platform::GLFW::Manager")
+    , logger_(common::logger::get_singleton(), PLATFORM_MANAGER_LOGGER_NAME)
     , initialized_(false)
     , running_(false)
     , previous_time_(0.0)
@@ -158,6 +160,8 @@ void glfw_platform_manager::__initialize_glfw() const
 {
     AEON_LOG_MESSAGE(logger_) << "Initializing GLFW." << std::endl;
 
+    glfwSetErrorCallback(&glfw_platform_manager::__static_glfw_error_handler);
+
     int result = glfwInit();
 
     if (result == GL_FALSE)
@@ -167,6 +171,15 @@ void glfw_platform_manager::__initialize_glfw() const
     }
 
     AEON_LOG_DEBUG(logger_) << "Successfully initialized GLFW." << std::endl;
+}
+
+void glfw_platform_manager::__static_glfw_error_handler(int error, const char *description)
+{
+    // TODO: Handle this better.
+    auto logger = logger::logger(common::logger::get_singleton(), PLATFORM_MANAGER_LOGGER_NAME);
+
+    AEON_LOG_ERROR(logger) << "GLFW reported an error (ID: " << error << "): " << description << std::endl;
+    throw platform_exception();
 }
 
 } // namespace glfw

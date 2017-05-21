@@ -53,6 +53,8 @@ public:
 private:
     void __initialize_glfw() const;
 
+    static void __static_glfw_error_handler(int error, const char *description);
+
     logger::logger logger_;
     bool initialized_;
 
