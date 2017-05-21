@@ -68,8 +68,7 @@ public:
      * Create a window. A window can be created on a specific monitor. When no monitor is
      * given, the window appears on the main monitor.
      */
-    virtual auto create_window(const window_settings &settings, monitor *monitor = nullptr)
-        -> std::shared_ptr<window> = 0;
+    virtual auto create_window(const window_settings &settings, monitor *monitor = nullptr) -> window * = 0;
 
     /*!
      * Get the associated input handler.

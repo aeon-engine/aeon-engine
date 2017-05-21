@@ -41,6 +41,8 @@ glfw_platform_manager::glfw_platform_manager(input::input_handler &input_handler
     : platform_manager(input_handler, device)
     , logger_(common::logger::get_singleton(), PLATFORM_MANAGER_LOGGER_NAME)
     , initialized_(false)
+    , monitors_()
+    , windows_()
     , running_(false)
     , previous_time_(0.0)
 {
@@ -50,6 +52,8 @@ glfw_platform_manager::glfw_platform_manager(input::input_handler &input_handler
 
 glfw_platform_manager::~glfw_platform_manager()
 {
+    windows_.clear();
+
     if (initialized_)
         glfwTerminate();
 }
@@ -128,7 +132,7 @@ auto glfw_platform_manager::get_monitors() -> std::vector<monitor *>
     return utility::container::unique_ptr_to_raw_ptr<monitor>(monitors_);
 }
 
-auto glfw_platform_manager::create_window(const window_settings &settings, monitor *monitor) -> std::shared_ptr<window>
+auto glfw_platform_manager::create_window(const window_settings &settings, monitor *monitor) -> window *
 {
     if (!initialized_)
     {
@@ -147,13 +151,12 @@ auto glfw_platform_manager::create_window(const window_settings &settings, monit
         glfw_monitor_ptr = m->get_internal_handle();
     }
 
-    auto window = std::make_shared<glfw_window>(*this, settings, glfw_monitor_ptr);
+    auto window = std::make_unique<glfw_window>(*this, settings, glfw_monitor_ptr);
+    auto window_ptr = window.get();
 
-    // Register this window as render target to the gfx device.
-    // TODO: ownership? The device should not own this render target.
-    get_device().add_render_target(window);
+    windows_.emplace_back(std::move(window));
 
-    return window;
+    return window_ptr;
 }
 
 void glfw_platform_manager::__initialize_glfw() const

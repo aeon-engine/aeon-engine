@@ -43,8 +43,6 @@ DEFINE_EXCEPTION_OBJECT(gl_device_exception, aeon::common::exception, "OpenGL De
 class gfx_gl_device : public gfx::device
 {
 public:
-    using render_targets = std::vector<std::shared_ptr<render_target>>;
-
     explicit gfx_gl_device(io::io_interface &io);
     virtual ~gfx_gl_device();
 
@@ -57,7 +55,8 @@ public:
 
     auto create_mesh(std::shared_ptr<material> material) -> std::unique_ptr<mesh> override;
 
-    void add_render_target(std::shared_ptr<render_target> target) override;
+    void add_render_target(render_target *target) override;
+    void remove_render_target(render_target *target) override;
 
     auto render(float dt) -> bool override;
 
@@ -69,8 +68,8 @@ private:
     void __initialize_glew() const;
     void __report_and_squash_glew_errors() const;
 
-    aeon::logger::logger logger_;
-    render_targets render_targets_;
+    logger::logger logger_;
+    std::vector<render_target *> render_targets_;
 };
 
 } // namespace gl

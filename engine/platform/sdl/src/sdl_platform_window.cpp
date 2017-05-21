@@ -81,10 +81,14 @@ sdl_window::sdl_window(sdl_platform_manager &platform_manager, const window_sett
         AEON_LOG_ERROR(logger_) << "Setting swap interval failed: " << SDL_GetError() << std::endl;
         throw platform_exception();
     }
+
+    platform_manager_.get_device().add_render_target(this);
 }
 
 sdl_window::~sdl_window()
 {
+    platform_manager_.get_device().remove_render_target(this);
+
     if (context_)
         SDL_GL_DeleteContext(context_);
 

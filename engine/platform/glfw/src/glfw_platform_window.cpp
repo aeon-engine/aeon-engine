@@ -77,6 +77,8 @@ glfw_window::glfw_window(glfw_platform_manager &platform_manager, const window_s
     AEON_LOG_DEBUG(logger_) << "Setting swap interval to 1." << std::endl;
 
     glfwSwapInterval(1);
+
+    platform_manager_.get_device().add_render_target(this);
 }
 
 glfw_window::~glfw_window()
@@ -90,6 +92,8 @@ glfw_window::~glfw_window()
     {
         AEON_LOG_WARNING(logger_) << "Window destructor called with no GLFW window created." << std::endl;
     }
+
+    platform_manager_.get_device().remove_render_target(this);
 }
 
 void glfw_window::make_current()

@@ -66,7 +66,12 @@ public:
     /*!
      * Add a render target, like a window to this device.
      */
-    virtual void add_render_target(std::shared_ptr<render_target> target) = 0;
+    virtual void add_render_target(render_target *target) = 0;
+
+    /*!
+     * Remove a render target, like a window to this device.
+     */
+    virtual void remove_render_target(render_target *target) = 0;
 
     virtual auto render(float dt) -> bool = 0;
 

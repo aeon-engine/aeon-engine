@@ -27,6 +27,8 @@
 
 #include <aeon/platform/platform_manager.h>
 #include <aeon/logger/logger.h>
+#include <memory>
+#include <vector>
 
 namespace aeon
 {
@@ -34,6 +36,8 @@ namespace platform
 {
 namespace sdl
 {
+
+class sdl_window;
 
 class sdl_platform_manager : public platform_manager
 {
@@ -47,7 +51,7 @@ public:
 
     auto get_monitors() -> std::vector<monitor *> override;
 
-    auto create_window(const window_settings &settings, monitor *monitor = nullptr) -> std::shared_ptr<window> override;
+    auto create_window(const window_settings &settings, monitor *monitor = nullptr) -> window * override;
 
 private:
     void __initialize_sdl() const;
@@ -58,6 +62,8 @@ private:
 
     bool running_;
     std::uint64_t previous_time_;
+
+    std::vector<std::unique_ptr<sdl_window>> windows_;
 };
 
 } // namespace sdl

@@ -255,7 +255,7 @@ protected:
     codecs::codec_manager codec_manager_;
     assets::asset_manager asset_manager_;
 
-    std::shared_ptr<platform::window> window_;
+    platform::window *window_;
 };
 
 } // namespace aeon

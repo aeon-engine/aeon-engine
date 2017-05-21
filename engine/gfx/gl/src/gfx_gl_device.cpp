@@ -103,7 +103,7 @@ auto gfx_gl_device::create_mesh(std::shared_ptr<material> material) -> std::uniq
     return std::make_unique<gfx_gl_mesh>(this, material);
 }
 
-void gfx_gl_device::add_render_target(std::shared_ptr<render_target> target)
+void gfx_gl_device::add_render_target(render_target *target)
 {
     // HACK: If there are no render targets yet, this is the first window that is being opened.
     // This means we can initialize opengl here.
@@ -117,11 +117,16 @@ void gfx_gl_device::add_render_target(std::shared_ptr<render_target> target)
     render_targets_.push_back(target);
 }
 
+void gfx_gl_device::remove_render_target(render_target *target)
+{
+    render_targets_.erase(std::remove(render_targets_.begin(), render_targets_.end(), target), render_targets_.end());
+}
+
 auto gfx_gl_device::render(float dt) -> bool
 {
     clear_buffer(gfx::buffer_clear_flag::color_buffer | gfx::buffer_clear_flag::depth_buffer);
 
-    for (std::shared_ptr<render_target> &render_target : render_targets_)
+    for (auto render_target : render_targets_)
     {
         if (!render_target->handle_frame(dt))
         {

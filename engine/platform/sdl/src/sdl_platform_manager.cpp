@@ -49,6 +49,8 @@ sdl_platform_manager::sdl_platform_manager(input::input_handler &input_handler, 
 
 sdl_platform_manager::~sdl_platform_manager()
 {
+    windows_.clear();
+
     if (initialized_)
         SDL_Quit();
 }
@@ -96,7 +98,7 @@ auto sdl_platform_manager::get_monitors() -> std::vector<monitor *>
     throw platform_exception();
 }
 
-auto sdl_platform_manager::create_window(const window_settings &settings, monitor *monitor) -> std::shared_ptr<window>
+auto sdl_platform_manager::create_window(const window_settings &settings, monitor *monitor) -> window *
 {
     if (!initialized_)
     {
@@ -107,13 +109,12 @@ auto sdl_platform_manager::create_window(const window_settings &settings, monito
     AEON_LOG_DEBUG(logger_) << "Creating window: " << settings.get_width() << "x" << settings.get_height() << " '"
                             << settings.get_title() << "'." << std::endl;
 
-    auto window = std::make_shared<sdl_window>(*this, settings);
+    auto window = std::make_unique<sdl_window>(*this, settings);
+    auto window_ptr = window.get();
 
-    // Register this window as render target to the gfx device.
-    // TODO: ownership? The device should not own this render target.
-    get_device().add_render_target(window);
+    windows_.emplace_back(std::move(window));
 
-    return window;
+    return window_ptr;
 }
 
 void sdl_platform_manager::__initialize_sdl() const

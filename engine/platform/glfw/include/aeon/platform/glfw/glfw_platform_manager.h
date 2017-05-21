@@ -28,6 +28,8 @@
 #include <aeon/platform/platform_manager.h>
 #include <aeon/platform/glfw/glfw_platform_monitor.h>
 #include <aeon/logger/logger.h>
+#include <memory>
+#include <vector>
 
 namespace aeon
 {
@@ -35,6 +37,8 @@ namespace platform
 {
 namespace glfw
 {
+
+class glfw_window;
 
 class glfw_platform_manager : public platform_manager
 {
@@ -48,7 +52,7 @@ public:
 
     auto get_monitors() -> std::vector<monitor *> override;
 
-    auto create_window(const window_settings &settings, monitor *monitor = nullptr) -> std::shared_ptr<window> override;
+    auto create_window(const window_settings &settings, monitor *monitor = nullptr) -> window * override;
 
 private:
     void __initialize_glfw() const;
@@ -59,6 +63,8 @@ private:
     bool initialized_;
 
     std::vector<std::unique_ptr<glfw_monitor>> monitors_;
+    std::vector<std::unique_ptr<glfw_window>> windows_;
+
     bool running_;
     double previous_time_;
 };
