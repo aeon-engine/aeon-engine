@@ -68,6 +68,8 @@ private:
     static void __static_mouse_button_handler(GLFWwindow *window, int button, int action, int mods);
     static void __static_mouse_scroll_handler(GLFWwindow *window, double xoffset, double yoffset);
 
+    static void __static_glfw_error_handler(int error, const char *description);
+
     auto &get_platform_manager() const
     {
         return platform_manager_;

@@ -40,6 +40,8 @@ glfw_window::glfw_window(glfw_platform_manager &platform_manager, const window_s
     , platform_manager_(platform_manager)
     , cursor_mode_(mouse_cursor_mode::normal)
 {
+    glfwSetErrorCallback(&glfw_window::__static_glfw_error_handler);
+
     AEON_LOG_DEBUG(logger_) << "Creating OpenGL 3.3 core profile context with forward compatibility." << std::endl;
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -53,6 +55,11 @@ glfw_window::glfw_window(glfw_platform_manager &platform_manager, const window_s
 
     window_ =
         glfwCreateWindow(settings.get_width(), settings.get_height(), settings.get_title().c_str(), monitor, nullptr);
+
+    if (window_ == nullptr)
+    {
+        AEON_LOG_FATAL(logger_) << "Creating GLFW window failed." << std::endl;
+    }
 
     AEON_LOG_DEBUG(logger_) << "Setting user pointer." << std::endl;
 
@@ -186,6 +193,15 @@ void glfw_window::__static_mouse_scroll_handler(GLFWwindow *window, double xoffs
     glfw_window *window_ptr = static_cast<glfw_window *>(glfwGetWindowUserPointer(window));
     window_ptr->get_platform_manager().get_input_handler().handle_mouse_scroll_event(static_cast<float>(xoffset),
                                                                                      static_cast<float>(yoffset));
+}
+
+void glfw_window::__static_glfw_error_handler(int error, const char *description)
+{
+    // TODO: Handle this better.
+    auto logger = logger::logger(common::logger::get_singleton(), "Platform::GLFW::Window");
+
+    AEON_LOG_ERROR(logger) << "GLFW reported an error (ID: " << error << "): " << description << std::endl;
+    throw platform_exception();
 }
 
 } // namespace glfw
