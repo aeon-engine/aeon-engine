@@ -25,35 +25,27 @@
 
 #pragma once
 
-#include <build_config.h>
-#include <application/base_application.h>
-#include <aeon/resources/providers/filesystem_collection_provider.h>
-#include <application/gfx_types.h>
+#include <aeon/application/context.h>
+#include <aeon/common/exception.h>
 
 namespace aeon
 {
+namespace application
+{
 
-/*!
- * Base class for universal desktop games with a single render window.
- */
-template <typename scene_manager_t>
-class desktop_application : public base_application<selected_gfx_device, selected_platform, scene_manager_t>
+DEFINE_EXCEPTION_OBJECT(context_exception, common::exception, "context_exception");
+
+class default_context
 {
 public:
-    /*!
-     * Constructor
-     * \see base_application::base_application
-     */
-    explicit desktop_application(const int default_width, const int default_height, const std::string &window_title)
-        : base_application<selected_gfx_device, selected_platform, scene_manager_t>(default_width, default_height,
-                                                                                    window_title)
-    {
-    }
+    static auto create() -> context;
 
-    /*!
-     * Destructor
-     */
-    virtual ~desktop_application() = default;
+private:
+    static auto create_logging_backend() -> std::unique_ptr<common::logger>;
+    static auto create_config_file(io::io_interface &io_interface, logger::logger &logger)
+        -> std::unique_ptr<utility::configfile>;
+    static auto create_codec_manager() -> std::unique_ptr<codecs::codec_manager>;
 };
 
+} // namespace application
 } // namespace aeon

@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include <memory>
 #include <aeon/scene/render_layer.h>
+#include <aeon/common/noncopyable.h>
 #include <glm/mat4x4.hpp>
 #include <string>
 
@@ -44,13 +44,14 @@ enum class scene_object_type
 
 class scene_node;
 class scene_manager;
-class scene_object
+
+class scene_object : public common::noncopyable
 {
     friend class scene_node;
 
 public:
     explicit scene_object(const std::string &name, const int queue_group, const scene_object_type type,
-                          scene_manager *scene_manager)
+                          scene_manager &scene_manager)
         : queue_group_(queue_group)
         , type_(type)
         , scene_manager_(scene_manager)
@@ -100,7 +101,7 @@ protected:
 
     int queue_group_;
     scene_object_type type_;
-    scene_manager *scene_manager_;
+    scene_manager &scene_manager_;
     scene_node *scene_node_;
     std::string name_;
 };

@@ -39,7 +39,7 @@ namespace scene
 class animated_sprite : public sprite
 {
 public:
-    explicit animated_sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &atlas, int zorder,
+    explicit animated_sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &atlas, int zorder,
                              sprite_animation_settings &settings, const std::string &name = "");
 
     virtual ~animated_sprite() = default;

@@ -23,38 +23,31 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+#include <aeon/application/base_application.h>
 
-#include <build_config.h>
+namespace aeon
+{
+namespace application
+{
 
-#ifdef AEON_GFX_GL
-#include <aeon/gfx/gl/gfx_gl_device.h>
-using selected_gfx_device = aeon::gfx::gl::gfx_gl_device;
-#endif // AEON_GFX_GL
+base_application::base_application(context context)
+    : logger_backend_(std::move(context.logger_backend))
+    , logger_(common::logger::get_singleton(), "Application")
+    , config_file_(std::move(context.config_file))
+    , io_(std::move(context.io_interface))
+    , input_handler_(std::move(context.input_handler))
+    , device_(std::move(context.device))
+    , platform_(std::move(context.platform_manager))
+    , resource_manager_(std::move(context.resource_manager))
+    , scene_manager_(std::move(context.scene_manager))
+    , codec_manager_(std::move(context.codec_manager))
+    , asset_manager_(std::move(context.asset_manager))
+{
+    AEON_LOG_MESSAGE(logger_) << "Aeon Engine (" << buildinfo::full_version << ", " << buildinfo::build_date << ")."
+                              << std::endl;
+}
 
-#ifdef AEON_GFX_GLES2
-#include <aeon/gfx/gles2/gfx_gles2_device.h>
-using selected_gfx_device = aeon::gfx::gles2::gfx_gles2_device;
-#endif // AEON_GFX_GLES2
+base_application::~base_application() = default;
 
-#ifdef AEON_GFX_NULL
-#include <gfx/null/gfx_null_device.h>
-using selected_gfx_device = aeon::gfx::null::gfx_null_device;
-#endif // AEON_GFX_NULL
-
-///////////////////////////////////////////////////////////////////////////////
-
-#ifdef AEON_PLATFORM_GLFW
-#include <aeon/platform/glfw/glfw_platform_manager.h>
-using selected_platform = aeon::platform::glfw::glfw_platform_manager;
-#endif // AEON_PLATFORM_GLFW
-
-#ifdef AEON_PLATFORM_SDL
-#include <aeon/platform/sdl/sdl_platform_manager.h>
-using selected_platform = aeon::platform::sdl::sdl_platform_manager;
-#endif // AEON_PLATFORM_SDL
-
-#ifdef AEON_PLATFORM_RPI
-#include <aeon/platform/rpi/rpi_platform_manager.h>
-using selected_platform = aeon::platform::rpi::rpi_platform_manager;
-#endif // AEON_PLATFORM_RPI
+} // namespace application
+} // namespace aeon

@@ -42,10 +42,10 @@ namespace scene
 class sprite : public scene_object, public common::has_z_order
 {
 public:
-    explicit sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
+    explicit sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
                     const data::atlas::region &region, const int zorder, const std::string &name = "");
 
-    explicit sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
+    explicit sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
                     const data::atlas::region &region, const glm::vec2 size, const int zorder,
                     const std::string &name = "");
 

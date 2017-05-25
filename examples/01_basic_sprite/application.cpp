@@ -24,14 +24,15 @@
  */
 
 #include "application.h"
+#include <aeon/application/default_context.h>
+#include <aeon/resources/providers/filesystem_collection_provider.h>
 #include <aeon/scene/sprite.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                                  "Example 1 - Basic Sprite")
+    : aeon::application::desktop_application(aeon::application::default_context::create())
 {
     // Set the log level to show only warnings and higher importance messages.
     // During initialization the engine may still print out debug or trace messages
@@ -39,14 +40,14 @@ application::application()
     get_logger_backend().set_log_level(aeon::logger::log_level::warning);
 
     // Init resources
-    get_resource_manager()->mount(
+    get_resource_manager().mount(
         std::make_unique<aeon::resources::filesystem_collection_provider>(get_io_interface(), "."), "/");
 
     // Set up the scene
     camera_ =
         std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
-    window_->create_viewport(camera_, "viewport1", 0);
+    get_main_window().create_viewport(camera_, "viewport1", 0);
 }
 
 void application::main()
@@ -59,7 +60,7 @@ void application::main()
     auto atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
 
     // Set up scene
-    auto &root_node = scene_manager_.get_root_scene_node();
+    auto &root_node = get_scene_manager().get_root_scene_node();
 
     // Put the ship in the center of the screen by translating the root node
     root_node.translate(400, 300);
@@ -69,11 +70,11 @@ void application::main()
     auto region = atlas->get_region_by_index(10);
 
     // Create a sprite. The last parameter is the z-order; used to determine which sprite should be rendered on top
-    auto ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, 0);
+    auto ship_sprite = get_scene_manager().create_scene_object<aeon::scene::sprite>(atlas, region, 0);
 
     // Attach the sprite to the scene
     root_node.attach_scene_object(ship_sprite);
 
     // Start the render loop
-    platform_.run();
+    get_platform().run();
 }

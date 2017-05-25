@@ -25,16 +25,17 @@
 
 #include "application.h"
 #include <aeon/scene/sprite.h>
+#include <aeon/application/default_context.h>
+#include <aeon/resources/providers/filesystem_collection_provider.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                                  "Example 5 - Multiple Viewports")
+    : aeon::application::desktop_application(aeon::application::default_context::create())
 {
     // Init resources
-    get_resource_manager()->mount(
+    get_resource_manager().mount(
         std::make_unique<aeon::resources::filesystem_collection_provider>(get_io_interface(), "."), "/");
 
     // Set up the scene. Because we are splitting the scene vertically, the camera only has half the window to
@@ -44,11 +45,11 @@ application::application()
 
     // Create the left viewport
     aeon::common::types::rectangle<float> viewport_rect_left(0.0f, 0.0f, 0.5f, 1.0f);
-    window_->create_viewport(camera_, viewport_rect_left, "viewport1", 0);
+    get_main_window().create_viewport(camera_, viewport_rect_left, "viewport1", 0);
 
     // Create the right viewport
     aeon::common::types::rectangle<float> viewport_rect_right(0.5f, 0.0f, 0.5f, 1.0f);
-    window_->create_viewport(camera_, viewport_rect_right, "viewport2", 0);
+    get_main_window().create_viewport(camera_, viewport_rect_right, "viewport2", 0);
 }
 
 void application::main()
@@ -61,7 +62,7 @@ void application::main()
     auto atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
 
     // Set up scene
-    auto &root_node = scene_manager_.get_root_scene_node();
+    auto &root_node = get_scene_manager().get_root_scene_node();
 
     // Put the ship in the center of the screen by translating the root node
     root_node.translate(200, 300);
@@ -71,11 +72,11 @@ void application::main()
     auto region = atlas->get_region_by_index(10);
 
     // Create a sprite. The last parameter is the z-order; used to determine which sprite should be rendered on top
-    auto ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, 0);
+    auto ship_sprite = get_scene_manager().create_scene_object<aeon::scene::sprite>(atlas, region, 0);
 
     // Attach the sprite to the scene
     root_node.attach_scene_object(ship_sprite);
 
     // Start the render loop
-    platform_.run();
+    get_platform().run();
 }

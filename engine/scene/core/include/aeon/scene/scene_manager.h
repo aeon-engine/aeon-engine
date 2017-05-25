@@ -77,7 +77,7 @@ public:
     {
         static_assert(std::is_base_of<scene_object, T>::value, "T must be derived from scene_object.");
 
-        return std::make_shared<T>(this, std::forward<U>(u)...);
+        return std::make_shared<T>(*this, std::forward<U>(u)...);
     }
 
     auto &get_device() const

@@ -25,6 +25,8 @@
 
 #include "application.h"
 #include <aeon/scene/sprite.h>
+#include <aeon/application/default_context.h>
+#include <aeon/resources/providers/filesystem_collection_provider.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
@@ -35,24 +37,23 @@ const float SHIP_MAX_SPEED = 2.0f;
 const float SHIP_FRICTION = 2.0f;
 
 application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                                  "Example 4 - Input Handler (Use the arrow keys)")
+    : aeon::application::desktop_application(aeon::application::default_context::create())
     , move_direction_(ship_move_direction::none)
     , rotate_direction_(ship_rotate_direction::none)
     , forward_speed_(0.0f)
 {
     // Init resources
-    get_resource_manager()->mount(
+    get_resource_manager().mount(
         std::make_unique<aeon::resources::filesystem_collection_provider>(get_io_interface(), "."), "/");
 
     // Attach this class as a frame listener
-    get_main_window()->attach_listener(this);
+    get_main_window().attach_listener(this);
 
     // Set up the scene
     camera_ =
         std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
-    window_->create_viewport(camera_, "viewport1", 0);
+    get_main_window().create_viewport(camera_, "viewport1", 0);
 
     get_input_handler().attach_listener(this);
 }
@@ -70,19 +71,19 @@ void application::main()
     // which is counted left to right, top to bottom.
     auto region = atlas->get_region_by_index(10);
 
-    ship_node_ = scene_manager_.get_root_scene_node().create_child_scene_node();
+    ship_node_ = get_scene_manager().get_root_scene_node().create_child_scene_node();
 
     // Put the ship in the center of the screen
     ship_node_->translate(400, 300);
 
     // Create a sprite. The last parameter is the z-order; used to determine which sprite should be rendered on top
-    auto ship_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, region, 0);
+    auto ship_sprite = get_scene_manager().create_scene_object<aeon::scene::sprite>(atlas, region, 0);
 
     // Attach the sprite to the scene
     ship_node_->attach_scene_object(ship_sprite);
 
     // Start the render loop
-    platform_.run();
+    get_platform().run();
 }
 
 bool application::on_frame_begin(const float dt)
@@ -144,7 +145,7 @@ void application::on_keyboard_key_state_changed_event(const aeon::input::keyboar
 
     if (key == aeon::input::keyboard_key::key_escape && key_state == aeon::input::keyboard_key_state::pressed)
     {
-        platform_.stop();
+        get_platform().stop();
     }
 
     if (key == aeon::input::keyboard_key::key_up)

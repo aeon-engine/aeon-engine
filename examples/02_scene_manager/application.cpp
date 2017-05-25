@@ -24,26 +24,27 @@
  */
 
 #include "application.h"
+#include <aeon/application/default_context.h>
 #include <aeon/scene/sprite.h>
+#include <aeon/resources/providers/filesystem_collection_provider.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                                  "Example 2 - Scene Manager")
+    : aeon::application::desktop_application(aeon::application::default_context::create())
 {
     // Init resources
-    get_resource_manager()->mount(
+    get_resource_manager().mount(
         std::make_unique<aeon::resources::filesystem_collection_provider>(get_io_interface(), "."), "/");
 
-    get_main_window()->attach_listener(this);
+    get_main_window().attach_listener(this);
 
     // Set up the scene
     camera_ =
         std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
-    window_->create_viewport(camera_, "viewport1", 0);
+    get_main_window().create_viewport(camera_, "viewport1", 0);
 }
 
 void application::main()
@@ -56,21 +57,21 @@ void application::main()
     auto atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
 
     // Set up scene
-    auto &root_node = scene_manager_.get_root_scene_node();
+    auto &root_node = get_scene_manager().get_root_scene_node();
     root_node.translate(400, 300);
 
     auto ship1 = atlas->get_region_by_index(0);
     auto ship2 = atlas->get_region_by_index(4);
     auto ship3 = atlas->get_region_by_index(10);
 
-    auto ship1_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship1, 0);
+    auto ship1_sprite = get_scene_manager().create_scene_object<aeon::scene::sprite>(atlas, ship1, 0);
     root_node.attach_scene_object(ship1_sprite);
 
     ship2_pivot_node_ = root_node.create_child_scene_node();
     auto ship2_node = ship2_pivot_node_->create_child_scene_node();
     ship2_node->translate(200.0f, 0.0f);
 
-    auto ship2_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship2, 1);
+    auto ship2_sprite = get_scene_manager().create_scene_object<aeon::scene::sprite>(atlas, ship2, 1);
     ship2_node->attach_scene_object(ship2_sprite);
 
     ship3_pivot_node_ = ship2_node->create_child_scene_node();
@@ -79,10 +80,11 @@ void application::main()
 
     // Instead of just passing the atlas region, you can also manually pass a size to the sprite.
     // This will scale the sprite.
-    auto ship3_sprite = scene_manager_.create_scene_object<aeon::scene::sprite>(atlas, ship3, glm::vec2(32, 32), 2);
+    auto ship3_sprite =
+        get_scene_manager().create_scene_object<aeon::scene::sprite>(atlas, ship3, glm::vec2(32, 32), 2);
     ship3_node->attach_scene_object(ship3_sprite);
 
-    platform_.run();
+    get_platform().run();
 }
 
 bool application::on_frame_begin(const float dt)

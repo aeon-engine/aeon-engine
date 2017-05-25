@@ -23,9 +23,32 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <application/base_application.h>
+#pragma once
+
+#include <aeon/application/base_application.h>
+#include <aeon/platform/platform_window.h>
 
 namespace aeon
 {
+namespace application
+{
 
+class desktop_application : public base_application
+{
+public:
+    explicit desktop_application(context context);
+    virtual ~desktop_application();
+
+    /*!
+     * Get the main window created for this application.
+     */
+    auto get_main_window() const -> platform::window &;
+
+private:
+    void __create_window();
+
+    platform::window *window_;
+};
+
+} // namespace application
 } // namespace aeon

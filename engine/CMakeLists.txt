@@ -38,6 +38,7 @@ add_subdirectory(scene)
 add_subdirectory(assets)
 add_subdirectory(input)
 add_subdirectory(platform)
+add_subdirectory(application)
 
 ################################################################################
 
@@ -45,100 +46,16 @@ add_source_path(AEON_ENGINE_SOURCES application)
 
 ################################################################################
 
-option(AEON_CONSOLE_OUTPUT_DEBUG_MSGS "Console outputs debug/trace messages." ON)
-set(AEON_CONSOLE_BUFFER_SIZE 10240 CACHE STRING "The maximum length of a single console line")
-set(AEON_DEFAULT_CONSOLE_LOG_LEVEL "console::log_level::info" CACHE STRING "The default minimum log level")
+set(AEON_DEFAULT_WINDOW_WIDTH 1280 CACHE STRING "Default window width if none was given in the config file.")
+set(AEON_DEFAULT_WINDOW_HEIGHT 720 CACHE STRING "Default window height if none was given in the config file.")
+set(AEON_DEFAULT_WINDOW_TITLE "Aeon Engine" CACHE STRING "Default window title if none was given in the config file.")
+set(AEON_CONFIG_FILE_NAME "config.conf" CACHE STRING "Config file name.")
+set(AEON_DEFAULT_LOG_LEVEL "aeon::logger::log_level::message" CACHE STRING "The default minimum log level")
 configure_file(build_config.h.in ${CMAKE_BINARY_DIR}/build_config.h @ONLY)
 
 ################################################################################
 
 generate_source_groups("${AEON_ENGINE_SOURCES}")
-
-add_library(aeon_engine STATIC ${AEON_ENGINE_SOURCES})
-
-target_include_directories(aeon_engine
-    PUBLIC ${CMAKE_BINARY_DIR}
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-target_link_libraries(aeon_engine
-    aeon_engine_common
-    aeon_engine_data
-    aeon_engine_io
-    aeon_engine_storage
-    aeon_engine_resources
-    aeon_engine_gfx_core
-    aeon_engine_scene_core
-    aeon_engine_basic_scene_manager
-    aeon_engine_assets
-    aeon_engine_input
-    aeon_engine_platform_core
-    aeon_engine_codecs
-    aeon_engine_codec_amf
-    aeon_engine_codec_asc
-    aeon_engine_codec_assimp
-    aeon_engine_codec_ata
-    aeon_engine_codec_dds
-    aeon_engine_codec_png
-    aeon_engine_codec_prg
-    glm
-    ${OPENGL_LIBRARIES}
-)
-
-if (APPLE)
-    target_link_libraries(aeon_engine ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY})
-endif ()
-
-if (AEON_GFX_GL)
-    target_link_libraries(aeon_engine
-        aeon_engine_gfx_gl_common
-        aeon_engine_gfx_gl
-    )
-endif ()
-
-if (AEON_GFX_GLES2)
-    target_link_libraries(aeon_engine
-        aeon_engine_gfx_gl_common
-        aeon_engine_gfx_gles2
-    )
-endif ()
-
-if (AEON_PLATFORM_GLFW)
-    target_link_libraries(aeon_engine
-        aeon_engine_platform_glfw
-    )
-endif ()
-
-if (AEON_PLATFORM_SDL)
-    target_link_libraries(aeon_engine
-        aeon_engine_platform_sdl
-    )
-endif ()
-
-if (AEON_PLATFORM_RPI)
-    target_link_libraries(aeon_engine
-        aeon_engine_platform_rpi
-    )
-endif ()
-
-set_target_properties(
-    aeon_engine PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-    FOLDER engine
-)
-
-install(
-    TARGETS aeon_engine
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
-)
-
-install(
-    DIRECTORY application/
-    DESTINATION include/application
-    FILES_MATCHING PATTERN "*.h"
-)
 
 install(
     FILES

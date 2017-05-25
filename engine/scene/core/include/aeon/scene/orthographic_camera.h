@@ -35,14 +35,14 @@ namespace scene
 class orthographic_camera : public camera
 {
 public:
-    explicit orthographic_camera(scene_manager *scene_manager, const float left, const float right, const float bottom,
+    explicit orthographic_camera(scene_manager &scene_manager, const float left, const float right, const float bottom,
                                  const float top, const std::string &name = "");
-    explicit orthographic_camera(scene_manager *scene_manager, const float left, const float right, const float bottom,
+    explicit orthographic_camera(scene_manager &scene_manager, const float left, const float right, const float bottom,
                                  const float top, const float near, const float far, const std::string &name = "");
 
-    explicit orthographic_camera(scene_manager *scene_manager, const int left, const int right, const int bottom,
+    explicit orthographic_camera(scene_manager &scene_manager, const int left, const int right, const int bottom,
                                  const int top, const std::string &name = "");
-    explicit orthographic_camera(scene_manager *scene_manager, const int left, const int right, const int bottom,
+    explicit orthographic_camera(scene_manager &scene_manager, const int left, const int right, const int bottom,
                                  const int top, const float near, const float far, const std::string &name = "");
 
     virtual ~orthographic_camera() = default;

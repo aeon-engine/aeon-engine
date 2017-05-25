@@ -31,7 +31,7 @@ namespace aeon
 namespace scene
 {
 
-animated_sprite::animated_sprite(scene_manager *scene_manager, const std::shared_ptr<gfx::atlas> &atlas, int zorder,
+animated_sprite::animated_sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &atlas, int zorder,
                                  sprite_animation_settings &settings, const std::string &name)
     : sprite(scene_manager, atlas, atlas->get_region_by_index(0), settings.size_, zorder, name)
     , settings_(std::move(settings))

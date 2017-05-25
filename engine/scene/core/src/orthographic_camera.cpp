@@ -31,14 +31,14 @@ namespace aeon
 namespace scene
 {
 
-orthographic_camera::orthographic_camera(scene_manager *scene_manager, const float left, const float right,
+orthographic_camera::orthographic_camera(scene_manager &scene_manager, const float left, const float right,
                                          const float bottom, const float top, const std::string &name)
     : camera(name, scene_manager)
 {
     projection_matrix_ = glm::ortho(left, right, bottom, top);
 }
 
-orthographic_camera::orthographic_camera(scene_manager *scene_manager, const float left, const float right,
+orthographic_camera::orthographic_camera(scene_manager &scene_manager, const float left, const float right,
                                          const float bottom, const float top, const float near, const float far,
                                          const std::string &name)
     : camera(name, scene_manager)
@@ -46,7 +46,7 @@ orthographic_camera::orthographic_camera(scene_manager *scene_manager, const flo
     projection_matrix_ = glm::ortho(left, right, bottom, top, near, far);
 }
 
-orthographic_camera::orthographic_camera(scene_manager *scene_manager, const int left, const int right,
+orthographic_camera::orthographic_camera(scene_manager &scene_manager, const int left, const int right,
                                          const int bottom, const int top, const std::string &name)
     : camera(name, scene_manager)
 {
@@ -54,7 +54,7 @@ orthographic_camera::orthographic_camera(scene_manager *scene_manager, const int
                                     static_cast<float>(top));
 }
 
-orthographic_camera::orthographic_camera(scene_manager *scene_manager, const int left, const int right,
+orthographic_camera::orthographic_camera(scene_manager &scene_manager, const int left, const int right,
                                          const int bottom, const int top, const float near, const float far,
                                          const std::string &name)
     : camera(name, scene_manager)

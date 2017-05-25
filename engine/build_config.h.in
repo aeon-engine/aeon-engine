@@ -76,16 +76,10 @@
 #cmakedefine AEON_ENABLE_GL_ERROR_CHECKS
 
 /*!
- * Define if Aeon should log debug messages.
+ * Default configuration
  */
-#cmakedefine AEON_CONSOLE_OUTPUT_DEBUG_MSGS
-
-/*!
- * The maximum length of a single console line
- */
-#define AEON_CONSOLE_BUFFER_SIZE            @AEON_CONSOLE_BUFFER_SIZE@
-
-/*!
- * The default minimum log level
- */
-#define AEON_DEFAULT_CONSOLE_LOG_LEVEL      @AEON_DEFAULT_CONSOLE_LOG_LEVEL@
+#define AEON_CONFIG_FILE_NAME               "@AEON_CONFIG_FILE_NAME@"
+#define AEON_DEFAULT_WINDOW_WIDTH           @AEON_DEFAULT_WINDOW_WIDTH@
+#define AEON_DEFAULT_WINDOW_HEIGHT          @AEON_DEFAULT_WINDOW_HEIGHT@
+#define AEON_DEFAULT_WINDOW_TITLE           "@AEON_DEFAULT_WINDOW_TITLE@"
+#define AEON_DEFAULT_LOG_LEVEL              @AEON_DEFAULT_LOG_LEVEL@

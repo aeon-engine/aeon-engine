@@ -26,9 +26,10 @@
 #pragma once
 
 #include <aeon/scene/scene_object.h>
+#include <glm/mat4x4.hpp>
 #include <vector>
 #include <utility>
-#include <glm/mat4x4.hpp>
+#include <memory>
 
 namespace aeon
 {

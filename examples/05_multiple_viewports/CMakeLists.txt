@@ -29,7 +29,7 @@ target_include_directories(example_05_multiple_viewports
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(example_05_multiple_viewports aeon_engine)
+target_link_libraries(example_05_multiple_viewports aeon_engine_application)
 
 set_target_properties(
     example_05_multiple_viewports PROPERTIES

@@ -31,7 +31,7 @@ namespace aeon
 namespace scene
 {
 
-camera::camera(const std::string &name, scene_manager *scene_manager)
+camera::camera(const std::string &name, scene_manager &scene_manager)
     : gfx::gfx_camera()
     , scene_object(name, render_layer::overlay, scene_object_type::spatial, scene_manager)
 {
@@ -39,7 +39,7 @@ camera::camera(const std::string &name, scene_manager *scene_manager)
 
 void camera::render_scene(gfx::render_target &rt, gfx::viewport &vp, const float dt)
 {
-    scene_manager_->__render_scene(*this, rt, vp, dt);
+    scene_manager_.__render_scene(*this, rt, vp, dt);
 }
 
 } // namespace scene

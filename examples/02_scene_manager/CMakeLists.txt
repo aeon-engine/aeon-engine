@@ -29,7 +29,7 @@ target_include_directories(example_02_scene_manager
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(example_02_scene_manager aeon_engine)
+target_link_libraries(example_02_scene_manager aeon_engine_application)
 
 set_target_properties(
     example_02_scene_manager PROPERTIES

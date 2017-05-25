@@ -24,28 +24,29 @@
  */
 
 #include "application.h"
+#include <aeon/application/default_context.h>
+#include <aeon/resources/providers/filesystem_collection_provider.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 application::application()
-    : aeon::desktop_application<aeon::scene::basic_scene_manager>(WINDOW_WIDTH, WINDOW_HEIGHT,
-                                                                  "Example 3 - Sprite Animation")
+    : aeon::application::desktop_application(aeon::application::default_context::create())
     , turn_timer_(0.0f)
     , direction_(move_south)
 {
     // Init resources
-    get_resource_manager()->mount(
+    get_resource_manager().mount(
         std::make_unique<aeon::resources::filesystem_collection_provider>(get_io_interface(), "."), "/");
 
     // Attach this class as a frame listener
-    get_main_window()->attach_listener(this);
+    get_main_window().attach_listener(this);
 
     // Set up the scene
     camera_ =
         std::make_shared<aeon::scene::orthographic_camera>(get_scene_manager(), 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 
-    window_->create_viewport(camera_, "viewport1", 0);
+    get_main_window().create_viewport(camera_, "viewport1", 0);
 }
 
 void application::main()
@@ -55,7 +56,7 @@ void application::main()
     auto atlas = get_asset_manager().create_atlas(animation_material, glm::vec2(32, 32));
 
     // Set up scene
-    auto &root_node = scene_manager_.get_root_scene_node();
+    auto &root_node = get_scene_manager().get_root_scene_node();
     root_node.translate(400, 300);
 
     // The parameter given to the animation settings constructor is the size of each frame inside of the sprite sheet
@@ -85,10 +86,11 @@ void application::main()
     // Set up the animation so that it keeps playing forever.
     animation_settings.set_repeat(aeon::scene::animation_repeat::continuous);
 
-    animated_sprite_ = scene_manager_.create_scene_object<aeon::scene::animated_sprite>(atlas, 0, animation_settings);
+    animated_sprite_ =
+        get_scene_manager().create_scene_object<aeon::scene::animated_sprite>(atlas, 0, animation_settings);
     root_node.attach_scene_object(animated_sprite_);
 
-    platform_.run();
+    get_platform().run();
 }
 
 bool application::on_frame_begin(const float dt)

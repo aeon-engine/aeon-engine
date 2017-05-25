@@ -25,11 +25,10 @@
 
 #pragma once
 
-#include <application/desktop_application.h>
-#include <aeon/scene/basic_scene_manager/basic_scene_manager.h>
+#include <aeon/application/desktop_application.h>
 #include <aeon/scene/orthographic_camera.h>
 
-class application : public aeon::desktop_application<aeon::scene::basic_scene_manager>
+class application : public aeon::application::desktop_application
 {
 public:
     explicit application();
