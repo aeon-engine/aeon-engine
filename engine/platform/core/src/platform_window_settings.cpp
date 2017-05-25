@@ -54,7 +54,7 @@ auto window_settings::get_title() const -> const std::string &
     return title_;
 }
 
-void window_settings::set_multisample(const unsigned samples)
+void window_settings::set_multisample(const unsigned int samples)
 {
     multisample_ = samples;
 }
