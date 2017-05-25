@@ -21,6 +21,11 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
+message(STATUS "+------------------------------------------------------------------------------+")
+message(STATUS "| SDL                                                                          |")
+message(STATUS "+------------------------------------------------------------------------------+")
+add_subdirectory(${CMAKE_SOURCE_DIR}/dep/sdl dep/sdl)
+
 set (AEON_ENGINE_PLATFORM_SDL_SOURCES
     include/aeon/platform/sdl/sdl_platform_monitor.h
     include/aeon/platform/sdl/sdl_platform_window.h

@@ -23,12 +23,14 @@
 
 add_subdirectory(core)
 
-if (AEON_GFX_GL)
+if (AEON_BUILD_GFX_GL OR AEON_BUILD_GFX_GLES)
     add_subdirectory(gl_common)
+endif ()
+
+if (AEON_BUILD_GFX_GL)
     add_subdirectory(gl)
 endif ()
 
-if (AEON_GFX_GLES2)
-    add_subdirectory(gl_common)
+if (AEON_BUILD_GFX_GLES)
     add_subdirectory(gles2)
 endif ()

@@ -21,6 +21,14 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
+find_package(RaspberryPiSDK COMPONENTS
+    EGL
+    GLESv2
+    vcos
+    vchiq_arm
+    bcm_host
+)
+
 set (AEON_ENGINE_PLATFORM_RPI_SOURCES
     include/aeon/platform/rpi/rpi_platform_monitor.h
     include/aeon/platform/rpi/rpi_platform_window.h

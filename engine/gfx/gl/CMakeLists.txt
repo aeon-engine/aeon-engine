@@ -21,6 +21,13 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
+find_package(OpenGL REQUIRED)
+
+message(STATUS "+------------------------------------------------------------------------------+")
+message(STATUS "| GLEW                                                                         |")
+message(STATUS "+------------------------------------------------------------------------------+")
+add_subdirectory(${CMAKE_SOURCE_DIR}/dep/glew dep/glew)
+
 set (AEON_ENGINE_GFX_GL_SOURCES
     include/aeon/gfx/gl/gfx_gl_buffer.h
     include/aeon/gfx/gl/gfx_gl_buffer_manager.h

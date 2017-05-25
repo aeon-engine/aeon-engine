@@ -40,36 +40,6 @@
 #cmakedefine AEON_GFX_GLES2
 
 /*!
- * Define if the Null device should be used as GFX backend.
- */
-#cmakedefine AEON_GFX_NULL
-
-/*!
- * Define if GLFW should be used as platform.
- */
-#cmakedefine AEON_PLATFORM_GLFW
-
-/*!
- * Define if SDL should be used as platform.
- */
-#cmakedefine AEON_PLATFORM_SDL
-
-/*!
- * Define if Raspberry Pi should be used as platform.
- */
-#cmakedefine AEON_PLATFORM_RPI
-
-/*!
- * Define if Qt should be used as platform.
- */
-#cmakedefine AEON_PLATFORM_QT
-
-/*!
- * Define if Null should be used as platform.
- */
-#cmakedefine AEON_PLATFORM_NULL
-
-/*!
  * Define if OpenGL and GLES error checking should be enabled.
  * Warning: This is very slow, only use for debugging purposes.
  */

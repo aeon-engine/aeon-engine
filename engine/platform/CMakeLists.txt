@@ -23,14 +23,14 @@
 
 add_subdirectory(core)
 
-if (AEON_PLATFORM_GLFW)
+if (AEON_BUILD_PLATFORM_GLFW)
     add_subdirectory(glfw)
 endif ()
 
-if (AEON_PLATFORM_SDL)
+if (AEON_BUILD_PLATFORM_SDL)
     add_subdirectory(sdl)
 endif ()
 
-if (AEON_PLATFORM_RPI)
+if (AEON_BUILD_PLATFORM_RPI)
     add_subdirectory(rpi)
 endif ()

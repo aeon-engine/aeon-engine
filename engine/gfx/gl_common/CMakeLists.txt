@@ -21,6 +21,10 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
+# Check and log all OpenGL 3 and GLES 2 errors. Warning: This is very slow,
+# only use for debugging purposes.
+option(AEON_ENABLE_GL_ERROR_CHECKS "Check and log all OpenGL 3 and GLES 2 errors." ON)
+
 set (AEON_ENGINE_GFX_GL_COMMON_SOURCES
     include/aeon/gfx/gl_common/check_gl_error.h
     src/check_gl_error.cpp

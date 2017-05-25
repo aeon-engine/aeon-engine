@@ -21,6 +21,11 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
+message(STATUS "+------------------------------------------------------------------------------+")
+message(STATUS "| GLFW                                                                         |")
+message(STATUS "+------------------------------------------------------------------------------+")
+add_subdirectory(${CMAKE_SOURCE_DIR}/dep/glfw dep/glfw)
+
 set (AEON_ENGINE_PLATFORM_GLFW_SOURCES
     include/aeon/platform/glfw/glfw_platform_monitor.h
     include/aeon/platform/glfw/glfw_platform_window.h

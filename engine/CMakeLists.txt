@@ -24,6 +24,34 @@
 include(Utility)
 include(Buildinfo)
 
+option(AEON_BUILD_GFX_GL "Build the OpenGL 3.3 subsystem" ON)
+option(AEON_BUILD_GFX_GLES "Build the OpenGLES 2.0 subsystem" OFF)
+
+option(AEON_BUILD_PLATFORM_GLFW "Build the GLFW subsystem" ON)
+option(AEON_BUILD_PLATFORM_SDL "Build the SDL subsystem" ON)
+option(AEON_BUILD_PLATFORM_RPI "Build the Raspberry Pi subsystem" OFF)
+
+if (AEON_BUILD_GFX_GL AND AEON_BUILD_GFX_GLES)
+    message (FATAL_ERROR "Currently building both GL and GLES 2.0 isn't supported. Please select one.")
+endif ()
+
+if (AEON_BUILD_GFX_GL)
+    set(AEON_GFX_GL ON)
+endif ()
+
+if (AEON_BUILD_GFX_GLES)
+    set(AEON_GFX_GLES2 ON)
+endif ()
+
+set(AEON_DEFAULT_WINDOW_WIDTH 1280 CACHE STRING "Default window width if none was given in the config file.")
+set(AEON_DEFAULT_WINDOW_HEIGHT 720 CACHE STRING "Default window height if none was given in the config file.")
+set(AEON_DEFAULT_WINDOW_TITLE "Aeon Engine" CACHE STRING "Default window title if none was given in the config file.")
+set(AEON_CONFIG_FILE_NAME "config.conf" CACHE STRING "Config file name.")
+set(AEON_DEFAULT_LOG_LEVEL "aeon::logger::log_level::message" CACHE STRING "The default minimum log level")
+configure_file(build_config.h.in ${CMAKE_BINARY_DIR}/build_config.h @ONLY)
+
+################################################################################
+
 generate_build_info_header(${CMAKE_BINARY_DIR}/buildinfo.h)
 
 add_subdirectory(serialization)
@@ -41,21 +69,6 @@ add_subdirectory(platform)
 add_subdirectory(application)
 
 ################################################################################
-
-add_source_path(AEON_ENGINE_SOURCES application)
-
-################################################################################
-
-set(AEON_DEFAULT_WINDOW_WIDTH 1280 CACHE STRING "Default window width if none was given in the config file.")
-set(AEON_DEFAULT_WINDOW_HEIGHT 720 CACHE STRING "Default window height if none was given in the config file.")
-set(AEON_DEFAULT_WINDOW_TITLE "Aeon Engine" CACHE STRING "Default window title if none was given in the config file.")
-set(AEON_CONFIG_FILE_NAME "config.conf" CACHE STRING "Config file name.")
-set(AEON_DEFAULT_LOG_LEVEL "aeon::logger::log_level::message" CACHE STRING "The default minimum log level")
-configure_file(build_config.h.in ${CMAKE_BINARY_DIR}/build_config.h @ONLY)
-
-################################################################################
-
-generate_source_groups("${AEON_ENGINE_SOURCES}")
 
 install(
     FILES
