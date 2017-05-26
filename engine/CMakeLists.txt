@@ -68,6 +68,10 @@ add_subdirectory(input)
 add_subdirectory(platform)
 add_subdirectory(application)
 
+if (AEON_ENABLE_MONO)
+    add_subdirectory(mono)
+endif ()
+
 ################################################################################
 
 install(

@@ -21,18 +21,38 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-add_subdirectory(01_basic_sprite)
-add_subdirectory(02_scene_manager)
-add_subdirectory(03_sprite_animation)
-add_subdirectory(04_input_handler)
-add_subdirectory(05_multiple_viewports)
-add_subdirectory(06_mesh_loading)
+include(Utility)
+include(Mono)
 
-if (AEON_ENABLE_MONO)
-    add_subdirectory(07_mono)
-endif ()
+add_mono_assembly(
+    TARGET MonoGame
+    DESTINATION ${CMAKE_BINARY_DIR}/bin
+    TYPE library
+    SOURCES MonoGame/MonoApplication.cs
+    ADDITIONAL_ARGS "/reference:AeonEngineMono.dll"
+)
+
+add_dependencies(MonoGame AeonEngineMono)
+
+add_executable(example_07_mono main.cpp application.cpp application.h)
+
+target_include_directories(example_07_mono
+    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries(example_07_mono aeon_engine_mono)
+
+set_target_properties(
+    example_07_mono PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    FOLDER examples
+)
+
+set_working_dir(example_07_mono "${CMAKE_SOURCE_DIR}/bin")
 
 install(
-    DIRECTORY ${CMAKE_SOURCE_DIR}/bin/
-    DESTINATION bin
+    TARGETS example_07_mono
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
 )

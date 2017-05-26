@@ -23,31 +23,36 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/application/base_application.h>
+#pragma once
+
+#include <aeon/mono/mono_jit.h>
+#include <aeon/mono/mono_assembly.h>
+#include <aeon/logger/logger.h>
+#include <aeon/common/noncopyable.h>
 
 namespace aeon
 {
-namespace application
+namespace mono
 {
 
-base_application::base_application(context context)
-    : logger_(common::logger::get_singleton(), "Application")
-    , logger_backend_(std::move(context.logger_backend))
-    , config_file_(std::move(context.config_file))
-    , io_(std::move(context.io_interface))
-    , input_handler_(std::move(context.input_handler))
-    , device_(std::move(context.device))
-    , platform_(std::move(context.platform_manager))
-    , resource_manager_(std::move(context.resource_manager))
-    , scene_manager_(std::move(context.scene_manager))
-    , codec_manager_(std::move(context.codec_manager))
-    , asset_manager_(std::move(context.asset_manager))
+class mono_jit_manager : public common::noncopyable
 {
-    AEON_LOG_MESSAGE(logger_) << "Aeon Engine (" << buildinfo::full_version << ", " << buildinfo::build_date << ")."
-                              << std::endl;
-}
+public:
+    mono_jit_manager();
+    virtual ~mono_jit_manager();
 
-base_application::~base_application() = default;
+    void load_assembly(const std::string &path);
 
-} // namespace application
+    int main() const;
+
+private:
+    void initialize_jit() const;
+
+    logger::logger logger_;
+    mono_jit jit_;
+    mono_assembly assembly_;
+    mono_assembly engine_assembly_;
+};
+
+} // namespace mono
 } // namespace aeon

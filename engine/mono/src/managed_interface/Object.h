@@ -23,31 +23,49 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/application/base_application.h>
+#pragma once
+
+#include <aeon/mono/mono_assembly.h>
+#include <aeon/mono/mono_gchandle.h>
+#include <aeon/mono/mono_class_field.h>
+#include <aeon/mono/mono_class_instance.h>
+#include <aeon/common/noncopyable.h>
 
 namespace aeon
 {
-namespace application
+namespace mono
+{
+namespace managed_interface
 {
 
-base_application::base_application(context context)
-    : logger_(common::logger::get_singleton(), "Application")
-    , logger_backend_(std::move(context.logger_backend))
-    , config_file_(std::move(context.config_file))
-    , io_(std::move(context.io_interface))
-    , input_handler_(std::move(context.input_handler))
-    , device_(std::move(context.device))
-    , platform_(std::move(context.platform_manager))
-    , resource_manager_(std::move(context.resource_manager))
-    , scene_manager_(std::move(context.scene_manager))
-    , codec_manager_(std::move(context.codec_manager))
-    , asset_manager_(std::move(context.asset_manager))
+class Object : public common::noncopyable
 {
-    AEON_LOG_MESSAGE(logger_) << "Aeon Engine (" << buildinfo::full_version << ", " << buildinfo::build_date << ")."
-                              << std::endl;
+public:
+    static void register_internal_calls();
+    static void initialize_class_field(mono_assembly &assembly);
+
+    explicit Object(MonoObject *object);
+    virtual ~Object();
+
+    auto get_managed_object() const -> MonoObject *;
+
+    static mono_class_field native_object_field;
+
+    template <typename T>
+    static auto &get_managed_object_as(MonoObject *this_ptr);
+
+private:
+    MonoObject *managed_object_;
+    mono_gchandle gc_handle_;
+};
+
+template <typename T>
+auto &Object::get_managed_object_as(MonoObject *this_ptr)
+{
+    mono_class_instance cls(this_ptr);
+    return *cls.get_field_value<T *>(native_object_field);
 }
 
-base_application::~base_application() = default;
-
-} // namespace application
+} // namespace managed_interface
+} // namespace mono
 } // namespace aeon

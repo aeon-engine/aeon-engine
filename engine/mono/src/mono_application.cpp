@@ -23,31 +23,45 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/application/base_application.h>
+#include <aeon/mono/mono_application.h>
+#include <aeon/mono/mono_exception.h>
+#include <aeon/common/logger.h>
+
+#define AEON_DEFAULT_MONO_ASSEMBLY_NAME "MonoGame.dll"
 
 namespace aeon
 {
-namespace application
+namespace mono
 {
 
-base_application::base_application(context context)
-    : logger_(common::logger::get_singleton(), "Application")
-    , logger_backend_(std::move(context.logger_backend))
-    , config_file_(std::move(context.config_file))
-    , io_(std::move(context.io_interface))
-    , input_handler_(std::move(context.input_handler))
-    , device_(std::move(context.device))
-    , platform_(std::move(context.platform_manager))
-    , resource_manager_(std::move(context.resource_manager))
-    , scene_manager_(std::move(context.scene_manager))
-    , codec_manager_(std::move(context.codec_manager))
-    , asset_manager_(std::move(context.asset_manager))
+mono_application::mono_application(application::context context)
+    : desktop_application(std::move(context))
+    , logger_(common::logger::get_singleton(), "Mono::Application")
+    , jit_manager_()
 {
-    AEON_LOG_MESSAGE(logger_) << "Aeon Engine (" << buildinfo::full_version << ", " << buildinfo::build_date << ")."
-                              << std::endl;
+    AEON_LOG_DEBUG(logger_) << "Mono application started." << std::endl;
 }
 
-base_application::~base_application() = default;
+mono_application::~mono_application() = default;
 
-} // namespace application
+auto mono_application::main(int argc, char *argv[]) -> int
+{
+    if (argc != 1 && argc != 2)
+    {
+        AEON_LOG_FATAL(logger_) << "Usage: mono_application [assembly_name]." << std::endl;
+        throw mono_exception();
+    }
+
+    std::string assembly_name = AEON_DEFAULT_MONO_ASSEMBLY_NAME;
+
+    if (argc == 2)
+    {
+        assembly_name = argv[1];
+    }
+
+    jit_manager_.load_assembly(assembly_name);
+    return jit_manager_.main();
+}
+
+} // namespace mono
 } // namespace aeon

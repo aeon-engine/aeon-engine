@@ -23,31 +23,29 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/application/base_application.h>
+#pragma once
+
+#include <aeon/application/desktop_application.h>
+#include <aeon/mono/mono_jit_manager.h>
+#include <aeon/logger/logger.h>
 
 namespace aeon
 {
-namespace application
+namespace mono
 {
 
-base_application::base_application(context context)
-    : logger_(common::logger::get_singleton(), "Application")
-    , logger_backend_(std::move(context.logger_backend))
-    , config_file_(std::move(context.config_file))
-    , io_(std::move(context.io_interface))
-    , input_handler_(std::move(context.input_handler))
-    , device_(std::move(context.device))
-    , platform_(std::move(context.platform_manager))
-    , resource_manager_(std::move(context.resource_manager))
-    , scene_manager_(std::move(context.scene_manager))
-    , codec_manager_(std::move(context.codec_manager))
-    , asset_manager_(std::move(context.asset_manager))
+class mono_application : public application::desktop_application
 {
-    AEON_LOG_MESSAGE(logger_) << "Aeon Engine (" << buildinfo::full_version << ", " << buildinfo::build_date << ")."
-                              << std::endl;
-}
+public:
+    explicit mono_application(application::context context);
+    virtual ~mono_application();
 
-base_application::~base_application() = default;
+    auto main(int argc, char *argv[]) -> int;
 
-} // namespace application
+private:
+    logger::logger logger_;
+    mono_jit_manager jit_manager_;
+};
+
+} // namespace mono
 } // namespace aeon

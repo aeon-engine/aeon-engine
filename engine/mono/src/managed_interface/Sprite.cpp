@@ -23,31 +23,58 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/application/base_application.h>
+#include <managed_interface/Sprite.h>
+#include <managed_interface/Types.h>
+#include <aeon/mono/mono_jit.h>
+#include <memory>
 
 namespace aeon
 {
-namespace application
+namespace mono
+{
+namespace managed_interface
 {
 
-base_application::base_application(context context)
-    : logger_(common::logger::get_singleton(), "Application")
-    , logger_backend_(std::move(context.logger_backend))
-    , config_file_(std::move(context.config_file))
-    , io_(std::move(context.io_interface))
-    , input_handler_(std::move(context.input_handler))
-    , device_(std::move(context.device))
-    , platform_(std::move(context.platform_manager))
-    , resource_manager_(std::move(context.resource_manager))
-    , scene_manager_(std::move(context.scene_manager))
-    , codec_manager_(std::move(context.codec_manager))
-    , asset_manager_(std::move(context.asset_manager))
+static void Sprite_Ctor(MonoObject *this_ptr)
 {
-    AEON_LOG_MESSAGE(logger_) << "Aeon Engine (" << buildinfo::full_version << ", " << buildinfo::build_date << ")."
-                              << std::endl;
+    std::make_unique<Sprite>(this_ptr).release();
 }
 
-base_application::~base_application() = default;
+static void Sprite_set_Size(MonoObject *this_ptr, Vector2f value)
+{
+    Object::get_managed_object_as<Sprite>(this_ptr).set_Size({value.x, value.y});
+}
 
-} // namespace application
+static Vector2f Sprite_get_Size(MonoObject *this_ptr)
+{
+    auto value = Object::get_managed_object_as<Sprite>(this_ptr).get_Size();
+    return { value.x, value.y };
+}
+
+void Sprite::register_internal_calls()
+{
+    mono_jit::add_internal_call("Aeon.Sprite::.ctor", Sprite_Ctor);
+    mono_jit::add_internal_call("Aeon.Sprite::set_Size", Sprite_set_Size);
+    mono_jit::add_internal_call("Aeon.Sprite::get_Size", Sprite_get_Size);
+}
+
+Sprite::Sprite(MonoObject *object)
+    : Object(object)
+{
+}
+
+Sprite::~Sprite() = default;
+
+void Sprite::set_Size(const glm::vec2 value)
+{
+    (void) value;
+}
+
+auto Sprite::get_Size() -> glm::vec2
+{
+    return {1337, 42};
+}
+
+} // namespace managed_interface
+} // namespace mono
 } // namespace aeon
