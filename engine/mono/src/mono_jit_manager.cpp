@@ -29,7 +29,9 @@
 #include <aeon/mono/mono_method.h>
 #include <aeon/common/logger.h>
 
+#include <managed_interface/FilesystemCollectionProvider.h>
 #include <managed_interface/Object.h>
+#include <managed_interface/ResourceManager.h>
 #include <managed_interface/Sprite.h>
 
 #include <cassert>
@@ -39,18 +41,19 @@ namespace aeon
 namespace mono
 {
 
-mono_jit_manager::mono_jit_manager()
+application::base_application *mono_jit_manager::application_ = nullptr;
+
+mono_jit_manager::mono_jit_manager(application::base_application &application)
     : logger_(common::logger::get_singleton(), "Mono::JitManager")
     , jit_("AeonEngine")
     , assembly_()
     , engine_assembly_()
 {
+    application_ = &application;
     initialize_jit();
 }
 
-mono_jit_manager::~mono_jit_manager()
-{
-}
+mono_jit_manager::~mono_jit_manager() = default;
 
 void mono_jit_manager::load_assembly(const std::string &path)
 {
@@ -76,9 +79,16 @@ int mono_jit_manager::main() const
     return 0;
 }
 
+auto mono_jit_manager::get_application() -> application::base_application &
+{
+    return *application_;
+}
+
 void mono_jit_manager::initialize_jit() const
 {
+    managed_interface::FilesystemCollectionProvider::register_internal_calls();
     managed_interface::Object::register_internal_calls();
+    managed_interface::ResourceManager::register_internal_calls();
     managed_interface::Sprite::register_internal_calls();
 }
 

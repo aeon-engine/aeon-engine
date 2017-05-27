@@ -47,7 +47,7 @@ set(AEON_DEFAULT_WINDOW_WIDTH 1280 CACHE STRING "Default window width if none wa
 set(AEON_DEFAULT_WINDOW_HEIGHT 720 CACHE STRING "Default window height if none was given in the config file.")
 set(AEON_DEFAULT_WINDOW_TITLE "Aeon Engine" CACHE STRING "Default window title if none was given in the config file.")
 set(AEON_CONFIG_FILE_NAME "config.conf" CACHE STRING "Config file name.")
-set(AEON_DEFAULT_LOG_LEVEL "aeon::logger::log_level::message" CACHE STRING "The default minimum log level")
+set(AEON_DEFAULT_LOG_LEVEL "aeon::logger::log_level::trace" CACHE STRING "The default minimum log level")
 configure_file(build_config.h.in ${CMAKE_BINARY_DIR}/build_config.h @ONLY)
 
 ################################################################################

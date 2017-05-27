@@ -25,21 +25,19 @@
 
 #pragma once
 
-#include <aeon/mono/mono_native_class.h>
-
 namespace aeon
 {
 namespace mono
 {
+namespace managed_interface
+{
 
-class ResourceManager : public mono_native_class
+class ResourceManager
 {
 public:
-    explicit ResourceManager(MonoObject *object);
-    virtual ~ResourceManager();
-
-private:
+    static void register_internal_calls();
 };
 
+} // namespace managed_interface
 } // namespace mono
 } // namespace aeon

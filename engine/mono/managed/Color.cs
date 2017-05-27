@@ -25,7 +25,7 @@
 
 using System;
 
-namespace Aeon
+namespace AeonEngineMono
 {
     public struct Color
     {

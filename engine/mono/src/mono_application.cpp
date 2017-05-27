@@ -37,7 +37,7 @@ namespace mono
 mono_application::mono_application(application::context context)
     : desktop_application(std::move(context))
     , logger_(common::logger::get_singleton(), "Mono::Application")
-    , jit_manager_()
+    , jit_manager_(*this)
 {
     AEON_LOG_DEBUG(logger_) << "Mono application started." << std::endl;
 }

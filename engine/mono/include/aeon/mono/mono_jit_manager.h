@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <aeon/application/base_application.h>
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_assembly.h>
 #include <aeon/logger/logger.h>
@@ -38,12 +39,14 @@ namespace mono
 class mono_jit_manager : public common::noncopyable
 {
 public:
-    mono_jit_manager();
+    mono_jit_manager(application::base_application &application);
     virtual ~mono_jit_manager();
 
     void load_assembly(const std::string &path);
 
     int main() const;
+
+    static auto get_application() -> application::base_application &;
 
 private:
     void initialize_jit() const;
@@ -52,6 +55,8 @@ private:
     mono_jit jit_;
     mono_assembly assembly_;
     mono_assembly engine_assembly_;
+
+    static application::base_application *application_;
 };
 
 } // namespace mono

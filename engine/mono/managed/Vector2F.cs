@@ -23,7 +23,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Aeon
+namespace AeonEngineMono
 {
     public struct Vector2F
     {

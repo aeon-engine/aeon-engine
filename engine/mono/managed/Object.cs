@@ -26,7 +26,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Aeon
+namespace AeonEngineMono
 {
     public class Object
     {

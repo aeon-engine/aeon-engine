@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2012-2017 Robin Degen
  *
  * Permission is hereby granted, free of charge, to any person
@@ -23,29 +23,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-using Aeon = AeonEngineMono;
-
-public class MonoApplication
+namespace AeonEngineMono
 {
-    public MonoApplication()
+    public abstract class ResourceCollectionProvider : Object
     {
-        Console.WriteLine("MonoApplication created.");
-    }
-
-    ~MonoApplication()
-    {
-        Console.WriteLine("MonoApplication destroyed.");
-    }
-
-    public void Initialize()
-    {
-        Console.WriteLine("Initializing game engine!");
-
-        Aeon.ResourceManager.Mount(new Aeon.FilesystemCollectionProvider("."), "/");
-
-        Aeon.Sprite a = new Aeon.Sprite();
-        a.Size = new Aeon.Vector2F(64, 64);
-	    Console.WriteLine("Size: " + a.Size.X + " " + a.Size.Y);
     }
 }

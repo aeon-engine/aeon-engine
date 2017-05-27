@@ -23,12 +23,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/ResourceManager.h>
+#pragma once
+
+#include <aeon/resources/providers/resource_collection_provider.h>
 #include <managed_interface/Object.h>
-#include <managed_interface/ResourceCollectionProvider.h>
-#include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_string.h>
-#include <aeon/mono/mono_jit_manager.h>
 #include <memory>
 
 namespace aeon
@@ -38,25 +36,24 @@ namespace mono
 namespace managed_interface
 {
 
-static void ResourceManager_Mount(MonoObject *provider, MonoString *mountPoint)
+class ResourceCollectionProvider : public Object
 {
-    auto &collection_provider = Object::get_managed_object_as<ResourceCollectionProvider>(provider);
-    mono_jit_manager::get_application().get_resource_manager().mount(std::move(collection_provider.provider),
-                                                                     mono_string(mountPoint).str());
+public:
+    explicit ResourceCollectionProvider(MonoObject *object,
+                                        std::unique_ptr<resources::resource_collection_provider> provider);
+    virtual ~ResourceCollectionProvider();
+
+    std::unique_ptr<resources::resource_collection_provider> provider;
+};
+
+inline ResourceCollectionProvider::ResourceCollectionProvider(
+    MonoObject *object, std::unique_ptr<resources::resource_collection_provider> provider)
+    : Object(object)
+    , provider(std::move(provider))
+{
 }
 
-static void ResourceManager_Unmount(MonoString *mountPoint)
-{
-    mono_jit_manager::get_application().get_resource_manager().unmount(mono_string(mountPoint).str());
-}
-
-void ResourceManager::register_internal_calls()
-{
-    mono_jit::add_internal_call(
-        "AeonEngineMono.ResourceManager::Mount(AeonEngineMono.ResourceCollectionProvider,string)",
-        ResourceManager_Mount);
-    mono_jit::add_internal_call("AeonEngineMono.ResourceManager::Unmount(string)", ResourceManager_Unmount);
-}
+inline ResourceCollectionProvider::~ResourceCollectionProvider() = default;
 
 } // namespace managed_interface
 } // namespace mono

@@ -54,8 +54,11 @@ set (AEON_ENGINE_MONO_SOURCES
 source_group(mono FILES ${AEON_ENGINE_MONO_SOURCES})
 
 set (AEON_ENGINE_MONO_MANAGED_INTERFACE_SOURCES
+    src/managed_interface/FilesystemCollectionProvider.cpp
+    src/managed_interface/FilesystemCollectionProvider.h
     src/managed_interface/Object.cpp
     src/managed_interface/Object.h
+    src/managed_interface/ResourceCollectionProvider.h
     src/managed_interface/ResourceManager.cpp
     src/managed_interface/ResourceManager.h
     src/managed_interface/Sprite.cpp
@@ -73,6 +76,7 @@ add_library(aeon_engine_mono STATIC
 target_link_libraries(aeon_engine_mono
     aeon_engine_application
     aeon_engine_common
+    aeon_engine_resources
     aeon_common
     aeon_logger
     aeon_mono

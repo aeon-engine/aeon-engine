@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Color.cs" />
+    <Compile Include="FilesystemCollectionProvider.cs" />
     <Compile Include="Object.cs" />
+    <Compile Include="ResourceCollectionProvider.cs" />
     <Compile Include="ResourceManager.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="Vector2F.cs" />

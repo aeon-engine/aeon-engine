@@ -48,14 +48,14 @@ static void Sprite_set_Size(MonoObject *this_ptr, Vector2F value)
 static Vector2F Sprite_get_Size(MonoObject *this_ptr)
 {
     auto value = Object::get_managed_object_as<Sprite>(this_ptr).get_Size();
-    return { value.x, value.y };
+    return {value.x, value.y};
 }
 
 void Sprite::register_internal_calls()
 {
-    mono_jit::add_internal_call("Aeon.Sprite::.ctor", Sprite_Ctor);
-    mono_jit::add_internal_call("Aeon.Sprite::set_Size", Sprite_set_Size);
-    mono_jit::add_internal_call("Aeon.Sprite::get_Size", Sprite_get_Size);
+    mono_jit::add_internal_call("AeonEngineMono.Sprite::.ctor", Sprite_Ctor);
+    mono_jit::add_internal_call("AeonEngineMono.Sprite::set_Size", Sprite_set_Size);
+    mono_jit::add_internal_call("AeonEngineMono.Sprite::get_Size", Sprite_get_Size);
 }
 
 Sprite::Sprite(MonoObject *object)
@@ -67,7 +67,7 @@ Sprite::~Sprite() = default;
 
 void Sprite::set_Size(const glm::vec2 value)
 {
-    (void) value;
+    (void)value;
 }
 
 auto Sprite::get_Size() -> glm::vec2

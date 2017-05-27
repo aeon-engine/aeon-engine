@@ -23,9 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/ResourceManager.h>
-#include <managed_interface/Object.h>
-#include <managed_interface/ResourceCollectionProvider.h>
+#include <managed_interface/FilesystemCollectionProvider.h>
+#include <aeon/resources/providers/filesystem_collection_provider.h>
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_string.h>
 #include <aeon/mono/mono_jit_manager.h>
@@ -38,25 +37,24 @@ namespace mono
 namespace managed_interface
 {
 
-static void ResourceManager_Mount(MonoObject *provider, MonoString *mountPoint)
+static void FilesystemCollectionProvider_Ctor(MonoObject *this_ptr, MonoString *basePath)
 {
-    auto &collection_provider = Object::get_managed_object_as<ResourceCollectionProvider>(provider);
-    mono_jit_manager::get_application().get_resource_manager().mount(std::move(collection_provider.provider),
-                                                                     mono_string(mountPoint).str());
+    std::make_unique<FilesystemCollectionProvider>(this_ptr, mono_string(basePath).str()).release();
 }
 
-static void ResourceManager_Unmount(MonoString *mountPoint)
+void FilesystemCollectionProvider::register_internal_calls()
 {
-    mono_jit_manager::get_application().get_resource_manager().unmount(mono_string(mountPoint).str());
+    mono_jit::add_internal_call("AeonEngineMono.FilesystemCollectionProvider::.ctor(string)",
+                                FilesystemCollectionProvider_Ctor);
 }
 
-void ResourceManager::register_internal_calls()
+FilesystemCollectionProvider::FilesystemCollectionProvider(MonoObject *object, const std::string &basePath)
+    : ResourceCollectionProvider(object, std::make_unique<resources::filesystem_collection_provider>(
+                                             mono_jit_manager::get_application().get_io_interface(), basePath))
 {
-    mono_jit::add_internal_call(
-        "AeonEngineMono.ResourceManager::Mount(AeonEngineMono.ResourceCollectionProvider,string)",
-        ResourceManager_Mount);
-    mono_jit::add_internal_call("AeonEngineMono.ResourceManager::Unmount(string)", ResourceManager_Unmount);
 }
+
+FilesystemCollectionProvider::~FilesystemCollectionProvider() = default;
 
 } // namespace managed_interface
 } // namespace mono

@@ -49,12 +49,12 @@ static void Object_Finalize(MonoObject *this_ptr)
 
 void Object::register_internal_calls()
 {
-    mono_jit::add_internal_call("Aeon.Object::Finalize", Object_Finalize);
+    mono_jit::add_internal_call("AeonEngineMono.Object::Finalize", Object_Finalize);
 }
 
 void Object::initialize_class_field(mono_assembly &assembly)
 {
-    auto object_class = assembly.get_class("Aeon", "Object");
+    auto object_class = assembly.get_class("AeonEngineMono", "Object");
     native_object_field = object_class.get_field("m_NativePtr");
 }
 
