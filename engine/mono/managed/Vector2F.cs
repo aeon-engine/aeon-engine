@@ -23,19 +23,17 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-
 namespace Aeon
 {
-    public struct Vector2f
+    public struct Vector2F
     {
-        public Vector2f(float _x, float _y)
+        public Vector2F(float x, float y)
         {
-            x = _x;
-            y = _y;
+            X = x;
+            Y = y;
         }
 
-        public float x;
-        public float y;
+        public float X;
+        public float Y;
     }
 }

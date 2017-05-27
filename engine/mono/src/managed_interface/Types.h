@@ -40,13 +40,13 @@ struct Color
     float a;
 };
 
-struct Vector2f
+struct Vector2F
 {
     float x;
     float y;
 };
 
-struct Vector3f
+struct Vector3F
 {
     float x;
     float y;

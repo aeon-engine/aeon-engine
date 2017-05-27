@@ -24,13 +24,21 @@
 include(Utility)
 include(Mono)
 
-add_mono_assembly(
-    TARGET MonoGame
-    DESTINATION ${CMAKE_BINARY_DIR}/bin
-    TYPE library
-    SOURCES MonoGame/MonoApplication.cs
-    ADDITIONAL_ARGS "/reference:AeonEngineMono.dll"
-)
+if (MSVC)
+    include_external_msproject(
+        MonoGame
+        ${CMAKE_CURRENT_SOURCE_DIR}/MonoGame/MonoGame.csproj
+        TYPE FAE04EC0-301F-11D3-BF4B-00C04F79EFBC
+    )
+else ()
+    add_mono_assembly(
+        TARGET MonoGame
+        DESTINATION ${CMAKE_BINARY_DIR}/bin
+        TYPE library
+        SOURCES MonoGame/MonoApplication.cs
+        ADDITIONAL_ARGS "/reference:AeonEngineMono.dll"
+    )
+endif ()
 
 add_dependencies(MonoGame AeonEngineMono)
 

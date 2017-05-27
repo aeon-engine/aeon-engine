@@ -23,7 +23,6 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
 using System.Runtime.CompilerServices;
 
 namespace Aeon
@@ -33,7 +32,7 @@ namespace Aeon
 	    [MethodImpl(MethodImplOptions.InternalCall)]
 	    public extern Sprite();
 
-        public extern Vector2f Size
+        public extern Vector2F Size
 		{
 			[MethodImpl(MethodImplOptions.InternalCall)]
 			get;

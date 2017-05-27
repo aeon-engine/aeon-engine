@@ -43,7 +43,7 @@ public class MonoApplication
         Console.WriteLine("Initializing game engine!");
 
         Aeon.Sprite a = new Aeon.Sprite();
-        a.Size = new Aeon.Vector2f(64, 64);
-	    Console.WriteLine("Size: " + a.Size.x + " " + a.Size.y);
+        a.Size = new Aeon.Vector2F(64, 64);
+	    Console.WriteLine("Size: " + a.Size.X + " " + a.Size.Y);
     }
 }

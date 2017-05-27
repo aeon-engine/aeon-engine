@@ -29,16 +29,16 @@ namespace Aeon
 {
     public struct Color
     {
-        public float r;
-        public float g;
-        public float b;
-        public float a;
+        public float R;
+        public float G;
+        public float B;
+        public float A;
 
         public float grayscale
         {
             get
             {
-                return 0.2126f * r + 0.7152f * g + 0.0722f * b;
+                return 0.2126f * R + 0.7152f * G + 0.0722f * B;
             }
         }
 
@@ -49,13 +49,13 @@ namespace Aeon
                 switch (index)
                 {
                     case 0:
-                        return r;
+                        return R;
                     case 1:
-                        return g;
+                        return G;
                     case 2:
-                        return b;
+                        return B;
                     case 3:
-                        return a;
+                        return A;
                     default:
                         throw new IndexOutOfRangeException("Index out of range.");
                 }
@@ -65,16 +65,16 @@ namespace Aeon
                 switch (index)
                 {
                     case 0:
-                        r = value;
+                        R = value;
                         break;
                     case 1:
-                        g = value;
+                        G = value;
                         break;
                     case 2:
-                        b = value;
+                        B = value;
                         break;
                     case 3:
-                        a = value;
+                        A = value;
                         break;
                     default:
                         throw new IndexOutOfRangeException("Index out of range.");

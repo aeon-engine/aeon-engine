@@ -40,12 +40,12 @@ static void Sprite_Ctor(MonoObject *this_ptr)
     std::make_unique<Sprite>(this_ptr).release();
 }
 
-static void Sprite_set_Size(MonoObject *this_ptr, Vector2f value)
+static void Sprite_set_Size(MonoObject *this_ptr, Vector2F value)
 {
     Object::get_managed_object_as<Sprite>(this_ptr).set_Size({value.x, value.y});
 }
 
-static Vector2f Sprite_get_Size(MonoObject *this_ptr)
+static Vector2F Sprite_get_Size(MonoObject *this_ptr)
 {
     auto value = Object::get_managed_object_as<Sprite>(this_ptr).get_Size();
     return { value.x, value.y };

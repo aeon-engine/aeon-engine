@@ -23,17 +23,25 @@
 
 include(Mono)
 
-add_mono_assembly(
-    TARGET AeonEngineMono
-    DESTINATION ${CMAKE_BINARY_DIR}/bin
-    TYPE library
-    SOURCES
-        managed/Color.cs
-        managed/Object.cs
-        managed/ResourceManager.cs
-        managed/Sprite.cs
-        managed/Vector2f.cs
-)
+if (MSVC)
+    include_external_msproject(
+        AeonEngineMono
+        ${CMAKE_CURRENT_SOURCE_DIR}/managed/AeonEngineMono.csproj
+        TYPE FAE04EC0-301F-11D3-BF4B-00C04F79EFBC
+    )
+else ()
+    add_mono_assembly(
+        TARGET AeonEngineMono
+        DESTINATION ${CMAKE_BINARY_DIR}/bin
+        TYPE library
+        SOURCES
+            managed/Color.cs
+            managed/Object.cs
+            managed/ResourceManager.cs
+            managed/Sprite.cs
+            managed/Vector2f.cs
+    )
+endif ()
 
 set (AEON_ENGINE_MONO_SOURCES
     include/aeon/mono/mono_exception.h
