@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2012-2017 Robin Degen
  *
  * Permission is hereby granted, free of charge, to any person
@@ -23,32 +23,41 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-using Aeon = AeonEngineMono;
+using System.Runtime.CompilerServices;
 
-public class MonoApplication
+namespace AeonEngineMono
 {
-    public MonoApplication()
+    public enum SceneObjectType
     {
-        Console.WriteLine("MonoApplication created.");
-    }
+        Spatial = 0,
+        Sprite = 1,
+        Mesh = 2
+    };
 
-    ~MonoApplication()
+    public abstract class SceneObject : Object
     {
-        Console.WriteLine("MonoApplication destroyed.");
+        public extern SceneObjectType Type
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+        }
+
+        public extern int QueueGroup
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+        }
+
+        public extern string Name
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+        }
+
+        public extern Matrix4X4 SceneMatrix
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+        }
     }
-
-    public void Initialize()
-    {
-        Console.WriteLine("Initializing game engine!");
-
-        Aeon.ResourceManager.Mount(new Aeon.FilesystemCollectionProvider("."), "/");
-
-        m_Camera = new Aeon.OrthographicCamera(0, 800, 600, 0);
-        m_Viewport = new Aeon.Viewport(m_Camera, "My Viewport");
-
-    }
-
-    private Aeon.OrthographicCamera m_Camera;
-    private Aeon.Viewport m_Viewport;
 }

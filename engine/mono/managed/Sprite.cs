@@ -29,16 +29,16 @@ namespace AeonEngineMono
 {
     public class Sprite : Object
     {
-	    [MethodImpl(MethodImplOptions.InternalCall)]
-	    public extern Sprite();
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern Sprite();
 
         public extern Vector2F Size
-		{
-			[MethodImpl(MethodImplOptions.InternalCall)]
-			get;
-			[MethodImpl(MethodImplOptions.InternalCall)]
-			set;
-		}
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            set;
+        }
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         private extern void CreateInternal();
