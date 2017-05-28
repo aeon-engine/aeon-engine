@@ -23,34 +23,32 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-using AeonEngineMono.Gfx;
-using AeonEngineMono.Resources;
-using AeonEngineMono.Scene;
+#pragma once
 
-public class MonoApplication
+#include <managed_interface/Core/Object.h>
+#include <aeon/common/types/rectangle.h>
+#include <aeon/scene/camera.h>
+#include <memory>
+#include <string>
+
+namespace aeon
 {
-    public MonoApplication()
-    {
-        Console.WriteLine("MonoApplication created.");
-    }
+namespace mono
+{
+namespace managed_interface
+{
 
-    ~MonoApplication()
-    {
-        Console.WriteLine("MonoApplication destroyed.");
-    }
+class Viewport : public Object
+{
+public:
+    static void register_internal_calls();
 
-    public void Initialize()
-    {
-        Console.WriteLine("Initializing game engine!");
+    explicit Viewport(MonoObject *object, std::shared_ptr<gfx::viewport> viewport);
+    virtual ~Viewport();
 
-        ResourceManager.Mount(new FilesystemCollectionProvider("."), "/");
+    std::shared_ptr<gfx::viewport> viewport;
+};
 
-        m_Camera = new OrthographicCamera(0, 800, 600, 0);
-        m_Viewport = new Viewport(m_Camera, "My Viewport");
-    }
-
-    private OrthographicCamera m_Camera;
-    private Viewport m_Viewport;
-
-}
+} // namespace managed_interface
+} // namespace mono
+} // namespace aeon

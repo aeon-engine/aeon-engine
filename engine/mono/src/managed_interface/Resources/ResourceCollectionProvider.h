@@ -23,9 +23,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/Sprite.h>
-#include <managed_interface/Types.h>
-#include <aeon/mono/mono_jit.h>
+#pragma once
+
+#include <aeon/resources/providers/resource_collection_provider.h>
+#include <managed_interface/Core/Object.h>
 #include <memory>
 
 namespace aeon
@@ -35,45 +36,24 @@ namespace mono
 namespace managed_interface
 {
 
-static void Sprite_Ctor(MonoObject *this_ptr)
+class ResourceCollectionProvider : public Object
 {
-    std::make_unique<Sprite>(this_ptr).release();
-}
+public:
+    explicit ResourceCollectionProvider(MonoObject *object,
+                                        std::unique_ptr<resources::resource_collection_provider> provider);
+    virtual ~ResourceCollectionProvider();
 
-static void Sprite_set_Size(MonoObject *this_ptr, Vector2F value)
-{
-    Object::get_managed_object_as<Sprite>(this_ptr).set_Size({value.x, value.y});
-}
+    std::unique_ptr<resources::resource_collection_provider> provider;
+};
 
-static Vector2F Sprite_get_Size(MonoObject *this_ptr)
-{
-    auto value = Object::get_managed_object_as<Sprite>(this_ptr).get_Size();
-    return {value.x, value.y};
-}
-
-void Sprite::register_internal_calls()
-{
-    mono_jit::add_internal_call("AeonEngineMono.Sprite::.ctor", Sprite_Ctor);
-    mono_jit::add_internal_call("AeonEngineMono.Sprite::set_Size", Sprite_set_Size);
-    mono_jit::add_internal_call("AeonEngineMono.Sprite::get_Size", Sprite_get_Size);
-}
-
-Sprite::Sprite(MonoObject *object)
+inline ResourceCollectionProvider::ResourceCollectionProvider(
+    MonoObject *object, std::unique_ptr<resources::resource_collection_provider> provider)
     : Object(object)
+    , provider(std::move(provider))
 {
 }
 
-Sprite::~Sprite() = default;
-
-void Sprite::set_Size(const glm::vec2 value)
-{
-    (void)value;
-}
-
-auto Sprite::get_Size() -> glm::vec2
-{
-    return {1337, 42};
-}
+inline ResourceCollectionProvider::~ResourceCollectionProvider() = default;
 
 } // namespace managed_interface
 } // namespace mono

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2012-2017 Robin Degen
  *
  * Permission is hereby granted, free of charge, to any person
@@ -23,36 +23,22 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+using System.Runtime.CompilerServices;
 
-namespace aeon
+namespace AeonEngineMono.Scene
 {
-namespace mono
-{
-namespace managed_interface
-{
+    public class OrthographicCamera : Camera
+    {
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern OrthographicCamera(float left, float right, float bottom, float top, string name = "");
 
-struct Color
-{
-    float r;
-    float g;
-    float b;
-    float a;
-};
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern OrthographicCamera(float left, float right, float bottom, float top, float near, float far, string name = "");
 
-struct Vector2F
-{
-    float x;
-    float y;
-};
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern OrthographicCamera(int left, int right, int bottom, int top, string name = "");
 
-struct Vector3F
-{
-    float x;
-    float y;
-    float z;
-};
-
-} // namespace managed_interface
-} // namespace mono
-} // namespace aeon
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern OrthographicCamera(int left, int right, int bottom, int top, float near, float far, string name = "");
+    }
+}

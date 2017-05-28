@@ -25,8 +25,11 @@
 
 #pragma once
 
-#include <managed_interface/Object.h>
-#include <glm/vec2.hpp>
+#include <aeon/mono/mono_assembly.h>
+#include <aeon/mono/mono_gchandle.h>
+#include <aeon/mono/mono_class_field.h>
+#include <aeon/mono/mono_class_instance.h>
+#include <aeon/common/noncopyable.h>
 
 namespace aeon
 {
@@ -35,17 +38,34 @@ namespace mono
 namespace managed_interface
 {
 
-class Sprite : public Object
+class Object : public common::noncopyable
 {
 public:
     static void register_internal_calls();
+    static void initialize_class_field(mono_assembly &assembly);
 
-    explicit Sprite(MonoObject *object);
-    virtual ~Sprite();
+    explicit Object(MonoObject *object);
+    virtual ~Object();
 
-    void set_Size(const glm::vec2 value);
-    auto get_Size() -> glm::vec2;
+    auto get_managed_object() const -> MonoObject *;
+
+    static mono_class object_class;
+    static mono_class_field native_object_field;
+
+    template <typename T>
+    static auto &get_managed_object_as(MonoObject *this_ptr);
+
+private:
+    MonoObject *managed_object_;
+    mono_gchandle gc_handle_;
 };
+
+template <typename T>
+auto &Object::get_managed_object_as(MonoObject *this_ptr)
+{
+    mono_class_instance cls(this_ptr);
+    return *cls.get_field_value<T *>(native_object_field);
+}
 
 } // namespace managed_interface
 } // namespace mono

@@ -23,9 +23,12 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/Object.h>
+#include <managed_interface/Resources/FilesystemCollectionProvider.h>
+#include <aeon/resources/providers/filesystem_collection_provider.h>
 #include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_class.h>
+#include <aeon/mono/mono_string.h>
+#include <aeon/mono/mono_jit_manager.h>
+#include <memory>
 
 namespace aeon
 {
@@ -34,48 +37,24 @@ namespace mono
 namespace managed_interface
 {
 
-mono_class_field Object::native_object_field;
-
-static void Object_Finalize(MonoObject *this_ptr)
+static void FilesystemCollectionProvider_Ctor(MonoObject *this_ptr, MonoString *basePath)
 {
-    mono_class_instance cls(this_ptr);
-
-    // TODO: Add additional overloads or template for set_field_value
-    // so that nullptr can be passed in directly.
-    Object *null_obj = nullptr;
-    cls.set_field_value<Object *>(Object::native_object_field, null_obj);
-    delete &Object::get_managed_object_as<Object>(this_ptr);
+    std::make_unique<FilesystemCollectionProvider>(this_ptr, mono_string(basePath).str()).release();
 }
 
-void Object::register_internal_calls()
+void FilesystemCollectionProvider::register_internal_calls()
 {
-    mono_jit::add_internal_call("AeonEngineMono.Object::Finalize", Object_Finalize);
+    mono_jit::add_internal_call("AeonEngineMono.Resources.FilesystemCollectionProvider::.ctor(string)",
+                                FilesystemCollectionProvider_Ctor);
 }
 
-void Object::initialize_class_field(mono_assembly &assembly)
+FilesystemCollectionProvider::FilesystemCollectionProvider(MonoObject *object, const std::string &basePath)
+    : ResourceCollectionProvider(object, std::make_unique<resources::filesystem_collection_provider>(
+                                             mono_jit_manager::get_application().get_io_interface(), basePath))
 {
-    auto object_class = assembly.get_class("AeonEngineMono", "Object");
-    native_object_field = object_class.get_field("m_NativePtr");
 }
 
-Object::Object(MonoObject *object)
-    : managed_object_(object)
-    , gc_handle_(object)
-{
-    mono_class_instance cls(object);
-
-    // TODO: Add additional overloads or template for set_field_value
-    // so that "this" can be passed in directly.
-    Object *obj = this;
-    cls.set_field_value<Object *>(native_object_field, obj);
-}
-
-Object::~Object() = default;
-
-auto Object::get_managed_object() const -> MonoObject *
-{
-    return managed_object_;
-}
+FilesystemCollectionProvider::~FilesystemCollectionProvider() = default;
 
 } // namespace managed_interface
 } // namespace mono

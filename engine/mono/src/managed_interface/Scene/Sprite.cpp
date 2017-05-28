@@ -23,12 +23,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/ResourceManager.h>
-#include <managed_interface/Object.h>
-#include <managed_interface/ResourceCollectionProvider.h>
+#include <managed_interface/scene/Sprite.h>
+#include <managed_interface/core/Types.h>
 #include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_string.h>
-#include <aeon/mono/mono_jit_manager.h>
 #include <memory>
 
 namespace aeon
@@ -38,24 +35,44 @@ namespace mono
 namespace managed_interface
 {
 
-static void ResourceManager_Mount(MonoObject *provider, MonoString *mountPoint)
+static void Sprite_Ctor(MonoObject *this_ptr)
 {
-    auto &collection_provider = Object::get_managed_object_as<ResourceCollectionProvider>(provider);
-    mono_jit_manager::get_application().get_resource_manager().mount(std::move(collection_provider.provider),
-                                                                     mono_string(mountPoint).str());
+    std::make_unique<Sprite>(this_ptr).release();
 }
 
-static void ResourceManager_Unmount(MonoString *mountPoint)
+static void Sprite_set_Size(MonoObject *this_ptr, Vector2F value)
 {
-    mono_jit_manager::get_application().get_resource_manager().unmount(mono_string(mountPoint).str());
+    Object::get_managed_object_as<Sprite>(this_ptr).set_Size({value.x, value.y});
 }
 
-void ResourceManager::register_internal_calls()
+static Vector2F Sprite_get_Size(MonoObject *this_ptr)
 {
-    mono_jit::add_internal_call(
-        "AeonEngineMono.ResourceManager::Mount(AeonEngineMono.ResourceCollectionProvider,string)",
-        ResourceManager_Mount);
-    mono_jit::add_internal_call("AeonEngineMono.ResourceManager::Unmount(string)", ResourceManager_Unmount);
+    auto value = Object::get_managed_object_as<Sprite>(this_ptr).get_Size();
+    return {value.x, value.y};
+}
+
+void Sprite::register_internal_calls()
+{
+    mono_jit::add_internal_call("AeonEngineMono.Scene.Sprite::.ctor", Sprite_Ctor);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.Sprite::set_Size", Sprite_set_Size);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.Sprite::get_Size", Sprite_get_Size);
+}
+
+Sprite::Sprite(MonoObject *object)
+    : Object(object)
+{
+}
+
+Sprite::~Sprite() = default;
+
+void Sprite::set_Size(const glm::vec2 value)
+{
+    (void)value;
+}
+
+auto Sprite::get_Size() -> glm::vec2
+{
+    return {1337, 42};
 }
 
 } // namespace managed_interface

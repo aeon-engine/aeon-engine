@@ -23,34 +23,16 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-using AeonEngineMono.Gfx;
-using AeonEngineMono.Resources;
-using AeonEngineMono.Scene;
+using System.Runtime.CompilerServices;
 
-public class MonoApplication
+namespace AeonEngineMono.Resources
 {
-    public MonoApplication()
+    public static class ResourceManager
     {
-        Console.WriteLine("MonoApplication created.");
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern void Mount(ResourceCollectionProvider provider, string mountPoint);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern void Unmount(string mountPoint);
     }
-
-    ~MonoApplication()
-    {
-        Console.WriteLine("MonoApplication destroyed.");
-    }
-
-    public void Initialize()
-    {
-        Console.WriteLine("Initializing game engine!");
-
-        ResourceManager.Mount(new FilesystemCollectionProvider("."), "/");
-
-        m_Camera = new OrthographicCamera(0, 800, 600, 0);
-        m_Viewport = new Viewport(m_Camera, "My Viewport");
-    }
-
-    private OrthographicCamera m_Camera;
-    private Viewport m_Viewport;
-
 }

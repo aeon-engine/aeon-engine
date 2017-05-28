@@ -23,26 +23,26 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+using System.Runtime.CompilerServices;
+using AeonEngineMono.Core;
+using AeonEngineMono.Types;
 
-#include <managed_interface/ResourceCollectionProvider.h>
-
-namespace aeon
+namespace AeonEngineMono.Scene
 {
-namespace mono
-{
-namespace managed_interface
-{
+    public class Sprite : Object
+    {
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern Sprite();
 
-class FilesystemCollectionProvider : public ResourceCollectionProvider
-{
-public:
-    static void register_internal_calls();
+        public extern Vector2F Size
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            set;
+        }
 
-    explicit FilesystemCollectionProvider(MonoObject *object, const std::string &basePath);
-    virtual ~FilesystemCollectionProvider();
-};
-
-} // namespace managed_interface
-} // namespace mono
-} // namespace aeon
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        private extern void CreateInternal();
+    }
+}

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2012-2017 Robin Degen
  *
  * Permission is hereby granted, free of charge, to any person
@@ -23,49 +23,24 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+using System.Runtime.CompilerServices;
+using AeonEngineMono.Core;
+using AeonEngineMono.Types;
 
-#include <aeon/mono/mono_assembly.h>
-#include <aeon/mono/mono_gchandle.h>
-#include <aeon/mono/mono_class_field.h>
-#include <aeon/mono/mono_class_instance.h>
-#include <aeon/common/noncopyable.h>
-
-namespace aeon
+namespace AeonEngineMono.Scene
 {
-namespace mono
-{
-namespace managed_interface
-{
+    public abstract class SceneObject : Object
+    {
+        public extern string Name
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+        }
 
-class Object : public common::noncopyable
-{
-public:
-    static void register_internal_calls();
-    static void initialize_class_field(mono_assembly &assembly);
-
-    explicit Object(MonoObject *object);
-    virtual ~Object();
-
-    auto get_managed_object() const -> MonoObject *;
-
-    static mono_class_field native_object_field;
-
-    template <typename T>
-    static auto &get_managed_object_as(MonoObject *this_ptr);
-
-private:
-    MonoObject *managed_object_;
-    mono_gchandle gc_handle_;
-};
-
-template <typename T>
-auto &Object::get_managed_object_as(MonoObject *this_ptr)
-{
-    mono_class_instance cls(this_ptr);
-    return *cls.get_field_value<T *>(native_object_field);
+        public extern Matrix4X4 SceneMatrix
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+        }
+    }
 }
-
-} // namespace managed_interface
-} // namespace mono
-} // namespace aeon

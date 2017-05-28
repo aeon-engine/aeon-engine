@@ -23,41 +23,41 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <aeon/application/desktop_application.h>
+#include <managed_interface/Resources/ResourceManager.h>
+#include <managed_interface/Core/Object.h>
+#include <managed_interface/Resources/ResourceCollectionProvider.h>
 #include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_assembly.h>
-#include <aeon/logger/logger.h>
-#include <aeon/common/noncopyable.h>
+#include <aeon/mono/mono_string.h>
+#include <aeon/mono/mono_jit_manager.h>
+#include <memory>
 
 namespace aeon
 {
 namespace mono
 {
-
-class mono_jit_manager : public common::noncopyable
+namespace managed_interface
 {
-public:
-    mono_jit_manager(application::desktop_application &application);
-    virtual ~mono_jit_manager();
 
-    void load_assembly(const std::string &path);
+static void ResourceManager_Mount(MonoObject *provider, MonoString *mountPoint)
+{
+    auto &collection_provider = Object::get_managed_object_as<ResourceCollectionProvider>(provider);
+    mono_jit_manager::get_application().get_resource_manager().mount(std::move(collection_provider.provider),
+                                                                     mono_string(mountPoint).str());
+}
 
-    int main() const;
+static void ResourceManager_Unmount(MonoString *mountPoint)
+{
+    mono_jit_manager::get_application().get_resource_manager().unmount(mono_string(mountPoint).str());
+}
 
-    static auto get_application() -> application::desktop_application &;
+void ResourceManager::register_internal_calls()
+{
+    mono_jit::add_internal_call(
+        "AeonEngineMono.Resources.ResourceManager::Mount(AeonEngineMono.Resources.ResourceCollectionProvider,string)",
+        ResourceManager_Mount);
+    mono_jit::add_internal_call("AeonEngineMono.Resources.ResourceManager::Unmount(string)", ResourceManager_Unmount);
+}
 
-private:
-    void initialize_jit() const;
-
-    logger::logger logger_;
-    mono_jit jit_;
-    mono_assembly assembly_;
-    mono_assembly engine_assembly_;
-
-    static application::desktop_application *application_;
-};
-
+} // namespace managed_interface
 } // namespace mono
 } // namespace aeon

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2012-2017 Robin Degen
  *
  * Permission is hereby granted, free of charge, to any person
@@ -23,34 +23,25 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-using AeonEngineMono.Gfx;
-using AeonEngineMono.Resources;
-using AeonEngineMono.Scene;
-
-public class MonoApplication
+namespace AeonEngineMono.Types
 {
-    public MonoApplication()
+    public struct Matrix4X4
     {
-        Console.WriteLine("MonoApplication created.");
+        public float M00;
+        public float M10;
+        public float M20;
+        public float M30;
+        public float M01;
+        public float M11;
+        public float M21;
+        public float M31;
+        public float M02;
+        public float M12;
+        public float M22;
+        public float M32;
+        public float M03;
+        public float M13;
+        public float M23;
+        public float M33;
     }
-
-    ~MonoApplication()
-    {
-        Console.WriteLine("MonoApplication destroyed.");
-    }
-
-    public void Initialize()
-    {
-        Console.WriteLine("Initializing game engine!");
-
-        ResourceManager.Mount(new FilesystemCollectionProvider("."), "/");
-
-        m_Camera = new OrthographicCamera(0, 800, 600, 0);
-        m_Viewport = new Viewport(m_Camera, "My Viewport");
-    }
-
-    private OrthographicCamera m_Camera;
-    private Viewport m_Viewport;
-
 }

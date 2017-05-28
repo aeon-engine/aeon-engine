@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2012-2017 Robin Degen
  *
  * Permission is hereby granted, free of charge, to any person
@@ -23,34 +23,16 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-using AeonEngineMono.Gfx;
-using AeonEngineMono.Resources;
-using AeonEngineMono.Scene;
+using System.Runtime.CompilerServices;
 
-public class MonoApplication
+namespace AeonEngineMono.Scene
 {
-    public MonoApplication()
+    public class PerspectiveCamera : Camera
     {
-        Console.WriteLine("MonoApplication created.");
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern PerspectiveCamera(float fovY, float aspectRatio, float near, float far, string name);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern PerspectiveCamera(float fov, float width, float height, float near, float far, string name);
     }
-
-    ~MonoApplication()
-    {
-        Console.WriteLine("MonoApplication destroyed.");
-    }
-
-    public void Initialize()
-    {
-        Console.WriteLine("Initializing game engine!");
-
-        ResourceManager.Mount(new FilesystemCollectionProvider("."), "/");
-
-        m_Camera = new OrthographicCamera(0, 800, 600, 0);
-        m_Viewport = new Viewport(m_Camera, "My Viewport");
-    }
-
-    private OrthographicCamera m_Camera;
-    private Viewport m_Viewport;
-
 }

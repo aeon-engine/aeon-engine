@@ -43,6 +43,8 @@ else ()
     )
 endif ()
 
+###############################################################################
+
 set (AEON_ENGINE_MONO_SOURCES
     include/aeon/mono/mono_exception.h
     include/aeon/mono/mono_application.h
@@ -53,24 +55,59 @@ set (AEON_ENGINE_MONO_SOURCES
 
 source_group(mono FILES ${AEON_ENGINE_MONO_SOURCES})
 
-set (AEON_ENGINE_MONO_MANAGED_INTERFACE_SOURCES
-    src/managed_interface/FilesystemCollectionProvider.cpp
-    src/managed_interface/FilesystemCollectionProvider.h
-    src/managed_interface/Object.cpp
-    src/managed_interface/Object.h
-    src/managed_interface/ResourceCollectionProvider.h
-    src/managed_interface/ResourceManager.cpp
-    src/managed_interface/ResourceManager.h
-    src/managed_interface/Sprite.cpp
-    src/managed_interface/Sprite.h
-    src/managed_interface/Types.h
+###############################################################################
+
+set (AEON_ENGINE_MONO_MANAGED_INTERFACE_CORE_SOURCES
+    src/managed_interface/Core/Object.cpp
+    src/managed_interface/Core/Object.h
+    src/managed_interface/Core/Types.h
 )
 
-source_group(mono\\managed_interface FILES ${AEON_ENGINE_MONO_MANAGED_INTERFACE_SOURCES})
+source_group(mono\\managed_interface\\core FILES ${AEON_ENGINE_MONO_MANAGED_INTERFACE_CORE_SOURCES})
+
+###############################################################################
+
+set (AEON_ENGINE_MONO_MANAGED_INTERFACE_RESOURCES_SOURCES
+    src/managed_interface/Resources/FilesystemCollectionProvider.cpp
+    src/managed_interface/Resources/FilesystemCollectionProvider.h
+    src/managed_interface/Resources/ResourceCollectionProvider.h
+    src/managed_interface/Resources/ResourceManager.cpp
+    src/managed_interface/Resources/ResourceManager.h
+)
+
+source_group(mono\\managed_interface\\resources FILES ${AEON_ENGINE_MONO_MANAGED_INTERFACE_RESOURCES_SOURCES})
+
+###############################################################################
+
+set (AEON_ENGINE_MONO_MANAGED_INTERFACE_SCENE_SOURCES
+    src/managed_interface/Scene/Camera.h
+    src/managed_interface/Scene/OrthographicCamera.cpp
+    src/managed_interface/Scene/OrthographicCamera.h
+    src/managed_interface/Scene/PerspectiveCamera.cpp
+    src/managed_interface/Scene/PerspectiveCamera.h
+    src/managed_interface/Scene/Sprite.cpp
+    src/managed_interface/Scene/Sprite.h
+)
+
+source_group(mono\\managed_interface\\scene FILES ${AEON_ENGINE_MONO_MANAGED_INTERFACE_SCENE_SOURCES})
+
+###############################################################################
+
+set (AEON_ENGINE_MONO_MANAGED_INTERFACE_GFX_SOURCES
+    src/managed_interface/Gfx/Viewport.cpp
+    src/managed_interface/Gfx/Viewport.h
+)
+
+source_group(mono\\managed_interface\\gfx FILES ${AEON_ENGINE_MONO_MANAGED_INTERFACE_GFX_SOURCES})
+
+###############################################################################
 
 add_library(aeon_engine_mono STATIC
     ${AEON_ENGINE_MONO_SOURCES}
-    ${AEON_ENGINE_MONO_MANAGED_INTERFACE_SOURCES}
+    ${AEON_ENGINE_MONO_MANAGED_INTERFACE_CORE_SOURCES}
+    ${AEON_ENGINE_MONO_MANAGED_INTERFACE_RESOURCES_SOURCES}
+    ${AEON_ENGINE_MONO_MANAGED_INTERFACE_SCENE_SOURCES}
+    ${AEON_ENGINE_MONO_MANAGED_INTERFACE_GFX_SOURCES}
 )
 
 target_link_libraries(aeon_engine_mono

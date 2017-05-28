@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include <aeon/resources/providers/resource_collection_provider.h>
-#include <managed_interface/Object.h>
+#include <aeon/scene/camera.h>
+#include <managed_interface/Core/Object.h>
 #include <memory>
 
 namespace aeon
@@ -36,24 +36,31 @@ namespace mono
 namespace managed_interface
 {
 
-class ResourceCollectionProvider : public Object
+class Camera : public Object
 {
 public:
-    explicit ResourceCollectionProvider(MonoObject *object,
-                                        std::unique_ptr<resources::resource_collection_provider> provider);
-    virtual ~ResourceCollectionProvider();
+    explicit Camera(MonoObject *object, std::shared_ptr<scene::camera> camera);
+    virtual ~Camera();
 
-    std::unique_ptr<resources::resource_collection_provider> provider;
+    template <typename T>
+    auto get_camera_as() const;
+
+    std::shared_ptr<scene::camera> camera;
 };
 
-inline ResourceCollectionProvider::ResourceCollectionProvider(
-    MonoObject *object, std::unique_ptr<resources::resource_collection_provider> provider)
+inline Camera::Camera(MonoObject *object, std::shared_ptr<scene::camera> camera)
     : Object(object)
-    , provider(std::move(provider))
+    , camera(camera)
 {
 }
 
-inline ResourceCollectionProvider::~ResourceCollectionProvider() = default;
+inline Camera::~Camera() = default;
+
+template <typename T>
+auto Camera::get_camera_as() const
+{
+    return std::dynamic_pointer_cast<T>(camera);
+}
 
 } // namespace managed_interface
 } // namespace mono

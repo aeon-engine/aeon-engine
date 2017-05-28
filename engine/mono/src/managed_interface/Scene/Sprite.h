@@ -23,12 +23,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/FilesystemCollectionProvider.h>
-#include <aeon/resources/providers/filesystem_collection_provider.h>
-#include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_string.h>
-#include <aeon/mono/mono_jit_manager.h>
-#include <memory>
+#pragma once
+
+#include <managed_interface/Core/Object.h>
+#include <glm/vec2.hpp>
 
 namespace aeon
 {
@@ -37,24 +35,17 @@ namespace mono
 namespace managed_interface
 {
 
-static void FilesystemCollectionProvider_Ctor(MonoObject *this_ptr, MonoString *basePath)
+class Sprite : public Object
 {
-    std::make_unique<FilesystemCollectionProvider>(this_ptr, mono_string(basePath).str()).release();
-}
+public:
+    static void register_internal_calls();
 
-void FilesystemCollectionProvider::register_internal_calls()
-{
-    mono_jit::add_internal_call("AeonEngineMono.FilesystemCollectionProvider::.ctor(string)",
-                                FilesystemCollectionProvider_Ctor);
-}
+    explicit Sprite(MonoObject *object);
+    virtual ~Sprite();
 
-FilesystemCollectionProvider::FilesystemCollectionProvider(MonoObject *object, const std::string &basePath)
-    : ResourceCollectionProvider(object, std::make_unique<resources::filesystem_collection_provider>(
-                                             mono_jit_manager::get_application().get_io_interface(), basePath))
-{
-}
-
-FilesystemCollectionProvider::~FilesystemCollectionProvider() = default;
+    void set_Size(const glm::vec2 value);
+    auto get_Size() -> glm::vec2;
+};
 
 } // namespace managed_interface
 } // namespace mono
