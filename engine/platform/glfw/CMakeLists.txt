@@ -24,7 +24,7 @@
 message(STATUS "+------------------------------------------------------------------------------+")
 message(STATUS "| GLFW                                                                         |")
 message(STATUS "+------------------------------------------------------------------------------+")
-add_subdirectory(${CMAKE_SOURCE_DIR}/dep/glfw dep/glfw)
+add_subdirectory(${AEON_ENGINE_ROOT}/dep/glfw dep/glfw)
 
 set (AEON_ENGINE_PLATFORM_GLFW_SOURCES
     include/aeon/platform/glfw/glfw_platform_monitor.h

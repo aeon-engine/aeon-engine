@@ -24,7 +24,7 @@
 message(STATUS "+------------------------------------------------------------------------------+")
 message(STATUS "| SDL                                                                          |")
 message(STATUS "+------------------------------------------------------------------------------+")
-add_subdirectory(${CMAKE_SOURCE_DIR}/dep/sdl dep/sdl)
+add_subdirectory(${AEON_ENGINE_ROOT}/dep/sdl dep/sdl)
 
 set (AEON_ENGINE_PLATFORM_SDL_SOURCES
     include/aeon/platform/sdl/sdl_platform_monitor.h

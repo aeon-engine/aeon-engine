@@ -28,6 +28,10 @@ if (NOT AEON_CMAKE_INFRA_PATH)
     set(AEON_CMAKE_INFRA_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
 endif ()
 
+if (NOT AEON_ENGINE_ROOT)
+    set(AEON_ENGINE_ROOT ${CMAKE_SOURCE_DIR})
+endif ()
+
 ################################################################################
 
 # Perform a sanity check on submodules; and inform the user if they are missing.

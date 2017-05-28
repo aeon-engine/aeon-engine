@@ -26,7 +26,7 @@ find_package(OpenGL REQUIRED)
 message(STATUS "+------------------------------------------------------------------------------+")
 message(STATUS "| GLEW                                                                         |")
 message(STATUS "+------------------------------------------------------------------------------+")
-add_subdirectory(${CMAKE_SOURCE_DIR}/dep/glew dep/glew)
+add_subdirectory(${AEON_ENGINE_ROOT}/dep/glew dep/glew)
 
 set (AEON_ENGINE_GFX_GL_SOURCES
     include/aeon/gfx/gl/gfx_gl_buffer.h
