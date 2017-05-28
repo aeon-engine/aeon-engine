@@ -24,7 +24,9 @@
 cmake_minimum_required(VERSION 3.2.0)
 project(AeonEngine)
 
-set(AEON_CMAKE_INFRA_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
+if (NOT AEON_CMAKE_INFRA_PATH)
+    set(AEON_CMAKE_INFRA_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
+endif ()
 
 ################################################################################
 
