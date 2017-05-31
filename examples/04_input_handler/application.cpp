@@ -77,10 +77,10 @@ void application::main()
     ship_node_->translate(400, 300);
 
     // Create a sprite. The last parameter is the z-order; used to determine which sprite should be rendered on top
-    auto ship_sprite = get_scene_manager().create_scene_object<aeon::scene::sprite>(atlas, region, 0);
+    auto ship_sprite = get_scene_manager().create_component<aeon::scene::sprite>(atlas, region, 0);
 
     // Attach the sprite to the scene
-    ship_node_->attach_scene_object(ship_sprite);
+    ship_node_->attach_component(ship_sprite);
 
     // Start the render loop
     get_platform().run();

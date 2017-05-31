@@ -73,9 +73,9 @@ public:
     void cleanup_scene();
 
     template <typename T, class... U>
-    auto create_scene_object(U &&... u)
+    auto create_component(U &&... u)
     {
-        static_assert(std::is_base_of<scene_object, T>::value, "T must be derived from scene_object.");
+        static_assert(std::is_base_of<component, T>::value, "T must be derived from component.");
 
         return std::make_shared<T>(*this, std::forward<U>(u)...);
     }

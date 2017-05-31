@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <aeon/scene/scene_object.h>
+#include <aeon/scene/component.h>
 #include <glm/mat4x4.hpp>
 #include <vector>
 #include <utility>
@@ -39,7 +39,7 @@ namespace scene
 struct render_queue_object
 {
     glm::mat4 matrix;
-    std::shared_ptr<scene_object> object;
+    std::shared_ptr<component> object;
     int group;
 };
 
@@ -56,7 +56,7 @@ public:
      * The groups are sorted in descending order, meaning higher numbers will get rendered first,
      * due to front to back rendering. Default groups are defined in render_layer::render_layer_enum.
      */
-    void add_render_object(const glm::mat4 &matrix, const std::shared_ptr<scene_object> &object, const int group);
+    void add_render_object(const glm::mat4 &matrix, const std::shared_ptr<component> &object, const int group);
     void clear_render_objects();
 
     void sort();

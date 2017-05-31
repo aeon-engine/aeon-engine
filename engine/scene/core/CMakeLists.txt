@@ -33,7 +33,7 @@ set (AEON_ENGINE_SCENE_CORE_SOURCES
     include/aeon/scene/scene_manager.h
     include/aeon/scene/scene_node.h
     include/aeon/scene/movable_object.h
-    include/aeon/scene/scene_object.h
+    include/aeon/scene/component.h
     include/aeon/scene/sprite.h
     include/aeon/scene/sprite_animation_settings.h
     src/animated_sprite.cpp
@@ -45,7 +45,7 @@ set (AEON_ENGINE_SCENE_CORE_SOURCES
     src/scene_manager.cpp
     src/scene_node.cpp
     src/movable_object.cpp
-    src/scene_object.cpp
+    src/component.cpp
     src/sprite.cpp
     src/sprite_animation_settings.cpp
 )

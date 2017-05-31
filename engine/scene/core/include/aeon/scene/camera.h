@@ -26,7 +26,7 @@
 #pragma once
 
 #include <aeon/gfx/gfx_camera.h>
-#include <aeon/scene/scene_object.h>
+#include <aeon/scene/component.h>
 
 namespace aeon
 {
@@ -40,7 +40,7 @@ class render_target;
 namespace scene
 {
 
-class camera : public gfx::gfx_camera, public scene_object
+class camera : public gfx::gfx_camera, public component
 {
 public:
     explicit camera(const std::string &name, scene_manager &scene_manager);

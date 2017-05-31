@@ -27,7 +27,7 @@
 
 #include <aeon/common/has_z_order.h>
 #include <aeon/common/types/rectangle.h>
-#include <aeon/scene/scene_object.h>
+#include <aeon/scene/component.h>
 #include <aeon/data/atlas.h>
 #include <aeon/gfx/gfx_atlas.h>
 #include <aeon/gfx/gfx_mesh.h>
@@ -39,7 +39,7 @@ namespace aeon
 namespace scene
 {
 
-class sprite : public scene_object, public common::has_z_order
+class sprite : public component, public common::has_z_order
 {
 public:
     explicit sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &atlas,

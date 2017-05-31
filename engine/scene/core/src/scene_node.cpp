@@ -76,24 +76,24 @@ void scene_node::detach_all_children()
     dirty_ = true;
 }
 
-void scene_node::attach_scene_object(const std::shared_ptr<scene_object> &object)
+void scene_node::attach_component(const std::shared_ptr<component> &object)
 {
     object->__set_scene_node(this);
-    scene_objects_.push_back(object);
+    components_.push_back(object);
 }
 
-void scene_node::detach_scene_object(const std::shared_ptr<scene_object> &object)
+void scene_node::detach_component(const std::shared_ptr<component> &object)
 {
     object->__set_scene_node(nullptr);
-    scene_objects_.erase(std::remove(scene_objects_.begin(), scene_objects_.end(), object), scene_objects_.end());
+    components_.erase(std::remove(components_.begin(), components_.end(), object), components_.end());
 }
 
-void scene_node::detach_all_scene_objects()
+void scene_node::detach_all_components()
 {
-    for (auto &obj : scene_objects_)
+    for (auto &obj : components_)
         obj->__set_scene_node(nullptr);
 
-    scene_objects_.clear();
+    components_.clear();
 }
 
 void scene_node::recalculate_matrices()
@@ -138,14 +138,14 @@ void scene_node::cleanup_children()
         node->cleanup_children();
     }
 
-    detach_all_scene_objects();
+    detach_all_components();
     detach_all_children();
 }
 
 auto scene_node::clone() -> std::shared_ptr<scene_node>
 {
     auto node_copy = std::shared_ptr<scene_node>(new scene_node());
-    node_copy->scene_objects_ = scene_objects_;
+    node_copy->components_ = components_;
     node_copy->matrix_ = matrix_;
     node_copy->parent_matrix_ = parent_matrix_;
     node_copy->total_matrix_ = total_matrix_;
@@ -185,10 +185,10 @@ auto scene_node::find_child_by_name(const std::string &name, const find_method m
     return nullptr;
 }
 
-auto scene_node::__find_scene_object_by_name(const std::string &name, const find_method method) const
-    -> std::shared_ptr<scene_object>
+auto scene_node::__find_component_by_name(const std::string &name, const find_method method) const
+    -> std::shared_ptr<component>
 {
-    for (auto &object : scene_objects_)
+    for (auto &object : components_)
     {
         if (object->get_name() == name)
         {
@@ -201,7 +201,7 @@ auto scene_node::__find_scene_object_by_name(const std::string &name, const find
         // This loop should be seperate since we want to search in order of depth.
         for (auto &node : children_)
         {
-            auto result = node->__find_scene_object_by_name(name, method);
+            auto result = node->__find_component_by_name(name, method);
 
             if (result != nullptr)
                 return result;

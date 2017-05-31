@@ -86,9 +86,8 @@ void application::main()
     // Set up the animation so that it keeps playing forever.
     animation_settings.set_repeat(aeon::scene::animation_repeat::continuous);
 
-    animated_sprite_ =
-        get_scene_manager().create_scene_object<aeon::scene::animated_sprite>(atlas, 0, animation_settings);
-    root_node.attach_scene_object(animated_sprite_);
+    animated_sprite_ = get_scene_manager().create_component<aeon::scene::animated_sprite>(atlas, 0, animation_settings);
+    root_node.attach_component(animated_sprite_);
 
     get_platform().run();
 }

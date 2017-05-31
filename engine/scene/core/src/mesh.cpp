@@ -35,9 +35,8 @@ namespace scene
 mesh::mesh(scene_manager &scene_manager, const std::shared_ptr<gfx::material> &material,
            const std::vector<data::vertex_data> &vertex_data, const std::vector<std::uint32_t> &index_data,
            const std::string &name)
-    : scene_object(name,
-                   material->sampler_has_alpha() ? render_layer::world_geometry_alpha : render_layer::world_geometry,
-                   scene_object_type::mesh, scene_manager)
+    : component(name, material->sampler_has_alpha() ? render_layer::world_geometry_alpha : render_layer::world_geometry,
+                component_type::mesh, scene_manager)
     , mesh_(scene_manager.get_device().create_mesh(material))
 {
     mesh_->upload_vertex_buffer(vertex_data, gfx::buffer_usage::static_usage);

@@ -23,7 +23,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/scene/scene_object.h>
+#include <aeon/scene/component.h>
 #include <aeon/scene/scene_node.h>
 
 namespace aeon
@@ -31,7 +31,7 @@ namespace aeon
 namespace scene
 {
 
-auto scene_object::get_scene_matrix() const -> glm::mat4
+auto component::get_scene_matrix() const -> glm::mat4
 {
     if (!scene_node_)
         return glm::mat4(1.0f);

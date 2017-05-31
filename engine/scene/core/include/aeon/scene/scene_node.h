@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <aeon/scene/scene_object.h>
+#include <aeon/scene/component.h>
 #include <aeon/scene/exceptions.h>
 #include <aeon/scene/movable_object.h>
 #include <aeon/common/noncopyable.h>
@@ -83,17 +83,17 @@ public:
      * Attach an object to this scene node.
      * TODO: Can the same object be attached to multiple scene nodes? What are the implications of this?
      */
-    void attach_scene_object(const std::shared_ptr<scene_object> &object);
+    void attach_component(const std::shared_ptr<component> &object);
 
     /*!
      * Detach an object from this scene node.
      */
-    void detach_scene_object(const std::shared_ptr<scene_object> &object);
+    void detach_component(const std::shared_ptr<component> &object);
 
     /*!
      * Detach all objects from this scene node.
      */
-    void detach_all_scene_objects();
+    void detach_all_components();
 
     /*!
      * Recalculate the total matrix of this scenenode if either this or the parent node is marked as dirty. If neither
@@ -148,9 +148,9 @@ public:
     /*!
      * Get all attached objects to this node
      */
-    const auto &get_scene_objects() const
+    const auto &get_components() const
     {
-        return scene_objects_;
+        return components_;
     }
 
     /*!
@@ -177,10 +177,10 @@ public:
      * children of this node; default).
      */
     template <typename T>
-    auto find_scene_object_by_name(const std::string &name, const find_method method = find_method::recursive) const
+    auto find_component_by_name(const std::string &name, const find_method method = find_method::recursive) const
         -> std::shared_ptr<T>
     {
-        return std::dynamic_pointer_cast<T>(__find_scene_object_by_name(name, method));
+        return std::dynamic_pointer_cast<T>(__find_component_by_name(name, method));
     }
 
 private:
@@ -194,8 +194,8 @@ private:
      * Internal non-template version of find scene object. The public interface version will perform a dynamic
      * pointer cast on the given scene object.
      */
-    auto __find_scene_object_by_name(const std::string &name, const find_method method = find_method::recursive) const
-        -> std::shared_ptr<scene_object>;
+    auto __find_component_by_name(const std::string &name, const find_method method = find_method::recursive) const
+        -> std::shared_ptr<component>;
 
     /*!
      * The scene node that this node is attached to, or nullptr if not attached to anything.
@@ -210,7 +210,7 @@ private:
     /*!
      * All attached render objects
      */
-    std::vector<std::shared_ptr<scene_object>> scene_objects_;
+    std::vector<std::shared_ptr<component>> components_;
 
     /*!
      * The precalculated matrix multiplications of everything up until the root node.

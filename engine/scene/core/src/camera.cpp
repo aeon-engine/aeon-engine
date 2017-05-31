@@ -33,7 +33,7 @@ namespace scene
 
 camera::camera(const std::string &name, scene_manager &scene_manager)
     : gfx::gfx_camera()
-    , scene_object(name, render_layer::overlay, scene_object_type::spatial, scene_manager)
+    , component(name, render_layer::overlay, component_type::spatial, scene_manager)
 {
 }
 

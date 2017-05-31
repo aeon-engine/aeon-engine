@@ -49,10 +49,10 @@ void application::main()
     auto world = get_asset_manager().load_scene("/resources/scenes/testworld.asc");
     root_node.attach_child(world);
 
-    camera_ = world->find_scene_object_by_name<aeon::scene::perspective_camera>("camera1");
+    camera_ = world->find_component_by_name<aeon::scene::perspective_camera>("camera1");
     get_main_window().create_viewport(camera_, "viewport1", 0);
 
-    camera2_ = world->find_scene_object_by_name<aeon::scene::perspective_camera>("camera2");
+    camera2_ = world->find_component_by_name<aeon::scene::perspective_camera>("camera2");
     aeon::common::types::rectangle<float> smaller_viewport_rect(0.1f, 0.1f, 0.3f, 0.3f);
     get_main_window().create_viewport(camera2_, smaller_viewport_rect, "viewport2", 1);
 

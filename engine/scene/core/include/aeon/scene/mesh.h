@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <aeon/scene/scene_object.h>
+#include <aeon/scene/component.h>
 #include <aeon/gfx/gfx_mesh.h>
 #include <aeon/gfx/gfx_material.h>
 #include <memory>
@@ -35,7 +35,7 @@ namespace aeon
 namespace scene
 {
 
-class mesh : public scene_object
+class mesh : public component
 {
 public:
     explicit mesh(scene_manager &scene_manager, const std::shared_ptr<gfx::material> &material,

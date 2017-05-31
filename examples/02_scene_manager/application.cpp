@@ -64,15 +64,15 @@ void application::main()
     auto ship2 = atlas->get_region_by_index(4);
     auto ship3 = atlas->get_region_by_index(10);
 
-    auto ship1_sprite = get_scene_manager().create_scene_object<aeon::scene::sprite>(atlas, ship1, 0);
-    root_node.attach_scene_object(ship1_sprite);
+    auto ship1_sprite = get_scene_manager().create_component<aeon::scene::sprite>(atlas, ship1, 0);
+    root_node.attach_component(ship1_sprite);
 
     ship2_pivot_node_ = root_node.create_child_scene_node();
     auto ship2_node = ship2_pivot_node_->create_child_scene_node();
     ship2_node->translate(200.0f, 0.0f);
 
-    auto ship2_sprite = get_scene_manager().create_scene_object<aeon::scene::sprite>(atlas, ship2, 1);
-    ship2_node->attach_scene_object(ship2_sprite);
+    auto ship2_sprite = get_scene_manager().create_component<aeon::scene::sprite>(atlas, ship2, 1);
+    ship2_node->attach_component(ship2_sprite);
 
     ship3_pivot_node_ = ship2_node->create_child_scene_node();
     auto ship3_node = ship3_pivot_node_->create_child_scene_node();
@@ -80,9 +80,8 @@ void application::main()
 
     // Instead of just passing the atlas region, you can also manually pass a size to the sprite.
     // This will scale the sprite.
-    auto ship3_sprite =
-        get_scene_manager().create_scene_object<aeon::scene::sprite>(atlas, ship3, glm::vec2(32, 32), 2);
-    ship3_node->attach_scene_object(ship3_sprite);
+    auto ship3_sprite = get_scene_manager().create_component<aeon::scene::sprite>(atlas, ship3, glm::vec2(32, 32), 2);
+    ship3_node->attach_component(ship3_sprite);
 
     get_platform().run();
 }
