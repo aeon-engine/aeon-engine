@@ -25,7 +25,7 @@
 
 namespace AeonEngineMono.Scene
 {
-    public abstract class Camera : SceneObject
+    public abstract class Camera : Component
     {
     }
 }

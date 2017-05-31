@@ -56,7 +56,7 @@
     <Compile Include="Scene\PerspectiveCamera.cs" />
     <Compile Include="Scene\SceneManager.cs" />
     <Compile Include="Scene\SceneNode.cs" />
-    <Compile Include="Scene\SceneObject.cs" />
+    <Compile Include="Scene\Component.cs" />
     <Compile Include="Scene\Sprite.cs" />
     <Compile Include="Types\Color.cs" />
     <Compile Include="Types\Matrix4x4.cs" />

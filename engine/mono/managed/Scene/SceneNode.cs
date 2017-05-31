@@ -24,7 +24,6 @@
  */
 
 using System.Runtime.CompilerServices;
-using AeonEngineMono.Core;
 using AeonEngineMono.Types;
 
 namespace AeonEngineMono.Scene
@@ -50,10 +49,10 @@ namespace AeonEngineMono.Scene
         public extern void DetachAllChildren();
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void AttachSceneObject(SceneObject node);
+        public extern void AttachSceneObject(Component node);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void DetachSceneObject(SceneObject node);
+        public extern void DetachSceneObject(Component node);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public extern void DetachAllSceneObjects();
@@ -68,7 +67,7 @@ namespace AeonEngineMono.Scene
         public extern SceneNode[] GetChildren();
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern SceneObject[] GetAttachedObjects();
+        public extern Component[] GetAttachedObjects();
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public extern SceneNode FindChildByName(string name, FindMethod findMethod = FindMethod.Recursive);

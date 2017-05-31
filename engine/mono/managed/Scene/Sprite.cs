@@ -29,7 +29,7 @@ using AeonEngineMono.Types;
 
 namespace AeonEngineMono.Scene
 {
-    public class Sprite : SceneObject
+    public class Sprite : Component
     {
         [MethodImpl(MethodImplOptions.InternalCall)]
         public extern Sprite(AtlasRegion region, int zOrder, string name = "");

@@ -29,7 +29,7 @@ using AeonEngineMono.Types;
 
 namespace AeonEngineMono.Scene
 {
-    public abstract class SceneObject : Object
+    public abstract class Component : Object
     {
         public extern string Name
         {
