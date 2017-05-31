@@ -25,21 +25,24 @@
 
 namespace AeonEngineMono.Types
 {
-    public struct Vector2F
+    public struct Vector3F
     {
-        public Vector2F(float xy)
+        public Vector3F(float xyz)
         {
-            X = xy;
-            Y = xy;
+            X = xyz;
+            Y = xyz;
+            Z = xyz;
         }
 
-        public Vector2F(float x, float y)
+        public Vector3F(float x, float y, float z)
         {
             X = x;
             Y = y;
+            Z = z;
         }
 
         public float X;
         public float Y;
+        public float Z;
     }
 }

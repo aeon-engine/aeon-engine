@@ -24,25 +24,53 @@
  */
 
 using System.Runtime.CompilerServices;
-using AeonEngineMono.Assets;
+using AeonEngineMono.Core;
 using AeonEngineMono.Types;
 
 namespace AeonEngineMono.Scene
 {
-    public class Sprite : SceneObject
+    public enum FindMethod
+    {
+        Single = 0,
+        Recursive = 1
+    }
+
+    public class SceneNode : MovableObject
     {
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern Sprite(AtlasRegion region, int zOrder, string name = "");
+        public extern SceneNode(string name);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern Sprite(AtlasRegion region, Vector2F size, int zOrder, string name = "");
+        public extern void AttachChild(SceneNode node);
 
-        public extern Vector2F Size
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern void DetachChild(SceneNode node);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern void DetachAllChildren();
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern void AttachSceneObject(SceneObject node);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern void DetachSceneObject(SceneObject node);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern void DetachAllSceneObjects();
+
+        public extern Vector2F Center
         {
             [MethodImpl(MethodImplOptions.InternalCall)]
-            get;
-            [MethodImpl(MethodImplOptions.InternalCall)]
-            set;
+            get; 
         }
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern SceneNode[] GetChildren();
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern SceneObject[] GetAttachedObjects();
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern SceneNode FindChildByName(string name, FindMethod findMethod = FindMethod.Recursive);
     }
 }

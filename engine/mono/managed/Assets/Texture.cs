@@ -23,30 +23,15 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+using System.Runtime.CompilerServices;
+using AeonEngineMono.Core;
+using AeonEngineMono.Types;
 
-#include <managed_interface/Core/Object.h>
-#include <glm/vec2.hpp>
-
-namespace aeon
+namespace AeonEngineMono.Assets
 {
-namespace mono
-{
-namespace managed_interface
-{
-
-class Sprite : public Object
-{
-public:
-    static void register_internal_calls();
-
-    explicit Sprite(MonoObject *object);
-    virtual ~Sprite();
-
-    void set_Size(const glm::vec2 value);
-    auto get_Size() -> glm::vec2;
-};
-
-} // namespace managed_interface
-} // namespace mono
-} // namespace aeon
+    public class Texture : Asset
+    {
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern Texture(string path);
+    }
+}

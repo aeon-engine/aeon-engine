@@ -23,7 +23,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/Core/Object.h>
+#include <managed_interface/core/object.h>
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_class.h>
 
@@ -34,51 +34,51 @@ namespace mono
 namespace managed_interface
 {
 
-mono_class Object::object_class;
-mono_class_field Object::native_object_field;
+mono_class object::object_class;
+mono_class_field object::native_object_field;
 
-static void Object_Finalize(MonoObject *this_ptr)
+void object::register_internal_calls()
 {
-    mono_class_instance cls(this_ptr);
-
-    // TODO: Add additional overloads or template for set_field_value
-    // so that nullptr can be passed in directly.
-    Object *null_obj = nullptr;
-    cls.set_field_value<Object *>(Object::native_object_field, null_obj);
-    delete &Object::get_managed_object_as<Object>(this_ptr);
+    mono_jit::add_internal_call("AeonEngineMono.Core.Object::Finalize", &object::finalize);
 }
 
-void Object::register_internal_calls()
-{
-    mono_jit::add_internal_call("AeonEngineMono.Core.Object::Finalize", Object_Finalize);
-}
-
-void Object::initialize_class_field(mono_assembly &assembly)
+void object::initialize_class_field(mono_assembly &assembly)
 {
     object_class = assembly.get_class("AeonEngineMono.Core", "Object");
     native_object_field = object_class.get_field("m_NativePtr");
 }
 
-Object::Object(MonoObject *object)
-    : managed_object_(object)
-    , gc_handle_(object)
+object::object(MonoObject *mono_object)
+    : managed_object_(mono_object)
+    , gc_handle_(mono_object)
 {
-    mono_class_instance cls(object);
+    mono_class_instance cls(mono_object);
 
     assert(mono_class_is_subclass_of(cls.get_class().get_mono_class_ptr(), object_class.get_mono_class_ptr(), false) &&
            "Mono wrapper classes must inherit from Object.");
 
     // TODO: Add additional overloads or template for set_field_value
     // so that "this" can be passed in directly.
-    Object *obj = this;
-    cls.set_field_value<Object *>(native_object_field, obj);
+    auto obj = this;
+    cls.set_field_value<object *>(native_object_field, obj);
 }
 
-Object::~Object() = default;
+object::~object() = default;
 
-auto Object::get_managed_object() const -> MonoObject *
+auto object::get_managed_object() const -> MonoObject *
 {
     return managed_object_;
+}
+
+void object::finalize(MonoObject *this_ptr)
+{
+    mono_class_instance cls(this_ptr);
+
+    // TODO: Add additional overloads or template for set_field_value
+    // so that nullptr can be passed in directly.
+    object *null_obj = nullptr;
+    cls.set_field_value<object *>(object::native_object_field, null_obj);
+    delete &object::get_managed_object_as<object>(this_ptr);
 }
 
 } // namespace managed_interface

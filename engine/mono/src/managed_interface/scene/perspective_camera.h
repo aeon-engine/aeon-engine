@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <managed_interface/Resources/ResourceCollectionProvider.h>
+#include <mono/metadata/object.h>
 
 namespace aeon
 {
@@ -34,13 +34,15 @@ namespace mono
 namespace managed_interface
 {
 
-class FilesystemCollectionProvider : public ResourceCollectionProvider
+class perspective_camera
 {
 public:
     static void register_internal_calls();
 
-    explicit FilesystemCollectionProvider(MonoObject *object, const std::string &basePath);
-    virtual ~FilesystemCollectionProvider();
+private:
+    static void ctor(MonoObject *this_ptr, float fovY, float aspectRatio, float near, float far, MonoString *name);
+    static void ctor2(MonoObject *this_ptr, float fov, float width, float height, float near, float far,
+                      MonoString *name);
 };
 
 } // namespace managed_interface

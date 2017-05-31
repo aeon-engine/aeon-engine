@@ -25,21 +25,19 @@
 
 namespace AeonEngineMono.Types
 {
-    public struct Vector2F
+    public struct Quanternion
     {
-        public Vector2F(float xy)
-        {
-            X = xy;
-            Y = xy;
-        }
-
-        public Vector2F(float x, float y)
+        public Quanternion(float x, float y, float z, float w)
         {
             X = x;
             Y = y;
+            Z = z;
+            W = w;
         }
 
         public float X;
         public float Y;
+        public float Z;
+        public float W;
     }
 }

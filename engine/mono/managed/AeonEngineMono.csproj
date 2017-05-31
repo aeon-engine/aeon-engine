@@ -40,20 +40,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Asset.cs" />
+    <Compile Include="Assets\Atlas.cs" />
+    <Compile Include="Assets\Material.cs" />
+    <Compile Include="Assets\Shader.cs" />
+    <Compile Include="Assets\Texture.cs" />
     <Compile Include="Core\Object.cs" />
     <Compile Include="Gfx\Viewport.cs" />
     <Compile Include="Resources\FilesystemCollectionProvider.cs" />
     <Compile Include="Resources\ResourceCollectionProvider.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Scene\Camera.cs" />
+    <Compile Include="Scene\MovableObject.cs" />
     <Compile Include="Scene\OrthographicCamera.cs" />
     <Compile Include="Scene\PerspectiveCamera.cs" />
+    <Compile Include="Scene\SceneManager.cs" />
+    <Compile Include="Scene\SceneNode.cs" />
     <Compile Include="Scene\SceneObject.cs" />
     <Compile Include="Scene\Sprite.cs" />
     <Compile Include="Types\Color.cs" />
     <Compile Include="Types\Matrix4x4.cs" />
+    <Compile Include="Types\Quaternion.cs" />
     <Compile Include="Types\Rect.cs" />
     <Compile Include="Types\Vector2F.cs" />
+    <Compile Include="Types\Vector3F.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

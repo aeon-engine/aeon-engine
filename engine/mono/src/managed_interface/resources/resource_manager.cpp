@@ -23,7 +23,13 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+#include <managed_interface/resources/resource_manager.h>
+#include <managed_interface/core/object.h>
+#include <managed_interface/mono_object_wrapper.h>
+#include <aeon/mono/mono_jit.h>
+#include <aeon/mono/mono_string.h>
+#include <aeon/mono/mono_jit_manager.h>
+#include <memory>
 
 namespace aeon
 {
@@ -32,34 +38,27 @@ namespace mono
 namespace managed_interface
 {
 
-struct Color
+void resource_manager::register_internal_calls()
 {
-    float r;
-    float g;
-    float b;
-    float a;
-};
+    mono_jit::add_internal_call(
+        "AeonEngineMono.Resources.ResourceManager::Mount(AeonEngineMono.Resources.ResourceCollectionProvider,string)",
+        &resource_manager::mount);
+    mono_jit::add_internal_call("AeonEngineMono.Resources.ResourceManager::Unmount(string)",
+                                &resource_manager::unmount);
+}
 
-struct Rect
+void resource_manager::mount(MonoObject *provider, MonoString *mountPoint)
 {
-    float left;
-    float top;
-    float right;
-    float bottom;
-};
+    auto &collection_provider =
+        mono_object_wrapper<std::unique_ptr<resources::resource_collection_provider>>::get_native_object(provider);
+    mono_jit_manager::get_application().get_resource_manager().mount(std::move(collection_provider),
+                                                                     mono_string(mountPoint).str());
+}
 
-struct Vector2F
+void resource_manager::unmount(MonoString *mountPoint)
 {
-    float x;
-    float y;
-};
-
-struct Vector3F
-{
-    float x;
-    float y;
-    float z;
-};
+    mono_jit_manager::get_application().get_resource_manager().unmount(mono_string(mountPoint).str());
+}
 
 } // namespace managed_interface
 } // namespace mono

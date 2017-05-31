@@ -29,12 +29,13 @@
 #include <aeon/mono/mono_method.h>
 #include <aeon/common/logger.h>
 
-#include <managed_interface/Core/Object.h>
-#include <managed_interface/Gfx/Viewport.h>
-#include <managed_interface/Resources/FilesystemCollectionProvider.h>
-#include <managed_interface/Resources/ResourceManager.h>
-#include <managed_interface/Scene/OrthographicCamera.h>
-#include <managed_interface/Scene/Sprite.h>
+#include <managed_interface/core/object.h>
+#include <managed_interface/gfx/viewport.h>
+#include <managed_interface/resources/filesystem_collection_provider.h>
+#include <managed_interface/resources/resource_manager.h>
+#include <managed_interface/scene/orthographic_camera.h>
+#include <managed_interface/scene/perspective_camera.h>
+#include <managed_interface/scene/sprite.h>
 
 #include <cassert>
 
@@ -64,7 +65,7 @@ void mono_jit_manager::load_assembly(const std::string &path)
     assembly_ = jit_.load_assembly(path);
     engine_assembly_ = jit_.load_assembly("AeonEngineMono.dll");
 
-    managed_interface::Object::initialize_class_field(engine_assembly_);
+    managed_interface::object::initialize_class_field(engine_assembly_);
 }
 
 int mono_jit_manager::main() const
@@ -88,12 +89,13 @@ auto mono_jit_manager::get_application() -> application::desktop_application &
 
 void mono_jit_manager::initialize_jit() const
 {
-    managed_interface::FilesystemCollectionProvider::register_internal_calls();
-    managed_interface::Viewport::register_internal_calls();
-    managed_interface::Object::register_internal_calls();
-    managed_interface::ResourceManager::register_internal_calls();
-    managed_interface::OrthographicCamera::register_internal_calls();
-    managed_interface::Sprite::register_internal_calls();
+    managed_interface::filesystem_collection_provider::register_internal_calls();
+    managed_interface::viewport::register_internal_calls();
+    managed_interface::object::register_internal_calls();
+    managed_interface::resource_manager::register_internal_calls();
+    managed_interface::orthographic_camera::register_internal_calls();
+    managed_interface::perspective_camera::register_internal_calls();
+    managed_interface::sprite::register_internal_calls();
 }
 
 } // namespace mono

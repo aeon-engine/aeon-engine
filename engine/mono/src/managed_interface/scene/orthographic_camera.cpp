@@ -23,7 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/Scene/OrthographicCamera.h>
+#include <managed_interface/scene/orthographic_camera.h>
+#include <managed_interface/mono_object_wrapper.h>
 #include <aeon/scene/orthographic_camera.h>
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_string.h>
@@ -37,60 +38,52 @@ namespace mono
 namespace managed_interface
 {
 
-static void OrthographicCamera_Ctor(MonoObject *this_ptr, float left, float right, float bottom, float top,
-                                    MonoString *name)
-{
-    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto camera =
-        std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, mono_string(name).str());
-    std::make_unique<OrthographicCamera>(this_ptr, camera).release();
-}
-
-static void OrthographicCamera_Ctor2(MonoObject *this_ptr, float left, float right, float bottom, float top, float near,
-                                     float far, MonoString *name)
-{
-    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto camera = std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, near, far,
-                                                               mono_string(name).str());
-    std::make_unique<OrthographicCamera>(this_ptr, camera).release();
-}
-
-static void OrthographicCamera_Ctor3(MonoObject *this_ptr, int left, int right, int bottom, int top, MonoString *name)
-{
-    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto camera =
-        std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, mono_string(name).str());
-    std::make_unique<OrthographicCamera>(this_ptr, camera).release();
-}
-
-static void OrthographicCamera_Ctor4(MonoObject *this_ptr, int left, int right, int bottom, int top, float near,
-                                     float far, MonoString *name)
-{
-    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto camera = std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, near, far,
-                                                               mono_string(name).str());
-    std::make_unique<OrthographicCamera>(this_ptr, camera).release();
-}
-
-void OrthographicCamera::register_internal_calls()
+void orthographic_camera::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Scene.OrthographicCamera::.ctor(float,float,float,float,string)",
-                                OrthographicCamera_Ctor);
+                                &orthographic_camera::ctor);
     mono_jit::add_internal_call(
         "AeonEngineMono.Scene.OrthographicCamera::.ctor(float,float,float,float,float,float,string)",
-        OrthographicCamera_Ctor2);
+        &orthographic_camera::ctor2);
     mono_jit::add_internal_call("AeonEngineMono.Scene.OrthographicCamera::.ctor(int,int,int,int,string)",
-                                OrthographicCamera_Ctor3);
+                                &orthographic_camera::ctor3);
     mono_jit::add_internal_call("AeonEngineMono.Scene.OrthographicCamera::.ctor(int,int,int,int,float,float,string)",
-                                OrthographicCamera_Ctor4);
+                                &orthographic_camera::ctor4);
 }
 
-OrthographicCamera::OrthographicCamera(MonoObject *object, std::shared_ptr<scene::camera> camera)
-    : Camera(object, camera)
+void orthographic_camera::ctor(MonoObject *this_ptr, float left, float right, float bottom, float top, MonoString *name)
 {
+    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
+    auto camera =
+        std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, mono_string(name).str());
+    mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
 }
 
-OrthographicCamera::~OrthographicCamera() = default;
+void orthographic_camera::ctor2(MonoObject *this_ptr, float left, float right, float bottom, float top, float near,
+                                float far, MonoString *name)
+{
+    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
+    auto camera = std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, near, far,
+                                                               mono_string(name).str());
+    mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
+}
+
+void orthographic_camera::ctor3(MonoObject *this_ptr, int left, int right, int bottom, int top, MonoString *name)
+{
+    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
+    auto camera =
+        std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, mono_string(name).str());
+    mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
+}
+
+void orthographic_camera::ctor4(MonoObject *this_ptr, int left, int right, int bottom, int top, float near, float far,
+                                MonoString *name)
+{
+    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
+    auto camera = std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, near, far,
+                                                               mono_string(name).str());
+    mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
+}
 
 } // namespace managed_interface
 } // namespace mono

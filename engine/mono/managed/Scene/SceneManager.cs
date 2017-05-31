@@ -23,23 +23,19 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace AeonEngineMono.Types
+using System.Runtime.CompilerServices;
+
+namespace AeonEngineMono.Scene
 {
-    public struct Vector2F
+    public static class SceneManager
     {
-        public Vector2F(float xy)
+        public static extern SceneNode RootSceneNode
         {
-            X = xy;
-            Y = xy;
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
         }
 
-        public Vector2F(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
-
-        public float X;
-        public float Y;
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern void Cleanup();
     }
 }

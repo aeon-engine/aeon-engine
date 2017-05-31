@@ -25,8 +25,9 @@
 
 #pragma once
 
-#include <aeon/resources/providers/resource_collection_provider.h>
-#include <managed_interface/Core/Object.h>
+#include <mono/metadata/object.h>
+#include <managed_interface/core/types.h>
+#include <aeon/gfx/gfx_viewport.h>
 #include <memory>
 
 namespace aeon
@@ -36,24 +37,22 @@ namespace mono
 namespace managed_interface
 {
 
-class ResourceCollectionProvider : public Object
+class viewport
 {
 public:
-    explicit ResourceCollectionProvider(MonoObject *object,
-                                        std::unique_ptr<resources::resource_collection_provider> provider);
-    virtual ~ResourceCollectionProvider();
+    static void register_internal_calls();
 
-    std::unique_ptr<resources::resource_collection_provider> provider;
+    static auto get_viewport_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::viewport>;
+
+private:
+    static void create_internal(MonoObject *this_ptr, MonoObject *camera, MonoString *name, int zOrder);
+    static void create_internal2(MonoObject *this_ptr, MonoObject *camera, rect rectangle, MonoString *name,
+                                 int zOrder);
+    static void set_zorder(MonoObject *this_ptr, int value);
+    static int get_zorder(MonoObject *this_ptr);
+    static void set_camera(MonoObject *this_ptr, MonoObject *camera);
+    static void set_rectangle(MonoObject *this_ptr, rect rectangle);
 };
-
-inline ResourceCollectionProvider::ResourceCollectionProvider(
-    MonoObject *object, std::unique_ptr<resources::resource_collection_provider> provider)
-    : Object(object)
-    , provider(std::move(provider))
-{
-}
-
-inline ResourceCollectionProvider::~ResourceCollectionProvider() = default;
 
 } // namespace managed_interface
 } // namespace mono

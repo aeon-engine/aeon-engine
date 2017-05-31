@@ -23,12 +23,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/Resources/FilesystemCollectionProvider.h>
-#include <aeon/resources/providers/filesystem_collection_provider.h>
-#include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_string.h>
-#include <aeon/mono/mono_jit_manager.h>
-#include <memory>
+#pragma once
+
+#include <managed_interface/core/object.h>
+#include <glm/vec2.hpp>
 
 namespace aeon
 {
@@ -37,24 +35,11 @@ namespace mono
 namespace managed_interface
 {
 
-static void FilesystemCollectionProvider_Ctor(MonoObject *this_ptr, MonoString *basePath)
+class sprite : public object
 {
-    std::make_unique<FilesystemCollectionProvider>(this_ptr, mono_string(basePath).str()).release();
-}
-
-void FilesystemCollectionProvider::register_internal_calls()
-{
-    mono_jit::add_internal_call("AeonEngineMono.Resources.FilesystemCollectionProvider::.ctor(string)",
-                                FilesystemCollectionProvider_Ctor);
-}
-
-FilesystemCollectionProvider::FilesystemCollectionProvider(MonoObject *object, const std::string &basePath)
-    : ResourceCollectionProvider(object, std::make_unique<resources::filesystem_collection_provider>(
-                                             mono_jit_manager::get_application().get_io_interface(), basePath))
-{
-}
-
-FilesystemCollectionProvider::~FilesystemCollectionProvider() = default;
+public:
+    static void register_internal_calls();
+};
 
 } // namespace managed_interface
 } // namespace mono

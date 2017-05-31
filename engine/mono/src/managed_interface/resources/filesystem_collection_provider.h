@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <managed_interface/Scene/Camera.h>
+#include <mono/metadata/object.h>
 
 namespace aeon
 {
@@ -34,13 +34,13 @@ namespace mono
 namespace managed_interface
 {
 
-class OrthographicCamera : public Camera
+class filesystem_collection_provider
 {
 public:
     static void register_internal_calls();
 
-    explicit OrthographicCamera(MonoObject *object, std::shared_ptr<scene::camera> camera);
-    virtual ~OrthographicCamera();
+private:
+    static void ctor(MonoObject *this_ptr, MonoString *basePath);
 };
 
 } // namespace managed_interface

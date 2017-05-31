@@ -23,23 +23,55 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace AeonEngineMono.Types
+#pragma once
+
+#include <managed_interface/core/object.h>
+#include <memory>
+
+namespace aeon
 {
-    public struct Vector2F
-    {
-        public Vector2F(float xy)
-        {
-            X = xy;
-            Y = xy;
-        }
+namespace mono
+{
+namespace managed_interface
+{
 
-        public Vector2F(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
+template <typename T>
+class mono_object_wrapper : public object
+{
+public:
+    explicit mono_object_wrapper(MonoObject *object, T obj);
+    virtual ~mono_object_wrapper();
 
-        public float X;
-        public float Y;
-    }
+    static void create(MonoObject *object, T obj);
+
+    static auto &get_native_object(MonoObject *object);
+
+private:
+    T native_object;
+};
+
+template <typename T>
+void mono_object_wrapper<T>::create(MonoObject *object, T obj)
+{
+    std::make_unique<mono_object_wrapper<T>>(object, std::move(obj)).release();
 }
+
+template <typename T>
+mono_object_wrapper<T>::mono_object_wrapper(MonoObject *object, T obj)
+    : object(object)
+    , native_object(std::move(obj))
+{
+}
+
+template <typename T>
+mono_object_wrapper<T>::~mono_object_wrapper() = default;
+
+template <typename T>
+auto &mono_object_wrapper<T>::get_native_object(MonoObject *object)
+{
+    return object::get_managed_object_as<mono_object_wrapper<T>>(object).native_object;
+}
+
+} // namespace managed_interface
+} // namespace mono
+} // namespace aeon

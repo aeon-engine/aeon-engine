@@ -25,10 +25,6 @@
 
 #pragma once
 
-#include <aeon/scene/camera.h>
-#include <managed_interface/Core/Object.h>
-#include <memory>
-
 namespace aeon
 {
 namespace mono
@@ -36,31 +32,34 @@ namespace mono
 namespace managed_interface
 {
 
-class Camera : public Object
+struct color
 {
-public:
-    explicit Camera(MonoObject *object, std::shared_ptr<scene::camera> camera);
-    virtual ~Camera();
-
-    template <typename T>
-    auto get_camera_as() const;
-
-    std::shared_ptr<scene::camera> camera;
+    float r;
+    float g;
+    float b;
+    float a;
 };
 
-inline Camera::Camera(MonoObject *object, std::shared_ptr<scene::camera> camera)
-    : Object(object)
-    , camera(camera)
+struct rect
 {
-}
+    float left;
+    float top;
+    float right;
+    float bottom;
+};
 
-inline Camera::~Camera() = default;
-
-template <typename T>
-auto Camera::get_camera_as() const
+struct vector2f
 {
-    return std::dynamic_pointer_cast<T>(camera);
-}
+    float x;
+    float y;
+};
+
+struct vector3f
+{
+    float x;
+    float y;
+    float z;
+};
 
 } // namespace managed_interface
 } // namespace mono

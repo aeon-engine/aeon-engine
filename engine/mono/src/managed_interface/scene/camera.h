@@ -23,12 +23,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/Resources/ResourceManager.h>
-#include <managed_interface/Core/Object.h>
-#include <managed_interface/Resources/ResourceCollectionProvider.h>
-#include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_string.h>
-#include <aeon/mono/mono_jit_manager.h>
+#pragma once
+
+#include <mono/metadata/object.h>
+#include <aeon/scene/camera.h>
 #include <memory>
 
 namespace aeon
@@ -38,25 +36,11 @@ namespace mono
 namespace managed_interface
 {
 
-static void ResourceManager_Mount(MonoObject *provider, MonoString *mountPoint)
+class camera
 {
-    auto &collection_provider = Object::get_managed_object_as<ResourceCollectionProvider>(provider);
-    mono_jit_manager::get_application().get_resource_manager().mount(std::move(collection_provider.provider),
-                                                                     mono_string(mountPoint).str());
-}
-
-static void ResourceManager_Unmount(MonoString *mountPoint)
-{
-    mono_jit_manager::get_application().get_resource_manager().unmount(mono_string(mountPoint).str());
-}
-
-void ResourceManager::register_internal_calls()
-{
-    mono_jit::add_internal_call(
-        "AeonEngineMono.Resources.ResourceManager::Mount(AeonEngineMono.Resources.ResourceCollectionProvider,string)",
-        ResourceManager_Mount);
-    mono_jit::add_internal_call("AeonEngineMono.Resources.ResourceManager::Unmount(string)", ResourceManager_Unmount);
-}
+public:
+    static auto get_camera_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::camera>;
+};
 
 } // namespace managed_interface
 } // namespace mono

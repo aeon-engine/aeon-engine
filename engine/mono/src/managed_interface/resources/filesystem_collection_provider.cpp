@@ -23,13 +23,13 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <managed_interface/Core/Object.h>
-#include <aeon/common/types/rectangle.h>
-#include <aeon/scene/camera.h>
+#include <managed_interface/resources/filesystem_collection_provider.h>
+#include <aeon/resources/providers/filesystem_collection_provider.h>
+#include <managed_interface/mono_object_wrapper.h>
+#include <aeon/mono/mono_jit.h>
+#include <aeon/mono/mono_string.h>
+#include <aeon/mono/mono_jit_manager.h>
 #include <memory>
-#include <string>
 
 namespace aeon
 {
@@ -38,16 +38,21 @@ namespace mono
 namespace managed_interface
 {
 
-class Viewport : public Object
+void filesystem_collection_provider::register_internal_calls()
 {
-public:
-    static void register_internal_calls();
+    mono_jit::add_internal_call("AeonEngineMono.Resources.FilesystemCollectionProvider::.ctor(string)",
+                                &filesystem_collection_provider::ctor);
+}
 
-    explicit Viewport(MonoObject *object, std::shared_ptr<gfx::viewport> viewport);
-    virtual ~Viewport();
+void filesystem_collection_provider::ctor(MonoObject *this_ptr, MonoString *basePath)
+{
+    auto basePathString = mono_string(basePath).str();
 
-    std::shared_ptr<gfx::viewport> viewport;
-};
+    auto provider = std::make_unique<resources::filesystem_collection_provider>(
+        mono_jit_manager::get_application().get_io_interface(), basePathString);
+    mono_object_wrapper<std::unique_ptr<resources::resource_collection_provider>>::create(this_ptr,
+                                                                                          std::move(provider));
+}
 
 } // namespace managed_interface
 } // namespace mono

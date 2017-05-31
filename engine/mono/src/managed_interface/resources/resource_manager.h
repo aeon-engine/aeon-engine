@@ -23,23 +23,27 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace AeonEngineMono.Types
+#pragma once
+
+#include <mono/metadata/object.h>
+
+namespace aeon
 {
-    public struct Vector2F
-    {
-        public Vector2F(float xy)
-        {
-            X = xy;
-            Y = xy;
-        }
+namespace mono
+{
+namespace managed_interface
+{
 
-        public Vector2F(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
+class resource_manager
+{
+public:
+    static void register_internal_calls();
 
-        public float X;
-        public float Y;
-    }
-}
+private:
+    static void mount(MonoObject *provider, MonoString *mountPoint);
+    static void unmount(MonoString *mountPoint);
+};
+
+} // namespace managed_interface
+} // namespace mono
+} // namespace aeon

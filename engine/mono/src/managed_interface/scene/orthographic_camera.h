@@ -23,23 +23,31 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace AeonEngineMono.Types
+#pragma once
+
+#include <mono/metadata/object.h>
+
+namespace aeon
 {
-    public struct Vector2F
-    {
-        public Vector2F(float xy)
-        {
-            X = xy;
-            Y = xy;
-        }
+namespace mono
+{
+namespace managed_interface
+{
 
-        public Vector2F(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
+class orthographic_camera
+{
+public:
+    static void register_internal_calls();
 
-        public float X;
-        public float Y;
-    }
-}
+private:
+    static void ctor(MonoObject *this_ptr, float left, float right, float bottom, float top, MonoString *name);
+    static void ctor2(MonoObject *this_ptr, float left, float right, float bottom, float top, float near, float far,
+                      MonoString *name);
+    static void ctor3(MonoObject *this_ptr, int left, int right, int bottom, int top, MonoString *name);
+    static void ctor4(MonoObject *this_ptr, int left, int right, int bottom, int top, float near, float far,
+                      MonoString *name);
+};
+
+} // namespace managed_interface
+} // namespace mono
+} // namespace aeon

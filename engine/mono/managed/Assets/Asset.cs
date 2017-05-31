@@ -23,21 +23,11 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+using AeonEngineMono.Core;
 
-namespace aeon
+namespace AeonEngineMono.Assets
 {
-namespace mono
-{
-namespace managed_interface
-{
-
-class ResourceManager
-{
-public:
-    static void register_internal_calls();
-};
-
-} // namespace managed_interface
-} // namespace mono
-} // namespace aeon
+    public abstract class Asset : Object
+    {
+    }
+}

@@ -23,23 +23,32 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace AeonEngineMono.Types
+using System.Runtime.CompilerServices;
+using AeonEngineMono.Core;
+using AeonEngineMono.Types;
+
+namespace AeonEngineMono.Assets
 {
-    public struct Vector2F
+    public class AtlasRegion : Object
     {
-        public Vector2F(float xy)
-        {
-            X = xy;
-            Y = xy;
-        }
 
-        public Vector2F(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
+    }
 
-        public float X;
-        public float Y;
+    public class Atlas : Asset
+    {
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern Atlas(string path);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern Atlas(Material material, Vector2F spriteSize);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern AtlasRegion GetRegionByIndex(int index);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern AtlasRegion GetRegionByName(string name);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern AtlasRegion[] GetRegions();
     }
 }

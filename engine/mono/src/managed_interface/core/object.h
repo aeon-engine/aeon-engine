@@ -23,23 +23,52 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace AeonEngineMono.Types
+#pragma once
+
+#include <aeon/mono/mono_assembly.h>
+#include <aeon/mono/mono_gchandle.h>
+#include <aeon/mono/mono_class_field.h>
+#include <aeon/mono/mono_class_instance.h>
+#include <aeon/common/noncopyable.h>
+
+namespace aeon
 {
-    public struct Vector2F
-    {
-        public Vector2F(float xy)
-        {
-            X = xy;
-            Y = xy;
-        }
+namespace mono
+{
+namespace managed_interface
+{
 
-        public Vector2F(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
+class object : public common::noncopyable
+{
+public:
+    static void register_internal_calls();
+    static void initialize_class_field(mono_assembly &assembly);
 
-        public float X;
-        public float Y;
-    }
+    explicit object(MonoObject *object);
+    virtual ~object();
+
+    auto get_managed_object() const -> MonoObject *;
+
+    static mono_class object_class;
+    static mono_class_field native_object_field;
+
+    template <typename T>
+    static auto &get_managed_object_as(MonoObject *this_ptr);
+
+private:
+    static void finalize(MonoObject *this_ptr);
+
+    MonoObject *managed_object_;
+    mono_gchandle gc_handle_;
+};
+
+template <typename T>
+auto &object::get_managed_object_as(MonoObject *this_ptr)
+{
+    mono_class_instance cls(this_ptr);
+    return *cls.get_field_value<T *>(native_object_field);
 }
+
+} // namespace managed_interface
+} // namespace mono
+} // namespace aeon

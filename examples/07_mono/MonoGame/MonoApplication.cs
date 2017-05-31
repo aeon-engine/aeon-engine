@@ -24,9 +24,11 @@
  */
 
 using System;
+using AeonEngineMono.Assets;
 using AeonEngineMono.Gfx;
 using AeonEngineMono.Resources;
 using AeonEngineMono.Scene;
+using AeonEngineMono.Types;
 
 public class MonoApplication
 {
@@ -46,11 +48,21 @@ public class MonoApplication
 
         ResourceManager.Mount(new FilesystemCollectionProvider("."), "/");
 
-        m_Camera = new OrthographicCamera(0, 800, 600, 0);
-        m_Viewport = new Viewport(m_Camera, "My Viewport");
+        _camera = new OrthographicCamera(0, 800, 600, 0);
+        _viewport = new Viewport(_camera, "My Viewport");
+
+        SceneNode shipNode = new SceneNode("ShipNode");
+        SceneManager.RootSceneNode.AttachChild(shipNode);
+
+        Material material = new Material("/resources/materials/ships.amf");
+        Atlas atlas = new Atlas(material, new Vector2F(64, 64));
+        AtlasRegion shipRegion = atlas.GetRegionByIndex(10);
+
+        Sprite sprite = new Sprite(shipRegion, 0, "My Ship");
+        shipNode.AttachSceneObject(sprite);
     }
 
-    private OrthographicCamera m_Camera;
-    private Viewport m_Viewport;
+    private OrthographicCamera _camera;
+    private Viewport _viewport;
 
 }

@@ -23,23 +23,17 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace AeonEngineMono.Types
+using System.Runtime.CompilerServices;
+using AeonEngineMono.Core;
+
+namespace AeonEngineMono.Assets
 {
-    public struct Vector2F
+    public class Material : Asset
     {
-        public Vector2F(float xy)
-        {
-            X = xy;
-            Y = xy;
-        }
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern Material(string path);
 
-        public Vector2F(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
-
-        public float X;
-        public float Y;
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern Material(Texture texture, Shader shader);
     }
 }
