@@ -35,13 +35,13 @@ namespace aeon
 namespace scene
 {
 
-enum class component_type
+enum component_render_type
 {
-    spatial, // This object is merely added for spatial information (camera's etc.)
-    sprite,  // 2D object
-    mesh     // 3D object
+    renderable,
+    spatial
 };
 
+class render_queue;
 class scene_node;
 class scene_manager;
 
@@ -50,10 +50,10 @@ class component : public common::noncopyable
     friend class scene_node;
 
 public:
-    explicit component(const std::string &name, const int queue_group, const component_type type,
+    explicit component(const std::string &name, const int queue_group, component_render_type render_type,
                        scene_manager &scene_manager)
         : queue_group_(queue_group)
-        , type_(type)
+        , render_type_(render_type)
         , scene_manager_(scene_manager)
         , scene_node_(nullptr)
         , name_(name)
@@ -62,9 +62,9 @@ public:
 
     virtual ~component() = default;
 
-    auto get_type() const
+    auto get_render_type() const
     {
-        return type_;
+        return render_type_;
     }
 
     auto get_queue_group() const
@@ -100,7 +100,7 @@ protected:
     }
 
     int queue_group_;
-    component_type type_;
+    component_render_type render_type_;
     scene_manager &scene_manager_;
     scene_node *scene_node_;
     std::string name_;
