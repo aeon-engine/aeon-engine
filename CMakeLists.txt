@@ -24,6 +24,9 @@
 cmake_minimum_required(VERSION 3.2.0)
 project(AeonEngine)
 
+# Don't allow any circular dependencies. Not even for static libraries.
+set_property(GLOBAL PROPERTY GLOBAL_DEPENDS_NO_CYCLES 1)
+
 if (NOT AEON_CMAKE_INFRA_PATH)
     set(AEON_CMAKE_INFRA_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
 endif ()
