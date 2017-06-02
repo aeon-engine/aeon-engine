@@ -59,7 +59,7 @@ public class MonoApplication
         AtlasRegion shipRegion = atlas.GetRegionByIndex(10);
 
         Sprite sprite = new Sprite(shipRegion, 0, "My Ship");
-        shipNode.AttachSceneObject(sprite);
+        shipNode.AttachComponent(sprite);
     }
 
     private OrthographicCamera _camera;

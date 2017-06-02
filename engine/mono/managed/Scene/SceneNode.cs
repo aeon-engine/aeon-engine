@@ -49,13 +49,13 @@ namespace AeonEngineMono.Scene
         public extern void DetachAllChildren();
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void AttachSceneObject(Component node);
+        public extern void AttachComponent(Component node);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void DetachSceneObject(Component node);
+        public extern void DetachComponent(Component node);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void DetachAllSceneObjects();
+        public extern void DetachAllComponents();
 
         public extern Vector2F Center
         {
@@ -67,9 +67,12 @@ namespace AeonEngineMono.Scene
         public extern SceneNode[] GetChildren();
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern Component[] GetAttachedObjects();
+        public extern Component[] GetAttachedComponents();
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public extern SceneNode FindChildByName(string name, FindMethod findMethod = FindMethod.Recursive);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern Component FindComponentByName(string name, FindMethod findMethod = FindMethod.Recursive);
     }
 }
