@@ -46,17 +46,17 @@ public:
     virtual ~filesystem_provider();
 
 private:
-    std::size_t read(std::uint8_t *data, std::size_t size) override;
-    std::size_t write(const std::uint8_t *data, std::size_t size) override;
-    bool peek(std::uint8_t &data, std::ptrdiff_t offset) override;
-    bool seek(std::ptrdiff_t pos, seek_direction direction) override;
-    bool seekw(std::ptrdiff_t pos, seek_direction direction) override;
-    std::size_t tell() override;
-    std::size_t tellw() override;
-    bool eof() const override;
-    std::size_t size() const override;
+    auto read(std::uint8_t *data, std::size_t size) -> std::size_t override;
+    auto write(const std::uint8_t *data, std::size_t size) -> std::size_t override;
+    auto peek(std::uint8_t *data, std::size_t size) -> std::size_t override;
+    auto seek(std::ptrdiff_t pos, seek_direction direction) -> bool override;
+    auto seekw(std::ptrdiff_t pos, seek_direction direction) -> bool override;
+    auto tell() -> std::size_t override;
+    auto tellw() -> std::size_t override;
+    auto eof() const -> bool override;
+    auto size() const -> std::size_t override;
     void flush() override;
-    bool good() const override;
+    auto good() const -> bool override;
 
     auto get_info() const -> resource_info override;
 

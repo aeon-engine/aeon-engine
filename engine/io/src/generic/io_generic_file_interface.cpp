@@ -56,50 +56,50 @@ io_generic_file_interface::~io_generic_file_interface()
     AEON_LOG_DEBUG(logger_) << "Closing file " << stream_->get_filename() << "." << std::endl;
 }
 
-std::size_t io_generic_file_interface::read(std::uint8_t *data, std::size_t size)
+auto io_generic_file_interface::read(std::uint8_t *data, std::size_t size) -> std::size_t
 {
     AEON_LOG_TRACE(logger_) << "Reading " << size << " bytes from " << stream_->get_filename() << "." << std::endl;
     return stream_->read(data, size);
 }
 
-std::size_t io_generic_file_interface::write(const std::uint8_t *data, std::size_t size)
+auto io_generic_file_interface::write(const std::uint8_t *data, std::size_t size) -> std::size_t
 {
     AEON_LOG_TRACE(logger_) << "Writing " << stream_->size() << " bytes to " << stream_->get_filename() << "."
                             << std::endl;
     return stream_->write(data, size);
 }
 
-bool io_generic_file_interface::peek(std::uint8_t &data, std::ptrdiff_t offset)
+auto io_generic_file_interface::peek(std::uint8_t *data, std::size_t size) -> std::size_t
 {
-    return stream_->peek(data, offset);
+    return stream_->peek(data, size);
 }
 
-bool io_generic_file_interface::seek(std::ptrdiff_t pos, seek_direction direction)
+auto io_generic_file_interface::seek(std::ptrdiff_t pos, seek_direction direction) -> bool
 {
     return stream_->seek(pos, direction);
 }
 
-bool io_generic_file_interface::seekw(std::ptrdiff_t pos, seek_direction direction)
+auto io_generic_file_interface::seekw(std::ptrdiff_t pos, seek_direction direction) -> bool
 {
     return stream_->seekw(pos, direction);
 }
 
-std::size_t io_generic_file_interface::tell()
+auto io_generic_file_interface::tell() -> std::size_t
 {
     return stream_->tell();
 }
 
-std::size_t io_generic_file_interface::tellw()
+auto io_generic_file_interface::tellw() -> std::size_t
 {
     return stream_->tellw();
 }
 
-bool io_generic_file_interface::eof() const
+auto io_generic_file_interface::eof() const -> bool
 {
     return stream_->eof();
 }
 
-std::size_t io_generic_file_interface::size() const
+auto io_generic_file_interface::size() const -> std::size_t
 {
     return stream_->size();
 }
@@ -109,7 +109,7 @@ void io_generic_file_interface::flush()
     stream_->flush();
 }
 
-bool io_generic_file_interface::good() const
+auto io_generic_file_interface::good() const -> bool
 {
     return stream_->good();
 }

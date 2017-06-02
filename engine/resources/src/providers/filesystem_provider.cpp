@@ -38,47 +38,47 @@ filesystem_provider::filesystem_provider(const resource_info &info,
 
 filesystem_provider::~filesystem_provider() = default;
 
-std::size_t filesystem_provider::read(std::uint8_t *data, std::size_t size)
+auto filesystem_provider::read(std::uint8_t *data, std::size_t size) -> std::size_t
 {
     return file_interface_->read(data, size);
 }
 
-std::size_t filesystem_provider::write(const std::uint8_t *data, std::size_t size)
+auto filesystem_provider::write(const std::uint8_t *data, std::size_t size) -> std::size_t
 {
     return file_interface_->write(data, size);
 }
 
-bool filesystem_provider::peek(std::uint8_t &data, std::ptrdiff_t offset)
+auto filesystem_provider::peek(std::uint8_t *data, std::size_t size) -> std::size_t
 {
-    return file_interface_->peek(data, offset);
+    return file_interface_->peek(data, size);
 }
 
-bool filesystem_provider::seek(std::ptrdiff_t pos, seek_direction direction)
+auto filesystem_provider::seek(std::ptrdiff_t pos, seek_direction direction) -> bool
 {
     return file_interface_->seek(pos, direction);
 }
 
-bool filesystem_provider::seekw(std::ptrdiff_t pos, seek_direction direction)
+auto filesystem_provider::seekw(std::ptrdiff_t pos, seek_direction direction) -> bool
 {
     return file_interface_->seekw(pos, direction);
 }
 
-std::size_t filesystem_provider::tell()
+auto filesystem_provider::tell() -> std::size_t
 {
     return file_interface_->tell();
 }
 
-std::size_t filesystem_provider::tellw()
+auto filesystem_provider::tellw() -> std::size_t
 {
     return file_interface_->tellw();
 }
 
-bool filesystem_provider::eof() const
+auto filesystem_provider::eof() const -> bool
 {
     return file_interface_->eof();
 }
 
-std::size_t filesystem_provider::size() const
+auto filesystem_provider::size() const -> std::size_t
 {
     return file_interface_->size();
 }
@@ -88,7 +88,7 @@ void filesystem_provider::flush()
     file_interface_->flush();
 }
 
-bool filesystem_provider::good() const
+auto filesystem_provider::good() const -> bool
 {
     return file_interface_->good();
 }
