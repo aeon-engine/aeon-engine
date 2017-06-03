@@ -23,7 +23,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/scene/orthographic_camera.h>
+#include <aeon/scene/components/orthographic_camera.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace aeon

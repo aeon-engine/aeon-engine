@@ -22,4 +22,5 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 add_subdirectory(core)
+add_subdirectory(components)
 add_subdirectory(basic_scene_manager)

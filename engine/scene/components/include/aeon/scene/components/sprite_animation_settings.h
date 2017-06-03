@@ -25,12 +25,10 @@
 
 #pragma once
 
-#include <aeon/scene/sprite.h>
-#include <aeon/common/types/rectangle.h>
+#include <aeon/scene/components/sprite.h>
 #include <aeon/common/noncopyable.h>
 #include <map>
 #include <vector>
-#include <memory>
 
 namespace aeon
 {

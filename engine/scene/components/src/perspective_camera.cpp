@@ -23,7 +23,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/scene/perspective_camera.h>
+#include <aeon/scene/components/perspective_camera.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace aeon

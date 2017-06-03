@@ -21,60 +21,45 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-set (AEON_ENGINE_APPLICATION_SOURCES
-    include/aeon/application/context.h
-    include/aeon/application/default_context.h
-    include/aeon/application/base_application.h
-    include/aeon/application/desktop_application.h
-    src/default_context.cpp
-    src/base_application.cpp
-    src/desktop_application.cpp
+set (AEON_ENGINE_SCENE_COMPONENTS_SOURCES
+    include/aeon/scene/components/animated_sprite.h
+    include/aeon/scene/components/mesh.h
+    include/aeon/scene/components/orthographic_camera.h
+    include/aeon/scene/components/perspective_camera.h
+    include/aeon/scene/components/sprite.h
+    include/aeon/scene/components/sprite_animation_settings.h
+    src/animated_sprite.cpp
+    src/mesh.cpp
+    src/orthographic_camera.cpp
+    src/perspective_camera.cpp
+    src/sprite.cpp
+    src/sprite_animation_settings.cpp
 )
 
-source_group(application FILES ${AEON_ENGINE_APPLICATION_SOURCES})
+source_group(scene\\components FILES ${AEON_ENGINE_SCENE_COMPONENTS_SOURCES})
 
-add_library(aeon_engine_application STATIC
-    ${AEON_ENGINE_APPLICATION_SOURCES}
+add_library(aeon_engine_scene_components STATIC
+    ${AEON_ENGINE_SCENE_COMPONENTS_SOURCES}
 )
 
-target_link_libraries(aeon_engine_application
-    aeon_engine_common
-    aeon_engine_data
-    aeon_engine_io
-    aeon_engine_storage
-    aeon_engine_resources
-    aeon_engine_gfx_core
-    aeon_engine_gfx_gl #TODO!
+target_link_libraries(aeon_engine_scene_components
     aeon_engine_scene_core
-    aeon_engine_scene_components
-    aeon_engine_basic_scene_manager #TODO!
-    aeon_engine_assets
-    aeon_engine_input
-    aeon_engine_platform_core
-    aeon_engine_platform_glfw #TODO!
-    aeon_engine_codecs
-    aeon_engine_codec_amf
-    aeon_engine_codec_asc
-    aeon_engine_codec_assimp
-    aeon_engine_codec_ata
-    aeon_engine_codec_dds
-    aeon_engine_codec_png
-    aeon_engine_codec_prg
+    aeon_engine_gfx_core
+    aeon_common
 )
 
-target_include_directories(aeon_engine_application
+target_include_directories(aeon_engine_scene_components
     PUBLIC include
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 set_target_properties(
-    aeon_engine_application PROPERTIES
+    aeon_engine_scene_components PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-    FOLDER engine
+    FOLDER engine/scene
 )
 
 install(
-    TARGETS aeon_engine_application
+    TARGETS aeon_engine_scene_components
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib

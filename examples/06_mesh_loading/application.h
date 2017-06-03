@@ -26,7 +26,7 @@
 #pragma once
 
 #include <aeon/application/desktop_application.h>
-#include <aeon/scene/perspective_camera.h>
+#include <aeon/scene/components/perspective_camera.h>
 
 class application : public aeon::gfx::frame_listener, public aeon::application::desktop_application
 {

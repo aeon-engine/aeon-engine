@@ -27,7 +27,7 @@
 
 #include <aeon/application/desktop_application.h>
 #include <aeon/gfx/gfx_frame_listener.h>
-#include <aeon/scene/orthographic_camera.h>
+#include <aeon/scene/components/orthographic_camera.h>
 
 class application : public aeon::gfx::frame_listener, public aeon::application::desktop_application
 {

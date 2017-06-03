@@ -22,32 +22,20 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 set (AEON_ENGINE_SCENE_CORE_SOURCES
-    include/aeon/scene/animated_sprite.h
     include/aeon/scene/camera.h
     include/aeon/scene/exceptions.h
-    include/aeon/scene/mesh.h
-    include/aeon/scene/orthographic_camera.h
-    include/aeon/scene/perspective_camera.h
     include/aeon/scene/render_layer.h
     include/aeon/scene/render_queue.h
     include/aeon/scene/scene_manager.h
     include/aeon/scene/scene_node.h
     include/aeon/scene/movable_object.h
     include/aeon/scene/component.h
-    include/aeon/scene/sprite.h
-    include/aeon/scene/sprite_animation_settings.h
-    src/animated_sprite.cpp
     src/camera.cpp
-    src/mesh.cpp
-    src/orthographic_camera.cpp
-    src/perspective_camera.cpp
     src/render_queue.cpp
     src/scene_manager.cpp
     src/scene_node.cpp
     src/movable_object.cpp
     src/component.cpp
-    src/sprite.cpp
-    src/sprite_animation_settings.cpp
 )
 
 source_group(scene\\core FILES ${AEON_ENGINE_SCENE_CORE_SOURCES})

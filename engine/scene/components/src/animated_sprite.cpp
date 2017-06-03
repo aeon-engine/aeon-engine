@@ -23,8 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/scene/animated_sprite.h>
-#include <aeon/scene/sprite_animation_settings.h>
+#include <aeon/scene/components/animated_sprite.h>
+#include <aeon/scene/components/sprite_animation_settings.h>
 
 namespace aeon
 {

@@ -36,5 +36,6 @@ add_unit_test_suite(
         aeon_engine_common
         aeon_engine_serialization
         aeon_engine_scene_core
+        aeon_engine_scene_components
     FOLDER engine/tests
 )

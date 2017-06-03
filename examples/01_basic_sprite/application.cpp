@@ -26,7 +26,7 @@
 #include "application.h"
 #include <aeon/application/default_context.h>
 #include <aeon/resources/providers/filesystem_collection_provider.h>
-#include <aeon/scene/sprite.h>
+#include <aeon/scene/components/sprite.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;

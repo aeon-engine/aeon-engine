@@ -23,43 +23,32 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <aeon/scene/sprite.h>
-#include <aeon/common/types/rectangle.h>
-#include <aeon/scene/sprite_animation_settings.h>
-#include <aeon/gfx/gfx_atlas.h>
-#include <memory>
+#include <aeon/scene/components/mesh.h>
+#include <aeon/scene/scene_manager.h>
+#include <aeon/gfx/gfx_device.h>
 
 namespace aeon
 {
 namespace scene
 {
 
-class animated_sprite : public sprite
+mesh::mesh(scene_manager &scene_manager, const std::shared_ptr<gfx::material> &material,
+           const std::vector<data::vertex_data> &vertex_data, const std::vector<std::uint32_t> &index_data,
+           const std::string &name)
+    : component(name, material->sampler_has_alpha() ? render_layer::world_geometry_alpha : render_layer::world_geometry,
+                component_render_type::renderable, scene_manager)
+    , mesh_(scene_manager.get_device().create_mesh(material))
 {
-public:
-    explicit animated_sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &atlas, int zorder,
-                             sprite_animation_settings &settings, const std::string &name = "");
+    mesh_->upload_vertex_buffer(vertex_data, gfx::buffer_usage::static_usage);
+    mesh_->upload_index_buffer(index_data, gfx::buffer_usage::static_usage);
+}
 
-    virtual ~animated_sprite() = default;
+mesh::~mesh() = default;
 
-    void run();
-    void stop();
-
-    void set_animation_sequence(const int index);
-
-protected:
-    void update(const float dt) override;
-
-    sprite_animation_settings settings_;
-
-    float frame_time_;
-    int current_frame_index_;
-    bool running_;
-
-    std::vector<int> sequence_;
-};
+void mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, const float)
+{
+    mesh_->render(projection, view, model);
+}
 
 } // namespace scene
 } // namespace aeon

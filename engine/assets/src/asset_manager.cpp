@@ -30,8 +30,8 @@
 #include <aeon/resources/atlas.h>
 #include <aeon/resources/mesh.h>
 #include <aeon/resources/scene.h>
-#include <aeon/scene/mesh.h>
-#include <aeon/scene/perspective_camera.h>
+#include <aeon/scene/components/mesh.h>
+#include <aeon/scene/components/perspective_camera.h>
 #include <build_config.h>
 
 namespace aeon

@@ -23,7 +23,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/scene/sprite.h>
+#include <aeon/scene/components/sprite.h>
 #include <aeon/scene/scene_manager.h>
 
 namespace aeon
