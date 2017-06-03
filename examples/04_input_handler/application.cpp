@@ -86,7 +86,7 @@ void application::main()
     get_platform().run();
 }
 
-bool application::on_frame_begin(const float dt)
+auto application::on_frame_begin(const float dt) -> bool
 {
     if (rotate_direction_ == ship_rotate_direction::left)
     {

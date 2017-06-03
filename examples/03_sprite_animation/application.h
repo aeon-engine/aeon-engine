@@ -47,7 +47,7 @@ public:
     void main();
 
 private:
-    bool on_frame_begin(const float dt) override;
+    auto on_frame_begin(const float dt) -> bool override;
 
     std::shared_ptr<aeon::scene::orthographic_camera> camera_;
 

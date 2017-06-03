@@ -36,7 +36,7 @@ public:
 
     void main();
 
-    bool on_frame_begin(const float dt) override;
+    auto on_frame_begin(const float dt) -> bool override;
 
 private:
     float timer_;

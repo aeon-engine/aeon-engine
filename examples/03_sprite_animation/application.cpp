@@ -92,7 +92,7 @@ void application::main()
     get_platform().run();
 }
 
-bool application::on_frame_begin(const float dt)
+auto application::on_frame_begin(const float dt) -> bool
 {
     turn_timer_ += dt;
     if (turn_timer_ > 5.0f)

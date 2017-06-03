@@ -55,7 +55,7 @@ public:
     void main();
 
 private:
-    bool on_frame_begin(const float dt) override;
+    auto on_frame_begin(const float dt) -> bool override;
 
     void on_keyboard_key_state_changed_event(const aeon::input::keyboard_key key,
                                              const aeon::input::keyboard_key_state key_state,

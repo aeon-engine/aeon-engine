@@ -65,7 +65,7 @@ void application::main()
     get_platform().run();
 }
 
-bool application::on_frame_begin(const float dt)
+auto application::on_frame_begin(const float dt) -> bool
 {
     rotation_node_->rotate(0.0f, -0.1f * dt, 0.0f);
     staff_node_->rotate(-0.3f * dt, 0.0f, 0.0f);
