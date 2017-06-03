@@ -1,4 +1,4 @@
-Aeon Game Engine
+Aeon Game Engine [![Travis-CI](https://travis-ci.org/aeon-engine/aeon-engine.svg?branch=master)](https://travis-ci.org/aeon-engine/aeon-engine)
 ==============
 
 Changelog
@@ -28,7 +28,6 @@ Currently Aeon uses the following libraries:
 - Json11
 - libpng
 - zlib
-- Google Test
 
 All dependencies are included in this repository for convenience.
 No external libraries should be required in order to build;
