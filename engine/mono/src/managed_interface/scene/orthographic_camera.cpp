@@ -25,7 +25,7 @@
 
 #include <managed_interface/scene/orthographic_camera.h>
 #include <managed_interface/mono_object_wrapper.h>
-#include <aeon/scene/orthographic_camera.h>
+#include <aeon/scene/components/orthographic_camera.h>
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_string.h>
 #include <aeon/mono/mono_jit_manager.h>
