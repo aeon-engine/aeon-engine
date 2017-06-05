@@ -60,7 +60,12 @@ auto mono_application::main(int argc, char *argv[]) -> int
     }
 
     jit_manager_.load_assembly(assembly_name);
-    return jit_manager_.main();
+    jit_manager_.call_initialize();
+
+    get_platform().run();
+
+    // TODO: Handle return value (capture exceptions from mono?)
+    return 0;
 }
 
 } // namespace mono

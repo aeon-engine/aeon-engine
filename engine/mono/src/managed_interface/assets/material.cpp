@@ -23,42 +23,38 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <aeon/application/desktop_application.h>
+#include <managed_interface/assets/material.h>
+#include <managed_interface/mono_object_wrapper.h>
 #include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_assembly.h>
-#include <aeon/logger/logger.h>
-#include <aeon/common/noncopyable.h>
+#include <aeon/mono/mono_string.h>
+#include <aeon/mono/mono_jit_manager.h>
+#include <memory>
 
 namespace aeon
 {
 namespace mono
 {
-
-class mono_jit_manager : public common::noncopyable
+namespace managed_interface
 {
-public:
-    mono_jit_manager(application::desktop_application &application);
-    virtual ~mono_jit_manager();
 
-    void load_assembly(const std::string &path);
+void material::register_internal_calls()
+{
+    mono_jit::add_internal_call("AeonEngineMono.Assets.Material::.ctor(string)", &material::ctor);
+}
 
-    void call_initialize() const;
+auto material::get_material_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::material>
+{
+    return mono_object_wrapper<std::shared_ptr<gfx::material>>::get_native_object(object);
+}
 
-    static auto get_application() -> application::desktop_application &;
+void material::ctor(MonoObject *this_ptr, MonoString *path)
+{
+    auto &asset_manager = mono_jit_manager::get_application().get_asset_manager();
+    auto loaded_material = asset_manager.load_material(mono_string(path).str());
 
-    static mono_assembly main_assembly;
-    static mono_assembly engine_assembly;
+    mono_object_wrapper<std::shared_ptr<gfx::material>>::create(this_ptr, loaded_material);
+}
 
-private:
-    void initialize_jit() const;
-
-    logger::logger logger_;
-    mono_jit jit_;
-
-    static application::desktop_application *application_;
-};
-
+} // namespace managed_interface
 } // namespace mono
 } // namespace aeon

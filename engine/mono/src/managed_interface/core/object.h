@@ -27,6 +27,7 @@
 
 #include <aeon/mono/mono_assembly.h>
 #include <aeon/mono/mono_gchandle.h>
+#include <aeon/mono/mono_class.h>
 #include <aeon/mono/mono_class_field.h>
 #include <aeon/mono/mono_class_instance.h>
 #include <aeon/common/noncopyable.h>

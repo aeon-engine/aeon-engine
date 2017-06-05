@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <aeon/scene/scene_manager.h>
 #include <aeon/scene/camera.h>
+#include <aeon/common/logger.h>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace aeon
@@ -34,7 +35,8 @@ namespace scene
 {
 
 scene_manager::scene_manager(gfx::device &device)
-    : root_node_(new scene_node())
+    : logger_(common::logger::get_singleton(), "Scene::SceneManager")
+    , root_node_(new scene_node("root"))
     , device_(device)
 {
     root_node_->is_root_ = true;
@@ -47,16 +49,20 @@ scene_manager::~scene_manager()
 
 auto scene_manager::create_child_scene_node(const std::string &name) const -> std::shared_ptr<scene_node>
 {
+    AEON_LOG_TRACE(logger_) << "Created child scene node '" << name << "' on root." << std::endl;
     return root_node_->create_child_scene_node(name);
 }
 
 auto scene_manager::create_detached_scene_node(const std::string &name) const -> std::shared_ptr<scene_node>
 {
+    AEON_LOG_TRACE(logger_) << "Created detached child scene node '" << name << "'." << std::endl;
     return std::shared_ptr<scene_node>(new scene_node(name));
 }
 
 void scene_manager::detach_child_scene_node(const std::shared_ptr<scene_node> &node) const
 {
+    AEON_LOG_TRACE(logger_) << "Detaching child scene node scene node '" << node->get_name() << "' from root."
+                            << std::endl;
     root_node_->detach_child(node);
 }
 

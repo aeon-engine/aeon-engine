@@ -26,6 +26,7 @@
 #pragma once
 
 #include <managed_interface/core/object.h>
+#include <aeon/mono/mono_jit_manager.h>
 #include <memory>
 
 namespace aeon
@@ -42,6 +43,14 @@ public:
     explicit mono_object_wrapper(MonoObject *object, T obj);
     virtual ~mono_object_wrapper();
 
+    /*!
+     * Create a new MonoObject and associate this wrapper to it.
+     */
+    static auto create(T obj) -> MonoObject *;
+
+    /*!
+     * Create a wrapper for an existing MonoObject.
+     */
     static void create(MonoObject *object, T obj);
 
     static auto &get_native_object(MonoObject *object);
@@ -49,6 +58,14 @@ public:
 private:
     T native_object;
 };
+
+template <typename T>
+auto mono_object_wrapper<T>::create(T obj) -> MonoObject *
+{
+    auto instance = mono_jit_manager::engine_assembly.new_class_instance(object::object_class).get_mono_object();
+    create(instance, std::move(obj));
+    return instance;
+}
 
 template <typename T>
 void mono_object_wrapper<T>::create(MonoObject *object, T obj)

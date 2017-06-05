@@ -57,17 +57,17 @@ void application::main()
     auto atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
 
     // Set up scene
-    auto &root_node = get_scene_manager().get_root_scene_node();
-    root_node.translate(400, 300);
+    auto root_node = get_scene_manager().get_root_scene_node();
+    root_node->translate(400, 300);
 
     auto ship1 = atlas->get_region_by_index(0);
     auto ship2 = atlas->get_region_by_index(4);
     auto ship3 = atlas->get_region_by_index(10);
 
     auto ship1_sprite = get_scene_manager().create_component<aeon::scene::sprite>(atlas, ship1, 0);
-    root_node.attach_component(ship1_sprite);
+    root_node->attach_component(ship1_sprite);
 
-    ship2_pivot_node_ = root_node.create_child_scene_node();
+    ship2_pivot_node_ = root_node->create_child_scene_node();
     auto ship2_node = ship2_pivot_node_->create_child_scene_node();
     ship2_node->translate(200.0f, 0.0f);
 

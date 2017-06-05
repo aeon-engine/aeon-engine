@@ -23,42 +23,21 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <aeon/application/desktop_application.h>
-#include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_assembly.h>
-#include <aeon/logger/logger.h>
-#include <aeon/common/noncopyable.h>
+#include <managed_interface/scene/component.h>
+#include <managed_interface/mono_object_wrapper.h>
 
 namespace aeon
 {
 namespace mono
 {
-
-class mono_jit_manager : public common::noncopyable
+namespace managed_interface
 {
-public:
-    mono_jit_manager(application::desktop_application &application);
-    virtual ~mono_jit_manager();
 
-    void load_assembly(const std::string &path);
+auto component::get_component_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::component>
+{
+    return mono_object_wrapper<std::shared_ptr<scene::component>>::get_native_object(object);
+}
 
-    void call_initialize() const;
-
-    static auto get_application() -> application::desktop_application &;
-
-    static mono_assembly main_assembly;
-    static mono_assembly engine_assembly;
-
-private:
-    void initialize_jit() const;
-
-    logger::logger logger_;
-    mono_jit jit_;
-
-    static application::desktop_application *application_;
-};
-
+} // namespace managed_interface
 } // namespace mono
 } // namespace aeon

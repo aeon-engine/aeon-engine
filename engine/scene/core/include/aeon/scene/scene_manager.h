@@ -29,6 +29,7 @@
 #include <aeon/gfx/gfx_viewport.h>
 #include <aeon/scene/render_queue.h>
 #include <aeon/gfx/gfx_device.h>
+#include <aeon/logger/logger.h>
 #include <vector>
 #include <type_traits>
 #include <utility>
@@ -49,9 +50,9 @@ public:
     explicit scene_manager(gfx::device &device);
     virtual ~scene_manager();
 
-    auto &get_root_scene_node() const
+    auto get_root_scene_node() const
     {
-        return *root_node_;
+        return root_node_;
     }
 
     /*!
@@ -89,6 +90,8 @@ protected:
     virtual void __render_scene(camera &cam, gfx::render_target &rt, gfx::viewport &vp, const float dt);
 
     virtual void __prepare_render_queue(camera *cam) = 0;
+
+    logger::logger logger_;
 
     std::shared_ptr<scene_node> root_node_;
     render_queue queue_;

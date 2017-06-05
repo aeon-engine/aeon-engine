@@ -60,10 +60,10 @@ void application::main()
     auto atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
 
     // Set up scene
-    auto &root_node = get_scene_manager().get_root_scene_node();
+    auto root_node = get_scene_manager().get_root_scene_node();
 
     // Put the ship in the center of the screen by translating the root node
-    root_node.translate(400, 300);
+    root_node->translate(400, 300);
 
     // Get a region from the atlas for the sprite to render. Here we grab the 10th sprite in the texture,
     // which is counted left to right, top to bottom.
@@ -73,7 +73,7 @@ void application::main()
     auto ship_sprite = get_scene_manager().create_component<aeon::scene::sprite>(atlas, region, 0);
 
     // Attach the sprite to the scene
-    root_node.attach_component(ship_sprite);
+    root_node->attach_component(ship_sprite);
 
     // Start the render loop
     get_platform().run();

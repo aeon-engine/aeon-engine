@@ -35,7 +35,11 @@
 #include <managed_interface/resources/resource_manager.h>
 #include <managed_interface/scene/orthographic_camera.h>
 #include <managed_interface/scene/perspective_camera.h>
+#include <managed_interface/scene/scene_node.h>
 #include <managed_interface/scene/sprite.h>
+#include <managed_interface/scene/scene_manager.h>
+#include <managed_interface/assets/material.h>
+#include <managed_interface/assets/atlas.h>
 
 #include <cassert>
 
@@ -44,13 +48,13 @@ namespace aeon
 namespace mono
 {
 
+mono_assembly mono_jit_manager::main_assembly;
+mono_assembly mono_jit_manager::engine_assembly;
 application::desktop_application *mono_jit_manager::application_ = nullptr;
 
 mono_jit_manager::mono_jit_manager(application::desktop_application &application)
     : logger_(common::logger::get_singleton(), "Mono::JitManager")
     , jit_("AeonEngine")
-    , assembly_()
-    , engine_assembly_()
 {
     application_ = &application;
     initialize_jit();
@@ -61,25 +65,27 @@ mono_jit_manager::~mono_jit_manager() = default;
 void mono_jit_manager::load_assembly(const std::string &path)
 {
     AEON_LOG_DEBUG(logger_) << "Loading mono assembly " << path << std::endl;
-    assert(!assembly_.get_mono_assembly_ptr());
-    assembly_ = jit_.load_assembly(path);
-    engine_assembly_ = jit_.load_assembly("AeonEngineMono.dll");
 
-    managed_interface::object::initialize_class_field(engine_assembly_);
+    assert(!main_assembly.get_mono_assembly_ptr());
+    assert(!engine_assembly.get_mono_assembly_ptr());
+
+    main_assembly = jit_.load_assembly(path);
+
+    // TODO: Handle this better.
+    engine_assembly = jit_.load_assembly("AeonEngineMono.dll");
+
+    managed_interface::object::initialize_class_field(engine_assembly);
 }
 
-int mono_jit_manager::main() const
+void mono_jit_manager::call_initialize() const
 {
     AEON_LOG_DEBUG(logger_) << "Calling MonoApplication.Initialize." << std::endl;
 
-    auto mono_class = assembly_.get_class("MonoApplication");
-    auto mono_class_instance = assembly_.new_class_instance(mono_class);
+    auto mono_class = main_assembly.get_class("MonoApplication");
+    auto mono_class_instance = main_assembly.new_class_instance(mono_class);
 
-    // TODO: Fix the return value of mono methods.
     auto method = mono_class_instance.get_method("Initialize");
     method();
-
-    return 0;
 }
 
 auto mono_jit_manager::get_application() -> application::desktop_application &
@@ -89,13 +95,26 @@ auto mono_jit_manager::get_application() -> application::desktop_application &
 
 void mono_jit_manager::initialize_jit() const
 {
-    managed_interface::filesystem_collection_provider::register_internal_calls();
-    managed_interface::viewport::register_internal_calls();
+    // Core
     managed_interface::object::register_internal_calls();
+
+    // Resources
     managed_interface::resource_manager::register_internal_calls();
+    managed_interface::filesystem_collection_provider::register_internal_calls();
+
+    // Gfx
+    managed_interface::viewport::register_internal_calls();
+
+    // Scene
     managed_interface::orthographic_camera::register_internal_calls();
     managed_interface::perspective_camera::register_internal_calls();
     managed_interface::sprite::register_internal_calls();
+    managed_interface::scene_node::register_internal_calls();
+    managed_interface::scene_manager::register_internal_calls();
+
+    // Assets
+    managed_interface::material::register_internal_calls();
+    managed_interface::atlas::register_internal_calls();
 }
 
 } // namespace mono

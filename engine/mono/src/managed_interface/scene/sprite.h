@@ -26,7 +26,8 @@
 #pragma once
 
 #include <managed_interface/core/object.h>
-#include <glm/vec2.hpp>
+#include <managed_interface/core/types.h>
+#include <aeon/scene/components/sprite.h>
 
 namespace aeon
 {
@@ -35,10 +36,14 @@ namespace mono
 namespace managed_interface
 {
 
-class sprite : public object
+class sprite
 {
 public:
     static void register_internal_calls();
+
+private:
+    static void ctor(MonoObject *this_ptr, MonoObject *region, int z_order, MonoString *name);
+    static void ctor2(MonoObject *this_ptr, MonoObject *region, vector2f size, int z_order, MonoString *name);
 };
 
 } // namespace managed_interface

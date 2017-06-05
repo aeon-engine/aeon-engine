@@ -71,7 +71,7 @@ void application::main()
     // which is counted left to right, top to bottom.
     auto region = atlas->get_region_by_index(10);
 
-    ship_node_ = get_scene_manager().get_root_scene_node().create_child_scene_node();
+    ship_node_ = get_scene_manager().get_root_scene_node()->create_child_scene_node();
 
     // Put the ship in the center of the screen
     ship_node_->translate(400, 300);

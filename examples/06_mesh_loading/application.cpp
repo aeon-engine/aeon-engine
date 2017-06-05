@@ -44,10 +44,10 @@ application::application()
 
 void application::main()
 {
-    auto &root_node = get_scene_manager().get_root_scene_node();
+    auto root_node = get_scene_manager().get_root_scene_node();
 
     auto world = get_asset_manager().load_scene("/resources/scenes/testworld.asc");
-    root_node.attach_child(world);
+    root_node->attach_child(world);
 
     camera_ = world->find_component_by_name<aeon::scene::perspective_camera>("camera1");
     get_main_window().create_viewport(camera_, "viewport1", 0);
@@ -56,9 +56,9 @@ void application::main()
     aeon::common::types::rectangle<float> smaller_viewport_rect(0.1f, 0.1f, 0.3f, 0.3f);
     get_main_window().create_viewport(camera2_, smaller_viewport_rect, "viewport2", 1);
 
-    rotation_node_ = root_node.find_child_by_name("rotation_node");
+    rotation_node_ = root_node->find_child_by_name("rotation_node");
 
-    staff_node_ = root_node.find_child_by_name("SUN Onlin7");
+    staff_node_ = root_node->find_child_by_name("SUN Onlin7");
     staff_node_->set_position(0.5f, 0.0f, 0.0f);
 
     // Start the render loop

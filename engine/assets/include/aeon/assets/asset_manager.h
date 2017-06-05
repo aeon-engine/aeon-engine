@@ -38,6 +38,7 @@
 #include <aeon/scene/scene_node.h>
 #include <aeon/common/object_cache.h>
 #include <aeon/common/noncopyable.h>
+#include <aeon/logger/logger.h>
 
 namespace aeon
 {

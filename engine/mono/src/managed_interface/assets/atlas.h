@@ -25,40 +25,48 @@
 
 #pragma once
 
-#include <aeon/application/desktop_application.h>
-#include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_assembly.h>
-#include <aeon/logger/logger.h>
-#include <aeon/common/noncopyable.h>
+#include <managed_interface/core/types.h>
+#include <mono/metadata/object.h>
+#include <aeon/gfx/gfx_atlas.h>
+#include <memory>
 
 namespace aeon
 {
 namespace mono
 {
+namespace managed_interface
+{
 
-class mono_jit_manager : public common::noncopyable
+class atlas_region_wrapper : common::noncopyable
 {
 public:
-    mono_jit_manager(application::desktop_application &application);
-    virtual ~mono_jit_manager();
+    explicit atlas_region_wrapper(const data::atlas::region &region, std::shared_ptr<gfx::atlas> atlas)
+        : region(region)
+        , atlas(atlas)
+    {
+    }
 
-    void load_assembly(const std::string &path);
+    ~atlas_region_wrapper() = default;
 
-    void call_initialize() const;
-
-    static auto get_application() -> application::desktop_application &;
-
-    static mono_assembly main_assembly;
-    static mono_assembly engine_assembly;
-
-private:
-    void initialize_jit() const;
-
-    logger::logger logger_;
-    mono_jit jit_;
-
-    static application::desktop_application *application_;
+    data::atlas::region region;
+    std::shared_ptr<gfx::atlas> atlas;
 };
 
+class atlas
+{
+public:
+    static void register_internal_calls();
+
+    static auto get_atlas_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::atlas>;
+    static auto get_region_wrapper_from_mono_object(MonoObject *object) -> std::shared_ptr<atlas_region_wrapper>;
+
+private:
+    static void ctor(MonoObject *this_ptr, MonoString *path);
+    static void ctor2(MonoObject *this_ptr, MonoObject *material_ptr, vector2f size);
+    static auto get_region_by_index(MonoObject *this_ptr, int index) -> MonoObject *;
+    static auto get_region_by_name(MonoObject *this_ptr, MonoString *name) -> MonoObject *;
+};
+
+} // namespace managed_interface
 } // namespace mono
 } // namespace aeon

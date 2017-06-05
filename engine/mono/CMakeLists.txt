@@ -76,6 +76,17 @@ source_group(mono\\managed_interface\\core FILES ${AEON_ENGINE_MONO_MANAGED_INTE
 
 ###############################################################################
 
+set (AEON_ENGINE_MONO_MANAGED_INTERFACE_ASSETS_SOURCES
+    src/managed_interface/assets/atlas.cpp
+    src/managed_interface/assets/atlas.h
+    src/managed_interface/assets/material.cpp
+    src/managed_interface/assets/material.h
+)
+
+source_group(mono\\managed_interface\\assets FILES ${AEON_ENGINE_MONO_MANAGED_INTERFACE_ASSETS_SOURCES})
+
+###############################################################################
+
 set (AEON_ENGINE_MONO_MANAGED_INTERFACE_RESOURCES_SOURCES
     src/managed_interface/resources/filesystem_collection_provider.cpp
     src/managed_interface/resources/filesystem_collection_provider.h
@@ -90,12 +101,18 @@ source_group(mono\\managed_interface\\resources FILES ${AEON_ENGINE_MONO_MANAGED
 set (AEON_ENGINE_MONO_MANAGED_INTERFACE_SCENE_SOURCES
     src/managed_interface/scene/camera.cpp
     src/managed_interface/scene/camera.h
+    src/managed_interface/scene/component.cpp
+    src/managed_interface/scene/component.h
     src/managed_interface/scene/orthographic_camera.cpp
     src/managed_interface/scene/orthographic_camera.h
     src/managed_interface/scene/perspective_camera.cpp
     src/managed_interface/scene/perspective_camera.h
     src/managed_interface/scene/sprite.cpp
     src/managed_interface/scene/sprite.h
+    src/managed_interface/scene/scene_node.cpp
+    src/managed_interface/scene/scene_node.h
+    src/managed_interface/scene/scene_manager.cpp
+    src/managed_interface/scene/scene_manager.h
 )
 
 source_group(mono\\managed_interface\\scene FILES ${AEON_ENGINE_MONO_MANAGED_INTERFACE_SCENE_SOURCES})
@@ -115,6 +132,7 @@ add_library(aeon_engine_mono STATIC
     ${AEON_ENGINE_MONO_SOURCES}
     ${AEON_ENGINE_MONO_MANAGED_INFERFACE_SOURCES}
     ${AEON_ENGINE_MONO_MANAGED_INTERFACE_CORE_SOURCES}
+    ${AEON_ENGINE_MONO_MANAGED_INTERFACE_ASSETS_SOURCES}
     ${AEON_ENGINE_MONO_MANAGED_INTERFACE_RESOURCES_SOURCES}
     ${AEON_ENGINE_MONO_MANAGED_INTERFACE_SCENE_SOURCES}
     ${AEON_ENGINE_MONO_MANAGED_INTERFACE_GFX_SOURCES}

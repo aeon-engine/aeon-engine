@@ -56,8 +56,8 @@ void application::main()
     auto atlas = get_asset_manager().create_atlas(animation_material, glm::vec2(32, 32));
 
     // Set up scene
-    auto &root_node = get_scene_manager().get_root_scene_node();
-    root_node.translate(400, 300);
+    auto root_node = get_scene_manager().get_root_scene_node();
+    root_node->translate(400, 300);
 
     // The parameter given to the animation settings constructor is the size of each frame inside of the sprite sheet
     // This frame size does not need to be a power of 2.
@@ -87,7 +87,7 @@ void application::main()
     animation_settings.set_repeat(aeon::scene::animation_repeat::continuous);
 
     animated_sprite_ = get_scene_manager().create_component<aeon::scene::animated_sprite>(atlas, 0, animation_settings);
-    root_node.attach_component(animated_sprite_);
+    root_node->attach_component(animated_sprite_);
 
     get_platform().run();
 }

@@ -23,42 +23,32 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <aeon/application/desktop_application.h>
+#include <managed_interface/scene/scene_manager.h>
+#include <managed_interface/mono_object_wrapper.h>
 #include <aeon/mono/mono_jit.h>
-#include <aeon/mono/mono_assembly.h>
-#include <aeon/logger/logger.h>
-#include <aeon/common/noncopyable.h>
+#include <aeon/mono/mono_string.h>
+#include <aeon/mono/mono_jit_manager.h>
+#include <memory>
 
 namespace aeon
 {
 namespace mono
 {
-
-class mono_jit_manager : public common::noncopyable
+namespace managed_interface
 {
-public:
-    mono_jit_manager(application::desktop_application &application);
-    virtual ~mono_jit_manager();
 
-    void load_assembly(const std::string &path);
+void scene_manager::register_internal_calls()
+{
+    mono_jit::add_internal_call("AeonEngineMono.Scene.SceneManager::get_RootSceneNode()",
+                                &scene_manager::get_root_scene_node);
+}
 
-    void call_initialize() const;
+auto scene_manager::get_root_scene_node() -> MonoObject *
+{
+    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
+    return mono_object_wrapper<std::shared_ptr<scene::scene_node>>::create(scene_manager.get_root_scene_node());
+}
 
-    static auto get_application() -> application::desktop_application &;
-
-    static mono_assembly main_assembly;
-    static mono_assembly engine_assembly;
-
-private:
-    void initialize_jit() const;
-
-    logger::logger logger_;
-    mono_jit jit_;
-
-    static application::desktop_application *application_;
-};
-
+} // namespace managed_interface
 } // namespace mono
 } // namespace aeon
