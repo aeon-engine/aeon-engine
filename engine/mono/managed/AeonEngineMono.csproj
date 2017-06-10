@@ -45,6 +45,7 @@
     <Compile Include="Assets\Material.cs" />
     <Compile Include="Assets\Shader.cs" />
     <Compile Include="Assets\Texture.cs" />
+    <Compile Include="Core\Mathf.cs" />
     <Compile Include="Core\Object.cs" />
     <Compile Include="Gfx\Viewport.cs" />
     <Compile Include="Resources\FilesystemCollectionProvider.cs" />
@@ -59,11 +60,12 @@
     <Compile Include="Scene\Component.cs" />
     <Compile Include="Scene\Sprite.cs" />
     <Compile Include="Types\Color.cs" />
-    <Compile Include="Types\Matrix4x4.cs" />
+    <Compile Include="Types\Matrix4.cs" />
     <Compile Include="Types\Quaternion.cs" />
     <Compile Include="Types\Rect.cs" />
-    <Compile Include="Types\Vector2F.cs" />
-    <Compile Include="Types\Vector3F.cs" />
+    <Compile Include="Types\Vector2f.cs" />
+    <Compile Include="Types\Vector3f.cs" />
+    <Compile Include="Types\Vector4f.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

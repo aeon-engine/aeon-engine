@@ -28,6 +28,9 @@
 #include <aeon/application/desktop_application.h>
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_assembly.h>
+#include <aeon/mono/mono_class_instance.h>
+#include <aeon/mono/mono_method.h>
+#include <aeon/mono/mono_method_thunk.h>
 #include <aeon/logger/logger.h>
 #include <aeon/common/noncopyable.h>
 
@@ -44,7 +47,8 @@ public:
 
     void load_assembly(const std::string &path);
 
-    void call_initialize() const;
+    void call_initialize();
+    auto call_update(float dt) -> bool;
 
     static auto get_application() -> application::desktop_application &;
 
@@ -56,6 +60,9 @@ private:
 
     logger::logger logger_;
     mono_jit jit_;
+    mono_class_instance main_class_instance_;
+    mono_method_thunk<void()> initialize_method_;
+    mono_method_thunk<bool(float)> update_method_;
 
     static application::desktop_application *application_;
 };

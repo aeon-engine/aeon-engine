@@ -32,17 +32,14 @@ namespace AeonEngineMono.Scene
     public abstract class MovableObject : Object
     {
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern MovableObject(string name);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
         public extern void SetIdentity();
 
         public void SetPosition(float x, float y, float z = 0)
         {
-            Position = new Vector3F(x, y, z);
+            Position = new Vector3f(x, y, z);
         }
 
-        public extern Vector3F Position
+        public extern Vector3f Position
         { 
             [MethodImpl(MethodImplOptions.InternalCall)]
             get;
@@ -53,67 +50,67 @@ namespace AeonEngineMono.Scene
 
         public void Translate(float x, float y, float z = 0)
         {
-            Translate(new Vector3F(x, y, z));
+            Translate(new Vector3f(x, y, z));
         }
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void Translate(Vector3F vec);
+        public extern void Translate(Vector3f vec);
 
         public void SetRotation(float x, float y, float z)
         {
-            SetRotation(new Vector3F(x, y, z));
+            SetRotation(new Vector3f(x, y, z));
         }
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void SetRotation(Vector3F vec);
+        public extern void SetRotation(Vector3f vec);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public extern void SetRotation(float angle);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void SetRotation(Quanternion quat);
+        public extern void SetRotation(Quaternion quat);
 
         public void Rotate(float x, float y, float z)
         {
-            Rotate(new Vector3F(x, y, z));
+            Rotate(new Vector3f(x, y, z));
         }
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void Rotate(Vector3F vec);
+        public extern void Rotate(Vector3f vec);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public extern void Rotate(float angle);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void Rotate(Quanternion quat);
+        public extern void Rotate(Quaternion quat);
 
         public void SetScale(float x, float y, float z)
         {
-            SetScale(new Vector3F(x, y, z));
+            SetScale(new Vector3f(x, y, z));
         }
 
         public void SetScale(float xyz)
         {
-            SetScale(new Vector3F(xyz));
+            SetScale(new Vector3f(xyz));
         }
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void SetScale(Vector3F vec);
+        public extern void SetScale(Vector3f vec);
 
         public void Scale(float x, float y, float z)
         {
-            Scale(new Vector3F(x, y, z));
+            Scale(new Vector3f(x, y, z));
         }
 
         public void Scale(float xyz)
         {
-            Scale(new Vector3F(xyz));
+            Scale(new Vector3f(xyz));
         }
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void Scale(Vector3F vec);
+        public extern void Scale(Vector3f vec);
 
-        public extern Matrix4X4 Matrix
+        public extern Matrix4 Matrix
         { 
             [MethodImpl(MethodImplOptions.InternalCall)]
             get;

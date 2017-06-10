@@ -29,16 +29,16 @@ namespace AeonEngineMono.Types
 {
     public struct Color
     {
-        public float R;
-        public float G;
-        public float B;
-        public float A;
+        public float r;
+        public float g;
+        public float b;
+        public float a;
 
         public float grayscale
         {
             get
             {
-                return 0.2126f * R + 0.7152f * G + 0.0722f * B;
+                return 0.2126f * r + 0.7152f * g + 0.0722f * b;
             }
         }
 
@@ -49,13 +49,13 @@ namespace AeonEngineMono.Types
                 switch (index)
                 {
                     case 0:
-                        return R;
+                        return r;
                     case 1:
-                        return G;
+                        return g;
                     case 2:
-                        return B;
+                        return b;
                     case 3:
-                        return A;
+                        return a;
                     default:
                         throw new IndexOutOfRangeException("Index out of range.");
                 }
@@ -65,16 +65,16 @@ namespace AeonEngineMono.Types
                 switch (index)
                 {
                     case 0:
-                        R = value;
+                        r = value;
                         break;
                     case 1:
-                        G = value;
+                        g = value;
                         break;
                     case 2:
-                        B = value;
+                        b = value;
                         break;
                     case 3:
-                        A = value;
+                        a = value;
                         break;
                     default:
                         throw new IndexOutOfRangeException("Index out of range.");

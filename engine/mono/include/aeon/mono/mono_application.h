@@ -34,7 +34,7 @@ namespace aeon
 namespace mono
 {
 
-class mono_application : public application::desktop_application
+class mono_application : public application::desktop_application, public aeon::gfx::frame_listener
 {
 public:
     explicit mono_application(application::context context);
@@ -43,6 +43,8 @@ public:
     auto main(int argc, char *argv[]) -> int;
 
 private:
+    auto on_frame_begin(const float dt) -> bool override;
+
     logger::logger logger_;
     mono_jit_manager jit_manager_;
 };

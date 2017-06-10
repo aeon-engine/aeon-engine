@@ -47,17 +47,17 @@ void resource_manager::register_internal_calls()
                                 &resource_manager::unmount);
 }
 
-void resource_manager::mount(MonoObject *provider, MonoString *mountPoint)
+void resource_manager::mount(MonoObject *provider, MonoString *mount_point)
 {
     auto &collection_provider =
         mono_object_wrapper<std::unique_ptr<resources::resource_collection_provider>>::get_native_object(provider);
     mono_jit_manager::get_application().get_resource_manager().mount(std::move(collection_provider),
-                                                                     mono_string(mountPoint).str());
+                                                                     mono_string(mount_point).str());
 }
 
-void resource_manager::unmount(MonoString *mountPoint)
+void resource_manager::unmount(MonoString *mount_point)
 {
-    mono_jit_manager::get_application().get_resource_manager().unmount(mono_string(mountPoint).str());
+    mono_jit_manager::get_application().get_resource_manager().unmount(mono_string(mount_point).str());
 }
 
 } // namespace managed_interface

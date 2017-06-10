@@ -30,23 +30,24 @@ if (MSVC)
         TYPE FAE04EC0-301F-11D3-BF4B-00C04F79EFBC
     )
 else ()
+    file(
+        GLOB_RECURSE AEON_ENGINE_MONO_MANAGED_SOURCES
+        RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+        managed/*.cs
+    )
+
     add_mono_assembly(
         TARGET AeonEngineMono
         DESTINATION ${CMAKE_BINARY_DIR}/bin
         TYPE library
-        SOURCES
-            managed/Color.cs
-            managed/Object.cs
-            managed/ResourceManager.cs
-            managed/Sprite.cs
-            managed/Vector2f.cs
+        SOURCES ${AEON_ENGINE_MONO_MANAGED_SOURCES}
     )
 endif ()
 
 ###############################################################################
 
 set (AEON_ENGINE_MONO_SOURCES
-    include/aeon/mono/mono_exception.h
+    include/aeon/mono/mono_exceptions.h
     include/aeon/mono/mono_application.h
     src/mono_application.cpp
     include/aeon/mono/mono_jit_manager.h
@@ -65,11 +66,11 @@ source_group(mono\\managed_interface FILES ${AEON_ENGINE_MONO_MANAGED_INFERFACE_
 
 ###############################################################################
 
-
 set (AEON_ENGINE_MONO_MANAGED_INTERFACE_CORE_SOURCES
     src/managed_interface/core/object.cpp
     src/managed_interface/core/object.h
     src/managed_interface/core/types.h
+    src/managed_interface/core/types_conversion.h
 )
 
 source_group(mono\\managed_interface\\core FILES ${AEON_ENGINE_MONO_MANAGED_INTERFACE_CORE_SOURCES})
@@ -81,6 +82,10 @@ set (AEON_ENGINE_MONO_MANAGED_INTERFACE_ASSETS_SOURCES
     src/managed_interface/assets/atlas.h
     src/managed_interface/assets/material.cpp
     src/managed_interface/assets/material.h
+    src/managed_interface/assets/shader.cpp
+    src/managed_interface/assets/shader.h
+    src/managed_interface/assets/texture.cpp
+    src/managed_interface/assets/texture.h
 )
 
 source_group(mono\\managed_interface\\assets FILES ${AEON_ENGINE_MONO_MANAGED_INTERFACE_ASSETS_SOURCES})

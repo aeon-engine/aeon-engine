@@ -37,7 +37,7 @@ namespace AeonEngineMono.Scene
             get;
         }
 
-        public extern Matrix4X4 SceneMatrix
+        public extern Matrix4 SceneMatrix
         {
             [MethodImpl(MethodImplOptions.InternalCall)]
             get;

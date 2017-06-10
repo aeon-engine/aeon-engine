@@ -40,8 +40,8 @@ public:
     static void register_internal_calls();
 
 private:
-    static void mount(MonoObject *provider, MonoString *mountPoint);
-    static void unmount(MonoString *mountPoint);
+    static void mount(MonoObject *provider, MonoString *mount_point);
+    static void unmount(MonoString *mount_point);
 };
 
 } // namespace managed_interface

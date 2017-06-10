@@ -30,18 +30,13 @@ namespace AeonEngineMono.Core
 {
     public class Object
     {
-	    [MethodImpl(MethodImplOptions.InternalCall)]
-	    extern ~Object();
-
-        public bool Test()
-        {
-            return true;
-        }
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        extern ~Object();
 
         protected IntPtr GetNativePtr()
-		{
-			return m_NativePtr;
-		}
+        {
+            return m_NativePtr;
+        }
 
         private IntPtr m_NativePtr = IntPtr.Zero;
     }

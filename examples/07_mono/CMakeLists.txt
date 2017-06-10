@@ -31,11 +31,17 @@ if (MSVC)
         TYPE FAE04EC0-301F-11D3-BF4B-00C04F79EFBC
     )
 else ()
+    file(
+        GLOB_RECURSE MONO_GAME_MANAGED_SOURCES
+        RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+        MonoGame/*.cs
+    )
+
     add_mono_assembly(
         TARGET MonoGame
         DESTINATION ${CMAKE_BINARY_DIR}/bin
         TYPE library
-        SOURCES MonoGame/MonoApplication.cs
+        SOURCES ${MONO_GAME_MANAGED_SOURCES}
         ADDITIONAL_ARGS "/reference:AeonEngineMono.dll"
     )
 endif ()

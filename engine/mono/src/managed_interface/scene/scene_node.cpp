@@ -26,6 +26,7 @@
 #include <managed_interface/scene/scene_node.h>
 #include <managed_interface/scene/component.h>
 #include <managed_interface/mono_object_wrapper.h>
+#include <managed_interface/core/types_conversion.h>
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_string.h>
 #include <aeon/mono/mono_jit_manager.h>
@@ -45,9 +46,32 @@ void scene_node::register_internal_calls()
                                 &scene_node::attach_child);
     mono_jit::add_internal_call("AeonEngineMono.Scene.SceneNode::AttachComponent(AeonEngineMono.Scene.Component)",
                                 &scene_node::attach_component);
+
     // TODO: should be handled and called on baseclass
-    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::set_Position(AeonEngineMono.Types.Vector3F)",
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::SetIdentity", &scene_node::set_identity);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::set_Position(AeonEngineMono.Types.Vector3f)",
                                 &scene_node::set_position);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::get_Position", &scene_node::get_position);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::Translate(AeonEngineMono.Types.Vector3f)",
+                                &scene_node::translate);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::SetRotation(AeonEngineMono.Types.Vector3f)",
+                                &scene_node::set_rotation_vec);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::SetRotation(single)",
+                                &scene_node::set_rotation_angle);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::SetRotation(AeonEngineMono.Types.Quaternion)",
+                                &scene_node::set_rotation_quat);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::Rotate(AeonEngineMono.Types.Vector3f)",
+                                &scene_node::rotate_vec);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::Rotate(single)", &scene_node::rotate_angle);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::Rotate(AeonEngineMono.Types.Quaternion)",
+                                &scene_node::rotate_quat);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::SetScale(AeonEngineMono.Types.Vector3f)",
+                                &scene_node::set_scale);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::Scale(AeonEngineMono.Types.Vector3f)",
+                                &scene_node::scale);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::get_Matrix", &scene_node::get_matrix);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.MovableObject::set_Matrix(AeonEngineMono.Types.Matrix4)",
+                                &scene_node::set_matrix);
 }
 
 auto scene_node::get_scene_node_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::scene_node>
@@ -78,10 +102,89 @@ void scene_node::attach_component(MonoObject *this_ptr, MonoObject *component)
     this_scene_node->attach_component(component_ptr);
 }
 
+void scene_node::set_identity(MonoObject *this_ptr)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->set_identity();
+}
+
 void scene_node::set_position(MonoObject *this_ptr, vector3f position)
 {
     auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
     this_scene_node->set_position({position.x, position.y, position.z});
+}
+
+auto scene_node::get_position(MonoObject *this_ptr) -> vector3f
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    auto position = this_scene_node->get_position();
+    return {position.x, position.y, position.z};
+}
+
+void scene_node::translate(MonoObject *this_ptr, vector3f vec)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->translate(converter::convert(vec));
+}
+
+void scene_node::set_rotation_vec(MonoObject *this_ptr, vector3f vec)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->set_rotation(converter::convert(vec));
+}
+
+void scene_node::set_rotation_angle(MonoObject *this_ptr, float angle)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->set_rotation(angle);
+}
+
+void scene_node::set_rotation_quat(MonoObject *this_ptr, quaternion quat)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->set_rotation(converter::convert(quat));
+}
+
+void scene_node::rotate_vec(MonoObject *this_ptr, vector3f vec)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->rotate(converter::convert(vec));
+}
+
+void scene_node::rotate_angle(MonoObject *this_ptr, float angle)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->rotate(angle);
+}
+
+void scene_node::rotate_quat(MonoObject *this_ptr, quaternion quat)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->rotate(converter::convert(quat));
+}
+
+void scene_node::set_scale(MonoObject *this_ptr, vector3f vec)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->set_scale(converter::convert(vec));
+}
+
+void scene_node::scale(MonoObject *this_ptr, vector3f vec)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->scale(converter::convert(vec));
+}
+
+void scene_node::set_matrix(MonoObject *this_ptr, matrix4x4 mat)
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    this_scene_node->set_matrix(converter::convert(mat));
+}
+
+auto scene_node::get_matrix(MonoObject *this_ptr) -> matrix4x4
+{
+    auto this_scene_node = get_scene_node_from_mono_object(this_ptr);
+    return converter::convert(this_scene_node->get_matrix());
 }
 
 } // namespace managed_interface

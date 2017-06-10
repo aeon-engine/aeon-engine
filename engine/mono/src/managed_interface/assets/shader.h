@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2012-2017 Robin Degen
  *
  * Permission is hereby granted, free of charge, to any person
@@ -23,42 +23,30 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace AeonEngineMono
+#pragma once
+
+#include <mono/metadata/object.h>
+#include <aeon/gfx/gfx_shader.h>
+#include <memory>
+
+namespace aeon
 {
-    public struct Rect
-    {
-        public float Left;
-        public float Top;
-        public float Right;
-        public float Bottom;
+namespace mono
+{
+namespace managed_interface
+{
 
-        public Rect(float left, float top, float right, float bottom)
-        {
-            Left = left;
-            Top = top;
-            Right = right;
-            Bottom = bottom;
-        }
+class shader
+{
+public:
+    static void register_internal_calls();
 
-        public Rect(Vector2F position, Vector2F size)
-        {
-            Left = position.X;
-            Top = position.Y;
-            Right = position.X + size.X;
-            Bottom = position.Y + size.Y;
-        }
+    static auto get_shader_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::shader>;
 
-        public static Rect Empty => new Rect(0, 0, 0, 0);
-        public static Rect One => new Rect(0, 0, 1, 1);
+private:
+    static void ctor(MonoObject *this_ptr, MonoString *path);
+};
 
-        public float Width => Right - Left;
-        public float Height => Bottom - Top;
-        public Vector2F Position => new Vector2F(Left, Top);
-        public Vector2F Size => new Vector2F(Width, Height);
-
-        public bool IsEmpty()
-        {
-            return Width == 0 || Height == 0;
-        }
-    }
-}
+} // namespace managed_interface
+} // namespace mono
+} // namespace aeon

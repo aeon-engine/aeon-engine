@@ -51,20 +51,27 @@ public class MonoApplication
         _camera = new OrthographicCamera(0, 800, 600, 0);
         _viewport = new Viewport(_camera, "My Viewport");
 
-        SceneNode shipNode = new SceneNode("ShipNode");
-        SceneManager.RootSceneNode.AttachChild(shipNode);
+        _shipNode = new SceneNode("ShipNode");
+        SceneManager.RootSceneNode.AttachChild(_shipNode);
 
-        shipNode.SetPosition(400, 300);
+        _shipNode.SetPosition(400, 300);
 
         Material material = new Material("/resources/materials/ships.amf");
-        Atlas atlas = new Atlas(material, new Vector2F(64, 64));
+        Atlas atlas = new Atlas(material, new Vector2f(64, 64));
         AtlasRegion shipRegion = atlas.GetRegionByIndex(10);
 
         Sprite sprite = new Sprite(shipRegion, 0, "My Ship");
-        shipNode.AttachComponent(sprite);
+        _shipNode.AttachComponent(sprite);
+    }
+
+    public bool Update(float dt)
+    {
+        _shipNode.Rotate(dt);
+        return true;
     }
 
     private OrthographicCamera _camera;
     private Viewport _viewport;
+    private SceneNode _shipNode;
 
 }

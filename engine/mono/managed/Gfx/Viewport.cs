@@ -34,9 +34,9 @@ namespace AeonEngineMono.Gfx
     {
         public Viewport(Camera camera, string name, int zOrder = 0)
         {
-            m_Camera = camera;
-            m_Rectangle = Rect.One;
-            m_Name = name;
+            _camera = camera;
+            _rectangle = Rect.One;
+            _name = name;
             CreateInternal(camera, name, zOrder);
         }
 
@@ -45,9 +45,9 @@ namespace AeonEngineMono.Gfx
 
         public Viewport(Camera camera, Rect rectangle, string name, int zOrder = 0)
         {
-            m_Camera = camera;
-            m_Rectangle = rectangle;
-            m_Name = name;
+            _camera = camera;
+            _rectangle = rectangle;
+            _name = name;
             CreateInternal(camera, rectangle, name, zOrder);
         }
 
@@ -65,11 +65,11 @@ namespace AeonEngineMono.Gfx
 
         public Camera Camera
         {
-            get => m_Camera;
+            get => _camera;
             set
             {
-                m_Camera = value;
-                SetCameraInternal(m_Camera);
+                _camera = value;
+                SetCameraInternal(_camera);
             }
         }
 
@@ -78,21 +78,21 @@ namespace AeonEngineMono.Gfx
 
         public Rect Rectangle
         {
-            get => m_Rectangle;
+            get => _rectangle;
             set
             {
-                m_Rectangle = value;
-                SetRectangleInternal(m_Rectangle);
+                _rectangle = value;
+                SetRectangleInternal(_rectangle);
             }
         }
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         private extern void SetRectangleInternal(Rect rectangle);
 
-        public string Name => m_Name;
+        public string Name => _name;
 
-        private Camera m_Camera;
-        private Rect m_Rectangle;
-        private string m_Name;
+        private Camera _camera;
+        private Rect _rectangle;
+        private string _name;
     }
 }

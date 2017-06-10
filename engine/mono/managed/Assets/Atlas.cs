@@ -40,7 +40,7 @@ namespace AeonEngineMono.Assets
         public extern Atlas(string path);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern Atlas(Material material, Vector2F spriteSize);
+        public extern Atlas(Material material, Vector2f spriteSize);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public extern AtlasRegion GetRegionByIndex(int index);

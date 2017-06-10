@@ -25,8 +25,6 @@
 
 #include <aeon/mono/mono_jit_manager.h>
 #include <aeon/mono/mono_class.h>
-#include <aeon/mono/mono_class_instance.h>
-#include <aeon/mono/mono_method.h>
 #include <aeon/common/logger.h>
 
 #include <managed_interface/core/object.h>
@@ -40,6 +38,8 @@
 #include <managed_interface/scene/scene_manager.h>
 #include <managed_interface/assets/material.h>
 #include <managed_interface/assets/atlas.h>
+#include <managed_interface/assets/shader.h>
+#include <managed_interface/assets/texture.h>
 
 #include <cassert>
 
@@ -55,6 +55,9 @@ application::desktop_application *mono_jit_manager::application_ = nullptr;
 mono_jit_manager::mono_jit_manager(application::desktop_application &application)
     : logger_(common::logger::get_singleton(), "Mono::JitManager")
     , jit_("AeonEngine")
+    , main_class_instance_()
+    , initialize_method_()
+    , update_method_()
 {
     application_ = &application;
     initialize_jit();
@@ -75,17 +78,22 @@ void mono_jit_manager::load_assembly(const std::string &path)
     engine_assembly = jit_.load_assembly("AeonEngineMono.dll");
 
     managed_interface::object::initialize_class_field(engine_assembly);
-}
-
-void mono_jit_manager::call_initialize() const
-{
-    AEON_LOG_DEBUG(logger_) << "Calling MonoApplication.Initialize." << std::endl;
 
     auto mono_class = main_assembly.get_class("MonoApplication");
-    auto mono_class_instance = main_assembly.new_class_instance(mono_class);
+    main_class_instance_ = main_assembly.new_class_instance(mono_class);
+    initialize_method_ = main_class_instance_.get_method_thunk<void()>("Initialize");
+    update_method_ = main_class_instance_.get_method_thunk<bool(float)>("Update");
+}
 
-    auto method = mono_class_instance.get_method("Initialize");
-    method();
+void mono_jit_manager::call_initialize()
+{
+    AEON_LOG_DEBUG(logger_) << "Calling MonoApplication.Initialize." << std::endl;
+    initialize_method_();
+}
+
+auto mono_jit_manager::call_update(float dt) -> bool
+{
+    return update_method_(dt);
 }
 
 auto mono_jit_manager::get_application() -> application::desktop_application &
@@ -115,6 +123,8 @@ void mono_jit_manager::initialize_jit() const
     // Assets
     managed_interface::material::register_internal_calls();
     managed_interface::atlas::register_internal_calls();
+    managed_interface::shader::register_internal_calls();
+    managed_interface::texture::register_internal_calls();
 }
 
 } // namespace mono

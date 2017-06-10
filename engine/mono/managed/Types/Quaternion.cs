@@ -25,19 +25,19 @@
 
 namespace AeonEngineMono.Types
 {
-    public struct Quanternion
+    public struct Quaternion
     {
-        public Quanternion(float x, float y, float z, float w)
+        public Quaternion(float w, float x, float y, float z)
         {
-            X = x;
-            Y = y;
-            Z = z;
-            W = w;
+            this.w = w;
+            this.x = x;
+            this.y = y;
+            this.z = z;
         }
 
-        public float X;
-        public float Y;
-        public float Z;
-        public float W;
+        public float w;
+        public float x;
+        public float y;
+        public float z;
     }
 }

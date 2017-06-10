@@ -27,6 +27,7 @@
 
 #include <mono/metadata/object.h>
 #include <aeon/scene/component.h>
+#include <managed_interface/core/types.h>
 #include <memory>
 
 namespace aeon
@@ -39,7 +40,13 @@ namespace managed_interface
 class component
 {
 public:
+    static void register_internal_calls();
+
     static auto get_component_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::component>;
+
+private:
+    static auto get_name(MonoObject *this_ptr) -> MonoString *;
+    static auto get_scene_matrix(MonoObject *this_ptr) -> matrix4x4;
 };
 
 } // namespace managed_interface

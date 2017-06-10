@@ -23,16 +23,16 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System.Runtime.CompilerServices;
+#pragma once
 
-namespace AeonEngineMono
+#include <aeon/common/exception.h>
+
+namespace aeon
 {
-    public static class ResourceManager
-    {
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern void Mount(ResourceCollectionProvider provider, string mountPoint);
+namespace mono
+{
 
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern void Unmount(string mountPoint);
-    }
-}
+DEFINE_EXCEPTION_OBJECT(mono_script_exception, aeon::common::exception, "Generic Mono exception.");
+
+} // namespace mono
+} // namespace aeon

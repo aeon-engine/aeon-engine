@@ -35,9 +35,9 @@ namespace AeonEngineMono.Scene
         public extern Sprite(AtlasRegion region, int zOrder, string name = "");
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern Sprite(AtlasRegion region, Vector2F size, int zOrder, string name = "");
+        public extern Sprite(AtlasRegion region, Vector2f size, int zOrder, string name = "");
 
-        public extern Vector2F Size
+        public extern Vector2f Size
         {
             [MethodImpl(MethodImplOptions.InternalCall)]
             get;

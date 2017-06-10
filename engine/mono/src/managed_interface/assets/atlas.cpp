@@ -26,6 +26,7 @@
 #include <managed_interface/assets/atlas.h>
 #include <managed_interface/assets/material.h>
 #include <managed_interface/mono_object_wrapper.h>
+#include <managed_interface/core/types_conversion.h>
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_string.h>
 #include <aeon/mono/mono_jit_manager.h>
@@ -42,7 +43,7 @@ void atlas::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Assets.Atlas::.ctor(string)", &atlas::ctor);
     mono_jit::add_internal_call(
-        "AeonEngineMono.Assets.Atlas::.ctor(AeonEngineMono.Assets.Material,AeonEngineMono.Types.Vector2F)",
+        "AeonEngineMono.Assets.Atlas::.ctor(AeonEngineMono.Assets.Material,AeonEngineMono.Types.Vector2f)",
         &atlas::ctor2);
     mono_jit::add_internal_call("AeonEngineMono.Assets.Atlas::GetRegionByIndex(int)", &atlas::get_region_by_index);
     mono_jit::add_internal_call("AeonEngineMono.Assets.Atlas::GetRegionByName(string)", &atlas::get_region_by_name);
@@ -71,7 +72,7 @@ void atlas::ctor2(MonoObject *this_ptr, MonoObject *material_ptr, vector2f size)
     auto material = material::get_material_from_mono_object(material_ptr);
 
     auto &asset_manager = mono_jit_manager::get_application().get_asset_manager();
-    auto created_atlas = asset_manager.create_atlas(material, {size.x, size.y});
+    auto created_atlas = asset_manager.create_atlas(material, converter::convert(size));
 
     mono_object_wrapper<std::shared_ptr<gfx::atlas>>::create(this_ptr, created_atlas);
 }

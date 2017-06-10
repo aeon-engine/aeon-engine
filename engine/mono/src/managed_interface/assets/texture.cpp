@@ -23,23 +23,38 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace AeonEngineMono.Types
+#include <managed_interface/assets/texture.h>
+#include <managed_interface/mono_object_wrapper.h>
+#include <aeon/mono/mono_jit.h>
+#include <aeon/mono/mono_string.h>
+#include <aeon/mono/mono_jit_manager.h>
+#include <memory>
+
+namespace aeon
 {
-    public struct Vector2F
-    {
-        public Vector2F(float xy)
-        {
-            X = xy;
-            Y = xy;
-        }
+namespace mono
+{
+namespace managed_interface
+{
 
-        public Vector2F(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
-
-        public float X;
-        public float Y;
-    }
+void texture::register_internal_calls()
+{
+    mono_jit::add_internal_call("AeonEngineMono.Assets.Texture::.ctor(string)", &texture::ctor);
 }
+
+auto texture::get_texture_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::texture>
+{
+    return mono_object_wrapper<std::shared_ptr<gfx::texture>>::get_native_object(object);
+}
+
+void texture::ctor(MonoObject *this_ptr, MonoString *path)
+{
+    auto &asset_manager = mono_jit_manager::get_application().get_asset_manager();
+    auto loaded_texture = asset_manager.load_texture(mono_string(path).str());
+
+    mono_object_wrapper<std::shared_ptr<gfx::texture>>::create(this_ptr, loaded_texture);
+}
+
+} // namespace managed_interface
+} // namespace mono
+} // namespace aeon

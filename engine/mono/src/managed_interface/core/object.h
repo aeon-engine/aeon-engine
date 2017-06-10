@@ -26,7 +26,7 @@
 #pragma once
 
 #include <aeon/mono/mono_assembly.h>
-#include <aeon/mono/mono_gchandle.h>
+#include <aeon/mono/mono_gc_handle.h>
 #include <aeon/mono/mono_class.h>
 #include <aeon/mono/mono_class_field.h>
 #include <aeon/mono/mono_class_instance.h>
@@ -60,7 +60,8 @@ private:
     static void finalize(MonoObject *this_ptr);
 
     MonoObject *managed_object_;
-    mono_gchandle gc_handle_;
+    mono_gc_handle gc_handle_;
+    mono_scoped_gc_handle gc_scoped_handle_;
 };
 
 template <typename T>

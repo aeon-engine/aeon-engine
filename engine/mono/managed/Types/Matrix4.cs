@@ -1,0 +1,308 @@
+﻿/*
+ * Copyright (c) 2012-2017 Robin Degen
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+using System;
+
+namespace AeonEngineMono.Types
+{
+    public struct Matrix4
+    {
+        public float m00;
+        public float m10;
+        public float m20;
+        public float m30;
+        public float m01;
+        public float m11;
+        public float m21;
+        public float m31;
+        public float m02;
+        public float m12;
+        public float m22;
+        public float m32;
+        public float m03;
+        public float m13;
+        public float m23;
+        public float m33;
+
+        public float this[int row, int column]
+        {
+            get => this[row + (column * 4)];
+            set => this[row + (column * 4)] = value;
+        }
+
+        public float this[int index]
+        {
+            get
+            {
+                switch (index)
+                {
+                    case 0:
+                        return this.m00;
+                    case 1:
+                        return this.m10;
+                    case 2:
+                        return this.m20;
+                    case 3:
+                        return this.m30;
+                    case 4:
+                        return this.m01;
+                    case 5:
+                        return this.m11;
+                    case 6:
+                        return this.m21;
+                    case 7:
+                        return this.m31;
+                    case 8:
+                        return this.m02;
+                    case 9:
+                        return this.m12;
+                    case 10:
+                        return this.m22;
+                    case 11:
+                        return this.m32;
+                    case 12:
+                        return this.m03;
+                    case 13:
+                        return this.m13;
+                    case 14:
+                        return this.m23;
+                    case 15:
+                        return this.m33;
+                    default:
+                        throw new IndexOutOfRangeException("Index out of range.");
+                }
+            }
+            set
+            {
+                switch (index)
+                {
+                    case 0:
+                        this.m00 = value;
+                        break;
+                    case 1:
+                        this.m10 = value;
+                        break;
+                    case 2:
+                        this.m20 = value;
+                        break;
+                    case 3:
+                        this.m30 = value;
+                        break;
+                    case 4:
+                        this.m01 = value;
+                        break;
+                    case 5:
+                        this.m11 = value;
+                        break;
+                    case 6:
+                        this.m21 = value;
+                        break;
+                    case 7:
+                        this.m31 = value;
+                        break;
+                    case 8:
+                        this.m02 = value;
+                        break;
+                    case 9:
+                        this.m12 = value;
+                        break;
+                    case 10:
+                        this.m22 = value;
+                        break;
+                    case 11:
+                        this.m32 = value;
+                        break;
+                    case 12:
+                        this.m03 = value;
+                        break;
+                    case 13:
+                        this.m13 = value;
+                        break;
+                    case 14:
+                        this.m23 = value;
+                        break;
+                    case 15:
+                        this.m33 = value;
+                        break;
+                    default:
+                        throw new IndexOutOfRangeException("Index out of range.");
+                }
+            }
+        }
+
+        public static Matrix4 Zero => new Matrix4
+        {
+            m00 = 0f,
+            m01 = 0f,
+            m02 = 0f,
+            m03 = 0f,
+            m10 = 0f,
+            m11 = 0f,
+            m12 = 0f,
+            m13 = 0f,
+            m20 = 0f,
+            m21 = 0f,
+            m22 = 0f,
+            m23 = 0f,
+            m30 = 0f,
+            m31 = 0f,
+            m32 = 0f,
+            m33 = 0f
+        };
+
+        public static Matrix4 Identity => new Matrix4
+        {
+            m00 = 1f,
+            m01 = 0f,
+            m02 = 0f,
+            m03 = 0f,
+            m10 = 0f,
+            m11 = 1f,
+            m12 = 0f,
+            m13 = 0f,
+            m20 = 0f,
+            m21 = 0f,
+            m22 = 1f,
+            m23 = 0f,
+            m30 = 0f,
+            m31 = 0f,
+            m32 = 0f,
+            m33 = 1f
+        };
+
+        public static Matrix4 operator *(Matrix4 lhs, Matrix4 rhs)
+        {
+            return new Matrix4
+            {
+                m00 = (lhs.m00 * rhs.m00) + (lhs.m01 * rhs.m10) + (lhs.m02 * rhs.m20) + (lhs.m03 * rhs.m30),
+                m01 = (lhs.m00 * rhs.m01) + (lhs.m01 * rhs.m11) + (lhs.m02 * rhs.m21) + (lhs.m03 * rhs.m31),
+                m02 = (lhs.m00 * rhs.m02) + (lhs.m01 * rhs.m12) + (lhs.m02 * rhs.m22) + (lhs.m03 * rhs.m32),
+                m03 = (lhs.m00 * rhs.m03) + (lhs.m01 * rhs.m13) + (lhs.m02 * rhs.m23) + (lhs.m03 * rhs.m33),
+                m10 = (lhs.m10 * rhs.m00) + (lhs.m11 * rhs.m10) + (lhs.m12 * rhs.m20) + (lhs.m13 * rhs.m30),
+                m11 = (lhs.m10 * rhs.m01) + (lhs.m11 * rhs.m11) + (lhs.m12 * rhs.m21) + (lhs.m13 * rhs.m31),
+                m12 = (lhs.m10 * rhs.m02) + (lhs.m11 * rhs.m12) + (lhs.m12 * rhs.m22) + (lhs.m13 * rhs.m32),
+                m13 = (lhs.m10 * rhs.m03) + (lhs.m11 * rhs.m13) + (lhs.m12 * rhs.m23) + (lhs.m13 * rhs.m33),
+                m20 = (lhs.m20 * rhs.m00) + (lhs.m21 * rhs.m10) + (lhs.m22 * rhs.m20) + (lhs.m23 * rhs.m30),
+                m21 = (lhs.m20 * rhs.m01) + (lhs.m21 * rhs.m11) + (lhs.m22 * rhs.m21) + (lhs.m23 * rhs.m31),
+                m22 = (lhs.m20 * rhs.m02) + (lhs.m21 * rhs.m12) + (lhs.m22 * rhs.m22) + (lhs.m23 * rhs.m32),
+                m23 = (lhs.m20 * rhs.m03) + (lhs.m21 * rhs.m13) + (lhs.m22 * rhs.m23) + (lhs.m23 * rhs.m33),
+                m30 = (lhs.m30 * rhs.m00) + (lhs.m31 * rhs.m10) + (lhs.m32 * rhs.m20) + (lhs.m33 * rhs.m30),
+                m31 = (lhs.m30 * rhs.m01) + (lhs.m31 * rhs.m11) + (lhs.m32 * rhs.m21) + (lhs.m33 * rhs.m31),
+                m32 = (lhs.m30 * rhs.m02) + (lhs.m31 * rhs.m12) + (lhs.m32 * rhs.m22) + (lhs.m33 * rhs.m32),
+                m33 = (lhs.m30 * rhs.m03) + (lhs.m31 * rhs.m13) + (lhs.m32 * rhs.m23) + (lhs.m33 * rhs.m33)
+            };
+        }
+
+        public static Vector4f operator *(Matrix4 lhs, Vector4f rhs)
+        {
+            Vector4f result;
+            result.x = (lhs.m00 * rhs.x) + (lhs.m01 * rhs.y) + (lhs.m02 * rhs.z) + (lhs.m03 * rhs.w);
+            result.y = (lhs.m10 * rhs.x) + (lhs.m11 * rhs.y) + (lhs.m12 * rhs.z) + (lhs.m13 * rhs.w);
+            result.z = (lhs.m20 * rhs.x) + (lhs.m21 * rhs.y) + (lhs.m22 * rhs.z) + (lhs.m23 * rhs.w);
+            result.w = (lhs.m30 * rhs.x) + (lhs.m31 * rhs.y) + (lhs.m32 * rhs.z) + (lhs.m33 * rhs.w);
+            return result;
+        }
+
+        public Vector4f GetColumn(int index)
+        {
+            return new Vector4f(
+                this[0, index],
+                this[1, index],
+                this[2, index],
+                this[3, index]);
+        }
+
+        public Vector4f GetRow(int index)
+        {
+            return new Vector4f(
+                this[index, 0], 
+                this[index, 1],
+                this[index, 2],
+                this[index, 3]);
+        }
+
+        public void SetColumn(int index, Vector4f columnVector)
+        {
+            this[0, index] = columnVector.x;
+            this[1, index] = columnVector.y;
+            this[2, index] = columnVector.z;
+            this[3, index] = columnVector.w;
+        }
+
+        public void SetRow(int index, Vector4f columnVector)
+        {
+            this[index, 0] = columnVector.x;
+            this[index, 1] = columnVector.y;
+            this[index, 2] = columnVector.z;
+            this[index, 3] = columnVector.w;
+        }
+
+        public static Matrix4 Scale(Vector3f value)
+        {
+            return new Matrix4
+            {
+                m00 = value.x,
+                m01 = 0f,
+                m02 = 0f,
+                m03 = 0f,
+                m10 = 0f,
+                m11 = value.y,
+                m12 = 0f,
+                m13 = 0f,
+                m20 = 0f,
+                m21 = 0f,
+                m22 = value.z,
+                m23 = 0f,
+                m30 = 0f,
+                m31 = 0f,
+                m32 = 0f,
+                m33 = 1f
+            };
+        }
+
+        public static Matrix4 Translate(Vector3f value)
+        {
+            return new Matrix4
+            {
+                m00 = 1f,
+                m01 = 0f,
+                m02 = 0f,
+                m03 = value.x,
+                m10 = 0f,
+                m11 = 1f,
+                m12 = 0f,
+                m13 = value.y,
+                m20 = 0f,
+                m21 = 0f,
+                m22 = 1f,
+                m23 = value.z,
+                m30 = 0f,
+                m31 = 0f,
+                m32 = 0f,
+                m33 = 1f
+            };
+        }
+    }
+}

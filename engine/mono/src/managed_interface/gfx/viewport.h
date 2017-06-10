@@ -50,8 +50,8 @@ private:
                                  int zOrder);
     static void set_zorder(MonoObject *this_ptr, int value);
     static int get_zorder(MonoObject *this_ptr);
-    static void set_camera(MonoObject *this_ptr, MonoObject *camera);
-    static void set_rectangle(MonoObject *this_ptr, rect rectangle);
+    static void set_camera_internal(MonoObject *this_ptr, MonoObject *camera);
+    static void set_rectangle_internal(MonoObject *this_ptr, rect rectangle);
 };
 
 } // namespace managed_interface

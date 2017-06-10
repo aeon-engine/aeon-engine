@@ -14,27 +14,28 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-5
+            - g++-7
+            - cmake
+            - mono-devel
             - mesa-common-dev
             - libgl1-mesa-dev
             - libxrandr-dev
             - libxinerama-dev
             - libxcursor-dev
             - libglu1-mesa-dev
-      env: COMPILER=g++-5
+      env:
+        - COMPILER_CC=gcc-7
+        - COMPILER_CXX=g++-7
     - os: osx
-      osx_image: xcode8.2
+      osx_image: xcode8.3
       compiler: clang++
-
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq       ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y cmake ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]];   then export COMPILER=clang++       ; fi
+      env:
+        - COMPILER_CC=clang
+        - COMPILER_CXX=clang++
 
 script:
   - mkdir build
   - cd build
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]];   then cmake .. && make ; fi
+  - cmake .. -DCMAKE_C_COMPILER=$COMPILER_CC -DCMAKE_CXX_COMPILER=$COMPILER_CXX
+  - make
   - ctest -C Debug --verbose
-

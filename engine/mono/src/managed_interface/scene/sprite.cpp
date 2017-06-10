@@ -42,7 +42,7 @@ void sprite::register_internal_calls()
     mono_jit::add_internal_call("AeonEngineMono.Scene.Sprite::.ctor(AeonEngineMono.Assets.AtlasRegion,int,string)",
                                 &sprite::ctor);
     mono_jit::add_internal_call("AeonEngineMono.Scene.Sprite::.ctor(AeonEngineMono.Assets.AtlasRegion,AeonEngineMono."
-                                "Types.Vector2F,int,string)",
+                                "Types.Vector2f,int,string)",
                                 &sprite::ctor2);
 }
 

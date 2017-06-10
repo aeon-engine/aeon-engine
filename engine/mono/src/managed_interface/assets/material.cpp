@@ -24,6 +24,8 @@
  */
 
 #include <managed_interface/assets/material.h>
+#include <managed_interface/assets/shader.h>
+#include <managed_interface/assets/texture.h>
 #include <managed_interface/mono_object_wrapper.h>
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_string.h>
@@ -40,6 +42,9 @@ namespace managed_interface
 void material::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Assets.Material::.ctor(string)", &material::ctor);
+    mono_jit::add_internal_call(
+        "AeonEngineMono.Assets.Material::.ctor(AeonEngineMono.Assets.Texture,AeonEngineMono.Assets.Shader)",
+        &material::ctor2);
 }
 
 auto material::get_material_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::material>
@@ -53,6 +58,21 @@ void material::ctor(MonoObject *this_ptr, MonoString *path)
     auto loaded_material = asset_manager.load_material(mono_string(path).str());
 
     mono_object_wrapper<std::shared_ptr<gfx::material>>::create(this_ptr, loaded_material);
+}
+
+void material::ctor2(MonoObject *this_ptr, MonoObject *mono_texture, MonoObject *mono_shader)
+{
+    auto &device = mono_jit_manager::get_application().get_gfx_device();
+    auto shader = shader::get_shader_from_mono_object(mono_shader);
+    auto texture = texture::get_texture_from_mono_object(mono_texture);
+
+    // TODO: handle this better from the interface. Perhaps expose as a dict?
+    std::map<std::string, std::shared_ptr<gfx::texture>> samplers;
+    samplers["texture0"] = texture;
+
+    auto material = device.get_material_manager().create(shader, samplers);
+
+    mono_object_wrapper<std::shared_ptr<gfx::material>>::create(this_ptr, material);
 }
 
 } // namespace managed_interface

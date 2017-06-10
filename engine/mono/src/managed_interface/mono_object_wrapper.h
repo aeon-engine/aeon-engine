@@ -40,7 +40,7 @@ template <typename T>
 class mono_object_wrapper : public object
 {
 public:
-    explicit mono_object_wrapper(MonoObject *object, T obj);
+    explicit mono_object_wrapper(MonoObject *mono_object, T obj);
     virtual ~mono_object_wrapper();
 
     /*!
@@ -51,9 +51,9 @@ public:
     /*!
      * Create a wrapper for an existing MonoObject.
      */
-    static void create(MonoObject *object, T obj);
+    static void create(MonoObject *mono_object, T obj);
 
-    static auto &get_native_object(MonoObject *object);
+    static auto &get_native_object(MonoObject *mono_object);
 
 private:
     T native_object;
@@ -68,14 +68,14 @@ auto mono_object_wrapper<T>::create(T obj) -> MonoObject *
 }
 
 template <typename T>
-void mono_object_wrapper<T>::create(MonoObject *object, T obj)
+void mono_object_wrapper<T>::create(MonoObject *mono_object, T obj)
 {
-    std::make_unique<mono_object_wrapper<T>>(object, std::move(obj)).release();
+    std::make_unique<mono_object_wrapper<T>>(mono_object, std::move(obj)).release();
 }
 
 template <typename T>
-mono_object_wrapper<T>::mono_object_wrapper(MonoObject *object, T obj)
-    : object(object)
+mono_object_wrapper<T>::mono_object_wrapper(MonoObject *mono_object, T obj)
+    : object(mono_object)
     , native_object(std::move(obj))
 {
 }
@@ -84,9 +84,9 @@ template <typename T>
 mono_object_wrapper<T>::~mono_object_wrapper() = default;
 
 template <typename T>
-auto &mono_object_wrapper<T>::get_native_object(MonoObject *object)
+auto &mono_object_wrapper<T>::get_native_object(MonoObject *mono_object)
 {
-    return object::get_managed_object_as<mono_object_wrapper<T>>(object).native_object;
+    return object::get_managed_object_as<mono_object_wrapper<T>>(mono_object).native_object;
 }
 
 } // namespace managed_interface

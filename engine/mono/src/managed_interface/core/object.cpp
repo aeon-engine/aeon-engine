@@ -51,6 +51,7 @@ void object::initialize_class_field(mono_assembly &assembly)
 object::object(MonoObject *mono_object)
     : managed_object_(mono_object)
     , gc_handle_(mono_object)
+    , gc_scoped_handle_(gc_handle_)
 {
     mono_class_instance cls(mono_object);
 

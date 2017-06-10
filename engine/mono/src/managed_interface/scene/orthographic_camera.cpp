@@ -40,10 +40,10 @@ namespace managed_interface
 
 void orthographic_camera::register_internal_calls()
 {
-    mono_jit::add_internal_call("AeonEngineMono.Scene.OrthographicCamera::.ctor(float,float,float,float,string)",
+    mono_jit::add_internal_call("AeonEngineMono.Scene.OrthographicCamera::.ctor(single,single,single,single,string)",
                                 &orthographic_camera::ctor);
     mono_jit::add_internal_call(
-        "AeonEngineMono.Scene.OrthographicCamera::.ctor(float,float,float,float,float,float,string)",
+        "AeonEngineMono.Scene.OrthographicCamera::.ctor(single,single,single,single,single,single,string)",
         &orthographic_camera::ctor2);
     mono_jit::add_internal_call("AeonEngineMono.Scene.OrthographicCamera::.ctor(int,int,int,int,string)",
                                 &orthographic_camera::ctor3);

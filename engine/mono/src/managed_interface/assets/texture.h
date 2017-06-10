@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2012-2017 Robin Degen
  *
  * Permission is hereby granted, free of charge, to any person
@@ -23,16 +23,30 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System.Runtime.CompilerServices;
+#pragma once
 
-namespace AeonEngineMono
+#include <mono/metadata/object.h>
+#include <aeon/gfx/gfx_texture.h>
+#include <memory>
+
+namespace aeon
 {
-    public class PerspectiveCamera : Camera
-    {
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern PerspectiveCamera(float fovY, float aspectRatio, float near, float far, string name);
+namespace mono
+{
+namespace managed_interface
+{
 
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern PerspectiveCamera(float fov, float width, float height, float near, float far, string name);
-    }
-}
+class texture
+{
+public:
+    static void register_internal_calls();
+
+    static auto get_texture_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::texture>;
+
+private:
+    static void ctor(MonoObject *this_ptr, MonoString *path);
+};
+
+} // namespace managed_interface
+} // namespace mono
+} // namespace aeon

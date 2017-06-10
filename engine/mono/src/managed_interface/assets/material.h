@@ -45,6 +45,7 @@ public:
 
 private:
     static void ctor(MonoObject *this_ptr, MonoString *path);
+    static void ctor2(MonoObject *this_ptr, MonoObject *mono_texture, MonoObject *mono_shader);
 };
 
 } // namespace managed_interface

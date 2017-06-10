@@ -24,7 +24,7 @@
  */
 
 #include <aeon/mono/mono_application.h>
-#include <aeon/mono/mono_exception.h>
+#include <aeon/mono/mono_exceptions.h>
 #include <aeon/common/logger.h>
 
 #define AEON_DEFAULT_MONO_ASSEMBLY_NAME "MonoGame.dll"
@@ -49,7 +49,7 @@ auto mono_application::main(int argc, char *argv[]) -> int
     if (argc != 1 && argc != 2)
     {
         AEON_LOG_FATAL(logger_) << "Usage: mono_application [assembly_name]." << std::endl;
-        throw mono_exception();
+        throw mono_script_exception();
     }
 
     std::string assembly_name = AEON_DEFAULT_MONO_ASSEMBLY_NAME;
@@ -60,12 +60,38 @@ auto mono_application::main(int argc, char *argv[]) -> int
     }
 
     jit_manager_.load_assembly(assembly_name);
-    jit_manager_.call_initialize();
+
+    try
+    {
+        jit_manager_.call_initialize();
+    }
+    catch(const mono_thunk_exception &e)
+    {
+        AEON_LOG_FATAL(logger_) << "Mono exception: " << e.message()
+            << "\nCallstack: " << e.stacktrace() << std::endl;
+        throw;
+    }
+
+    get_main_window().attach_listener(this);
 
     get_platform().run();
 
     // TODO: Handle return value (capture exceptions from mono?)
     return 0;
+}
+
+auto mono_application::on_frame_begin(const float dt) -> bool
+{
+    try
+    {
+        return jit_manager_.call_update(dt);
+    }
+    catch(const mono_thunk_exception &e)
+    {
+        AEON_LOG_FATAL(logger_) << "Mono exception: " << e.message()
+            << "\nCallstack: " << e.stacktrace() << std::endl;
+        throw;
+    }
 }
 
 } // namespace mono

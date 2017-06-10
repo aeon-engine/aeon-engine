@@ -23,17 +23,38 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace AeonEngineMono
-{
-    public struct Vector2F
-    {
-        public Vector2F(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
+#include <managed_interface/assets/shader.h>
+#include <managed_interface/mono_object_wrapper.h>
+#include <aeon/mono/mono_jit.h>
+#include <aeon/mono/mono_string.h>
+#include <aeon/mono/mono_jit_manager.h>
+#include <memory>
 
-        public float X;
-        public float Y;
-    }
+namespace aeon
+{
+namespace mono
+{
+namespace managed_interface
+{
+
+void shader::register_internal_calls()
+{
+    mono_jit::add_internal_call("AeonEngineMono.Assets.Shader::.ctor(string)", &shader::ctor);
 }
+
+auto shader::get_shader_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::shader>
+{
+    return mono_object_wrapper<std::shared_ptr<gfx::shader>>::get_native_object(object);
+}
+
+void shader::ctor(MonoObject *this_ptr, MonoString *path)
+{
+    auto &asset_manager = mono_jit_manager::get_application().get_asset_manager();
+    auto loaded_shader = asset_manager.load_shader(mono_string(path).str());
+
+    mono_object_wrapper<std::shared_ptr<gfx::shader>>::create(this_ptr, loaded_shader);
+}
+
+} // namespace managed_interface
+} // namespace mono
+} // namespace aeon

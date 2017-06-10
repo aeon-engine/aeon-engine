@@ -57,7 +57,7 @@ namespace AeonEngineMono.Scene
         [MethodImpl(MethodImplOptions.InternalCall)]
         public extern void DetachAllComponents();
 
-        public extern Vector2F Center
+        public extern Vector2f Center
         {
             [MethodImpl(MethodImplOptions.InternalCall)]
             get; 

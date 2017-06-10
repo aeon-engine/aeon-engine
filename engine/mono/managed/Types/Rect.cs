@@ -27,38 +27,41 @@ namespace AeonEngineMono.Types
 {
     public struct Rect
     {
-        public float Left;
-        public float Top;
-        public float Right;
-        public float Bottom;
+        public float left;
+        public float top;
+        public float right;
+        public float bottom;
 
         public Rect(float left, float top, float right, float bottom)
         {
-            Left = left;
-            Top = top;
-            Right = right;
-            Bottom = bottom;
+            this.left = left;
+            this.top = top;
+            this.right = right;
+            this.bottom = bottom;
         }
 
-        public Rect(Vector2F position, Vector2F size)
+        public Rect(Vector2f position, Vector2f size)
         {
-            Left = position.X;
-            Top = position.Y;
-            Right = position.X + size.X;
-            Bottom = position.Y + size.Y;
+            this.left = position.x;
+            this.top = position.y;
+            this.right = position.x + size.x;
+            this.bottom = position.y + size.y;
         }
 
         public static Rect Empty => new Rect(0, 0, 0, 0);
         public static Rect One => new Rect(0, 0, 1, 1);
 
-        public float Width => Right - Left;
-        public float Height => Bottom - Top;
-        public Vector2F Position => new Vector2F(Left, Top);
-        public Vector2F Size => new Vector2F(Width, Height);
+        public float Width => right - left;
+
+        public float Height => bottom - top;
+
+        public Vector2f Position => new Vector2f(left, top);
+
+        public Vector2f Size => new Vector2f(this.Width, this.Height);
 
         public bool IsEmpty()
         {
-            return Width == 0 || Height == 0;
+            return this.Width == 0 || this.Height == 0;
         }
     }
 }
