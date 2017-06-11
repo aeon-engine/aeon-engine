@@ -64,15 +64,17 @@ void animated_sprite::set_animation_sequence(const int index)
 
 void animated_sprite::update(const float dt)
 {
-    frame_time_ += dt;
-
     auto frame_changed = false;
 
-    while (frame_time_ > settings_.speed_)
+    if (running_)
     {
-        ++current_frame_index_;
-        frame_changed = true;
-        frame_time_ -= settings_.speed_;
+        frame_time_ += dt;
+        while (frame_time_ > settings_.speed_)
+        {
+            ++current_frame_index_;
+            frame_changed = true;
+            frame_time_ -= settings_.speed_;
+        }
     }
 
     if (static_cast<std::size_t>(current_frame_index_) >= sequence_.size())
