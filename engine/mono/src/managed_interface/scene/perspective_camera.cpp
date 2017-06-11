@@ -42,8 +42,9 @@ void perspective_camera::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Scene.PerspectiveCamera::.ctor(single,single,single,single,string)",
                                 &perspective_camera::ctor);
-    mono_jit::add_internal_call("AeonEngineMono.Scene.PerspectiveCamera::.ctor(single,single,single,single,single,string)",
-                                &perspective_camera::ctor2);
+    mono_jit::add_internal_call(
+        "AeonEngineMono.Scene.PerspectiveCamera::.ctor(single,single,single,single,single,string)",
+        &perspective_camera::ctor2);
 }
 
 void perspective_camera::ctor(MonoObject *this_ptr, float fovY, float aspectRatio, float near, float far,

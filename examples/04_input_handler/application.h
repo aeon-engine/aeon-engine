@@ -62,7 +62,7 @@ private:
                                              const int modifier) override;
 
     void on_mouse_button_event(const aeon::input::mouse_button button,
-                               const aeon::input::mouse_button_state button_state) override;
+                               const aeon::input::mouse_button_state button_state, const glm::vec2 position) override;
 
     std::shared_ptr<aeon::scene::orthographic_camera> camera_;
 

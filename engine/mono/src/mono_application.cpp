@@ -65,10 +65,9 @@ auto mono_application::main(int argc, char *argv[]) -> int
     {
         jit_manager_.call_initialize();
     }
-    catch(const mono_thunk_exception &e)
+    catch (const mono_thunk_exception &e)
     {
-        AEON_LOG_FATAL(logger_) << "Mono exception: " << e.message()
-            << "\nCallstack: " << e.stacktrace() << std::endl;
+        AEON_LOG_FATAL(logger_) << "Mono exception: " << e.message() << "\nCallstack: " << e.stacktrace() << std::endl;
         throw;
     }
 
@@ -86,10 +85,9 @@ auto mono_application::on_frame_begin(const float dt) -> bool
     {
         return jit_manager_.call_update(dt);
     }
-    catch(const mono_thunk_exception &e)
+    catch (const mono_thunk_exception &e)
     {
-        AEON_LOG_FATAL(logger_) << "Mono exception: " << e.message()
-            << "\nCallstack: " << e.stacktrace() << std::endl;
+        AEON_LOG_FATAL(logger_) << "Mono exception: " << e.message() << "\nCallstack: " << e.stacktrace() << std::endl;
         throw;
     }
 }

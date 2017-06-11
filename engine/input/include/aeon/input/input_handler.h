@@ -29,6 +29,8 @@
 #include <aeon/input/input_keyboard_keys.h>
 #include <aeon/input/input_mouse_buttons.h>
 #include <aeon/input/input_listener.h>
+#include <glm/vec2.hpp>
+#include <map>
 
 namespace aeon
 {
@@ -38,8 +40,8 @@ namespace input
 class input_handler : public utility::listener_subject<input_listener>
 {
 public:
-    input_handler() = default;
-    virtual ~input_handler() = default;
+    input_handler();
+    virtual ~input_handler();
 
     void handle_keyboard_key_state_changed_event(const keyboard_key key, const keyboard_key_state key_state,
                                                  const int modifier);
@@ -47,6 +49,18 @@ public:
     void handle_mouse_move_event(const float x, const float y);
     void handle_mouse_button_event(const mouse_button button, const mouse_button_state button_state);
     void handle_mouse_scroll_event(const float x, const float y);
+
+    auto get_mouse_cursor_position() const -> glm::vec2;
+    auto get_mouse_button_state(const mouse_button button) const -> mouse_button_state;
+    auto get_keystate(const keyboard_key key) const -> keyboard_key_state;
+
+    auto is_any_mouse_button_down() const -> bool;
+    auto is_any_key_down() const -> bool;
+
+private:
+    glm::vec2 mouse_cursor_position_;
+    std::map<mouse_button, mouse_button_state> mouse_button_states_;
+    std::map<keyboard_key, keyboard_key_state> keystates_;
 };
 
 } // namespace input

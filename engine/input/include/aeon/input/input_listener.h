@@ -27,6 +27,7 @@
 
 #include <aeon/input/input_keyboard_keys.h>
 #include <aeon/input/input_mouse_buttons.h>
+#include <glm/vec2.hpp>
 
 namespace aeon
 {
@@ -60,7 +61,8 @@ public:
     /*!
      * Called whenever the state of a mouse button changes.
      */
-    virtual void on_mouse_button_event(const mouse_button /*button*/, const mouse_button_state /*button_state*/)
+    virtual void on_mouse_button_event(const mouse_button /*button*/, const mouse_button_state /*button_state*/,
+                                       const glm::vec2 position)
     {
     }
 

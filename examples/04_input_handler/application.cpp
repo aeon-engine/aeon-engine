@@ -181,7 +181,9 @@ void application::on_keyboard_key_state_changed_event(const aeon::input::keyboar
     }
 }
 
-void application::on_mouse_button_event(aeon::input::mouse_button button, aeon::input::mouse_button_state button_state)
+void application::on_mouse_button_event(aeon::input::mouse_button button, aeon::input::mouse_button_state button_state,
+                                        const glm::vec2 position)
 {
-    std::cout << "Button: " << static_cast<int>(button) << " " << static_cast<int>(button_state) << std::endl;
+    std::cout << "Button: " << static_cast<int>(button) << " " << static_cast<int>(button_state)
+              << " Position: " << position.x << ", " << position.y << std::endl;
 }
