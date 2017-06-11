@@ -65,7 +65,7 @@ namespace AeonEngineMono.Gfx
 
         public Camera Camera
         {
-            get => _camera;
+            get { return _camera; }
             set
             {
                 _camera = value;
@@ -78,7 +78,7 @@ namespace AeonEngineMono.Gfx
 
         public Rect Rectangle
         {
-            get => _rectangle;
+            get { return _rectangle; }
             set
             {
                 _rectangle = value;

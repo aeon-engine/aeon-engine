@@ -48,8 +48,8 @@ namespace AeonEngineMono.Types
 
         public float this[int row, int column]
         {
-            get => this[row + (column * 4)];
-            set => this[row + (column * 4)] = value;
+            get { return this[row + (column * 4)]; }
+            set { this[row + (column * 4)] = value; }
         }
 
         public float this[int index]
