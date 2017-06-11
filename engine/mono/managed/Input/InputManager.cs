@@ -23,36 +23,26 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+using System.Runtime.CompilerServices;
+using AeonEngineMono.Types;
 
-#include <cstdint>
-
-namespace aeon
+namespace AeonEngineMono.Input
 {
-namespace input
-{
+    public static class InputManager
+    {
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern Vector2f GetMouseCursorPosition();
 
-enum class mouse_button_state : std::uint32_t
-{
-    released = 0,
-    pressed = 1
-};
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern MouseButtonState GetMouseButtonState(MouseButton button);
 
-enum class mouse_button : std::uint32_t
-{
-    mouse_button_1 = 0,
-    mouse_button_2 = 1,
-    mouse_button_3 = 2,
-    mouse_button_4 = 3,
-    mouse_button_5 = 4,
-    mouse_button_6 = 5,
-    mouse_button_7 = 6,
-    mouse_button_8 = 7,
-    mouse_button_last = mouse_button_8,
-    mouse_button_left = mouse_button_1,
-    mouse_button_right = mouse_button_2,
-    mouse_button_middle = mouse_button_3
-};
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern KeyboardKeyState GetKeystate(KeyboardKey key);
 
-} // namespace input
-} // namespace aeon
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern bool IsAnyKeyDown();
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern bool IsAnyMouseButtonDown();
+    }
+}

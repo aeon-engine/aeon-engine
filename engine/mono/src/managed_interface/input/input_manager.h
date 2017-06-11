@@ -25,34 +25,30 @@
 
 #pragma once
 
-#include <cstdint>
+#include <managed_interface/core/types.h>
+#include <aeon/input/input_mouse_buttons.h>
+#include <aeon/input/input_keyboard_keys.h>
 
 namespace aeon
 {
-namespace input
+namespace mono
+{
+namespace managed_interface
 {
 
-enum class mouse_button_state : std::uint32_t
+class input_manager
 {
-    released = 0,
-    pressed = 1
+public:
+    static void register_internal_calls();
+
+private:
+    static auto get_mouse_cursor_position() -> vector2f;
+    static auto get_mouse_button_state(input::mouse_button button) -> input::mouse_button_state;
+    static auto get_key_state(input::keyboard_key key) -> input::keyboard_key_state;
+    static auto is_any_key_down() -> bool;
+    static auto is_any_mouse_button_down() -> bool;
 };
 
-enum class mouse_button : std::uint32_t
-{
-    mouse_button_1 = 0,
-    mouse_button_2 = 1,
-    mouse_button_3 = 2,
-    mouse_button_4 = 3,
-    mouse_button_5 = 4,
-    mouse_button_6 = 5,
-    mouse_button_7 = 6,
-    mouse_button_8 = 7,
-    mouse_button_last = mouse_button_8,
-    mouse_button_left = mouse_button_1,
-    mouse_button_right = mouse_button_2,
-    mouse_button_middle = mouse_button_3
-};
-
-} // namespace input
+} // namespace managed_interface
+} // namespace mono
 } // namespace aeon

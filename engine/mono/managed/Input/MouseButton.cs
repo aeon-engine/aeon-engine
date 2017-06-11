@@ -23,36 +23,21 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <cstdint>
-
-namespace aeon
+namespace AeonEngineMono.Input
 {
-namespace input
-{
-
-enum class mouse_button_state : std::uint32_t
-{
-    released = 0,
-    pressed = 1
-};
-
-enum class mouse_button : std::uint32_t
-{
-    mouse_button_1 = 0,
-    mouse_button_2 = 1,
-    mouse_button_3 = 2,
-    mouse_button_4 = 3,
-    mouse_button_5 = 4,
-    mouse_button_6 = 5,
-    mouse_button_7 = 6,
-    mouse_button_8 = 7,
-    mouse_button_last = mouse_button_8,
-    mouse_button_left = mouse_button_1,
-    mouse_button_right = mouse_button_2,
-    mouse_button_middle = mouse_button_3
-};
-
-} // namespace input
-} // namespace aeon
+    public enum MouseButton : uint
+    {
+        MouseButton1 = 0,
+        MouseButton2 = 1,
+        MouseButton3 = 2,
+        MouseButton4 = 3,
+        MouseButton5 = 4,
+        MouseButton6 = 5,
+        MouseButton7 = 6,
+        MouseButton8 = 7,
+        MouseButtonLast = MouseButton8,
+        MouseButtonLeft = MouseButton1,
+        MouseButtonRight = MouseButton2,
+        MouseButtonMiddle = MouseButton3
+    }
+}

@@ -26,6 +26,7 @@
 using System;
 using AeonEngineMono.Assets;
 using AeonEngineMono.Gfx;
+using AeonEngineMono.Input;
 using AeonEngineMono.Resources;
 using AeonEngineMono.Scene;
 using AeonEngineMono.Types;
@@ -66,7 +67,10 @@ public class MonoApplication
 
     public bool Update(float dt)
     {
-        _shipNode.Rotate(dt);
+        if (InputManager.GetKeystate(KeyboardKey.KeyUp) == KeyboardKeyState.Pressed)
+        {
+            _shipNode.Rotate(dt);
+        }
         return true;
     }
 

@@ -25,18 +25,20 @@
 
 #pragma once
 
+#include <cstdint>
+
 namespace aeon
 {
 namespace input
 {
 
-enum class keyboard_key_state
+enum class keyboard_key_state : std::uint32_t
 {
     released = 0,
     pressed = 1
 };
 
-enum class keyboard_key
+enum class keyboard_key : std::int32_t
 {
     // Unknown key, the mac "fn" button
     // gets picked up as key_unknown.
