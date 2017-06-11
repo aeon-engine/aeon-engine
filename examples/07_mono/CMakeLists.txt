@@ -64,6 +64,8 @@ set_target_properties(
 
 set_working_dir(example_07_mono "${CMAKE_SOURCE_DIR}/bin")
 
+add_dependencies(example_07_mono MonoGame)
+
 install(
     TARGETS example_07_mono
     RUNTIME DESTINATION bin

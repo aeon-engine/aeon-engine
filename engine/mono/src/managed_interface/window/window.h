@@ -26,9 +26,7 @@
 #pragma once
 
 #include <managed_interface/core/types.h>
-#include <aeon/scene/scene_node.h>
 #include <mono/metadata/object.h>
-#include <memory>
 
 namespace aeon
 {
@@ -37,37 +35,15 @@ namespace mono
 namespace managed_interface
 {
 
-class scene_node
+class window
 {
 public:
     static void register_internal_calls();
 
-    static auto get_scene_node_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::scene_node>;
-
 private:
-    static void ctor(MonoObject *this_ptr, MonoString *name);
-    static void attach_child(MonoObject *this_ptr, MonoObject *child);
-    static void attach_component(MonoObject *this_ptr, MonoObject *component);
-
-    static void set_identity(MonoObject *this_ptr);
-    static void set_position(MonoObject *this_ptr, vector3f position);
-    static auto get_position(MonoObject *this_ptr) -> vector3f;
-
-    static void translate(MonoObject *this_ptr, vector3f vec);
-
-    static void set_rotation_vec(MonoObject *this_ptr, vector3f vec);
-    static void set_rotation_angle(MonoObject *this_ptr, float angle);
-    static void set_rotation_quat(MonoObject *this_ptr, quaternion quat);
-
-    static void rotate_vec(MonoObject *this_ptr, vector3f vec);
-    static void rotate_angle(MonoObject *this_ptr, float angle);
-    static void rotate_quat(MonoObject *this_ptr, quaternion quat);
-
-    static void set_scale(MonoObject *this_ptr, vector3f vec);
-    static void scale(MonoObject *this_ptr, vector3f vec);
-
-    static void set_matrix(MonoObject *this_ptr, matrix4x4 mat);
-    static auto get_matrix(MonoObject *this_ptr) -> matrix4x4;
+    static auto get_size() -> vector2f;
+    static auto get_framebuffer_size() -> vector2f;
+    static auto get_title() -> MonoString *;
 };
 
 } // namespace managed_interface

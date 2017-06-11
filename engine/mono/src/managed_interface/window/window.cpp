@@ -23,12 +23,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
-#include <managed_interface/core/types.h>
-#include <aeon/input/input_mouse_buttons.h>
-#include <aeon/input/input_keyboard_keys.h>
-#include <aeon/platform/platform_window.h>
+#include <managed_interface/window/window.h>
+#include <managed_interface/core/types_conversion.h>
+#include <aeon/mono/mono_jit.h>
+#include <aeon/mono/mono_jit_manager.h>
 
 namespace aeon
 {
@@ -37,20 +35,30 @@ namespace mono
 namespace managed_interface
 {
 
-class input_manager
+void window::register_internal_calls()
 {
-public:
-    static void register_internal_calls();
+    mono_jit::add_internal_call("AeonEngineMono.Window.Window::get_Size", &window::get_size);
+    mono_jit::add_internal_call("AeonEngineMono.Window.Window::get_FramebufferSize", &window::get_framebuffer_size);
+    mono_jit::add_internal_call("AeonEngineMono.Window.Window::get_Title", &window::get_title);
+}
 
-private:
-    static auto get_mouse_cursor_position() -> vector2f;
-    static auto get_mouse_button_state(input::mouse_button button) -> input::mouse_button_state;
-    static auto get_key_state(input::keyboard_key key) -> input::keyboard_key_state;
-    static auto is_any_key_down() -> bool;
-    static auto is_any_mouse_button_down() -> bool;
-    static void set_cursor_mode(platform::mouse_cursor_mode mode);
-    static auto get_cursor_mode() -> platform::mouse_cursor_mode;
-};
+auto window::get_size() -> vector2f
+{
+    auto &window = mono_jit_manager::get_application().get_main_window();
+    return converter::convert(window.get_size());
+}
+
+auto window::get_framebuffer_size() -> vector2f
+{
+    auto &window = mono_jit_manager::get_application().get_main_window();
+    return converter::convert(window.get_framebuffer_size());
+}
+
+auto window::get_title() -> MonoString *
+{
+    auto &window = mono_jit_manager::get_application().get_main_window();
+    return mono_jit_manager::engine_assembly.new_string(window.get_title()).get_mono_string();
+}
 
 } // namespace managed_interface
 } // namespace mono

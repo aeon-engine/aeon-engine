@@ -55,6 +55,7 @@
     <Compile Include="Input\KeyboardKeyState.cs" />
     <Compile Include="Input\MouseButton.cs" />
     <Compile Include="Input\MouseButtonState.cs" />
+    <Compile Include="Input\MouseCursorMode.cs" />
     <Compile Include="Resources\FilesystemCollectionProvider.cs" />
     <Compile Include="Resources\ResourceCollectionProvider.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Types\Vector2f.cs" />
     <Compile Include="Types\Vector3f.cs" />
     <Compile Include="Types\Vector4f.cs" />
+    <Compile Include="Window\Window.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

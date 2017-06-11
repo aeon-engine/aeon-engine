@@ -30,6 +30,7 @@ using AeonEngineMono.Input;
 using AeonEngineMono.Resources;
 using AeonEngineMono.Scene;
 using AeonEngineMono.Types;
+using AeonEngineMono.Window;
 
 public class MonoApplication
 {
@@ -46,10 +47,13 @@ public class MonoApplication
     public void Initialize()
     {
         Console.WriteLine("Initializing game engine!");
+        Console.WriteLine("Window title: " + Window.Title);
+
+        InputManager.CursorMode = MouseCursorMode.Normal;
 
         ResourceManager.Mount(new FilesystemCollectionProvider("."), "/");
 
-        _camera = new OrthographicCamera(0, 800, 600, 0);
+        _camera = new OrthographicCamera(0, 1280, 720, 0);
         _viewport = new Viewport(_camera, "My Viewport");
 
         _shipNode = new SceneNode("ShipNode");
@@ -67,9 +71,9 @@ public class MonoApplication
 
     public bool Update(float dt)
     {
-        if (InputManager.GetKeystate(KeyboardKey.KeyUp) == KeyboardKeyState.Pressed)
+        if (InputManager.GetMouseButtonState(MouseButton.MouseButtonLeft) == MouseButtonState.Pressed)
         {
-            _shipNode.Rotate(dt);
+            _shipNode.Position = InputManager.GetMouseCursorPosition();
         }
         return true;
     }

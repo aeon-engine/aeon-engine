@@ -26,32 +26,26 @@
 using System.Runtime.CompilerServices;
 using AeonEngineMono.Types;
 
-namespace AeonEngineMono.Input
+namespace AeonEngineMono.Window
 {
-    public static class InputManager
+    public static class Window
     {
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern Vector2f GetMouseCursorPosition();
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern MouseButtonState GetMouseButtonState(MouseButton button);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern KeyboardKeyState GetKeystate(KeyboardKey key);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern bool IsAnyKeyDown();
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern bool IsAnyMouseButtonDown();
-
-        public static extern MouseCursorMode CursorMode
+        public static extern Vector2f Size
         {
             [MethodImpl(MethodImplOptions.InternalCall)]
             get;
+        }
 
+        public static extern Vector2f FramebufferSize
+        {
             [MethodImpl(MethodImplOptions.InternalCall)]
-            set;
+            get;
+        }
+
+        public static extern string Title
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
         }
     }
 }

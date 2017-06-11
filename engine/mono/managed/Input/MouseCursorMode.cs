@@ -23,35 +23,12 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System.Runtime.CompilerServices;
-using AeonEngineMono.Types;
-
 namespace AeonEngineMono.Input
 {
-    public static class InputManager
+    public enum MouseCursorMode : uint
     {
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern Vector2f GetMouseCursorPosition();
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern MouseButtonState GetMouseButtonState(MouseButton button);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern KeyboardKeyState GetKeystate(KeyboardKey key);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern bool IsAnyKeyDown();
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern bool IsAnyMouseButtonDown();
-
-        public static extern MouseCursorMode CursorMode
-        {
-            [MethodImpl(MethodImplOptions.InternalCall)]
-            get;
-
-            [MethodImpl(MethodImplOptions.InternalCall)]
-            set;
-        }
+        Normal = 0,
+        Capture = 1,
+        Hidden = 2
     }
 }

@@ -41,6 +41,7 @@
 #include <managed_interface/assets/shader.h>
 #include <managed_interface/assets/texture.h>
 #include <managed_interface/input/input_manager.h>
+#include <managed_interface/window/window.h>
 
 #include <cassert>
 
@@ -129,6 +130,9 @@ void mono_jit_manager::initialize_jit() const
 
     // Input
     managed_interface::input_manager::register_internal_calls();
+
+    // Window
+    managed_interface::window::register_internal_calls();
 }
 
 } // namespace mono

@@ -29,6 +29,7 @@ namespace aeon
 {
 namespace platform
 {
+
 window::window(const window_settings &settings)
     : width_(settings.get_width())
     , height_(settings.get_height())

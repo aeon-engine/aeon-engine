@@ -142,6 +142,15 @@ source_group(mono\\managed_interface\\input FILES ${AEON_ENGINE_MONO_MANAGED_INT
 
 ###############################################################################
 
+set (AEON_ENGINE_MONO_MANAGED_INTERFACE_WINDOW_SOURCES
+    src/managed_interface/window/window.cpp
+    src/managed_interface/window/window.h
+)
+
+source_group(mono\\managed_interface\\window FILES ${AEON_ENGINE_MONO_MANAGED_INTERFACE_WINDOW_SOURCES})
+
+###############################################################################
+
 add_library(aeon_engine_mono STATIC
     ${AEON_ENGINE_MONO_SOURCES}
     ${AEON_ENGINE_MONO_MANAGED_INFERFACE_SOURCES}
@@ -151,6 +160,7 @@ add_library(aeon_engine_mono STATIC
     ${AEON_ENGINE_MONO_MANAGED_INTERFACE_SCENE_SOURCES}
     ${AEON_ENGINE_MONO_MANAGED_INTERFACE_GFX_SOURCES}
     ${AEON_ENGINE_MONO_MANAGED_INTERFACE_INPUT_SOURCES}
+    ${AEON_ENGINE_MONO_MANAGED_INTERFACE_WINDOW_SOURCES}
 )
 
 target_link_libraries(aeon_engine_mono

@@ -29,6 +29,7 @@
 #include <aeon/gfx/gfx_render_target.h>
 #include <glm/vec2.hpp>
 #include <string>
+#include <cstdint>
 
 namespace aeon
 {
@@ -38,11 +39,11 @@ namespace platform
 /*!
  * Enum that describes the behaviour of the mouse cursor in relation to the render window.
  */
-enum mouse_cursor_mode
+enum mouse_cursor_mode : std::uint32_t
 {
-    normal,  // Normal cursor
-    capture, // Capture the cursor (infinite mouse movements)
-    hidden,  // Normal cursor, but hidden when moved over the window
+    normal = 0, // Normal cursor
+    capture,    // Capture the cursor (infinite mouse movements)
+    hidden,     // Normal cursor, but hidden when moved over the window
 };
 
 class window : public gfx::render_target

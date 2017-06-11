@@ -47,6 +47,10 @@ void input_manager::register_internal_calls()
     mono_jit::add_internal_call("AeonEngineMono.Input.InputManager::IsAnyKeyDown", &input_manager::is_any_key_down);
     mono_jit::add_internal_call("AeonEngineMono.Input.InputManager::IsAnyMouseButtonDown",
                                 &input_manager::is_any_mouse_button_down);
+    mono_jit::add_internal_call(
+        "AeonEngineMono.Input.InputManager::set_CursorMode(AeonEngineMono.Input.MouseCursorMode)",
+        &input_manager::set_cursor_mode);
+    mono_jit::add_internal_call("AeonEngineMono.Input.InputManager::get_CursorMode", &input_manager::get_cursor_mode);
 }
 
 auto input_manager::get_mouse_cursor_position() -> vector2f
@@ -77,6 +81,18 @@ auto input_manager::is_any_mouse_button_down() -> bool
 {
     auto &input_handler = mono_jit_manager::get_application().get_input_handler();
     return input_handler.is_any_mouse_button_down();
+}
+
+void input_manager::set_cursor_mode(platform::mouse_cursor_mode mode)
+{
+    auto &window = mono_jit_manager::get_application().get_main_window();
+    window.set_mouse_cursor_mode(mode);
+}
+
+auto input_manager::get_cursor_mode() -> platform::mouse_cursor_mode
+{
+    auto &window = mono_jit_manager::get_application().get_main_window();
+    return window.get_mouse_cursor_mode();
 }
 
 } // namespace managed_interface
