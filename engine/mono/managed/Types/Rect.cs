@@ -48,16 +48,35 @@ namespace AeonEngineMono.Types
             this.bottom = position.y + size.y;
         }
 
-        public static Rect Empty => new Rect(0, 0, 0, 0);
-        public static Rect One => new Rect(0, 0, 1, 1);
+        public static Rect Empty
+        {
+            get { return new Rect(0, 0, 0, 0); }
+        }
 
-        public float Width => right - left;
+        public static Rect One
+        {
+            get { return new Rect(0, 0, 1, 1); }
+        }
 
-        public float Height => bottom - top;
+        public float Width
+        {
+            get { return right - left; }
+        }
 
-        public Vector2f Position => new Vector2f(left, top);
+        public float Height
+        {
+            get { return bottom - top; }
+        }
 
-        public Vector2f Size => new Vector2f(this.Width, this.Height);
+        public Vector2f Position
+        {
+            get { return new Vector2f(left, top); }
+        }
+
+        public Vector2f Size
+        {
+            get { return new Vector2f(this.Width, this.Height); }
+        }
 
         public bool IsEmpty()
         {

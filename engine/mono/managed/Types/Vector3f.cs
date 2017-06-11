@@ -54,9 +54,15 @@ namespace AeonEngineMono.Types
             this.z = z;
         }
 
-        public static Vector3f Zero => new Vector3f(0, 0, 0);
+        public static Vector3f Zero
+        {
+            get { return new Vector3f(0, 0, 0); }
+        }
 
-        public float Magnitude => Mathf.Sqrt((this.x * this.x) + (this.y * this.y) + (this.z * this.z));
+        public float Magnitude
+        {
+            get { return Mathf.Sqrt((this.x * this.x) + (this.y * this.y) + (this.z * this.z)); }
+        }
 
         public Vector3f Normalized
         {

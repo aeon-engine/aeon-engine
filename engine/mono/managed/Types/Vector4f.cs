@@ -66,9 +66,15 @@ namespace AeonEngineMono.Types
             this.w = w;
         }
 
-        public static Vector4f Zero => new Vector4f(0, 0, 0, 0);
+        public static Vector4f Zero
+        {
+            get { return new Vector4f(0, 0, 0, 0); }
+        }
 
-        public float Magnitude => Mathf.Sqrt(Dot(this, this));
+        public float Magnitude
+        {
+            get { return Mathf.Sqrt(Dot(this, this)); }
+        }
 
         public Vector4f Normalized
         {

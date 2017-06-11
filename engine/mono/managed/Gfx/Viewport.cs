@@ -89,7 +89,10 @@ namespace AeonEngineMono.Gfx
         [MethodImpl(MethodImplOptions.InternalCall)]
         private extern void SetRectangleInternal(Rect rectangle);
 
-        public string Name => _name;
+        public string Name
+        {
+            get { return _name; }
+        }
 
         private Camera _camera;
         private Rect _rectangle;

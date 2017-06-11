@@ -152,45 +152,57 @@ namespace AeonEngineMono.Types
             }
         }
 
-        public static Matrix4 Zero => new Matrix4
+        public static Matrix4 Zero
         {
-            m00 = 0f,
-            m01 = 0f,
-            m02 = 0f,
-            m03 = 0f,
-            m10 = 0f,
-            m11 = 0f,
-            m12 = 0f,
-            m13 = 0f,
-            m20 = 0f,
-            m21 = 0f,
-            m22 = 0f,
-            m23 = 0f,
-            m30 = 0f,
-            m31 = 0f,
-            m32 = 0f,
-            m33 = 0f
-        };
+            get
+            {
+                return new Matrix4
+                {
+                    m00 = 0f,
+                    m01 = 0f,
+                    m02 = 0f,
+                    m03 = 0f,
+                    m10 = 0f,
+                    m11 = 0f,
+                    m12 = 0f,
+                    m13 = 0f,
+                    m20 = 0f,
+                    m21 = 0f,
+                    m22 = 0f,
+                    m23 = 0f,
+                    m30 = 0f,
+                    m31 = 0f,
+                    m32 = 0f,
+                    m33 = 0f
+                };
+            }
+        }
 
-        public static Matrix4 Identity => new Matrix4
+        public static Matrix4 Identity
         {
-            m00 = 1f,
-            m01 = 0f,
-            m02 = 0f,
-            m03 = 0f,
-            m10 = 0f,
-            m11 = 1f,
-            m12 = 0f,
-            m13 = 0f,
-            m20 = 0f,
-            m21 = 0f,
-            m22 = 1f,
-            m23 = 0f,
-            m30 = 0f,
-            m31 = 0f,
-            m32 = 0f,
-            m33 = 1f
-        };
+            get
+            {
+                return new Matrix4
+                {
+                    m00 = 1f,
+                    m01 = 0f,
+                    m02 = 0f,
+                    m03 = 0f,
+                    m10 = 0f,
+                    m11 = 1f,
+                    m12 = 0f,
+                    m13 = 0f,
+                    m20 = 0f,
+                    m21 = 0f,
+                    m22 = 1f,
+                    m23 = 0f,
+                    m30 = 0f,
+                    m31 = 0f,
+                    m32 = 0f,
+                    m33 = 1f
+                };
+            }
+        }
 
         public static Matrix4 operator *(Matrix4 lhs, Matrix4 rhs)
         {
