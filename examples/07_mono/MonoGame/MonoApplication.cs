@@ -34,6 +34,21 @@ using AeonEngineMono.Window;
 
 public class MonoApplication
 {
+    private const int MoveSouth = 0;
+    private const int MoveWest = 1;
+    private const int MoveEast = 2;
+    private const int MoveNorth = 3;
+
+    private const float ValheimSpeed = 40;
+
+    private OrthographicCamera _camera;
+    private Viewport _viewport;
+    private SceneNode _shipNode;
+
+    private AnimatedSprite _valheim;
+    private SceneNode _valheimNode;
+    private int _valheimDirection = MoveSouth;
+
     public MonoApplication()
     {
         Console.WriteLine("MonoApplication created.");
@@ -67,19 +82,91 @@ public class MonoApplication
 
         Sprite sprite = new Sprite(shipRegion, 0, "My Ship");
         _shipNode.AttachComponent(sprite);
+
+        Material animationMaterial = new Material("/resources/materials/valheim.amf");
+        Atlas animationAtlas = new Atlas(animationMaterial, new Vector2f(32, 32));
+
+        SpriteAnimationSettings settings = new SpriteAnimationSettings(new Vector2f(32, 32));
+        settings.GenerateSequence(MoveSouth, 3, 3, AnimationSequenceType.UpDown);
+        settings.GenerateSequence(MoveWest, 15, 3, AnimationSequenceType.UpDown);
+        settings.GenerateSequence(MoveEast, 27, 3, AnimationSequenceType.UpDown);
+        settings.GenerateSequence(MoveNorth, 39, 3, AnimationSequenceType.UpDown);
+        settings.StartCondition = AnimationStartCondition.ManualStart;
+        settings.Speed = 0.2f;
+        settings.Repeat = AnimationRepeat.Continuous;
+
+        _valheimNode = new SceneNode("Valheim");
+        SceneManager.RootSceneNode.AttachChild(_valheimNode);
+
+        _valheim = new AnimatedSprite(animationAtlas, 0, settings, "Valheim");
+        _valheimNode.AttachComponent(_valheim);
+
+        _valheimNode.SetPosition(30, 30);
     }
 
     public bool Update(float dt)
     {
+        if (InputManager.GetKeystate(KeyboardKey.KeyEscape) == KeyboardKeyState.Pressed)
+        {
+            return false;
+        }
+
+        if (InputManager.GetKeystate(KeyboardKey.KeyDown) == KeyboardKeyState.Pressed)
+        {
+            if (_valheimDirection != MoveSouth)
+            {
+                _valheimDirection = MoveSouth;
+                _valheim.AnimationSequence = _valheimDirection;
+
+            }
+
+            _valheim.Run();
+            _valheimNode.Translate(0, dt * ValheimSpeed);
+        }
+        else if (InputManager.GetKeystate(KeyboardKey.KeyUp) == KeyboardKeyState.Pressed)
+        {
+            if (_valheimDirection != MoveNorth)
+            {
+                _valheimDirection = MoveNorth;
+                _valheim.AnimationSequence = _valheimDirection;
+            }
+
+            _valheim.Run();
+            _valheimNode.Translate(0, -dt * ValheimSpeed);
+        }
+        else if (InputManager.GetKeystate(KeyboardKey.KeyLeft) == KeyboardKeyState.Pressed)
+        {
+            if (_valheimDirection != MoveWest)
+            {
+                _valheimDirection = MoveWest;
+                _valheim.AnimationSequence = _valheimDirection;
+            }
+
+            _valheim.Run();
+            _valheimNode.Translate(-dt * ValheimSpeed, 0);
+        }
+        else if (InputManager.GetKeystate(KeyboardKey.KeyRight) == KeyboardKeyState.Pressed)
+        {
+            if (_valheimDirection != MoveEast)
+            {
+                _valheimDirection = MoveEast;
+                _valheim.AnimationSequence = _valheimDirection;
+
+            }
+
+            _valheim.Run();
+            _valheimNode.Translate(dt * ValheimSpeed, 0);
+        }
+        else
+        {
+            _valheim.Stop();
+        }
+
         if (InputManager.GetMouseButtonState(MouseButton.MouseButtonLeft) == MouseButtonState.Pressed)
         {
             _shipNode.Position = InputManager.GetMouseCursorPosition();
         }
+
         return true;
     }
-
-    private OrthographicCamera _camera;
-    private Viewport _viewport;
-    private SceneNode _shipNode;
-
 }

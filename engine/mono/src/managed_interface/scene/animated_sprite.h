@@ -26,7 +26,7 @@
 #pragma once
 
 #include <managed_interface/core/object.h>
-#include <managed_interface/core/types.h>
+#include <aeon/scene/components/animated_sprite.h>
 
 namespace aeon
 {
@@ -35,14 +35,18 @@ namespace mono
 namespace managed_interface
 {
 
-class sprite
+class animated_sprite
 {
 public:
     static void register_internal_calls();
 
+    static auto get_animated_sprite_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::animated_sprite>;
+
 private:
-    static void ctor(MonoObject *this_ptr, MonoObject *region, int z_order, MonoString *name);
-    static void ctor2(MonoObject *this_ptr, MonoObject *region, vector2f size, int z_order, MonoString *name);
+    static void ctor(MonoObject *this_ptr, MonoObject *atlas, int z_order, MonoObject *settings, MonoString *name);
+    static void run(MonoObject *this_ptr);
+    static void stop(MonoObject *this_ptr);
+    static void set_animation_sequence(MonoObject *this_ptr, int index);
 };
 
 } // namespace managed_interface

@@ -59,6 +59,7 @@
     <Compile Include="Resources\FilesystemCollectionProvider.cs" />
     <Compile Include="Resources\ResourceCollectionProvider.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
+    <Compile Include="Scene\AnimatedSprite.cs" />
     <Compile Include="Scene\Camera.cs" />
     <Compile Include="Scene\MovableObject.cs" />
     <Compile Include="Scene\OrthographicCamera.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Scene\SceneNode.cs" />
     <Compile Include="Scene\Component.cs" />
     <Compile Include="Scene\Sprite.cs" />
+    <Compile Include="Scene\SpriteAnimationSettings.cs" />
     <Compile Include="Types\Color.cs" />
     <Compile Include="Types\Matrix4.cs" />
     <Compile Include="Types\Quaternion.cs" />

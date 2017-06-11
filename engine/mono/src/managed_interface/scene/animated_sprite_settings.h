@@ -27,6 +27,7 @@
 
 #include <managed_interface/core/object.h>
 #include <managed_interface/core/types.h>
+#include <aeon/scene/components/sprite_animation_settings.h>
 
 namespace aeon
 {
@@ -35,14 +36,21 @@ namespace mono
 namespace managed_interface
 {
 
-class sprite
+class animated_sprite_settings
 {
 public:
     static void register_internal_calls();
 
+    static auto get_animated_sprite_settings_from_mono_object(MonoObject *object) -> scene::sprite_animation_settings &;
+
 private:
-    static void ctor(MonoObject *this_ptr, MonoObject *region, int z_order, MonoString *name);
-    static void ctor2(MonoObject *this_ptr, MonoObject *region, vector2f size, int z_order, MonoString *name);
+    static void ctor(MonoObject *this_ptr, vector2f frame_size);
+    static void generate_sequence(MonoObject *this_ptr, int index, int frame_offset, int frame_count,
+                                  scene::animation_sequence_type type);
+    static void set_default_sequence(MonoObject *this_ptr, int index);
+    static void set_start_condition(MonoObject *this_ptr, scene::animation_start_condition condition);
+    static void set_repeat(MonoObject *this_ptr, scene::animation_repeat repeat);
+    static void set_speed(MonoObject *this_ptr, float speed);
 };
 
 } // namespace managed_interface

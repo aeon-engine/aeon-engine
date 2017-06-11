@@ -29,6 +29,7 @@
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_jit_manager.h>
 #include <aeon/mono/mono_string.h>
+#include <aeon/scene/components/sprite.h>
 
 namespace aeon
 {

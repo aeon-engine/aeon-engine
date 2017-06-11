@@ -35,6 +35,8 @@
 #include <managed_interface/scene/perspective_camera.h>
 #include <managed_interface/scene/scene_node.h>
 #include <managed_interface/scene/sprite.h>
+#include <managed_interface/scene/animated_sprite_settings.h>
+#include <managed_interface/scene/animated_sprite.h>
 #include <managed_interface/scene/scene_manager.h>
 #include <managed_interface/assets/material.h>
 #include <managed_interface/assets/atlas.h>
@@ -119,6 +121,8 @@ void mono_jit_manager::initialize_jit() const
     managed_interface::orthographic_camera::register_internal_calls();
     managed_interface::perspective_camera::register_internal_calls();
     managed_interface::sprite::register_internal_calls();
+    managed_interface::animated_sprite_settings::register_internal_calls();
+    managed_interface::animated_sprite::register_internal_calls();
     managed_interface::scene_node::register_internal_calls();
     managed_interface::scene_manager::register_internal_calls();
 

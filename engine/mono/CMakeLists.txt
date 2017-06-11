@@ -114,6 +114,10 @@ set (AEON_ENGINE_MONO_MANAGED_INTERFACE_SCENE_SOURCES
     src/managed_interface/scene/perspective_camera.h
     src/managed_interface/scene/sprite.cpp
     src/managed_interface/scene/sprite.h
+    src/managed_interface/scene/animated_sprite.cpp
+    src/managed_interface/scene/animated_sprite.h
+    src/managed_interface/scene/animated_sprite_settings.cpp
+    src/managed_interface/scene/animated_sprite_settings.h
     src/managed_interface/scene/scene_node.cpp
     src/managed_interface/scene/scene_node.h
     src/managed_interface/scene/scene_manager.cpp

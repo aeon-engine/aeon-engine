@@ -29,27 +29,28 @@
 #include <aeon/common/noncopyable.h>
 #include <map>
 #include <vector>
+#include <cstdint>
 
 namespace aeon
 {
 namespace scene
 {
 
-enum class animation_start_condition
+enum class animation_start_condition : std::uint32_t
 {
-    auto_start,
+    auto_start = 0,
     manual_start
 };
 
-enum class animation_repeat
+enum class animation_repeat : std::uint32_t
 {
-    once,
+    once = 0,
     continuous
 };
 
-enum class animation_sequence_type
+enum class animation_sequence_type : std::uint32_t
 {
-    normal,
+    normal = 0,
     reverse,
     up_down
 };

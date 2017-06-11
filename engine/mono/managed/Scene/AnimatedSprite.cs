@@ -23,28 +23,35 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
+using System.Runtime.CompilerServices;
+using AeonEngineMono.Assets;
+using AeonEngineMono.Types;
 
-#include <managed_interface/core/object.h>
-#include <managed_interface/core/types.h>
-
-namespace aeon
+namespace AeonEngineMono.Scene
 {
-namespace mono
-{
-namespace managed_interface
-{
+    public class AnimatedSprite : Component
+    {
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern AnimatedSprite(Atlas atlas, int zOrder, SpriteAnimationSettings settings, string name = "");
 
-class sprite
-{
-public:
-    static void register_internal_calls();
+        public extern Vector2f Size
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            set;
+        }
 
-private:
-    static void ctor(MonoObject *this_ptr, MonoObject *region, int z_order, MonoString *name);
-    static void ctor2(MonoObject *this_ptr, MonoObject *region, vector2f size, int z_order, MonoString *name);
-};
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern void Run();
 
-} // namespace managed_interface
-} // namespace mono
-} // namespace aeon
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern void Stop();
+
+        public extern int AnimationSequence
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            set;
+        }
+    }
+}
