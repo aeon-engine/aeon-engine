@@ -24,6 +24,7 @@
  */
 
 using System;
+using AeonEngineMono.Core;
 
 namespace AeonEngineMono.Types
 {
@@ -162,14 +163,17 @@ namespace AeonEngineMono.Types
                     m01 = 0f,
                     m02 = 0f,
                     m03 = 0f,
+
                     m10 = 0f,
                     m11 = 0f,
                     m12 = 0f,
                     m13 = 0f,
+
                     m20 = 0f,
                     m21 = 0f,
                     m22 = 0f,
                     m23 = 0f,
+
                     m30 = 0f,
                     m31 = 0f,
                     m32 = 0f,
@@ -188,14 +192,17 @@ namespace AeonEngineMono.Types
                     m01 = 0f,
                     m02 = 0f,
                     m03 = 0f,
+
                     m10 = 0f,
                     m11 = 1f,
                     m12 = 0f,
                     m13 = 0f,
+
                     m20 = 0f,
                     m21 = 0f,
                     m22 = 1f,
                     m23 = 0f,
+
                     m30 = 0f,
                     m31 = 0f,
                     m32 = 0f,
@@ -279,14 +286,17 @@ namespace AeonEngineMono.Types
                 m01 = 0f,
                 m02 = 0f,
                 m03 = 0f,
+
                 m10 = 0f,
                 m11 = value.y,
                 m12 = 0f,
                 m13 = 0f,
+
                 m20 = 0f,
                 m21 = 0f,
                 m22 = value.z,
                 m23 = 0f,
+
                 m30 = 0f,
                 m31 = 0f,
                 m32 = 0f,
@@ -302,17 +312,129 @@ namespace AeonEngineMono.Types
                 m01 = 0f,
                 m02 = 0f,
                 m03 = value.x,
+
                 m10 = 0f,
                 m11 = 1f,
                 m12 = 0f,
                 m13 = value.y,
+
                 m20 = 0f,
                 m21 = 0f,
                 m22 = 1f,
                 m23 = value.z,
+
                 m30 = 0f,
                 m31 = 0f,
                 m32 = 0f,
+                m33 = 1f
+            };
+        }
+
+        public static Matrix4 Ortho(float left, float right, float bottom, float top)
+        {
+            return new Matrix4
+            {
+                m00 = 2f / (right - left),
+                m01 = 0f,
+                m02 = 0f,
+                m03 = 0f,
+
+                m10 = 0f,
+                m11 = 2f / (top - bottom),
+                m12 = 0f,
+                m13 = 0f,
+
+                m20 = 0f,
+                m21 = 0f,
+                m22 = -1f,
+                m23 = 0f,
+
+                m30 = -(right + left) / (right - left),
+                m31 = -(top + bottom) / (top - bottom),
+                m32 = 0f,
+                m33 = 1f
+            };
+        }
+
+        public static Matrix4 Ortho(float left, float right, float bottom, float top, float near, float far)
+        {
+            return new Matrix4
+            {
+                m00 = 2f / (right - left),
+                m01 = 0f,
+                m02 = 0f,
+                m03 = 0f,
+
+                m10 = 0f,
+                m11 = 2f / (top - bottom),
+                m12 = 0f,
+                m13 = 0f,
+
+                m20 = 0f,
+                m21 = 0f,
+                m22 = -2f / (far - near),
+                m23 = 0f,
+
+                m30 = -(right + left) / (right - left),
+                m31 = -(top + bottom) / (top - bottom),
+                m32 = -(far + near) / (far - near),
+                m33 = 1f
+            };
+        }
+
+        public static Matrix4 Projection(float fovY, float aspectRatio, float near, float far)
+        {
+            var tanHalfFovY = Mathf.Tan(fovY / 2f);
+
+            return new Matrix4
+            {
+                m00 = 1f / (aspectRatio * tanHalfFovY),
+                m01 = 0f,
+                m02 = 0f,
+                m03 = 0f,
+
+                m10 = 0f,
+                m11 = 1f / tanHalfFovY,
+                m12 = 0f,
+                m13 = 0f,
+
+                m20 = 0f,
+                m21 = 0f,
+                m22 = -(far + near) / (far - near),
+                m23 = 1f,
+
+                m30 = 0f,
+                m31 = 0f,
+                m32 = -(2f * far * near) / (far - near),
+                m33 = 1f
+            };
+        }
+
+        public static Matrix4 ProjectionFov(float fov, float width, float height, float near, float far)
+        {
+            var h = Mathf.Cos(0.5f * fov) / Mathf.Sin(0.5f * fov);
+            var w = h * height / width;
+
+            return new Matrix4
+            {
+                m00 = w,
+                m01 = 0f,
+                m02 = 0f,
+                m03 = 0f,
+
+                m10 = 0f,
+                m11 = h,
+                m12 = 0f,
+                m13 = 0f,
+
+                m20 = 0f,
+                m21 = 0f,
+                m22 = -(far + near) / (far - near),
+                m23 = -1f,
+
+                m30 = 0f,
+                m31 = 0f,
+                m32 = -(2f * far * near) / (far - near),
                 m33 = 1f
             };
         }
