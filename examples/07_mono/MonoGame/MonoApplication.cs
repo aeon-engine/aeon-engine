@@ -64,7 +64,7 @@ public class MonoApplication
         Console.WriteLine("Initializing game engine!");
         Console.WriteLine("Window title: " + Window.Title);
 
-        InputManager.CursorMode = MouseCursorMode.Normal;
+        Input.CursorMode = MouseCursorMode.Normal;
 
         ResourceManager.Mount(new FilesystemCollectionProvider("."), "/");
 
@@ -106,12 +106,12 @@ public class MonoApplication
 
     public bool Update(float dt)
     {
-        if (InputManager.GetKeystate(KeyboardKey.KeyEscape) == KeyboardKeyState.Pressed)
+        if (Input.GetKeystate(KeyboardKey.KeyEscape) == KeyboardKeyState.Pressed)
         {
             return false;
         }
 
-        if (InputManager.GetKeystate(KeyboardKey.KeyDown) == KeyboardKeyState.Pressed)
+        if (Input.GetKeystate(KeyboardKey.KeyDown) == KeyboardKeyState.Pressed)
         {
             if (_valheimDirection != MoveSouth)
             {
@@ -123,7 +123,7 @@ public class MonoApplication
             _valheim.Run();
             _valheimNode.Translate(0, dt * ValheimSpeed);
         }
-        else if (InputManager.GetKeystate(KeyboardKey.KeyUp) == KeyboardKeyState.Pressed)
+        else if (Input.GetKeystate(KeyboardKey.KeyUp) == KeyboardKeyState.Pressed)
         {
             if (_valheimDirection != MoveNorth)
             {
@@ -134,7 +134,7 @@ public class MonoApplication
             _valheim.Run();
             _valheimNode.Translate(0, -dt * ValheimSpeed);
         }
-        else if (InputManager.GetKeystate(KeyboardKey.KeyLeft) == KeyboardKeyState.Pressed)
+        else if (Input.GetKeystate(KeyboardKey.KeyLeft) == KeyboardKeyState.Pressed)
         {
             if (_valheimDirection != MoveWest)
             {
@@ -145,7 +145,7 @@ public class MonoApplication
             _valheim.Run();
             _valheimNode.Translate(-dt * ValheimSpeed, 0);
         }
-        else if (InputManager.GetKeystate(KeyboardKey.KeyRight) == KeyboardKeyState.Pressed)
+        else if (Input.GetKeystate(KeyboardKey.KeyRight) == KeyboardKeyState.Pressed)
         {
             if (_valheimDirection != MoveEast)
             {
@@ -162,9 +162,9 @@ public class MonoApplication
             _valheim.Stop();
         }
 
-        if (InputManager.GetMouseButtonState(MouseButton.MouseButtonLeft) == MouseButtonState.Pressed)
+        if (Input.GetMouseButtonState(MouseButton.MouseButtonLeft) == MouseButtonState.Pressed)
         {
-            _shipNode.Position = InputManager.GetMouseCursorPosition();
+            _shipNode.Position = Input.GetMouseCursorPosition();
         }
 
         return true;

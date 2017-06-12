@@ -28,7 +28,7 @@ using AeonEngineMono.Types;
 
 namespace AeonEngineMono.Input
 {
-    public static class InputManager
+    public static class Input
     {
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern Vector2f GetMouseCursorPosition();
