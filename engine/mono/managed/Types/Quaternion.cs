@@ -23,6 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using AeonEngineMono.Core;
+
 namespace AeonEngineMono.Types
 {
     public struct Quaternion
@@ -33,6 +35,17 @@ namespace AeonEngineMono.Types
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+
+        public Quaternion(Vector3f eulerAngles)
+        {
+            var c = Mathf.Cos(eulerAngles * 0.5f);
+            var s = Mathf.Sin(eulerAngles * 0.5f);
+
+            this.w = c.x * c.y * c.z + s.x * s.y * s.z;
+            this.x = s.x * c.y * c.z - c.x * s.y * s.z;
+            this.y = c.x * s.y * c.z + s.x * c.y * s.z;
+            this.z = c.x * c.y * s.z - s.x * s.y * c.z;
         }
 
         public float w;
