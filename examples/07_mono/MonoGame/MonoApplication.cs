@@ -106,6 +106,16 @@ public class MonoApplication
 
     public bool Update(float dt)
     {
+        if (Input.GetKeyDown(KeyboardKey.KeyR))
+        {
+            Console.WriteLine("R key down.");
+        }
+
+        if (Input.GetKeyUp(KeyboardKey.KeyR))
+        {
+            Console.WriteLine("R key up.");
+        }
+
         if (Input.GetKeystate(KeyboardKey.KeyEscape) == KeyboardKeyState.Pressed)
         {
             return false;
