@@ -330,6 +330,36 @@ namespace AeonEngineMono.Types
             };
         }
 
+        public static Matrix4 Rotate(float angle, Vector3f v)
+        {
+            var c = Mathf.Cos(angle);
+            var s = Mathf.Sin(angle);
+            var axis = v.Normalized;
+
+            return new Matrix4
+            {
+                m00 = c + (1f - c) * axis.x * axis.x,
+                m01 = (1f - c) * axis.x * axis.y + s * axis.z,
+                m02 = (1f - c) * axis.x * axis.z - s * axis.y,
+                m03 = 0f,
+
+                m10 = (1f - c) * axis.y * axis.x - s * axis.z,
+                m11 = c + (1f - c) * axis.y * axis.y,
+                m12 = (1f - c) * axis.y * axis.z + s * axis.x,
+                m13 = 0f,
+
+                m20 = (1f - c) * axis.z * axis.x + s * axis.y,
+                m21 = (1f - c) * axis.z * axis.y - s * axis.x,
+                m22 = c + (1f - c) * axis.z * axis.z,
+                m23 = 0f,
+
+                m30 = 0f,
+                m31 = 0f,
+                m32 = 0f,
+                m33 = 1f
+            };
+        }
+
         public static Matrix4 Ortho(float left, float right, float bottom, float top)
         {
             return new Matrix4
