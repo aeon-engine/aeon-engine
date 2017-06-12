@@ -24,6 +24,7 @@
  */
 
 using System;
+using AeonEngineMono.Types;
 
 namespace AeonEngineMono.Core
 {
@@ -81,6 +82,11 @@ namespace AeonEngineMono.Core
             return (float)Math.Cos(value);
         }
 
+        public static Vector3f Cos(Vector3f value)
+        {
+            return new Vector3f(Cos(value.x), Cos(value.y), Cos(value.z));
+        }
+
         public static float Exp(float power)
         {
             return (float)Math.Exp(power);
@@ -136,6 +142,11 @@ namespace AeonEngineMono.Core
             return (float)Math.Sin(value);
         }
 
+        public static Vector3f Sin(Vector3f value)
+        {
+            return new Vector3f(Sin(value.x), Sin(value.y), Sin(value.z));
+        }
+
         public static float Sqrt(float value)
         {
             return (float)Math.Sqrt(value);
@@ -144,6 +155,11 @@ namespace AeonEngineMono.Core
         public static float Tan(float value)
         {
             return (float)Math.Tan(value);
+        }
+
+        public static Vector3f Tan(Vector3f value)
+        {
+            return new Vector3f(Tan(value.x), Tan(value.y), Tan(value.z));
         }
     }
 }
