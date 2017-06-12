@@ -29,6 +29,11 @@ namespace AeonEngineMono.Types
 {
     public struct Quaternion
     {
+        public float w;
+        public float x;
+        public float y;
+        public float z;
+
         public Quaternion(float w, float x, float y, float z)
         {
             this.w = w;
@@ -48,9 +53,30 @@ namespace AeonEngineMono.Types
             this.z = c.x * c.y * s.z - s.x * s.y * c.z;
         }
 
-        public float w;
-        public float x;
-        public float y;
-        public float z;
+        public Vector3f Euler
+        {
+            get { return new Vector3f(this.Pitch, this.Yaw, this.Roll); }
+        }
+
+        public float Pitch
+        {
+            get
+            {
+                return Mathf.Atan2(2f * (this.y * this.z + this.w * this.x), this.w * this.w - this.x * this.x - this.y * this.y + this.z * this.z);
+            }
+        }
+
+        public float Roll
+        {
+            get
+            {
+                return Mathf.Atan2(2f * (this.x * this.y + this.w * this.z), this.w * this.w + this.x * this.x - this.y * this.y - this.z * this.z);
+            }
+        }
+
+        public float Yaw
+        {
+            get { return Mathf.Asin(Mathf.Clamp(-2f * (this.x * this.z - this.w * this.y), -1f, 1f)); }
+        }
     }
 }

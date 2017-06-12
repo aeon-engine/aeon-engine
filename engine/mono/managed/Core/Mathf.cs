@@ -57,6 +57,11 @@ namespace AeonEngineMono.Core
             return (float)Math.Atan(value);
         }
 
+        public static float Atan2(float x, float y)
+        {
+            return (float)Math.Atan2(x, y);
+        }
+
         public static float Ceil(float value)
         {
             return (float)Math.Ceiling(value);
