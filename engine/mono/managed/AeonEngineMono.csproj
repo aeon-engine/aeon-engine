@@ -51,11 +51,15 @@
     <Compile Include="Core\Object.cs" />
     <Compile Include="Gfx\Viewport.cs" />
     <Compile Include="Input\Input.cs" />
+    <Compile Include="Input\KeyBinding.cs" />
     <Compile Include="Input\KeyboardKey.cs" />
+    <Compile Include="Input\KeyboardKeyBinding.cs" />
     <Compile Include="Input\KeyboardKeyState.cs" />
     <Compile Include="Input\MouseButton.cs" />
     <Compile Include="Input\MouseButtonState.cs" />
     <Compile Include="Input\MouseCursorMode.cs" />
+    <Compile Include="Input\MouseKeyBinding.cs" />
+    <Compile Include="Input\KeyBindingGroup.cs" />
     <Compile Include="Resources\FilesystemCollectionProvider.cs" />
     <Compile Include="Resources\ResourceCollectionProvider.cs" />
     <Compile Include="Resources\ResourceManager.cs" />

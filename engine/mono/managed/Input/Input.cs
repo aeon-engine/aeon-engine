@@ -23,6 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using AeonEngineMono.Types;
 
@@ -30,6 +32,41 @@ namespace AeonEngineMono.Input
 {
     public static class Input
     {
+        private static readonly Dictionary<string, KeyBindingGroup> ButtonKeyBindings = new Dictionary<string, KeyBindingGroup>();
+
+        private static void CreateBindGroupIfNeeded(string button)
+        {
+            if (!ButtonKeyBindings.ContainsKey(button))
+                ButtonKeyBindings[button] = new KeyBindingGroup();
+        }
+
+        public static void BindButton(string button, KeyboardKey key)
+        {
+            CreateBindGroupIfNeeded(button);
+            ButtonKeyBindings[button].AddBind(new KeyboardKeyBinding(key));
+        }
+
+        public static void BindButton(string button, MouseButton mouseButton)
+        {
+            CreateBindGroupIfNeeded(button);
+            ButtonKeyBindings[button].AddBind(new MouseKeyBinding(mouseButton));
+        }
+
+        public static bool GetButtonUp(string button)
+        {
+            return ButtonKeyBindings[button].GetUp();
+        }
+
+        public static bool GetButtonDown(string button)
+        {
+            return ButtonKeyBindings[button].GetDown();
+        }
+
+        public static bool GetButtonState(string button)
+        {
+            return ButtonKeyBindings[button].GetIsPressed();
+        }
+
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern Vector2f GetMouseCursorPosition();
 

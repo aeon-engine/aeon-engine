@@ -102,6 +102,10 @@ public class MonoApplication
         _valheimNode.AttachComponent(_valheim);
 
         _valheimNode.SetPosition(30, 30);
+
+        Input.BindButton("fire", KeyboardKey.KeySpace);
+        Input.BindButton("fire", MouseButton.MouseButtonLeft);
+        Input.BindButton("fire", KeyboardKey.KeyE);
     }
 
     public bool Update(float dt)
@@ -114,6 +118,16 @@ public class MonoApplication
         if (Input.GetKeyUp(KeyboardKey.KeyR))
         {
             Console.WriteLine("R key up.");
+        }
+
+        if (Input.GetButtonDown("fire"))
+        {
+            Console.WriteLine("Fire exclamationmark.");
+        }
+
+        if (Input.GetButtonUp("fire"))
+        {
+            Console.WriteLine("No more fire.");
         }
 
         if (Input.GetKeystate(KeyboardKey.KeyEscape) == KeyboardKeyState.Pressed)
