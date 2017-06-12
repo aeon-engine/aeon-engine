@@ -30,14 +30,9 @@ namespace AeonEngineMono.Core
 {
     public class Object
     {
+        private IntPtr _nativePtr = IntPtr.Zero;
+
         [MethodImpl(MethodImplOptions.InternalCall)]
         extern ~Object();
-
-        protected IntPtr GetNativePtr()
-        {
-            return m_NativePtr;
-        }
-
-        private IntPtr m_NativePtr = IntPtr.Zero;
     }
 }

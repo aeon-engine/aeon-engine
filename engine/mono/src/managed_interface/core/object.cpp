@@ -45,7 +45,7 @@ void object::register_internal_calls()
 void object::initialize_class_field(mono_assembly &assembly)
 {
     object_class = assembly.get_class("AeonEngineMono.Core", "Object");
-    native_object_field = object_class.get_field("m_NativePtr");
+    native_object_field = object_class.get_field("_nativePtr");
 }
 
 object::object(MonoObject *mono_object)
