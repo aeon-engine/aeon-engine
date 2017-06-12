@@ -164,6 +164,7 @@ auto glfw_window::__on_frame_end(float /*dt*/) -> bool
 
     glFinish();
     glfwSwapBuffers(window_);
+
     return true;
 }
 

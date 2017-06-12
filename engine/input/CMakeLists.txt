@@ -23,6 +23,7 @@
 
 set (AEON_ENGINE_INPUT_SOURCES
     include/aeon/input/input_handler.h
+    include/aeon/input/input_state.h
     include/aeon/input/input_keyboard_keys.h
     include/aeon/input/input_listener.h
     include/aeon/input/input_mouse_buttons.h

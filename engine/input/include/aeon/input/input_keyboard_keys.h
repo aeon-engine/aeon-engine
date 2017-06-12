@@ -26,6 +26,7 @@
 #pragma once
 
 #include <cstdint>
+#include <cstddef>
 
 namespace aeon
 {
@@ -166,8 +167,10 @@ enum class keyboard_key : std::int32_t
     key_right_control = 345,
     key_right_alt = 346,
     key_right_super = 347,
-    key_menu = 348
+    key_menu = 348,
 };
+
+static constexpr auto keyboard_key_count = static_cast<std::size_t>(keyboard_key::key_menu) + 1;
 
 struct keyboard_modifier_key
 {

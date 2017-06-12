@@ -81,6 +81,8 @@ void sdl_platform_manager::run()
 
         if (!get_device().render(delta_time))
             break;
+
+        get_input_handler().handle_end_of_frame();
     }
 
     AEON_LOG_DEBUG(logger_) << "Message loop stopped." << std::endl;

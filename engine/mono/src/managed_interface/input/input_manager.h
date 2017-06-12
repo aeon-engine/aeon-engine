@@ -48,6 +48,10 @@ private:
     static auto get_key_state(input::keyboard_key key) -> input::keyboard_key_state;
     static auto is_any_key_down() -> bool;
     static auto is_any_mouse_button_down() -> bool;
+    static auto get_mouse_button_up(input::mouse_button button) -> bool;
+    static auto get_mouse_button_down(input::mouse_button button) -> bool;
+    static auto get_key_up(input::keyboard_key key) -> bool;
+    static auto get_key_down(input::keyboard_key key) -> bool;
     static void set_cursor_mode(platform::mouse_cursor_mode mode);
     static auto get_cursor_mode() -> platform::mouse_cursor_mode;
 };

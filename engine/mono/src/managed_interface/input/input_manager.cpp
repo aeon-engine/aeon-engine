@@ -47,6 +47,15 @@ void input_manager::register_internal_calls()
     mono_jit::add_internal_call("AeonEngineMono.Input.InputManager::IsAnyKeyDown", &input_manager::is_any_key_down);
     mono_jit::add_internal_call("AeonEngineMono.Input.InputManager::IsAnyMouseButtonDown",
                                 &input_manager::is_any_mouse_button_down);
+    mono_jit::add_internal_call("AeonEngineMono.Input.InputManager::GetMouseButtonUp(AeonEngineMono.Input.MouseButton)",
+                                &input_manager::get_mouse_button_up);
+    mono_jit::add_internal_call(
+        "AeonEngineMono.Input.InputManager::GetMouseButtonDown(AeonEngineMono.Input.MouseButton)",
+        &input_manager::get_mouse_button_down);
+    mono_jit::add_internal_call("AeonEngineMono.Input.InputManager::GetKeyUp(AeonEngineMono.Input.KeyboardKey)",
+                                &input_manager::get_key_up);
+    mono_jit::add_internal_call("AeonEngineMono.Input.InputManager::GetKeyDown(AeonEngineMono.Input.KeyboardKey)",
+                                &input_manager::get_key_down);
     mono_jit::add_internal_call(
         "AeonEngineMono.Input.InputManager::set_CursorMode(AeonEngineMono.Input.MouseCursorMode)",
         &input_manager::set_cursor_mode);
@@ -68,7 +77,7 @@ auto input_manager::get_mouse_button_state(input::mouse_button button) -> input:
 auto input_manager::get_key_state(input::keyboard_key key) -> input::keyboard_key_state
 {
     auto &input_handler = mono_jit_manager::get_application().get_input_handler();
-    return input_handler.get_keystate(key);
+    return input_handler.get_key_state(key);
 }
 
 auto input_manager::is_any_key_down() -> bool
@@ -81,6 +90,30 @@ auto input_manager::is_any_mouse_button_down() -> bool
 {
     auto &input_handler = mono_jit_manager::get_application().get_input_handler();
     return input_handler.is_any_mouse_button_down();
+}
+
+auto input_manager::get_mouse_button_up(input::mouse_button button) -> bool
+{
+    auto &input_handler = mono_jit_manager::get_application().get_input_handler();
+    return input_handler.get_mouse_button_up(button);
+}
+
+auto input_manager::get_mouse_button_down(input::mouse_button button) -> bool
+{
+    auto &input_handler = mono_jit_manager::get_application().get_input_handler();
+    return input_handler.get_mouse_button_down(button);
+}
+
+auto input_manager::get_key_up(input::keyboard_key key) -> bool
+{
+    auto &input_handler = mono_jit_manager::get_application().get_input_handler();
+    return input_handler.get_key_up(key);
+}
+
+auto input_manager::get_key_down(input::keyboard_key key) -> bool
+{
+    auto &input_handler = mono_jit_manager::get_application().get_input_handler();
+    return input_handler.get_key_down(key);
 }
 
 void input_manager::set_cursor_mode(platform::mouse_cursor_mode mode)

@@ -45,6 +45,18 @@ namespace AeonEngineMono.Input
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern bool IsAnyMouseButtonDown();
 
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern bool GetMouseButtonUp(MouseButton button);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern bool GetMouseButtonDown(MouseButton button);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern bool GetKeyUp(KeyboardKey key);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern bool GetKeyDown(KeyboardKey key);
+
         public static extern MouseCursorMode CursorMode
         {
             [MethodImpl(MethodImplOptions.InternalCall)]

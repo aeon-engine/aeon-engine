@@ -25,12 +25,13 @@
 
 #pragma once
 
-#include <aeon/utility/listener_subject.h>
+#include <aeon/input/input_state.h>
 #include <aeon/input/input_keyboard_keys.h>
 #include <aeon/input/input_mouse_buttons.h>
 #include <aeon/input/input_listener.h>
+#include <aeon/utility/listener_subject.h>
 #include <glm/vec2.hpp>
-#include <map>
+#include <array>
 
 namespace aeon
 {
@@ -49,18 +50,25 @@ public:
     void handle_mouse_move_event(const float x, const float y);
     void handle_mouse_button_event(const mouse_button button, const mouse_button_state button_state);
     void handle_mouse_scroll_event(const float x, const float y);
+    void handle_end_of_frame();
 
     auto get_mouse_cursor_position() const -> glm::vec2;
     auto get_mouse_button_state(const mouse_button button) const -> mouse_button_state;
-    auto get_keystate(const keyboard_key key) const -> keyboard_key_state;
+    auto get_key_state(const keyboard_key key) const -> keyboard_key_state;
 
     auto is_any_mouse_button_down() const -> bool;
     auto is_any_key_down() const -> bool;
 
+    auto get_mouse_button_up(const mouse_button button) -> bool;
+    auto get_mouse_button_down(const mouse_button button) -> bool;
+
+    auto get_key_up(const keyboard_key key) -> bool;
+    auto get_key_down(const keyboard_key key) -> bool;
+
 private:
     glm::vec2 mouse_cursor_position_;
-    std::map<mouse_button, mouse_button_state> mouse_button_states_;
-    std::map<keyboard_key, keyboard_key_state> keystates_;
+    input_state<mouse_button, mouse_button_state, mouse_button_count> mouse_button_states_;
+    input_state<keyboard_key, keyboard_key_state, keyboard_key_count> keystates_;
 };
 
 } // namespace input

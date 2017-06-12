@@ -26,6 +26,7 @@
 #pragma once
 
 #include <cstdint>
+#include <cstddef>
 
 namespace aeon
 {
@@ -53,6 +54,8 @@ enum class mouse_button : std::uint32_t
     mouse_button_right = mouse_button_2,
     mouse_button_middle = mouse_button_3
 };
+
+static constexpr auto mouse_button_count = static_cast<std::size_t>(mouse_button::mouse_button_last) + 1;
 
 } // namespace input
 } // namespace aeon
