@@ -25,41 +25,50 @@
 
 #pragma once
 
-#include <aeon/codecs/basic_codec.h>
-#include <aeon/resources/material.h>
-#include <aeon/logger/logger.h>
+#include <aeon/codecs/png_structs.h>
 
 namespace aeon
 {
 namespace codecs
 {
 
-DEFINE_EXCEPTION_OBJECT(material_codec_decode_exception, codec_exception, "Error while decoding material resource.");
-
-class material_codec_amf : public basic_codec<resources::material>
+class png_write_structs : public png_structs
 {
 public:
-    material_codec_amf();
-    virtual ~material_codec_amf();
+    explicit png_write_structs(logger::logger &logger);
+    virtual ~png_write_structs();
 
-    auto decode(const std::unique_ptr<resources::resource_provider> &provider) const
-        -> std::unique_ptr<resources::material> override;
-    void encode(std::shared_ptr<resources::material> source,
-                const std::unique_ptr<resources::resource_provider> &destination) const override;
+    png_write_structs(png_write_structs &&o) noexcept = default;
+    auto operator=(png_write_structs &&other) noexcept -> png_write_structs & = default;
 
 private:
-    logger::logger logger_;
+    void create_write_struct();
 };
 
-class material_codec_factory : public codec_factory
+inline png_write_structs::png_write_structs(logger::logger &logger)
+    : png_structs(logger)
 {
-public:
-    material_codec_factory() = default;
-    virtual ~material_codec_factory() = default;
+    create_write_struct();
 
-    auto create() const -> std::unique_ptr<codec> override;
-    auto get_encoding() const -> resources::resource_encoding override;
-};
+    // Create png info struct
+    info_ptr_ = create_info_struct();
+}
+
+inline png_write_structs::~png_write_structs()
+{
+    png_destroy_write_struct(&png_ptr_, &info_ptr_);
+}
+
+inline void png_write_structs::create_write_struct()
+{
+    png_ptr_ = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
+
+    if (!png_ptr_)
+    {
+        AEON_LOG_ERROR(logger_) << "Could not encode PNG image. Could not create write struct." << std::endl;
+        throw codec_png_encode_exception();
+    }
+}
 
 } // namespace codecs
 } // namespace aeon

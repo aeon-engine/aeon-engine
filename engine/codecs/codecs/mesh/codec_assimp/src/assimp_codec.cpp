@@ -66,6 +66,13 @@ auto mesh_codec_assimp::decode(const std::unique_ptr<resources::resource_provide
     return mesh_data;
 }
 
+void mesh_codec_assimp::encode(std::shared_ptr<resources::mesh> /*source*/,
+                               const std::unique_ptr<resources::resource_provider> & /*destination*/) const
+{
+    AEON_LOG_ERROR(logger_) << "Encoding through AssImp is not implemented." << std::endl;
+    throw assimp_codec_encode_exception();
+}
+
 void mesh_codec_assimp::__decode_materials(const aiScene *scene, resources::mesh &mesh_ref) const
 {
     for (auto i = 0ul; i < scene->mNumMaterials; ++i)

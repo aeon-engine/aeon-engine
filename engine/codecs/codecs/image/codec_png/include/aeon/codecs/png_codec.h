@@ -34,7 +34,11 @@ namespace aeon
 namespace codecs
 {
 
-DEFINE_EXCEPTION_OBJECT(codec_png_decode_exception, codec_exception, "Error while decoding PNG image resource.");
+DEFINE_EXCEPTION_OBJECT(codec_png_codec_exception, codec_exception, "Generic PNG codec error.");
+DEFINE_EXCEPTION_OBJECT(codec_png_decode_exception, codec_png_codec_exception,
+                        "Error while decoding PNG image resource.");
+DEFINE_EXCEPTION_OBJECT(codec_png_encode_exception, codec_png_codec_exception,
+                        "Error while encoding PNG image resource.");
 
 class image_codec_png : public basic_codec<resources::image>
 {
@@ -44,9 +48,13 @@ public:
 
     auto decode(const std::unique_ptr<resources::resource_provider> &provider) const
         -> std::unique_ptr<resources::image> override;
+    void encode(std::shared_ptr<resources::image> source,
+                const std::unique_ptr<resources::resource_provider> &destination) const override;
 
 private:
     auto convert_color_type_to_pixel_format(const int color_type) const -> data::image::pixel_format;
+    auto convert_pixel_format_to_color_type(const data::image::pixel_format format) const -> int;
+    auto convert_pixel_format_to_bytes_per_pixel(const data::image::pixel_format format) const -> int;
 
     mutable logger::logger logger_;
 };

@@ -57,6 +57,8 @@ public:
     virtual auto get_info(const std::string &path) const -> resource_info = 0;
 
     virtual auto open(const std::string &path) const -> std::unique_ptr<resource_provider> = 0;
+
+    virtual auto create(const std::string &path) const -> std::unique_ptr<resource_provider> = 0;
 };
 
 } // namespace resources

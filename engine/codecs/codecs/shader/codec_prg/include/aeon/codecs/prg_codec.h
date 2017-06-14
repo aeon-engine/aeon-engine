@@ -35,6 +35,7 @@ namespace codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(shader_codec_decode_exception, codec_exception, "Error while decoding shader resource.");
+DEFINE_EXCEPTION_OBJECT(shader_codec_encode_exception, codec_exception, "Error while encoding shader resource.");
 
 class shader_codec_prg : public basic_codec<resources::shader>
 {
@@ -44,6 +45,8 @@ public:
 
     auto decode(const std::unique_ptr<resources::resource_provider> &provider) const
         -> std::unique_ptr<resources::shader> override;
+    void encode(std::shared_ptr<resources::shader> source,
+                const std::unique_ptr<resources::resource_provider> &destination) const override;
 
 private:
     enum class shader_decode_state

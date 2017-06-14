@@ -95,5 +95,12 @@ auto shader_codec_prg::decode(const std::unique_ptr<resources::resource_provider
     return std::make_unique<resources::shader>(std::move(shader_data));
 }
 
+void shader_codec_prg::encode(std::shared_ptr<resources::shader> /*source*/,
+                              const std::unique_ptr<resources::resource_provider> & /*destination*/) const
+{
+    AEON_LOG_ERROR(logger_) << "PRG shader encoding is not implemented." << std::endl;
+    throw shader_codec_encode_exception();
+}
+
 } // namespace codecs
 } // namespace aeon

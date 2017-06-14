@@ -27,6 +27,7 @@
 #include <aeon/serialization/serialization.h>
 #include <aeon/common/logger.h>
 #include <aeon/streams/stream_reader.h>
+#include <aeon/streams/stream_writer.h>
 #include <json11.hpp>
 #include <vector>
 #include <cstdint>
@@ -63,6 +64,13 @@ auto scene_codec_asc::decode(const std::unique_ptr<resources::resource_provider>
     serialization::scene scene_file_data(json);
 
     return std::make_unique<resources::scene>(std::move(scene_file_data));
+}
+
+void scene_codec_asc::encode(std::shared_ptr<resources::scene> source,
+                             const std::unique_ptr<resources::resource_provider> &destination) const
+{
+    streams::stream_writer writer(*destination);
+    writer << source->get_scene_data().to_json().dump();
 }
 
 } // namespace codecs

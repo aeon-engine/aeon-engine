@@ -24,6 +24,7 @@
  */
 
 #include <aeon/codecs/png_read_structs.h>
+#include <aeon/codecs/png_write_structs.h>
 #include <aeon/codecs/png_codec.h>
 #include <aeon/streams/memory_stream.h>
 #include <aeon/common/noncopyable.h>
@@ -60,6 +61,12 @@ static void __png_read_callback(png_structp png_ptr, png_bytep output_ptr, png_s
                                << std::endl;
         throw codec_png_decode_exception();
     }
+}
+
+static void __png_write_callback(png_structp png_ptr, png_bytep data, png_size_t length)
+{
+    auto stream = static_cast<streams::stream *>(png_get_io_ptr(png_ptr));
+    stream->write(data, length);
 }
 
 image_codec_png::image_codec_png()
@@ -148,6 +155,7 @@ auto image_codec_png::decode(const std::unique_ptr<resources::resource_provider>
 
     // Row_pointers is for pointing to image_data for reading the
     // png with libpng
+    // TODO: shouldn't this just be height? not times sizeof? Remaining of old code?
     auto rowpointer_buff_size = temp_height * sizeof(png_bytep);
     auto rowpointer_buffer = std::vector<std::uint8_t *>(rowpointer_buff_size);
 
@@ -170,6 +178,56 @@ auto image_codec_png::decode(const std::unique_ptr<resources::resource_provider>
     return std::make_unique<resources::image>(std::move(img));
 }
 
+void image_codec_png::encode(std::shared_ptr<resources::image> source,
+                             const std::unique_ptr<resources::resource_provider> &destination) const
+{
+    AEON_LOG_DEBUG(logger_) << "Encoding PNG image." << std::endl;
+
+    // Check our stream
+    if (!destination->good())
+    {
+        AEON_LOG_ERROR(logger_) << "Could not encode PNG image. Bad stream." << std::endl;
+        throw codec_png_encode_exception();
+    }
+
+    auto png_structs = png_write_structs(logger_);
+
+    // Bind errors from libpng
+    AEON_IGNORE_VS_WARNING_PUSH(4611)
+    if (setjmp(png_jmpbuf(png_structs.png_ptr())))
+    {
+        AEON_LOG_ERROR(logger_) << "Could not encode PNG image. Error reported by libpng while decoding." << std::endl;
+        throw codec_png_encode_exception();
+    }
+    AEON_IGNORE_VS_WARNING_POP()
+
+    const auto &image_data = source->get_data();
+    const auto color_type = convert_pixel_format_to_color_type(image_data.get_pixelformat());
+    const auto width = static_cast<png_uint_32>(image_data.get_width());
+    const auto height = static_cast<png_uint_32>(image_data.get_height());
+    const auto bytes_per_pixel = convert_pixel_format_to_bytes_per_pixel(image_data.get_pixelformat());
+    const auto &pixel_data = image_data.get_data();
+    const auto bit_depth = 8; // TODO: store bit depth in the image data.
+
+    png_set_IHDR(png_structs.png_ptr(), png_structs.info_ptr(), width, height, bit_depth, color_type,
+                 PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+
+    auto rowpointer_buffer = std::vector<const std::uint8_t *>(height);
+    auto rowpointer_buffer_ptr = rowpointer_buffer.data();
+    auto pixel_data_ptr = pixel_data.data();
+
+    for (auto y = 0u; y < height; ++y)
+        rowpointer_buffer_ptr[y] = pixel_data_ptr + y * width * bytes_per_pixel;
+
+    // TODO: Figure out an alternative for const cast here.
+    png_set_rows(png_structs.png_ptr(), png_structs.info_ptr(), const_cast<png_bytepp>(rowpointer_buffer_ptr));
+    png_set_write_fn(png_structs.png_ptr(), destination.get(), __png_write_callback, nullptr);
+    png_write_png(png_structs.png_ptr(), png_structs.info_ptr(), PNG_TRANSFORM_IDENTITY, nullptr);
+
+    // Flush the output after writing.
+    destination->flush();
+}
+
 auto image_codec_png::convert_color_type_to_pixel_format(const int color_type) const -> data::image::pixel_format
 {
     switch (color_type)
@@ -184,6 +242,40 @@ auto image_codec_png::convert_color_type_to_pixel_format(const int color_type) c
             AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Invalid or unsupported pixel format: " << color_type
                                     << std::endl;
             throw codec_png_decode_exception();
+    }
+}
+
+auto image_codec_png::convert_pixel_format_to_color_type(const data::image::pixel_format format) const -> int
+{
+    switch (format)
+    {
+        case data::image::pixel_format::rgb:
+            return PNG_COLOR_TYPE_RGB;
+        case data::image::pixel_format::rgba:
+            return PNG_COLOR_TYPE_RGB_ALPHA;
+        case data::image::pixel_format::dxt1:
+        case data::image::pixel_format::dxt3:
+        case data::image::pixel_format::dxt5:
+        default:
+            AEON_LOG_ERROR(logger_) << "Could not encode PNG image. Invalid or unsupported pixel format." << std::endl;
+            throw codec_png_encode_exception();
+    }
+}
+
+auto image_codec_png::convert_pixel_format_to_bytes_per_pixel(const data::image::pixel_format format) const -> int
+{
+    switch (format)
+    {
+        case data::image::pixel_format::rgb:
+            return 3;
+        case data::image::pixel_format::rgba:
+            return 4;
+        case data::image::pixel_format::dxt1:
+        case data::image::pixel_format::dxt3:
+        case data::image::pixel_format::dxt5:
+        default:
+            AEON_LOG_ERROR(logger_) << "Could not encode PNG image. Invalid or unsupported pixel format." << std::endl;
+            throw codec_png_encode_exception();
     }
 }
 

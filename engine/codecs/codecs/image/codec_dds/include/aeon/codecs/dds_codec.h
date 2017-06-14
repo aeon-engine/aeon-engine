@@ -35,6 +35,7 @@ namespace codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(codec_dds_decode_exception, codec_exception, "Error while decoding DDS image resource.");
+DEFINE_EXCEPTION_OBJECT(codec_dds_encode_exception, codec_exception, "Error while encoding DDS image resource.");
 
 class image_codec_dds : public basic_codec<resources::image>
 {
@@ -44,6 +45,8 @@ public:
 
     auto decode(const std::unique_ptr<resources::resource_provider> &provider) const
         -> std::unique_ptr<resources::image> override;
+    void encode(std::shared_ptr<resources::image> source,
+                const std::unique_ptr<resources::resource_provider> &destination) const override;
 
 private:
     auto convert_fourcc_to_fixel_format(const std::uint32_t fourcc) const -> data::image::pixel_format;

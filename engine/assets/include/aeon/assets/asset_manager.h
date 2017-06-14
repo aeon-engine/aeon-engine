@@ -127,6 +127,14 @@ public:
     auto create_atlas(const std::shared_ptr<gfx::material> &material, const glm::vec2 sprite_size) const
         -> std::shared_ptr<gfx::atlas>;
 
+    /*!
+     * Load an image from a given image file. Make sure the given file extension has a registed codec in the
+     * codec manager.
+     * \param path The path to the image file.
+     * \return A decoded image (raw pixel data)
+     */
+    auto load_image(const std::string &path) const -> std::shared_ptr<resources::image>;
+
 private:
     void __convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node);
     void __convert_scene_data_to_scene_node(serialization::scene_node &scene_data, scene::scene_node &scene_node);

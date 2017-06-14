@@ -37,6 +37,7 @@ namespace codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(atlas_codec_decode_exception, codec_exception, "Error while decoding atlas resource.");
+DEFINE_EXCEPTION_OBJECT(atlas_codec_encode_exception, codec_exception, "Error while encoding atlas resource.");
 
 class atlas_codec_ata : public basic_codec<resources::atlas>
 {
@@ -46,6 +47,8 @@ public:
 
     auto decode(const std::unique_ptr<resources::resource_provider> &provider) const
         -> std::unique_ptr<resources::atlas> override;
+    void encode(std::shared_ptr<resources::atlas> source,
+                const std::unique_ptr<resources::resource_provider> &destination) const override;
 
 private:
     auto __atlas_string_to_data(const std::string &str) const -> common::types::rectangle<float>;

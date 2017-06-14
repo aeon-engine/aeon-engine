@@ -46,7 +46,7 @@ public:
      */
     auto &get_scene_manager()
     {
-        return *scene_manager_.get();
+        return *scene_manager_;
     }
 
     /*!
@@ -55,7 +55,7 @@ public:
      */
     auto &get_resource_manager()
     {
-        return *resource_manager_.get();
+        return *resource_manager_;
     }
 
     /*!
@@ -64,7 +64,16 @@ public:
      */
     auto &get_asset_manager()
     {
-        return *asset_manager_.get();
+        return *asset_manager_;
+    }
+
+    /*!
+     * Get the codec manager. The codec manager can be used for
+     * reading and writing raw data like images.
+     */
+    auto &get_codec_manager()
+    {
+        return *codec_manager_;
     }
 
     /*!
@@ -74,7 +83,7 @@ public:
      */
     auto &get_io_interface()
     {
-        return *io_.get();
+        return *io_;
     }
 
     /*!
@@ -83,7 +92,7 @@ public:
      */
     auto &get_input_handler()
     {
-        return *input_handler_.get();
+        return *input_handler_;
     }
 
     /*!
@@ -99,7 +108,7 @@ public:
      */
     auto &get_logger_backend()
     {
-        return *logger_backend_.get();
+        return *logger_backend_;
     }
 
     /*!
@@ -108,7 +117,7 @@ public:
      */
     auto &get_gfx_device()
     {
-        return *device_.get();
+        return *device_;
     }
 
     /*!
@@ -116,7 +125,7 @@ public:
      */
     auto &get_platform()
     {
-        return *platform_.get();
+        return *platform_;
     }
 
 protected:

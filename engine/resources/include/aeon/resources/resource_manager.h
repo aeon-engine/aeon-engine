@@ -55,14 +55,30 @@ public:
     void mount(std::unique_ptr<resource_collection_provider> &&provider, const std::string &mountpoint = "/");
     void unmount(const std::string &mountpoint);
 
-    auto load(const std::string &path)
+    auto load(const std::string &path) const -> std::unique_ptr<resource_provider>
     {
         AEON_LOG_DEBUG(logger_) << "Loading resource '" << path << "'." << std::endl;
 
         auto real_path = std::string();
-        auto best_match_provider = __find_best_match_provider(path, real_path);
+        auto best_match_provider = __find_best_match_collection_provider(path, real_path);
 
-        return best_match_provider;
+        if (!best_match_provider)
+            return nullptr;
+
+        return best_match_provider->open(real_path);
+    }
+
+    auto create(const std::string &path) const -> std::unique_ptr<resource_provider>
+    {
+        AEON_LOG_DEBUG(logger_) << "Creating resource '" << path << "'." << std::endl;
+
+        auto real_path = std::string();
+        auto best_match_provider = __find_best_match_collection_provider(path, real_path);
+
+        if (!best_match_provider)
+            return nullptr;
+
+        return best_match_provider->create(real_path);
     }
 
     auto &get_io_interface()
@@ -71,8 +87,8 @@ public:
     }
 
 private:
-    auto __find_best_match_provider(const std::string &path, std::string &provider_path) const
-        -> std::unique_ptr<resource_provider>;
+    auto __find_best_match_collection_provider(const std::string &path, std::string &provider_path) const
+        -> resource_collection_provider *;
 
     logger::logger logger_;
     io::io_interface &io_;

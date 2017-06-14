@@ -76,6 +76,13 @@ auto atlas_codec_ata::decode(const std::unique_ptr<resources::resource_provider>
     return std::make_unique<resources::atlas>(material_path, atlas_data);
 }
 
+void atlas_codec_ata::encode(std::shared_ptr<resources::atlas> /*source*/,
+                             const std::unique_ptr<resources::resource_provider> & /*destination*/) const
+{
+    AEON_LOG_ERROR(logger_) << "Atlas encoding is not implemented." << std::endl;
+    throw atlas_codec_encode_exception();
+}
+
 auto atlas_codec_ata::__atlas_string_to_data(const std::string &str) const -> common::types::rectangle<float>
 {
     auto items = common::string::split(str, ',');

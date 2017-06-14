@@ -136,6 +136,13 @@ auto image_codec_dds::decode(const std::unique_ptr<resources::resource_provider>
     return std::make_unique<resources::image>(std::move(img));
 }
 
+void image_codec_dds::encode(std::shared_ptr<resources::image> /*source*/,
+                             const std::unique_ptr<resources::resource_provider> & /*destination*/) const
+{
+    AEON_LOG_ERROR(logger_) << "DDS image encoding is not implemented." << std::endl;
+    throw codec_dds_encode_exception();
+}
+
 auto image_codec_dds::convert_fourcc_to_fixel_format(const std::uint32_t fourcc) const -> data::image::pixel_format
 {
     switch (fourcc)

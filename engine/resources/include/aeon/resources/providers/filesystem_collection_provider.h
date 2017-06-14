@@ -48,6 +48,9 @@ DEFINE_EXCEPTION_OBJECT(
 DEFINE_EXCEPTION_OBJECT(
     filesystem_collection_provider_type_exception, filesystem_collection_provider_exception,
     "Filesystem Provider type exception. Can not figure out the type of the resource. File has no extension.");
+DEFINE_EXCEPTION_OBJECT(
+    filesystem_collection_provider_create_exception, filesystem_collection_provider_exception,
+    "Filesystem Provider create exception. Can not create file at given path. Path already exists or is not writable.");
 
 class filesystem_collection_provider : public resource_collection_provider
 {
@@ -60,6 +63,7 @@ private:
     auto list(const std::string &path) const -> std::vector<resource_info> override;
     auto get_info(const std::string &path) const -> resource_info override;
     auto open(const std::string &path) const -> std::unique_ptr<resource_provider> override;
+    auto create(const std::string &path) const -> std::unique_ptr<resource_provider> override;
 
     logger::logger logger_;
 

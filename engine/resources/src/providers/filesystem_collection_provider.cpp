@@ -103,5 +103,25 @@ auto filesystem_collection_provider::open(const std::string &path) const -> std:
     return std::make_unique<filesystem_provider>(resource_info, std::move(file));
 }
 
+auto filesystem_collection_provider::create(const std::string &path) const -> std::unique_ptr<resource_provider>
+{
+    AEON_LOG_TRACE(logger_) << "Created file at '" << path << "'." << std::endl;
+
+    auto real_path = __get_real_path(base_path_, path);
+
+    auto &filesystem_interface = io_interface_.get_filesystem_interface();
+
+    if (filesystem_interface.exists(real_path))
+    {
+        AEON_LOG_ERROR(logger_) << "Could not create file at '" << path << "'. File already exist." << std::endl;
+        throw filesystem_collection_provider_create_exception();
+    }
+
+    auto file = filesystem_interface.open_file(real_path, io::file_open_mode::write | io::file_open_mode::binary |
+                                                              io::file_open_mode::truncate);
+    auto resource_info = get_info(path);
+    return std::make_unique<filesystem_provider>(resource_info, std::move(file));
+}
+
 } // namespace resources
 } // namespace aeon

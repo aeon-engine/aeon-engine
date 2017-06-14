@@ -25,47 +25,28 @@
 
 #pragma once
 
-#include <aeon/codecs/png_codec.h>
-#include <aeon/common/noncopyable.h>
-#include <aeon/common/logger.h>
-#include <aeon/logger/logger.h>
-#include <png.h>
+#include <aeon/codecs/png_structs.h>
 
 namespace aeon
 {
 namespace codecs
 {
 
-// RAII wrapper for png_destroy_read_struct
-class png_read_structs : public common::noncopyable
+class png_read_structs : public png_structs
 {
 public:
     explicit png_read_structs(logger::logger &logger);
-
-    ~png_read_structs();
+    virtual ~png_read_structs();
 
     png_read_structs(png_read_structs &&o) noexcept = default;
-    png_read_structs &operator=(png_read_structs &&other) noexcept = default;
-
-    auto png_ptr() const;
-    auto info_ptr() const;
-    auto end_info() const;
+    auto operator=(png_read_structs &&other) noexcept -> png_read_structs & = default;
 
 private:
     void create_read_struct();
-    auto create_info_struct() const -> png_infop;
-
-    logger::logger &logger_;
-    png_structp png_ptr_;
-    png_infop info_ptr_;
-    png_infop end_info_;
 };
 
 inline png_read_structs::png_read_structs(logger::logger &logger)
-    : logger_(logger)
-    , png_ptr_(nullptr)
-    , info_ptr_(nullptr)
-    , end_info_(nullptr)
+    : png_structs(logger)
 {
     create_read_struct();
 
@@ -79,24 +60,6 @@ inline png_read_structs::png_read_structs(logger::logger &logger)
 inline png_read_structs::~png_read_structs()
 {
     png_destroy_read_struct(&png_ptr_, &info_ptr_, &end_info_);
-    png_ptr_ = nullptr;
-    info_ptr_ = nullptr;
-    end_info_ = nullptr;
-}
-
-inline auto png_read_structs::png_ptr() const
-{
-    return png_ptr_;
-}
-
-inline auto png_read_structs::info_ptr() const
-{
-    return info_ptr_;
-}
-
-inline auto png_read_structs::end_info() const
-{
-    return end_info_;
 }
 
 inline void png_read_structs::create_read_struct()
@@ -108,20 +71,6 @@ inline void png_read_structs::create_read_struct()
         AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Could not create read struct." << std::endl;
         throw codec_png_decode_exception();
     }
-}
-
-inline auto png_read_structs::create_info_struct() const -> png_infop
-{
-    // Create png info struct
-    auto info_ptr = png_create_info_struct(png_ptr_);
-
-    if (!info_ptr)
-    {
-        AEON_LOG_ERROR(logger_) << "Could not decode PNG image. Could not create info struct." << std::endl;
-        throw codec_png_decode_exception();
-    }
-
-    return info_ptr;
 }
 
 } // namespace codecs

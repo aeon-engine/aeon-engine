@@ -77,8 +77,8 @@ void resource_manager::unmount(const std::string &mountpoint)
     mount_points_.erase(result);
 }
 
-auto resource_manager::__find_best_match_provider(const std::string &path, std::string &provider_path) const
-    -> std::unique_ptr<resource_provider>
+auto resource_manager::__find_best_match_collection_provider(const std::string &path, std::string &provider_path) const
+    -> resource_collection_provider *
 {
     // TODO: This needs optimization. Too much looping and string manipulation going on.
 
@@ -128,7 +128,7 @@ auto resource_manager::__find_best_match_provider(const std::string &path, std::
 
     AEON_LOG_TRACE(logger_) << "Found best match mountpoint at '" << provider_path << "'." << std::endl;
 
-    return best_match_provider->open(provider_path);
+    return best_match_provider;
 }
 
 } // namespace resources

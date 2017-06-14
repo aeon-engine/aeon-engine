@@ -42,6 +42,7 @@ namespace codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(assimp_codec_decode_exception, codec_exception, "Error while decoding AssImp mesh resource.");
+DEFINE_EXCEPTION_OBJECT(assimp_codec_encode_exception, codec_exception, "Error while encoding AssImp mesh resource.");
 
 class mesh_codec_assimp : public basic_codec<resources::mesh>
 {
@@ -51,6 +52,8 @@ public:
 
     auto decode(const std::unique_ptr<resources::resource_provider> &provider) const
         -> std::unique_ptr<resources::mesh> override;
+    void encode(std::shared_ptr<resources::mesh> source,
+                const std::unique_ptr<resources::resource_provider> &destination) const override;
 
 private:
     void __decode_materials(const aiScene *scene, resources::mesh &mesh_ref) const;

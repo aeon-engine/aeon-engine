@@ -27,6 +27,7 @@
 
 #include <aeon/codecs/codec.h>
 #include <aeon/resources/providers/resource_provider.h>
+#include <memory>
 
 namespace aeon
 {
@@ -41,6 +42,8 @@ public:
     virtual ~basic_codec() = default;
 
     virtual auto decode(const std::unique_ptr<resources::resource_provider> &provider) const -> std::unique_ptr<T> = 0;
+    virtual void encode(std::shared_ptr<T> source,
+                        const std::unique_ptr<resources::resource_provider> &destination) const = 0;
 };
 
 template <typename T>

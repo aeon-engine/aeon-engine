@@ -44,6 +44,8 @@ public:
 
     auto decode(const std::unique_ptr<resources::resource_provider> &provider) const
         -> std::unique_ptr<resources::scene> override;
+    void encode(std::shared_ptr<resources::scene> source,
+                const std::unique_ptr<resources::resource_provider> &destination) const override;
 
 private:
     logger::logger logger_;

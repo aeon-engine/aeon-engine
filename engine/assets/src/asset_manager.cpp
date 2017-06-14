@@ -62,11 +62,7 @@ auto asset_manager::load_texture(const std::string &path) -> std::shared_ptr<gfx
     if (result)
         return result;
 
-    auto collection_provider = resource_manager_.load(path);
-    auto encoding = collection_provider->get_info().get_encoding();
-    auto codec = codec_manager_.create_basic<resources::image>(encoding);
-    auto resource = codec->decode(collection_provider);
-
+    auto resource = load_image(path);
     auto texture = device_.get_texture_manager().create(resource->get_data());
     texture_cache_.add_cached_object(path, texture);
     return texture;
@@ -188,6 +184,16 @@ auto asset_manager::create_atlas(const std::shared_ptr<gfx::material> &material,
     -> std::shared_ptr<gfx::atlas>
 {
     return std::make_shared<gfx::atlas>(material, sprite_size);
+}
+
+auto asset_manager::load_image(const std::string &path) const -> std::shared_ptr<resources::image>
+{
+    AEON_LOG_DEBUG(logger_) << "Loading image '" << path << "'." << std::endl;
+
+    auto collection_provider = resource_manager_.load(path);
+    auto encoding = collection_provider->get_info().get_encoding();
+    auto codec = codec_manager_.create_basic<resources::image>(encoding);
+    return codec->decode(collection_provider);
 }
 
 void asset_manager::__convert_mesh_node_to_scene_node(resources::mesh_node &mesh_node, scene::scene_node &scene_node)

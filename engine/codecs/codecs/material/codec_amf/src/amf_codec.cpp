@@ -27,6 +27,7 @@
 #include <aeon/serialization/serialization.h>
 #include <aeon/common/logger.h>
 #include <aeon/streams/stream_reader.h>
+#include <aeon/streams/stream_writer.h>
 #include <json11.hpp>
 
 namespace aeon
@@ -60,6 +61,13 @@ auto material_codec_amf::decode(const std::unique_ptr<resources::resource_provid
 
     serialization::material material_file_data(json);
     return std::make_unique<resources::material>(std::move(material_file_data));
+}
+
+void material_codec_amf::encode(std::shared_ptr<resources::material> source,
+                                const std::unique_ptr<resources::resource_provider> &destination) const
+{
+    streams::stream_writer writer(*destination);
+    writer << source->get_material_data().to_json().dump();
 }
 
 } // namespace codecs
