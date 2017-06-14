@@ -77,6 +77,13 @@ public:
     auto load_texture(const std::string &path) -> std::shared_ptr<gfx::texture>;
 
     /*!
+     * Load a texture from given image data.
+     * \param image The image data
+     * \return A gfx texture
+     */
+    auto load_texture(std::shared_ptr<resources::image> image) const -> std::shared_ptr<gfx::texture>;
+
+    /*!
      * Load a shader from a given shader file. Make sure the given file extension has a registed codec in the
      * codec manager.
      * \param path The path to the shader file.

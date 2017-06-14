@@ -62,9 +62,15 @@ auto asset_manager::load_texture(const std::string &path) -> std::shared_ptr<gfx
     if (result)
         return result;
 
-    auto resource = load_image(path);
-    auto texture = device_.get_texture_manager().create(resource->get_data());
+    auto texture = load_texture(load_image(path));
     texture_cache_.add_cached_object(path, texture);
+    return texture;
+}
+
+auto asset_manager::load_texture(std::shared_ptr<resources::image> image) const -> std::shared_ptr<gfx::texture>
+{
+    AEON_LOG_DEBUG(logger_) << "Creating texture from image data." << std::endl;
+    auto texture = device_.get_texture_manager().create(image->get_data());
     return texture;
 }
 
