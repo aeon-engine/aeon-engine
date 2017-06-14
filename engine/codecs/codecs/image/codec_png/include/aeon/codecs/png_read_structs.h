@@ -38,8 +38,8 @@ public:
     explicit png_read_structs(logger::logger &logger);
     virtual ~png_read_structs();
 
-    png_read_structs(png_read_structs &&o) noexcept = default;
-    auto operator=(png_read_structs &&other) noexcept -> png_read_structs & = default;
+    png_read_structs(png_read_structs &&o) = default;
+    auto operator=(png_read_structs &&other) -> png_read_structs & = default;
 
 private:
     void create_read_struct();

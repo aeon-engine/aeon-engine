@@ -38,8 +38,8 @@ public:
     explicit png_write_structs(logger::logger &logger);
     virtual ~png_write_structs();
 
-    png_write_structs(png_write_structs &&o) noexcept = default;
-    auto operator=(png_write_structs &&other) noexcept -> png_write_structs & = default;
+    png_write_structs(png_write_structs &&o) = default;
+    auto operator=(png_write_structs &&other) -> png_write_structs & = default;
 
 private:
     void create_write_struct();

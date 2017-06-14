@@ -42,8 +42,8 @@ public:
     explicit png_structs(logger::logger &logger);
     virtual ~png_structs();
 
-    png_structs(png_structs &&o) noexcept = default;
-    auto operator=(png_structs &&other) noexcept -> png_structs & = default;
+    png_structs(png_structs &&o) = default;
+    auto operator=(png_structs &&other) -> png_structs & = default;
 
     auto png_ptr() const;
     auto info_ptr() const;
