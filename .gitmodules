@@ -1,44 +1,44 @@
 [submodule "dep/libaeon"]
 	path = dep/libaeon
-	url = ../libaeon.git
+	url = ../../aeon-engine/libaeon.git
     branch = master
 [submodule "dep/cmake"]
 	path = dep/cmake
-	url = ../libaeon-cmake.git
+	url = ../../aeon-engine/libaeon-cmake.git
     branch = master
 [submodule "dep/glfw"]
 	path = dep/glfw
-	url = ../glfw.git
+	url = ../../aeon-external-dependencies/glfw.git
 	branch = submodule
 [submodule "dep/glew"]
 	path = dep/glew
-	url = ../glew.git
+	url = ../../aeon-external-dependencies/glew.git
 	branch = submodule
 [submodule "dep/glm"]
 	path = dep/glm
-	url = ../glm.git
+	url = ../../aeon-external-dependencies/glm.git
 	branch = submodule
 [submodule "dep/zlib"]
 	path = dep/zlib
-	url = ../zlib.git
+	url = ../../aeon-external-dependencies/zlib.git
 	branch = submodule
 [submodule "dep/png"]
 	path = dep/png
-	url = ../libpng.git
+	url = ../../aeon-external-dependencies/libpng.git
 	branch = submodule
 [submodule "dep/googletest"]
 	path = dep/googletest
-	url = ../googletest.git
+	url = ../../aeon-external-dependencies/googletest.git
 	branch = submodule
 [submodule "dep/assimp"]
 	path = dep/assimp
-	url = ../assimp.git
+	url = ../../aeon-external-dependencies/assimp.git
 	branch = submodule
 [submodule "dep/json11"]
 	path = dep/json11
-	url = ../json11.git
+	url = ../../aeon-external-dependencies/json11.git
 	branch = submodule
 [submodule "dep/sdl"]
 	path = dep/sdl
-	url = ../sdl.git
+	url = ../../aeon-external-dependencies/sdl.git
 	branch = submodule
