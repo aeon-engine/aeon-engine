@@ -26,6 +26,7 @@
 #pragma once
 
 #include <mono/metadata/object.h>
+#include <string>
 
 namespace aeon
 {
@@ -40,7 +41,7 @@ public:
     static void register_internal_calls();
 
 private:
-    static void ctor(MonoObject *this_ptr, MonoString *basePath);
+    static void ctor(MonoObject *this_ptr, std::string base_path);
 };
 
 } // namespace managed_interface

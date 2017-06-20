@@ -80,6 +80,7 @@ source_group(mono\\managed_interface\\core FILES ${AEON_ENGINE_MONO_MANAGED_INTE
 set (AEON_ENGINE_MONO_MANAGED_INTERFACE_ASSETS_SOURCES
     src/managed_interface/assets/atlas.cpp
     src/managed_interface/assets/atlas.h
+    src/managed_interface/assets/atlas_region_wrapper.h
     src/managed_interface/assets/material.cpp
     src/managed_interface/assets/material.h
     src/managed_interface/assets/shader.cpp
@@ -104,7 +105,6 @@ source_group(mono\\managed_interface\\resources FILES ${AEON_ENGINE_MONO_MANAGED
 ###############################################################################
 
 set (AEON_ENGINE_MONO_MANAGED_INTERFACE_SCENE_SOURCES
-    src/managed_interface/scene/camera.cpp
     src/managed_interface/scene/camera.h
     src/managed_interface/scene/component.cpp
     src/managed_interface/scene/component.h

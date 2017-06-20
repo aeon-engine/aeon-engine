@@ -25,14 +25,19 @@
 
 #pragma once
 
+#include <aeon/mono/mono_type_conversion.h>
 #include <mono/metadata/object.h>
 #include <aeon/gfx/gfx_texture.h>
+#include <managed_interface/mono_object_wrapper.h>
 #include <memory>
 
 namespace aeon
 {
 namespace mono
 {
+
+register_basic_mono_converter_for_wrapper(std::shared_ptr<gfx::texture>);
+
 namespace managed_interface
 {
 
@@ -41,10 +46,8 @@ class texture
 public:
     static void register_internal_calls();
 
-    static auto get_texture_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::texture>;
-
 private:
-    static void ctor(MonoObject *this_ptr, MonoString *path);
+    static void ctor(MonoObject *this_ptr, std::string path);
 };
 
 } // namespace managed_interface

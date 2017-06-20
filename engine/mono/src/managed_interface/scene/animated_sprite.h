@@ -26,12 +26,18 @@
 #pragma once
 
 #include <managed_interface/core/object.h>
+#include <managed_interface/core/types.h>
+#include <managed_interface/assets/atlas.h>
+#include <managed_interface/scene/animated_sprite_settings.h>
 #include <aeon/scene/components/animated_sprite.h>
 
 namespace aeon
 {
 namespace mono
 {
+
+register_basic_mono_converter_for_wrapper(std::shared_ptr<scene::animated_sprite>);
+
 namespace managed_interface
 {
 
@@ -40,13 +46,12 @@ class animated_sprite
 public:
     static void register_internal_calls();
 
-    static auto get_animated_sprite_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::animated_sprite>;
-
 private:
-    static void ctor(MonoObject *this_ptr, MonoObject *atlas, int z_order, MonoObject *settings, MonoString *name);
-    static void run(MonoObject *this_ptr);
-    static void stop(MonoObject *this_ptr);
-    static void set_animation_sequence(MonoObject *this_ptr, int index);
+    static void ctor(MonoObject *this_ptr, std::shared_ptr<gfx::atlas> atlas, int z_order,
+                     std::shared_ptr<scene::sprite_animation_settings> settings, std::string name);
+    static void run(std::shared_ptr<scene::animated_sprite> this_ptr);
+    static void stop(std::shared_ptr<scene::animated_sprite> this_ptr);
+    static void set_animation_sequence(std::shared_ptr<scene::animated_sprite> this_ptr, int index);
 };
 
 } // namespace managed_interface

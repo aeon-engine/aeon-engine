@@ -42,66 +42,57 @@ namespace managed_interface
 void viewport::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Gfx.Viewport::CreateInternal(AeonEngineMono.Scene.Camera,string,int)",
-                                &viewport::create_internal);
+                                aeon_mono_auto_wrap(viewport::create_internal));
     mono_jit::add_internal_call(
         "AeonEngineMono.Gfx.Viewport::CreateInternal(AeonEngineMono.Scene.Camera,AeonEngineMono.Types.Rect,string,int)",
-        &viewport::create_internal2);
+        aeon_mono_auto_wrap(viewport::create_internal2));
 
-    mono_jit::add_internal_call("AeonEngineMono.Gfx.Viewport::set_ZOrder(int)", &viewport::set_zorder);
-    mono_jit::add_internal_call("AeonEngineMono.Gfx.Viewport::get_ZOrder", &viewport::get_zorder);
+    mono_jit::add_internal_call("AeonEngineMono.Gfx.Viewport::set_ZOrder(int)",
+                                aeon_mono_auto_wrap(viewport::set_zorder));
+    mono_jit::add_internal_call("AeonEngineMono.Gfx.Viewport::get_ZOrder", aeon_mono_auto_wrap(viewport::get_zorder));
     mono_jit::add_internal_call("AeonEngineMono.Gfx.Viewport::SetCameraInternal(AeonEngineMono.Scene.Camera)",
-                                &viewport::set_camera_internal);
+                                aeon_mono_auto_wrap(viewport::set_camera_internal));
     mono_jit::add_internal_call("AeonEngineMono.Gfx.Viewport::SetRectangleInternal(AeonEngineMono.Types.Rect)",
-                                &viewport::set_rectangle_internal);
+                                aeon_mono_auto_wrap(viewport::set_rectangle_internal));
 }
 
-auto viewport::get_viewport_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::viewport>
+void viewport::create_internal(MonoObject *this_ptr, std::shared_ptr<scene::camera> camera, std::string name,
+                               int zOrder)
 {
-    return mono_object_wrapper<std::shared_ptr<gfx::viewport>>::get_native_object(object);
-}
-
-void viewport::create_internal(MonoObject *this_ptr, MonoObject *camera, MonoString *name, int zOrder)
-{
-    auto camera_ptr = camera::get_camera_from_mono_object(camera);
     auto &main_window = mono_jit_manager::get_application().get_main_window();
 
-    auto viewport = main_window.create_viewport(camera_ptr, mono_string(name).str(), zOrder);
+    auto viewport = main_window.create_viewport(camera, name, zOrder);
     mono_object_wrapper<std::shared_ptr<gfx::viewport>>::create(this_ptr, viewport);
 }
 
-void viewport::create_internal2(MonoObject *this_ptr, MonoObject *camera, rect rectangle, MonoString *name, int zOrder)
+void viewport::create_internal2(MonoObject *this_ptr, std::shared_ptr<scene::camera> camera,
+                                common::types::rectangle<float> rectangle, std::string name, int zOrder)
 {
-    auto camera_ptr = camera::get_camera_from_mono_object(camera);
     auto &main_window = mono_jit_manager::get_application().get_main_window();
 
-    auto viewport =
-        main_window.create_viewport(camera_ptr, converter::convert(rectangle), mono_string(name).str(), zOrder);
+    auto viewport = main_window.create_viewport(camera, rectangle, name, zOrder);
     mono_object_wrapper<std::shared_ptr<gfx::viewport>>::create(this_ptr, viewport);
 }
 
-void viewport::set_zorder(MonoObject *this_ptr, int value)
+void viewport::set_zorder(std::shared_ptr<gfx::viewport> this_ptr, int value)
 {
-    auto viewport = get_viewport_from_mono_object(this_ptr);
-    viewport->set_zorder(value);
+    this_ptr->set_zorder(value);
 }
 
-int viewport::get_zorder(MonoObject *this_ptr)
+int viewport::get_zorder(std::shared_ptr<gfx::viewport> this_ptr)
 {
-    auto viewport = get_viewport_from_mono_object(this_ptr);
-    return viewport->get_zorder();
+    return this_ptr->get_zorder();
 }
 
-void viewport::set_camera_internal(MonoObject *this_ptr, MonoObject *camera)
+void viewport::set_camera_internal(std::shared_ptr<gfx::viewport> this_ptr, std::shared_ptr<scene::camera> camera)
 {
-    auto camera_ptr = camera::get_camera_from_mono_object(camera);
-    auto viewport = get_viewport_from_mono_object(this_ptr);
-    viewport->set_camera(camera_ptr);
+    this_ptr->set_camera(camera);
 }
 
-void viewport::set_rectangle_internal(MonoObject *this_ptr, rect rectangle)
+void viewport::set_rectangle_internal(std::shared_ptr<gfx::viewport> this_ptr,
+                                      common::types::rectangle<float> rectangle)
 {
-    auto viewport = get_viewport_from_mono_object(this_ptr);
-    viewport->set_rectangle(converter::convert(rectangle));
+    this_ptr->set_rectangle(rectangle);
 }
 
 } // namespace managed_interface

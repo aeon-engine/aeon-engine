@@ -41,15 +41,13 @@ namespace managed_interface
 void filesystem_collection_provider::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Resources.FilesystemCollectionProvider::.ctor(string)",
-                                &filesystem_collection_provider::ctor);
+                                aeon_mono_auto_wrap(filesystem_collection_provider::ctor));
 }
 
-void filesystem_collection_provider::ctor(MonoObject *this_ptr, MonoString *basePath)
+void filesystem_collection_provider::ctor(MonoObject *this_ptr, std::string base_path)
 {
-    auto basePathString = mono_string(basePath).str();
-
     auto provider = std::make_unique<resources::filesystem_collection_provider>(
-        mono_jit_manager::get_application().get_io_interface(), basePathString);
+        mono_jit_manager::get_application().get_io_interface(), base_path);
     mono_object_wrapper<std::unique_ptr<resources::resource_collection_provider>>::create(this_ptr,
                                                                                           std::move(provider));
 }

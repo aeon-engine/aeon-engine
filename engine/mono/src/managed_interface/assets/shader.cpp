@@ -39,7 +39,7 @@ namespace managed_interface
 
 void shader::register_internal_calls()
 {
-    mono_jit::add_internal_call("AeonEngineMono.Assets.Shader::.ctor(string)", &shader::ctor);
+    mono_jit::add_internal_call("AeonEngineMono.Assets.Shader::.ctor(string)", aeon_mono_auto_wrap(shader::ctor));
 }
 
 auto shader::get_shader_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::shader>
@@ -47,10 +47,10 @@ auto shader::get_shader_from_mono_object(MonoObject *object) -> std::shared_ptr<
     return mono_object_wrapper<std::shared_ptr<gfx::shader>>::get_native_object(object);
 }
 
-void shader::ctor(MonoObject *this_ptr, MonoString *path)
+void shader::ctor(MonoObject *this_ptr, std::string path)
 {
     auto &asset_manager = mono_jit_manager::get_application().get_asset_manager();
-    auto loaded_shader = asset_manager.load_shader(mono_string(path).str());
+    auto loaded_shader = asset_manager.load_shader(path);
 
     mono_object_wrapper<std::shared_ptr<gfx::shader>>::create(this_ptr, loaded_shader);
 }

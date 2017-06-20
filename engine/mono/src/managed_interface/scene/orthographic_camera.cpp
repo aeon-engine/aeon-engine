@@ -41,47 +41,45 @@ namespace managed_interface
 void orthographic_camera::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Scene.OrthographicCamera::.ctor(single,single,single,single,string)",
-                                &orthographic_camera::ctor);
+                                aeon_mono_auto_wrap(orthographic_camera::ctor));
     mono_jit::add_internal_call(
         "AeonEngineMono.Scene.OrthographicCamera::.ctor(single,single,single,single,single,single,string)",
-        &orthographic_camera::ctor2);
+        aeon_mono_auto_wrap(orthographic_camera::ctor2));
     mono_jit::add_internal_call("AeonEngineMono.Scene.OrthographicCamera::.ctor(int,int,int,int,string)",
-                                &orthographic_camera::ctor3);
+                                aeon_mono_auto_wrap(orthographic_camera::ctor3));
     mono_jit::add_internal_call("AeonEngineMono.Scene.OrthographicCamera::.ctor(int,int,int,int,float,float,string)",
-                                &orthographic_camera::ctor4);
+                                aeon_mono_auto_wrap(orthographic_camera::ctor4));
 }
 
-void orthographic_camera::ctor(MonoObject *this_ptr, float left, float right, float bottom, float top, MonoString *name)
+void orthographic_camera::ctor(MonoObject *this_ptr, float left, float right, float bottom, float top, std::string name)
 {
     auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto camera =
-        std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, mono_string(name).str());
+    auto camera = std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, name);
     mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
 }
 
 void orthographic_camera::ctor2(MonoObject *this_ptr, float left, float right, float bottom, float top, float near,
-                                float far, MonoString *name)
-{
-    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto camera = std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, near, far,
-                                                               mono_string(name).str());
-    mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
-}
-
-void orthographic_camera::ctor3(MonoObject *this_ptr, int left, int right, int bottom, int top, MonoString *name)
+                                float far, std::string name)
 {
     auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
     auto camera =
-        std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, mono_string(name).str());
+        std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, near, far, name);
+    mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
+}
+
+void orthographic_camera::ctor3(MonoObject *this_ptr, int left, int right, int bottom, int top, std::string name)
+{
+    auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
+    auto camera = std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, name);
     mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
 }
 
 void orthographic_camera::ctor4(MonoObject *this_ptr, int left, int right, int bottom, int top, float near, float far,
-                                MonoString *name)
+                                std::string name)
 {
     auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto camera = std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, near, far,
-                                                               mono_string(name).str());
+    auto camera =
+        std::make_shared<scene::orthographic_camera>(scene_manager, left, right, bottom, top, near, far, name);
     mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
 }
 

@@ -25,6 +25,8 @@
 
 #pragma once
 
+#include <aeon/mono/mono_type_conversion.h>
+#include <managed_interface/mono_object_wrapper.h>
 #include <mono/metadata/object.h>
 #include <aeon/scene/camera.h>
 #include <memory>
@@ -33,15 +35,8 @@ namespace aeon
 {
 namespace mono
 {
-namespace managed_interface
-{
 
-class camera
-{
-public:
-    static auto get_camera_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::camera>;
-};
+register_basic_mono_converter_for_wrapper(std::shared_ptr<scene::camera>);
 
-} // namespace managed_interface
 } // namespace mono
 } // namespace aeon

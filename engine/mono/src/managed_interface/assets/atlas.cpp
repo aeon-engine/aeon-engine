@@ -41,56 +41,44 @@ namespace managed_interface
 
 void atlas::register_internal_calls()
 {
-    mono_jit::add_internal_call("AeonEngineMono.Assets.Atlas::.ctor(string)", &atlas::ctor);
+    mono_jit::add_internal_call("AeonEngineMono.Assets.Atlas::.ctor(string)", aeon_mono_auto_wrap(atlas::ctor));
     mono_jit::add_internal_call(
         "AeonEngineMono.Assets.Atlas::.ctor(AeonEngineMono.Assets.Material,AeonEngineMono.Types.Vector2f)",
-        &atlas::ctor2);
-    mono_jit::add_internal_call("AeonEngineMono.Assets.Atlas::GetRegionByIndex(int)", &atlas::get_region_by_index);
-    mono_jit::add_internal_call("AeonEngineMono.Assets.Atlas::GetRegionByName(string)", &atlas::get_region_by_name);
+        aeon_mono_auto_wrap(atlas::ctor2));
+    mono_jit::add_internal_call("AeonEngineMono.Assets.Atlas::GetRegionByIndex(int)",
+                                aeon_mono_auto_wrap(atlas::get_region_by_index));
+    mono_jit::add_internal_call("AeonEngineMono.Assets.Atlas::GetRegionByName(string)",
+                                aeon_mono_auto_wrap(atlas::get_region_by_name));
 }
 
-auto atlas::get_atlas_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::atlas>
-{
-    return mono_object_wrapper<std::shared_ptr<gfx::atlas>>::get_native_object(object);
-}
-
-auto atlas::get_region_wrapper_from_mono_object(MonoObject *object) -> std::shared_ptr<atlas_region_wrapper>
-{
-    return mono_object_wrapper<std::shared_ptr<atlas_region_wrapper>>::get_native_object(object);
-}
-
-void atlas::ctor(MonoObject *this_ptr, MonoString *path)
+void atlas::ctor(MonoObject *this_ptr, std::string path)
 {
     auto &asset_manager = mono_jit_manager::get_application().get_asset_manager();
-    auto loaded_atlas = asset_manager.load_atlas(mono_string(path).str());
+    auto loaded_atlas = asset_manager.load_atlas(path);
 
     mono_object_wrapper<std::shared_ptr<gfx::atlas>>::create(this_ptr, loaded_atlas);
 }
 
-void atlas::ctor2(MonoObject *this_ptr, MonoObject *material_ptr, vector2f size)
+void atlas::ctor2(MonoObject *this_ptr, std::shared_ptr<gfx::material> material, glm::vec2 size)
 {
-    auto material = material::get_material_from_mono_object(material_ptr);
-
     auto &asset_manager = mono_jit_manager::get_application().get_asset_manager();
-    auto created_atlas = asset_manager.create_atlas(material, converter::convert(size));
+    auto created_atlas = asset_manager.create_atlas(material, size);
 
     mono_object_wrapper<std::shared_ptr<gfx::atlas>>::create(this_ptr, created_atlas);
 }
 
-auto atlas::get_region_by_index(MonoObject *this_ptr, int index) -> MonoObject *
+auto atlas::get_region_by_index(std::shared_ptr<gfx::atlas> this_ptr, int index)
+    -> std::shared_ptr<managed_interface::atlas_region_wrapper>
 {
-    auto atlas_ptr = get_atlas_from_mono_object(this_ptr);
-    auto region = atlas_ptr->get_region_by_index(index);
-    auto wrapper = std::make_shared<atlas_region_wrapper>(region, atlas_ptr);
-    return mono_object_wrapper<std::shared_ptr<atlas_region_wrapper>>::create(wrapper);
+    auto region = this_ptr->get_region_by_index(index);
+    return std::make_shared<atlas_region_wrapper>(region, this_ptr);
 }
 
-auto atlas::get_region_by_name(MonoObject *this_ptr, MonoString *name) -> MonoObject *
+auto atlas::get_region_by_name(std::shared_ptr<gfx::atlas> this_ptr, std::string name)
+    -> std::shared_ptr<managed_interface::atlas_region_wrapper>
 {
-    auto atlas_ptr = get_atlas_from_mono_object(this_ptr);
-    auto region = atlas_ptr->get_region_by_name(mono_string(name).str());
-    auto wrapper = std::make_shared<atlas_region_wrapper>(region, atlas_ptr);
-    return mono_object_wrapper<std::shared_ptr<atlas_region_wrapper>>::create(wrapper);
+    auto region = this_ptr->get_region_by_name(name);
+    return std::make_shared<atlas_region_wrapper>(region, this_ptr);
 }
 
 } // namespace managed_interface

@@ -42,47 +42,36 @@ void animated_sprite::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Scene.AnimatedSprite::.ctor(AeonEngineMono.Assets.Atlas,int,"
                                 "AeonEngineMono.Scene.SpriteAnimationSettings,string)",
-                                &animated_sprite::ctor);
-    mono_jit::add_internal_call("AeonEngineMono.Scene.AnimatedSprite::Run", &animated_sprite::run);
-    mono_jit::add_internal_call("AeonEngineMono.Scene.AnimatedSprite::Stop", &animated_sprite::stop);
+                                aeon_mono_auto_wrap(animated_sprite::ctor));
+    mono_jit::add_internal_call("AeonEngineMono.Scene.AnimatedSprite::Run", aeon_mono_auto_wrap(animated_sprite::run));
+    mono_jit::add_internal_call("AeonEngineMono.Scene.AnimatedSprite::Stop",
+                                aeon_mono_auto_wrap(animated_sprite::stop));
     mono_jit::add_internal_call("AeonEngineMono.Scene.AnimatedSprite::set_AnimationSequence(int)",
-                                &animated_sprite::set_animation_sequence);
+                                aeon_mono_auto_wrap(animated_sprite::set_animation_sequence));
 }
 
-auto animated_sprite::get_animated_sprite_from_mono_object(MonoObject *object)
-    -> std::shared_ptr<scene::animated_sprite>
-{
-    auto component = mono_object_wrapper<std::shared_ptr<scene::component>>::get_native_object(object);
-    return std::dynamic_pointer_cast<scene::animated_sprite>(component);
-}
-
-void animated_sprite::ctor(MonoObject *this_ptr, MonoObject *atlas, int z_order, MonoObject *settings, MonoString *name)
+void animated_sprite::ctor(MonoObject *this_ptr, std::shared_ptr<gfx::atlas> atlas, int z_order,
+                           std::shared_ptr<scene::sprite_animation_settings> settings, std::string name)
 {
     auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto atlas_obj = atlas::get_atlas_from_mono_object(atlas);
-    auto &settings_obj = animated_sprite_settings::get_animated_sprite_settings_from_mono_object(settings);
-    auto sprite = scene_manager.create_component<scene::animated_sprite>(atlas_obj, z_order, settings_obj,
-                                                                         mono_string(name).str());
+    auto sprite = scene_manager.create_component<scene::animated_sprite>(atlas, z_order, *settings, name);
 
     mono_object_wrapper<std::shared_ptr<scene::component>>::create(this_ptr, sprite);
 }
 
-void animated_sprite::run(MonoObject *this_ptr)
+void animated_sprite::run(std::shared_ptr<scene::animated_sprite> this_ptr)
 {
-    auto sprite = get_animated_sprite_from_mono_object(this_ptr);
-    sprite->run();
+    this_ptr->run();
 }
 
-void animated_sprite::stop(MonoObject *this_ptr)
+void animated_sprite::stop(std::shared_ptr<scene::animated_sprite> this_ptr)
 {
-    auto sprite = get_animated_sprite_from_mono_object(this_ptr);
-    sprite->stop();
+    this_ptr->stop();
 }
 
-void animated_sprite::set_animation_sequence(MonoObject *this_ptr, int index)
+void animated_sprite::set_animation_sequence(std::shared_ptr<scene::animated_sprite> this_ptr, int index)
 {
-    auto sprite = get_animated_sprite_from_mono_object(this_ptr);
-    sprite->set_animation_sequence(index);
+    this_ptr->set_animation_sequence(index);
 }
 
 } // namespace managed_interface

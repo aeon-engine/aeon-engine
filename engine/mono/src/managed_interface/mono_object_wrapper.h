@@ -36,6 +36,23 @@ namespace mono
 namespace managed_interface
 {
 
+#define register_basic_mono_converter_for_wrapper(type)                                                                \
+    template <>                                                                                                        \
+    struct convert_mono_type<type>                                                                                     \
+    {                                                                                                                  \
+        using mono_type_name = MonoObject *;                                                                           \
+                                                                                                                       \
+        static auto to_mono(mono_assembly &assembly, type wrapper) -> MonoObject *                                     \
+        {                                                                                                              \
+            return managed_interface::mono_object_wrapper<type>::create(wrapper);                                      \
+        }                                                                                                              \
+                                                                                                                       \
+        static auto from_mono(MonoObject *object) -> type                                                              \
+        {                                                                                                              \
+            return managed_interface::mono_object_wrapper<type>::get_native_object(object);                            \
+        }                                                                                                              \
+    }
+
 template <typename T>
 class mono_object_wrapper : public object
 {

@@ -39,63 +39,55 @@ namespace managed_interface
 void animated_sprite_settings::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Scene.SpriteAnimationSettings::.ctor(AeonEngineMono.Types.Vector2f)",
-                                &animated_sprite_settings::ctor);
+                                aeon_mono_auto_wrap(animated_sprite_settings::ctor));
     mono_jit::add_internal_call("AeonEngineMono.Scene.SpriteAnimationSettings::GenerateSequence(int,int,int,"
                                 "AeonEngineMono.Scene.AnimationSequenceType)",
-                                &animated_sprite_settings::generate_sequence);
+                                aeon_mono_auto_wrap(animated_sprite_settings::generate_sequence));
     mono_jit::add_internal_call("AeonEngineMono.Scene.SpriteAnimationSettings::set_DefaultSequence(int)",
-                                &animated_sprite_settings::set_default_sequence);
+                                aeon_mono_auto_wrap(animated_sprite_settings::set_default_sequence));
     mono_jit::add_internal_call("AeonEngineMono.Scene.SpriteAnimationSettings::set_StartCondition(AeonEngineMono.Scene."
                                 "AnimationStartCondition)",
-                                &animated_sprite_settings::set_start_condition);
+                                aeon_mono_auto_wrap(animated_sprite_settings::set_start_condition));
     mono_jit::add_internal_call(
         "AeonEngineMono.Scene.SpriteAnimationSettings::set_Repeat(AeonEngineMono.Scene.AnimationRepeat)",
-        &animated_sprite_settings::set_repeat);
+        aeon_mono_auto_wrap(animated_sprite_settings::set_repeat));
     mono_jit::add_internal_call("AeonEngineMono.Scene.SpriteAnimationSettings::set_Speed(single)",
-                                &animated_sprite_settings::set_speed);
+                                aeon_mono_auto_wrap(animated_sprite_settings::set_speed));
 }
 
-auto animated_sprite_settings::get_animated_sprite_settings_from_mono_object(MonoObject *object)
-    -> scene::sprite_animation_settings &
+void animated_sprite_settings::ctor(MonoObject *this_ptr, glm::vec2 frame_size)
 {
-    return mono_object_wrapper<scene::sprite_animation_settings>::get_native_object(object);
+    mono_object_wrapper<std::shared_ptr<scene::sprite_animation_settings>>::create(
+        this_ptr, std::make_shared<scene::sprite_animation_settings>(frame_size));
 }
 
-void animated_sprite_settings::ctor(MonoObject *this_ptr, vector2f frame_size)
+void animated_sprite_settings::generate_sequence(std::shared_ptr<scene::sprite_animation_settings> this_ptr, int index,
+                                                 int frame_offset, int frame_count, scene::animation_sequence_type type)
 {
-    mono_object_wrapper<scene::sprite_animation_settings>::create(
-        this_ptr, scene::sprite_animation_settings(converter::convert(frame_size)));
+    this_ptr->generate_sequence(index, frame_offset, frame_count, type);
 }
 
-void animated_sprite_settings::generate_sequence(MonoObject *this_ptr, int index, int frame_offset, int frame_count,
-                                                 scene::animation_sequence_type type)
+void animated_sprite_settings::set_default_sequence(std::shared_ptr<scene::sprite_animation_settings> this_ptr,
+                                                    int index)
 {
-    auto &settings = get_animated_sprite_settings_from_mono_object(this_ptr);
-    settings.generate_sequence(index, frame_offset, frame_count, type);
+    this_ptr->set_default_sequence(index);
 }
 
-void animated_sprite_settings::set_default_sequence(MonoObject *this_ptr, int index)
+void animated_sprite_settings::set_start_condition(std::shared_ptr<scene::sprite_animation_settings> this_ptr,
+                                                   scene::animation_start_condition condition)
 {
-    auto &settings = get_animated_sprite_settings_from_mono_object(this_ptr);
-    settings.set_default_sequence(index);
+    this_ptr->set_start_condition(condition);
 }
 
-void animated_sprite_settings::set_start_condition(MonoObject *this_ptr, scene::animation_start_condition condition)
+void animated_sprite_settings::set_repeat(std::shared_ptr<scene::sprite_animation_settings> this_ptr,
+                                          scene::animation_repeat repeat)
 {
-    auto &settings = get_animated_sprite_settings_from_mono_object(this_ptr);
-    settings.set_start_condition(condition);
+    this_ptr->set_repeat(repeat);
 }
 
-void animated_sprite_settings::set_repeat(MonoObject *this_ptr, scene::animation_repeat repeat)
+void animated_sprite_settings::set_speed(std::shared_ptr<scene::sprite_animation_settings> this_ptr, float speed)
 {
-    auto &settings = get_animated_sprite_settings_from_mono_object(this_ptr);
-    settings.set_repeat(repeat);
-}
-
-void animated_sprite_settings::set_speed(MonoObject *this_ptr, float speed)
-{
-    auto &settings = get_animated_sprite_settings_from_mono_object(this_ptr);
-    settings.set_speed(speed);
+    this_ptr->set_speed(speed);
 }
 
 } // namespace managed_interface

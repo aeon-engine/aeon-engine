@@ -25,7 +25,9 @@
 
 #pragma once
 
+#include <managed_interface/mono_object_wrapper.h>
 #include <managed_interface/core/types.h>
+#include <managed_interface/scene/component.h>
 #include <aeon/scene/scene_node.h>
 #include <mono/metadata/object.h>
 #include <memory>
@@ -34,6 +36,9 @@ namespace aeon
 {
 namespace mono
 {
+
+register_basic_mono_converter_for_wrapper(std::shared_ptr<scene::scene_node>);
+
 namespace managed_interface
 {
 
@@ -42,32 +47,31 @@ class scene_node
 public:
     static void register_internal_calls();
 
-    static auto get_scene_node_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::scene_node>;
-
 private:
-    static void ctor(MonoObject *this_ptr, MonoString *name);
-    static void attach_child(MonoObject *this_ptr, MonoObject *child);
-    static void attach_component(MonoObject *this_ptr, MonoObject *component);
+    static void ctor(MonoObject *this_ptr, std::string name);
+    static void attach_child(std::shared_ptr<scene::scene_node> this_ptr, std::shared_ptr<scene::scene_node> child);
+    static void attach_component(std::shared_ptr<scene::scene_node> this_ptr,
+                                 std::shared_ptr<scene::component> component);
 
-    static void set_identity(MonoObject *this_ptr);
-    static void set_position(MonoObject *this_ptr, vector3f position);
-    static auto get_position(MonoObject *this_ptr) -> vector3f;
+    static void set_identity(std::shared_ptr<scene::scene_node> this_ptr);
+    static void set_position(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 position);
+    static auto get_position(std::shared_ptr<scene::scene_node> this_ptr) -> glm::vec3;
 
-    static void translate(MonoObject *this_ptr, vector3f vec);
+    static void translate(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 vec);
 
-    static void set_rotation_vec(MonoObject *this_ptr, vector3f vec);
-    static void set_rotation_angle(MonoObject *this_ptr, float angle);
-    static void set_rotation_quat(MonoObject *this_ptr, quaternion quat);
+    static void set_rotation_vec(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 vec);
+    static void set_rotation_angle(std::shared_ptr<scene::scene_node> this_ptr, float angle);
+    static void set_rotation_quat(std::shared_ptr<scene::scene_node> this_ptr, glm::quat quat);
 
-    static void rotate_vec(MonoObject *this_ptr, vector3f vec);
-    static void rotate_angle(MonoObject *this_ptr, float angle);
-    static void rotate_quat(MonoObject *this_ptr, quaternion quat);
+    static void rotate_vec(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 vec);
+    static void rotate_angle(std::shared_ptr<scene::scene_node> this_ptr, float angle);
+    static void rotate_quat(std::shared_ptr<scene::scene_node> this_ptr, glm::quat quat);
 
-    static void set_scale(MonoObject *this_ptr, vector3f vec);
-    static void scale(MonoObject *this_ptr, vector3f vec);
+    static void set_scale(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 vec);
+    static void scale(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 vec);
 
-    static void set_matrix(MonoObject *this_ptr, matrix4x4 mat);
-    static auto get_matrix(MonoObject *this_ptr) -> matrix4x4;
+    static void set_matrix(std::shared_ptr<scene::scene_node> this_ptr, glm::mat4x4 mat);
+    static auto get_matrix(std::shared_ptr<scene::scene_node> this_ptr) -> glm::mat4x4;
 };
 
 } // namespace managed_interface

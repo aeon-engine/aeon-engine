@@ -25,7 +25,9 @@
 
 #pragma once
 
+#include <managed_interface/scene/scene_node.h>
 #include <mono/metadata/object.h>
+#include <memory>
 
 namespace aeon
 {
@@ -40,7 +42,7 @@ public:
     static void register_internal_calls();
 
 private:
-    static auto get_root_scene_node() -> MonoObject *;
+    static auto get_root_scene_node() -> std::shared_ptr<scene::scene_node>;
 };
 
 } // namespace managed_interface

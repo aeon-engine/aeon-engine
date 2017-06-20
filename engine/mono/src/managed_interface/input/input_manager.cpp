@@ -38,31 +38,33 @@ namespace managed_interface
 void input_manager::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Input.Input::GetMouseCursorPosition",
-                                &input_manager::get_mouse_cursor_position);
+                                aeon_mono_auto_wrap(input_manager::get_mouse_cursor_position));
     mono_jit::add_internal_call("AeonEngineMono.Input.Input::GetMouseButtonState(AeonEngineMono.Input.MouseButton)",
-                                &input_manager::get_mouse_button_state);
+                                aeon_mono_auto_wrap(input_manager::get_mouse_button_state));
     mono_jit::add_internal_call("AeonEngineMono.Input.Input::GetKeystate(AeonEngineMono.Input.KeyboardKey)",
-                                &input_manager::get_key_state);
-    mono_jit::add_internal_call("AeonEngineMono.Input.Input::IsAnyKeyDown", &input_manager::is_any_key_down);
+                                aeon_mono_auto_wrap(input_manager::get_key_state));
+    mono_jit::add_internal_call("AeonEngineMono.Input.Input::IsAnyKeyDown",
+                                aeon_mono_auto_wrap(input_manager::is_any_key_down));
     mono_jit::add_internal_call("AeonEngineMono.Input.Input::IsAnyMouseButtonDown",
-                                &input_manager::is_any_mouse_button_down);
+                                aeon_mono_auto_wrap(input_manager::is_any_mouse_button_down));
     mono_jit::add_internal_call("AeonEngineMono.Input.Input::GetMouseButtonUp(AeonEngineMono.Input.MouseButton)",
-                                &input_manager::get_mouse_button_up);
+                                aeon_mono_auto_wrap(input_manager::get_mouse_button_up));
     mono_jit::add_internal_call("AeonEngineMono.Input.Input::GetMouseButtonDown(AeonEngineMono.Input.MouseButton)",
-                                &input_manager::get_mouse_button_down);
+                                aeon_mono_auto_wrap(input_manager::get_mouse_button_down));
     mono_jit::add_internal_call("AeonEngineMono.Input.Input::GetKeyUp(AeonEngineMono.Input.KeyboardKey)",
-                                &input_manager::get_key_up);
+                                aeon_mono_auto_wrap(input_manager::get_key_up));
     mono_jit::add_internal_call("AeonEngineMono.Input.Input::GetKeyDown(AeonEngineMono.Input.KeyboardKey)",
-                                &input_manager::get_key_down);
+                                aeon_mono_auto_wrap(input_manager::get_key_down));
     mono_jit::add_internal_call("AeonEngineMono.Input.Input::set_CursorMode(AeonEngineMono.Input.MouseCursorMode)",
-                                &input_manager::set_cursor_mode);
-    mono_jit::add_internal_call("AeonEngineMono.Input.Input::get_CursorMode", &input_manager::get_cursor_mode);
+                                aeon_mono_auto_wrap(input_manager::set_cursor_mode));
+    mono_jit::add_internal_call("AeonEngineMono.Input.Input::get_CursorMode",
+                                aeon_mono_auto_wrap(input_manager::get_cursor_mode));
 }
 
-auto input_manager::get_mouse_cursor_position() -> vector2f
+auto input_manager::get_mouse_cursor_position() -> glm::vec2
 {
     auto &input_handler = mono_jit_manager::get_application().get_input_handler();
-    return converter::convert(input_handler.get_mouse_cursor_position());
+    return input_handler.get_mouse_cursor_position();
 }
 
 auto input_manager::get_mouse_button_state(input::mouse_button button) -> input::mouse_button_state

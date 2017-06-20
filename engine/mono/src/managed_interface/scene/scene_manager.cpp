@@ -40,13 +40,13 @@ namespace managed_interface
 void scene_manager::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Scene.SceneManager::get_RootSceneNode()",
-                                &scene_manager::get_root_scene_node);
+                                aeon_mono_auto_wrap(scene_manager::get_root_scene_node));
 }
 
-auto scene_manager::get_root_scene_node() -> MonoObject *
+auto scene_manager::get_root_scene_node() -> std::shared_ptr<scene::scene_node>
 {
     auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    return mono_object_wrapper<std::shared_ptr<scene::scene_node>>::create(scene_manager.get_root_scene_node());
+    return scene_manager.get_root_scene_node();
 }
 
 } // namespace managed_interface

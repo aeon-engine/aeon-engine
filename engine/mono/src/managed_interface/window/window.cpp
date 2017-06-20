@@ -37,27 +37,28 @@ namespace managed_interface
 
 void window::register_internal_calls()
 {
-    mono_jit::add_internal_call("AeonEngineMono.Window.Window::get_Size", &window::get_size);
-    mono_jit::add_internal_call("AeonEngineMono.Window.Window::get_FramebufferSize", &window::get_framebuffer_size);
-    mono_jit::add_internal_call("AeonEngineMono.Window.Window::get_Title", &window::get_title);
+    mono_jit::add_internal_call("AeonEngineMono.Window.Window::get_Size", aeon_mono_auto_wrap(window::get_size));
+    mono_jit::add_internal_call("AeonEngineMono.Window.Window::get_FramebufferSize",
+                                aeon_mono_auto_wrap(window::get_framebuffer_size));
+    mono_jit::add_internal_call("AeonEngineMono.Window.Window::get_Title", aeon_mono_auto_wrap(window::get_title));
 }
 
-auto window::get_size() -> vector2f
+auto window::get_size() -> glm::vec2
 {
     auto &window = mono_jit_manager::get_application().get_main_window();
-    return converter::convert(window.get_size());
+    return window.get_size();
 }
 
-auto window::get_framebuffer_size() -> vector2f
+auto window::get_framebuffer_size() -> glm::vec2
 {
     auto &window = mono_jit_manager::get_application().get_main_window();
-    return converter::convert(window.get_framebuffer_size());
+    return window.get_framebuffer_size();
 }
 
-auto window::get_title() -> MonoString *
+auto window::get_title() -> std::string
 {
     auto &window = mono_jit_manager::get_application().get_main_window();
-    return mono_jit_manager::engine_assembly.new_string(window.get_title()).get_mono_string();
+    return window.get_title();
 }
 
 } // namespace managed_interface

@@ -25,12 +25,29 @@
 
 #pragma once
 
+#include <aeon/mono/mono_type_conversion.h>
+#include <aeon/resources/providers/resource_collection_provider.h>
 #include <mono/metadata/object.h>
+#include <managed_interface/mono_object_wrapper.h>
 
 namespace aeon
 {
 namespace mono
 {
+
+template <>
+struct convert_mono_type<std::unique_ptr<resources::resource_collection_provider>>
+{
+    using mono_type_name = MonoObject *;
+
+    static auto from_mono(MonoObject *object) -> std::unique_ptr<resources::resource_collection_provider>
+    {
+        auto &collection_provider = managed_interface::mono_object_wrapper<
+            std::unique_ptr<resources::resource_collection_provider>>::get_native_object(object);
+        return std::move(collection_provider);
+    }
+};
+
 namespace managed_interface
 {
 
@@ -40,8 +57,8 @@ public:
     static void register_internal_calls();
 
 private:
-    static void mount(MonoObject *provider, MonoString *mount_point);
-    static void unmount(MonoString *mount_point);
+    static void mount(std::unique_ptr<resources::resource_collection_provider> provider, std::string mount_point);
+    static void unmount(std::string mount_point);
 };
 
 } // namespace managed_interface

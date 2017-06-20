@@ -25,6 +25,8 @@
 
 #pragma once
 
+#include <managed_interface/mono_object_wrapper.h>
+#include <managed_interface/assets/atlas_region_wrapper.h>
 #include <managed_interface/core/types.h>
 #include <mono/metadata/object.h>
 #include <aeon/gfx/gfx_atlas.h>
@@ -34,37 +36,25 @@ namespace aeon
 {
 namespace mono
 {
+
+register_basic_mono_converter_for_wrapper(std::shared_ptr<gfx::atlas>);
+register_basic_mono_converter_for_wrapper(std::shared_ptr<managed_interface::atlas_region_wrapper>);
+
 namespace managed_interface
 {
-
-class atlas_region_wrapper : common::noncopyable
-{
-public:
-    explicit atlas_region_wrapper(const data::atlas::region &region, std::shared_ptr<gfx::atlas> atlas)
-        : region(region)
-        , atlas(atlas)
-    {
-    }
-
-    ~atlas_region_wrapper() = default;
-
-    data::atlas::region region;
-    std::shared_ptr<gfx::atlas> atlas;
-};
 
 class atlas
 {
 public:
     static void register_internal_calls();
 
-    static auto get_atlas_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::atlas>;
-    static auto get_region_wrapper_from_mono_object(MonoObject *object) -> std::shared_ptr<atlas_region_wrapper>;
-
 private:
-    static void ctor(MonoObject *this_ptr, MonoString *path);
-    static void ctor2(MonoObject *this_ptr, MonoObject *material_ptr, vector2f size);
-    static auto get_region_by_index(MonoObject *this_ptr, int index) -> MonoObject *;
-    static auto get_region_by_name(MonoObject *this_ptr, MonoString *name) -> MonoObject *;
+    static void ctor(MonoObject *this_ptr, std::string path);
+    static void ctor2(MonoObject *this_ptr, std::shared_ptr<gfx::material> material, glm::vec2 size);
+    static auto get_region_by_index(std::shared_ptr<gfx::atlas> this_ptr, int index)
+        -> std::shared_ptr<managed_interface::atlas_region_wrapper>;
+    static auto get_region_by_name(std::shared_ptr<gfx::atlas> this_ptr, std::string name)
+        -> std::shared_ptr<managed_interface::atlas_region_wrapper>;
 };
 
 } // namespace managed_interface

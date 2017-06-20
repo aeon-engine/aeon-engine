@@ -36,28 +36,19 @@ namespace managed_interface
 
 void component::register_internal_calls()
 {
-    mono_jit::add_internal_call("AeonEngineMono.Scene.Component::get_Name", &component::get_name);
-    mono_jit::add_internal_call("AeonEngineMono.Scene.Component::get_SceneMatrix", &component::get_scene_matrix);
+    mono_jit::add_internal_call("AeonEngineMono.Scene.Component::get_Name", aeon_mono_auto_wrap(component::get_name));
+    mono_jit::add_internal_call("AeonEngineMono.Scene.Component::get_SceneMatrix",
+                                aeon_mono_auto_wrap(component::get_scene_matrix));
 }
 
-auto component::get_component_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::component>
+auto component::get_name(std::shared_ptr<scene::component> this_ptr) -> std::string
 {
-    return mono_object_wrapper<std::shared_ptr<scene::component>>::get_native_object(object);
+    return this_ptr->get_name();
 }
 
-auto component::get_name(MonoObject *this_ptr) -> MonoString *
+auto component::get_scene_matrix(std::shared_ptr<scene::component> this_ptr) -> glm::mat4x4
 {
-    auto component = get_component_from_mono_object(this_ptr);
-    auto mono_str = mono_jit_manager::engine_assembly.new_string(component->get_name());
-    return mono_str.get_mono_string();
-}
-
-auto component::get_scene_matrix(MonoObject *this_ptr) -> matrix4x4
-{
-    auto component = get_component_from_mono_object(this_ptr);
-    auto m = component->get_scene_matrix();
-    return {m[0][0], m[0][1], m[0][2], m[0][3], m[1][0], m[1][1], m[1][2], m[1][3],
-            m[2][0], m[2][1], m[2][2], m[2][3], m[3][0], m[3][1], m[3][2], m[3][3]};
+    return this_ptr->get_scene_matrix();
 }
 
 } // namespace managed_interface

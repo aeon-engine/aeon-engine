@@ -74,7 +74,7 @@ public class MonoApplication
         _shipNode = new SceneNode("ShipNode");
         SceneManager.RootSceneNode.AttachChild(_shipNode);
 
-        _shipNode.SetPosition(400, 300);
+        //_shipNode.SetPosition(400, 300);
 
         Material material = new Material("/resources/materials/ships.amf");
         Atlas atlas = new Atlas(material, new Vector2f(64, 64));

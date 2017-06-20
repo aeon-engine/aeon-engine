@@ -41,27 +41,25 @@ namespace managed_interface
 void perspective_camera::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Scene.PerspectiveCamera::.ctor(single,single,single,single,string)",
-                                &perspective_camera::ctor);
+                                aeon_mono_auto_wrap(perspective_camera::ctor));
     mono_jit::add_internal_call(
         "AeonEngineMono.Scene.PerspectiveCamera::.ctor(single,single,single,single,single,string)",
-        &perspective_camera::ctor2);
+        aeon_mono_auto_wrap(perspective_camera::ctor2));
 }
 
 void perspective_camera::ctor(MonoObject *this_ptr, float fovY, float aspectRatio, float near, float far,
-                              MonoString *name)
+                              std::string name)
 {
     auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto camera = std::make_shared<scene::perspective_camera>(scene_manager, fovY, aspectRatio, near, far,
-                                                              mono_string(name).str());
+    auto camera = std::make_shared<scene::perspective_camera>(scene_manager, fovY, aspectRatio, near, far, name);
     mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
 }
 
 void perspective_camera::ctor2(MonoObject *this_ptr, float fov, float width, float height, float near, float far,
-                               MonoString *name)
+                               std::string name)
 {
     auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto camera = std::make_shared<scene::perspective_camera>(scene_manager, fov, width, height, near, far,
-                                                              mono_string(name).str());
+    auto camera = std::make_shared<scene::perspective_camera>(scene_manager, fov, width, height, near, far, name);
     mono_object_wrapper<std::shared_ptr<scene::camera>>::create(this_ptr, camera);
 }
 

@@ -27,6 +27,7 @@
 
 #include <managed_interface/core/object.h>
 #include <managed_interface/core/types.h>
+#include <managed_interface/assets/atlas.h>
 
 namespace aeon
 {
@@ -41,8 +42,10 @@ public:
     static void register_internal_calls();
 
 private:
-    static void ctor(MonoObject *this_ptr, MonoObject *region, int z_order, MonoString *name);
-    static void ctor2(MonoObject *this_ptr, MonoObject *region, vector2f size, int z_order, MonoString *name);
+    static void ctor(MonoObject *this_ptr, std::shared_ptr<managed_interface::atlas_region_wrapper> region, int z_order,
+                     std::string name);
+    static void ctor2(MonoObject *this_ptr, std::shared_ptr<managed_interface::atlas_region_wrapper> region,
+                      glm::vec2 size, int z_order, std::string name);
 };
 
 } // namespace managed_interface

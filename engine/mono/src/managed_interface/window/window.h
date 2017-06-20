@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include <managed_interface/core/types.h>
-#include <mono/metadata/object.h>
+#include <glm/vec2.hpp>
+#include <string>
 
 namespace aeon
 {
@@ -41,9 +41,9 @@ public:
     static void register_internal_calls();
 
 private:
-    static auto get_size() -> vector2f;
-    static auto get_framebuffer_size() -> vector2f;
-    static auto get_title() -> MonoString *;
+    static auto get_size() -> glm::vec2;
+    static auto get_framebuffer_size() -> glm::vec2;
+    static auto get_title() -> std::string;
 };
 
 } // namespace managed_interface

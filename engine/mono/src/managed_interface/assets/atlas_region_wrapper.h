@@ -23,8 +23,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <managed_interface/scene/camera.h>
-#include <managed_interface/mono_object_wrapper.h>
+#pragma once
+
+#include <aeon/gfx/gfx_atlas.h>
+#include <memory>
 
 namespace aeon
 {
@@ -33,10 +35,20 @@ namespace mono
 namespace managed_interface
 {
 
-auto camera::get_camera_from_mono_object(MonoObject *object) -> std::shared_ptr<scene::camera>
+class atlas_region_wrapper : common::noncopyable
 {
-    return mono_object_wrapper<std::shared_ptr<scene::camera>>::get_native_object(object);
-}
+public:
+    explicit atlas_region_wrapper(const data::atlas::region &region, std::shared_ptr<gfx::atlas> atlas)
+        : region(region)
+        , atlas(atlas)
+    {
+    }
+
+    ~atlas_region_wrapper() = default;
+
+    data::atlas::region region;
+    std::shared_ptr<gfx::atlas> atlas;
+};
 
 } // namespace managed_interface
 } // namespace mono

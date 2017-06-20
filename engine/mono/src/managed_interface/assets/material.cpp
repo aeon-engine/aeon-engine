@@ -41,30 +41,23 @@ namespace managed_interface
 
 void material::register_internal_calls()
 {
-    mono_jit::add_internal_call("AeonEngineMono.Assets.Material::.ctor(string)", &material::ctor);
+    mono_jit::add_internal_call("AeonEngineMono.Assets.Material::.ctor(string)", aeon_mono_auto_wrap(material::ctor));
     mono_jit::add_internal_call(
         "AeonEngineMono.Assets.Material::.ctor(AeonEngineMono.Assets.Texture,AeonEngineMono.Assets.Shader)",
-        &material::ctor2);
+        aeon_mono_auto_wrap(material::ctor2));
 }
 
-auto material::get_material_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::material>
-{
-    return mono_object_wrapper<std::shared_ptr<gfx::material>>::get_native_object(object);
-}
-
-void material::ctor(MonoObject *this_ptr, MonoString *path)
+void material::ctor(MonoObject *this_ptr, std::string path)
 {
     auto &asset_manager = mono_jit_manager::get_application().get_asset_manager();
-    auto loaded_material = asset_manager.load_material(mono_string(path).str());
+    auto loaded_material = asset_manager.load_material(path);
 
     mono_object_wrapper<std::shared_ptr<gfx::material>>::create(this_ptr, loaded_material);
 }
 
-void material::ctor2(MonoObject *this_ptr, MonoObject *mono_texture, MonoObject *mono_shader)
+void material::ctor2(MonoObject *this_ptr, std::shared_ptr<gfx::texture> texture, std::shared_ptr<gfx::shader> shader)
 {
     auto &device = mono_jit_manager::get_application().get_gfx_device();
-    auto shader = shader::get_shader_from_mono_object(mono_shader);
-    auto texture = texture::get_texture_from_mono_object(mono_texture);
 
     // TODO: handle this better from the interface. Perhaps expose as a dict?
     std::map<std::string, std::shared_ptr<gfx::texture>> samplers;

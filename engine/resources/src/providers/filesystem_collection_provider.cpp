@@ -117,8 +117,8 @@ auto filesystem_collection_provider::create(const std::string &path) const -> st
         throw filesystem_collection_provider_create_exception();
     }
 
-    auto file = filesystem_interface.open_file(real_path, io::file_open_mode::write | io::file_open_mode::binary |
-                                                              io::file_open_mode::truncate);
+    auto file = filesystem_interface.open_file(
+        real_path, io::file_open_mode::write | io::file_open_mode::binary | io::file_open_mode::truncate);
     auto resource_info = get_info(path);
     return std::make_unique<filesystem_provider>(resource_info, std::move(file));
 }

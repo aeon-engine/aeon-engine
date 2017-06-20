@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <aeon/mono/mono_type_conversion.h>
 #include <managed_interface/core/types.h>
 #include <aeon/common/types/rectangle.h>
 #include <glm/vec2.hpp>
@@ -38,6 +39,27 @@ namespace mono
 {
 namespace managed_interface
 {
+
+#define add_mono_type_converter(cpp_type, mono_type)                                                                   \
+    \
+template<>                                                                                                             \
+        \
+struct convert_mono_type<cpp_type>                                                                                     \
+    \
+{                                                                                                               \
+        using mono_type_name = mono_type;                                                                              \
+                                                                                                                       \
+        static auto to_mono(mono_assembly &assembly, cpp_type val)->mono_type                                          \
+        {                                                                                                              \
+            return managed_interface::converter::convert(val);                                                         \
+        }                                                                                                              \
+                                                                                                                       \
+        static auto from_mono(mono_type val)->cpp_type                                                                 \
+        {                                                                                                              \
+            return managed_interface::converter::convert(val);                                                         \
+        }                                                                                                              \
+    \
+}
 
 struct converter
 {
@@ -132,5 +154,12 @@ inline auto converter::convert(const glm::mat4x4 &m) -> matrix4x4
 }
 
 } // namespace managed_interface
+
+add_mono_type_converter(common::types::rectangle<float>, managed_interface::rect);
+add_mono_type_converter(glm::vec2, managed_interface::vector2f);
+add_mono_type_converter(glm::vec3, managed_interface::vector3f);
+add_mono_type_converter(glm::quat, managed_interface::quaternion);
+add_mono_type_converter(glm::mat4x4, managed_interface::matrix4x4);
+
 } // namespace mono
 } // namespace aeon

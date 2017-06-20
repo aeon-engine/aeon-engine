@@ -25,6 +25,8 @@
 
 #pragma once
 
+#include <aeon/mono/mono_type_conversion.h>
+#include <managed_interface/mono_object_wrapper.h>
 #include <mono/metadata/object.h>
 #include <aeon/gfx/gfx_shader.h>
 #include <memory>
@@ -33,6 +35,9 @@ namespace aeon
 {
 namespace mono
 {
+
+register_basic_mono_converter_for_wrapper(std::shared_ptr<gfx::shader>);
+
 namespace managed_interface
 {
 
@@ -44,7 +49,7 @@ public:
     static auto get_shader_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::shader>;
 
 private:
-    static void ctor(MonoObject *this_ptr, MonoString *path);
+    static void ctor(MonoObject *this_ptr, std::string path);
 };
 
 } // namespace managed_interface

@@ -24,7 +24,6 @@
  */
 
 #include <managed_interface/scene/sprite.h>
-#include <managed_interface/assets/atlas.h>
 #include <managed_interface/mono_object_wrapper.h>
 #include <aeon/mono/mono_jit.h>
 #include <aeon/mono/mono_jit_manager.h>
@@ -41,28 +40,26 @@ namespace managed_interface
 void sprite::register_internal_calls()
 {
     mono_jit::add_internal_call("AeonEngineMono.Scene.Sprite::.ctor(AeonEngineMono.Assets.AtlasRegion,int,string)",
-                                &sprite::ctor);
+                                aeon_mono_auto_wrap(sprite::ctor));
     mono_jit::add_internal_call("AeonEngineMono.Scene.Sprite::.ctor(AeonEngineMono.Assets.AtlasRegion,AeonEngineMono."
                                 "Types.Vector2f,int,string)",
-                                &sprite::ctor2);
+                                aeon_mono_auto_wrap(sprite::ctor2));
 }
 
-void sprite::ctor(MonoObject *this_ptr, MonoObject *region, int z_order, MonoString *name)
+void sprite::ctor(MonoObject *this_ptr, std::shared_ptr<managed_interface::atlas_region_wrapper> region, int z_order,
+                  std::string name)
 {
     auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto region_wrapper = atlas::get_region_wrapper_from_mono_object(region);
-    auto sprite = scene_manager.create_component<scene::sprite>(region_wrapper->atlas, region_wrapper->region, z_order,
-                                                                mono_string(name).str());
+    auto sprite = scene_manager.create_component<scene::sprite>(region->atlas, region->region, z_order, name);
 
     mono_object_wrapper<std::shared_ptr<scene::component>>::create(this_ptr, sprite);
 }
 
-void sprite::ctor2(MonoObject *this_ptr, MonoObject *region, vector2f size, int z_order, MonoString *name)
+void sprite::ctor2(MonoObject *this_ptr, std::shared_ptr<managed_interface::atlas_region_wrapper> region,
+                   glm::vec2 size, int z_order, std::string name)
 {
     auto &scene_manager = mono_jit_manager::get_application().get_scene_manager();
-    auto region_wrapper = atlas::get_region_wrapper_from_mono_object(region);
-    auto sprite = scene_manager.create_component<scene::sprite>(
-        region_wrapper->atlas, region_wrapper->region, glm::vec2{size.x, size.y}, z_order, mono_string(name).str());
+    auto sprite = scene_manager.create_component<scene::sprite>(region->atlas, region->region, size, z_order, name);
 
     mono_object_wrapper<std::shared_ptr<scene::component>>::create(this_ptr, sprite);
 }

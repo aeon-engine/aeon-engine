@@ -39,18 +39,13 @@ namespace managed_interface
 
 void texture::register_internal_calls()
 {
-    mono_jit::add_internal_call("AeonEngineMono.Assets.Texture::.ctor(string)", &texture::ctor);
+    mono_jit::add_internal_call("AeonEngineMono.Assets.Texture::.ctor(string)", aeon_mono_auto_wrap(texture::ctor));
 }
 
-auto texture::get_texture_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::texture>
-{
-    return mono_object_wrapper<std::shared_ptr<gfx::texture>>::get_native_object(object);
-}
-
-void texture::ctor(MonoObject *this_ptr, MonoString *path)
+void texture::ctor(MonoObject *this_ptr, std::string path)
 {
     auto &asset_manager = mono_jit_manager::get_application().get_asset_manager();
-    auto loaded_texture = asset_manager.load_texture(mono_string(path).str());
+    auto loaded_texture = asset_manager.load_texture(path);
 
     mono_object_wrapper<std::shared_ptr<gfx::texture>>::create(this_ptr, loaded_texture);
 }

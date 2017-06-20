@@ -25,8 +25,9 @@
 
 #pragma once
 
-#include <mono/metadata/object.h>
+#include <managed_interface/scene/camera.h>
 #include <managed_interface/core/types.h>
+#include <mono/metadata/object.h>
 #include <aeon/gfx/gfx_viewport.h>
 #include <memory>
 
@@ -34,6 +35,9 @@ namespace aeon
 {
 namespace mono
 {
+
+register_basic_mono_converter_for_wrapper(std::shared_ptr<gfx::viewport>);
+
 namespace managed_interface
 {
 
@@ -42,16 +46,16 @@ class viewport
 public:
     static void register_internal_calls();
 
-    static auto get_viewport_from_mono_object(MonoObject *object) -> std::shared_ptr<gfx::viewport>;
-
 private:
-    static void create_internal(MonoObject *this_ptr, MonoObject *camera, MonoString *name, int zOrder);
-    static void create_internal2(MonoObject *this_ptr, MonoObject *camera, rect rectangle, MonoString *name,
-                                 int zOrder);
-    static void set_zorder(MonoObject *this_ptr, int value);
-    static int get_zorder(MonoObject *this_ptr);
-    static void set_camera_internal(MonoObject *this_ptr, MonoObject *camera);
-    static void set_rectangle_internal(MonoObject *this_ptr, rect rectangle);
+    static void create_internal(MonoObject *this_ptr, std::shared_ptr<scene::camera> camera, std::string name,
+                                int zOrder);
+    static void create_internal2(MonoObject *this_ptr, std::shared_ptr<scene::camera> camera,
+                                 common::types::rectangle<float> rectangle, std::string name, int zOrder);
+    static void set_zorder(std::shared_ptr<gfx::viewport> this_ptr, int value);
+    static int get_zorder(std::shared_ptr<gfx::viewport> this_ptr);
+    static void set_camera_internal(std::shared_ptr<gfx::viewport> this_ptr, std::shared_ptr<scene::camera> camera);
+    static void set_rectangle_internal(std::shared_ptr<gfx::viewport> this_ptr,
+                                       common::types::rectangle<float> rectangle);
 };
 
 } // namespace managed_interface
