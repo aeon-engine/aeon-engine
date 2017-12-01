@@ -41,25 +41,24 @@ namespace managed_interface
 {
 
 #define add_mono_type_converter(cpp_type, mono_type)                                                                   \
-    \
-template<>                                                                                                             \
-        \
-struct convert_mono_type<cpp_type>                                                                                     \
-    \
-{                                                                                                               \
+                                                                                                                       \
+    template <>                                                                                                        \
+                                                                                                                       \
+    struct convert_mono_type<cpp_type>                                                                                 \
+                                                                                                                       \
+    {                                                                                                                  \
         using mono_type_name = mono_type;                                                                              \
                                                                                                                        \
-        static auto to_mono(mono_assembly &assembly, cpp_type val)->mono_type                                          \
+        static auto to_mono(mono_assembly &assembly, cpp_type val) -> mono_type                                        \
         {                                                                                                              \
             return managed_interface::converter::convert(val);                                                         \
         }                                                                                                              \
                                                                                                                        \
-        static auto from_mono(mono_type val)->cpp_type                                                                 \
+        static auto from_mono(mono_type val) -> cpp_type                                                               \
         {                                                                                                              \
             return managed_interface::converter::convert(val);                                                         \
         }                                                                                                              \
-    \
-}
+    }
 
 struct converter
 {

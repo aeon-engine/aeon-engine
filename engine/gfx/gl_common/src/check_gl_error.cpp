@@ -87,6 +87,6 @@ void check_gl_error(const char *file, int line)
 }
 #endif
 
-} // namespace gl
+} // namespace gl_common
 } // namespace gfx
 } // namespace aeon

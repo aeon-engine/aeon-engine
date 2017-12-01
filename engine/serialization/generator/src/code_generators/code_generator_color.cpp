@@ -44,7 +44,7 @@ auto code_generator_color::generate_required_header_includes() const -> std::set
 
 auto code_generator_color::generate_cpp_type_name() const -> std::string
 {
-    return "aeon::common::optional<aeon::common::types::color>";
+    return "std::optional<aeon::common::types::color>";
 }
 
 auto code_generator_color::generate_cpp_array_type_name() const -> std::string
@@ -100,9 +100,9 @@ auto code_generator_color::generate_array_deserialization_code(const object_memb
 auto code_generator_color::generate_serialization_code(const object_member &object_member) const -> std::string
 {
     std::string code = R"code(
-    if (%member_name%.has_value())
+    if (%member_name%)
     {
-        auto %member_name%_value = %member_name%.get_value();
+        auto %member_name%_value = %member_name%.value_or(aeon::common::types::color(0, 0, 0));
         json_obj["%member_name%"] = json11::Json::array { %member_name%_value.r, %member_name%_value.g, %member_name%_value.b, %member_name%_value.a };
     }
 )code";

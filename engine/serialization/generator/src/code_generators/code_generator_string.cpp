@@ -44,7 +44,7 @@ auto code_generator_string::generate_required_header_includes() const -> std::se
 
 auto code_generator_string::generate_cpp_type_name() const -> std::string
 {
-    return "aeon::common::optional<std::string>";
+    return "std::optional<std::string>";
 }
 
 auto code_generator_string::generate_cpp_array_type_name() const -> std::string
@@ -83,9 +83,9 @@ auto code_generator_string::generate_array_deserialization_code(const object_mem
 auto code_generator_string::generate_serialization_code(const object_member &object_member) const -> std::string
 {
     std::string code = R"code(
-    if (%member_name%.has_value())
+    if (%member_name%)
     {
-        json_obj["%member_name%"] = { %member_name%.get_value() };
+        json_obj["%member_name%"] = { %member_name%.value_or("") };
     }
 )code";
 

@@ -174,7 +174,7 @@ void rpi_window::__create_native_window()
                                 &src_rect, DISPMANX_PROTECTION_NONE, &alpha, /* alpha */
                                 0,                                           /* clamp */
                                 (DISPMANX_TRANSFORM_T)0                      /* transform */
-                                );
+        );
 
     window_.element = dispman_element;
     window_.width = display_width;

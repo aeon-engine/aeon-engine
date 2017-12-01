@@ -45,7 +45,7 @@ auto code_generator_vec3::generate_required_header_includes() const -> std::set<
 
 auto code_generator_vec3::generate_cpp_type_name() const -> std::string
 {
-    return "aeon::common::optional<glm::vec3>";
+    return "std::optional<glm::vec3>";
 }
 
 auto code_generator_vec3::generate_cpp_array_type_name() const -> std::string
@@ -79,9 +79,9 @@ auto code_generator_vec3::generate_array_deserialization_code(const object_membe
 auto code_generator_vec3::generate_serialization_code(const object_member &object_member) const -> std::string
 {
     std::string code = R"code(
-    if (%member_name%.has_value())
+    if (%member_name%)
     {
-        auto %member_name%_value = %member_name%.get_value();
+        auto %member_name%_value = %member_name%.value_or(glm::vec3());
         json_obj["%member_name%"] = json11::Json::array { %member_name%_value.x, %member_name%_value.y, %member_name%_value.z };
     }
 )code";

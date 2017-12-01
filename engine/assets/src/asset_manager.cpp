@@ -123,7 +123,8 @@ auto asset_manager::load_material(const std::string &path) -> std::shared_ptr<gf
 
     for (auto &sampler : material_data.samplers)
     {
-        sampler_map[sampler->name] = load_texture(sampler->path);
+        if (sampler->name)
+            sampler_map[sampler->name.value_or("")] = load_texture(sampler->path.value_or(""));
     }
 
     auto material = device_.get_material_manager().create(shader, sampler_map);
@@ -179,7 +180,7 @@ auto asset_manager::load_scene(const std::string &path) -> std::shared_ptr<scene
     auto resource = codec->decode(collection_provider);
 
     auto &scene_data = resource->get_scene_data();
-    auto scene_node = scene_manager_.create_detached_scene_node(scene_data.root->name);
+    auto scene_node = scene_manager_.create_detached_scene_node(scene_data.root->name.value_or(""));
 
     __convert_scene_data_to_scene_node(*scene_data.root, *scene_node);
 
@@ -229,13 +230,13 @@ void asset_manager::__convert_scene_data_to_scene_node(serialization::scene_node
     auto &scene_subnodes = scene_data.children;
     for (auto &scene_subnode : scene_subnodes)
     {
-        auto subnode = scene_node.create_child_scene_node(scene_subnode->name);
+        auto subnode = scene_node.create_child_scene_node(scene_subnode->name.value_or(""));
         __convert_scene_data_to_scene_node(*scene_subnode, *subnode);
     }
 
-    scene_node.set_position(scene_data.position);
-    scene_node.set_rotation(scene_data.rotation);
-    scene_node.set_scale(scene_data.scale);
+    scene_node.set_position(scene_data.position.value_or(glm::vec3()));
+    scene_node.set_rotation(scene_data.rotation.value_or(glm::quat()));
+    scene_node.set_scale(scene_data.scale.value_or(glm::vec3()));
 
     auto &components = scene_data.objects;
     for (auto &component : components)
@@ -243,26 +244,26 @@ void asset_manager::__convert_scene_data_to_scene_node(serialization::scene_node
         if (component->get_typename() == "mesh")
         {
             auto mesh_object = static_cast<serialization::mesh *>(component.get());
-            scene_node.attach_child(load_mesh(mesh_object->path));
+            scene_node.attach_child(load_mesh(mesh_object->path.value_or("")));
         }
         else if (component->get_typename() == "perspective_camera")
         {
             auto perspective_cam_object = static_cast<serialization::perspective_camera *>(component.get());
 
-            if (perspective_cam_object->fov.has_value())
+            if (perspective_cam_object->fov)
             {
                 auto camera = std::make_shared<aeon::scene::perspective_camera>(
-                    scene_manager_, perspective_cam_object->fov, perspective_cam_object->width,
-                    perspective_cam_object->height, perspective_cam_object->near_value,
-                    perspective_cam_object->far_value, perspective_cam_object->name);
+                    scene_manager_, perspective_cam_object->fov.value_or(0), perspective_cam_object->width.value_or(0),
+                    perspective_cam_object->height.value_or(0), perspective_cam_object->near_value.value_or(0),
+                    perspective_cam_object->far_value.value_or(0), perspective_cam_object->name.value_or(""));
                 scene_node.attach_component(camera);
             }
             else
             {
                 auto camera = std::make_shared<aeon::scene::perspective_camera>(
-                    scene_manager_, perspective_cam_object->fov_y, perspective_cam_object->aspect_ratio,
-                    perspective_cam_object->near_value, perspective_cam_object->far_value,
-                    perspective_cam_object->name);
+                    scene_manager_, perspective_cam_object->fov_y.value_or(0),
+                    perspective_cam_object->aspect_ratio.value_or(0), perspective_cam_object->near_value.value_or(0),
+                    perspective_cam_object->far_value.value_or(0), perspective_cam_object->name.value_or(""));
                 scene_node.attach_component(camera);
             }
         }

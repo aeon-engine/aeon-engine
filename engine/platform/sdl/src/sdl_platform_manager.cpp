@@ -153,7 +153,7 @@ auto sdl_platform_manager::__handle_events() const -> bool
             }
             break;
 
-            // TODO: Mouse input.
+                // TODO: Mouse input.
 
             case SDL_QUIT:
                 return false;

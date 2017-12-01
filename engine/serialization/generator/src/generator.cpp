@@ -164,7 +164,7 @@ auto generator::__generate_base_header_code() const -> std::string
 
 #pragma once
 
-#include <aeon/common/optional.h>
+#include <aeon/common/stdoptional.h>
 #include <json11.hpp>
 #include <memory>
 
@@ -459,7 +459,7 @@ auto generator::__convert_object_member_array_type_to_cpp_type(const object_memb
 
 void generator::__write_cpp_code_if_changed(const std::string &code) const
 {
-    auto file_path = AEON_ENGINE_SERIALIZATION_GENERATOR_DESTINATION "/objects_generated.cpp";
+    std::filesystem::path file_path = AEON_ENGINE_SERIALIZATION_GENERATOR_DESTINATION "/objects_generated.cpp";
 
     if (!__file_contents_equal(file_path, code))
     {
@@ -475,7 +475,7 @@ void generator::__write_cpp_code_if_changed(const std::string &code) const
 
 void generator::__write_header_code_if_changed(const std::string &code) const
 {
-    auto file_path = AEON_ENGINE_SERIALIZATION_GENERATOR_DESTINATION "/objects_generated.h";
+    std::filesystem::path file_path = AEON_ENGINE_SERIALIZATION_GENERATOR_DESTINATION "/objects_generated.h";
 
     if (!__file_contents_equal(file_path, code))
     {
@@ -491,7 +491,7 @@ void generator::__write_header_code_if_changed(const std::string &code) const
 
 auto generator::__file_contents_equal(const std::string &path, const std::string &content) const -> bool
 {
-    if (!filesystem::exists(path))
+    if (!std::filesystem::exists(path))
         return false;
 
     streams::file_stream file_stream(path);

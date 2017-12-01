@@ -45,7 +45,7 @@ auto code_generator_rectangle::generate_required_header_includes() const -> std:
 
 auto code_generator_rectangle::generate_cpp_type_name() const -> std::string
 {
-    return "aeon::common::optional<aeon::common::types::rectangle<float>>";
+    return "std::optional<aeon::common::types::rectangle<float>>";
 }
 
 auto code_generator_rectangle::generate_cpp_array_type_name() const -> std::string
@@ -80,9 +80,9 @@ auto code_generator_rectangle::generate_array_deserialization_code(const object_
 auto code_generator_rectangle::generate_serialization_code(const object_member &object_member) const -> std::string
 {
     std::string code = R"code(
-    if (%member_name%.has_value())
+    if (%member_name%)
     {
-        auto %member_name%_value = %member_name%.get_value();
+        auto %member_name%_value = %member_name%.value_or(aeon::common::types::rectangle<float>(0, 0, 0, 0));
         json_obj["%member_name%"] = json11::Json::array { %member_name%_value.left(), %member_name%_value.top(), %member_name%_value.right(), %member_name%_value.bottom() };
     }
 )code";
