@@ -45,7 +45,7 @@ namespace generic
 class io_generic_file_interface : public io::io_file_interface
 {
 public:
-    explicit io_generic_file_interface(const std::string &path, const int openmode);
+    explicit io_generic_file_interface(const std::filesystem::path &path, const int openmode);
     virtual ~io_generic_file_interface() override;
 
     auto read(std::uint8_t *data, std::size_t size) -> std::size_t override;

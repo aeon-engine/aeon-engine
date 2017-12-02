@@ -39,14 +39,14 @@ io_generic_filesystem_interface::io_generic_filesystem_interface()
 {
 }
 
-auto io_generic_filesystem_interface::open_file(const std::string &path, const int openmode) const
+auto io_generic_filesystem_interface::open_file(const std::filesystem::path &path, const int openmode) const
     -> std::unique_ptr<io_file_interface>
 {
     AEON_LOG_DEBUG(logger_) << "Opening filesystem file: " << path << " (Mode: " << openmode << ")" << std::endl;
     return std::make_unique<io_generic_file_interface>(path, openmode);
 }
 
-auto io_generic_filesystem_interface::exists(const std::string &path) const -> bool
+auto io_generic_filesystem_interface::exists(const std::filesystem::path &path) const -> bool
 {
     const bool exists = std::filesystem::exists(path);
 
@@ -56,7 +56,7 @@ auto io_generic_filesystem_interface::exists(const std::string &path) const -> b
     return exists;
 }
 
-auto io_generic_filesystem_interface::list(const std::string & /*path*/) const -> std::vector<file_entry>
+auto io_generic_filesystem_interface::list(const std::filesystem::path & /*path*/) const -> std::vector<file_entry>
 {
     // TODO: Implement filesystem list.
     AEON_LOG_FATAL(logger_) << "Called filesystem list which is not implemented." << std::endl;

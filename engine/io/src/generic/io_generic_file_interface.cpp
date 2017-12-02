@@ -32,7 +32,7 @@ namespace io
 namespace generic
 {
 
-io_generic_file_interface::io_generic_file_interface(const std::string &path, const int openmode)
+io_generic_file_interface::io_generic_file_interface(const std::filesystem::path &path, const int openmode)
     : io::io_file_interface()
     , logger_(common::logger::get_singleton(), "io::Generic::Filesystem")
     , stream_(nullptr)
