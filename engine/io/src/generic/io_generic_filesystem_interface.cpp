@@ -48,7 +48,7 @@ auto io_generic_filesystem_interface::open_file(const std::string &path, const i
 
 auto io_generic_filesystem_interface::exists(const std::string &path) const -> bool
 {
-    bool exists = filesystem::exists(path);
+    const bool exists = std::filesystem::exists(path);
 
     AEON_LOG_DEBUG(logger_) << "Checking if path exists: " << path << " (Result: " << (exists ? "true" : "false") << ")"
                             << std::endl;

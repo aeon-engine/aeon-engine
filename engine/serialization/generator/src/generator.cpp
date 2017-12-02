@@ -489,14 +489,14 @@ void generator::__write_header_code_if_changed(const std::string &code) const
     }
 }
 
-auto generator::__file_contents_equal(const std::string &path, const std::string &content) const -> bool
+auto generator::__file_contents_equal(const std::filesystem::path &path, const std::string &content) const -> bool
 {
     if (!std::filesystem::exists(path))
         return false;
 
     streams::file_stream file_stream(path);
     auto file_raw_data = file_stream.read_to_vector();
-    auto file_content = std::string(file_raw_data.begin(), file_raw_data.end());
+    const auto file_content = std::string(file_raw_data.begin(), file_raw_data.end());
 
     return file_content == (content + "\n");
 }

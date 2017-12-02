@@ -25,13 +25,14 @@
 
 #pragma once
 
+#include <subtype_code_generator.h>
+#include <aeon/common/stdfilesystem.h>
 #include <vector>
 #include <map>
 #include <string>
 #include <memory>
 #include <object.h>
 #include <code_generator.h>
-#include <subtype_code_generator.h>
 
 namespace aeon
 {
@@ -74,7 +75,7 @@ private:
     void __write_cpp_code_if_changed(const std::string &code) const;
     void __write_header_code_if_changed(const std::string &code) const;
 
-    auto __file_contents_equal(const std::string &path, const std::string &content) const -> bool;
+    auto __file_contents_equal(const std::filesystem::path &path, const std::string &content) const -> bool;
 
     std::map<std::string, std::unique_ptr<code_generator>> code_generators_;
     subtype_code_generator subtype_code_generator_;
