@@ -26,7 +26,7 @@
 #pragma once
 
 #include <aeon/resources/submesh.h>
-#include <aeon/utility/container.h>
+#include <aeon/common/container.h>
 #include <aeon/common/noncopyable.h>
 #include <glm/mat4x4.hpp>
 #include <string>
@@ -59,7 +59,7 @@ public:
 
     auto get_children() const
     {
-        return utility::container::unique_ptr_to_raw_ptr(children_);
+        return common::container::unique_ptr_to_raw_ptr(children_);
     }
 
     const auto &get_submeshes() const

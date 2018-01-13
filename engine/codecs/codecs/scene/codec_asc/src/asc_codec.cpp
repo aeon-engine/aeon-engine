@@ -28,6 +28,7 @@
 #include <aeon/common/logger.h>
 #include <aeon/streams/stream_reader.h>
 #include <aeon/streams/stream_writer.h>
+#include <aeon/streams/stream_string_operators.h>
 #include <json11.hpp>
 #include <vector>
 #include <cstdint>

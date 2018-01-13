@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <aeon/utility/container.h>
+#include <aeon/common/container.h>
 #include <aeon/common/exception.h>
 #include <aeon/common/cached_object.h>
 #include <aeon/common/noncopyable.h>
@@ -120,7 +120,7 @@ public:
      */
     void garbage_collect_cached_objects()
     {
-        utility::container::erase_if(objects_, [](const auto &obj) { return obj.second.expired(); });
+        common::container::erase_if(objects_, [](const auto &obj) { return obj.second.expired(); });
     }
 
 private:
