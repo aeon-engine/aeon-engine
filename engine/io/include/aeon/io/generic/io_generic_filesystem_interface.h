@@ -46,7 +46,7 @@ public:
     io_generic_filesystem_interface();
     virtual ~io_generic_filesystem_interface() = default;
 
-    auto open_file(const std::filesystem::path &path, const int openmode) const
+    auto open_file(const std::filesystem::path &path, const common::flags<file_open_mode> openmode) const
         -> std::unique_ptr<io_file_interface> override;
     auto exists(const std::filesystem::path &path) const -> bool override;
     auto list(const std::filesystem::path &path) const -> std::vector<file_entry> override;

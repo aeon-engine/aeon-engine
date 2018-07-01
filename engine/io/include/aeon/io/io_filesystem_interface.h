@@ -29,6 +29,7 @@
 #include <aeon/io/io_file_open_mode.h>
 #include <aeon/common/exception.h>
 #include <aeon/common/stdfilesystem.h>
+#include <aeon/common/flags.h>
 #include <memory>
 #include <vector>
 
@@ -68,7 +69,7 @@ public:
     io_filesystem_interface() = default;
     virtual ~io_filesystem_interface() = default;
 
-    virtual auto open_file(const std::filesystem::path &path, const int openmode) const
+    virtual auto open_file(const std::filesystem::path &path, const common::flags<file_open_mode> openmode) const
         -> std::unique_ptr<io_file_interface> = 0;
     virtual auto exists(const std::filesystem::path &path) const -> bool = 0;
     virtual auto list(const std::filesystem::path &path) const -> std::vector<file_entry> = 0;

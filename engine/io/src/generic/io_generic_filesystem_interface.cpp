@@ -39,7 +39,8 @@ io_generic_filesystem_interface::io_generic_filesystem_interface()
 {
 }
 
-auto io_generic_filesystem_interface::open_file(const std::filesystem::path &path, const int openmode) const
+auto io_generic_filesystem_interface::open_file(const std::filesystem::path &path,
+                                                const common::flags<file_open_mode> openmode) const
     -> std::unique_ptr<io_file_interface>
 {
     AEON_LOG_DEBUG(logger_) << "Opening filesystem file: " << path << " (Mode: " << openmode << ")" << std::endl;

@@ -45,7 +45,7 @@ namespace generic
 class io_generic_file_interface : public io::io_file_interface
 {
 public:
-    explicit io_generic_file_interface(const std::filesystem::path &path, const int openmode);
+    explicit io_generic_file_interface(const std::filesystem::path &path, const common::flags<file_open_mode> openmode);
     virtual ~io_generic_file_interface() override;
 
     auto read(std::uint8_t *data, std::size_t size) -> std::size_t override;
@@ -61,8 +61,9 @@ public:
     auto good() const -> bool override;
 
 private:
-    auto __open_mode_to_stream_open_mode(const int openmode) const -> int;
-    auto __open_mode_to_stream_file_mode(const int openmode) const -> streams::file_mode;
+    auto __open_mode_to_stream_open_mode(const common::flags<file_open_mode> openmode) const
+        -> common::flags<streams::access_mode>;
+    auto __open_mode_to_stream_file_mode(const common::flags<file_open_mode> openmode) const -> streams::file_mode;
 
     auto __to_streams_seek_direction(const seek_direction direction) const -> streams::stream::seek_direction;
 

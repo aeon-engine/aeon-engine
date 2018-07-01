@@ -32,7 +32,8 @@ namespace io
 namespace generic
 {
 
-io_generic_file_interface::io_generic_file_interface(const std::filesystem::path &path, const int openmode)
+io_generic_file_interface::io_generic_file_interface(const std::filesystem::path &path,
+                                                     const common::flags<file_open_mode> openmode)
     : io::io_file_interface()
     , logger_(common::logger::get_singleton(), "io::Generic::Filesystem")
     , stream_(nullptr)
@@ -41,8 +42,8 @@ io_generic_file_interface::io_generic_file_interface(const std::filesystem::path
 
     try
     {
-        int access_mode = __open_mode_to_stream_open_mode(openmode);
-        streams::file_mode file_mode = __open_mode_to_stream_file_mode(openmode);
+        auto access_mode = __open_mode_to_stream_open_mode(openmode);
+        auto file_mode = __open_mode_to_stream_file_mode(openmode);
         stream_ = std::make_unique<streams::file_stream>(path, access_mode, file_mode);
     }
     catch (streams::file_stream_exception &)
@@ -114,18 +115,27 @@ auto io_generic_file_interface::good() const -> bool
     return stream_->good();
 }
 
-auto io_generic_file_interface::__open_mode_to_stream_open_mode(const int openmode) const -> int
+auto io_generic_file_interface::__open_mode_to_stream_open_mode(const common::flags<file_open_mode> openmode) const
+    -> common::flags<streams::access_mode>
 {
-    int access_mode = 0;
-    access_mode |= (openmode & file_open_mode::read) ? streams::access_mode::read : 0;
-    access_mode |= (openmode & file_open_mode::write) ? streams::access_mode::write : 0;
-    access_mode |= (openmode & file_open_mode::truncate) ? streams::access_mode::truncate : 0;
+    common::flags<streams::access_mode> access_mode = streams::access_mode::none;
+
+    if (openmode.is_set(file_open_mode::read))
+        access_mode.set(streams::access_mode::read);
+
+    if (openmode.is_set(file_open_mode::write))
+        access_mode.set(streams::access_mode::write);
+
+    if (openmode.is_set(file_open_mode::truncate))
+        access_mode.set(streams::access_mode::truncate);
+
     return access_mode;
 }
 
-auto io_generic_file_interface::__open_mode_to_stream_file_mode(const int openmode) const -> streams::file_mode
+auto io_generic_file_interface::__open_mode_to_stream_file_mode(const common::flags<file_open_mode> openmode) const
+    -> streams::file_mode
 {
-    return (openmode & file_open_mode::binary) ? streams::file_mode::binary : streams::file_mode::text;
+    return (openmode.is_set(file_open_mode::binary)) ? streams::file_mode::binary : streams::file_mode::text;
 }
 
 auto io_generic_file_interface::__to_streams_seek_direction(const seek_direction direction) const

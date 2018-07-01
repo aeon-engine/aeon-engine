@@ -25,6 +25,8 @@
 
 #pragma once
 
+#include <aeon/common/flags.h>
+
 namespace aeon
 {
 namespace io
@@ -38,6 +40,8 @@ enum file_open_mode
     read_write = read | write,
     truncate = 0x08
 };
+
+aeon_declare_flag_operators(file_open_mode)
 
 } // namespace io
 } // namespace aeon
