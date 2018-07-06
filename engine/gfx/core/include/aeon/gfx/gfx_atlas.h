@@ -30,7 +30,7 @@
 #include <aeon/logger/logger.h>
 #include <aeon/common/cached_object.h>
 #include <aeon/common/exception.h>
-#include <glm/vec2.hpp>
+#include <aeon/math/vector2.h>
 #include <memory>
 
 namespace aeon
@@ -46,7 +46,7 @@ class atlas : public common::cached_object, public std::enable_shared_from_this<
 
 public:
     explicit atlas(const std::shared_ptr<material> &material, const data::atlas &atlas);
-    explicit atlas(const std::shared_ptr<material> &material, glm::vec2 sprite_size);
+    explicit atlas(const std::shared_ptr<material> &material, math::vector2<float> sprite_size);
     virtual ~atlas() = default;
 
     auto get_region_by_index(int index) const -> data::atlas::region;
@@ -55,7 +55,7 @@ public:
     auto get_material() const -> std::shared_ptr<material>;
 
 private:
-    void __calculate_atlas_regions(glm::vec2 sprite_size);
+    void __calculate_atlas_regions(math::vector2<float> sprite_size);
 
     logger::logger logger_;
 

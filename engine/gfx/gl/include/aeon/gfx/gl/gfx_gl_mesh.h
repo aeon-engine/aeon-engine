@@ -49,7 +49,7 @@ public:
                               const gfx::buffer_usage usage) override;
     void upload_index_buffer(const std::vector<std::uint32_t> &index_data, const gfx::buffer_usage usage) override;
 
-    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) override;
+    void render(const math::mat4 &projection, const math::mat4 &view, const math::mat4 &model) override;
 
     auto has_alpha() const -> bool override;
 

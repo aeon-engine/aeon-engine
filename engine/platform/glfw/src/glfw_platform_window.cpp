@@ -101,11 +101,11 @@ void glfw_window::make_current()
     glfwMakeContextCurrent(window_);
 }
 
-auto glfw_window::get_framebuffer_size() const -> glm::vec2
+auto glfw_window::get_framebuffer_size() const -> math::vector2<float>
 {
     int width, height;
     glfwGetFramebufferSize(window_, &width, &height);
-    return glm::vec2(width, height);
+    return math::vector2<float>{width, height};
 }
 
 void glfw_window::set_mouse_cursor_mode(const mouse_cursor_mode mode)
@@ -143,7 +143,7 @@ auto glfw_window::get_glfw_window_ptr() const -> GLFWwindow *
 
 void glfw_window::__reset_scissor() const
 {
-    glm::vec2 framebuffer_size = get_framebuffer_size();
+    const auto framebuffer_size = get_framebuffer_size();
     common::types::rectangle<float> rect(0.0f, 0.0f, framebuffer_size.x, framebuffer_size.y);
     platform_manager_.get_device().set_scissor(rect);
 }

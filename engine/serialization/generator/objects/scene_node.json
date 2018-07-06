@@ -2,9 +2,9 @@
     "name": "scene_node",
     "members": {
         "name": "string",
-        "position": "vec3",
+        "position": "vector3",
         "rotation": "quaternion",
-        "scale": "vec3",
+        "scale": "vector3",
         "children": ["scene_node"],
         "objects": ["scene_object"]
     }

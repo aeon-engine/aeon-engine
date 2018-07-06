@@ -64,7 +64,6 @@ target_link_libraries(aeon_engine_gfx_gl
     aeon_engine_gfx_gl_common
     glew_s
     aeon_logger
-    glm
 )
 
 target_include_directories(aeon_engine_gfx_gl

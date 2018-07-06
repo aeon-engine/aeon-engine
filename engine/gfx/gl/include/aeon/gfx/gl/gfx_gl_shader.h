@@ -46,9 +46,9 @@ public:
 
     void bind() const;
 
-    void set_projection_matrix(const glm::mat4 &matrix) override;
-    void set_model_matrix(const glm::mat4 &matrix) override;
-    void set_view_matrix(const glm::mat4 &matrix) override;
+    void set_projection_matrix(const math::mat4 &matrix) override;
+    void set_model_matrix(const math::mat4 &matrix) override;
+    void set_view_matrix(const math::mat4 &matrix) override;
 
     auto get_sampler_handle_by_name(const std::string &name) const -> GLint;
     void bind_sampler(const GLint handle, const int bind_point) const;

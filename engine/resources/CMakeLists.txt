@@ -71,8 +71,8 @@ target_link_libraries(aeon_engine_resources
     aeon_engine_serialization
     aeon_common
     aeon_logger
+    aeon_math
     aeon_utility
-    glm
 )
 
 target_include_directories(aeon_engine_resources

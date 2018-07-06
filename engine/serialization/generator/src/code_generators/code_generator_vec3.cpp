@@ -35,22 +35,22 @@ namespace serialization
 
 auto code_generator_vec3::get_type_name() const -> std::string
 {
-    return "vec3";
+    return "vector3";
 }
 
 auto code_generator_vec3::generate_required_header_includes() const -> std::set<std::string>
 {
-    return {"glm/vec3.hpp"};
+    return {"aeon/math/vector3.h"};
 }
 
 auto code_generator_vec3::generate_cpp_type_name() const -> std::string
 {
-    return "std::optional<glm::vec3>";
+    return "std::optional<aeon::math::vector3<float>>";
 }
 
 auto code_generator_vec3::generate_cpp_array_type_name() const -> std::string
 {
-    throw std::runtime_error("A vec3 can not be used as array.");
+    throw std::runtime_error("A vector3 can not be used as array.");
 }
 
 auto code_generator_vec3::generate_deserialization_code(const object_member &object_member) const -> std::string
@@ -60,10 +60,10 @@ auto code_generator_vec3::generate_deserialization_code(const object_member &obj
 
     if (!%member_name%_array_items.empty())
     {
-        %member_name% = glm::vec3(
-            static_cast<float>(%member_name%_array_items[0].number_value()),
-            static_cast<float>(%member_name%_array_items[1].number_value()),
-            static_cast<float>(%member_name%_array_items[2].number_value()));
+        %member_name% = aeon::math::vector3<float>{
+            %member_name%_array_items[0].number_value(),
+            %member_name%_array_items[1].number_value(),
+            %member_name%_array_items[2].number_value()};
     }
 )code";
 
@@ -81,7 +81,7 @@ auto code_generator_vec3::generate_serialization_code(const object_member &objec
     std::string code = R"code(
     if (%member_name%)
     {
-        auto %member_name%_value = %member_name%.value_or(glm::vec3());
+        auto %member_name%_value = %member_name%.value_or(aeon::math::vector3<float>{});
         json_obj["%member_name%"] = json11::Json::array { %member_name%_value.x, %member_name%_value.y, %member_name%_value.z };
     }
 )code";
@@ -92,7 +92,7 @@ auto code_generator_vec3::generate_serialization_code(const object_member &objec
 
 auto code_generator_vec3::generate_array_serialization_code(const object_member &) const -> std::string
 {
-    throw std::runtime_error("A vec3 can not be used as array.");
+    throw std::runtime_error("A vector3 can not be used as array.");
 }
 
 } // namespace serialization

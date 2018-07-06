@@ -33,6 +33,8 @@ namespace scene
 
 scene_node::scene_node(const std::string &name)
     : movable_object()
+    , parent_matrix_(math::mat4::indentity())
+    , total_matrix_(math::mat4::indentity())
     , is_root_(false)
     , name_(name)
 {

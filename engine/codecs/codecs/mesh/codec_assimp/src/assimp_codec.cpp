@@ -28,6 +28,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <cassert>
 
 namespace aeon
 {
@@ -225,15 +226,15 @@ auto mesh_codec_assimp::__decode_submeshes_from_scene_node(const aiNode *ai_node
     return submeshes;
 }
 
-auto mesh_codec_assimp::__convert_to_glm_vec3(const aiVector3D &vector) const -> glm::vec3
+auto mesh_codec_assimp::__convert_to_glm_vec3(const aiVector3D &vector) const -> math::vector3<float>
 {
-    return glm::vec3(vector.x, vector.y, vector.z);
+    return {vector.x, vector.y, vector.z};
 }
 
-auto mesh_codec_assimp::__convert_to_glm_mat4(const aiMatrix4x4 &matrix) const -> glm::mat4
+auto mesh_codec_assimp::__convert_to_glm_mat4(const aiMatrix4x4 &matrix) const -> math::mat4
 {
-    return glm::mat4(matrix.a1, matrix.b1, matrix.c1, matrix.d1, matrix.a2, matrix.b2, matrix.c2, matrix.d2, matrix.a3,
-                     matrix.b3, matrix.c3, matrix.d3, matrix.a4, matrix.b4, matrix.c4, matrix.d4);
+    return {matrix.a1, matrix.b1, matrix.c1, matrix.d1, matrix.a2, matrix.b2, matrix.c2, matrix.d2,
+            matrix.a3, matrix.b3, matrix.c3, matrix.d3, matrix.a4, matrix.b4, matrix.c4, matrix.d4};
 }
 
 auto mesh_codec_assimp::__convert_to_color(const aiColor4D &color) const -> common::types::color

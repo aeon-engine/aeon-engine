@@ -131,7 +131,7 @@ public:
      *                    top to bottom.
      * \return A gfx atlas
      */
-    auto create_atlas(const std::shared_ptr<gfx::material> &material, const glm::vec2 sprite_size) const
+    auto create_atlas(const std::shared_ptr<gfx::material> &material, const math::vector2<float> sprite_size) const
         -> std::shared_ptr<gfx::atlas>;
 
     /*!

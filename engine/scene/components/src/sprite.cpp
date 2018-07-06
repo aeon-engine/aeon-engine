@@ -25,6 +25,8 @@
 
 #include <aeon/scene/components/sprite.h>
 #include <aeon/scene/scene_manager.h>
+#include <aeon/math/vector3.h>
+#include <aeon/math/vector4.h>
 
 namespace aeon
 {
@@ -38,7 +40,8 @@ sprite::sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &
 }
 
 sprite::sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
-               const data::atlas::region &region, const glm::vec2 size, const int zorder, const std::string &name)
+               const data::atlas::region &region, const math::vector2<float> size, const int zorder,
+               const std::string &name)
     : component(name, render_layer::overlay, component_render_type::renderable, scene_manager)
     , has_z_order(zorder)
     , size_(size)
@@ -51,20 +54,20 @@ sprite::sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &
 
 auto sprite::get_axis_aligned_bounding_box() const -> common::types::rectangle<float>
 {
-    auto size_2 = glm::vec2{size_ * 0.5f};
-    auto position = get_scene_matrix() * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    math::vector2<float> size_2 = {size_ * 0.5f};
+    auto position = get_scene_matrix() * math::vector4<float>(0.0f, 0.0f, 0.0f, 1.0f);
 
-    glm::vec2 data[] = {// Bottom left
-                        glm::vec2{-size_2.x + position.x, size_2.y + position.y},
+    math::vector2<float> data[] = {// Bottom left
+                                   math::vector2<float>{-size_2.x + position.x, size_2.y + position.y},
 
-                        // Bottom right
-                        glm::vec2{size_2.x + position.x, size_2.y + position.y},
+                                   // Bottom right
+                                   math::vector2<float>{size_2.x + position.x, size_2.y + position.y},
 
-                        // Top left
-                        glm::vec2{-size_2.x + position.x, -size_2.y + position.y},
+                                   // Top left
+                                   math::vector2<float>{-size_2.x + position.x, -size_2.y + position.y},
 
-                        // Top right
-                        glm::vec2{size_2.x + position.x, -size_2.y + position.y}};
+                                   // Top right
+                                   math::vector2<float>{size_2.x + position.x, -size_2.y + position.y}};
 
     auto min_x = data[0].x;
     auto max_x = data[0].x;
@@ -89,7 +92,7 @@ auto sprite::get_axis_aligned_bounding_box() const -> common::types::rectangle<f
     return common::types::rectangle<float>{min_x, min_y, max_x, max_y};
 }
 
-void sprite::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, const float dt)
+void sprite::render(const math::mat4 &projection, const math::mat4 &view, const math::mat4 &model, const float dt)
 {
     update(dt);
     mesh_->render(projection, view, model);
@@ -107,23 +110,23 @@ void sprite::__upload_mesh_data() const
 
 void sprite::__generate_and_upload_vertex_data() const
 {
-    auto size_2 = glm::vec2{size_ * 0.5f};
+    auto size_2 = math::vector2<float>{size_ * 0.5f};
     auto vertex_data = std::vector<data::vertex_data>{
         // Bottom left
-        {glm::vec3{-size_2.x, size_2.y, 0.0f}, glm::vec3{0.0f, 0.0f, 1.0f}, glm::vec3{region_.u1, region_.v2, 0.0f},
-         common::types::color{1.0f, 1.0f, 1.0f, 1.0f}},
+        {math::vector3<float>{-size_2.x, size_2.y, 0.0f}, math::vector3<float>{0.0f, 0.0f, 1.0f},
+         math::vector3<float>{region_.u1, region_.v2, 0.0f}, common::types::color{1.0f, 1.0f, 1.0f, 1.0f}},
 
         // Bottom right
-        {glm::vec3{size_2.x, size_2.y, 0.0f}, glm::vec3{0.0f, 0.0f, 1.0f}, glm::vec3{region_.u2, region_.v2, 0.0f},
-         common::types::color{1.0f, 1.0f, 1.0f, 1.0f}},
+        {math::vector3<float>{size_2.x, size_2.y, 0.0f}, math::vector3<float>{0.0f, 0.0f, 1.0f},
+         math::vector3<float>{region_.u2, region_.v2, 0.0f}, common::types::color{1.0f, 1.0f, 1.0f, 1.0f}},
 
         // Top left
-        {glm::vec3{-size_2.x, -size_2.y, 0.0f}, glm::vec3{0.0f, 0.0f, 1.0f}, glm::vec3{region_.u1, region_.v1, 0.0f},
-         common::types::color{1.0f, 1.0f, 1.0f, 1.0f}},
+        {math::vector3<float>{-size_2.x, -size_2.y, 0.0f}, math::vector3<float>{0.0f, 0.0f, 1.0f},
+         math::vector3<float>{region_.u1, region_.v1, 0.0f}, common::types::color{1.0f, 1.0f, 1.0f, 1.0f}},
 
         // Top right
-        {glm::vec3{size_2.x, -size_2.y, 0.0f}, glm::vec3{0.0f, 0.0f, 1.0f}, glm::vec3{region_.u2, region_.v1, 0.0f},
-         common::types::color{1.0f, 1.0f, 1.0f, 1.0f}}};
+        {math::vector3<float>{size_2.x, -size_2.y, 0.0f}, math::vector3<float>{0.0f, 0.0f, 1.0f},
+         math::vector3<float>{region_.u2, region_.v1, 0.0f}, common::types::color{1.0f, 1.0f, 1.0f, 1.0f}}};
 
     mesh_->upload_vertex_buffer(vertex_data, gfx::buffer_usage::dynamic_usage);
 }

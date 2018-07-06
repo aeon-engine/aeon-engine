@@ -25,8 +25,8 @@
 
 #pragma once
 
+#include <aeon/math/vector2.h>
 #include <typeinfo>
-#include <glm/vec2.hpp>
 #include <iostream>
 
 namespace aeon
@@ -99,7 +99,7 @@ public:
     template <typename U>
     auto size() const
     {
-        return glm::vec2(width(), height());
+        return math::vector2<U>(width(), height());
     }
 
     auto left() const

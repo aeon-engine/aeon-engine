@@ -26,7 +26,7 @@
 #pragma once
 
 #include <aeon/common/cached_object.h>
-#include <glm/mat4x4.hpp>
+#include <aeon/math/mat4.h>
 
 namespace aeon
 {
@@ -39,9 +39,9 @@ public:
     shader();
     virtual ~shader();
 
-    virtual void set_projection_matrix(const glm::mat4 &matrix) = 0;
-    virtual void set_model_matrix(const glm::mat4 &matrix) = 0;
-    virtual void set_view_matrix(const glm::mat4 &matrix) = 0;
+    virtual void set_projection_matrix(const math::mat4 &matrix) = 0;
+    virtual void set_model_matrix(const math::mat4 &matrix) = 0;
+    virtual void set_view_matrix(const math::mat4 &matrix) = 0;
 };
 
 } // namespace gfx

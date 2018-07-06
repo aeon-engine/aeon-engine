@@ -45,8 +45,7 @@ public:
     virtual ~mesh();
 
 private:
-    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model,
-                const float dt) override;
+    void render(const math::mat4 &projection, const math::mat4 &view, const math::mat4 &model, const float dt) override;
 
     std::unique_ptr<gfx::mesh> mesh_;
 };

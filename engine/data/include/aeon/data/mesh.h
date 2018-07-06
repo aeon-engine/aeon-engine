@@ -27,7 +27,7 @@
 
 #include <aeon/common/types/color.h>
 #include <aeon/common/compilers.h>
-#include <glm/vec3.hpp>
+#include <aeon/math/vector3.h>
 #include <vector>
 
 namespace aeon
@@ -38,12 +38,12 @@ namespace data
 AEON_PACK_STRUCT_PUSH(1)
 struct vertex_data
 {
-    glm::vec3 position;
-    glm::vec3 normal;
-    glm::vec3 uvw;
+    math::vector3<float> position;
+    math::vector3<float> normal;
+    math::vector3<float> uvw;
     common::types::color color;
-    glm::vec3 tangent;
-    glm::vec3 bitangent;
+    math::vector3<float> tangent;
+    math::vector3<float> bitangent;
 } AEON_PACK_STRUCT_POP(1);
 
 using index_data_buffer = std::vector<std::uint32_t>;

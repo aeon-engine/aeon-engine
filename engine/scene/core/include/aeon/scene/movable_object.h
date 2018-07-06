@@ -26,9 +26,9 @@
 #pragma once
 
 #include <aeon/scene/exceptions.h>
-#include <glm/mat4x4.hpp>
-#include <glm/vec3.hpp>
-#include <glm/gtc/quaternion.hpp>
+#include <aeon/math/mat4.h>
+#include <aeon/math/vector3.h>
+#include <aeon/math/quaternion.h>
 
 namespace aeon
 {
@@ -67,7 +67,7 @@ public:
      * Translate the internal matrix (relative to the current position).
      * Sets the dirty flag.
      */
-    void set_position(const glm::vec3 &vector);
+    void set_position(const math::vector3<float> &vector);
 
     /*!
      * Move relative to the current position.
@@ -79,7 +79,7 @@ public:
      * Move relative to the current position.
      * Sets the dirty flag.
      */
-    void translate(const glm::vec3 &vector);
+    void translate(const math::vector3<float> &vector);
 
     /*!
      * Set the rotation of this object. Angles must be given in radians.
@@ -91,7 +91,7 @@ public:
      * Set the rotation of this object. Angles must be given in radians.
      * Sets the dirty flag.
      */
-    void set_rotation(const glm::vec3 &vector);
+    void set_rotation(const math::vector3<float> &vector);
 
     /*!
      * Set the rotation of this object. Angles must be given in radians.
@@ -105,7 +105,7 @@ public:
      * Set the rotation of this object. Angles must be given in radians.
      * Sets the dirty flag.
      */
-    void set_rotation(const glm::quat &quaternion);
+    void set_rotation(const math::quaternion &quaternion);
 
     /*!
      * Rotate relative to the current rotation. Angles must be given in radians.
@@ -117,7 +117,7 @@ public:
      * Rotate relative to the current rotation. Angles must be given in radians.
      * Sets the dirty flag.
      */
-    void rotate(const glm::vec3 &vector);
+    void rotate(const math::vector3<float> &vector);
 
     /*!
      * Rotate relative to the current rotation over the Z axis. Angles must be given in radians.
@@ -131,7 +131,7 @@ public:
      * Rotate relative to the current rotation. Angles must be given in radians.
      * Sets the dirty flag.
      */
-    void rotate(const glm::quat &quaternion);
+    void rotate(const math::quaternion &quaternion);
 
     /*!
      * Set the scale.
@@ -149,7 +149,7 @@ public:
      * Set the scale.
      * Sets the dirty flag.
      */
-    void set_scale(const glm::vec3 &vector);
+    void set_scale(const math::vector3<float> &vector);
 
     /*!
      * Scale relative to the current scale.
@@ -167,7 +167,7 @@ public:
      * Scale relative to the current scale.
      * Sets the dirty flag.
      */
-    void scale(const glm::vec3 &vector);
+    void scale(const math::vector3<float> &vector);
 
     /*!
      * Get the internal matrix.
@@ -206,7 +206,7 @@ public:
      */
     auto get_rotation_euler() const
     {
-        return glm::axis(rotation_);
+        return math::euler(rotation_);
     }
 
     /*!
@@ -223,7 +223,7 @@ public:
      * An attempt is made to decompose the given matrix, but this may not always work.
      * Sets the dirty flag.
      */
-    void set_matrix(const glm::mat4 &matrix);
+    void set_matrix(const math::mat4 &matrix);
 
     /*!
      * Multiply the internal matrix with another matrix.
@@ -231,7 +231,7 @@ public:
      * An attempt is made to decompose the given matrix, but this may not always work.
      * Sets the dirty flag.
      */
-    void multiply_matrix(const glm::mat4 &matrix);
+    void multiply_matrix(const math::mat4 &matrix);
 
 protected:
     /*!
@@ -248,10 +248,10 @@ protected:
      */
     bool dirty_;
 
-    glm::vec3 position_;
-    glm::quat rotation_;
-    glm::vec3 scale_;
-    glm::mat4 matrix_;
+    math::vector3<float> position_;
+    math::quaternion rotation_;
+    math::vector3<float> scale_;
+    math::mat4 matrix_;
 };
 
 } // namespace scene

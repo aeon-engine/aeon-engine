@@ -31,7 +31,7 @@ namespace gfx
 {
 
 gfx_camera::gfx_camera()
-    : projection_matrix_(1.0f)
+    : projection_matrix_(math::mat4::indentity())
 {
 }
 

@@ -187,7 +187,7 @@ auto asset_manager::load_scene(const std::string &path) -> std::shared_ptr<scene
     return scene_node;
 }
 
-auto asset_manager::create_atlas(const std::shared_ptr<gfx::material> &material, glm::vec2 sprite_size) const
+auto asset_manager::create_atlas(const std::shared_ptr<gfx::material> &material, math::vector2<float> sprite_size) const
     -> std::shared_ptr<gfx::atlas>
 {
     return std::make_shared<gfx::atlas>(material, sprite_size);
@@ -234,9 +234,9 @@ void asset_manager::__convert_scene_data_to_scene_node(serialization::scene_node
         __convert_scene_data_to_scene_node(*scene_subnode, *subnode);
     }
 
-    scene_node.set_position(scene_data.position.value_or(glm::vec3()));
-    scene_node.set_rotation(scene_data.rotation.value_or(glm::quat()));
-    scene_node.set_scale(scene_data.scale.value_or(glm::vec3()));
+    scene_node.set_position(scene_data.position.value_or(math::vector3<float>()));
+    scene_node.set_rotation(scene_data.rotation.value_or(math::quaternion()));
+    scene_node.set_scale(scene_data.scale.value_or(math::vector3<float>()));
 
     auto &components = scene_data.objects;
     for (auto &component : components)

@@ -40,7 +40,7 @@ add_library(aeon_engine_data STATIC
 target_link_libraries(aeon_engine_data
     aeon_engine_common
     aeon_common
-    glm
+    aeon_math
 )
 
 target_include_directories(aeon_engine_data

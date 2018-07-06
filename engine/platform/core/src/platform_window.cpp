@@ -37,9 +37,9 @@ window::window(const window_settings &settings)
 {
 }
 
-auto window::get_size() const -> glm::vec2
+auto window::get_size() const -> math::vector2<int>
 {
-    return glm::vec2(width_, height_);
+    return {width_, height_};
 }
 
 void window::get_size(int &width, int &height) const

@@ -47,7 +47,6 @@ add_library(aeon_engine_platform_rpi STATIC
 target_link_libraries(aeon_engine_platform_rpi
     aeon_engine_platform_core
     RaspberryPiSdk
-    glm
 )
 
 target_include_directories(aeon_engine_platform_rpi

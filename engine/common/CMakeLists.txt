@@ -50,7 +50,7 @@ target_link_libraries(aeon_engine_common
     aeon_utility
     aeon_logger
     aeon_streams
-    glm
+    aeon_math
 )
 
 target_include_directories(aeon_engine_common

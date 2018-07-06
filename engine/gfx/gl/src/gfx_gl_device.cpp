@@ -71,7 +71,7 @@ void gfx_gl_device::set_clear_color(const common::types::color &c)
 void gfx_gl_device::set_viewport(render_target &rt, viewport &vp)
 {
     common::types::rectangle<float> vp_rel_rect = vp.get_rectangle();
-    glm::vec2 framebuffer_size = rt.get_framebuffer_size();
+    const auto framebuffer_size = rt.get_framebuffer_size();
     common::types::rectangle<int> vp_abs_rect = {static_cast<int>(vp_rel_rect.left() * framebuffer_size.x),
                                                  static_cast<int>(vp_rel_rect.top() * framebuffer_size.y),
                                                  static_cast<int>(vp_rel_rect.right() * framebuffer_size.x),

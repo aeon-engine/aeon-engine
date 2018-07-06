@@ -57,7 +57,7 @@ void application::main()
 
     // A sprite batch requires an atlas, we can either load one from an atlas file, or just generate one if
     // all the sprites have the same size and are properly aligned within the file.
-    auto atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
+    auto atlas = get_asset_manager().create_atlas(ships_material, aeon::math::vector2<float>(64, 64));
 
     // Set up scene
     auto root_node = get_scene_manager().get_root_scene_node();

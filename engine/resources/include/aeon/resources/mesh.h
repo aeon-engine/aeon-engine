@@ -70,7 +70,7 @@ public:
         return submeshes_;
     }
 
-    auto create_root_mesh_node(const glm::mat4 &matrix, const std::vector<submesh *> &submeshes) -> mesh_node &;
+    auto create_root_mesh_node(const math::mat4 &matrix, const std::vector<submesh *> &submeshes) -> mesh_node &;
     auto get_root_mesh_node() const -> mesh_node &;
 
 private:

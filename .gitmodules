@@ -14,10 +14,6 @@
 	path = dep/glew
 	url = ../../aeon-external-dependencies/glew.git
 	branch = submodule
-[submodule "dep/glm"]
-	path = dep/glm
-	url = ../../aeon-external-dependencies/glm.git
-	branch = submodule
 [submodule "dep/zlib"]
 	path = dep/zlib
 	url = ../../aeon-external-dependencies/zlib.git

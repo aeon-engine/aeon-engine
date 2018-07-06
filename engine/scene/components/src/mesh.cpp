@@ -45,7 +45,7 @@ mesh::mesh(scene_manager &scene_manager, const std::shared_ptr<gfx::material> &m
 
 mesh::~mesh() = default;
 
-void mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model, const float)
+void mesh::render(const math::mat4 &projection, const math::mat4 &view, const math::mat4 &model, const float)
 {
     mesh_->render(projection, view, model);
 }

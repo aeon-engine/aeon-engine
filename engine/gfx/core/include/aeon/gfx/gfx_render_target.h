@@ -30,6 +30,7 @@
 #include <aeon/gfx/gfx_camera.h>
 #include <aeon/logger/logger.h>
 #include <aeon/utility/listener_subject.h>
+#include <aeon/math/vector2.h>
 #include <memory>
 #include <vector>
 
@@ -75,7 +76,7 @@ public:
     /*!
      * Get the size of the render framebuffer.
      */
-    virtual auto get_framebuffer_size() const -> glm::vec2 = 0;
+    virtual auto get_framebuffer_size() const -> math::vector2<float> = 0;
 
 protected:
     virtual auto __on_frame_start(float dt) -> bool = 0;

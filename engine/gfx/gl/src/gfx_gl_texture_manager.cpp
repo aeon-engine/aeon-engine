@@ -112,7 +112,7 @@ auto gfx_gl_texture_manager::create(const data::image &image_data) -> std::share
     }
 
     t->handle_ = handle;
-    t->size_ = glm::vec2(width, height);
+    t->size_ = math::vector2<float>{width, height};
     t->pixel_format_ = image_data.get_pixelformat();
 
     return t;

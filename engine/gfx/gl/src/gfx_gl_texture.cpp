@@ -25,6 +25,7 @@
 
 #include <aeon/gfx/gl/gfx_gl_texture.h>
 #include <aeon/gfx/gl_common/check_gl_error.h>
+#include <cassert>
 
 namespace aeon
 {
@@ -37,7 +38,7 @@ gfx_gl_texture::gfx_gl_texture()
     : gfx::texture()
     , logger_(common::logger::get_singleton(), "Gfx::GL::Texture")
     , handle_(0)
-    , size_(0)
+    , size_(0, 0)
     , pixel_format_(data::image::pixel_format::rgb)
 {
 }
@@ -56,7 +57,7 @@ void gfx_gl_texture::bind() const
     AEON_CHECK_GL_ERROR();
 }
 
-auto gfx_gl_texture::get_size() const -> glm::vec2
+auto gfx_gl_texture::get_size() const -> math::vector2<float>
 {
     return size_;
 }

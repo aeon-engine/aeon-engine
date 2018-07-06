@@ -30,18 +30,18 @@ namespace aeon
 namespace resources
 {
 
-mesh_node::mesh_node(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
+mesh_node::mesh_node(const std::string &name, const math::mat4 &matrix, const std::vector<submesh *> &submeshes)
     : name_(name)
     , matrix_(matrix)
     , submeshes_(submeshes)
 {
 }
 
-auto mesh_node::create_child(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
+auto mesh_node::create_child(const std::string &name, const math::mat4 &matrix, const std::vector<submesh *> &submeshes)
     -> mesh_node &
 {
     auto mesh = std::make_unique<mesh_node>(name, matrix, submeshes);
-    auto mesh_ptr = mesh.get();
+    const auto mesh_ptr = mesh.get();
 
     children_.emplace_back(std::move(mesh));
 

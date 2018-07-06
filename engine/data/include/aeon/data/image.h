@@ -26,7 +26,7 @@
 #pragma once
 
 #include <aeon/common/noncopyable.h>
-#include <glm/vec2.hpp>
+#include <aeon/math/vector2.h>
 #include <vector>
 #include <cstdint>
 
@@ -63,7 +63,7 @@ public:
 
     auto get_height() const -> unsigned int;
 
-    auto get_size() const -> glm::vec2;
+    auto get_size() const -> math::vector2<float>;
 
     auto get_pixelformat() const -> pixel_format;
 

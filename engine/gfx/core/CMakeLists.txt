@@ -61,7 +61,7 @@ target_link_libraries(aeon_engine_gfx_core
     aeon_engine_data
     aeon_engine_resources
     aeon_logger
-    glm
+    aeon_math
 )
 
 target_include_directories(aeon_engine_gfx_core

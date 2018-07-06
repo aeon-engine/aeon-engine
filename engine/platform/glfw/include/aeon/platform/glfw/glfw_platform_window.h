@@ -47,7 +47,7 @@ public:
 
     void make_current() override;
 
-    auto get_framebuffer_size() const -> glm::vec2 override;
+    auto get_framebuffer_size() const -> math::vector2<float> override;
 
     void set_mouse_cursor_mode(const mouse_cursor_mode mode) override;
 

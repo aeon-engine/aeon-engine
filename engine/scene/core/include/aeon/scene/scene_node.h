@@ -28,7 +28,8 @@
 #include <aeon/scene/component.h>
 #include <aeon/scene/movable_object.h>
 #include <aeon/common/noncopyable.h>
-#include <glm/mat4x4.hpp>
+#include <aeon/math/mat4.h>
+#include <aeon/math/vector4.h>
 #include <vector>
 #include <memory>
 
@@ -116,7 +117,7 @@ public:
      */
     auto get_center_point() const
     {
-        return total_matrix_ * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+        return total_matrix_ * math::vector4<float>{0.0f, 0.0f, 0.0f, 1.0f};
     }
 
     /*!
@@ -212,12 +213,12 @@ private:
     /*!
      * The precalculated matrix multiplications of everything up until the root node.
      */
-    glm::mat4 parent_matrix_;
+    math::mat4 parent_matrix_;
 
     /*!
      * The calculated matrix for this node (matrix_ * parent_matrix_)
      */
-    glm::mat4 total_matrix_;
+    math::mat4 total_matrix_;
 
     /*!
      * True if this is the root node

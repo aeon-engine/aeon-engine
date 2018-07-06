@@ -52,7 +52,7 @@ void input_handler::handle_keyboard_key_state_changed_event(const keyboard_key k
 
 void input_handler::handle_mouse_move_event(const float x, const float y)
 {
-    mouse_cursor_position_ = glm::vec2(x, y);
+    mouse_cursor_position_ = math::vector2<float>{x, y};
 
     for (auto listener : listeners_)
     {
@@ -84,7 +84,7 @@ void input_handler::handle_end_of_frame()
     keystates_.reset_first_of_frame();
 }
 
-auto input_handler::get_mouse_cursor_position() const -> glm::vec2
+auto input_handler::get_mouse_cursor_position() const -> math::vector2<float>
 {
     return mouse_cursor_position_;
 }

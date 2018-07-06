@@ -45,7 +45,7 @@ public:
     ~gfx_gl_texture() override;
 
     void bind() const;
-    auto get_size() const -> glm::vec2 override;
+    auto get_size() const -> math::vector2<float> override;
     auto get_pixel_format() const -> data::image::pixel_format override;
 
     void set_texture_bind_point(const int bind_point) const;
@@ -53,7 +53,7 @@ public:
 private:
     aeon::logger::logger logger_;
     GLuint handle_;
-    glm::vec2 size_;
+    math::vector2<float> size_;
     data::image::pixel_format pixel_format_;
 };
 

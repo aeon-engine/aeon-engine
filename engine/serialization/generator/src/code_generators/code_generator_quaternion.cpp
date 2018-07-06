@@ -40,12 +40,12 @@ auto code_generator_quaternion::get_type_name() const -> std::string
 
 auto code_generator_quaternion::generate_required_header_includes() const -> std::set<std::string>
 {
-    return {"glm/gtc/quaternion.hpp"};
+    return {"aeon/math/quaternion.h"};
 }
 
 auto code_generator_quaternion::generate_cpp_type_name() const -> std::string
 {
-    return "std::optional<glm::quat>";
+    return "std::optional<aeon::math::quaternion>";
 }
 
 auto code_generator_quaternion::generate_cpp_array_type_name() const -> std::string
@@ -60,11 +60,11 @@ auto code_generator_quaternion::generate_deserialization_code(const object_membe
 
     if (!%member_name%_array_items.empty())
     {
-        %member_name% = glm::quat(
-            static_cast<float>(%member_name%_array_items[0].number_value()),
-            static_cast<float>(%member_name%_array_items[1].number_value()),
-            static_cast<float>(%member_name%_array_items[2].number_value()),
-            static_cast<float>(%member_name%_array_items[3].number_value()));
+        %member_name% = aeon::math::quaternion{
+            %member_name%_array_items[0].number_value(),
+            %member_name%_array_items[1].number_value(),
+            %member_name%_array_items[2].number_value(),
+            %member_name%_array_items[3].number_value()};
     }
 )code";
 
@@ -82,7 +82,7 @@ auto code_generator_quaternion::generate_serialization_code(const object_member 
     std::string code = R"code(
     if (%member_name%)
     {
-        auto %member_name%_value = %member_name%.value_or(glm::quat());
+        auto %member_name%_value = %member_name%.value_or(aeon::math::quaternion{});
         json_obj["%member_name%"] = json11::Json::array { %member_name%_value.w, %member_name%_value.x, %member_name%_value.y, %member_name%_value.z };
     }
 )code";

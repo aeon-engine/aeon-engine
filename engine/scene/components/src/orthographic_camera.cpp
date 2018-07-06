@@ -24,7 +24,7 @@
  */
 
 #include <aeon/scene/components/orthographic_camera.h>
-#include <glm/gtc/matrix_transform.hpp>
+#include <aeon/math/mat4.h>
 
 namespace aeon
 {
@@ -35,7 +35,7 @@ orthographic_camera::orthographic_camera(scene_manager &scene_manager, const flo
                                          const float bottom, const float top, const std::string &name)
     : camera(name, scene_manager)
 {
-    projection_matrix_ = glm::ortho(left, right, bottom, top);
+    projection_matrix_ = math::mat4::ortho(left, right, bottom, top);
 }
 
 orthographic_camera::orthographic_camera(scene_manager &scene_manager, const float left, const float right,
@@ -43,15 +43,14 @@ orthographic_camera::orthographic_camera(scene_manager &scene_manager, const flo
                                          const std::string &name)
     : camera(name, scene_manager)
 {
-    projection_matrix_ = glm::ortho(left, right, bottom, top, near, far);
+    projection_matrix_ = math::mat4::ortho(left, right, bottom, top, near, far);
 }
 
 orthographic_camera::orthographic_camera(scene_manager &scene_manager, const int left, const int right,
                                          const int bottom, const int top, const std::string &name)
     : camera(name, scene_manager)
 {
-    projection_matrix_ = glm::ortho(static_cast<float>(left), static_cast<float>(right), static_cast<float>(bottom),
-                                    static_cast<float>(top));
+    projection_matrix_ = math::mat4::ortho(left, right, bottom, top);
 }
 
 orthographic_camera::orthographic_camera(scene_manager &scene_manager, const int left, const int right,
@@ -59,8 +58,7 @@ orthographic_camera::orthographic_camera(scene_manager &scene_manager, const int
                                          const std::string &name)
     : camera(name, scene_manager)
 {
-    projection_matrix_ = glm::ortho(static_cast<float>(left), static_cast<float>(right), static_cast<float>(bottom),
-                                    static_cast<float>(top), near, far);
+    projection_matrix_ = math::mat4::ortho(left, right, bottom, top, near, far);
 }
 
 } // namespace scene

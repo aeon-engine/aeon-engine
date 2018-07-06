@@ -105,11 +105,11 @@ void sdl_window::make_current()
     }
 }
 
-auto sdl_window::get_framebuffer_size() const -> glm::vec2
+auto sdl_window::get_framebuffer_size() const -> math::vector2<float>
 {
     int width, height;
     SDL_GL_GetDrawableSize(window_, &width, &height);
-    return glm::vec2(width, height);
+    return math::vector2<float>{width, height};
 }
 
 void sdl_window::set_mouse_cursor_mode(const mouse_cursor_mode mode)

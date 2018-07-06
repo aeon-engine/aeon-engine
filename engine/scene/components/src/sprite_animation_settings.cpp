@@ -30,7 +30,7 @@ namespace aeon
 namespace scene
 {
 
-sprite_animation_settings::sprite_animation_settings(const glm::vec2 frame_size)
+sprite_animation_settings::sprite_animation_settings(const math::vector2<float> frame_size)
     : start_condition_(animation_start_condition::manual_start)
     , repeat_(animation_repeat::continuous)
     , size_(frame_size)

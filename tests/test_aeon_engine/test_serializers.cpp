@@ -29,6 +29,9 @@
 #include <aeon/streams/file_stream.h>
 #include <aeon/streams/stream_writer.h>
 #include <aeon/common/compilers.h>
+#include <aeon/math/vector2.h>
+#include <aeon/math/quaternion.h>
+#include <aeon/math/math.h>
 #include <string>
 
 AEON_IGNORE_VS_WARNING(4189)
@@ -39,15 +42,15 @@ TEST(test_serializers, test_serializers_scene)
 {
     serialization::scene scene;
     scene.root = std::make_unique<aeon::serialization::scene_node>();
-    scene.root->position = glm::vec3();
-    scene.root->rotation = glm::quat();
-    scene.root->scale = glm::vec3(1.0f);
+    scene.root->position = math::vector3<float>();
+    scene.root->rotation = math::quaternion();
+    scene.root->scale = math::vector3<float>(1.0f);
     scene.root->name = std::string("root");
 
     auto camera1_node = std::make_unique<serialization::scene_node>();
-    camera1_node->position = glm::vec3(0.0f, 0.0f, 6.0f);
-    camera1_node->rotation = glm::quat();
-    camera1_node->scale = glm::vec3(1.0f);
+    camera1_node->position = math::vector3<float>(0.0f, 0.0f, 6.0f);
+    camera1_node->rotation = math::quaternion();
+    camera1_node->scale = math::vector3<float>(1.0f);
     camera1_node->name = std::string("camera1_node");
 
     auto camera1 = std::make_unique<serialization::perspective_camera>();
@@ -61,9 +64,9 @@ TEST(test_serializers, test_serializers_scene)
     scene.root->children.push_back(std::move(camera1_node));
 
     auto camera2_node = std::make_unique<serialization::scene_node>();
-    camera2_node->position = glm::vec3(0.0f, 0.0f, -6.0f);
-    camera2_node->rotation = glm::quat(glm::vec3(0.0f, glm::pi<float>(), 0.0f));
-    camera2_node->scale = glm::vec3(1.0f);
+    camera2_node->position = math::vector3<float>(0.0f, 0.0f, -6.0f);
+    camera2_node->rotation = math::quaternion(math::vector3<float>(0.0f, math::constants<float>::pi, 0.0f));
+    camera2_node->scale = math::vector3<float>(1.0f);
     camera2_node->name = std::string("camera2_node");
 
     auto camera2 = std::make_unique<serialization::perspective_camera>();
@@ -77,9 +80,9 @@ TEST(test_serializers, test_serializers_scene)
     scene.root->children.push_back(std::move(camera2_node));
 
     auto rotation_node = std::make_unique<serialization::scene_node>();
-    rotation_node->position = glm::vec3(0.0f, 0.0f, 0.0f);
-    rotation_node->rotation = glm::quat();
-    rotation_node->scale = glm::vec3(1.0f);
+    rotation_node->position = math::vector3<float>(0.0f, 0.0f, 0.0f);
+    rotation_node->rotation = math::quaternion();
+    rotation_node->scale = math::vector3<float>(1.0f);
     rotation_node->name = std::string("rotation_node");
 
     auto female_warrior = std::make_unique<serialization::mesh>();
@@ -90,9 +93,9 @@ TEST(test_serializers, test_serializers_scene)
     scene.root->children.push_back(std::move(rotation_node));
 
     auto skydome_node = std::make_unique<serialization::scene_node>();
-    skydome_node->position = glm::vec3(0.0f, -30.0f, 0.0f);
-    skydome_node->rotation = glm::quat();
-    skydome_node->scale = glm::vec3(10.0f);
+    skydome_node->position = math::vector3<float>(0.0f, -30.0f, 0.0f);
+    skydome_node->rotation = math::quaternion();
+    skydome_node->scale = math::vector3<float>(10.0f);
     skydome_node->name = std::string("skydome_node");
 
     auto skydome = std::make_unique<serialization::mesh>();

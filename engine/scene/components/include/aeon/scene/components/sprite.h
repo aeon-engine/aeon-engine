@@ -31,7 +31,8 @@
 #include <aeon/data/atlas.h>
 #include <aeon/gfx/gfx_atlas.h>
 #include <aeon/gfx/gfx_mesh.h>
-#include <glm/vec2.hpp>
+#include <aeon/math/vector2.h>
+#include <aeon/math/mat4.h>
 #include <memory>
 
 namespace aeon
@@ -46,19 +47,19 @@ public:
                     const data::atlas::region &region, const int zorder, const std::string &name = "");
 
     explicit sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
-                    const data::atlas::region &region, const glm::vec2 size, const int zorder,
+                    const data::atlas::region &region, const math::vector2<float> size, const int zorder,
                     const std::string &name = "");
 
     virtual ~sprite() = default;
 
-    void set_size(const glm::vec2 size)
+    void set_size(const math::vector2<float> size)
     {
         size_ = size;
     }
 
     void set_size(const float width, const float height)
     {
-        size_ = glm::vec2(width, height);
+        size_ = {width, height};
     }
 
     auto get_size() const
@@ -87,8 +88,7 @@ public:
      */
     auto get_axis_aligned_bounding_box() const -> common::types::rectangle<float>;
 
-    void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model,
-                const float dt) override;
+    void render(const math::mat4 &projection, const math::mat4 &view, const math::mat4 &model, const float dt) override;
 
     virtual void update(const float /*dt*/);
 
@@ -97,7 +97,7 @@ protected:
     void __generate_and_upload_vertex_data() const;
     void __generate_and_upload_index_data() const;
 
-    glm::vec2 size_;
+    math::vector2<float> size_;
 
     std::shared_ptr<gfx::atlas> atlas_;
     data::atlas::region region_;

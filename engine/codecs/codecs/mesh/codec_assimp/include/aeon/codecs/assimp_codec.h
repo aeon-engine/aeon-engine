@@ -28,9 +28,10 @@
 #include <aeon/codecs/basic_codec.h>
 #include <aeon/resources/mesh.h>
 #include <aeon/logger/logger.h>
+#include <aeon/math/vector3.h>
+#include <aeon/math/mat4.h>
 #include <assimp/Importer.hpp>
 #include <assimp/matrix4x4.h>
-#include <glm/mat4x4.hpp>
 
 struct aiNode;
 struct aiScene;
@@ -67,8 +68,8 @@ private:
     auto __decode_submeshes_from_scene_node(const aiNode *ai_node, resources::mesh &mesh_ref) const
         -> std::vector<resources::submesh *>;
 
-    auto __convert_to_glm_vec3(const aiVector3D &vector) const -> glm::vec3;
-    auto __convert_to_glm_mat4(const aiMatrix4x4 &matrix) const -> glm::mat4;
+    auto __convert_to_glm_vec3(const aiVector3D &vector) const -> math::vector3<float>;
+    auto __convert_to_glm_mat4(const aiMatrix4x4 &matrix) const -> math::mat4;
 
     auto __convert_to_color(const aiColor4D &color) const -> common::types::color;
 

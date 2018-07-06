@@ -63,7 +63,7 @@ void gfx_gl_mesh::upload_index_buffer(const std::vector<std::uint32_t> &index_da
     __check_vao();
 }
 
-void gfx_gl_mesh::render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model)
+void gfx_gl_mesh::render(const math::mat4 &projection, const math::mat4 &view, const math::mat4 &model)
 {
     if (!vertex_buffer_ || !index_buffer_)
         return;

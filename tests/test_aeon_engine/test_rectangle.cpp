@@ -142,7 +142,7 @@ TEST(test_rectangle, test_rectangle_is_empty_horizontal_double)
 TEST(test_rectangle, test_rectangle_int_size_int)
 {
     common::types::rectangle<int> test(0, 0, 30, 40);
-    glm::vec2 RectSize = test.size<int>();
+    auto RectSize = test.size<int>();
     EXPECT_EQ(RectSize.x, 30);
     EXPECT_EQ(RectSize.y, 40);
 }
@@ -150,7 +150,7 @@ TEST(test_rectangle, test_rectangle_int_size_int)
 TEST(test_rectangle, test_rectangle_int_size_float)
 {
     common::types::rectangle<int> test(0, 0, 30, 40);
-    glm::vec2 RectSize = test.size<float>();
+    auto RectSize = test.size<float>();
     EXPECT_FLOAT_EQ(30.0f, RectSize.x);
     EXPECT_FLOAT_EQ(40.0f, RectSize.y);
 }

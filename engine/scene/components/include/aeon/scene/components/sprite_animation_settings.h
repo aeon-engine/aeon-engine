@@ -60,7 +60,7 @@ class sprite_animation_settings : common::noncopyable
     friend class animated_sprite;
 
 public:
-    explicit sprite_animation_settings(const glm::vec2 frame_size);
+    explicit sprite_animation_settings(const math::vector2<float> frame_size);
     ~sprite_animation_settings() = default;
 
     sprite_animation_settings(sprite_animation_settings &&other) noexcept;
@@ -84,7 +84,7 @@ private:
 
     animation_start_condition start_condition_;
     animation_repeat repeat_;
-    glm::vec2 size_;
+    math::vector2<float> size_;
     float speed_;
 
     std::map<int, std::vector<int>> sequences_;

@@ -65,7 +65,7 @@ void application::main()
 
     // A sprite batch requires an atlas, we can either load one from an atlas file, or just generate one if
     // all the sprites have the same size and are properly aligned within the file.
-    auto atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
+    auto atlas = get_asset_manager().create_atlas(ships_material, aeon::math::vector2<float>(64, 64));
 
     // Get a region from the atlas for the sprite to render. Here we grab the 10th sprite in the texture,
     // which is counted left to right, top to bottom.
@@ -182,7 +182,7 @@ void application::on_keyboard_key_state_changed_event(const aeon::input::keyboar
 }
 
 void application::on_mouse_button_event(aeon::input::mouse_button button, aeon::input::mouse_button_state button_state,
-                                        const glm::vec2 position)
+                                        const aeon::math::vector2<float> position)
 {
     std::cout << "Button: " << static_cast<int>(button) << " " << static_cast<int>(button_state)
               << " Position: " << position.x << ", " << position.y << std::endl;

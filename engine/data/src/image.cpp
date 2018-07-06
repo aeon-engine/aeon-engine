@@ -63,9 +63,9 @@ auto image::get_height() const -> unsigned int
     return height_;
 }
 
-auto image::get_size() const -> glm::vec2
+auto image::get_size() const -> math::vector2<float>
 {
-    return glm::vec2(width_, height_);
+    return math::vector2<float>{width_, height_};
 }
 
 auto image::get_pixelformat() const -> image::pixel_format

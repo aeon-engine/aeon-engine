@@ -27,7 +27,7 @@
 
 #include <vector>
 #include <string>
-#include <glm/vec2.hpp>
+#include <aeon/math/vector2.h>
 #include <aeon/common/exception.h>
 
 namespace aeon
@@ -95,7 +95,7 @@ public:
          */
         auto get_size() const
         {
-            return glm::vec2{width, height};
+            return math::vector2<float>{width, height};
         }
 
         std::string name;

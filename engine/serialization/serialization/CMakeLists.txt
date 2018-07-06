@@ -35,6 +35,7 @@ add_library(aeon_engine_serialization STATIC
 target_link_libraries(aeon_engine_serialization
     aeon_engine_common
     aeon_common
+    aeon_math
     json11
 )
 

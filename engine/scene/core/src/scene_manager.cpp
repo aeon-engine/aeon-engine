@@ -27,7 +27,6 @@
 #include <aeon/scene/scene_manager.h>
 #include <aeon/scene/camera.h>
 #include <aeon/common/logger.h>
-#include <glm/gtc/type_ptr.hpp>
 
 namespace aeon
 {
@@ -83,7 +82,7 @@ void scene_manager::__render_scene(camera &cam, gfx::render_target &rt, gfx::vie
 
     for (auto &render_object : queue_)
     {
-        render_object.object->render(cam.get_projection_matrix(), glm::inverse(cam.get_scene_matrix()),
+        render_object.object->render(cam.get_projection_matrix(), math::inverse(cam.get_scene_matrix()),
                                      render_object.matrix, dt);
     }
 }

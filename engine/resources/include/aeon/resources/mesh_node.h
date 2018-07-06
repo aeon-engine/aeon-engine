@@ -28,7 +28,7 @@
 #include <aeon/resources/submesh.h>
 #include <aeon/common/container.h>
 #include <aeon/common/noncopyable.h>
-#include <glm/mat4x4.hpp>
+#include <aeon/math/mat4.h>
 #include <string>
 #include <vector>
 #include <memory>
@@ -41,10 +41,10 @@ namespace resources
 class mesh_node : public common::noncopyable
 {
 public:
-    explicit mesh_node(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes);
+    explicit mesh_node(const std::string &name, const math::mat4 &matrix, const std::vector<submesh *> &submeshes);
     ~mesh_node() = default;
 
-    auto create_child(const std::string &name, const glm::mat4 &matrix, const std::vector<submesh *> &submeshes)
+    auto create_child(const std::string &name, const math::mat4 &matrix, const std::vector<submesh *> &submeshes)
         -> mesh_node &;
 
     const auto &get_name() const
@@ -69,7 +69,7 @@ public:
 
 private:
     std::string name_;
-    glm::mat4 matrix_;
+    math::mat4 matrix_;
     std::vector<std::unique_ptr<mesh_node>> children_;
     std::vector<submesh *> submeshes_;
 };

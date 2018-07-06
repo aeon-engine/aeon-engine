@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <glm/mat4x4.hpp>
+#include <aeon/math/mat4.h>
 
 namespace aeon
 {
@@ -49,7 +49,7 @@ public:
     }
 
 protected:
-    glm::mat4 projection_matrix_;
+    math::mat4 projection_matrix_;
 };
 
 } // namespace gfx

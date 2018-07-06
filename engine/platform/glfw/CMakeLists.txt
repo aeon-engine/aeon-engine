@@ -45,7 +45,6 @@ target_link_libraries(aeon_engine_platform_glfw
     aeon_engine_platform_core
     aeon_logger
     glfw
-    glm
 )
 
 target_include_directories(aeon_engine_platform_glfw

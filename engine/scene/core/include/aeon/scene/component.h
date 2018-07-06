@@ -27,7 +27,7 @@
 
 #include <aeon/scene/render_layer.h>
 #include <aeon/common/noncopyable.h>
-#include <glm/mat4x4.hpp>
+#include <aeon/math/mat4.h>
 #include <string>
 
 namespace aeon
@@ -82,7 +82,7 @@ public:
      * doesn't make sense (like camera's). In that case, this function must be
      * used to set up the matrices and/or buffers.
      */
-    virtual void render(const glm::mat4x4 & /*projection*/, const glm::mat4x4 & /*view*/, const glm::mat4x4 & /*model*/,
+    virtual void render(const math::mat4 & /*projection*/, const math::mat4 & /*view*/, const math::mat4 & /*model*/,
                         const float /*dt*/)
     {
     }
@@ -91,7 +91,7 @@ public:
      * Get the calculated matrix from the scene node. If this object is not attached
      * to any scene node, an identity matrix will be returned.
      */
-    auto get_scene_matrix() const -> glm::mat4;
+    auto get_scene_matrix() const -> math::mat4;
 
 protected:
     void __set_scene_node(scene_node *node)

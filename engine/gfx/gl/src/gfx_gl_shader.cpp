@@ -26,7 +26,6 @@
 #include <aeon/gfx/gl/gfx_gl_shader.h>
 #include <aeon/gfx/gl_common/check_gl_error.h>
 #include <aeon/common/logger.h>
-#include <glm/gtc/type_ptr.hpp>
 
 namespace aeon
 {
@@ -57,21 +56,21 @@ void gfx_gl_shader::bind() const
     AEON_CHECK_GL_ERROR();
 }
 
-void gfx_gl_shader::set_projection_matrix(const glm::mat4 &matrix)
+void gfx_gl_shader::set_projection_matrix(const math::mat4 &matrix)
 {
-    glUniformMatrix4fv(projection_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
+    glUniformMatrix4fv(projection_matrix_handle_, 1, GL_FALSE, math::ptr(matrix));
     AEON_CHECK_GL_ERROR();
 }
 
-void gfx_gl_shader::set_model_matrix(const glm::mat4 &matrix)
+void gfx_gl_shader::set_model_matrix(const math::mat4 &matrix)
 {
-    glUniformMatrix4fv(model_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
+    glUniformMatrix4fv(model_matrix_handle_, 1, GL_FALSE, math::ptr(matrix));
     AEON_CHECK_GL_ERROR();
 }
 
-void gfx_gl_shader::set_view_matrix(const glm::mat4 &matrix)
+void gfx_gl_shader::set_view_matrix(const math::mat4 &matrix)
 {
-    glUniformMatrix4fv(view_matrix_handle_, 1, GL_FALSE, glm::value_ptr(matrix));
+    glUniformMatrix4fv(view_matrix_handle_, 1, GL_FALSE, math::ptr(matrix));
     AEON_CHECK_GL_ERROR();
 }
 

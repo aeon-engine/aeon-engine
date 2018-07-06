@@ -45,7 +45,6 @@ target_link_libraries(aeon_engine_platform_sdl
     aeon_engine_platform_core
     SDL2-static
     aeon_logger
-    glm
 )
 
 target_include_directories(aeon_engine_platform_sdl

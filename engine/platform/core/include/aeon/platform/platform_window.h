@@ -27,7 +27,7 @@
 
 #include <aeon/platform/platform_window_settings.h>
 #include <aeon/gfx/gfx_render_target.h>
-#include <glm/vec2.hpp>
+#include <aeon/math/vector2.h>
 #include <string>
 #include <cstdint>
 
@@ -53,7 +53,7 @@ public:
 
     virtual ~window() = default;
 
-    auto get_size() const -> glm::vec2;
+    auto get_size() const -> math::vector2<int>;
 
     void get_size(int &width, int &height) const;
 

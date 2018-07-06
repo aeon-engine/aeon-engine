@@ -39,7 +39,7 @@ atlas::atlas(const std::shared_ptr<material> &material, const data::atlas &atlas
 {
 }
 
-atlas::atlas(const std::shared_ptr<material> &material, glm::vec2 sprite_size)
+atlas::atlas(const std::shared_ptr<material> &material, math::vector2<float> sprite_size)
     : logger_(common::logger::get_singleton(), "Gfx::Atlas")
     , material_(material)
     , atlas_()
@@ -64,12 +64,12 @@ auto atlas::get_material() const -> std::shared_ptr<material>
     return material_;
 }
 
-void atlas::__calculate_atlas_regions(glm::vec2 sprite_size)
+void atlas::__calculate_atlas_regions(math::vector2<float> sprite_size)
 {
     AEON_LOG_TRACE(logger_) << "Calculating atlas UV map regions." << std::endl;
 
     // TODO: Is the first sampler an indication of how large the atlas is?
-    glm::vec2 full_size = material_->get_sampler_by_index(0)->get_size();
+    const auto full_size = material_->get_sampler_by_index(0)->get_size();
 
     int sprites_per_row = static_cast<int>(full_size.x / sprite_size.x);
     int sprites_per_column = static_cast<int>(full_size.y / sprite_size.y);

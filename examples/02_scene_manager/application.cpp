@@ -54,7 +54,7 @@ void application::main()
 
     // A sprite batch requires an atlas, we can either load one from an atlas file, or just generate one if
     // all the sprites have the same size and are properly aligned within the file.
-    auto atlas = get_asset_manager().create_atlas(ships_material, glm::vec2(64, 64));
+    auto atlas = get_asset_manager().create_atlas(ships_material, aeon::math::vector2<float>(64, 64));
 
     // Set up scene
     auto root_node = get_scene_manager().get_root_scene_node();
@@ -80,7 +80,8 @@ void application::main()
 
     // Instead of just passing the atlas region, you can also manually pass a size to the sprite.
     // This will scale the sprite.
-    auto ship3_sprite = get_scene_manager().create_component<aeon::scene::sprite>(atlas, ship3, glm::vec2(32, 32), 2);
+    auto ship3_sprite =
+        get_scene_manager().create_component<aeon::scene::sprite>(atlas, ship3, aeon::math::vector2<float>(32, 32), 2);
     ship3_node->attach_component(ship3_sprite);
 
     get_platform().run();

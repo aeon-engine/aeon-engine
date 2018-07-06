@@ -27,7 +27,7 @@
 
 #include <aeon/resources/image.h>
 #include <aeon/common/cached_object.h>
-#include <glm/vec2.hpp>
+#include <aeon/math/vector2.h>
 
 namespace aeon
 {
@@ -40,7 +40,7 @@ public:
     explicit texture() = default;
     virtual ~texture() = default;
 
-    virtual auto get_size() const -> glm::vec2 = 0;
+    virtual auto get_size() const -> math::vector2<float> = 0;
     virtual auto get_pixel_format() const -> data::image::pixel_format = 0;
 };
 

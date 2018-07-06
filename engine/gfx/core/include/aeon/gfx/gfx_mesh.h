@@ -28,7 +28,7 @@
 #include <aeon/gfx/gfx_buffer.h>
 #include <aeon/common/exception.h>
 #include <aeon/data/mesh.h>
-#include <glm/mat4x4.hpp>
+#include <aeon/math/mat4.h>
 #include <vector>
 
 namespace aeon
@@ -48,7 +48,7 @@ public:
                                       const gfx::buffer_usage usage) = 0;
     virtual void upload_index_buffer(const std::vector<std::uint32_t> &index_data, const gfx::buffer_usage usage) = 0;
 
-    virtual void render(const glm::mat4x4 &projection, const glm::mat4x4 &view, const glm::mat4x4 &model) = 0;
+    virtual void render(const math::mat4 &projection, const math::mat4 &view, const math::mat4 &model) = 0;
 
     /*!
      * Returns true of the material used for this mesh has an alpha channel.
