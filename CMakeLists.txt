@@ -22,7 +22,12 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 cmake_minimum_required(VERSION 3.10)
-project(AeonEngine)
+
+if (DEFINED ENV{AEON_ENGINE_PROJECT_NAME})
+    project($ENV{AEON_ENGINE_PROJECT_NAME})
+else ()
+    project(AeonEngine)
+endif ()
 
 # Don't allow any circular dependencies. Not even for static libraries.
 set_property(GLOBAL PROPERTY GLOBAL_DEPENDS_NO_CYCLES 1)
