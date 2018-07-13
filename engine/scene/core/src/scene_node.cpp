@@ -106,7 +106,7 @@ void scene_node::recalculate_matrices()
     auto parent_dirty = is_root_ ? false : parent_->dirty_;
 
     if (is_dirty() || parent_dirty)
-        total_matrix_ = parent_matrix_ * get_matrix();
+        total_matrix_ = get_matrix() * parent_matrix_;
 
     dirty_ = true;
 

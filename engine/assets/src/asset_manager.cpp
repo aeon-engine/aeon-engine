@@ -235,7 +235,7 @@ void asset_manager::__convert_scene_data_to_scene_node(serialization::scene_node
     }
 
     scene_node.set_position(scene_data.position.value_or(math::vector3<float>()));
-    scene_node.set_rotation(scene_data.rotation.value_or(math::quaternion()));
+    scene_node.set_rotation(scene_data.rotation.value_or(math::quaternion::indentity()));
     scene_node.set_scale(scene_data.scale.value_or(math::vector3<float>()));
 
     auto &components = scene_data.objects;

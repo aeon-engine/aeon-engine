@@ -167,9 +167,9 @@ void movable_object::multiply_matrix(const math::mat4 &matrix)
 void movable_object::update_matrix()
 {
     matrix_ = math::mat4::indentity();
-    matrix_ *= math::mat4::scale(scale_);
-    matrix_ *= math::mat4::translate(position_);
     matrix_ *= math::mat4{rotation_};
+    matrix_ *= math::mat4::translate(position_);
+    matrix_ *= math::mat4::scale(scale_);
 }
 
 void movable_object::decompose_matrix()
