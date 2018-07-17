@@ -34,14 +34,13 @@
 #include <aeon/scene/scene_manager.h>
 #include <aeon/common/logger.h>
 #include <aeon/utility/configfile.h>
-#include <aeon/common/noncopyable.h>
 
 namespace aeon
 {
 namespace application
 {
 
-class context : public common::noncopyable
+class context
 {
 public:
     explicit context(std::unique_ptr<logger::base_backend> logger_backend,
@@ -65,8 +64,11 @@ public:
     {
     }
 
-    context(context &&other) = default;
-    context &operator=(context &&other) = default;
+    context(const context &) noexcept = delete;
+    auto operator=(const context &) noexcept -> context & = delete;
+
+    context(context &&) noexcept = default;
+    auto operator=(context &&) noexcept -> context & = default;
 
     std::unique_ptr<logger::base_backend> logger_backend;
     std::unique_ptr<utility::configfile> config_file;

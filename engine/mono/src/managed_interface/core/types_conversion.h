@@ -28,10 +28,10 @@
 #include <aeon/mono/mono_type_conversion.h>
 #include <managed_interface/core/types.h>
 #include <aeon/common/types/rectangle.h>
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
-#include <glm/mat4x4.hpp>
-#include <glm/gtc/quaternion.hpp>
+#include <aeon/math/vector2.h>
+#include <aeon/math/vector3.h>
+#include <aeon/math/mat4.h>
+#include <aeon/math/quaternion.h>
 
 namespace aeon
 {
@@ -64,17 +64,17 @@ struct converter
 {
     // From Mono
     static auto convert(const rect &r) -> common::types::rectangle<float>;
-    static auto convert(const vector2f &vec) -> glm::vec2;
-    static auto convert(const vector3f &vec) -> glm::vec3;
-    static auto convert(const quaternion &quat) -> glm::quat;
-    static auto convert(const matrix4x4 &mat) -> glm::mat4x4;
+    static auto convert(const vector2f &vec) -> math::vector2<float>;
+    static auto convert(const vector3f &vec) -> math::vector3<float>;
+    static auto convert(const quaternion &quat) -> math::quaternion;
+    static auto convert(const matrix4x4 &mat) -> math::mat4;
 
     // To Mono
     static auto convert(const common::types::rectangle<float> &r) -> rect;
-    static auto convert(const glm::vec2 &vec) -> vector2f;
-    static auto convert(const glm::vec3 &vec) -> vector3f;
-    static auto convert(const glm::quat &quat) -> quaternion;
-    static auto convert(const glm::mat4x4 &m) -> matrix4x4;
+    static auto convert(const math::vector2<float> &vec) -> vector2f;
+    static auto convert(const math::vector3<float> &vec) -> vector3f;
+    static auto convert(const math::quaternion &quat) -> quaternion;
+    static auto convert(const math::mat4 &m) -> matrix4x4;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -84,24 +84,24 @@ inline auto converter::convert(const rect &r) -> common::types::rectangle<float>
     return {r.left, r.top, r.right, r.bottom};
 }
 
-inline auto converter::convert(const vector2f &vec) -> glm::vec2
+inline auto converter::convert(const vector2f &vec) -> math::vector2<float>
 {
     return {vec.x, vec.y};
 }
 
-inline auto converter::convert(const vector3f &vec) -> glm::vec3
+inline auto converter::convert(const vector3f &vec) -> math::vector3<float>
 {
     return {vec.x, vec.y, vec.z};
 }
 
-inline auto converter::convert(const quaternion &quat) -> glm::quat
+inline auto converter::convert(const quaternion &quat) -> math::quaternion
 {
     return {quat.w, quat.x, quat.y, quat.z};
 }
 
-inline auto converter::convert(const matrix4x4 &mat) -> glm::mat4x4
+inline auto converter::convert(const matrix4x4 &mat) -> math::mat4
 {
-    glm::mat4x4 m;
+    math::mat4 m;
     m[0][0] = mat.m00;
     m[0][1] = mat.m01;
     m[0][2] = mat.m02;
@@ -131,22 +131,22 @@ inline auto converter::convert(const common::types::rectangle<float> &r) -> rect
     return {r.left(), r.top(), r.right(), r.bottom()};
 }
 
-inline auto converter::convert(const glm::vec2 &vec) -> vector2f
+inline auto converter::convert(const math::vector2<float> &vec) -> vector2f
 {
     return {vec.x, vec.y};
 }
 
-inline auto converter::convert(const glm::vec3 &vec) -> vector3f
+inline auto converter::convert(const math::vector3<float> &vec) -> vector3f
 {
     return {vec.x, vec.y, vec.z};
 }
 
-inline auto converter::convert(const glm::quat &quat) -> quaternion
+inline auto converter::convert(const math::quaternion &quat) -> quaternion
 {
     return {quat.w, quat.x, quat.y, quat.z};
 }
 
-inline auto converter::convert(const glm::mat4x4 &m) -> matrix4x4
+inline auto converter::convert(const math::mat4 &m) -> matrix4x4
 {
     return {m[0][0], m[0][1], m[0][2], m[0][3], m[1][0], m[1][1], m[1][2], m[1][3],
             m[2][0], m[2][1], m[2][2], m[2][3], m[3][0], m[3][1], m[3][2], m[3][3]};
@@ -155,10 +155,10 @@ inline auto converter::convert(const glm::mat4x4 &m) -> matrix4x4
 } // namespace managed_interface
 
 add_mono_type_converter(common::types::rectangle<float>, managed_interface::rect);
-add_mono_type_converter(glm::vec2, managed_interface::vector2f);
-add_mono_type_converter(glm::vec3, managed_interface::vector3f);
-add_mono_type_converter(glm::quat, managed_interface::quaternion);
-add_mono_type_converter(glm::mat4x4, managed_interface::matrix4x4);
+add_mono_type_converter(math::vector2<float>, managed_interface::vector2f);
+add_mono_type_converter(math::vector3<float>, managed_interface::vector3f);
+add_mono_type_converter(math::quaternion, managed_interface::quaternion);
+add_mono_type_converter(math::mat4, managed_interface::matrix4x4);
 
 } // namespace mono
 } // namespace aeon

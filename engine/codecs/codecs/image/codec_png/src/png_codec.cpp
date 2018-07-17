@@ -27,7 +27,6 @@
 #include <aeon/codecs/png_write_structs.h>
 #include <aeon/codecs/png_codec.h>
 #include <aeon/streams/memory_stream.h>
-#include <aeon/common/noncopyable.h>
 #include <aeon/common/compilers.h>
 #include <aeon/common/logger.h>
 #include <png.h>

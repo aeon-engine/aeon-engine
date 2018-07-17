@@ -37,7 +37,6 @@
 #include <aeon/scene/scene_manager.h>
 #include <aeon/scene/scene_node.h>
 #include <aeon/common/object_cache.h>
-#include <aeon/common/noncopyable.h>
 #include <aeon/logger/logger.h>
 
 namespace aeon
@@ -52,7 +51,7 @@ namespace assets
  * on top of the resource manager to prevent a circular dependency between the resource manager and the serveral
  * subsystems like gfx and audio.
  */
-class asset_manager : common::noncopyable
+class asset_manager
 {
 public:
     /*!
@@ -67,6 +66,12 @@ public:
      * Destructor
      */
     virtual ~asset_manager() = default;
+
+    asset_manager(const asset_manager &) noexcept = delete;
+    auto operator=(const asset_manager &) noexcept -> asset_manager & = delete;
+
+    asset_manager(asset_manager &&) noexcept = default;
+    auto operator=(asset_manager &&) noexcept -> asset_manager & = default;
 
     /*!
      * Load a texture from a given image file. Make sure the given file extension has a registed codec in the

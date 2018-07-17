@@ -25,18 +25,22 @@
 
 #pragma once
 
-#include <aeon/common/noncopyable.h>
-
 namespace aeon
 {
 namespace resources
 {
 
-class resource : public common::noncopyable
+class resource
 {
 public:
     resource() = default;
     virtual ~resource() = default;
+
+    resource(const resource &) noexcept = delete;
+    auto operator=(const resource &) noexcept -> resource & = delete;
+
+    resource(resource &&) noexcept = default;
+    auto operator=(resource &&) noexcept -> resource & = default;
 };
 
 } // namespace resources

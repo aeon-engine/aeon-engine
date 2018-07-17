@@ -26,7 +26,6 @@
 #pragma once
 
 #include <aeon/scene/render_layer.h>
-#include <aeon/common/noncopyable.h>
 #include <aeon/math/mat4.h>
 #include <string>
 
@@ -45,7 +44,7 @@ class render_queue;
 class scene_node;
 class scene_manager;
 
-class component : public common::noncopyable
+class component
 {
     friend class scene_node;
 
@@ -61,6 +60,12 @@ public:
     }
 
     virtual ~component() = default;
+
+    component(const component &) noexcept = delete;
+    auto operator=(const component &) noexcept -> component & = delete;
+
+    component(component &&) noexcept = default;
+    auto operator=(component &&) noexcept -> component & = default;
 
     auto get_render_type() const
     {

@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <glm/vec2.hpp>
+#include <aeon/math/vector2.h>
 #include <string>
 
 namespace aeon
@@ -41,8 +41,8 @@ public:
     static void register_internal_calls();
 
 private:
-    static auto get_size() -> glm::vec2;
-    static auto get_framebuffer_size() -> glm::vec2;
+    static auto get_size() -> math::vector2<float>;
+    static auto get_framebuffer_size() -> math::vector2<float>;
     static auto get_title() -> std::string;
 };
 

@@ -27,10 +27,6 @@ if (AEON_BUILD_PLATFORM_GLFW)
     add_subdirectory(glfw)
 endif ()
 
-if (AEON_BUILD_PLATFORM_SDL)
-    add_subdirectory(sdl)
-endif ()
-
 if (AEON_BUILD_PLATFORM_RPI)
     add_subdirectory(rpi)
 endif ()

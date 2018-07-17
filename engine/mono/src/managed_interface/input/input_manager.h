@@ -43,7 +43,7 @@ public:
     static void register_internal_calls();
 
 private:
-    static auto get_mouse_cursor_position() -> glm::vec2;
+    static auto get_mouse_cursor_position() -> math::vector2<float>;
     static auto get_mouse_button_state(input::mouse_button button) -> input::mouse_button_state;
     static auto get_key_state(input::keyboard_key key) -> input::keyboard_key_state;
     static auto is_any_key_down() -> bool;

@@ -61,7 +61,7 @@ void input_manager::register_internal_calls()
                                 aeon_mono_auto_wrap(input_manager::get_cursor_mode));
 }
 
-auto input_manager::get_mouse_cursor_position() -> glm::vec2
+auto input_manager::get_mouse_cursor_position() -> math::vector2<float>
 {
     auto &input_handler = mono_jit_manager::get_application().get_input_handler();
     return input_handler.get_mouse_cursor_position();

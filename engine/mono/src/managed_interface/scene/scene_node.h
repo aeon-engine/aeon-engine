@@ -54,24 +54,24 @@ private:
                                  std::shared_ptr<scene::component> component);
 
     static void set_identity(std::shared_ptr<scene::scene_node> this_ptr);
-    static void set_position(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 position);
-    static auto get_position(std::shared_ptr<scene::scene_node> this_ptr) -> glm::vec3;
+    static void set_position(std::shared_ptr<scene::scene_node> this_ptr, math::vector3<float> position);
+    static auto get_position(std::shared_ptr<scene::scene_node> this_ptr) -> math::vector3<float>;
 
-    static void translate(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 vec);
+    static void translate(std::shared_ptr<scene::scene_node> this_ptr, math::vector3<float> vec);
 
-    static void set_rotation_vec(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 vec);
+    static void set_rotation_vec(std::shared_ptr<scene::scene_node> this_ptr, math::vector3<float> vec);
     static void set_rotation_angle(std::shared_ptr<scene::scene_node> this_ptr, float angle);
-    static void set_rotation_quat(std::shared_ptr<scene::scene_node> this_ptr, glm::quat quat);
+    static void set_rotation_quat(std::shared_ptr<scene::scene_node> this_ptr, math::quaternion quat);
 
-    static void rotate_vec(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 vec);
+    static void rotate_vec(std::shared_ptr<scene::scene_node> this_ptr, math::vector3<float> vec);
     static void rotate_angle(std::shared_ptr<scene::scene_node> this_ptr, float angle);
-    static void rotate_quat(std::shared_ptr<scene::scene_node> this_ptr, glm::quat quat);
+    static void rotate_quat(std::shared_ptr<scene::scene_node> this_ptr, math::quaternion quat);
 
-    static void set_scale(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 vec);
-    static void scale(std::shared_ptr<scene::scene_node> this_ptr, glm::vec3 vec);
+    static void set_scale(std::shared_ptr<scene::scene_node> this_ptr, math::vector3<float> vec);
+    static void scale(std::shared_ptr<scene::scene_node> this_ptr, math::vector3<float> vec);
 
-    static void set_matrix(std::shared_ptr<scene::scene_node> this_ptr, glm::mat4x4 mat);
-    static auto get_matrix(std::shared_ptr<scene::scene_node> this_ptr) -> glm::mat4x4;
+    static void set_matrix(std::shared_ptr<scene::scene_node> this_ptr, math::mat4 mat);
+    static auto get_matrix(std::shared_ptr<scene::scene_node> this_ptr) -> math::mat4;
 };
 
 } // namespace managed_interface

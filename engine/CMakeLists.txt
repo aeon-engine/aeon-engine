@@ -28,7 +28,6 @@ option(AEON_BUILD_GFX_GL "Build the OpenGL 3.3 subsystem" ON)
 option(AEON_BUILD_GFX_GLES "Build the OpenGLES 2.0 subsystem" OFF)
 
 option(AEON_BUILD_PLATFORM_GLFW "Build the GLFW subsystem" ON)
-option(AEON_BUILD_PLATFORM_SDL "Build the SDL subsystem" ON)
 option(AEON_BUILD_PLATFORM_RPI "Build the Raspberry Pi subsystem" OFF)
 
 if (AEON_BUILD_GFX_GL AND AEON_BUILD_GFX_GLES)

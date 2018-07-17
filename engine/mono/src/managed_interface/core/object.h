@@ -30,7 +30,6 @@
 #include <aeon/mono/mono_class.h>
 #include <aeon/mono/mono_class_field.h>
 #include <aeon/mono/mono_class_instance.h>
-#include <aeon/common/noncopyable.h>
 
 namespace aeon
 {
@@ -39,7 +38,7 @@ namespace mono
 namespace managed_interface
 {
 
-class object : public common::noncopyable
+class object
 {
 public:
     static void register_internal_calls();
@@ -47,6 +46,12 @@ public:
 
     explicit object(MonoObject *object);
     virtual ~object();
+
+    object(const object &) noexcept = delete;
+    auto operator=(const object &) noexcept -> object & = delete;
+
+    object(object &&) noexcept = default;
+    auto operator=(object &&) noexcept -> object & = default;
 
     auto get_managed_object() const -> MonoObject *;
 

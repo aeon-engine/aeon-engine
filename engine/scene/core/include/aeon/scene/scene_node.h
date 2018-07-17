@@ -27,7 +27,6 @@
 
 #include <aeon/scene/component.h>
 #include <aeon/scene/movable_object.h>
-#include <aeon/common/noncopyable.h>
 #include <aeon/math/mat4.h>
 #include <aeon/math/vector4.h>
 #include <vector>
@@ -44,7 +43,7 @@ enum find_method
     recursive
 };
 
-class scene_node : public std::enable_shared_from_this<scene_node>, public movable_object, public common::noncopyable
+class scene_node : public std::enable_shared_from_this<scene_node>, public movable_object
 {
     friend class scene_manager;
 
@@ -53,6 +52,12 @@ public:
      * Destructor
      */
     virtual ~scene_node() = default;
+
+    scene_node(const scene_node &) noexcept = delete;
+    auto operator=(const scene_node &) noexcept -> scene_node & = delete;
+
+    scene_node(scene_node &&) noexcept = default;
+    auto operator=(scene_node &&) noexcept -> scene_node & = default;
 
     /*!
      * Create a new scene node attached to this scene node.

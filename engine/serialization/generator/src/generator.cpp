@@ -164,8 +164,8 @@ auto generator::__generate_base_header_code() const -> std::string
 
 #pragma once
 
-#include <aeon/common/stdoptional.h>
 #include <json11.hpp>
+#include <optional>
 #include <memory>
 
 %additional_includes%

@@ -40,9 +40,6 @@ image::image(std::vector<std::uint8_t> &&buffer, const unsigned int width, const
 {
 }
 
-image::image(image &&other) noexcept = default;
-image &image::operator=(image &&other) noexcept = default;
-
 auto image::has_data() const -> bool
 {
     return buffer_.empty();

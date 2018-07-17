@@ -43,13 +43,13 @@ void window::register_internal_calls()
     mono_jit::add_internal_call("AeonEngineMono.Window.Window::get_Title", aeon_mono_auto_wrap(window::get_title));
 }
 
-auto window::get_size() -> glm::vec2
+auto window::get_size() -> math::vector2<float>
 {
     auto &window = mono_jit_manager::get_application().get_main_window();
-    return window.get_size();
+    return math::vector2<float>{window.get_size()};
 }
 
-auto window::get_framebuffer_size() -> glm::vec2
+auto window::get_framebuffer_size() -> math::vector2<float>
 {
     auto &window = mono_jit_manager::get_application().get_main_window();
     return window.get_framebuffer_size();

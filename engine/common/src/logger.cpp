@@ -25,8 +25,6 @@
 
 #include <aeon/common/logger.h>
 
-aeon_utility_initialize_singleton(aeon::common::logger);
-
 namespace aeon
 {
 namespace common

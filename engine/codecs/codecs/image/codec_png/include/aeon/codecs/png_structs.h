@@ -26,7 +26,6 @@
 #pragma once
 
 #include <aeon/codecs/png_codec.h>
-#include <aeon/common/noncopyable.h>
 #include <aeon/common/logger.h>
 #include <aeon/logger/logger.h>
 #include <png.h>
@@ -36,14 +35,17 @@ namespace aeon
 namespace codecs
 {
 
-class png_structs : public common::noncopyable
+class png_structs
 {
 public:
     explicit png_structs(logger::logger &logger);
     virtual ~png_structs();
 
-    png_structs(png_structs &&o) = default;
-    auto operator=(png_structs &&other) -> png_structs & = default;
+    png_structs(const png_structs &) noexcept = delete;
+    auto operator=(const png_structs &) noexcept -> png_structs & = delete;
+
+    png_structs(png_structs &&) noexcept = default;
+    auto operator=(png_structs &&) noexcept -> png_structs & = default;
 
     auto png_ptr() const;
     auto info_ptr() const;

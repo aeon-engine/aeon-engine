@@ -26,7 +26,6 @@
 #pragma once
 
 #include <aeon/scene/components/sprite.h>
-#include <aeon/common/noncopyable.h>
 #include <map>
 #include <vector>
 #include <cstdint>
@@ -55,7 +54,7 @@ enum class animation_sequence_type : std::uint32_t
     up_down
 };
 
-class sprite_animation_settings : common::noncopyable
+class sprite_animation_settings
 {
     friend class animated_sprite;
 
@@ -63,8 +62,11 @@ public:
     explicit sprite_animation_settings(const math::vector2<float> frame_size);
     ~sprite_animation_settings() = default;
 
-    sprite_animation_settings(sprite_animation_settings &&other) noexcept;
-    sprite_animation_settings &operator=(sprite_animation_settings &&other) noexcept;
+    sprite_animation_settings(const sprite_animation_settings &) noexcept = delete;
+    auto operator=(const sprite_animation_settings &) noexcept -> sprite_animation_settings & = delete;
+
+    sprite_animation_settings(sprite_animation_settings &&) noexcept;
+    auto operator=(sprite_animation_settings &&) noexcept -> sprite_animation_settings &;
 
     void generate_sequence(const int index, const int frame_offset, const int frame_count,
                            const animation_sequence_type type);

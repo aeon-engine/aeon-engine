@@ -32,18 +32,23 @@
 #include <aeon/mono/mono_method.h>
 #include <aeon/mono/mono_method_thunk.h>
 #include <aeon/logger/logger.h>
-#include <aeon/common/noncopyable.h>
 
 namespace aeon
 {
 namespace mono
 {
 
-class mono_jit_manager : public common::noncopyable
+class mono_jit_manager
 {
 public:
     mono_jit_manager(application::desktop_application &application);
     virtual ~mono_jit_manager();
+
+    mono_jit_manager(const mono_jit_manager &) noexcept = delete;
+    auto operator=(const mono_jit_manager &) noexcept -> mono_jit_manager & = delete;
+
+    mono_jit_manager(mono_jit_manager &&) noexcept = default;
+    auto operator=(mono_jit_manager &&) noexcept -> mono_jit_manager & = default;
 
     void load_assembly(const std::string &path);
 

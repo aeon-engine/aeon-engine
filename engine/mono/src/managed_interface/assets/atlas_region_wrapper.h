@@ -35,7 +35,7 @@ namespace mono
 namespace managed_interface
 {
 
-class atlas_region_wrapper : common::noncopyable
+class atlas_region_wrapper
 {
 public:
     explicit atlas_region_wrapper(const data::atlas::region &region, std::shared_ptr<gfx::atlas> atlas)
@@ -45,6 +45,12 @@ public:
     }
 
     ~atlas_region_wrapper() = default;
+
+    atlas_region_wrapper(const atlas_region_wrapper &) noexcept = delete;
+    auto operator=(const atlas_region_wrapper &) noexcept -> atlas_region_wrapper & = delete;
+
+    atlas_region_wrapper(atlas_region_wrapper &&) noexcept = default;
+    auto operator=(atlas_region_wrapper &&) noexcept -> atlas_region_wrapper & = default;
 
     data::atlas::region region;
     std::shared_ptr<gfx::atlas> atlas;

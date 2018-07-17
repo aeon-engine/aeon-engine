@@ -27,7 +27,6 @@
 
 #include <aeon/io/io_filesystem_interface.h>
 #include <aeon/common/exception.h>
-#include <aeon/common/noncopyable.h>
 #include <memory>
 
 namespace aeon
@@ -35,7 +34,7 @@ namespace aeon
 namespace io
 {
 
-class io_interface : common::noncopyable
+class io_interface
 {
 public:
     explicit io_interface(std::unique_ptr<io_filesystem_interface> filesystem_interface)
@@ -44,6 +43,12 @@ public:
     }
 
     virtual ~io_interface() = default;
+
+    io_interface(const io_interface &) noexcept = delete;
+    auto operator=(const io_interface &) noexcept -> io_interface & = delete;
+
+    io_interface(io_interface &&) noexcept = default;
+    auto operator=(io_interface &&) noexcept -> io_interface & = default;
 
     /*!
      * Get the subsystem for filesystem interaction.

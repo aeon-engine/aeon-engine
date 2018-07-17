@@ -29,7 +29,6 @@
 #include <aeon/resources/providers/resource_info.h>
 #include <aeon/resources/resource_encoding.h>
 #include <aeon/resources/exceptions.h>
-#include <aeon/common/noncopyable.h>
 #include <vector>
 #include <string>
 #include <memory>
@@ -44,11 +43,17 @@ DEFINE_EXCEPTION_OBJECT(resource_collection_provider_exception, resource_excepti
 
 class resource_manager;
 
-class resource_collection_provider : public common::noncopyable
+class resource_collection_provider
 {
 public:
     resource_collection_provider() = default;
     virtual ~resource_collection_provider() = default;
+
+    resource_collection_provider(const resource_collection_provider &) noexcept = delete;
+    auto operator=(const resource_collection_provider &) noexcept -> resource_collection_provider & = delete;
+
+    resource_collection_provider(resource_collection_provider &&) noexcept = default;
+    auto operator=(resource_collection_provider &&) noexcept -> resource_collection_provider & = default;
 
     virtual auto exists(const std::string &path) const -> bool = 0;
 

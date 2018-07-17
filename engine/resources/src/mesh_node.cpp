@@ -31,8 +31,8 @@ namespace resources
 {
 
 mesh_node::mesh_node(const std::string &name, const math::mat4 &matrix, const std::vector<submesh *> &submeshes)
-    : name_(name)
-    , matrix_(matrix)
+    : matrix_(matrix)
+    , name_(name)
     , submeshes_(submeshes)
 {
 }

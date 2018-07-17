@@ -25,7 +25,6 @@
 
 #pragma once
 
-#include <aeon/common/noncopyable.h>
 #include <aeon/math/vector2.h>
 #include <vector>
 #include <cstdint>
@@ -35,7 +34,7 @@ namespace aeon
 namespace data
 {
 
-class image : common::noncopyable
+class image
 {
 public:
     enum class pixel_format
@@ -52,8 +51,11 @@ public:
 
     ~image() = default;
 
-    image(image &&other) noexcept;
-    image &operator=(image &&other) noexcept;
+    image(const image &) noexcept = delete;
+    auto operator=(const image &) noexcept -> image & = delete;
+
+    image(image &&) noexcept = default;
+    auto operator=(image &&) noexcept -> image & = default;
 
     auto has_data() const -> bool;
 

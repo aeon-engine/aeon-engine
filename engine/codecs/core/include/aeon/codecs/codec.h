@@ -27,7 +27,6 @@
 
 #include <aeon/resources/resource_encoding.h>
 #include <aeon/common/exception.h>
-#include <aeon/common/noncopyable.h>
 #include <memory>
 
 namespace aeon
@@ -38,18 +37,30 @@ namespace codecs
 // codec
 DEFINE_EXCEPTION_OBJECT(codec_exception, common::exception, "Generic Codec exception.");
 
-class codec : public common::noncopyable
+class codec
 {
 public:
     codec() = default;
     virtual ~codec() = default;
+
+    codec(const codec &) noexcept = delete;
+    auto operator=(const codec &) noexcept -> codec & = delete;
+
+    codec(codec &&) noexcept = default;
+    auto operator=(codec &&) noexcept -> codec & = default;
 };
 
-class codec_factory : public common::noncopyable
+class codec_factory
 {
 public:
     codec_factory() = default;
     virtual ~codec_factory() = default;
+
+    codec_factory(const codec_factory &) noexcept = delete;
+    auto operator=(const codec_factory &) noexcept -> codec_factory & = delete;
+
+    codec_factory(codec_factory &&) noexcept = default;
+    auto operator=(codec_factory &&) noexcept -> codec_factory & = default;
 
     virtual auto create() const -> std::unique_ptr<codec> = 0;
     virtual auto get_encoding() const -> resources::resource_encoding = 0;

@@ -26,7 +26,6 @@
 #pragma once
 
 #include <aeon/application/context.h>
-#include <aeon/common/noncopyable.h>
 #include <build_config.h>
 #include <buildinfo.h>
 
@@ -35,11 +34,17 @@ namespace aeon
 namespace application
 {
 
-class base_application : public common::noncopyable
+class base_application
 {
 public:
     explicit base_application(context context);
     virtual ~base_application();
+
+    base_application(const base_application &) noexcept = delete;
+    auto operator=(const base_application &) noexcept -> base_application & = delete;
+
+    base_application(base_application &&) noexcept = default;
+    auto operator=(base_application &&) noexcept -> base_application & = default;
 
     /*!
      * Get the scene manager.

@@ -26,6 +26,7 @@
 #include <aeon/scene/components/perspective_camera.h>
 #include <aeon/math/mat4.h>
 #include <aeon/math/math.h>
+#include <aeon/math/units.h>
 
 namespace aeon
 {
@@ -36,7 +37,7 @@ perspective_camera::perspective_camera(scene_manager &scene_manager, const float
                                        const float near, const float far, const std::string &name)
     : camera(name, scene_manager)
 {
-    projection_matrix_ = math::mat4::projection(math::degree_to_radian(fov_y), aspect_ratio, near, far);
+    projection_matrix_ = math::mat4::projection(math::unitf<math::degree>{fov_y}, aspect_ratio, near, far);
 }
 
 perspective_camera::perspective_camera(scene_manager &scene_manager, const float fov, const float width,

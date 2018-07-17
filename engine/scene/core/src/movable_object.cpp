@@ -31,11 +31,11 @@ namespace scene
 {
 
 movable_object::movable_object()
-    : dirty_(true)
+    : matrix_(math::mat4::indentity())
+    , dirty_(true)
     , position_()
     , rotation_(math::quaternion::indentity())
     , scale_(1.0f, 1.0f, 1.0f)
-    , matrix_(math::mat4::indentity())
 {
 }
 

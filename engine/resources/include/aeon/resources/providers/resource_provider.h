@@ -28,7 +28,6 @@
 #include <aeon/resources/providers/resource_info.h>
 #include <aeon/io/io_file_interface.h>
 #include <aeon/resources/exceptions.h>
-#include <aeon/common/noncopyable.h>
 #include <aeon/streams/stream.h>
 #include <vector>
 #include <string>
@@ -46,6 +45,12 @@ class resource_provider : public streams::stream
 public:
     resource_provider();
     virtual ~resource_provider();
+
+    resource_provider(const resource_provider &) noexcept = delete;
+    auto operator=(const resource_provider &) noexcept -> resource_provider & = delete;
+
+    resource_provider(resource_provider &&) noexcept = default;
+    auto operator=(resource_provider &&) noexcept -> resource_provider & = default;
 
     virtual auto get_info() const -> resource_info = 0;
 };

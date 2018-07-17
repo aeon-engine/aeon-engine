@@ -31,7 +31,6 @@
 #include <aeon/common/exception.h>
 #include <aeon/logger/logger.h>
 #include <aeon/common/logger.h>
-#include <aeon/common/noncopyable.h>
 #include <map>
 #include <memory>
 
@@ -43,11 +42,17 @@ namespace codecs
 DEFINE_EXCEPTION_OBJECT(codec_manager_exception, common::exception, "Generic Codec Manager exception.");
 DEFINE_EXCEPTION_OBJECT(codec_unknown_exception, codec_manager_exception, "Unknown Codec exception.");
 
-class codec_manager : public common::noncopyable
+class codec_manager
 {
 public:
     codec_manager();
     ~codec_manager();
+
+    codec_manager(const codec_manager &) noexcept = delete;
+    auto operator=(const codec_manager &) noexcept -> codec_manager & = delete;
+
+    codec_manager(codec_manager &&) noexcept = default;
+    auto operator=(codec_manager &&) noexcept -> codec_manager & = default;
 
     void register_codec(std::unique_ptr<codec_factory> &&factory);
     void register_codec(std::unique_ptr<codec_factory> &&factory, const resources::resource_encoding &encoding);

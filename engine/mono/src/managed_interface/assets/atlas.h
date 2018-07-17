@@ -50,7 +50,7 @@ public:
 
 private:
     static void ctor(MonoObject *this_ptr, std::string path);
-    static void ctor2(MonoObject *this_ptr, std::shared_ptr<gfx::material> material, glm::vec2 size);
+    static void ctor2(MonoObject *this_ptr, std::shared_ptr<gfx::material> material, math::vector2<float> size);
     static auto get_region_by_index(std::shared_ptr<gfx::atlas> this_ptr, int index)
         -> std::shared_ptr<managed_interface::atlas_region_wrapper>;
     static auto get_region_by_name(std::shared_ptr<gfx::atlas> this_ptr, std::string name)

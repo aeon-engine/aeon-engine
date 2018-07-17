@@ -243,15 +243,15 @@ protected:
 
     void decompose_matrix();
 
+    math::mat4 matrix_;
+
     /*!
      * True if this object has changed in any way. This means things need to be recalculated.
      */
     bool dirty_;
-
     math::vector3<float> position_;
     math::quaternion rotation_;
     math::vector3<float> scale_;
-    math::mat4 matrix_;
 };
 
 } // namespace scene

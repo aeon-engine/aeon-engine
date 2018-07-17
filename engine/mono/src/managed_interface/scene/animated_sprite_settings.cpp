@@ -55,7 +55,7 @@ void animated_sprite_settings::register_internal_calls()
                                 aeon_mono_auto_wrap(animated_sprite_settings::set_speed));
 }
 
-void animated_sprite_settings::ctor(MonoObject *this_ptr, glm::vec2 frame_size)
+void animated_sprite_settings::ctor(MonoObject *this_ptr, math::vector2<float> frame_size)
 {
     mono_object_wrapper<std::shared_ptr<scene::sprite_animation_settings>>::create(
         this_ptr, std::make_shared<scene::sprite_animation_settings>(frame_size));

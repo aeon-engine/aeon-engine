@@ -59,7 +59,7 @@ void atlas::ctor(MonoObject *this_ptr, std::string path)
     mono_object_wrapper<std::shared_ptr<gfx::atlas>>::create(this_ptr, loaded_atlas);
 }
 
-void atlas::ctor2(MonoObject *this_ptr, std::shared_ptr<gfx::material> material, glm::vec2 size)
+void atlas::ctor2(MonoObject *this_ptr, std::shared_ptr<gfx::material> material, math::vector2<float> size)
 {
     auto &asset_manager = mono_jit_manager::get_application().get_asset_manager();
     auto created_atlas = asset_manager.create_atlas(material, size);

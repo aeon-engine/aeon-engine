@@ -45,7 +45,7 @@ private:
     static void ctor(MonoObject *this_ptr, std::shared_ptr<managed_interface::atlas_region_wrapper> region, int z_order,
                      std::string name);
     static void ctor2(MonoObject *this_ptr, std::shared_ptr<managed_interface::atlas_region_wrapper> region,
-                      glm::vec2 size, int z_order, std::string name);
+                      math::vector2<float> size, int z_order, std::string name);
 };
 
 } // namespace managed_interface

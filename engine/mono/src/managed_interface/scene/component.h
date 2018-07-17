@@ -49,7 +49,7 @@ public:
 
 private:
     static auto get_name(std::shared_ptr<scene::component> this_ptr) -> std::string;
-    static auto get_scene_matrix(std::shared_ptr<scene::component> this_ptr) -> glm::mat4x4;
+    static auto get_scene_matrix(std::shared_ptr<scene::component> this_ptr) -> math::mat4;
 };
 
 } // namespace managed_interface

@@ -46,7 +46,7 @@ public:
     static void register_internal_calls();
 
 private:
-    static void ctor(MonoObject *this_ptr, glm::vec2 frame_size);
+    static void ctor(MonoObject *this_ptr, math::vector2<float> frame_size);
     static void generate_sequence(std::shared_ptr<scene::sprite_animation_settings> this_ptr, int index,
                                   int frame_offset, int frame_count, scene::animation_sequence_type type);
     static void set_default_sequence(std::shared_ptr<scene::sprite_animation_settings> this_ptr, int index);

@@ -46,7 +46,7 @@ auto component::get_name(std::shared_ptr<scene::component> this_ptr) -> std::str
     return this_ptr->get_name();
 }
 
-auto component::get_scene_matrix(std::shared_ptr<scene::component> this_ptr) -> glm::mat4x4
+auto component::get_scene_matrix(std::shared_ptr<scene::component> this_ptr) -> math::mat4
 {
     return this_ptr->get_scene_matrix();
 }

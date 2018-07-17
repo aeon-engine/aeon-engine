@@ -49,7 +49,7 @@ sprite_animation_settings::sprite_animation_settings(sprite_animation_settings &
 {
 }
 
-sprite_animation_settings &sprite_animation_settings::operator=(sprite_animation_settings &&other) noexcept
+auto sprite_animation_settings::operator=(sprite_animation_settings &&other) noexcept -> sprite_animation_settings &
 {
     start_condition_ = std::move(other.start_condition_);
 
