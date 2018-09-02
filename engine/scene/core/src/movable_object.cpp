@@ -33,7 +33,7 @@ namespace scene
 movable_object::movable_object()
     : matrix_(math::mat4::indentity())
     , dirty_(true)
-    , position_()
+    , position_(0.0f, 0.0f, 0.0f)
     , rotation_(math::quaternion::indentity())
     , scale_(1.0f, 1.0f, 1.0f)
 {
@@ -42,7 +42,7 @@ movable_object::movable_object()
 void movable_object::set_identity()
 {
     matrix_ = math::mat4::indentity();
-    position_ = {};
+    position_ = {0.0f, 0.0f, 0.0f};
     rotation_ = math::quaternion::indentity();
     scale_ = {1.0f, 1.0f, 1.0f};
     dirty_ = true;
