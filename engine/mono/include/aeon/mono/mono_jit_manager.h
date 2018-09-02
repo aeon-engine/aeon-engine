@@ -47,8 +47,8 @@ public:
     mono_jit_manager(const mono_jit_manager &) noexcept = delete;
     auto operator=(const mono_jit_manager &) noexcept -> mono_jit_manager & = delete;
 
-    mono_jit_manager(mono_jit_manager &&) noexcept = default;
-    auto operator=(mono_jit_manager &&) noexcept -> mono_jit_manager & = default;
+    mono_jit_manager(mono_jit_manager &&) noexcept = delete;
+    auto operator=(mono_jit_manager &&) noexcept -> mono_jit_manager & = delete;
 
     void load_assembly(const std::string &path);
 
