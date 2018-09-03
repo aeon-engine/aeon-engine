@@ -89,6 +89,12 @@ public:
          */
         ~region() = default;
 
+        region(const region &) = default;
+        auto operator=(const region &) -> region & = default;
+
+        region(region &&) noexcept = default;
+        auto operator=(region &&) noexcept -> region & = default;
+
         /*!
          * Get the size of the atlas region in pixels.
          * If the atlas was loaded from file, it will return 0, 0.
@@ -119,6 +125,12 @@ public:
      * Destructor
      */
     ~atlas() = default;
+
+    atlas(const atlas &) = default;
+    auto operator=(const atlas &) -> atlas & = default;
+
+    atlas(atlas &&) noexcept = default;
+    auto operator=(atlas &&) noexcept -> atlas & = default;
 
     /*!
      * Add a new region.

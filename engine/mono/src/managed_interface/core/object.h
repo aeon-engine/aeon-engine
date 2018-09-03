@@ -50,8 +50,8 @@ public:
     object(const object &) noexcept = delete;
     auto operator=(const object &) noexcept -> object & = delete;
 
-    object(object &&) noexcept = default;
-    auto operator=(object &&) noexcept -> object & = default;
+    object(object &&) noexcept = delete;
+    auto operator=(object &&) noexcept -> object & = delete;
 
     auto get_managed_object() const -> MonoObject *;
 
