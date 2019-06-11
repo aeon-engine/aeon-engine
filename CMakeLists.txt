@@ -131,11 +131,15 @@ if (MONO_FOUND)
     set(AEON_ENABLE_MONO ON CACHE BOOL "")
 endif ()
 
+set(AEON_ENABLE_IMAGING ON CACHE BOOL "")
+set(AEON_ENABLE_FONTS ON CACHE BOOL "")
+
 ################################################################################
 
 add_subdirectory(dep)
 add_subdirectory(engine)
 add_subdirectory(examples)
+add_subdirectory(experimental)
 add_subdirectory(tests)
 add_subdirectory(doxygen)
 

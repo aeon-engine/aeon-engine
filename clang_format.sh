@@ -8,6 +8,7 @@ function format {
 
 format $(PWD)/engine
 format $(PWD)/examples
+format $(PWD)/experimental
 
 pushd $(PWD)/dep/libaeon/
 source clang_format.sh
