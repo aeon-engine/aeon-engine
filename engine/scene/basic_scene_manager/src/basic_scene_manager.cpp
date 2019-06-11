@@ -25,9 +25,7 @@
 
 #include <aeon/scene/basic_scene_manager/basic_scene_manager.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 basic_scene_manager::basic_scene_manager(gfx::device &device)
@@ -61,6 +59,4 @@ void basic_scene_manager::__traverse_scene_node(scene_node &node)
         __traverse_scene_node(n);
     }
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

@@ -23,8 +23,6 @@
 
 set (AEON_ENGINE_IO_SOURCES
     include/aeon/io/io_exception.h
-    include/aeon/io/io_file_interface.h
-    include/aeon/io/io_file_open_mode.h
     include/aeon/io/io_filesystem_interface.h
     include/aeon/io/io_interface.h
 )
@@ -32,9 +30,7 @@ set (AEON_ENGINE_IO_SOURCES
 source_group(io FILES ${AEON_ENGINE_IO_SOURCES})
 
 set (AEON_ENGINE_IO_GENERIC_SOURCES
-    include/aeon/io/generic/io_generic_file_interface.h
     include/aeon/io/generic/io_generic_filesystem_interface.h
-    src/generic/io_generic_file_interface.cpp
     src/generic/io_generic_filesystem_interface.cpp
 )
 
@@ -48,7 +44,6 @@ add_library(aeon_engine_io STATIC
 target_link_libraries(aeon_engine_io
     aeon_streams
     aeon_logger
-    aeon_filesystem
     aeon_engine_common
 )
 

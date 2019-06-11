@@ -29,9 +29,7 @@
 #include <aeon/common/exception.h>
 #include <string>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 DEFINE_EXCEPTION_OBJECT(gfx_material_exception, common::exception, "Material exception.");
@@ -59,5 +57,4 @@ public:
     virtual auto sampler_has_alpha() const -> bool = 0;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

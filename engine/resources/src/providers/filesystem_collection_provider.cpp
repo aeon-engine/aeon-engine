@@ -29,9 +29,7 @@
 #include <aeon/resources/resource_manager.h>
 #include <aeon/io/io_interface.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 static std::string __get_real_path(const std::string &base, const std::string &path)
@@ -98,7 +96,7 @@ auto filesystem_collection_provider::open(const std::string &path) const -> std:
         throw filesystem_collection_provider_read_exception();
     }
 
-    auto file = filesystem_interface.open_file(real_path, io::file_open_mode::read | io::file_open_mode::binary);
+    auto file = filesystem_interface.open_file(real_path, io::file_open_mode::read);
     auto resource_info = get_info(path);
     return std::make_unique<filesystem_provider>(resource_info, std::move(file));
 }
@@ -117,11 +115,9 @@ auto filesystem_collection_provider::create(const std::string &path) const -> st
         throw filesystem_collection_provider_create_exception();
     }
 
-    auto file = filesystem_interface.open_file(real_path, io::file_open_mode::write | io::file_open_mode::binary |
-                                                              io::file_open_mode::truncate);
+    auto file = filesystem_interface.open_file(real_path, io::file_open_mode::truncate);
     auto resource_info = get_info(path);
     return std::make_unique<filesystem_provider>(resource_info, std::move(file));
 }
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

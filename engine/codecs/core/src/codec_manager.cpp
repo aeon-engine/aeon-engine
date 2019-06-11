@@ -25,9 +25,7 @@
 
 #include <aeon/codecs/codec_manager.h>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 codec_manager::codec_manager()
@@ -49,6 +47,4 @@ void codec_manager::register_codec(std::unique_ptr<codec_factory> &&factory,
     AEON_LOG_DEBUG(logger_) << "Registering codec: " << encoding << std::endl;
     codecs_[encoding] = std::move(factory);
 }
-
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

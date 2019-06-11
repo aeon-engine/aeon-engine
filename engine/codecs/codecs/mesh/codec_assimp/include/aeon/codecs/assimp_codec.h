@@ -37,9 +37,7 @@ struct aiNode;
 struct aiScene;
 struct aiMesh;
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(assimp_codec_decode_exception, codec_exception, "Error while decoding AssImp mesh resource.");
@@ -76,5 +74,4 @@ private:
     logger::logger logger_;
 };
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

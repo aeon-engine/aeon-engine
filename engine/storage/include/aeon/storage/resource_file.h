@@ -23,21 +23,18 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/io/io_file_interface.h>
+#pragma once
+
+#include <aeon/streams/idynamic_stream.h>
 #include <string>
-#include <cstdint>
 #include <memory>
 
-namespace aeon
-{
-
-namespace io
+namespace aeon::io
 {
 class io_filesystem_interface;
-class io_file_interface;
-} // namespace io
+} // namespace aeon::io
 
-namespace storage
+namespace aeon::storage
 {
 
 class resource_file_chunk
@@ -59,8 +56,7 @@ private:
 
     std::string filename_;
     io::io_filesystem_interface &filesystem_interface_;
-    std::shared_ptr<io::io_file_interface> file_interface_;
+    std::shared_ptr<streams::idynamic_stream> file_interface_;
 };
 
-} // namespace storage
-} // namespace aeon
+} // namespace aeon::storage

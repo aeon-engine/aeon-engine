@@ -28,16 +28,13 @@
 #include <aeon/gfx/gfx_camera.h>
 #include <aeon/scene/component.h>
 
-namespace aeon
-{
-
-namespace gfx
+namespace aeon::gfx
 {
 class viewport;
 class render_target;
-} // namespace gfx
+} // namespace aeon::gfx
 
-namespace scene
+namespace aeon::scene
 {
 
 class camera : public gfx::gfx_camera, public component
@@ -49,5 +46,4 @@ public:
     void render_scene(gfx::render_target &rt, gfx::viewport &vp, const float dt) override;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

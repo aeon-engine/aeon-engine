@@ -25,9 +25,7 @@
 
 #pragma once
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 class application
@@ -39,5 +37,4 @@ public:
     auto main(int argc, char *argv[]) -> int;
 };
 
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

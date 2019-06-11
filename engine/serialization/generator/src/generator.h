@@ -34,9 +34,7 @@
 #include <object.h>
 #include <code_generator.h>
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 class generator
@@ -81,5 +79,4 @@ private:
     subtype_code_generator subtype_code_generator_;
 };
 
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

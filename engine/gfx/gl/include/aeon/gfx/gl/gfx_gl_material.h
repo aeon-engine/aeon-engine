@@ -25,18 +25,14 @@
 
 #pragma once
 
-#include <GL/glew.h>
 #include <aeon/gfx/gfx_material.h>
 #include <aeon/gfx/gl/gfx_gl_shader.h>
 #include <aeon/gfx/gl/gfx_gl_texture.h>
+#include <glad/glad.h>
 #include <map>
 #include <memory>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 class gfx_gl_texture_handle_pair
@@ -92,6 +88,4 @@ protected:
     bool sampler_has_alpha_;
 };
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

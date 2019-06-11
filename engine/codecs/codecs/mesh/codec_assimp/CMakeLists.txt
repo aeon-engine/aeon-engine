@@ -35,7 +35,7 @@ add_library(aeon_engine_codec_assimp STATIC
 target_link_libraries(aeon_engine_codec_assimp
     aeon_engine_codecs
     aeon_common
-    assimp
+    assimp::assimp
 )
 
 target_include_directories(aeon_engine_codec_assimp

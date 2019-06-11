@@ -25,9 +25,7 @@
 
 #pragma once
 
-namespace aeon
-{
-namespace common
+namespace aeon::common
 {
 
 /*!
@@ -79,5 +77,4 @@ private:
     int zorder_;
 };
 
-} // namespace common
-} // namespace aeon
+} // namespace aeon::common

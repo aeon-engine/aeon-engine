@@ -31,9 +31,7 @@
 #include <memory>
 #include <string>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 class render_target;
@@ -73,5 +71,4 @@ private:
     std::string name_;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

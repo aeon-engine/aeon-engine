@@ -25,15 +25,11 @@
 
 #include <aeon/gfx/gfx_buffer_manager.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 auto buffer_manager::create_buffer(buffer_type type) -> std::shared_ptr<buffer>
 {
     return __create_buffer(type);
 }
-
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

@@ -28,12 +28,9 @@
 #include <aeon/common/logger.h>
 #include <aeon/streams/stream_reader.h>
 #include <aeon/streams/stream_writer.h>
-#include <aeon/streams/stream_string_operators.h>
 #include <json11.hpp>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 material_codec_amf::material_codec_amf()
@@ -48,8 +45,8 @@ auto material_codec_amf::decode(const std::unique_ptr<resources::resource_provid
 {
     AEON_LOG_DEBUG(logger_) << "Decoding material resource." << std::endl;
 
-    streams::stream_reader<streams::stream> reader(*provider);
-    auto input = reader.read_as_string();
+    streams::stream_reader reader(provider->get_stream());
+    auto input = reader.read_to_string();
 
     auto error_string = std::string();
     auto json = json11::Json::parse(input, error_string, json11::JsonParse::STANDARD);
@@ -67,9 +64,8 @@ auto material_codec_amf::decode(const std::unique_ptr<resources::resource_provid
 void material_codec_amf::encode(std::shared_ptr<resources::material> source,
                                 const std::unique_ptr<resources::resource_provider> &destination) const
 {
-    streams::stream_writer writer(*destination);
+    streams::stream_writer writer(destination->get_stream());
     writer << source->get_material_data().to_json().dump();
 }
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

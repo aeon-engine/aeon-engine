@@ -34,9 +34,7 @@
 #include <map>
 #include <memory>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(codec_manager_exception, common::exception, "Generic Codec Manager exception.");
@@ -89,5 +87,4 @@ inline auto codec_manager::create_basic(const resources::resource_encoding &enco
     return std::unique_ptr<basic_codec<T>>(basic_codec_ptr);
 }
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

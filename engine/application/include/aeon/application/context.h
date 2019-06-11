@@ -35,9 +35,7 @@
 #include <aeon/common/logger.h>
 #include <aeon/utility/configfile.h>
 
-namespace aeon
-{
-namespace application
+namespace aeon::application
 {
 
 class context
@@ -82,5 +80,4 @@ public:
     std::unique_ptr<assets::asset_manager> asset_manager;
 };
 
-} // namespace application
-} // namespace aeon
+} // namespace aeon::application

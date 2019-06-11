@@ -29,9 +29,7 @@
 #include <aeon/resources/scene.h>
 #include <aeon/logger/logger.h>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(scene_codec_decode_exception, codec_exception, "Error while decoding scene resource.");
@@ -51,5 +49,4 @@ private:
     logger::logger logger_;
 };
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

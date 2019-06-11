@@ -26,18 +26,11 @@
 #include <aeon/gfx/gl/gfx_gl_buffer_manager.h>
 #include <aeon/gfx/gl/gfx_gl_buffer.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 auto gfx_gl_buffer_manager::__create_buffer(buffer_type type) -> std::shared_ptr<buffer>
 {
     return std::make_shared<gfx_gl_buffer>(type);
 }
-
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

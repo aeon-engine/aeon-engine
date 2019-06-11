@@ -25,13 +25,10 @@
 
 #pragma once
 
-#include <aeon/scene/render_layer.h>
 #include <aeon/math/mat4.h>
 #include <string>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 enum component_render_type
@@ -111,5 +108,4 @@ protected:
     std::string name_;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

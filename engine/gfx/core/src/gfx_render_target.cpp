@@ -27,9 +27,7 @@
 #include <aeon/common/logger.h>
 #include <algorithm>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 render_target::render_target()
@@ -117,6 +115,4 @@ void render_target::__sort_viewports_by_zorder()
                   return a->get_zorder() < b->get_zorder();
               });
 }
-
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

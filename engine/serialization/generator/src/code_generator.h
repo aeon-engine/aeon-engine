@@ -29,9 +29,7 @@
 #include <set>
 #include <object.h>
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 class code_generator
@@ -57,5 +55,4 @@ public:
     virtual auto generate_array_serialization_code(const object_member &object_member) const -> std::string = 0;
 };
 
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

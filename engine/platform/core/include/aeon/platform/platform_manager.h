@@ -29,11 +29,8 @@
 #include <aeon/input/input_handler.h>
 #include <aeon/common/exception.h>
 #include <vector>
-#include <memory>
 
-namespace aeon
-{
-namespace platform
+namespace aeon::platform
 {
 
 DEFINE_EXCEPTION_OBJECT(platform_exception, aeon::common::exception, "Platform exception.");
@@ -85,5 +82,4 @@ private:
     gfx::device &device_;
 };
 
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform

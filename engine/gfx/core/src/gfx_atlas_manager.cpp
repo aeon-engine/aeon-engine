@@ -26,9 +26,7 @@
 #include <aeon/gfx/gfx_atlas_manager.h>
 #include <aeon/gfx/gfx_device.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 gfx_atlas_manager::gfx_atlas_manager()
@@ -41,6 +39,4 @@ auto gfx_atlas_manager::create(const std::shared_ptr<material> &material, const 
 {
     return std::make_shared<gfx::atlas>(material, atlas_data);
 }
-
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

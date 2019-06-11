@@ -27,12 +27,8 @@
 
 #include <aeon/common/exception.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 DEFINE_EXCEPTION_OBJECT(gfx_exception, aeon::common::exception, "Generic gfx exception.");
-
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

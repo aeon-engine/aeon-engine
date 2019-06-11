@@ -27,9 +27,7 @@
 
 #include <aeon/math/mat4.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 class viewport;
@@ -52,5 +50,4 @@ protected:
     math::mat4 projection_matrix_;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

@@ -25,15 +25,11 @@
 
 #include <aeon/gfx/gfx_camera.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 gfx_camera::gfx_camera()
     : projection_matrix_(math::mat4::indentity())
 {
 }
-
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

@@ -25,9 +25,7 @@
 
 #include <aeon/gfx/gfx_device.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 device::device(io::io_interface &io)
@@ -40,6 +38,4 @@ void device::initialize()
 {
     __initialize_impl();
 }
-
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

@@ -30,9 +30,7 @@
 
 #include <memory>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 class shader_manager
@@ -44,5 +42,4 @@ public:
     virtual auto create(const data::shader &shader_data) -> std::shared_ptr<shader> = 0;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

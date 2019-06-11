@@ -26,9 +26,7 @@
 #include <aeon/scene/components/animated_sprite.h>
 #include <aeon/scene/components/sprite_animation_settings.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 animated_sprite::animated_sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &atlas, int zorder,
@@ -91,6 +89,4 @@ void animated_sprite::update(const float dt)
 
     __generate_and_upload_vertex_data();
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

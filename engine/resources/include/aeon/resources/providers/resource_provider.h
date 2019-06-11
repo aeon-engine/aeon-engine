@@ -26,21 +26,15 @@
 #pragma once
 
 #include <aeon/resources/providers/resource_info.h>
-#include <aeon/io/io_file_interface.h>
 #include <aeon/resources/exceptions.h>
-#include <aeon/streams/stream.h>
-#include <vector>
-#include <string>
-#include <cstdint>
+#include <aeon/streams/idynamic_stream.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 DEFINE_EXCEPTION_OBJECT(resource_provider_exception, resource_exception, "Generic Resource Provider exception.");
 
-class resource_provider : public streams::stream
+class resource_provider
 {
 public:
     resource_provider();
@@ -53,7 +47,7 @@ public:
     auto operator=(resource_provider &&) noexcept -> resource_provider & = default;
 
     virtual auto get_info() const -> resource_info = 0;
+    virtual auto get_stream() -> streams::idynamic_stream & = 0;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

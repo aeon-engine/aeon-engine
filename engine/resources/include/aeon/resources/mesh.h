@@ -33,9 +33,7 @@
 #include <memory>
 #include <vector>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 class mesh : public resource
@@ -82,5 +80,4 @@ private:
     std::unique_ptr<mesh_node> root_mesh_node_;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

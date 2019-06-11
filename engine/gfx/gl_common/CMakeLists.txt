@@ -49,7 +49,7 @@ target_include_directories(aeon_engine_gfx_gl_common
 
 if (AEON_GFX_GL)
     target_link_libraries(aeon_engine_gfx_gl_common
-        glew_s
+        GLAD::GLAD
     )
 endif ()
 

@@ -22,9 +22,6 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 set (AEON_ENGINE_CODEC_PNG_SOURCES
-    include/aeon/codecs/png_structs.h
-    include/aeon/codecs/png_read_structs.h
-    include/aeon/codecs/png_write_structs.h
     include/aeon/codecs/png_codec.h
     src/png_codec.cpp
 )
@@ -38,7 +35,7 @@ add_library(aeon_engine_codec_png STATIC
 target_link_libraries(aeon_engine_codec_png
     aeon_engine_codecs
     aeon_common
-    png_static
+    aeon_imaging
 )
 
 target_include_directories(aeon_engine_codec_png

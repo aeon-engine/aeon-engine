@@ -30,9 +30,7 @@
 #include <aeon/math/vector3.h>
 #include <vector>
 
-namespace aeon
-{
-namespace data
+namespace aeon::data
 {
 
 AEON_PACK_STRUCT_PUSH(1)
@@ -49,5 +47,4 @@ struct vertex_data
 using index_data_buffer = std::vector<std::uint32_t>;
 using vertex_data_buffer = std::vector<vertex_data>;
 
-} // namespace data
-} // namespace aeon
+} // namespace aeon::data

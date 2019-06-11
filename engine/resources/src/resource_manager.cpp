@@ -28,9 +28,7 @@
 #include <memory>
 #include <string>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 resource_manager::resource_manager(io::io_interface &io)
@@ -130,6 +128,4 @@ auto resource_manager::__find_best_match_collection_provider(const std::string &
 
     return best_match_provider;
 }
-
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

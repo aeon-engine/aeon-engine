@@ -32,9 +32,7 @@
 #include <vector>
 #include <memory>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 enum find_method
@@ -236,5 +234,4 @@ private:
     std::string name_;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

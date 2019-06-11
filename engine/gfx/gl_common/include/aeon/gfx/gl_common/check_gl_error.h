@@ -39,11 +39,7 @@
     } while (0)
 #endif
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl_common
+namespace aeon::gfx::gl_common
 {
 
 #ifdef AEON_ENABLE_GL_ERROR_CHECKS
@@ -53,6 +49,4 @@ namespace gl_common
 void check_gl_error(const char *file, int line);
 #endif
 
-} // namespace gl_common
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl_common

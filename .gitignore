@@ -1,25 +1,35 @@
-# Common
-*.log
-.clang-format
-bin/imgui.ini
-build_deploy
-
 # OSX
 .DS_Store
-._.DS_Store
-xcode_build
 
 # Vim
 *.swp
 
-# Unix
-build
+# Cmake
+CMakeFiles/
+cmake_install.cmake
 
-# Windows
-vs_build
-opengl32.dll
-.vs
+# Infra
+external_dependencies*/
 
-# Clion
+# Linux
+Makefile
+*.a
+docs
+
+# CLion
 .idea
-cmake-build-*
+
+# Build folders
+vs_build/
+build/
+cmake-build-*/
+
+# Visual Studio
+.vs/
+.vscode/
+
+# BeyondCompare merge
+*.orig
+
+*.tmp
+*.TMP

@@ -34,8 +34,9 @@
 #include <code_generators/code_generator_vec3.h>
 #include <code_generators/code_generator_rectangle.h>
 
-#include <aeon/streams/file_stream.h>
-#include <aeon/filesystem/filesystem.h>
+#include <aeon/streams/devices/file_device.h>
+#include <aeon/streams/stream_writer.h>
+#include <aeon/streams/stream_reader.h>
 #include <aeon/common/string.h>
 
 #include <set>
@@ -48,9 +49,7 @@
         code_generators_[generator_name] = std::move(generator);                                                       \
     }
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 generator::generator()
@@ -464,8 +463,9 @@ void generator::__write_cpp_code_if_changed(const std::string &code) const
     if (!__file_contents_equal(file_path, code))
     {
         std::cout << "Writing generated cpp file." << std::endl;
-        streams::file_stream cpp_file(file_path, streams::access_mode::write, streams::file_mode::binary);
-        cpp_file.write_line(code);
+        streams::file_sink_device cpp_file{file_path};
+        streams::stream_writer writer{cpp_file};
+        writer << code;
     }
     else
     {
@@ -480,8 +480,9 @@ void generator::__write_header_code_if_changed(const std::string &code) const
     if (!__file_contents_equal(file_path, code))
     {
         std::cout << "Writing generated header file." << std::endl;
-        streams::file_stream header_file(file_path, streams::access_mode::write, streams::file_mode::binary);
-        header_file.write_line(code);
+        streams::file_sink_device header_file{file_path};
+        streams::stream_writer writer{header_file};
+        writer << code;
     }
     else
     {
@@ -494,12 +495,11 @@ auto generator::__file_contents_equal(const std::filesystem::path &path, const s
     if (!std::filesystem::exists(path))
         return false;
 
-    streams::file_stream file_stream(path);
-    auto file_raw_data = file_stream.read_to_vector();
-    const auto file_content = std::string(file_raw_data.begin(), file_raw_data.end());
+    streams::file_source_device file_stream{path};
+    streams::stream_reader reader{file_stream};
+    std::string file_content;
+    reader.read_to_string(file_content);
 
-    return file_content == (content + "\n");
+    return file_content == content;
 }
-
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

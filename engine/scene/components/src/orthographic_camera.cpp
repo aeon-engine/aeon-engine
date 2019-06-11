@@ -26,9 +26,7 @@
 #include <aeon/scene/components/orthographic_camera.h>
 #include <aeon/math/mat4.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 orthographic_camera::orthographic_camera(scene_manager &scene_manager, const float left, const float right,
@@ -60,6 +58,4 @@ orthographic_camera::orthographic_camera(scene_manager &scene_manager, const int
 {
     projection_matrix_ = math::mat4::ortho(left, right, bottom, top, near, far);
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

@@ -29,9 +29,7 @@
 #include <aeon/resources/image.h>
 #include <aeon/logger/logger.h>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(codec_png_codec_exception, codec_exception, "Generic PNG codec error.");
@@ -52,12 +50,7 @@ public:
                 const std::unique_ptr<resources::resource_provider> &destination) const override;
 
 private:
-    auto convert_color_type_to_pixel_format(const int color_type) const -> data::image::pixel_format;
-    auto convert_pixel_format_to_color_type(const data::image::pixel_format format) const -> int;
-    auto convert_pixel_format_to_bytes_per_pixel(const data::image::pixel_format format) const -> int;
-
     mutable logger::logger logger_;
 };
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

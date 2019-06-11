@@ -25,12 +25,9 @@
 
 #include <aeon/platform/glfw/glfw_platform_window.h>
 #include <aeon/platform/glfw/glfw_platform_manager.h>
+#include <glad/glad.h>
 
-namespace aeon
-{
-namespace platform
-{
-namespace glfw
+namespace aeon::platform::glfw
 {
 
 glfw_window::glfw_window(glfw_platform_manager &platform_manager, const window_settings &settings, GLFWmonitor *monitor)
@@ -197,7 +194,4 @@ void glfw_window::__static_mouse_scroll_handler(GLFWwindow *window, double xoffs
     window_ptr->get_platform_manager().get_input_handler().handle_mouse_scroll_event(static_cast<float>(xoffset),
                                                                                      static_cast<float>(yoffset));
 }
-
-} // namespace glfw
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform::glfw

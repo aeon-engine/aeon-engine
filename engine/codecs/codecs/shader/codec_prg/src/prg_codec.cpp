@@ -24,13 +24,10 @@
  */
 
 #include <aeon/codecs/prg_codec.h>
-#include <aeon/streams/memory_stream.h>
 #include <aeon/streams/stream_reader.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 shader_codec_prg::shader_codec_prg()
@@ -46,14 +43,14 @@ auto shader_codec_prg::decode(const std::unique_ptr<resources::resource_provider
     // TODO: Add error handling for missing segments in the resource file
     AEON_LOG_DEBUG(logger_) << "Decoding shader resource." << std::endl;
 
-    auto reader = streams::stream_reader<streams::stream>(*provider);
+    auto reader = streams::stream_reader{provider->get_stream()};
 
     auto state = shader_decode_state::initial;
 
     auto vertex_source = std::string();
     auto fragment_source = std::string();
 
-    while (!provider->eof())
+    while (!provider->get_stream().eof())
     {
         auto line = reader.read_line();
 
@@ -101,6 +98,4 @@ void shader_codec_prg::encode(std::shared_ptr<resources::shader> /*source*/,
     AEON_LOG_ERROR(logger_) << "PRG shader encoding is not implemented." << std::endl;
     throw shader_codec_encode_exception();
 }
-
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

@@ -39,9 +39,7 @@
 #include <aeon/common/object_cache.h>
 #include <aeon/logger/logger.h>
 
-namespace aeon
-{
-namespace assets
+namespace aeon::assets
 {
 
 /*!
@@ -163,5 +161,4 @@ private:
     common::object_cache<gfx::atlas> atlas_cache_;
 };
 
-} // namespace assets
-} // namespace aeon
+} // namespace aeon::assets

@@ -25,11 +25,10 @@
 
 #include <aeon/scene/components/mesh.h>
 #include <aeon/scene/scene_manager.h>
+#include <aeon/scene/render_layer.h>
 #include <aeon/gfx/gfx_device.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 mesh::mesh(scene_manager &scene_manager, const std::shared_ptr<gfx::material> &material,
@@ -49,6 +48,4 @@ void mesh::render(const math::mat4 &projection, const math::mat4 &view, const ma
 {
     mesh_->render(projection, view, model);
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

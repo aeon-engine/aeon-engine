@@ -28,15 +28,11 @@
 #include <aeon/gfx/gfx_texture.h>
 #include <aeon/common/logger.h>
 #include <aeon/gfx/gfx_buffer.h>
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <vector>
 #include <memory>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 struct vertex_attribute
@@ -75,6 +71,4 @@ private:
     std::shared_ptr<buffer> index_buffer_;
 };
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

@@ -26,11 +26,7 @@
 #include <aeon/gfx/gl/gfx_gl_vertex_array_object.h>
 #include <aeon/gfx/gl_common/check_gl_error.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 gfx_gl_vertex_array_object::gfx_gl_vertex_array_object(const vertex_attributes &attributes,
@@ -95,7 +91,4 @@ void gfx_gl_vertex_array_object::__create_vao()
         ++attrib_index;
     }
 }
-
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

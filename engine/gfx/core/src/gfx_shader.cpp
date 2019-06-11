@@ -25,9 +25,7 @@
 
 #include <aeon/gfx/gfx_shader.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 shader::shader()
@@ -37,6 +35,4 @@ shader::shader()
 shader::~shader()
 {
 }
-
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

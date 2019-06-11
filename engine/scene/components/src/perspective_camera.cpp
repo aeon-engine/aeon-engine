@@ -28,9 +28,7 @@
 #include <aeon/math/math.h>
 #include <aeon/math/units.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 perspective_camera::perspective_camera(scene_manager &scene_manager, const float fov_y, const float aspect_ratio,
@@ -46,6 +44,4 @@ perspective_camera::perspective_camera(scene_manager &scene_manager, const float
 {
     projection_matrix_ = math::mat4::projection_fov(fov, width, height, near, far);
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

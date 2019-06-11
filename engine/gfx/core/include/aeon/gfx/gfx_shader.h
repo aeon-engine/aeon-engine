@@ -28,9 +28,7 @@
 #include <aeon/common/cached_object.h>
 #include <aeon/math/mat4.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 class shader : public common::cached_object
@@ -44,5 +42,4 @@ public:
     virtual void set_view_matrix(const math::mat4 &matrix) = 0;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

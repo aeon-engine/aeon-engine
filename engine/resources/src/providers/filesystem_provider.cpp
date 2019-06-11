@@ -25,78 +25,25 @@
 
 #include <aeon/resources/providers/filesystem_provider.h>
 
-namespace aeon
+namespace aeon::resources
 {
-namespace resources
-{
-filesystem_provider::filesystem_provider(const resource_info &info,
-                                         std::unique_ptr<io::io_file_interface> &&file_interface)
-    : file_interface_(std::move(file_interface))
+
+filesystem_provider::filesystem_provider(const resource_info &info, std::unique_ptr<streams::idynamic_stream> stream)
+    : stream_(std::move(stream))
     , info_(info)
 {
 }
 
 filesystem_provider::~filesystem_provider() = default;
 
-auto filesystem_provider::read(std::uint8_t *data, std::size_t size) -> std::size_t
-{
-    return file_interface_->read(data, size);
-}
-
-auto filesystem_provider::write(const std::uint8_t *data, std::size_t size) -> std::size_t
-{
-    return file_interface_->write(data, size);
-}
-
-auto filesystem_provider::peek(std::uint8_t *data, std::size_t size) -> std::size_t
-{
-    return file_interface_->peek(data, size);
-}
-
-auto filesystem_provider::seek(std::ptrdiff_t pos, seek_direction direction) -> bool
-{
-    return file_interface_->seek(pos, direction);
-}
-
-auto filesystem_provider::seekw(std::ptrdiff_t pos, seek_direction direction) -> bool
-{
-    return file_interface_->seekw(pos, direction);
-}
-
-auto filesystem_provider::tell() -> std::size_t
-{
-    return file_interface_->tell();
-}
-
-auto filesystem_provider::tellw() -> std::size_t
-{
-    return file_interface_->tellw();
-}
-
-auto filesystem_provider::eof() const -> bool
-{
-    return file_interface_->eof();
-}
-
-auto filesystem_provider::size() const -> std::size_t
-{
-    return file_interface_->size();
-}
-
-void filesystem_provider::flush()
-{
-    file_interface_->flush();
-}
-
-auto filesystem_provider::good() const -> bool
-{
-    return file_interface_->good();
-}
-
 auto filesystem_provider::get_info() const -> resource_info
 {
     return info_;
 }
 
-} // namespace resources
-} // namespace aeon
+auto filesystem_provider::get_stream() -> streams::idynamic_stream &
+{
+    return *stream_;
+}
+
+} // namespace aeon::resources

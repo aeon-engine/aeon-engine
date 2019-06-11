@@ -25,9 +25,7 @@
 
 #include <aeon/platform/platform_window.h>
 
-namespace aeon
-{
-namespace platform
+namespace aeon::platform
 {
 
 window::window(const window_settings &settings)
@@ -52,6 +50,4 @@ auto window::get_title() const -> const std::string &
 {
     return title_;
 }
-
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform

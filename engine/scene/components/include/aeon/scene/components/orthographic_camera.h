@@ -27,9 +27,7 @@
 
 #include <aeon/scene/camera.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 class orthographic_camera : public camera
@@ -48,5 +46,4 @@ public:
     virtual ~orthographic_camera() = default;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

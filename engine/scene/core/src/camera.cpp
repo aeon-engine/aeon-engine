@@ -25,10 +25,9 @@
 
 #include <aeon/scene/camera.h>
 #include <aeon/scene/scene_manager.h>
+#include <aeon/scene/render_layer.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 camera::camera(const std::string &name, scene_manager &scene_manager)
@@ -41,6 +40,4 @@ void camera::render_scene(gfx::render_target &rt, gfx::viewport &vp, const float
 {
     scene_manager_.__render_scene(*this, rt, vp, dt);
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

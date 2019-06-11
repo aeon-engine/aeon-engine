@@ -57,7 +57,6 @@ target_link_libraries(aeon_engine_application
     aeon_engine_codec_asc
     aeon_engine_codec_assimp
     aeon_engine_codec_ata
-    aeon_engine_codec_dds
     aeon_engine_codec_png
     aeon_engine_codec_prg
 )

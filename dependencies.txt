@@ -1,0 +1,8 @@
+# Distributed under the BSD 2-Clause License - Copyright 2012-2019 Robin Degen
+
+googletest 1.8.1
+google-benchmark 1.4.1
+assimp master
+json11 1.0.0
+glad 0.1.30
+glfw 3.3

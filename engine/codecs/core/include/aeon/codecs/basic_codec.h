@@ -29,9 +29,7 @@
 #include <aeon/resources/providers/resource_provider.h>
 #include <memory>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 template <typename T>
@@ -78,5 +76,4 @@ inline auto basic_codec_factory<T>::get_encoding() const -> resources::resource_
     return encoding_;
 }
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

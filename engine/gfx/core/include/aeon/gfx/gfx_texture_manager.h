@@ -25,14 +25,12 @@
 
 #pragma once
 
-#include <aeon/data/image.h>
+#include <aeon/imaging/dynamic_image.h>
 #include <aeon/gfx/gfx_texture.h>
 
 #include <memory>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 class texture_manager
@@ -41,8 +39,7 @@ public:
     texture_manager() = default;
     virtual ~texture_manager() = default;
 
-    virtual auto create(const data::image &image_data) -> std::shared_ptr<texture> = 0;
+    virtual auto create(const imaging::dynamic_image &image_data) -> std::shared_ptr<texture> = 0;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

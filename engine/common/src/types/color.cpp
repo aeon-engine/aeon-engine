@@ -28,11 +28,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace aeon
-{
-namespace common
-{
-namespace types
+namespace aeon::common::types
 {
 
 auto convert_to_rgb(const color_yuv &c) -> color
@@ -122,7 +118,4 @@ auto convert_to_hsv(const color &c) -> color_hsv
 
     return color_hsv(h, s, v, c.a);
 }
-
-} // namespace types
-} // namespace common
-} // namespace aeon
+} // namespace aeon::common::types

@@ -30,9 +30,7 @@
 #include <aeon/math/vector2.h>
 #include <aeon/common/exception.h>
 
-namespace aeon
-{
-namespace data
+namespace aeon::data
 {
 
 DEFINE_EXCEPTION_OBJECT(atlas_exception, aeon::common::exception, "Generic Atlas exception.");
@@ -161,5 +159,4 @@ private:
     std::vector<region> regions_;
 };
 
-} // namespace data
-} // namespace aeon
+} // namespace aeon::data

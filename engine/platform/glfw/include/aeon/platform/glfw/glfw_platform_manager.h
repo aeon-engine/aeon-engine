@@ -31,11 +31,7 @@
 #include <memory>
 #include <vector>
 
-namespace aeon
-{
-namespace platform
-{
-namespace glfw
+namespace aeon::platform::glfw
 {
 
 class glfw_window;
@@ -69,6 +65,4 @@ private:
     double previous_time_;
 };
 
-} // namespace glfw
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform::glfw

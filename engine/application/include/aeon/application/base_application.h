@@ -26,12 +26,8 @@
 #pragma once
 
 #include <aeon/application/context.h>
-#include <build_config.h>
-#include <buildinfo.h>
 
-namespace aeon
-{
-namespace application
+namespace aeon::application
 {
 
 class base_application
@@ -148,5 +144,4 @@ protected:
     std::unique_ptr<assets::asset_manager> asset_manager_;
 };
 
-} // namespace application
-} // namespace aeon
+} // namespace aeon::application

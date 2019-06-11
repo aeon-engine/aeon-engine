@@ -29,9 +29,7 @@
 #include <aeon/resources/shader.h>
 #include <aeon/logger/logger.h>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(shader_codec_decode_exception, codec_exception, "Error while decoding shader resource.");
@@ -59,5 +57,4 @@ private:
     logger::logger logger_;
 };
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

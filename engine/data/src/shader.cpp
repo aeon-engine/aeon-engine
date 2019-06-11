@@ -25,9 +25,7 @@
 
 #include <aeon/data/shader.h>
 
-namespace aeon
-{
-namespace data
+namespace aeon::data
 {
 
 shader::shader(const std::string &vertex_source, const std::string &fragment_source)
@@ -45,6 +43,4 @@ auto shader::get_fragment_source() const -> const std::string &
 {
     return fragment_source_;
 }
-
-} // namespace data
-} // namespace aeon
+} // namespace aeon::data

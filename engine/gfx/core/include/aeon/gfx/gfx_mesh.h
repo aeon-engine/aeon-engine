@@ -31,9 +31,7 @@
 #include <aeon/math/mat4.h>
 #include <vector>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 DEFINE_EXCEPTION_OBJECT(gfx_mesh_exception, aeon::common::exception, "Mesh exception.");
@@ -56,5 +54,4 @@ public:
     virtual auto has_alpha() const -> bool = 0;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

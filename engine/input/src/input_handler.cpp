@@ -25,9 +25,7 @@
 
 #include <aeon/input/input_handler.h>
 
-namespace aeon
-{
-namespace input
+namespace aeon::input
 {
 
 input_handler::input_handler()
@@ -128,6 +126,4 @@ auto input_handler::get_key_down(const keyboard_key key) -> bool
 {
     return keystates_.get_frame_state(key, keyboard_key_state::pressed);
 }
-
-} // namespace input
-} // namespace aeon
+} // namespace aeon::input

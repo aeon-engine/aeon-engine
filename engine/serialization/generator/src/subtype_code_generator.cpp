@@ -27,9 +27,7 @@
 #include <aeon/common/string.h>
 #include <cassert>
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 auto subtype_code_generator::generate_cpp_deserialize(const object_member &object_member) const -> std::string
@@ -169,6 +167,4 @@ auto subtype_code_generator::generate_cpp_serialize_baseclass_array(const object
     common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
-
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

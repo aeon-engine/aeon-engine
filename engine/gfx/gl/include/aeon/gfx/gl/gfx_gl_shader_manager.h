@@ -28,13 +28,9 @@
 #include <aeon/gfx/gfx_shader_manager.h>
 #include <aeon/logger/logger.h>
 #include <aeon/common/exception.h>
-#include <GL/glew.h>
+#include <glad/glad.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 DEFINE_EXCEPTION_OBJECT(gfx_opengl_shader_exception, aeon::common::exception, "OpenGL shader exception.");
@@ -56,6 +52,4 @@ private:
     logger::logger logger_;
 };
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

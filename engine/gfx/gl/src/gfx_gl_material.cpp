@@ -26,11 +26,7 @@
 #include <aeon/gfx/gl/gfx_gl_material.h>
 #include <iterator>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 gfx_gl_material::gfx_gl_material(const std::shared_ptr<shader> &shader,
@@ -42,7 +38,8 @@ gfx_gl_material::gfx_gl_material(const std::shared_ptr<shader> &shader,
 {
     for (auto &sampler : samplers)
     {
-        if (sampler.second->get_pixel_format() == data::image::pixel_format::rgba)
+        if (sampler.second->get_pixel_format() == imaging::pixel_encoding::rgba32 ||
+            sampler.second->get_pixel_format() == imaging::pixel_encoding::bgra32)
         {
             sampler_has_alpha_ = true;
             break;
@@ -126,7 +123,4 @@ auto gfx_gl_material::__generate_sampler_indices(const std::map<std::string, std
 
     return gl_samplers;
 }
-
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

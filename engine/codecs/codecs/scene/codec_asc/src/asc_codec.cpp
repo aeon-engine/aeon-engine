@@ -28,14 +28,9 @@
 #include <aeon/common/logger.h>
 #include <aeon/streams/stream_reader.h>
 #include <aeon/streams/stream_writer.h>
-#include <aeon/streams/stream_string_operators.h>
 #include <json11.hpp>
-#include <vector>
-#include <cstdint>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 scene_codec_asc::scene_codec_asc()
@@ -50,8 +45,8 @@ auto scene_codec_asc::decode(const std::unique_ptr<resources::resource_provider>
 {
     AEON_LOG_DEBUG(logger_) << "Decoding scene resource." << std::endl;
 
-    streams::stream_reader<streams::stream> reader(*provider);
-    auto input = reader.read_as_string();
+    streams::stream_reader reader(provider->get_stream());
+    auto input = reader.read_to_string();
 
     auto error_string = std::string();
     auto json = json11::Json::parse(input, error_string, json11::JsonParse::STANDARD);
@@ -70,9 +65,8 @@ auto scene_codec_asc::decode(const std::unique_ptr<resources::resource_provider>
 void scene_codec_asc::encode(std::shared_ptr<resources::scene> source,
                              const std::unique_ptr<resources::resource_provider> &destination) const
 {
-    streams::stream_writer writer(*destination);
+    streams::stream_writer writer(destination->get_stream());
     writer << source->get_scene_data().to_json().dump();
 }
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

@@ -22,4 +22,3 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 add_subdirectory(codec_png)
-add_subdirectory(codec_dds)

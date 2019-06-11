@@ -33,9 +33,7 @@
 #include <aeon/math/vector2.h>
 #include <memory>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 DEFINE_EXCEPTION_OBJECT(atlas_exception, common::exception, "Generic Atlas exception.");
@@ -63,5 +61,4 @@ private:
     data::atlas atlas_;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

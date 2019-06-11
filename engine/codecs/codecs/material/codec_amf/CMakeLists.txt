@@ -36,7 +36,7 @@ target_link_libraries(aeon_engine_codec_amf
     aeon_engine_codecs
     aeon_engine_serialization
     aeon_common
-    json11
+    Json11::Json11
 )
 
 target_include_directories(aeon_engine_codec_amf

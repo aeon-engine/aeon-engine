@@ -33,9 +33,7 @@
 #include <aeon/logger/logger.h>
 #include <map>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 DEFINE_EXCEPTION_OBJECT(resource_manager_exception, resource_exception, "Generic resource manager exception.");
@@ -95,5 +93,4 @@ private:
     std::map<std::string, std::unique_ptr<resource_collection_provider>> mount_points_;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

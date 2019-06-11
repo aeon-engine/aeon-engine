@@ -25,11 +25,7 @@
 
 #include <aeon/platform/glfw/glfw_platform_monitor.h>
 
-namespace aeon
-{
-namespace platform
-{
-namespace glfw
+namespace aeon::platform::glfw
 {
 
 glfw_monitor::glfw_monitor(GLFWmonitor *m, int width, int height, int x, int y, bool primary, const std::string &name)
@@ -100,7 +96,4 @@ auto glfw_monitor::get_video_modes() -> video_modes
 
     return modes;
 }
-
-} // namespace glfw
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform::glfw

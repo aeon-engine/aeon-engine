@@ -28,9 +28,7 @@
 #include <string>
 #include <stdexcept>
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 auto code_generator_quaternion::get_type_name() const -> std::string
@@ -94,6 +92,4 @@ auto code_generator_quaternion::generate_array_serialization_code(const object_m
 {
     throw std::runtime_error("A quaternion can not be used as array.");
 }
-
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

@@ -29,11 +29,7 @@
 #include <aeon/common/logger.h>
 #include <iostream>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 gfx_gl_shader_manager::gfx_gl_shader_manager()
@@ -178,7 +174,4 @@ auto gfx_gl_shader_manager::__link_gl_program(GLuint vertexshader, GLuint fragme
 
     return program;
 }
-
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

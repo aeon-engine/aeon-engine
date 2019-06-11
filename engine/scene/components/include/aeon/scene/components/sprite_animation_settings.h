@@ -30,9 +30,7 @@
 #include <vector>
 #include <cstdint>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 enum class animation_start_condition : std::uint32_t
@@ -93,5 +91,4 @@ private:
     int default_sequence_;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

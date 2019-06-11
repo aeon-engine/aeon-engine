@@ -29,9 +29,7 @@
 #include <cstddef>
 #include <cstring>
 
-namespace aeon
-{
-namespace input
+namespace aeon::input
 {
 
 template <typename key_t, typename state_t, std::size_t size>
@@ -96,5 +94,4 @@ private:
     std::array<bool, size> first_of_frame_;
 };
 
-} // namespace input
-} // namespace aeon
+} // namespace aeon::input

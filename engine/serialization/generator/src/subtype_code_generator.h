@@ -28,9 +28,7 @@
 #include <string>
 #include <object.h>
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 class subtype_code_generator
@@ -52,5 +50,4 @@ public:
     auto generate_cpp_serialize_baseclass_array(const object_member &object_member) const -> std::string;
 };
 
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

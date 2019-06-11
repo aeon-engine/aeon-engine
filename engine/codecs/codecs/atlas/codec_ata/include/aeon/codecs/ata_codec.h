@@ -31,9 +31,7 @@
 #include <aeon/common/types/rectangle.h>
 #include <string>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(atlas_codec_decode_exception, codec_exception, "Error while decoding atlas resource.");
@@ -56,5 +54,4 @@ private:
     logger::logger logger_;
 };
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

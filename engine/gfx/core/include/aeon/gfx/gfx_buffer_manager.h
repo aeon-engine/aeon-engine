@@ -28,9 +28,7 @@
 #include <aeon/common/object_cache.h>
 #include <aeon/gfx/gfx_buffer.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 class buffer_manager
@@ -45,5 +43,4 @@ private:
     virtual auto __create_buffer(buffer_type type) -> std::shared_ptr<buffer> = 0;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

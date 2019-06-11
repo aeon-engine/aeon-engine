@@ -24,12 +24,11 @@
  */
 
 #include <aeon/scene/render_queue.h>
+#include <aeon/scene/render_layer.h>
 #include <algorithm>
 #include <cassert>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 void render_queue::add_render_object(const math::mat4 &matrix, const std::shared_ptr<component> &object,
@@ -50,6 +49,4 @@ void render_queue::sort()
     std::sort(objects_.begin(), objects_.end(),
               [](const render_queue_object &a, const render_queue_object &b) { return a.group < b.group; });
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

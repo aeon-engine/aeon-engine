@@ -32,9 +32,7 @@
 #include <type_traits>
 #include <memory>
 
-namespace aeon
-{
-namespace common
+namespace aeon::common
 {
 
 DEFINE_EXCEPTION_OBJECT(object_cache_exception, exception, "object_cache_exception");
@@ -132,5 +130,4 @@ private:
     cached_objects objects_;
 };
 
-} // namespace common
-} // namespace aeon
+} // namespace aeon::common

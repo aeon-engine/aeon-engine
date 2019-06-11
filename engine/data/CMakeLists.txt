@@ -23,11 +23,9 @@
 
 set (AEON_ENGINE_DATA_SOURCES
     include/aeon/data/atlas.h
-    include/aeon/data/image.h
     include/aeon/data/mesh.h
     include/aeon/data/shader.h
     src/atlas.cpp
-    src/image.cpp
     src/shader.cpp
 )
 

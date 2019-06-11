@@ -26,9 +26,7 @@
 #include <aeon/resources/shader.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 shader::shader(data::shader &&shader_data)
@@ -43,6 +41,4 @@ shader::~shader()
 {
     AEON_LOG_TRACE(logger_) << "Deleted shader resource." << std::endl;
 }
-
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

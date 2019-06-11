@@ -26,9 +26,7 @@
 #include <aeon/resources/atlas.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 atlas::atlas(const std::string &material_path, const data::atlas &data)
@@ -44,6 +42,4 @@ atlas::~atlas()
 {
     AEON_LOG_TRACE(logger_) << "Deleted atlas resource." << std::endl;
 }
-
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

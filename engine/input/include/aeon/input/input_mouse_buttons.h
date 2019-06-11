@@ -28,9 +28,7 @@
 #include <cstdint>
 #include <cstddef>
 
-namespace aeon
-{
-namespace input
+namespace aeon::input
 {
 
 enum class mouse_button_state : std::uint32_t
@@ -57,5 +55,4 @@ enum class mouse_button : std::uint32_t
 
 static constexpr auto mouse_button_count = static_cast<std::size_t>(mouse_button::mouse_button_last) + 1;
 
-} // namespace input
-} // namespace aeon
+} // namespace aeon::input

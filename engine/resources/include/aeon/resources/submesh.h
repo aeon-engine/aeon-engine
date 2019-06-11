@@ -28,9 +28,7 @@
 #include <aeon/data/mesh.h>
 #include <string>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 class submesh
@@ -83,5 +81,4 @@ private:
     std::string material_;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

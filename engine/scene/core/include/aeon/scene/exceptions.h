@@ -27,12 +27,9 @@
 
 #include <aeon/common/exception.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 DEFINE_EXCEPTION_OBJECT(scene_exception, aeon::common::exception, "Scene exception.");
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

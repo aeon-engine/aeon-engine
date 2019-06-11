@@ -31,11 +31,7 @@
 #include <aeon/gfx/gl/gfx_gl_vertex_array_object.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 class gfx_gl_device;
@@ -67,6 +63,4 @@ private:
     std::unique_ptr<gfx_gl_vertex_array_object> vao_;
 };
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

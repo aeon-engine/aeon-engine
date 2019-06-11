@@ -30,9 +30,7 @@
 #include <aeon/logger/logger.h>
 #include <string>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 class atlas : public resource
@@ -62,5 +60,4 @@ private:
     std::string material_path_;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

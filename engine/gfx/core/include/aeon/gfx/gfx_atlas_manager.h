@@ -30,9 +30,7 @@
 #include <aeon/gfx/gfx_material.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 class gfx_atlas_manager
@@ -48,5 +46,4 @@ private:
     aeon::logger::logger logger_;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

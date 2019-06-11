@@ -26,15 +26,11 @@
 #include <aeon/gfx/gl/gfx_gl_texture_manager.h>
 #include <aeon/gfx/gl/gfx_gl_texture.h>
 #include <aeon/gfx/gl_common/check_gl_error.h>
-#include <aeon/data/image.h>
-#include <GL/glew.h>
+#include <aeon/imaging/dynamic_image.h>
+#include <glad/glad.h>
 #include <algorithm>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 gfx_gl_texture_manager::gfx_gl_texture_manager()
@@ -42,7 +38,7 @@ gfx_gl_texture_manager::gfx_gl_texture_manager()
 {
 }
 
-auto gfx_gl_texture_manager::create(const data::image &image_data) -> std::shared_ptr<texture>
+auto gfx_gl_texture_manager::create(const imaging::dynamic_image &image_data) -> std::shared_ptr<texture>
 {
     auto t = std::make_shared<gfx_gl_texture>();
 
@@ -55,83 +51,61 @@ auto gfx_gl_texture_manager::create(const data::image &image_data) -> std::share
     glBindTexture(GL_TEXTURE_2D, handle);
     AEON_CHECK_GL_ERROR();
 
-    auto pixelformat = __image_pixelformat_to_gl(image_data.get_pixelformat());
-    auto width = image_data.get_width();
-    auto height = image_data.get_height();
+    auto pixelformat = __image_pixelformat_to_gl(imaging::encoding(image_data));
+    auto width = imaging::width(image_data);
+    auto height = imaging::height(image_data);
 
-    switch (image_data.get_pixelformat())
+    switch (imaging::encoding(image_data))
     {
-        case data::image::pixel_format::rgb:
-        case data::image::pixel_format::rgba:
-        {
-            if (image_data.get_mipmap_count() != 0)
-                AEON_LOG_WARNING(logger_) << "Mipmapping for RGB(A) images is currently not supported." << std::endl;
-
+        case imaging::pixel_encoding::rgb24:
+        case imaging::pixel_encoding::rgba32:
+        case imaging::pixel_encoding::bgr24:
+        case imaging::pixel_encoding::bgra32:
             glTexImage2D(GL_TEXTURE_2D, 0, pixelformat, width, height, 0, pixelformat, GL_UNSIGNED_BYTE,
-                         image_data.get_data().data());
+                         imaging::raw_data(image_data));
             break;
-        }
-        case data::image::pixel_format::dxt1:
-        case data::image::pixel_format::dxt3:
-        case data::image::pixel_format::dxt5:
+        case imaging::pixel_encoding::unsigned8:
+        case imaging::pixel_encoding::unsigned16:
+        case imaging::pixel_encoding::unsigned32:
+        case imaging::pixel_encoding::float32:
+        default:
         {
-            auto block_size = (image_data.get_pixelformat() == data::image::pixel_format::dxt1) ? 8 : 16;
-            auto offset = 0;
-
-            for (unsigned int level = 0; level < image_data.get_mipmap_count() && (width || height); ++level)
-            {
-                auto size = ((width + 3) / 4) * ((height + 3) / 4) * block_size;
-                glCompressedTexImage2D(GL_TEXTURE_2D, level, pixelformat, width, height, 0, size,
-                                       image_data.get_data().data() + offset);
-
-                offset += size;
-                width = std::max(width / 2, 1u);
-                height = std::max(height / 2, 1u);
-            }
-            break;
+            AEON_LOG_WARNING(logger_)
+                << "Unknown or invalid image pixel format. Did not create a texture (This is a bug!)" << std::endl;
         }
     }
 
     AEON_CHECK_GL_ERROR();
 
-    if (image_data.get_mipmap_count() == 0)
-    {
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        AEON_CHECK_GL_ERROR();
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    AEON_CHECK_GL_ERROR();
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        AEON_CHECK_GL_ERROR();
-    }
-    else
-    {
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-        AEON_CHECK_GL_ERROR();
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-        AEON_CHECK_GL_ERROR();
-    }
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    AEON_CHECK_GL_ERROR();
 
     t->handle_ = handle;
     t->size_ = math::vector2<float>{width, height};
-    t->pixel_format_ = image_data.get_pixelformat();
+    t->pixel_format_ = imaging::encoding(image_data);
 
     return t;
 }
 
-auto gfx_gl_texture_manager::__image_pixelformat_to_gl(data::image::pixel_format format) const -> GLint
+auto gfx_gl_texture_manager::__image_pixelformat_to_gl(const imaging::pixel_encoding format) const -> GLint
 {
     switch (format)
     {
-        case data::image::pixel_format::rgb:
+        case imaging::pixel_encoding::rgb24:
             return GL_RGB;
-        case data::image::pixel_format::rgba:
+        case imaging::pixel_encoding::rgba32:
             return GL_RGBA;
-        case data::image::pixel_format::dxt1:
-            return GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
-        case data::image::pixel_format::dxt3:
-            return GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-        case data::image::pixel_format::dxt5:
-            return GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+        case imaging::pixel_encoding::bgr24:
+            return GL_BGR;
+        case imaging::pixel_encoding::bgra32:
+            return GL_BGRA;
+        case imaging::pixel_encoding::unsigned8:
+        case imaging::pixel_encoding::unsigned16:
+        case imaging::pixel_encoding::unsigned32:
+        case imaging::pixel_encoding::float32:
         default:
         {
             AEON_LOG_WARNING(logger_) << "Unknown or invalid image pixel format, assuming RGBA. (This is a bug!)"
@@ -141,7 +115,4 @@ auto gfx_gl_texture_manager::__image_pixelformat_to_gl(data::image::pixel_format
         }
     }
 }
-
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

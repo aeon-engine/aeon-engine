@@ -27,13 +27,9 @@
 
 #include <aeon/gfx/gfx_shader.h>
 #include <aeon/logger/logger.h>
-#include <GL/glew.h>
+#include <glad/glad.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 class gfx_gl_shader : public gfx::shader
@@ -63,6 +59,4 @@ private:
     GLint view_matrix_handle_;
 };
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

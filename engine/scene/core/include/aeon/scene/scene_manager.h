@@ -30,14 +30,10 @@
 #include <aeon/scene/render_queue.h>
 #include <aeon/gfx/gfx_device.h>
 #include <aeon/logger/logger.h>
-#include <vector>
 #include <type_traits>
-#include <utility>
 #include <memory>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 class camera;
@@ -98,5 +94,4 @@ protected:
     gfx::device &device_;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

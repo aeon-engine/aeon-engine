@@ -35,9 +35,7 @@
 #include <aeon/math/mat4.h>
 #include <memory>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 class sprite : public component, public common::has_z_order
@@ -105,5 +103,4 @@ protected:
     std::unique_ptr<gfx::mesh> mesh_;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

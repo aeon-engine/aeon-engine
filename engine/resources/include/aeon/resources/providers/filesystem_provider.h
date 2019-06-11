@@ -25,44 +25,26 @@
 
 #pragma once
 
-#include <aeon/logger/logger.h>
 #include <aeon/resources/providers/resource_provider.h>
 #include <aeon/resources/providers/resource_info.h>
-#include <aeon/resources/resource_encoding.h>
-#include <aeon/resources/exceptions.h>
 #include <aeon/io/io_interface.h>
-#include <vector>
-#include <string>
+#include <memory>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 class filesystem_provider : public resource_provider
 {
 public:
-    explicit filesystem_provider(const resource_info &info, std::unique_ptr<io::io_file_interface> &&file_interface);
+    explicit filesystem_provider(const resource_info &info, std::unique_ptr<streams::idynamic_stream> stream);
     virtual ~filesystem_provider();
 
 private:
-    auto read(std::uint8_t *data, std::size_t size) -> std::size_t override;
-    auto write(const std::uint8_t *data, std::size_t size) -> std::size_t override;
-    auto peek(std::uint8_t *data, std::size_t size) -> std::size_t override;
-    auto seek(std::ptrdiff_t pos, seek_direction direction) -> bool override;
-    auto seekw(std::ptrdiff_t pos, seek_direction direction) -> bool override;
-    auto tell() -> std::size_t override;
-    auto tellw() -> std::size_t override;
-    auto eof() const -> bool override;
-    auto size() const -> std::size_t override;
-    void flush() override;
-    auto good() const -> bool override;
-
     auto get_info() const -> resource_info override;
+    auto get_stream() -> streams::idynamic_stream & override;
 
-    std::unique_ptr<io::io_file_interface> file_interface_;
+    std::unique_ptr<streams::idynamic_stream> stream_;
     resource_info info_;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

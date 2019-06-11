@@ -28,9 +28,7 @@
 #include <aeon/application/context.h>
 #include <aeon/common/exception.h>
 
-namespace aeon
-{
-namespace application
+namespace aeon::application
 {
 
 DEFINE_EXCEPTION_OBJECT(context_exception, common::exception, "context_exception");
@@ -47,5 +45,4 @@ private:
     static auto create_codec_manager() -> std::unique_ptr<codecs::codec_manager>;
 };
 
-} // namespace application
-} // namespace aeon
+} // namespace aeon::application

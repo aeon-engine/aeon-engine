@@ -27,9 +27,7 @@
 
 #include <string>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 class resource_encoding
@@ -85,5 +83,4 @@ inline auto &operator<<(std::ostream &os, const resource_encoding &encoding)
     return os << encoding.get_name();
 }
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

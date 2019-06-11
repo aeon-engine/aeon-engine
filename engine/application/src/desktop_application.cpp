@@ -25,10 +25,9 @@
 
 #include <aeon/application/desktop_application.h>
 #include <aeon/platform/platform_window_settings.h>
+#include <build_config.h>
 
-namespace aeon
-{
-namespace application
+namespace aeon::application
 {
 
 desktop_application::desktop_application(context context)
@@ -61,6 +60,4 @@ void desktop_application::__create_window()
 
     window_ = platform_->create_window(settings);
 }
-
-} // namespace application
-} // namespace aeon
+} // namespace aeon::application

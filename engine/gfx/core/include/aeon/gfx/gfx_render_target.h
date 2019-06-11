@@ -29,17 +29,15 @@
 #include <aeon/gfx/gfx_viewport.h>
 #include <aeon/gfx/gfx_camera.h>
 #include <aeon/logger/logger.h>
-#include <aeon/utility/listener_subject.h>
+#include <aeon/common/listener_subject.h>
 #include <aeon/math/vector2.h>
 #include <memory>
 #include <vector>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
-class render_target : public utility::listener_subject<frame_listener>
+class render_target : public common::listener_subject<frame_listener>
 {
 public:
     render_target();
@@ -90,5 +88,4 @@ private:
     std::vector<std::shared_ptr<viewport>> viewports_;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

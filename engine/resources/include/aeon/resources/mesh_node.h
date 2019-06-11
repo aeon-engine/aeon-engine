@@ -32,9 +32,7 @@
 #include <vector>
 #include <memory>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 class mesh_node
@@ -79,5 +77,4 @@ private:
     std::vector<submesh *> submeshes_;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

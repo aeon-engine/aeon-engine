@@ -28,11 +28,8 @@
 #include <aeon/logger/simple_sink_backend.h>
 #include <aeon/logger/io_stream_sink.h>
 #include <aeon/common/singleton.h>
-#include <aeon/streams/io_stream.h>
 
-namespace aeon
-{
-namespace common
+namespace aeon::common
 {
 
 /*!
@@ -52,9 +49,8 @@ public:
     virtual ~logger();
 
 private:
-    streams::io_stream io_stream_;
+    streams::stdio_device device_;
     aeon::logger::io_stream_sink stream_sink_;
 };
 
-} // namespace common
-} // namespace aeon
+} // namespace aeon::common

@@ -25,12 +25,11 @@
 
 #include <aeon/scene/components/sprite.h>
 #include <aeon/scene/scene_manager.h>
+#include <aeon/scene/render_layer.h>
 #include <aeon/math/vector3.h>
 #include <aeon/math/vector4.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 sprite::sprite(scene_manager &scene_manager, const std::shared_ptr<gfx::atlas> &atlas,
@@ -136,6 +135,4 @@ void sprite::__generate_and_upload_index_data() const
     auto index_data = std::vector<std::uint32_t>{0, 1, 2, 2, 1, 3};
     mesh_->upload_index_buffer(index_data, gfx::buffer_usage::static_usage);
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

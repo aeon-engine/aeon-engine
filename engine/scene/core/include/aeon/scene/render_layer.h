@@ -25,9 +25,7 @@
 
 #pragma once
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 struct render_layer
@@ -43,5 +41,4 @@ struct render_layer
     };
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

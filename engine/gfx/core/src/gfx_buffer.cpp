@@ -25,9 +25,7 @@
 
 #include <aeon/gfx/gfx_buffer.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 buffer::buffer(buffer_type type)
@@ -39,6 +37,4 @@ auto buffer::get_type() const -> buffer_type
 {
     return type_;
 }
-
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

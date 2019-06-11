@@ -26,9 +26,7 @@
 #include <aeon/resources/scene.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 scene::scene(serialization::scene &&scene_data)
@@ -43,6 +41,4 @@ scene::~scene()
 {
     AEON_LOG_TRACE(logger_) << "Deleted scene resource." << std::endl;
 }
-
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

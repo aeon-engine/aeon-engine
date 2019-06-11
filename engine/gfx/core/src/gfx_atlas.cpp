@@ -27,9 +27,7 @@
 #include <aeon/gfx/gfx_texture.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 atlas::atlas(const std::shared_ptr<material> &material, const data::atlas &atlas)
@@ -90,6 +88,4 @@ void atlas::__calculate_atlas_regions(math::vector2<float> sprite_size)
         }
     }
 }
-
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

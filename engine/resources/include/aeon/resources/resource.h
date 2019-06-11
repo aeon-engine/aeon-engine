@@ -25,9 +25,7 @@
 
 #pragma once
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 class resource
@@ -43,5 +41,4 @@ public:
     auto operator=(resource &&) noexcept -> resource & = default;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

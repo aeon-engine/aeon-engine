@@ -26,18 +26,16 @@
 #pragma once
 
 #include <aeon/resources/resource.h>
-#include <aeon/data/image.h>
+#include <aeon/imaging/dynamic_image.h>
 #include <aeon/logger/logger.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 class image : public resource
 {
 public:
-    explicit image(data::image &&image_data);
+    explicit image(imaging::dynamic_image image_data);
 
     virtual ~image();
 
@@ -48,8 +46,7 @@ public:
 
 private:
     logger::logger logger_;
-    data::image image_data_;
+    imaging::dynamic_image image_data_;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

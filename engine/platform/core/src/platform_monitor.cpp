@@ -25,9 +25,7 @@
 
 #include <aeon/platform/platform_monitor.h>
 
-namespace aeon
-{
-namespace platform
+namespace aeon::platform
 {
 
 video_mode::video_mode(int w, int h, int r, int g, int b, int rr)
@@ -78,6 +76,4 @@ auto monitor::get_name() const -> const std::string &
 {
     return name_;
 }
-
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform

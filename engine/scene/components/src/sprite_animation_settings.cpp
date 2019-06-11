@@ -25,9 +25,7 @@
 
 #include <aeon/scene/components/sprite_animation_settings.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 sprite_animation_settings::sprite_animation_settings(const math::vector2<float> frame_size)
@@ -148,6 +146,4 @@ void sprite_animation_settings::__generate_up_down_sequence(const int index, con
 
     sequences_[index] = seq;
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

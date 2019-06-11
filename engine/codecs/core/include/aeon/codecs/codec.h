@@ -29,9 +29,7 @@
 #include <aeon/common/exception.h>
 #include <memory>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 // codec
@@ -66,5 +64,4 @@ public:
     virtual auto get_encoding() const -> resources::resource_encoding = 0;
 };
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

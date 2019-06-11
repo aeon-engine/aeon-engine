@@ -26,14 +26,11 @@
 #pragma once
 
 #include <aeon/gfx/gfx_texture_manager.h>
+#include <aeon/imaging/dynamic_image.h>
 #include <aeon/common/logger.h>
-#include <GL/glew.h>
+#include <glad/glad.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 class gfx_gl_texture_manager : public gfx::texture_manager
@@ -43,13 +40,11 @@ public:
     virtual ~gfx_gl_texture_manager() = default;
 
 private:
-    auto create(const data::image &image_data) -> std::shared_ptr<texture> override;
+    auto create(const imaging::dynamic_image &image_data) -> std::shared_ptr<texture> override;
 
-    auto __image_pixelformat_to_gl(data::image::pixel_format format) const -> GLint;
+    auto __image_pixelformat_to_gl(const imaging::pixel_encoding format) const -> GLint;
 
     aeon::logger::logger logger_;
 };
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

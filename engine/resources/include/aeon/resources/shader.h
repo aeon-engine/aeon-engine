@@ -29,9 +29,7 @@
 #include <aeon/data/shader.h>
 #include <aeon/logger/logger.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 class shader : public resource
@@ -50,5 +48,4 @@ private:
     data::shader shader_data_;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

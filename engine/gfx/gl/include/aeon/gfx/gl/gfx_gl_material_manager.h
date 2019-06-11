@@ -27,11 +27,7 @@
 
 #include <aeon/gfx/gfx_material_manager.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 class gfx_gl_material_manager : public gfx::material_manager
@@ -45,6 +41,4 @@ private:
         -> std::shared_ptr<material> override;
 };
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

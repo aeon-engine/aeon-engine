@@ -25,9 +25,7 @@
 
 #include <aeon/scene/movable_object.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 movable_object::movable_object()
@@ -176,6 +174,4 @@ void movable_object::decompose_matrix()
 {
     math::decompose(matrix_, position_, scale_, rotation_);
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

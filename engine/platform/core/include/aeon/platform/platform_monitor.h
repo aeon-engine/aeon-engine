@@ -28,9 +28,7 @@
 #include <string>
 #include <vector>
 
-namespace aeon
-{
-namespace platform
+namespace aeon::platform
 {
 
 class video_mode
@@ -109,5 +107,4 @@ private:
     std::string name_;
 };
 
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform

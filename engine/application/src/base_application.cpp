@@ -24,10 +24,9 @@
  */
 
 #include <aeon/application/base_application.h>
+#include <buildinfo.h>
 
-namespace aeon
-{
-namespace application
+namespace aeon::application
 {
 
 base_application::base_application(context context)
@@ -49,5 +48,4 @@ base_application::base_application(context context)
 
 base_application::~base_application() = default;
 
-} // namespace application
-} // namespace aeon
+} // namespace aeon::application

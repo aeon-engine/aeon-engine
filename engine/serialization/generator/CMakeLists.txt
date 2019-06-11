@@ -80,10 +80,9 @@ add_executable(aeon_engine_serialization_generator
 )
 
 target_link_libraries(aeon_engine_serialization_generator
-    json11
     aeon_common
     aeon_streams
-    aeon_filesystem
+    Json11::Json11
 )
 
 target_include_directories(aeon_engine_serialization_generator

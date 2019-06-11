@@ -31,9 +31,7 @@
 #include <map>
 #include <set>
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 class parser
@@ -59,5 +57,4 @@ private:
         -> std::set<std::string>;
 };
 
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

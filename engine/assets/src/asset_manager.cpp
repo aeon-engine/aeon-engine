@@ -34,9 +34,7 @@
 #include <aeon/scene/components/perspective_camera.h>
 #include <build_config.h>
 
-namespace aeon
-{
-namespace assets
+namespace aeon::assets
 {
 
 asset_manager::asset_manager(codecs::codec_manager &codec_manager, resources::resource_manager &resource_manager,
@@ -269,6 +267,4 @@ void asset_manager::__convert_scene_data_to_scene_node(serialization::scene_node
         }
     }
 }
-
-} // namespace assets
-} // namespace aeon
+} // namespace aeon::assets

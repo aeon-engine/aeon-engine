@@ -30,9 +30,7 @@
 #include <aeon/gfx/gfx_atlas.h>
 #include <memory>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 class animated_sprite : public sprite
@@ -60,5 +58,4 @@ protected:
     std::vector<int> sequence_;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

@@ -21,11 +21,6 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-message(STATUS "+------------------------------------------------------------------------------+")
-message(STATUS "| GLFW                                                                         |")
-message(STATUS "+------------------------------------------------------------------------------+")
-add_subdirectory(${AEON_ENGINE_ROOT}/dep/glfw dep/glfw)
-
 set (AEON_ENGINE_PLATFORM_GLFW_SOURCES
     include/aeon/platform/glfw/glfw_platform_monitor.h
     include/aeon/platform/glfw/glfw_platform_window.h
@@ -44,7 +39,8 @@ add_library(aeon_engine_platform_glfw STATIC
 target_link_libraries(aeon_engine_platform_glfw
     aeon_engine_platform_core
     aeon_logger
-    glfw
+    GLFW::GLFW
+    GLAD::GLAD
 )
 
 target_include_directories(aeon_engine_platform_glfw

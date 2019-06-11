@@ -27,13 +27,9 @@
 
 #include <aeon/gfx/gfx_texture.h>
 #include <aeon/common/logger.h>
-#include <GL/glew.h>
+#include <glad/glad.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 class gfx_gl_texture : public gfx::texture
@@ -46,7 +42,7 @@ public:
 
     void bind() const;
     auto get_size() const -> math::vector2<float> override;
-    auto get_pixel_format() const -> data::image::pixel_format override;
+    auto get_pixel_format() const -> imaging::pixel_encoding override;
 
     void set_texture_bind_point(const int bind_point) const;
 
@@ -54,9 +50,7 @@ private:
     aeon::logger::logger logger_;
     GLuint handle_;
     math::vector2<float> size_;
-    data::image::pixel_format pixel_format_;
+    imaging::pixel_encoding pixel_format_;
 };
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

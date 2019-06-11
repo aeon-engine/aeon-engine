@@ -25,9 +25,7 @@
 
 #pragma once
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 enum class buffer_type
@@ -61,5 +59,4 @@ protected:
     buffer_type type_;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

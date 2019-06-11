@@ -24,15 +24,14 @@
  */
 
 #include <aeon/codecs/assimp_codec.h>
+#include <aeon/streams/stream_reader.h>
 #include <aeon/common/logger.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <cassert>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 mesh_codec_assimp::mesh_codec_assimp()
@@ -47,7 +46,10 @@ auto mesh_codec_assimp::decode(const std::unique_ptr<resources::resource_provide
 {
     AEON_LOG_DEBUG(logger_) << "Decoding AssImp mesh resource." << std::endl;
 
-    auto input = provider->read_to_vector();
+    streams::stream_reader reader{provider->get_stream()};
+
+    std::vector<char> input;
+    reader.read_to_vector(input);
 
     auto importer = Assimp::Importer();
     const auto *scene = importer.ReadFileFromMemory(input.data(), input.size(), aiProcessPreset_TargetRealtime_Quality);
@@ -242,5 +244,4 @@ auto mesh_codec_assimp::__convert_to_color(const aiColor4D &color) const -> comm
     return common::types::color(color.r, color.g, color.b, color.a);
 }
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

@@ -26,12 +26,9 @@
 #pragma once
 
 #include <aeon/io/io_filesystem_interface.h>
-#include <aeon/common/exception.h>
 #include <memory>
 
-namespace aeon
-{
-namespace io
+namespace aeon::io
 {
 
 class io_interface
@@ -62,5 +59,4 @@ protected:
     std::unique_ptr<io_filesystem_interface> filesystem_interface_;
 };
 
-} // namespace io
-} // namespace aeon
+} // namespace aeon::io

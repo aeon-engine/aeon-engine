@@ -27,9 +27,7 @@
 #include <aeon/common/logger.h>
 #include <cassert>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 mesh::mesh(const std::string &name)
@@ -71,6 +69,4 @@ auto mesh::get_root_mesh_node() const -> mesh_node &
     assert(root_mesh_node_ != nullptr);
     return *root_mesh_node_;
 }
-
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

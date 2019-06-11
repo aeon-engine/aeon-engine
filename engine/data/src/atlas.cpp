@@ -25,9 +25,7 @@
 
 #include <aeon/data/atlas.h>
 
-namespace aeon
-{
-namespace data
+namespace aeon::data
 {
 
 atlas::atlas(const std::vector<atlas::region> &regions)
@@ -68,6 +66,4 @@ auto atlas::size() const -> std::size_t
 {
     return regions_.size();
 }
-
-} // namespace data
-} // namespace aeon
+} // namespace aeon::data

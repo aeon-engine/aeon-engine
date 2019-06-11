@@ -27,9 +27,7 @@
 
 #include <string>
 
-namespace aeon
-{
-namespace common
+namespace aeon::common
 {
 
 /*!
@@ -72,5 +70,4 @@ private:
     std::string name_;
 };
 
-} // namespace common
-} // namespace aeon
+} // namespace aeon::common

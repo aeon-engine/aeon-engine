@@ -25,9 +25,7 @@
 
 #include <aeon/gfx/gfx_viewport.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 viewport::viewport(std::shared_ptr<gfx_camera> camera, const std::string &name, int zorder)
@@ -58,6 +56,4 @@ void viewport::update(render_target &rt, float dt)
 {
     camera_->render_scene(rt, *this, dt);
 }
-
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

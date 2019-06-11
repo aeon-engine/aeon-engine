@@ -29,16 +29,14 @@
 #include <aeon/input/input_keyboard_keys.h>
 #include <aeon/input/input_mouse_buttons.h>
 #include <aeon/input/input_listener.h>
-#include <aeon/utility/listener_subject.h>
+#include <aeon/common/listener_subject.h>
 #include <aeon/math/vector2.h>
 #include <array>
 
-namespace aeon
-{
-namespace input
+namespace aeon::input
 {
 
-class input_handler : public utility::listener_subject<input_listener>
+class input_handler : public common::listener_subject<input_listener>
 {
 public:
     input_handler();
@@ -71,5 +69,4 @@ private:
     input_state<keyboard_key, keyboard_key_state, keyboard_key_count> keystates_;
 };
 
-} // namespace input
-} // namespace aeon
+} // namespace aeon::input

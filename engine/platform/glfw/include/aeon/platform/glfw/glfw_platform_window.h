@@ -27,13 +27,11 @@
 #include <aeon/platform/platform_window.h>
 #include <aeon/io/io_interface.h>
 #include <aeon/common/logger.h>
+
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
-namespace aeon
-{
-namespace platform
-{
-namespace glfw
+namespace aeon::platform::glfw
 {
 
 class glfw_platform_manager;
@@ -80,6 +78,4 @@ private:
     mouse_cursor_mode cursor_mode_;
 };
 
-} // namespace glfw
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform::glfw

@@ -25,14 +25,13 @@
 
 #include <parser.h>
 #include <generator_objects.h>
-#include <aeon/streams/file_stream.h>
+#include <aeon/streams/devices/file_device.h>
+#include <aeon/streams/stream_reader.h>
 #include <aeon/common/string.h>
 #include <iostream>
 #include <stdexcept>
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 auto parser::parse_object_files() const -> std::vector<object>
@@ -75,9 +74,11 @@ auto parser::__parse_object_file(const std::string &path) const -> object
 
 auto parser::__read_file_to_string(const std::string &path) const -> std::string
 {
-    streams::file_stream file_stream(path);
-    auto file_raw_data = file_stream.read_to_vector();
-    return std::string(file_raw_data.begin(), file_raw_data.end());
+    streams::file_source_device file{path};
+    streams::stream_reader reader{file};
+    std::string str;
+    reader.read_to_string(str);
+    return str;
 }
 
 void parser::__parse_object_members(const std::map<std::string, json11::Json> &members,
@@ -177,6 +178,4 @@ auto parser::__get_subclasses_from_base_class(const std::string &base_class, con
 
     return subclasses;
 }
-
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

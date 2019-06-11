@@ -27,9 +27,7 @@
 
 #include <string>
 
-namespace aeon
-{
-namespace data
+namespace aeon::data
 {
 
 class shader
@@ -52,5 +50,4 @@ private:
     std::string fragment_source_;
 };
 
-} // namespace data
-} // namespace aeon
+} // namespace aeon::data

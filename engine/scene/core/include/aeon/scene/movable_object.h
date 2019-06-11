@@ -30,9 +30,7 @@
 #include <aeon/math/vector3.h>
 #include <aeon/math/quaternion.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 DEFINE_EXCEPTION_OBJECT(scene_transform_space_exception, scene_exception, "Unknown or unsupported transform space.");
@@ -254,5 +252,4 @@ protected:
     math::vector3<float> scale_;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

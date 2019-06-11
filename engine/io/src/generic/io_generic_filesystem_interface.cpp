@@ -24,27 +24,55 @@
  */
 
 #include <aeon/io/generic/io_generic_filesystem_interface.h>
-#include <aeon/io/generic/io_generic_file_interface.h>
-#include <aeon/filesystem/filesystem.h>
+#include <aeon/streams/dynamic_stream.h>
+#include <aeon/streams/devices/file_device.h>
 
-namespace aeon
+namespace aeon::io::generic
 {
-namespace io
+
+namespace internal
 {
-namespace generic
+
+auto to_str(const file_open_mode openmode) noexcept
 {
+    switch (openmode)
+    {
+        case file_open_mode::read:
+            return "read";
+        case file_open_mode::write:
+            return "write";
+        case file_open_mode::truncate:
+            return "truncate";
+    }
+
+    return "unknown";
+}
+
+} // namespace internal
 
 io_generic_filesystem_interface::io_generic_filesystem_interface()
     : logger_(common::logger::get_singleton(), "io::Generic::Filesystem")
 {
 }
 
-auto io_generic_filesystem_interface::open_file(const std::filesystem::path &path,
-                                                const common::flags<file_open_mode> openmode) const
-    -> std::unique_ptr<io_file_interface>
+auto io_generic_filesystem_interface::open_file(const std::filesystem::path &path, const file_open_mode openmode) const
+    -> std::unique_ptr<streams::idynamic_stream>
 {
-    AEON_LOG_DEBUG(logger_) << "Opening filesystem file: " << path << " (Mode: " << openmode << ")" << std::endl;
-    return std::make_unique<io_generic_file_interface>(path, openmode);
+    AEON_LOG_DEBUG(logger_) << "Opening filesystem file: " << path << " (Mode: " << internal::to_str(openmode) << ")"
+                            << std::endl;
+
+    switch (openmode)
+    {
+        case file_open_mode::read:
+            return streams::make_dynamic_stream_ptr(streams::file_source_device{path});
+        case file_open_mode::write:
+            return streams::make_dynamic_stream_ptr(streams::file_sink_device{path});
+        case file_open_mode::truncate:
+            return streams::make_dynamic_stream_ptr(
+                streams::file_sink_device{path, streams::file_mode::binary, streams::file_flag::truncate});
+    }
+
+    throw std::runtime_error("Unknown open mode.");
 }
 
 auto io_generic_filesystem_interface::exists(const std::filesystem::path &path) const -> bool
@@ -64,6 +92,4 @@ auto io_generic_filesystem_interface::list(const std::filesystem::path & /*path*
     throw std::runtime_error("Not yet implemented.");
 }
 
-} // namespace generic
-} // namespace io
-} // namespace aeon
+} // namespace aeon::io::generic

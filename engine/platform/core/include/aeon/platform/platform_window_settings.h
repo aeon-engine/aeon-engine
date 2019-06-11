@@ -27,9 +27,7 @@
 
 #include <string>
 
-namespace aeon
-{
-namespace platform
+namespace aeon::platform
 {
 
 enum class buffer_mode
@@ -67,5 +65,4 @@ private:
     buffer_mode buffer_mode_;
 };
 
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform

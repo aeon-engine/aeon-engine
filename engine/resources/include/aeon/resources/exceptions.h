@@ -27,12 +27,9 @@
 
 #include <aeon/common/exception.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 DEFINE_EXCEPTION_OBJECT(resource_exception, aeon::common::exception, "Resource exception.");
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

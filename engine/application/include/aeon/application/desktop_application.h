@@ -28,9 +28,7 @@
 #include <aeon/application/base_application.h>
 #include <aeon/platform/platform_window.h>
 
-namespace aeon
-{
-namespace application
+namespace aeon::application
 {
 
 class desktop_application : public base_application
@@ -50,5 +48,4 @@ private:
     platform::window *window_;
 };
 
-} // namespace application
-} // namespace aeon
+} // namespace aeon::application

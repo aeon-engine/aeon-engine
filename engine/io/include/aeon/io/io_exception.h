@@ -27,12 +27,9 @@
 
 #include <aeon/common/exception.h>
 
-namespace aeon
-{
-namespace io
+namespace aeon::io
 {
 
 DEFINE_EXCEPTION_OBJECT(io_exception, aeon::common::exception, "Generic IO exception.");
 
-} // namespace io
-} // namespace aeon
+} // namespace aeon::io

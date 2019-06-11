@@ -62,6 +62,7 @@ target_link_libraries(aeon_engine_gfx_core
     aeon_engine_resources
     aeon_logger
     aeon_math
+    aeon_imaging
 )
 
 target_include_directories(aeon_engine_gfx_core

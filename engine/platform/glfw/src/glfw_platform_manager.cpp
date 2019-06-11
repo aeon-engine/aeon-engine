@@ -28,11 +28,7 @@
 #include <aeon/platform/platform_window_settings.h>
 #include <GLFW/glfw3.h>
 
-namespace aeon
-{
-namespace platform
-{
-namespace glfw
+namespace aeon::platform::glfw
 {
 
 const auto PLATFORM_MANAGER_LOGGER_NAME = "Platform::GLFW::Manager";
@@ -186,7 +182,4 @@ void glfw_platform_manager::__static_glfw_error_handler(int error, const char *d
     AEON_LOG_ERROR(logger) << "GLFW reported an error (ID: " << error << "): " << description << std::endl;
     throw platform_exception();
 }
-
-} // namespace glfw
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform::glfw

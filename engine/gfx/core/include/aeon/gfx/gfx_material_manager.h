@@ -33,9 +33,7 @@
 #include <string>
 #include <map>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 class material_manager
@@ -49,5 +47,4 @@ public:
         -> std::shared_ptr<material> = 0;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

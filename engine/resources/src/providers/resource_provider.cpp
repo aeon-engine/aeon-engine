@@ -25,14 +25,11 @@
 
 #include <aeon/resources/providers/resource_provider.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 resource_provider::resource_provider() = default;
 
 resource_provider::~resource_provider() = default;
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

@@ -36,7 +36,7 @@ target_link_libraries(aeon_engine_serialization
     aeon_engine_common
     aeon_common
     aeon_math
-    json11
+    Json11::Json11
 )
 
 target_include_directories(aeon_engine_serialization

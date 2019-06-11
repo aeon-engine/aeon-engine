@@ -23,11 +23,6 @@
 
 find_package(OpenGL REQUIRED)
 
-message(STATUS "+------------------------------------------------------------------------------+")
-message(STATUS "| GLEW                                                                         |")
-message(STATUS "+------------------------------------------------------------------------------+")
-add_subdirectory(${AEON_ENGINE_ROOT}/dep/glew dep/glew)
-
 set (AEON_ENGINE_GFX_GL_SOURCES
     include/aeon/gfx/gl/gfx_gl_buffer.h
     include/aeon/gfx/gl/gfx_gl_buffer_manager.h
@@ -62,8 +57,8 @@ add_library(aeon_engine_gfx_gl STATIC
 target_link_libraries(aeon_engine_gfx_gl
     aeon_engine_gfx_core
     aeon_engine_gfx_gl_common
-    glew_s
     aeon_logger
+    GLAD::GLAD
 )
 
 target_include_directories(aeon_engine_gfx_gl

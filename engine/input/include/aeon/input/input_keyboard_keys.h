@@ -28,9 +28,7 @@
 #include <cstdint>
 #include <cstddef>
 
-namespace aeon
-{
-namespace input
+namespace aeon::input
 {
 
 enum class keyboard_key_state : std::uint32_t
@@ -186,5 +184,4 @@ struct keyboard_modifier_key
     };
 };
 
-} // namespace input
-} // namespace aeon
+} // namespace aeon::input

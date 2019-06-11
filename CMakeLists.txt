@@ -1,27 +1,6 @@
-# Copyright (c) 2012-2018 Robin Degen
-#
-# Permission is hereby granted, free of charge, to any person
-# obtaining a copy of this software and associated documentation
-# files (the "Software"), to deal in the Software without
-# restriction, including without limitation the rights to use,
-# copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following
-# conditions:
-#
-# The above copyright notice and this permission notice shall be
-# included in all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-# OTHER DEALINGS IN THE SOFTWARE.
+# Distributed under the BSD 2-Clause License - Copyright 2012-2019 Robin Degen
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 
 if (DEFINED ENV{AEON_ENGINE_PROJECT_NAME})
     project($ENV{AEON_ENGINE_PROJECT_NAME})
@@ -32,37 +11,18 @@ endif ()
 # Don't allow any circular dependencies. Not even for static libraries.
 set_property(GLOBAL PROPERTY GLOBAL_DEPENDS_NO_CYCLES 1)
 
-if (NOT AEON_CMAKE_INFRA_PATH)
-    set(AEON_CMAKE_INFRA_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
-endif ()
-
-if (NOT AEON_ENGINE_ROOT)
-    set(AEON_ENGINE_ROOT ${CMAKE_SOURCE_DIR})
-endif ()
-
 ################################################################################
 
-# Perform a sanity check on submodules; and inform the user if they are missing.
-file(GLOB RESULT "${AEON_CMAKE_INFRA_PATH}/*.cmake")
-list(LENGTH RESULT RES_LEN)
-if(RES_LEN EQUAL 0)
-    message ("Could not find Aeon Cmake infra.")
-    message ("The most likely cause is that you forgot to download and checkout the git submodules.")
-    message ("Please run the following command in the root of the repository and try again:")
-    message ("git submodule update --init")
-    message (FATAL_ERROR "Aborting due to missing Cmake infra.")
-endif()
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/;${CMAKE_MODULE_PATH}")
 
-################################################################################
-
-set(CMAKE_MODULE_PATH "${AEON_CMAKE_INFRA_PATH};${CMAKE_MODULE_PATH}")
+include(Dependencies)
+handle_local_dependencies_file()
 
 include(CompilerFlags)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE TYPE INTERNAL FORCE)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -70,25 +30,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 include(CTest)
 enable_testing()
-
-################################################################################
-
-# Code coverage did not work on Xcode due to linker errors (missing libprofile_rt?)
-if (NOT CMAKE_GENERATOR STREQUAL Xcode)
-    if (APPLE)
-        option(AEON_ENABLE_CLANG_COVERAGE "Compile with code coverage enabled for GCOV on OSX." OFF)
-
-        if (AEON_ENABLE_CLANG_COVERAGE)
-            message("Compiling with code coverage enabled for GCOV on OSX.")
-            message(" - fprofile-arcs")
-            message(" - ftest-coverage")
-
-            set(AEON_CLANG_COVERAGE_COMPILER_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${AEON_CLANG_COVERAGE_COMPILER_FLAGS}")
-            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${AEON_CLANG_COVERAGE_COMPILER_FLAGS}")
-        endif ()
-    endif ()
-endif ()
 
 ################################################################################
 
@@ -104,31 +45,22 @@ if (APPLE)
     message(STATUS "CoreVideo: ${COREVIDEO_LIBRARY}")
 endif ()
 
-if (MSVC)
-    # Iterator debugging can not be disabled when linking with the standard Qt binaries on Windows.
-    option(AEON_ENABLE_MSVC_ITERATOR_DEBUGGING "Enable iterator debugging in Visual Studio" ON)
-    if (NOT AEON_ENABLE_MSVC_ITERATOR_DEBUGGING)
-        message (STATUS "Disabling iterator debugging (_HAS_ITERATOR_DEBUGGING=0).")
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D _HAS_ITERATOR_DEBUGGING=0")
-    endif ()
+include(ComponentUtils)
+enable_component(common)
+enable_component(fonts)
+enable_component(imaging)
+enable_component(logger)
+enable_component(math)
+enable_component(plugins)
+enable_component(ptree)
+enable_component(reflection)
+enable_component(streams)
+enable_component(unicode)
+enable_component(utility)
 
-    set(_AEON_ENABLE_MSVC_DEFAULT ON)
-    if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
-        set(_AEON_ENABLE_MSVC_DEFAULT OFF)
-    endif ()
-
-    option(AEON_ENABLE_MSVC_MP_BUILD "Use the /MP flag in Visual Studio to use multiple processes per cpp file." ${_AEON_ENABLE_MSVC_DEFAULT})
-    if (AEON_ENABLE_MSVC_MP_BUILD)
-        message (STATUS "Using Visual Studio /MP flag.")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
-    endif ()
-endif ()
-
-# If mono is found on the system; attempt to build with it enabled.
 find_package(Mono)
 if (MONO_FOUND)
-    set(AEON_ENABLE_MONO ON CACHE BOOL "")
+    enable_component(mono)
 endif ()
 
 set(AEON_ENABLE_IMAGING ON CACHE BOOL "")

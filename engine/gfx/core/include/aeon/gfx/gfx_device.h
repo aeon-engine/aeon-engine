@@ -36,9 +36,7 @@
 #include <aeon/common/types/color.h>
 #include <memory>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 struct buffer_clear_flag
@@ -119,5 +117,4 @@ protected:
     std::unique_ptr<gfx_atlas_manager> atlas_manager_;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

@@ -26,9 +26,7 @@
 #include <aeon/scene/scene_node.h>
 #include <algorithm>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 scene_node::scene_node(const std::string &name)
@@ -212,6 +210,4 @@ auto scene_node::__find_component_by_name(const std::string &name, const find_me
 
     return nullptr;
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

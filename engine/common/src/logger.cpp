@@ -25,14 +25,13 @@
 
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace common
+namespace aeon::common
 {
 
 logger::logger()
     : logger::simple_sink_backend(aeon::logger::log_level::message)
-    , stream_sink_(io_stream_)
+    , device_{}
+    , stream_sink_{device_}
 {
     add_sink(&stream_sink_);
 }
@@ -42,5 +41,4 @@ logger::~logger()
     remove_all_sinks();
 }
 
-} // namespace common
-} // namespace aeon
+} // namespace aeon::common

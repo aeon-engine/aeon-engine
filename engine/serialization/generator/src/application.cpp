@@ -27,9 +27,7 @@
 #include <parser.h>
 #include <generator.h>
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 auto application::main(int, char *[]) -> int
@@ -42,6 +40,4 @@ auto application::main(int, char *[]) -> int
 
     return 0;
 }
-
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

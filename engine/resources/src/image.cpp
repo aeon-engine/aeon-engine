@@ -26,12 +26,10 @@
 #include <aeon/resources/image.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
-image::image(data::image &&image_data)
+image::image(imaging::dynamic_image image_data)
     : resource()
     , logger_(common::logger::get_singleton(), "Resources::Image")
     , image_data_(std::move(image_data))
@@ -43,6 +41,4 @@ image::~image()
 {
     AEON_LOG_TRACE(logger_) << "Deleted image resource." << std::endl;
 }
-
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

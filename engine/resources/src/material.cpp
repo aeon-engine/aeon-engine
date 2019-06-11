@@ -26,9 +26,7 @@
 #include <aeon/resources/material.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 material::material(serialization::material &&material_data)
@@ -43,6 +41,4 @@ material::~material()
 {
     AEON_LOG_TRACE(logger_) << "Deleted material resource." << std::endl;
 }
-
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

@@ -27,11 +27,7 @@
 #include <aeon/gfx/gl_common/check_gl_error.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 gfx_gl_buffer::gfx_gl_buffer(buffer_type type)
@@ -111,7 +107,4 @@ auto gfx_gl_buffer::__buffer_usage_as_gl_enum(buffer_usage usage) const -> GLenu
         }
     }
 }
-
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

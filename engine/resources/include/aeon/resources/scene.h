@@ -29,9 +29,7 @@
 #include <aeon/serialization/serialization.h>
 #include <aeon/logger/logger.h>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 class scene : public resource
@@ -50,5 +48,4 @@ private:
     serialization::scene scene_data_;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

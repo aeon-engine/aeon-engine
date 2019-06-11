@@ -27,9 +27,7 @@
 
 #include <aeon/scene/scene_manager.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 /*!
@@ -50,5 +48,4 @@ private:
     void __traverse_scene_node(scene_node &node);
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

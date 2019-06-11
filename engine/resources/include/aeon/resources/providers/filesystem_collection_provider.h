@@ -33,9 +33,7 @@
 #include <vector>
 #include <string>
 
-namespace aeon
-{
-namespace resources
+namespace aeon::resources
 {
 
 DEFINE_EXCEPTION_OBJECT(filesystem_collection_provider_exception, resource_provider_exception,
@@ -71,5 +69,4 @@ private:
     io::io_interface &io_interface_;
 };
 
-} // namespace resources
-} // namespace aeon
+} // namespace aeon::resources

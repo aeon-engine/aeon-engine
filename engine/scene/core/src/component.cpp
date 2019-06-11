@@ -26,9 +26,7 @@
 #include <aeon/scene/component.h>
 #include <aeon/scene/scene_node.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 auto component::get_scene_matrix() const -> math::mat4
@@ -38,6 +36,4 @@ auto component::get_scene_matrix() const -> math::mat4
 
     return scene_node_->get_total_matrix();
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

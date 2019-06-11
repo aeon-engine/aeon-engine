@@ -28,18 +28,14 @@
 #include <aeon/logger/logger.h>
 
 #ifdef AEON_GFX_GL
-#include <GL/glew.h>
+#include <glad/glad.h>
 #endif
 
 #ifdef AEON_GFX_GLES2
 #include <GLES2/gl2.h>
 #endif
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl_common
+namespace aeon::gfx::gl_common
 {
 
 #ifdef AEON_ENABLE_GL_ERROR_CHECKS
@@ -87,6 +83,4 @@ void check_gl_error(const char *file, int line)
 }
 #endif
 
-} // namespace gl_common
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl_common

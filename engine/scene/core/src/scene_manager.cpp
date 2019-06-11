@@ -28,9 +28,7 @@
 #include <aeon/scene/camera.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 scene_manager::scene_manager(gfx::device &device)
@@ -86,6 +84,4 @@ void scene_manager::__render_scene(camera &cam, gfx::render_target &rt, gfx::vie
                                      render_object.matrix, dt);
     }
 }
-
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

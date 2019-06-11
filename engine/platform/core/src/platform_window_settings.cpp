@@ -25,9 +25,7 @@
 
 #include <aeon/platform/platform_window_settings.h>
 
-namespace aeon
-{
-namespace platform
+namespace aeon::platform
 {
 
 window_settings::window_settings(const int width, const int height, const std::string &title)
@@ -73,6 +71,4 @@ auto window_settings::get_buffer_mode() const -> buffer_mode
 {
     return buffer_mode_;
 }
-
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform

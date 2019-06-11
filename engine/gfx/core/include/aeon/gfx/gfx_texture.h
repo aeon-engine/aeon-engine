@@ -29,9 +29,7 @@
 #include <aeon/common/cached_object.h>
 #include <aeon/math/vector2.h>
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 class texture : public common::cached_object
@@ -41,8 +39,7 @@ public:
     virtual ~texture() = default;
 
     virtual auto get_size() const -> math::vector2<float> = 0;
-    virtual auto get_pixel_format() const -> data::image::pixel_format = 0;
+    virtual auto get_pixel_format() const -> imaging::pixel_encoding = 0;
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

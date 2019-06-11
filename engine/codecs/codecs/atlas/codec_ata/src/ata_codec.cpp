@@ -25,13 +25,10 @@
 
 #include <aeon/codecs/ata_codec.h>
 #include <aeon/utility/configfile.h>
-#include <aeon/streams/memory_stream.h>
 #include <aeon/common/logger.h>
 #include <aeon/common/string.h>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 atlas_codec_ata::atlas_codec_ata()
@@ -47,7 +44,7 @@ auto atlas_codec_ata::decode(const std::unique_ptr<resources::resource_provider>
     AEON_LOG_DEBUG(logger_) << "Decoding atlas resource." << std::endl;
 
     auto atlas_file = utility::configfile();
-    atlas_file.load(*provider);
+    atlas_file.load(provider->get_stream());
 
     if (!atlas_file.has_entry("material"))
     {
@@ -120,5 +117,4 @@ auto atlas_codec_ata::__atlas_string_to_data(const std::string &str) const -> co
     return {left, top, right, bottom};
 }
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

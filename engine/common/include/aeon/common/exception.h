@@ -28,9 +28,7 @@
 #include <exception>
 #include <string>
 
-namespace aeon
-{
-namespace common
+namespace aeon::common
 {
 
 /*!
@@ -76,5 +74,4 @@ private:
         }                                                                                                              \
     }
 
-} // namespace common
-} // namespace aeon
+} // namespace aeon::common

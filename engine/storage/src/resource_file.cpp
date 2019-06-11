@@ -23,15 +23,13 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <aeon/io/io_filesystem_interface.h>
 #include <aeon/storage/resource_file.h>
+#include <aeon/io/io_filesystem_interface.h>
 #include <aeon/common/compilers.h>
-#include <string.h>
+#include <cstring>
 #include <cstdint>
 
-namespace aeon
-{
-namespace storage
+namespace aeon::storage
 {
 
 #define RESOURCE_FILE_MAJOR_VERSION 1
@@ -74,13 +72,12 @@ resource_file::resource_file(const std::string &filename, io::io_filesystem_inte
 
 void resource_file::__open_existing_file()
 {
-    file_interface_ = filesystem_interface_.open_file(filename_, io::file_open_mode::read | io::file_open_mode::binary);
+    file_interface_ = filesystem_interface_.open_file(filename_, io::file_open_mode::read);
 }
 
 void resource_file::__open_new_file()
 {
-    file_interface_ =
-        filesystem_interface_.open_file(filename_, io::file_open_mode::write | io::file_open_mode::binary);
+    file_interface_ = filesystem_interface_.open_file(filename_, io::file_open_mode::write);
 
     __write_file_header();
 }
@@ -94,6 +91,4 @@ void resource_file::__write_file_header()
     header.minor_version = RESOURCE_FILE_MINOR_VERSION;
     header.index_chunks_offset = 0;
 }
-
-} // namespace storage
-} // namespace aeon
+} // namespace aeon::storage

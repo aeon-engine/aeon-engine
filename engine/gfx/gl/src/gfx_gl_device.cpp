@@ -30,14 +30,10 @@
 #include <aeon/gfx/gl/gfx_gl_device.h>
 #include <aeon/gfx/gl/gfx_gl_mesh.h>
 #include <aeon/gfx/gl_common/check_gl_error.h>
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <memory>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 gfx_gl_device::gfx_gl_device(io::io_interface &io)
@@ -110,8 +106,8 @@ void gfx_gl_device::add_render_target(render_target *target)
     if (render_targets_.empty())
     {
         __create_managers();
+        __initialize_glad();
         __setup_opengl();
-        __initialize_glew();
     }
 
     render_targets_.push_back(target);
@@ -180,20 +176,19 @@ void gfx_gl_device::__setup_opengl() const
     AEON_CHECK_GL_ERROR();
 }
 
-void gfx_gl_device::__initialize_glew() const
+void gfx_gl_device::__initialize_glad() const
 {
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK)
+    if (!gladLoadGL())
     {
-        AEON_LOG_FATAL(logger_) << "GLEW initialization failed." << std::endl;
+        AEON_LOG_FATAL(logger_) << "GLAD initialization failed." << std::endl;
         throw gl_device_exception();
     }
 
-    // Squash all OpenGL errors from glewInit before continuing.
-    __report_and_squash_glew_errors();
+    // Squash all OpenGL errors from gladLoadGL before continuing.
+    __report_and_squash_glad_errors();
 }
 
-void gfx_gl_device::__report_and_squash_glew_errors() const
+void gfx_gl_device::__report_and_squash_glad_errors() const
 {
     int count = 0;
     while (glGetError() != GL_NO_ERROR)
@@ -209,6 +204,4 @@ void gfx_gl_device::__report_and_squash_glew_errors() const
         AEON_LOG_WARNING(logger_) << "glewInit reported " << count << " OpenGL error(s)." << std::endl;
 }
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

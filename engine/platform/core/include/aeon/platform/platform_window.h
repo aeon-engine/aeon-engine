@@ -31,9 +31,7 @@
 #include <string>
 #include <cstdint>
 
-namespace aeon
-{
-namespace platform
+namespace aeon::platform
 {
 
 /*!
@@ -68,5 +66,4 @@ private:
     std::string title_;
 };
 
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform

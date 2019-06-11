@@ -26,13 +26,14 @@
 #include <gtest/gtest.h>
 #include <memory>
 #include <aeon/serialization/serialization.h>
-#include <aeon/streams/file_stream.h>
 #include <aeon/streams/stream_writer.h>
+#include <aeon/streams/devices/file_device.h>
 #include <aeon/common/compilers.h>
 #include <aeon/math/vector2.h>
 #include <aeon/math/quaternion.h>
 #include <aeon/math/math.h>
 #include <string>
+#include <filesystem>
 
 AEON_IGNORE_VS_WARNING(4189)
 
@@ -124,7 +125,8 @@ TEST(test_serializers, test_serializers_scene)
     ASSERT_FALSE(test.empty());
 
     std::filesystem::path path("test.json");
-    streams::file_stream filestream(path, streams::access_mode::write, streams::file_mode::binary);
-    streams::stream_writer writer(filestream);
-    writer.write_line(test);
+    
+    streams::file_sink_device filestream{path};
+    streams::stream_writer writer{filestream};
+    writer << test << '\n';
 }

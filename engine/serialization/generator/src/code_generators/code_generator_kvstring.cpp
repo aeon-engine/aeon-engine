@@ -28,9 +28,7 @@
 #include <string>
 #include <stdexcept>
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 auto code_generator_kvstring::get_type_name() const -> std::string
@@ -98,6 +96,4 @@ auto code_generator_kvstring::generate_array_serialization_code(const object_mem
     common::string::replace(code, "%member_name%", object_member.get_name());
     return code;
 }
-
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

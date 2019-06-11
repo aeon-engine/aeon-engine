@@ -28,12 +28,9 @@
 #include <aeon/scene/component.h>
 #include <aeon/math/mat4.h>
 #include <vector>
-#include <utility>
 #include <memory>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 struct render_queue_object
@@ -75,5 +72,4 @@ private:
     render_queue_vector objects_;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

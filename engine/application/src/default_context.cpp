@@ -28,20 +28,18 @@
 #include <aeon/gfx/gl/gfx_gl_device.h>
 #include <aeon/platform/glfw/glfw_platform_manager.h>
 #include <aeon/scene/basic_scene_manager/basic_scene_manager.h>
+#include <aeon/io/io_exception.h>
 
 #include <aeon/codecs/amf_codec.h>
 #include <aeon/codecs/asc_codec.h>
 #include <aeon/codecs/assimp_codec.h>
 #include <aeon/codecs/ata_codec.h>
-#include <aeon/codecs/dds_codec.h>
 #include <aeon/codecs/png_codec.h>
 #include <aeon/codecs/prg_codec.h>
 
 #include <build_config.h>
 
-namespace aeon
-{
-namespace application
+namespace aeon::application
 {
 
 auto default_context::create() -> context
@@ -82,8 +80,8 @@ auto default_context::create_config_file(io::io_interface &io_interface, logger:
     try
     {
         auto config_file = std::make_unique<utility::configfile>();
-        auto file_interface = io_interface.get_filesystem_interface().open_file(
-            AEON_CONFIG_FILE_NAME, io::file_open_mode::binary | io::file_open_mode::read);
+        auto file_interface =
+            io_interface.get_filesystem_interface().open_file(AEON_CONFIG_FILE_NAME, io::file_open_mode::read);
         config_file->load(*file_interface);
         return config_file;
     }
@@ -91,7 +89,7 @@ auto default_context::create_config_file(io::io_interface &io_interface, logger:
     {
         AEON_LOG_ERROR(logger) << "Error while parsing config file." << std::endl;
     }
-    catch (io::io_file_exception &)
+    catch (io::io_exception &)
     {
         AEON_LOG_ERROR(logger) << "Error while reading config file." << std::endl;
     }
@@ -112,14 +110,10 @@ auto default_context::create_codec_manager() -> std::unique_ptr<codecs::codec_ma
     codec_manager->register_codec(
         std::make_unique<codecs::basic_codec_factory<codecs::atlas_codec_ata>>(resources::resource_encoding("ata")));
     codec_manager->register_codec(
-        std::make_unique<codecs::basic_codec_factory<codecs::image_codec_dds>>(resources::resource_encoding("dds")));
-    codec_manager->register_codec(
         std::make_unique<codecs::basic_codec_factory<codecs::image_codec_png>>(resources::resource_encoding("png")));
     codec_manager->register_codec(
         std::make_unique<codecs::basic_codec_factory<codecs::shader_codec_prg>>(resources::resource_encoding("prg")));
 
     return codec_manager;
 }
-
-} // namespace application
-} // namespace aeon
+} // namespace aeon::application

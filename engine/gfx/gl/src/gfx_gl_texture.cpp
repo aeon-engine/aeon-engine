@@ -27,11 +27,7 @@
 #include <aeon/gfx/gl_common/check_gl_error.h>
 #include <cassert>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 gfx_gl_texture::gfx_gl_texture()
@@ -39,7 +35,7 @@ gfx_gl_texture::gfx_gl_texture()
     , logger_(common::logger::get_singleton(), "Gfx::GL::Texture")
     , handle_(0)
     , size_(0, 0)
-    , pixel_format_(data::image::pixel_format::rgb)
+    , pixel_format_(imaging::pixel_encoding::rgb24)
 {
 }
 
@@ -62,7 +58,7 @@ auto gfx_gl_texture::get_size() const -> math::vector2<float>
     return size_;
 }
 
-auto gfx_gl_texture::get_pixel_format() const -> data::image::pixel_format
+auto gfx_gl_texture::get_pixel_format() const -> imaging::pixel_encoding
 {
     return pixel_format_;
 }
@@ -72,7 +68,4 @@ void gfx_gl_texture::set_texture_bind_point(const int bind_point) const
     glActiveTexture(GL_TEXTURE0 + bind_point);
     AEON_CHECK_GL_ERROR();
 }
-
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

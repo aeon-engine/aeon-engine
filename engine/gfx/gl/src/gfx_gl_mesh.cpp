@@ -28,11 +28,7 @@
 #include <aeon/gfx/gl_common/check_gl_error.h>
 #include <cstddef>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 gfx_gl_mesh::gfx_gl_mesh(gfx_gl_device *device, std::shared_ptr<material> material)
@@ -110,7 +106,4 @@ void gfx_gl_mesh::__create_and_setup_vao()
 
     vao_ = std::make_unique<gfx_gl_vertex_array_object>(attributes, vertex_buffer_, index_buffer_);
 }
-
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

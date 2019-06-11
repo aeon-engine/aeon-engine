@@ -27,11 +27,7 @@
 #include <aeon/gfx/gl_common/check_gl_error.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 gfx_gl_shader::gfx_gl_shader()
@@ -87,7 +83,4 @@ void gfx_gl_shader::bind_sampler(const GLint handle, const int bind_point) const
     glUniform1i(handle, bind_point);
     AEON_CHECK_GL_ERROR();
 }
-
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

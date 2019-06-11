@@ -27,11 +27,7 @@
 
 #include <aeon/gfx/gfx_buffer_manager.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 class gfx_gl_buffer_manager : public gfx::buffer_manager
@@ -44,6 +40,4 @@ private:
     auto __create_buffer(buffer_type type) -> std::shared_ptr<buffer> override;
 };
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

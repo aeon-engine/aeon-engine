@@ -30,11 +30,7 @@
 #include <aeon/common/exception.h>
 #include <aeon/common/logger.h>
 
-namespace aeon
-{
-namespace gfx
-{
-namespace gl
+namespace aeon::gfx::gl
 {
 
 DEFINE_EXCEPTION_OBJECT(gl_initialized_exception, aeon::common::exception, "OpenGL Device already initialized.");
@@ -65,13 +61,11 @@ public:
 private:
     void __create_managers();
     void __setup_opengl() const;
-    void __initialize_glew() const;
-    void __report_and_squash_glew_errors() const;
+    void __initialize_glad() const;
+    void __report_and_squash_glad_errors() const;
 
     logger::logger logger_;
     std::vector<render_target *> render_targets_;
 };
 
-} // namespace gl
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx::gl

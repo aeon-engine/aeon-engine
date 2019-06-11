@@ -29,9 +29,7 @@
 #include <map>
 #include <set>
 
-namespace aeon
-{
-namespace serialization
+namespace aeon::serialization
 {
 
 class object_member
@@ -140,5 +138,4 @@ private:
     std::map<std::string, object_member> members_;
 };
 
-} // namespace serialization
-} // namespace aeon
+} // namespace aeon::serialization

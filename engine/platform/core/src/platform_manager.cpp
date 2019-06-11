@@ -25,9 +25,7 @@
 
 #include <aeon/platform/platform_manager.h>
 
-namespace aeon
-{
-namespace platform
+namespace aeon::platform
 {
 
 platform_manager::platform_manager(input::input_handler &input_handler, gfx::device &device)
@@ -47,6 +45,4 @@ auto platform_manager::get_device() const -> gfx::device &
 {
     return device_;
 }
-
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform

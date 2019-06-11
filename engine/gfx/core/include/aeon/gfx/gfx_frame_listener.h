@@ -25,9 +25,7 @@
 
 #pragma once
 
-namespace aeon
-{
-namespace gfx
+namespace aeon::gfx
 {
 
 class frame_listener
@@ -46,5 +44,4 @@ public:
     }
 };
 
-} // namespace gfx
-} // namespace aeon
+} // namespace aeon::gfx

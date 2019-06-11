@@ -26,18 +26,13 @@
 #pragma once
 
 #include <aeon/logger/logger.h>
-#include <aeon/io/io_file_interface.h>
 #include <aeon/io/io_filesystem_interface.h>
-#include <aeon/io/io_file_open_mode.h>
+#include <aeon/streams/devices/file_device.h>
 #include <aeon/common/logger.h>
 #include <string>
 #include <vector>
 
-namespace aeon
-{
-namespace io
-{
-namespace generic
+namespace aeon::io::generic
 {
 
 class io_generic_filesystem_interface : public io::io_filesystem_interface
@@ -46,8 +41,8 @@ public:
     io_generic_filesystem_interface();
     virtual ~io_generic_filesystem_interface() = default;
 
-    auto open_file(const std::filesystem::path &path, const common::flags<file_open_mode> openmode) const
-        -> std::unique_ptr<io_file_interface> override;
+    auto open_file(const std::filesystem::path &path, const file_open_mode openmode) const
+        -> std::unique_ptr<streams::idynamic_stream> override;
     auto exists(const std::filesystem::path &path) const -> bool override;
     auto list(const std::filesystem::path &path) const -> std::vector<file_entry> override;
 
@@ -55,6 +50,4 @@ private:
     logger::logger logger_;
 };
 
-} // namespace generic
-} // namespace io
-} // namespace aeon
+} // namespace aeon::io::generic

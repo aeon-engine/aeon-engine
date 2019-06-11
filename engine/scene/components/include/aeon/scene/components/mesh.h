@@ -30,9 +30,7 @@
 #include <aeon/gfx/gfx_material.h>
 #include <memory>
 
-namespace aeon
-{
-namespace scene
+namespace aeon::scene
 {
 
 class mesh : public component
@@ -50,5 +48,4 @@ private:
     std::unique_ptr<gfx::mesh> mesh_;
 };
 
-} // namespace scene
-} // namespace aeon
+} // namespace aeon::scene

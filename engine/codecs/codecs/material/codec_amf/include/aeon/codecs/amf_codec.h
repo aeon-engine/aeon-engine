@@ -29,9 +29,7 @@
 #include <aeon/resources/material.h>
 #include <aeon/logger/logger.h>
 
-namespace aeon
-{
-namespace codecs
+namespace aeon::codecs
 {
 
 DEFINE_EXCEPTION_OBJECT(material_codec_decode_exception, codec_exception, "Error while decoding material resource.");
@@ -61,5 +59,4 @@ public:
     auto get_encoding() const -> resources::resource_encoding override;
 };
 
-} // namespace codecs
-} // namespace aeon
+} // namespace aeon::codecs

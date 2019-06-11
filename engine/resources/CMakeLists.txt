@@ -72,6 +72,7 @@ target_link_libraries(aeon_engine_resources
     aeon_common
     aeon_logger
     aeon_math
+    aeon_imaging
     aeon_utility
 )
 

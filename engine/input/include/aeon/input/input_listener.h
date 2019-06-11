@@ -29,9 +29,7 @@
 #include <aeon/input/input_mouse_buttons.h>
 #include <aeon/math/vector2.h>
 
-namespace aeon
-{
-namespace input
+namespace aeon::input
 {
 
 class input_listener
@@ -74,5 +72,4 @@ public:
     }
 };
 
-} // namespace input
-} // namespace aeon
+} // namespace aeon::input

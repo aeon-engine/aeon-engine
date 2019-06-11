@@ -28,11 +28,7 @@
 #include <aeon/platform/platform_monitor.h>
 #include <GLFW/glfw3.h>
 
-namespace aeon
-{
-namespace platform
-{
-namespace glfw
+namespace aeon::platform::glfw
 {
 
 class glfw_monitor : public monitor
@@ -58,6 +54,4 @@ private:
     GLFWmonitor *monitor_;
 };
 
-} // namespace glfw
-} // namespace platform
-} // namespace aeon
+} // namespace aeon::platform::glfw
