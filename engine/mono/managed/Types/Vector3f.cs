@@ -29,9 +29,9 @@ namespace AeonEngineMono.Types
 {
     public struct Vector3f
     {
-        public float x;
-        public float y;
-        public float z;
+        public float x { get; set; }
+        public float y { get; set; }
+        public float z { get; set; }
 
         public Vector3f(float xyz)
         {
@@ -174,6 +174,28 @@ namespace AeonEngineMono.Types
         public static implicit operator Vector3f(Vector2f v)
         {
             return new Vector3f(v.x, v.y, 0);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector3f))
+            {
+                return false;
+            }
+
+            var f = (Vector3f)obj;
+            return x == f.x &&
+                   y == f.y &&
+                   z == f.z;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 373119288;
+            hashCode = hashCode * -1521134295 + x.GetHashCode();
+            hashCode = hashCode * -1521134295 + y.GetHashCode();
+            hashCode = hashCode * -1521134295 + z.GetHashCode();
+            return hashCode;
         }
     }
 }

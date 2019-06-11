@@ -29,10 +29,10 @@ namespace AeonEngineMono.Types
 {
     public struct Color
     {
-        public float r;
-        public float g;
-        public float b;
-        public float a;
+        public float r { get; set; }
+        public float g { get; set; }
+        public float b { get; set; }
+        public float a { get; set; }
 
         public float grayscale
         {
@@ -80,6 +80,30 @@ namespace AeonEngineMono.Types
                         throw new IndexOutOfRangeException("Index out of range.");
                 }
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Color))
+            {
+                return false;
+            }
+
+            var color = (Color)obj;
+            return r == color.r &&
+                   g == color.g &&
+                   b == color.b &&
+                   a == color.a;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -490236692;
+            hashCode = hashCode * -1521134295 + r.GetHashCode();
+            hashCode = hashCode * -1521134295 + g.GetHashCode();
+            hashCode = hashCode * -1521134295 + b.GetHashCode();
+            hashCode = hashCode * -1521134295 + a.GetHashCode();
+            return hashCode;
         }
     }
 }

@@ -27,10 +27,10 @@ namespace AeonEngineMono.Types
 {
     public struct Rect
     {
-        public float left;
-        public float top;
-        public float right;
-        public float bottom;
+        public float left { get; set; }
+        public float top { get; set; }
+        public float right { get; set; }
+        public float bottom { get; set; }
 
         public Rect(float left, float top, float right, float bottom)
         {
@@ -81,6 +81,30 @@ namespace AeonEngineMono.Types
         public bool IsEmpty()
         {
             return this.Width == 0 || this.Height == 0;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Rect))
+            {
+                return false;
+            }
+
+            var rect = (Rect)obj;
+            return left == rect.left &&
+                   top == rect.top &&
+                   right == rect.right &&
+                   bottom == rect.bottom;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -971476797;
+            hashCode = hashCode * -1521134295 + left.GetHashCode();
+            hashCode = hashCode * -1521134295 + top.GetHashCode();
+            hashCode = hashCode * -1521134295 + right.GetHashCode();
+            hashCode = hashCode * -1521134295 + bottom.GetHashCode();
+            return hashCode;
         }
     }
 }

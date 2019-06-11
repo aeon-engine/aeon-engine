@@ -29,10 +29,10 @@ namespace AeonEngineMono.Types
 {
     public struct Vector4f
     {
-        public float x;
-        public float y;
-        public float z;
-        public float w;
+        public float x { get; set; }
+        public float y { get; set; }
+        public float z { get; set; }
+        public float w { get; set; }
 
         public Vector4f(float wxyz)
         {
@@ -179,6 +179,30 @@ namespace AeonEngineMono.Types
         public static bool operator!=(Vector4f lhs, Vector4f rhs)
         {
             return !(lhs == rhs);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector4f))
+            {
+                return false;
+            }
+
+            var f = (Vector4f)obj;
+            return x == f.x &&
+                   y == f.y &&
+                   z == f.z &&
+                   w == f.w;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1743314642;
+            hashCode = hashCode * -1521134295 + x.GetHashCode();
+            hashCode = hashCode * -1521134295 + y.GetHashCode();
+            hashCode = hashCode * -1521134295 + z.GetHashCode();
+            hashCode = hashCode * -1521134295 + w.GetHashCode();
+            return hashCode;
         }
     }
 }

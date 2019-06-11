@@ -30,22 +30,22 @@ namespace AeonEngineMono.Types
 {
     public struct Matrix4
     {
-        public float m00;
-        public float m10;
-        public float m20;
-        public float m30;
-        public float m01;
-        public float m11;
-        public float m21;
-        public float m31;
-        public float m02;
-        public float m12;
-        public float m22;
-        public float m32;
-        public float m03;
-        public float m13;
-        public float m23;
-        public float m33;
+        public float m00 { get; set; }
+        public float m10 { get; set; }
+        public float m20 { get; set; }
+        public float m30 { get; set; }
+        public float m01 { get; set; }
+        public float m11 { get; set; }
+        public float m21 { get; set; }
+        public float m31 { get; set; }
+        public float m02 { get; set; }
+        public float m12 { get; set; }
+        public float m22 { get; set; }
+        public float m32 { get; set; }
+        public float m03 { get; set; }
+        public float m13 { get; set; }
+        public float m23 { get; set; }
+        public float m33 { get; set; }
 
         public float this[int row, int column]
         {
@@ -236,7 +236,7 @@ namespace AeonEngineMono.Types
 
         public static Vector4f operator *(Matrix4 lhs, Vector4f rhs)
         {
-            Vector4f result;
+            Vector4f result = new Vector4f();
             result.x = (lhs.m00 * rhs.x) + (lhs.m01 * rhs.y) + (lhs.m02 * rhs.z) + (lhs.m03 * rhs.w);
             result.y = (lhs.m10 * rhs.x) + (lhs.m11 * rhs.y) + (lhs.m12 * rhs.z) + (lhs.m13 * rhs.w);
             result.z = (lhs.m20 * rhs.x) + (lhs.m21 * rhs.y) + (lhs.m22 * rhs.z) + (lhs.m23 * rhs.w);
@@ -467,6 +467,54 @@ namespace AeonEngineMono.Types
                 m32 = -(2f * far * near) / (far - near),
                 m33 = 1f
             };
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Matrix4))
+            {
+                return false;
+            }
+
+            var matrix = (Matrix4)obj;
+            return m00 == matrix.m00 &&
+                   m10 == matrix.m10 &&
+                   m20 == matrix.m20 &&
+                   m30 == matrix.m30 &&
+                   m01 == matrix.m01 &&
+                   m11 == matrix.m11 &&
+                   m21 == matrix.m21 &&
+                   m31 == matrix.m31 &&
+                   m02 == matrix.m02 &&
+                   m12 == matrix.m12 &&
+                   m22 == matrix.m22 &&
+                   m32 == matrix.m32 &&
+                   m03 == matrix.m03 &&
+                   m13 == matrix.m13 &&
+                   m23 == matrix.m23 &&
+                   m33 == matrix.m33;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1830880184;
+            hashCode = hashCode * -1521134295 + m00.GetHashCode();
+            hashCode = hashCode * -1521134295 + m10.GetHashCode();
+            hashCode = hashCode * -1521134295 + m20.GetHashCode();
+            hashCode = hashCode * -1521134295 + m30.GetHashCode();
+            hashCode = hashCode * -1521134295 + m01.GetHashCode();
+            hashCode = hashCode * -1521134295 + m11.GetHashCode();
+            hashCode = hashCode * -1521134295 + m21.GetHashCode();
+            hashCode = hashCode * -1521134295 + m31.GetHashCode();
+            hashCode = hashCode * -1521134295 + m02.GetHashCode();
+            hashCode = hashCode * -1521134295 + m12.GetHashCode();
+            hashCode = hashCode * -1521134295 + m22.GetHashCode();
+            hashCode = hashCode * -1521134295 + m32.GetHashCode();
+            hashCode = hashCode * -1521134295 + m03.GetHashCode();
+            hashCode = hashCode * -1521134295 + m13.GetHashCode();
+            hashCode = hashCode * -1521134295 + m23.GetHashCode();
+            hashCode = hashCode * -1521134295 + m33.GetHashCode();
+            return hashCode;
         }
     }
 }
