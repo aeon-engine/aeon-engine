@@ -101,7 +101,7 @@ auto glfw_platform_manager::get_monitors() -> std::vector<monitor *>
 
     if (!monitors_.empty())
     {
-        return common::container::unique_ptr_to_raw_ptr<monitor>(monitors_);
+        return common::container::transform<monitor *>(monitors_, [](const auto &m) { return m.get(); });
     }
 
     int count;
@@ -127,7 +127,7 @@ auto glfw_platform_manager::get_monitors() -> std::vector<monitor *>
         monitors_.emplace_back(std::make_unique<glfw_monitor>(m, physical_width, physical_height, x, y, primary, name));
     }
 
-    return common::container::unique_ptr_to_raw_ptr<monitor>(monitors_);
+    return common::container::transform<monitor *>(monitors_, [](const auto &m) { return m.get(); });
 }
 
 auto glfw_platform_manager::create_window(const window_settings &settings, monitor *monitor) -> window *

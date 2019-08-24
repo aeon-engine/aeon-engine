@@ -36,7 +36,7 @@ target_link_libraries(aeon_engine_codec_ata
     aeon_engine_codecs
     aeon_engine_common
     aeon_common
-    aeon_utility
+    aeon_ptree
 )
 
 target_include_directories(aeon_engine_codec_ata

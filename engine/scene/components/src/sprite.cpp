@@ -109,30 +109,45 @@ void sprite::__upload_mesh_data() const
 
 void sprite::__generate_and_upload_vertex_data() const
 {
-    auto size_2 = math::vector2<float>{size_ * 0.5f};
-    auto vertex_data = std::vector<data::vertex_data>{
-        // Bottom left
-        {math::vector3<float>{-size_2.x, size_2.y, 0.0f}, math::vector3<float>{0.0f, 0.0f, 1.0f},
-         math::vector3<float>{region_.u1, region_.v2, 0.0f}, common::types::color{1.0f, 1.0f, 1.0f, 1.0f}},
+    const auto size_2 = math::vector2<float>{size_ * 0.5f};
+    const auto vertex_data = std::vector<data::vertex_data>{// Bottom left
+                                                            {math::vector3<float>{-size_2.x, size_2.y, 0.0f},
+                                                             math::vector3<float>{0.0f, 0.0f, 1.0f},
+                                                             math::vector3<float>{region_.u1, region_.v2, 0.0f},
+                                                             common::types::color{1.0f, 1.0f, 1.0f, 1.0f},
+                                                             {},
+                                                             {}},
 
-        // Bottom right
-        {math::vector3<float>{size_2.x, size_2.y, 0.0f}, math::vector3<float>{0.0f, 0.0f, 1.0f},
-         math::vector3<float>{region_.u2, region_.v2, 0.0f}, common::types::color{1.0f, 1.0f, 1.0f, 1.0f}},
+                                                            // Bottom right
+                                                            {math::vector3<float>{size_2.x, size_2.y, 0.0f},
+                                                             math::vector3<float>{0.0f, 0.0f, 1.0f},
+                                                             math::vector3<float>{region_.u2, region_.v2, 0.0f},
+                                                             common::types::color{1.0f, 1.0f, 1.0f, 1.0f},
+                                                             {},
+                                                             {}},
 
-        // Top left
-        {math::vector3<float>{-size_2.x, -size_2.y, 0.0f}, math::vector3<float>{0.0f, 0.0f, 1.0f},
-         math::vector3<float>{region_.u1, region_.v1, 0.0f}, common::types::color{1.0f, 1.0f, 1.0f, 1.0f}},
+                                                            // Top left
+                                                            {math::vector3<float>{-size_2.x, -size_2.y, 0.0f},
+                                                             math::vector3<float>{0.0f, 0.0f, 1.0f},
+                                                             math::vector3<float>{region_.u1, region_.v1, 0.0f},
+                                                             common::types::color{1.0f, 1.0f, 1.0f, 1.0f},
+                                                             {},
+                                                             {}},
 
-        // Top right
-        {math::vector3<float>{size_2.x, -size_2.y, 0.0f}, math::vector3<float>{0.0f, 0.0f, 1.0f},
-         math::vector3<float>{region_.u2, region_.v1, 0.0f}, common::types::color{1.0f, 1.0f, 1.0f, 1.0f}}};
+                                                            // Top right
+                                                            {math::vector3<float>{size_2.x, -size_2.y, 0.0f},
+                                                             math::vector3<float>{0.0f, 0.0f, 1.0f},
+                                                             math::vector3<float>{region_.u2, region_.v1, 0.0f},
+                                                             common::types::color{1.0f, 1.0f, 1.0f, 1.0f},
+                                                             {},
+                                                             {}}};
 
     mesh_->upload_vertex_buffer(vertex_data, gfx::buffer_usage::dynamic_usage);
 }
 
 void sprite::__generate_and_upload_index_data() const
 {
-    auto index_data = std::vector<std::uint32_t>{0, 1, 2, 2, 1, 3};
+    const auto index_data = std::vector<std::uint32_t>{0, 1, 2, 2, 1, 3};
     mesh_->upload_index_buffer(index_data, gfx::buffer_usage::static_usage);
 }
 } // namespace aeon::scene

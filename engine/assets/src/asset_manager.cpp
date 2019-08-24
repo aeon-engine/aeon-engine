@@ -40,10 +40,10 @@ namespace aeon::assets
 asset_manager::asset_manager(codecs::codec_manager &codec_manager, resources::resource_manager &resource_manager,
                              scene::scene_manager &scene_manager)
     : logger_(common::logger::get_singleton(), "Assets::AssetManager")
-    , codec_manager_(codec_manager)
-    , resource_manager_(resource_manager)
-    , scene_manager_(scene_manager)
-    , device_(scene_manager.get_device())
+    , codec_manager_(&codec_manager)
+    , resource_manager_(&resource_manager)
+    , scene_manager_(&scene_manager)
+    , device_(&scene_manager.get_device())
     , texture_cache_()
     , shader_cache_()
     , material_cache_()
@@ -68,7 +68,7 @@ auto asset_manager::load_texture(const std::string &path) -> std::shared_ptr<gfx
 auto asset_manager::load_texture(std::shared_ptr<resources::image> image) const -> std::shared_ptr<gfx::texture>
 {
     AEON_LOG_DEBUG(logger_) << "Creating texture from image data." << std::endl;
-    auto texture = device_.get_texture_manager().create(image->get_data());
+    auto texture = device_->get_texture_manager().create(image->get_data());
     return texture;
 }
 
@@ -81,12 +81,12 @@ auto asset_manager::load_shader(const std::string &path) -> std::shared_ptr<gfx:
     if (result)
         return result;
 
-    auto collection_provider = resource_manager_.load(path);
-    auto encoding = collection_provider->get_info().get_encoding();
-    auto codec = codec_manager_.create_basic<resources::shader>(encoding);
-    auto resource = codec->decode(collection_provider);
+    const auto collection_provider = resource_manager_->load(path);
+    const auto encoding = collection_provider->get_info().get_encoding();
+    const auto codec = codec_manager_->create_basic<resources::shader>(encoding);
+    const auto resource = codec->decode(collection_provider);
 
-    auto shader = device_.get_shader_manager().create(resource->get_data());
+    auto shader = device_->get_shader_manager().create(resource->get_data());
     shader_cache_.add_cached_object(path, shader);
     return shader;
 }
@@ -100,18 +100,18 @@ auto asset_manager::load_material(const std::string &path) -> std::shared_ptr<gf
     if (result)
         return result;
 
-    auto collection_provider = resource_manager_.load(path);
-    auto encoding = collection_provider->get_info().get_encoding();
-    auto codec = codec_manager_.create_basic<resources::material>(encoding);
-    auto resource = codec->decode(collection_provider);
+    const auto collection_provider = resource_manager_->load(path);
+    const auto encoding = collection_provider->get_info().get_encoding();
+    const auto codec = codec_manager_->create_basic<resources::material>(encoding);
+    const auto resource = codec->decode(collection_provider);
 
     auto &material_data = resource->get_material_data();
 
 #ifdef AEON_GFX_GL
-    auto shader = load_shader(material_data.shaders.at("gl3"));
+    const auto shader = load_shader(material_data.shaders.at("gl3"));
 #else // AEON_GFX_GL
 #ifdef AEON_GFX_GLES2
-    auto shader = load_shader(material_data.shaders.at("gles2"));
+    const auto shader = load_shader(material_data.shaders.at("gles2"));
 #else
     static_assert(false, "Invalid or unsupported gfx subsystem selected.");
 #endif // AEON_GFX_GLES2
@@ -125,7 +125,7 @@ auto asset_manager::load_material(const std::string &path) -> std::shared_ptr<gf
             sampler_map[sampler->name.value_or("")] = load_texture(sampler->path.value_or(""));
     }
 
-    auto material = device_.get_material_manager().create(shader, sampler_map);
+    auto material = device_->get_material_manager().create(shader, sampler_map);
     material_cache_.add_cached_object(path, material);
     return material;
 }
@@ -139,14 +139,14 @@ auto asset_manager::load_atlas(const std::string &path) -> std::shared_ptr<gfx::
     if (result)
         return result;
 
-    auto collection_provider = resource_manager_.load(path);
-    auto encoding = collection_provider->get_info().get_encoding();
-    auto codec = codec_manager_.create_basic<resources::atlas>(encoding);
-    auto resource = codec->decode(collection_provider);
+    const auto collection_provider = resource_manager_->load(path);
+    const auto encoding = collection_provider->get_info().get_encoding();
+    const auto codec = codec_manager_->create_basic<resources::atlas>(encoding);
+    const auto resource = codec->decode(collection_provider);
 
-    auto material = load_material(resource->get_material_path());
+    const auto material = load_material(resource->get_material_path());
 
-    auto atlas = device_.get_atlas_manager().create(material, resource->get_data());
+    auto atlas = device_->get_atlas_manager().create(material, resource->get_data());
     atlas_cache_.add_cached_object(path, atlas);
     return atlas;
 }
@@ -155,13 +155,13 @@ auto asset_manager::load_mesh(const std::string &path) -> std::shared_ptr<scene:
 {
     AEON_LOG_DEBUG(logger_) << "Loading mesh '" << path << "'." << std::endl;
 
-    auto collection_provider = resource_manager_.load(path);
-    auto encoding = collection_provider->get_info().get_encoding();
-    auto codec = codec_manager_.create_basic<resources::mesh>(encoding);
-    auto resource = codec->decode(collection_provider);
+    const auto collection_provider = resource_manager_->load(path);
+    const auto encoding = collection_provider->get_info().get_encoding();
+    const auto codec = codec_manager_->create_basic<resources::mesh>(encoding);
+    const auto resource = codec->decode(collection_provider);
 
     auto &mesh_root_node = resource->get_root_mesh_node();
-    auto scene_node = scene_manager_.create_detached_scene_node(mesh_root_node.get_name());
+    auto scene_node = scene_manager_->create_detached_scene_node(mesh_root_node.get_name());
 
     __convert_mesh_node_to_scene_node(mesh_root_node, *scene_node);
 
@@ -172,13 +172,13 @@ auto asset_manager::load_scene(const std::string &path) -> std::shared_ptr<scene
 {
     AEON_LOG_DEBUG(logger_) << "Loading scene '" << path << "'." << std::endl;
 
-    auto collection_provider = resource_manager_.load(path);
-    auto encoding = collection_provider->get_info().get_encoding();
-    auto codec = codec_manager_.create_basic<resources::scene>(encoding);
-    auto resource = codec->decode(collection_provider);
+    const auto collection_provider = resource_manager_->load(path);
+    const auto encoding = collection_provider->get_info().get_encoding();
+    const auto codec = codec_manager_->create_basic<resources::scene>(encoding);
+    const auto resource = codec->decode(collection_provider);
 
     auto &scene_data = resource->get_scene_data();
-    auto scene_node = scene_manager_.create_detached_scene_node(scene_data.root->name.value_or(""));
+    auto scene_node = scene_manager_->create_detached_scene_node(scene_data.root->name.value_or(""));
 
     __convert_scene_data_to_scene_node(*scene_data.root, *scene_node);
 
@@ -195,9 +195,9 @@ auto asset_manager::load_image(const std::string &path) const -> std::shared_ptr
 {
     AEON_LOG_DEBUG(logger_) << "Loading image '" << path << "'." << std::endl;
 
-    auto collection_provider = resource_manager_.load(path);
-    auto encoding = collection_provider->get_info().get_encoding();
-    auto codec = codec_manager_.create_basic<resources::image>(encoding);
+    const auto collection_provider = resource_manager_->load(path);
+    const auto encoding = collection_provider->get_info().get_encoding();
+    const auto codec = codec_manager_->create_basic<resources::image>(encoding);
     return codec->decode(collection_provider);
 }
 
@@ -207,7 +207,7 @@ void asset_manager::__convert_mesh_node_to_scene_node(resources::mesh_node &mesh
 
     for (auto submesh : submeshes)
     {
-        auto mesh = std::make_shared<scene::mesh>(scene_manager_, load_material(submesh->get_material()),
+        auto mesh = std::make_shared<scene::mesh>(*scene_manager_, load_material(submesh->get_material()),
                                                   submesh->get_vertex_data(), submesh->get_index_data());
 
         scene_node.attach_component(mesh);
@@ -241,17 +241,17 @@ void asset_manager::__convert_scene_data_to_scene_node(serialization::scene_node
     {
         if (component->get_typename() == "mesh")
         {
-            auto mesh_object = static_cast<serialization::mesh *>(component.get());
+            const auto mesh_object = dynamic_cast<serialization::mesh *>(component.get());
             scene_node.attach_child(load_mesh(mesh_object->path.value_or("")));
         }
         else if (component->get_typename() == "perspective_camera")
         {
-            auto perspective_cam_object = static_cast<serialization::perspective_camera *>(component.get());
+            const auto perspective_cam_object = dynamic_cast<serialization::perspective_camera *>(component.get());
 
             if (perspective_cam_object->fov)
             {
                 auto camera = std::make_shared<aeon::scene::perspective_camera>(
-                    scene_manager_, perspective_cam_object->fov.value_or(0), perspective_cam_object->width.value_or(0),
+                    *scene_manager_, perspective_cam_object->fov.value_or(0), perspective_cam_object->width.value_or(0),
                     perspective_cam_object->height.value_or(0), perspective_cam_object->near_value.value_or(0),
                     perspective_cam_object->far_value.value_or(0), perspective_cam_object->name.value_or(""));
                 scene_node.attach_component(camera);
@@ -259,7 +259,7 @@ void asset_manager::__convert_scene_data_to_scene_node(serialization::scene_node
             else
             {
                 auto camera = std::make_shared<aeon::scene::perspective_camera>(
-                    scene_manager_, perspective_cam_object->fov_y.value_or(0),
+                    *scene_manager_, perspective_cam_object->fov_y.value_or(0),
                     perspective_cam_object->aspect_ratio.value_or(0), perspective_cam_object->near_value.value_or(0),
                     perspective_cam_object->far_value.value_or(0), perspective_cam_object->name.value_or(""));
                 scene_node.attach_component(camera);

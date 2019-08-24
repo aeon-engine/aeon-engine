@@ -37,7 +37,6 @@ add_library(aeon_engine_input STATIC
 )
 
 target_link_libraries(aeon_engine_input
-    aeon_utility
     aeon_math
 )
 

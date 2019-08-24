@@ -33,7 +33,7 @@
 #include <aeon/platform/platform_manager.h>
 #include <aeon/scene/scene_manager.h>
 #include <aeon/common/logger.h>
-#include <aeon/utility/configfile.h>
+#include <aeon/ptree/ptree.h>
 
 namespace aeon::application
 {
@@ -42,7 +42,7 @@ class context
 {
 public:
     explicit context(std::unique_ptr<logger::base_backend> logger_backend,
-                     std::unique_ptr<utility::configfile> config_file, std::unique_ptr<io::io_interface> io_interface,
+                     std::unique_ptr<ptree::property_tree> config_file, std::unique_ptr<io::io_interface> io_interface,
                      std::unique_ptr<input::input_handler> input_handler, std::unique_ptr<gfx::device> device,
                      std::unique_ptr<platform::platform_manager> platform_manager,
                      std::unique_ptr<resources::resource_manager> resource_manager,
@@ -69,7 +69,7 @@ public:
     auto operator=(context &&) noexcept -> context & = default;
 
     std::unique_ptr<logger::base_backend> logger_backend;
-    std::unique_ptr<utility::configfile> config_file;
+    std::unique_ptr<ptree::property_tree> config_file;
     std::unique_ptr<io::io_interface> io_interface;
     std::unique_ptr<input::input_handler> input_handler;
     std::unique_ptr<gfx::device> device;

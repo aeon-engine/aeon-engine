@@ -49,8 +49,8 @@ public:
     codec_manager(const codec_manager &) noexcept = delete;
     auto operator=(const codec_manager &) noexcept -> codec_manager & = delete;
 
-    codec_manager(codec_manager &&) noexcept = default;
-    auto operator=(codec_manager &&) noexcept -> codec_manager & = default;
+    codec_manager(codec_manager &&) = default;
+    auto operator=(codec_manager &&) -> codec_manager & = default;
 
     void register_codec(std::unique_ptr<codec_factory> &&factory);
     void register_codec(std::unique_ptr<codec_factory> &&factory, const resources::resource_encoding &encoding);
@@ -67,7 +67,7 @@ private:
 
 inline auto codec_manager::create(const resources::resource_encoding &encoding)
 {
-    auto result = codecs_.find(encoding);
+    const auto result = codecs_.find(encoding);
 
     if (result == codecs_.end())
     {

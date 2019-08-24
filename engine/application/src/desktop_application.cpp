@@ -25,6 +25,7 @@
 
 #include <aeon/application/desktop_application.h>
 #include <aeon/platform/platform_window_settings.h>
+#include <aeon/ptree/config_file.h>
 #include <build_config.h>
 
 namespace aeon::application
@@ -47,11 +48,13 @@ auto desktop_application::get_main_window() const -> platform::window &
 
 void desktop_application::__create_window()
 {
-    const auto width = config_file_->get<int>("window_width", AEON_DEFAULT_WINDOW_WIDTH);
-    const auto height = config_file_->get<int>("window_height", AEON_DEFAULT_WINDOW_HEIGHT);
-    const auto title = config_file_->get<std::string>("window_title", AEON_DEFAULT_WINDOW_TITLE);
-    const auto multisample = config_file_->get<int>("multisample", 0);
-    const auto double_buffer = config_file_->get<bool>("double_buffer", true);
+    ptree::config_file config{*config_file_};
+
+    const auto width = config.get<int>("engine", "window_width", AEON_DEFAULT_WINDOW_WIDTH);
+    const auto height = config.get<int>("engine", "window_height", AEON_DEFAULT_WINDOW_HEIGHT);
+    const auto title = config.get<std::string>("engine", "window_title", AEON_DEFAULT_WINDOW_TITLE);
+    const auto multisample = config.get<int>("engine", "multisample", 0);
+    const auto double_buffer = config.get<bool>("engine", "double_buffer", true);
 
     auto settings = platform::window_settings{width, height, title};
     settings.set_multisample(multisample);

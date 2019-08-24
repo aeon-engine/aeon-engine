@@ -27,7 +27,7 @@
 
 #include <aeon/streams/idynamic_stream.h>
 #include <aeon/common/exception.h>
-#include <aeon/common/stdfilesystem.h>
+#include <filesystem>
 #include <memory>
 #include <vector>
 

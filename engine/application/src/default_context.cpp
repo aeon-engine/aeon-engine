@@ -29,6 +29,7 @@
 #include <aeon/platform/glfw/glfw_platform_manager.h>
 #include <aeon/scene/basic_scene_manager/basic_scene_manager.h>
 #include <aeon/io/io_exception.h>
+#include <aeon/ptree/serialization/serialization_ini.h>
 
 #include <aeon/codecs/amf_codec.h>
 #include <aeon/codecs/asc_codec.h>
@@ -75,17 +76,19 @@ auto default_context::create_logging_backend() -> std::unique_ptr<common::logger
 }
 
 auto default_context::create_config_file(io::io_interface &io_interface, logger::logger &logger)
-    -> std::unique_ptr<utility::configfile>
+    -> std::unique_ptr<ptree::property_tree>
 {
     try
     {
-        auto config_file = std::make_unique<utility::configfile>();
-        auto file_interface =
+        auto config_file = std::make_unique<ptree::property_tree>();
+        const auto file_interface =
             io_interface.get_filesystem_interface().open_file(AEON_CONFIG_FILE_NAME, io::file_open_mode::read);
-        config_file->load(*file_interface);
+
+        ptree::serialization::from_ini(*file_interface, *config_file);
+
         return config_file;
     }
-    catch (utility::configfile_exception &)
+    catch (ptree::serialization::ptree_serialization_exception &)
     {
         AEON_LOG_ERROR(logger) << "Error while parsing config file." << std::endl;
     }

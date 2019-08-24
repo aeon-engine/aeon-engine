@@ -60,7 +60,7 @@ public:
      * Called whenever the state of a mouse button changes.
      */
     virtual void on_mouse_button_event(const mouse_button /*button*/, const mouse_button_state /*button_state*/,
-                                       const math::vector2<float> position)
+                                       const math::vector2<float> /*position*/)
     {
     }
 

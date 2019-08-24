@@ -68,8 +68,8 @@ public:
     asset_manager(const asset_manager &) noexcept = delete;
     auto operator=(const asset_manager &) noexcept -> asset_manager & = delete;
 
-    asset_manager(asset_manager &&) noexcept = default;
-    auto operator=(asset_manager &&) noexcept -> asset_manager & = default;
+    asset_manager(asset_manager &&) = default;
+    auto operator=(asset_manager &&) -> asset_manager & = default;
 
     /*!
      * Load a texture from a given image file. Make sure the given file extension has a registed codec in the
@@ -150,10 +150,10 @@ private:
     void __convert_scene_data_to_scene_node(serialization::scene_node &scene_data, scene::scene_node &scene_node);
 
     logger::logger logger_;
-    codecs::codec_manager &codec_manager_;
-    resources::resource_manager &resource_manager_;
-    scene::scene_manager &scene_manager_;
-    gfx::device &device_;
+    codecs::codec_manager *codec_manager_;
+    resources::resource_manager *resource_manager_;
+    scene::scene_manager *scene_manager_;
+    gfx::device *device_;
 
     common::object_cache<gfx::texture> texture_cache_;
     common::object_cache<gfx::shader> shader_cache_;

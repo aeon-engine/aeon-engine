@@ -133,7 +133,7 @@ protected:
     logger::logger logger_;
 
     std::unique_ptr<logger::base_backend> logger_backend_;
-    std::unique_ptr<utility::configfile> config_file_;
+    std::unique_ptr<ptree::property_tree> config_file_;
     std::unique_ptr<io::io_interface> io_;
     std::unique_ptr<input::input_handler> input_handler_;
     std::unique_ptr<gfx::device> device_;

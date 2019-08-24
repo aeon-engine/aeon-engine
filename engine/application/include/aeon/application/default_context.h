@@ -41,7 +41,7 @@ public:
 private:
     static auto create_logging_backend() -> std::unique_ptr<common::logger>;
     static auto create_config_file(io::io_interface &io_interface, logger::logger &logger)
-        -> std::unique_ptr<utility::configfile>;
+        -> std::unique_ptr<ptree::property_tree>;
     static auto create_codec_manager() -> std::unique_ptr<codecs::codec_manager>;
 };
 

@@ -69,8 +69,8 @@ public:
     object_cache(const object_cache &) noexcept = delete;
     auto operator=(const object_cache &) noexcept -> object_cache & = delete;
 
-    object_cache(object_cache &&) noexcept = default;
-    auto operator=(object_cache &&) noexcept -> object_cache & = default;
+    object_cache(object_cache &&) = default;
+    auto operator=(object_cache &&) -> object_cache & = default;
 
     /*!
      * Get a cached object by name. This method will return a shared pointer to the requested object

@@ -62,7 +62,7 @@ public:
 
     auto get_children() const
     {
-        return common::container::unique_ptr_to_raw_ptr(children_);
+        return common::container::transform<mesh_node *>(children_, [](const auto &c) { return c.get(); });
     }
 
     const auto &get_submeshes() const

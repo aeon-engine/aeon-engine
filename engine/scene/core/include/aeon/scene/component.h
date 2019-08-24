@@ -46,13 +46,13 @@ class component
     friend class scene_node;
 
 public:
-    explicit component(const std::string &name, const int queue_group, component_render_type render_type,
+    explicit component(std::string name, const int queue_group, component_render_type render_type,
                        scene_manager &scene_manager)
         : queue_group_(queue_group)
         , render_type_(render_type)
-        , scene_manager_(scene_manager)
+        , scene_manager_(&scene_manager)
         , scene_node_(nullptr)
-        , name_(name)
+        , name_(std::move(name))
     {
     }
 
@@ -103,7 +103,7 @@ protected:
 
     int queue_group_;
     component_render_type render_type_;
-    scene_manager &scene_manager_;
+    scene_manager *scene_manager_;
     scene_node *scene_node_;
     std::string name_;
 };

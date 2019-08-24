@@ -45,7 +45,7 @@ public:
     auto get_video_mode() -> video_mode override;
     auto get_video_modes() -> video_modes override;
 
-    auto get_internal_handle() -> GLFWmonitor *const
+    auto get_internal_handle() const -> GLFWmonitor *
     {
         return monitor_;
     }

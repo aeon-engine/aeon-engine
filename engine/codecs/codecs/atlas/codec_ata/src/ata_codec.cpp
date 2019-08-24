@@ -24,7 +24,8 @@
  */
 
 #include <aeon/codecs/ata_codec.h>
-#include <aeon/utility/configfile.h>
+#include <aeon/ptree/ptree.h>
+#include <aeon/ptree/serialization/serialization_json.h>
 #include <aeon/common/logger.h>
 #include <aeon/common/string.h>
 
@@ -41,35 +42,78 @@ atlas_codec_ata::~atlas_codec_ata() = default;
 auto atlas_codec_ata::decode(const std::unique_ptr<resources::resource_provider> &provider) const
     -> std::unique_ptr<resources::atlas>
 {
+    assert(false && "Broken. Replace with new code.");
     AEON_LOG_DEBUG(logger_) << "Decoding atlas resource." << std::endl;
 
-    auto atlas_file = utility::configfile();
-    atlas_file.load(provider->get_stream());
+    const auto atlas_file = ptree::serialization::from_json(provider->get_stream());
 
-    if (!atlas_file.has_entry("material"))
+    if (!atlas_file.is_object())
     {
-        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Could not find material entry." << std::endl;
+        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Invalid json format." << std::endl;
         throw atlas_codec_decode_exception();
     }
 
-    auto material_path = atlas_file.get<std::string>("material", "");
+    const auto &atlas_file_obj = atlas_file.object_value();
+
+    if (!atlas_file_obj.contains("material"))
+    {
+        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Could not find 'material' entry." << std::endl;
+        throw atlas_codec_decode_exception();
+    }
+
+    const auto &material_path_pt = atlas_file_obj.at("material");
+
+    if (!material_path_pt.is_string())
+    {
+        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Invalid material path." << std::endl;
+        throw atlas_codec_decode_exception();
+    }
+
+    if (!atlas_file_obj.contains("animations"))
+    {
+        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Could not find 'animations' entry." << std::endl;
+        throw atlas_codec_decode_exception();
+    }
 
     data::atlas atlas_data;
+    const auto &animations_pt = atlas_file_obj.at("animations");
 
-    for (auto region_entry : atlas_file)
+    if (!animations_pt.is_array())
     {
-        if (region_entry.first == "material")
-            continue;
+        AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Invalid json format." << std::endl;
+        throw atlas_codec_decode_exception();
+    }
 
-        auto region_rect = __atlas_string_to_data(region_entry.second);
+    const auto &animations = animations_pt.array_value();
+
+    for (const auto &animation_pt : animations)
+    {
+        if (!animation_pt.is_object())
+        {
+            AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Invalid json format." << std::endl;
+            throw atlas_codec_decode_exception();
+        }
+
+        const auto &animation_obj = animations_pt.object_value();
+
+        if (std::size(animation_obj) != 1)
+        {
+            AEON_LOG_ERROR(logger_) << "Could not decode atlas resource. Invalid json format." << std::endl;
+            throw atlas_codec_decode_exception();
+        }
+
+        const auto &animation_rectangle_pt = *std::begin(animation_obj);
+
+        auto region_rect = common::types::rectangle<float>{0, 0, 0, 0}; //__atlas_string_to_data(region_entry.second);
 
         // TODO: work out the region sizes in pixels
-        atlas_data.push_back(data::atlas::region{region_entry.first, region_rect.left(), region_rect.top(),
+        atlas_data.push_back(data::atlas::region{animation_rectangle_pt.first, region_rect.left(), region_rect.top(),
                                                  region_rect.right(), region_rect.bottom(), 0, 0});
     }
 
     AEON_LOG_DEBUG(logger_) << "Found " << atlas_data.size() << " regions in atlas resource." << std::endl;
 
+    const auto &material_path = material_path_pt.string_value();
     return std::make_unique<resources::atlas>(material_path, atlas_data);
 }
 
